@@ -108,6 +108,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Test Data: all created topics had the same name
 [FIXED] Admin > Test Data: the selects were empty after the data was created, a second launch used no board
 [FIXED] Admin > Backup: a number of backups to keep that is too large was saved as 0 (all backups are kept)
+[CHANGES] Admin > Host: redesigned Languages (cards with progress, incomplete first), Edit language (page list with progress, only untranslated switch, copy english text), Restart app, Database maintenance (action cards, database size, recovery mode only for SQL Server), Run SQL (Ctrl+Enter, row count), Backup (backup list, delete dialog names the file), Test data and Host settings (sections as cards, one save button that stays on the page, cache cards with a message after clear, search index card)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

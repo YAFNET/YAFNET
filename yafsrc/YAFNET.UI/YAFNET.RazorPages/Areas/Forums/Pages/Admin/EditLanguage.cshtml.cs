@@ -61,6 +61,16 @@ public class EditLanguageModel : AdminPage
     public List<SelectListItem> PagesList { get; set; }
 
     /// <summary>
+    /// Gets or sets the pages of the language file with the number of translated texts.
+    /// </summary>
+    public List<PageProgress> PageStats { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the name of the language file.
+    /// </summary>
+    public string FileName { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="EditLanguageModel"/> class.
     /// </summary>
     public EditLanguageModel()
@@ -124,12 +134,33 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     public string LocalizedTextBoxClass(Translation modelLocal)
     {
-        // a text that is missing in the file (null) is not translated
-        return modelLocal.LocalizedResourceText is null || modelLocal.LocalizedResourceText.Equals(
+        return IsTranslated(modelLocal) ? "form-control is-valid" : "form-control is-invalid";
+    }
+
+    /// <summary>
+    /// Checks if a text is translated: a text that is missing in the file (null) or is the english text is not translated.
+    /// </summary>
+    /// <param name="modelLocal">The text.</param>
+    /// <returns>True if the text is translated.</returns>
+    public static bool IsTranslated(Translation modelLocal)
+    {
+        return modelLocal.LocalizedResourceText is not null && !modelLocal.LocalizedResourceText.Equals(
                    modelLocal.OriginalResourceText,
-                   StringComparison.OrdinalIgnoreCase)
-                                    ? "form-control is-invalid"
-                                    : "form-control is-valid";
+                   StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Gets the values of the "copy english text" button of a text (the english text for its field).
+    /// </summary>
+    /// <param name="index">The index of the text.</param>
+    /// <returns>The JSON object of the button (data-set-values).</returns>
+    public string GetCopyValues(int index)
+    {
+        return JsonConvert.SerializeObject(
+            new Dictionary<string, string>
+            {
+                [$"#Locals_{index}__LocalizedResourceText"] = this.Locals[index].OriginalResourceText ?? string.Empty
+            });
     }
 
     /// <summary>
@@ -314,6 +345,26 @@ public class EditLanguageModel : AdminPage
 
         this.PopulateTranslations(Path.Combine(langPath, "english.json"), Path.Combine(langPath, x));
 
+        this.FileName = x;
+
         this.Locals = this.translations.FindAll(check => check.PageName.Equals(this.Input.Pages));
+
+        this.PageStats = this.translations.GroupBy(t => t.PageName)
+            .Select(g => new PageProgress(g.Key, g.Count(), g.Count(IsTranslated)))
+            .ToList();
+    }
+
+    /// <summary>
+    /// A page of the language file with the number of its texts and of the translated texts.
+    /// </summary>
+    /// <param name="Name">The name of the page.</param>
+    /// <param name="Total">The number of texts.</param>
+    /// <param name="Translated">The number of translated texts.</param>
+    public record PageProgress(string Name, int Total, int Translated)
+    {
+        /// <summary>
+        /// Gets the translated percentage.
+        /// </summary>
+        public int Percentage => this.Total == 0 ? 100 : this.Translated * 100 / this.Total;
     }
 }

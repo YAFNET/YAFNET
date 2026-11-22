@@ -3,43 +3,58 @@
 @using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
 @model TestDataModel
 
-<form method="post" class="needs-validation">
-    <div class="card">
-        <div class="card-body">
-            <div id="TestDataTabs">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <button data-bs-target="#View1" class="nav-link" data-bs-toggle="tab" role="tab">Users</button>
+<form method="post" class="needs-validation admin-edit-form admin-test-data">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("vial-virus")Test Data Generator
+            <span class="badge text-bg-warning align-middle ms-1">Debug only</span>
+        </h2>
+    </div>
+
+    <alert type="danger" icon="triangle-exclamation">
+        Warning! This is a test/debug feature. Never use it in production environment.
+    </alert>
+
+    <div class="row g-3" id="TestDataTabs">
+        <div class="col-md-auto">
+            <div class="card test-data-nav">
+                <ul class="nav nav-pills flex-md-column p-2" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View1" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("users")<span>Users</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View2" class="nav-link" data-bs-toggle="tab" role="tab">Boards</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View2" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("globe")<span>Boards</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View3" class="nav-link" data-bs-toggle="tab" role="tab">Categories</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View3" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("folder")<span>Categories</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View4" class="nav-link" data-bs-toggle="tab" role="tab">Forums</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View4" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("comments")<span>Forums</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View5" class="nav-link" data-bs-toggle="tab" role="tab">Topics</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View5" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("comment")<span>Topics</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View6" class="nav-link" data-bs-toggle="tab" role="tab">Messages</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View6" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("message")<span>Messages</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View7" class="nav-link" data-bs-toggle="tab" role="tab">Private Messages</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View7" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("envelope")<span>Private Messages</span></button>
                     </li>
-                    <li class="nav-item">
-                        <button data-bs-target="#View8" class="nav-link" data-bs-toggle="tab" role="tab">Settings/Help</button>
+                    <li class="nav-item" role="presentation">
+                        <button data-bs-target="#View8" class="nav-link" data-bs-toggle="tab" role="tab" type="button">@Html.Icon("circle-info")<span>Settings/Help</span></button>
                     </li>
                 </ul>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-body">
                 <div class="tab-content">
                     <div id="View1" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Users
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Users</h3>
                         <div class="mb-3">
                             <label asp-for="Input.UsersNumber" class="form-label">
                                 Number of users to create:
@@ -94,15 +109,10 @@
                                    class="form-control" />
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
                     </div>
 
                     <div id="View2" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Boards
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Boards</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.BoardNumber" class="form-label">
@@ -120,14 +130,9 @@
                                    class="form-control" />
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
                     </div>
                     <div id="View3" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Categories
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Categories</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.CategoriesNumber" class="form-label">
@@ -170,15 +175,10 @@
                                    class="form-control" />
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
 
                     </div>
                     <div id="View4" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Forums
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Forums</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.ForumsNumber" class="form-label">
@@ -247,14 +247,9 @@
                                    class="form-control" />
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
                     </div>
                     <div id="View5" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Topics
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Topics</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.TopicsNumber" class="form-label">
@@ -300,15 +295,10 @@
                             <input type="number" asp-for="Input.TopicsMessagesNumber" class="form-control" />
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
 
                     </div>
                     <div id="View6" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Messages
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Messages</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.PostsNumber" class="form-label">
@@ -349,14 +339,9 @@
                             <textarea asp-for="Input.MyMessage" class="form-control"></textarea>
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
                     </div>
                     <div id="View7" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Create Test Private Messages
-                        </h4>
+                        <h3 class="h5 mb-3">Create Test Private Messages</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.PMessagesNumber" class="form-label">
@@ -418,14 +403,9 @@
                             <textarea asp-for="Input.PMessageText" class="form-control"></textarea>
                         </div>
 
-                        <alert type="danger">
-                            Warning! This is a test/debug feature. Never use it in production environment.
-                        </alert>
                     </div>
                     <div id="View8" class="tab-pane" role="tabpanel">
-                        <h4>
-                            Usage guide
-                        </h4>
+                        <h3 class="h5 mb-3">Usage guide</h3>
 
                         <alert type="warning">
                             <p>Test data generator is a utility to test Yet Another Forum performance.</p>
@@ -437,9 +417,7 @@
                             <p><strong>never</strong> use it in production environment as you can't delete data using the test data generator.</p>
                         </alert>
 
-                        <h4>
-                            Generator Settings
-                        </h4>
+                        <h3 class="h5 mb-3">Generator Settings</h3>
 
                         <div class="mb-3">
                             <label asp-for="Input.UserPrefixTB" class="form-label">
@@ -501,18 +479,23 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
+
             <input type="hidden" asp-for="Input.LastTabId" Value="@Model.Input.LastTabId" />
-            <button Text="Launch Generator"
-                    button-style="Primary"
-                    class="card-link btn-spinner"
-                    asp-page-handler="CreateTestData"></button>
-            <a text-localized-tag="CANCEL"
-               button-size="Normal"
-               button-style="Danger"
-               class="card-link"
-               asp-page="@ForumPages.Admin_TestData.GetPageName()"></a>
+
+            <div class="admin-edit-actions">
+                <button Text="Launch Generator"
+                        button-style="Primary"
+                        class="btn-spinner"
+                        Icon="rocket"
+                        asp-page-handler="CreateTestData"></button>
+                <a text-localized-tag="CANCEL"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   asp-page="@ForumPages.Admin_TestData.GetPageName()"></a>
+            </div>
         </div>
     </div>
 </form>

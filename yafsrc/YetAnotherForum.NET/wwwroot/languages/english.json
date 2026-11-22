@@ -1022,6 +1022,18 @@
                     "#text": "Delete this backup?"
                 },
                 {
+                    "@tag": "CONFIRM_DELETE_NAME",
+                    "#text": "Delete the backup {0}? It can't be restored afterwards."
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No backups yet"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "Create a backup now, or turn on the nightly backup."
+                },
+                {
                     "@tag": "ENABLED",
                     "#text": "Nightly backup"
                 },
@@ -3055,6 +3067,14 @@
             "@name": "ADMIN_EDITLANGUAGE",
             "Resource": [
                 {
+                    "@tag": "ALL_TRANSLATED",
+                    "#text": "All texts of this page are translated."
+                },
+                {
+                    "@tag": "COPY_ORIGINAL",
+                    "#text": "Copy English text"
+                },
+                {
                     "@tag": "HEADER",
                     "#text": "Language Translation - <em>Current Resource Page : "
                 },
@@ -3069,6 +3089,10 @@
                 {
                     "@tag": "NEED_TRANSLATION",
                     "#text": "Needs Translation."
+                },
+                {
+                    "@tag": "NOT_TRANSLATED_COUNT",
+                    "#text": "{0} not translated"
                 },
                 {
                     "@tag": "ORIGINAL_RESOURCE",
@@ -3089,6 +3113,10 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Language Translator"
+                },
+                {
+                    "@tag": "UNTRANSLATED_ONLY",
+                    "#text": "Only texts that are not translated"
                 }
             ]
         },
@@ -4374,6 +4402,14 @@
                     "#text": "To Use the BotScout Bot Service you need an API Key"
                 },
                 {
+                    "@tag": "CACHE_CLEARED",
+                    "#text": "The cache was cleared."
+                },
+                {
+                    "@tag": "CACHE_INFO",
+                    "#text": "The data is kept in the cache for the given time. Clear a cache to show a change right away."
+                },
+                {
                     "@tag": "CHECK_FOR_BOTSPAM",
                     "#text": "Choose a Service for Automatically User Bot Checking:"
                 },
@@ -4396,6 +4432,10 @@
                 {
                     "@tag": "COLLAPSED",
                     "#text": "Collapsed"
+                },
+                {
+                    "@tag": "CONFIRM_INDEX_SEARCH",
+                    "#text": "Re-index the search for all messages of this board? This can take a while on a large board."
                 },
                 {
                     "@tag": "CROP_IMAGE_ATTACH",
@@ -5046,6 +5086,14 @@
                     "#text": "You can choose Between Modal Dialog or a Top Notification Bar for System Messages."
                 },
                 {
+                    "@tag": "MILLISECONDS",
+                    "#text": "Milliseconds"
+                },
+                {
+                    "@tag": "MINUTES",
+                    "#text": "Minutes"
+                },
+                {
                     "@tag": "MOD_CACHE_TIMEOUT",
                     "#text": "Board Moderators Cache Timeout:"
                 },
@@ -5064,6 +5112,10 @@
                 {
                     "@tag": "MODAL_LOGIN_HELP",
                     "#text": "If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page."
+                },
+                {
+                    "@tag": "MSG_SAVED",
+                    "#text": "The host settings were saved."
                 },
                 {
                     "@tag": "NAME_LENGTH",
@@ -5244,6 +5296,14 @@
                 {
                     "@tag": "REMOVE_NESTED_QUOTES",
                     "#text": "Remove Nested Quotes:"
+                },
+                {
+                    "@tag": "SEARCH_INDEX_PENDING",
+                    "#text": "Re-index scheduled"
+                },
+                {
+                    "@tag": "SECTIONS",
+                    "#text": "Sections"
                 },
                 {
                     "@tag": "REMOVE_NESTED_QUOTES_HELP",
@@ -5891,6 +5951,10 @@
             "@name": "ADMIN_LANGUAGES",
             "Resource": [
                 {
+                    "@tag": "COMPLETE",
+                    "#text": "Complete"
+                },
+                {
                     "@tag": "CULTURE_TAG",
                     "#text": "Culture Tag"
                 },
@@ -5901,6 +5965,10 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Languages"
+                },
+                {
+                    "@tag": "TRANSLATED_OF",
+                    "#text": "{0} of {1} translated"
                 }
             ]
         },
@@ -6394,6 +6462,10 @@
                     "#text": "Are you sure you want to Shrink database?<br />The operation may make the DB inaccessible and may take a little while."
                 },
                 {
+                    "@tag": "DATABASE_SIZE",
+                    "#text": "Database size"
+                },
+                {
                     "@tag": "HEADER",
                     "#text": "YAF DB Operation Report:"
                 },
@@ -6404,6 +6476,14 @@
                 {
                     "@tag": "INDEX_STATS_FAIL",
                     "#text": "Something went wrong with this operation. The reported error is: {0}"
+                },
+                {
+                    "@tag": "RECOVERY_INFO",
+                    "#text": "The recovery mode sets how the transactions are logged and to which point the database can be restored from a backup."
+                },
+                {
+                    "@tag": "RECOVERY_MODE",
+                    "#text": "Recovery mode"
                 },
                 {
                     "@tag": "RECOVERY1",
@@ -6430,6 +6510,10 @@
                     "#text": "Set recovery mode"
                 },
                 {
+                    "@tag": "SHOW",
+                    "#text": "Show"
+                },
+                {
                     "@tag": "SHOW_STATS",
                     "#text": "Show statistical information about YAF table indexes."
                 },
@@ -6440,6 +6524,10 @@
                 {
                     "@tag": "SHRINK_BTN",
                     "#text": "Shrink database"
+                },
+                {
+                    "@tag": "SIZE_MB",
+                    "#text": "{0} MB"
                 },
                 {
                     "@tag": "TBLINDEXSTATS_BTN",
@@ -6596,6 +6684,14 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Restart Application"
+                },
+                {
+                    "@tag": "WARNING",
+                    "#text": "Until the application is running again, the visitors of all boards get an error page. A post that is sent during the restart is lost."
+                },
+                {
+                    "@tag": "WARNING_HEADER",
+                    "#text": "All boards are restarted"
                 }
             ]
         },
@@ -6700,8 +6796,16 @@
                     "#text": "Run SQL Query"
                 },
                 {
+                    "@tag": "ROW_COUNT",
+                    "#text": "{0} rows"
+                },
+                {
                     "@tag": "ROWS_TRUNCATED",
                     "#text": "Only the first {0} rows are shown."
+                },
+                {
+                    "@tag": "RUN_HINT",
+                    "#text": "Ctrl+Enter runs the query."
                 },
                 {
                     "@tag": "RUN_QUERY",

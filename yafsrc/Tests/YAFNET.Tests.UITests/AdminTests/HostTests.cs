@@ -46,8 +46,9 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await LoadPageAsync(page, this.TestSettings, "ADMIN_TAGS");
 
-                // another page is selected, but not loaded
-                await page.Locator("#Input_Pages").SelectOptionAsync("ADMIN_PM");
+                // another page is posted with the texts of the shown page (the page select was not loaded)
+                await page.Locator("form.admin-edit-language").EvaluateAsync(
+                    "form => form.insertAdjacentHTML('beforeend', '<input type=\"hidden\" name=\"Input.Pages\" value=\"ADMIN_PM\">')");
 
                 var response = await page.RunAndWaitForResponseAsync(
                                    () => page.Locator("button[formaction*='Save']").ClickAsync(),
@@ -78,7 +79,7 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 var text = page.Locator("#Locals_0__LocalizedResourceText");
                 var translated = await text.InputValueAsync();
-                var original = await page.Locator("textarea#Locals_0__OriginalResourceText").InputValueAsync();
+                var original = await page.Locator("input#Locals_0__OriginalResourceText").InputValueAsync();
 
                 try
                 {
@@ -105,6 +106,40 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
                     }
                 }
+            });
+    }
+
+    /// <summary>
+    /// A page of the list loads its texts, the switch shows only the texts that are not translated.
+    /// </summary>
+    [Test]
+    public async Task EditLanguagePageListAndFilterTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                var status = await LoadPageAsync(page, this.TestSettings, "ADMIN_TAGS");
+
+                Assert.That(status, Is.LessThan(400), $"The page of the language fails ({status})");
+                Assert.That(
+                    await page.Locator("#LanguagePages button.active").GetAttributeAsync("value"),
+                    Is.EqualTo("ADMIN_TAGS"),
+                    "The loaded page is not marked");
+
+                var rows = page.Locator(".translation-row");
+                var missing = await page.Locator(".translation-row.is-missing").CountAsync();
+
+                Assert.That(await rows.CountAsync(), Is.GreaterThan(0), "No texts of the page");
+
+                await page.Locator("#UntranslatedOnly").CheckAsync();
+
+                Assert.That(
+                    await page.Locator(".translation-row:visible").CountAsync(),
+                    Is.EqualTo(missing),
+                    "The switch doesn't show only the texts that are not translated");
             });
     }
 
@@ -163,10 +198,8 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Admin/EditLanguage/vietnam.json");
 
-        await page.Locator("#Input_Pages").SelectOptionAsync(pageName);
-
         var response = await page.RunAndWaitForResponseAsync(
-                           () => page.Locator("button[formaction*='LoadPageLocalization']").ClickAsync(),
+                           () => page.Locator($"#LanguagePages button[value='{pageName}']").ClickAsync(),
                            r => r.Request.Method == "POST" && r.Url.Contains("LoadPageLocalization"));
 
         await page.WaitForLoadStateAsync();

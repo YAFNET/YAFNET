@@ -175,6 +175,11 @@ public class HostSettingsModel : AdminPage
     public List<SelectListItem> EditorEnterModeList { get; set; }
 
     /// <summary>
+    /// Gets a value indicating whether a re-index of the search is waiting for the search index task.
+    /// </summary>
+    public bool SearchIndexPending => this.PageBoardContext.BoardSettings.ForceUpdateSearchIndex;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="HostSettingsModel" /> class.
     /// </summary>
     public HostSettingsModel()
@@ -209,64 +214,78 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Resets the Active Discussions Cache
     /// </summary>
-    public Task OnPostActiveDiscussionsCacheResetAsync()
+    public Task<IActionResult> OnPostActiveDiscussionsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
 
-        return this.BindDataAsync();
+        return this.CacheClearedAsync();
     }
 
     /// <summary>
     /// Resets the Board Categories Cache
     /// </summary>
-    public Task OnPostBoardModeratorsCacheResetAsync()
+    public Task<IActionResult> OnPostBoardModeratorsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.ForumModerators);
 
-        return this.BindDataAsync();
+        return this.CacheClearedAsync();
     }
 
     /// <summary>
     /// Resets the Board User Stats Cache
     /// </summary>
-    public Task OnPostBoardUserStatsCacheResetAsync()
+    public Task<IActionResult> OnPostBoardUserStatsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.BoardUserStats);
 
-        return this.BindDataAsync();
+        return this.CacheClearedAsync();
     }
 
     /// <summary>
     /// Resets the User Lazy Data Cache
     /// </summary>
-    public Task OnPostUserLazyDataCacheResetAsync()
+    public Task<IActionResult> OnPostUserLazyDataCacheResetAsync()
     {
         this.Get<IDataCache>().RemoveOf<object>(
             k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
-        return this.BindDataAsync();
+        return this.CacheClearedAsync();
     }
 
     /// <summary>
     /// Resets the Forum Statistics Cache
     /// </summary>
-    public Task OnPostForumStatisticsCacheResetAsync()
+    public Task<IActionResult> OnPostForumStatisticsCacheResetAsync()
     {
         this.RemoveCacheKey(Constants.Cache.BoardStats);
 
-        return this.BindDataAsync();
+        return this.CacheClearedAsync();
     }
 
     /// <summary>
     /// Resets the Complete Cache
     /// </summary>
-    public Task OnPostResetCacheAllAsync()
+    public Task<IActionResult> OnPostResetCacheAllAsync()
     {
         // clear all cache keys
         this.Get<IObjectStore>().Clear();
         this.Get<IDataCache>().Clear();
 
-        return this.BindDataAsync();
+        return this.CacheClearedAsync();
+    }
+
+    /// <summary>
+    /// Shows the page again after a cache was cleared, with a message (nothing was shown).
+    /// </summary>
+    /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
+    private async Task<IActionResult> CacheClearedAsync()
+    {
+        // the timeouts are shown as they are saved, not as they were posted
+        this.ModelState.Clear();
+
+        await this.BindDataAsync(this.Input.LastTabId);
+
+        return this.PageBoardContext.Notify(this.GetText("ADMIN_HOSTSETTINGS", "CACHE_CLEARED"), MessageTypes.success);
     }
 
     /// <summary>
@@ -292,7 +311,7 @@ public class HostSettingsModel : AdminPage
     /// Saves the Host Settings
     /// </summary>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         // write all the settings back to the settings class
 
@@ -392,7 +411,12 @@ public class HostSettingsModel : AdminPage
         this.Get<IDataCache>().RemoveOf<object>(
             k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Admin);
+        // the page stays open (it went to the start page of the admin) with the saved settings
+        this.ModelState.Clear();
+
+        await this.BindDataAsync(this.Input.LastTabId);
+
+        return this.PageBoardContext.Notify(this.GetText("ADMIN_HOSTSETTINGS", "MSG_SAVED"), MessageTypes.success);
     }
 
     /// <summary>

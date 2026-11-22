@@ -215,6 +215,26 @@ public class BackupModel : AdminPage
     }
 
     /// <summary>
+    /// Gets the question of the delete dialog of a backup (with the name of the file).
+    /// </summary>
+    /// <param name="backup">The backup.</param>
+    /// <returns>The question.</returns>
+    public string GetDeleteText(DbBackupFile backup)
+    {
+        return this.GetTextFormatted("CONFIRM_DELETE_NAME", backup.Name);
+    }
+
+    /// <summary>
+    /// Formats the size of a backup.
+    /// </summary>
+    /// <param name="size">The size in bytes.</param>
+    /// <returns>The size in KB or MB.</returns>
+    public static string FormatSize(long size)
+    {
+        return size < 1024 * 1024 ? $"{size / 1024.0:N0} KB" : $"{size / 1024.0 / 1024.0:N1} MB";
+    }
+
+    /// <summary>
     /// Reads the settings of the nightly backup.
     /// </summary>
     private void ReadSettings()

@@ -1022,6 +1022,18 @@
             "#text": "Zmazať túto zálohu?"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "Odstrániť zálohu {0}? Potom ju nemožno obnoviť."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Zatiaľ žiadne zálohy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Vytvorte zálohu hneď alebo zapnite nočné zálohovanie."
+          },
+          {
             "@tag": "ENABLED",
             "#text": "Nočná záloha"
           },
@@ -3059,6 +3071,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "Všetky texty tejto stránky sú preložené."
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "Kopírovať anglický text"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Jazykový preklad - <em>Aktuálna stránka zdrojov :"
           },
@@ -3073,6 +3093,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "Potrebuje preklad."
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "Nepreložené: {0}"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3093,6 +3117,10 @@
           {
             "@tag": "TITLE",
             "#text": "Jazykový prekladateľ"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "Len nepreložené texty"
           }
         ]
       },
@@ -4390,6 +4418,14 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "Vyrovnávacia pamäť bola vyprázdnená."
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "Údaje zostávajú vo vyrovnávacej pamäti počas zadaného času. Vyprázdnite ju, aby sa zmena prejavila hneď."
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Výber služby pre automatickú kontrolu používateľských botov:"
           },
@@ -4412,6 +4448,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Zrútené stránky"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "Znova indexovať vyhľadávanie pre všetky príspevky tohto fóra? Pri veľkom fóre to môže chvíľu trvať."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5062,6 +5102,14 @@
             "#text": "Môžete si vybrať medzi modálnym dialógovým oknom alebo hornou lištou s oznámeniami pre systémové správy."
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "Milisekundy"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "Minúty"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "Časový limit vyrovnávacej pamäte moderátorov:"
           },
@@ -5080,6 +5128,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "Ak je začiarknuté, ovládací prvok Prihlásenie sa zobrazí ako pole Prihlásenie. V opačnom prípade sa Ovládací prvok prihlásenia zobrazí na jednej stránke."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Nastavenia hostiteľa boli uložené."
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5350,6 +5402,10 @@
             "#text": "Ak je povolený, prechádza na prvý neprečítaný príspevok/alebo prvý nový príspevok pri otvorení témy"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "Preindexovanie naplánované"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maximálna dĺžka vyhľadávaného textu:"
           },
@@ -5380,6 +5436,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "Umožniť vyhľadávanie:"
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "Sekcie"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5899,6 +5959,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "Kompletné"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "Kultúra Tag"
           },
@@ -5909,6 +5973,10 @@
           {
             "@tag": "TITLE",
             "#text": "Jazyky"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "Preložené {0} z {1}"
           }
         ]
       },
@@ -6402,6 +6470,10 @@
             "#text": "Ste si istí, že chcete zmenšiť databázu?<br /> Operácia môže spôsobiť, že DB nebude prístupná a môže chvíľu trvať."
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "Veľkosť databázy"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Správa o prevádzke DB YAF:"
           },
@@ -6412,6 +6484,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Pri tejto operácii sa niečo pokazilo. Hlásená chyba je: {0}"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "Model obnovenia určuje, ako sa transakcie zaznamenávajú a do akého bodu možno databázu obnoviť zo zálohy."
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "Model obnovenia"
           },
           {
             "@tag": "RECOVERY1",
@@ -6438,6 +6518,10 @@
             "#text": "Nastavenie režimu obnovy"
           },
           {
+            "@tag": "SHOW",
+            "#text": "Zobraziť"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "Zobrazenie štatistických informácií o indexoch tabuliek YAF."
           },
@@ -6448,6 +6532,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "Zmenšenie databázy"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6604,6 +6692,14 @@
           {
             "@tag": "TITLE",
             "#text": "Reštartovanie aplikácie"
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "Kým aplikácia znova nebeží, návštevníci všetkých fór uvidia chybovú stránku. Príspevok odoslaný počas reštartu sa stratí."
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "Všetky fóra sa reštartujú"
           }
         ]
       },
@@ -6720,8 +6816,16 @@
             "#text": "Výsledok"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "Riadkov: {0}"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "Only the first {0} rows are shown."
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Ctrl+Enter spustí dopyt."
           },
           {
             "@tag": "RUN_QUERY",

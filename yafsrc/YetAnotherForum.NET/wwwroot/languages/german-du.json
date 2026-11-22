@@ -1022,6 +1022,18 @@
             "#text": "Diese Sicherung löschen?"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "Die Sicherung {0} löschen? Sie kann danach nicht wiederhergestellt werden."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Noch keine Sicherungen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Erstelle jetzt eine Sicherung oder schalte die nächtliche Sicherung ein."
+          },
+          {
             "@tag": "ENABLED",
             "#text": "Nächtliche Sicherung"
           },
@@ -3055,6 +3067,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "Alle Texte dieser Seite sind übersetzt."
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "Englischen Text kopieren"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Sprachübersetzung - <em>Aktuelle Ressource Seite: "
           },
@@ -3069,6 +3089,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "Benötigt Übersetzung."
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "{0} nicht übersetzt"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3089,6 +3113,10 @@
           {
             "@tag": "TITLE",
             "#text": "Sprachübersetzer"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "Nur nicht übersetzte Texte"
           }
         ]
       },
@@ -4382,6 +4410,14 @@
             "#text": "Um den BotScout.com Bot Service benutzen zu können benötigen Sie einen API Schlüssel  <a href=\"http://botscout.com/getkey.htm\">Hier anmelden<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "Der Cache wurde geleert."
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "Die Daten bleiben für die angegebene Zeit im Cache. Leere einen Cache, um eine Änderung sofort anzuzeigen."
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Dienst für das automatische Checken von automatischen Spammern:"
           },
@@ -4404,6 +4440,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Zusammengeklappt"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "Die Suche für alle Beiträge dieses Boards neu indizieren? Das kann bei einem großen Board eine Weile dauern."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5046,6 +5086,14 @@
             "#text": "Sie können zwischen dem Modalen Dialog oder der Benachrichtigungsleiste wählen."
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "Millisekunden"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "Minuten"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "Board Moderatoren Speicher Ablaufzeit:"
           },
@@ -5064,6 +5112,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "Wenn aktiviert, wird das Login-Control als Login-Box angezeigt. Ansonsten wird das Login Control auf einer einzelnen Seite angezeigt."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Die Host-Einstellungen wurden gespeichert."
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5334,6 +5386,10 @@
             "#text": "Wenn es aktiviert ist, dass es beim Öffnen eines Themas zum ersten ungelesenen Beitrag/oder zum ersten neuen Beitrag scrollen kann"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "Neuindizierung geplant"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Suchtext Maximale Länge:"
           },
@@ -5364,6 +5420,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "Suche für Folgende Erlauben"
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "Bereiche"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5891,6 +5951,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "Vollständig"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "Kultur Tag"
           },
@@ -5901,6 +5965,10 @@
           {
             "@tag": "TITLE",
             "#text": "Sprachen"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "{0} von {1} übersetzt"
           }
         ]
       },
@@ -6394,6 +6462,10 @@
             "#text": "Sie sind sicher, dass Sie Datenbank verkleinern möchten?\\nDieser Vorgang könnte die Datenbank unzugänglich machen und kann eine Weile dauern."
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "Größe der Datenbank"
+          },
+          {
             "@tag": "HEADER",
             "#text": "YAF DB Bericht:"
           },
@@ -6404,6 +6476,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Etwas ist schief gelaufen mit diesem Vorgang. Der gemeldete Fehler ist: {0}"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "Das Wiederherstellungsmodell legt fest, wie die Transaktionen protokolliert werden und bis zu welchem Zeitpunkt die Datenbank aus einer Sicherung wiederhergestellt werden kann."
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "Wiederherstellungsmodell"
           },
           {
             "@tag": "RECOVERY1",
@@ -6430,6 +6510,10 @@
             "#text": "Wiederherstellungsmodus wählen"
           },
           {
+            "@tag": "SHOW",
+            "#text": "Anzeigen"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "Statistische Informationen über alle YAF Tabellen Indizes anzeigen."
           },
@@ -6440,6 +6524,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "Datenbank verkleinern"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6596,6 +6684,14 @@
           {
             "@tag": "TITLE",
             "#text": "Anwendung (YAF) neustarten"
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "Bis die Anwendung wieder läuft, sehen die Besucher aller Boards eine Fehlerseite. Ein Beitrag, der während des Neustarts gesendet wird, geht verloren."
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "Alle Boards werden neu gestartet"
           }
         ]
       },
@@ -6712,8 +6808,16 @@
             "#text": "Ergebnis"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "{0} Zeilen"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "Es werden nur die ersten {0} Zeilen angezeigt."
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Strg+Enter führt die Abfrage aus."
           },
           {
             "@tag": "RUN_QUERY",

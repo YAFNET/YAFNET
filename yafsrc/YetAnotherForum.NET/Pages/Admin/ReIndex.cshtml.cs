@@ -31,6 +31,8 @@ using System.Text;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using ServiceStack.OrmLite;
+
 using YAF.Core.Extensions;
 using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
@@ -84,6 +86,21 @@ public class ReIndexModel : AdminPage
     public string RecoveryMode { get; set; }
 
     /// <summary>
+    /// Gets or sets the name of the database server (e.g. Microsoft SQL Server).
+    /// </summary>
+    public string ServerName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the database in MB, null if it is not known.
+    /// </summary>
+    public int? DatabaseSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the database has a recovery mode (only SQL Server).
+    /// </summary>
+    public bool SupportsRecoveryMode { get; set; }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -95,9 +112,9 @@ public class ReIndexModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public Task OnGetAsync()
     {
-        this.BindData();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -105,7 +122,7 @@ public class ReIndexModel : AdminPage
     /// </summary>
     public async Task OnPostGetStatsAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         try
         {
@@ -122,7 +139,7 @@ public class ReIndexModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostRecoveryModeAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         const string result = "Done";
 
@@ -152,7 +169,7 @@ public class ReIndexModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostReIndexAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         const string result = "Done";
 
@@ -179,7 +196,7 @@ public class ReIndexModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostShrinkAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
 
         try
         {
@@ -195,6 +212,9 @@ public class ReIndexModel : AdminPage
 
             this.IndexStatistics = string.Empty;
 
+            // the size after the shrink
+            await this.BindDataAsync();
+
             return this.PageBoardContext.Notify(result.ToString(), MessageTypes.success);
         }
         catch (Exception error)
@@ -208,8 +228,32 @@ public class ReIndexModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
+        var dialect = OrmLiteConfig.DialectProvider;
+
+        this.ServerName = dialect.SQLServerName();
+
+        try
+        {
+            // the statement is only made, not run (an empty statement: the database has no recovery mode)
+            this.SupportsRecoveryMode = dialect.ChangeRecoveryMode(string.Empty, "FULL").IsSet();
+        }
+        catch (NotImplementedException)
+        {
+            this.SupportsRecoveryMode = false;
+        }
+
+        try
+        {
+            this.DatabaseSize = await this.Get<IDbAccess>().GetDatabaseSizeAsync();
+        }
+        catch (Exception)
+        {
+            // e.g. the database user can't read the size
+            this.DatabaseSize = null;
+        }
+
         this.RecoveryModes = [
             new SelectListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1"), "FULL", true),
             new SelectListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2"), "SIMPLE"),

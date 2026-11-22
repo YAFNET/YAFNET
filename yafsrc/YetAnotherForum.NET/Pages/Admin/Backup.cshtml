@@ -4,17 +4,24 @@
 @using YAF.Web.HtmlHelpers
 @model BackupModel
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
+<form method="post" class="admin-backup">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("database")@Html.LocalizedText("ADMIN_BACKUP", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1" id="BackupCount">@(Model.Backups?.Count ?? 0)</span>
+        </h2>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-5 col-xl-4">
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("database", "ADMIN_BACKUP", "TITLE")
+                    @Html.Icon("clock-rotate-left")@Html.LocalizedText("ADMIN_BACKUP", "ENABLED")
                 </div>
                 <div class="card-body">
-                    <p class="card-text">
+                    <p class="card-text small text-body-secondary">
                         @Html.LocalizedText("ADMIN_BACKUP", "INFO")
-                        <code>@Model.BackupFolder</code>
+                        <code class="text-break">@Model.BackupFolder</code>
                     </p>
                     @if (Model.SupportNote.IsSet())
                     {
@@ -22,99 +29,127 @@
                             @Model.SupportNote
                         </alert>
                     }
-                    <div class="row">
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" info-button="true"
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" role="switch" asp-for="Enabled" />
+                            <label class="form-check-label" info-button="true"
                                    asp-for="Enabled"
                                    localized-tag="ENABLED"></label>
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" asp-for="Enabled" />
-                            </div>
-                        </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" info-button="true"
-                                   asp-for="Keep"
-                                   localized-tag="KEEP"></label>
-                            <input type="number" min="0" class="form-control" asp-for="Keep" />
-                        </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" localized-tag="LAST"></label>
-                            <p class="form-control-plaintext">
-                                @if (Model.LastBackup.HasValue)
-                                {
-                                    @Html.DisplayDateTime(DateTimeFormat.Both, Model.LastBackup.Value)
-                                }
-                                else
-                                {
-                                    @Html.LocalizedText("ADMIN_BACKUP", "NEVER")
-                                }
-                            </p>
                         </div>
                     </div>
+                    <div class="mb-3" id="KeepField">
+                        <label class="form-label" info-button="true"
+                               asp-for="Keep"
+                               localized-tag="KEEP"></label>
+                        <input type="number" min="0" class="form-control" asp-for="Keep" />
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center small backup-last">
+                        <span class="text-body-secondary">@Html.LocalizedText("ADMIN_BACKUP", "LAST")</span>
+                        <span>
+                            @if (Model.LastBackup.HasValue)
+                            {
+                                @Html.DisplayDateTime(DateTimeFormat.Both, Model.LastBackup.Value)
+                            }
+                            else
+                            {
+                                @Html.LocalizedText("ADMIN_BACKUP", "NEVER")
+                            }
+                        </span>
+                    </div>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer d-flex flex-wrap justify-content-end gap-2">
                     <button button-style="Primary"
                             asp-page-handler="Save"
                             Icon="save"
                             text-localized-tag="SAVE"
                             text-localized-page="COMMON"></button>
-                    <button button-style="Secondary"
+                    <button button-style="OutlineSecondary"
                             asp-page-handler="Backup"
                             return-confirm-tag="CONFIRM_BACKUP"
                             Icon="database"
                             text-localized-tag="BACKUP_NOW"></button>
                 </div>
             </div>
+        </div>
+
+        <div class="col-lg-7 col-xl-8">
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("download", "ADMIN_BACKUP", "BACKUPS")
+                    @Html.Icon("file-zipper")@Html.LocalizedText("ADMIN_BACKUP", "BACKUPS")
                 </div>
-                <div class="card-body">
-                    @if (!Model.Backups.NullOrEmpty())
-                    {
-                        <ul class="list-group">
-                            @foreach (var backup in Model.Backups)
-                            {
-                                <li class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between text-break">
-                                        <h5 class="mb-1">@backup.Name</h5>
-                                        <small class="d-none d-md-block">
-                                            <span class="badge text-bg-secondary">
-                                                @Html.Raw($"{backup.Size / 1024.0 / 1024.0:N1} MB")
-                                            </span>
-                                        </small>
+                @if (!Model.Backups.NullOrEmpty())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var backup in Model.Backups)
+                        {
+                            <li class="list-group-item backup-row list-group-item-menu" data-backup="@backup.Name">
+                                <span class="backup-icon bg-primary-subtle text-primary-emphasis" aria-hidden="true">
+                                    @Html.Icon("file-zipper")
+                                </span>
+                                <div class="backup-main">
+                                    <div class="fw-semibold text-break">@backup.Name</div>
+                                    <div class="backup-meta small text-body-secondary">
+                                        <span>@Html.Icon("calendar")@Html.DisplayDateTime(DateTimeFormat.Both, backup.Created)</span>
+                                        <span class="badge bg-body-tertiary text-body-secondary border">@BackupModel.FormatSize(backup.Size)</span>
                                     </div>
-                                    <p>
-                                        @Html.DisplayDateTime(DateTimeFormat.Both, backup.Created)
-                                    </p>
-                                    <small>
-                                        <div class="btn-group btn-group-sm">
-                                            <button button-style="Info"
-                                                    button-size="Small"
-                                                    asp-page-handler="Download"
-                                                    asp-route-name="@backup.Name"
-                                                    Icon="download"
-                                                    text-localized-tag="DOWNLOAD"
-                                                    text-localized-page="COMMON"></button>
-                                            <button button-style="Danger"
-                                                    button-size="Small"
-                                                    asp-page-handler="Delete"
-                                                    asp-route-name="@backup.Name"
-                                                    return-confirm-tag="CONFIRM_DELETE"
-                                                    Icon="trash"
-                                                    text-localized-tag="DELETE"
-                                                    text-localized-page="COMMON"></button>
-                                        </div>
-                                    </small>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        @await Html.PartialAsync("_NoEntryInfo")
-                    }
-                </div>
+                                </div>
+                                <div class="backup-actions btn-group btn-group-sm">
+                                    <button button-style="OutlineSecondary"
+                                            button-size="Small"
+                                            asp-page-handler="Download"
+                                            asp-route-name="@backup.Name"
+                                            Icon="download"
+                                            title-localized-tag="DOWNLOAD"
+                                            title-localized-page="COMMON"
+                                            text-localized-tag="DOWNLOAD"
+                                            text-localized-page="COMMON"
+                                            icon-mobile-only="true"></button>
+                                    <button button-style="None"
+                                            class="btn btn-sm btn-outline-danger backup-delete"
+                                            asp-page-handler="Delete"
+                                            asp-route-name="@backup.Name"
+                                            bs-toggle="confirm"
+                                            data-title="@Model.GetDeleteText(backup)"
+                                            data-yes="@Html.LocalizedText("YES")"
+                                            data-no="@Html.LocalizedText("NO")"
+                                            Icon="trash"
+                                            title-localized-tag="DELETE"
+                                            title-localized-page="COMMON"></button>
+                                </div>
+                                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                    <button button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="Download"
+                                            asp-route-name="@backup.Name"
+                                            Icon="download"
+                                            text-localized-tag="DOWNLOAD"
+                                            text-localized-page="COMMON"></button>
+                                    <div class="dropdown-divider"></div>
+                                    <button button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="Delete"
+                                            asp-route-name="@backup.Name"
+                                            bs-toggle="confirm"
+                                            data-title="@Model.GetDeleteText(backup)"
+                                            data-yes="@Html.LocalizedText("YES")"
+                                            data-no="@Html.LocalizedText("NO")"
+                                            Icon="trash"
+                                            text-localized-tag="DELETE"
+                                            text-localized-page="COMMON"></button>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="card-body">
+                        <empty icon="file-zipper"
+                               header-text-page="ADMIN_BACKUP" header-text-tag="EMPTY_HEADER"
+                               message-text-page="ADMIN_BACKUP" message-text-tag="EMPTY_MESSAGE">
+                        </empty>
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -1022,6 +1022,18 @@
             "#text": "删除此备份吗？"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "删除备份 {0}？删除后无法恢复。"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "还没有备份"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "立即创建备份，或启用每晚备份。"
+          },
+          {
             "@tag": "ENABLED",
             "#text": "夜间备份"
           },
@@ -3059,6 +3071,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "此页面的所有文本均已翻译。"
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "复制英文文本"
+          },
+          {
             "@tag": "HEADER",
             "#text": "语言翻译 - <em>当前资源页面："
           },
@@ -3073,6 +3093,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "需要翻译。"
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "{0} 条未翻译"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3093,6 +3117,10 @@
           {
             "@tag": "TITLE",
             "#text": "语言翻译"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "仅显示未翻译的文本"
           }
         ]
       },
@@ -4390,6 +4418,14 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "缓存已清除。"
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "数据会在缓存中保留指定的时间。清除缓存可立即显示更改。"
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "选择用于自动用户机器人检查的服务："
           },
@@ -4412,6 +4448,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "折叠"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "要为此论坛的所有消息重建搜索索引吗？大型论坛可能需要一段时间。"
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5062,6 +5102,14 @@
             "#text": "您可以选择模式对话框或系统消息的顶部通知栏。"
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "毫秒"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "分钟"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "董事会版主缓存超时："
           },
@@ -5080,6 +5128,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "如果选中，登录控件将显示为登录框。"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "主机设置已保存。"
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5350,6 +5402,10 @@
             "#text": "如果启用了，则在打开主题时滚动到第一个未读帖子/或第一个新帖子"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "已计划重建索引"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "搜索文本最大长度："
           },
@@ -5380,6 +5436,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "允许搜索："
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "分区"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5899,6 +5959,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "已完成"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "文化标签"
           },
@@ -5909,6 +5973,10 @@
           {
             "@tag": "TITLE",
             "#text": "语言"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "已翻译 {0} / {1}"
           }
         ]
       },
@@ -6402,6 +6470,10 @@
             "#text": "您确定要收缩数据库吗？<br />该操作可能会导致数据库无法访问，并且可能需要一段时间。"
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "数据库大小"
+          },
+          {
             "@tag": "HEADER",
             "#text": "YAF 数据库操作报告："
           },
@@ -6412,6 +6484,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "此操作出现问题。"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "恢复模式决定事务的记录方式，以及数据库可以从备份还原到哪个时间点。"
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "恢复模式"
           },
           {
             "@tag": "RECOVERY1",
@@ -6438,6 +6518,10 @@
             "#text": "设置恢复模式"
           },
           {
+            "@tag": "SHOW",
+            "#text": "显示"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "显示有关 YAF 表索引的统计信息。"
           },
@@ -6448,6 +6532,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "收缩数据库"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6604,6 +6692,14 @@
           {
             "@tag": "TITLE",
             "#text": "重启应用"
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "在应用程序重新运行之前，所有论坛的访问者都会看到错误页面。重启期间发送的帖子会丢失。"
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "所有论坛都将重新启动"
           }
         ]
       },
@@ -6720,8 +6816,16 @@
             "#text": "结果"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "{0} 行"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "仅显示前 {0} 行。"
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Ctrl+Enter 运行查询。"
           },
           {
             "@tag": "RUN_QUERY",

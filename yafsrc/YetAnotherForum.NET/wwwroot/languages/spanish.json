@@ -1022,6 +1022,18 @@
             "#text": "¿Eliminar esta copia de seguridad?"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "¿Eliminar la copia de seguridad {0}? Después no se podrá restaurar."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aún no hay copias de seguridad"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Cree una copia de seguridad ahora o active la copia nocturna."
+          },
+          {
             "@tag": "ENABLED",
             "#text": "Copia nocturna"
           },
@@ -3055,6 +3067,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "Todos los textos de esta página están traducidos."
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "Copiar el texto en inglés"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Traducción de idiomas - Página actual de recursos: "
           },
@@ -3069,6 +3089,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "Necesita traducción."
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "{0} sin traducir"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3089,6 +3113,10 @@
           {
             "@tag": "TITLE",
             "#text": "Traductor de idiomas"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "Solo los textos sin traducir"
           }
         ]
       },
@@ -4382,6 +4410,14 @@
             "#text": "Para usar el servicio de BotScout necesitas una llave API <a href=\"http://botscout.com/getkey.htm\">Regístrate aquí<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "Se vació la caché."
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "Los datos se mantienen en la caché durante el tiempo indicado. Vacíe una caché para mostrar un cambio de inmediato."
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Selecciona un servicio para comprobar usuarios bot automáticamente."
           },
@@ -4404,6 +4440,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Encogido"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "¿Reindexar la búsqueda de todos los mensajes de este foro? En un foro grande puede tardar un rato."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5054,6 +5094,14 @@
             "#text": "Puedes elegir entre ventanas modales o una barra de notificaciones superior para los mensajes del sistema."
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "Milisegundos"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "Minutos"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "Caducidad de la cache del tablero de moderadores:"
           },
@@ -5072,6 +5120,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "Si está seleccionado, el control de inicio de sesión es mostrado en una caja de inicio de sesión. De otra forma el control de inicio de sesión será mostrado en una página individual."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Se guardó la configuración del host."
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5342,6 +5394,10 @@
             "#text": "Si habilita se desplaza a la primera publicación no leída/o primera publicación nueva al abrir un tema"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "Reindexación programada"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Longitud máxima de texto de búsqueda:"
           },
@@ -5372,6 +5428,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "Permitir búsquedas a:"
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "Secciones"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5891,6 +5951,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "Completo"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "Etiqueta de cultura"
           },
@@ -5901,6 +5965,10 @@
           {
             "@tag": "TITLE",
             "#text": "Idiomas"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "{0} de {1} traducidos"
           }
         ]
       },
@@ -6394,6 +6462,10 @@
             "#text": "¿Estás seguro de que quieres encoger la base de datos?\\nLa operación puede hacer inaccesible la BD y llevar un poco de tiempo."
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "Tamaño de la base de datos"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Informe de operaciones de la BD YAF:"
           },
@@ -6404,6 +6476,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Algo ha ido mal con esta operación. El informe de error es: {0}"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "El modo de recuperación define cómo se registran las transacciones y hasta qué punto se puede restaurar la base de datos desde una copia de seguridad."
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "Modo de recuperación"
           },
           {
             "@tag": "RECOVERY1",
@@ -6430,6 +6510,10 @@
             "#text": "Fijar el modo de recuperación"
           },
           {
+            "@tag": "SHOW",
+            "#text": "Mostrar"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "Muestra información estadísticas sobre los índices de las tablas YAF."
           },
@@ -6440,6 +6524,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "Encoger base de datos"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6596,6 +6684,14 @@
           {
             "@tag": "TITLE",
             "#text": "Reiniciar la aplicación."
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "Hasta que la aplicación vuelva a funcionar, los visitantes de todos los foros verán una página de error. Un mensaje enviado durante el reinicio se pierde."
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "Se reinician todos los foros"
           }
         ]
       },
@@ -6712,8 +6808,16 @@
             "#text": "Resultado"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "{0} filas"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "Only the first {0} rows are shown."
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Ctrl+Intro ejecuta la consulta."
           },
           {
             "@tag": "RUN_QUERY",

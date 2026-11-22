@@ -53,8 +53,6 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
 
-                    await page.Locator("#image-tab").ClickAsync();
-
                     // Modify a random setting
                     var input = page.Locator("//input[contains(@id,'_ImageAttachmentResizeWidth')]");
                     var width = await input.GetAttributeAsync("value");
@@ -67,8 +65,6 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                     await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Save')]").First);
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
-
-                    await page.Locator("#image-tab").ClickAsync();
 
                     input = page.Locator("//input[contains(@id,'_ImageAttachmentResizeWidth')]");
 
@@ -84,9 +80,11 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
 
                     await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Save')]").First);
 
+                    // the page stays open with a message
                     var pageSource = await page.ContentAsync();
 
-                    Assert.That(pageSource, Does.Contain("Who is Online"));
+                    Assert.That(pageSource, Does.Contain("The host settings were saved."));
+                    Assert.That(page.Url, Does.Contain("Admin/HostSettings"), "The page was left after the save");
                 });
     }
 
@@ -578,6 +576,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 // the button is on another tab
                 await page.RunAndWaitForNavigationAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
+                Assert.That(await page.ContentAsync(), Does.Contain("The cache was cleared."), "No message after the cache was cleared");
                 Assert.That(await page.Locator("#Input_SearchPermissions option").CountAsync(), Is.GreaterThan(0), "The select of the search permissions is empty");
                 Assert.That(await page.Locator("#Input_SpamServiceType option").CountAsync(), Is.GreaterThan(0), "The select of the spam service is empty");
             });
@@ -631,12 +630,12 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
 
         var save = page.Locator("button[formaction*='Save']").First;
 
-        var response = await page.RunAndWaitForResponseAsync(
-                           () => save.EvaluateAsync("b => b.form.requestSubmit(b)"),
-                           r => r.Request.Method == "POST" && r.Url.Contains("Save"));
+        // the page of the post is shown (it was a redirect), the navigation is finished before the next page
+        var response = await page.RunAndWaitForNavigationAsync(
+                           () => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();
 
-        return response.Status;
+        return response?.Status ?? 0;
     }
 }

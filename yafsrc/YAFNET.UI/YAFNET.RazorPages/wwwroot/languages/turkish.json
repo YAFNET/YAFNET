@@ -1022,6 +1022,18 @@
             "#text": "Bu yedek silinsin mi?"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "{0} yedeği silinsin mi? Daha sonra geri yüklenemez."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Henüz yedek yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Şimdi bir yedek oluşturun veya gece yedeklemesini açın."
+          },
+          {
             "@tag": "ENABLED",
             "#text": "Gece yedeği"
           },
@@ -3059,6 +3071,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "Bu sayfanın tüm metinleri çevrildi."
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "İngilizce metni kopyala"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Dil Çevirisi - <em>Güncel Kaynak Sayfası :"
           },
@@ -3073,6 +3093,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "Çeviri gerekiyor."
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "{0} çevrilmedi"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3093,6 +3117,10 @@
           {
             "@tag": "TITLE",
             "#text": "Dil Çevirmeni"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "Yalnızca çevrilmemiş metinler"
           }
         ]
       },
@@ -4390,6 +4418,14 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "Önbellek temizlendi."
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "Veriler belirtilen süre boyunca önbellekte tutulur. Bir değişikliği hemen göstermek için önbelleği temizleyin."
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Otomatik Kullanıcı Bot Kontrolü için bir Hizmet seçin:"
           },
@@ -4412,6 +4448,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Çökmüş"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "Bu forumun tüm iletileri için arama yeniden dizinlensin mi? Büyük bir forumda bu biraz zaman alabilir."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5062,6 +5102,14 @@
             "#text": "Sistem Mesajları için Modal İletişim Kutusu veya Üst Bildirim Çubuğu arasında seçim yapabilirsiniz."
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "Milisaniye"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "Dakika"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "Kurul Moderatörleri Önbellek Zaman Aşımı:"
           },
@@ -5080,6 +5128,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "İşaretlenirse, Oturum Açma Kontrolü Oturum Açma Kutusu olarak görüntülenir. Aksi takdirde Oturum Açma Kontrolü Tek Sayfada Görüntülenir."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Sunucu ayarları kaydedildi."
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5350,6 +5402,10 @@
             "#text": "Etkinleştirilirse, bir konuyu açarken ilk okunmamış gönderiye/veya ilk yeni yayına geçer"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "Yeniden dizinleme planlandı"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Arama Metni Maksimum Uzunluk:"
           },
@@ -5380,6 +5436,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "Aramaya izin verin:"
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "Bölümler"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5899,6 +5959,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "Tamamlandı"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "Kültür Etiketi"
           },
@@ -5909,6 +5973,10 @@
           {
             "@tag": "TITLE",
             "#text": "Diller"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "{1} metnin {0} tanesi çevrildi"
           }
         ]
       },
@@ -6402,6 +6470,10 @@
             "#text": "Veritabanını Küçültmek istediğinizden emin misiniz? <br />İşlem DB'yi erişilemez hale getirebilir ve biraz zaman alabilir."
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "Veritabanı boyutu"
+          },
+          {
             "@tag": "HEADER",
             "#text": "YAF DB Operasyon Raporu:"
           },
@@ -6412,6 +6484,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Bu operasyonda bir şeyler ters gitti. Bildirilen hata: {0}"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "Kurtarma modeli, işlemlerin nasıl günlüğe kaydedileceğini ve veritabanının bir yedekten hangi noktaya kadar geri yüklenebileceğini belirler."
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "Kurtarma modeli"
           },
           {
             "@tag": "RECOVERY1",
@@ -6438,6 +6518,10 @@
             "#text": "Kurtarma modunu ayarlama"
           },
           {
+            "@tag": "SHOW",
+            "#text": "Göster"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "YAF tablo dizinleri hakkında istatistiksel bilgileri gösterin."
           },
@@ -6448,6 +6532,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "Veritabanını küçültün"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6604,6 +6692,14 @@
           {
             "@tag": "TITLE",
             "#text": "Uygulamayı Yeniden Başlat"
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "Uygulama yeniden çalışana kadar tüm forumların ziyaretçileri bir hata sayfası görür. Yeniden başlatma sırasında gönderilen bir ileti kaybolur."
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "Tüm forumlar yeniden başlatılır"
           }
         ]
       },
@@ -6720,8 +6816,16 @@
             "#text": "Sonuç"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "{0} satır"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "Only the first {0} rows are shown."
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Ctrl+Enter sorguyu çalıştırır."
           },
           {
             "@tag": "RUN_QUERY",

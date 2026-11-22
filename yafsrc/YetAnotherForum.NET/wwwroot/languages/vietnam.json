@@ -1022,6 +1022,18 @@
             "#text": "Xóa bản sao lưu này?"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "Xóa bản sao lưu {0}? Sau đó không thể khôi phục."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Chưa có bản sao lưu"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tạo bản sao lưu ngay bây giờ hoặc bật sao lưu hằng đêm."
+          },
+          {
             "@tag": "ENABLED",
             "#text": "Sao lưu hằng đêm"
           },
@@ -3059,6 +3071,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "Tất cả văn bản của trang này đã được dịch."
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "Sao chép văn bản tiếng Anh"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Dịch ngôn ngữ - <em>Trang tài nguyên hiện tại:</em>"
           },
@@ -3073,6 +3093,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "Cần dịch."
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "{0} chưa dịch"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3093,6 +3117,10 @@
           {
             "@tag": "TITLE",
             "#text": "Người thông dịch ngôn ngữ"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "Chỉ các văn bản chưa dịch"
           }
         ]
       },
@@ -4390,6 +4418,14 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "Bộ nhớ đệm đã được xóa."
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "Dữ liệu được giữ trong bộ nhớ đệm trong khoảng thời gian đã nhập. Xóa bộ nhớ đệm để thay đổi hiển thị ngay."
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Chọn một dịch vụ để tự động kiểm tra bot của người dùng:"
           },
@@ -4412,6 +4448,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Đã thu gọn"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "Lập chỉ mục lại tìm kiếm cho tất cả bài viết của diễn đàn này? Với diễn đàn lớn việc này có thể mất một lúc."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5062,6 +5102,14 @@
             "#text": "Bạn có thể chọn Giữa Hộp thoại Phương thức hoặc Thanh Thông báo Trên cùng cho Tin nhắn Hệ thống."
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "Mili giây"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "Phút"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "Board Moderator Cache Timeout:"
           },
@@ -5080,6 +5128,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "Nếu được chọn, Kiểm soát đăng nhập được hiển thị dưới dạng Hộp đăng nhập. Nếu không, Kiểm soát đăng nhập sẽ được hiển thị trên một trang."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Cài đặt máy chủ đã được lưu."
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5350,6 +5402,10 @@
             "#text": "Nếu được bật, nó sẽ cuộn vào bài đăng chưa đọc đầu tiên/hoặc bài đăng mới đầu tiên khi mở một chủ đề"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "Đã lên lịch lập chỉ mục lại"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Độ dài Tối đa của Văn bản Tìm kiếm:"
           },
@@ -5380,6 +5436,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "Cho phép tìm kiếm:"
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "Mục"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5899,6 +5959,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "Hoàn tất"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "Thẻ văn hóa"
           },
@@ -5909,6 +5973,10 @@
           {
             "@tag": "TITLE",
             "#text": "Ngôn ngữ"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "Đã dịch {0}/{1}"
           }
         ]
       },
@@ -6402,6 +6470,10 @@
             "#text": "Bạn có chắc chắn muốn Thu nhỏ cơ sở dữ liệu?<br /> Thao tác này có thể làm cho DB không thể truy cập được và có thể mất một chút thời gian."
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "Kích thước cơ sở dữ liệu"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Báo cáo hoạt động của YAF DB:"
           },
@@ -6412,6 +6484,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Đã xảy ra sự cố với thao tác này. Lỗi được báo cáo là: {0}"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "Chế độ khôi phục quyết định cách ghi nhật ký các giao dịch và cơ sở dữ liệu có thể được khôi phục từ bản sao lưu đến thời điểm nào."
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "Chế độ khôi phục"
           },
           {
             "@tag": "RECOVERY1",
@@ -6438,6 +6518,10 @@
             "#text": "Đặt chế độ khôi phục"
           },
           {
+            "@tag": "SHOW",
+            "#text": "Hiển thị"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "Hiển thị thông tin thống kê về các chỉ mục bảng YAF."
           },
@@ -6448,6 +6532,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "Thu nhỏ cơ sở dữ liệu"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6604,6 +6692,14 @@
           {
             "@tag": "TITLE",
             "#text": "Khỏi động lại ưng dụng"
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "Cho đến khi ứng dụng chạy lại, khách truy cập của tất cả diễn đàn sẽ thấy trang lỗi. Bài viết được gửi trong lúc khởi động lại sẽ bị mất."
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "Tất cả diễn đàn sẽ được khởi động lại"
           }
         ]
       },
@@ -6720,8 +6816,16 @@
             "#text": "Kết quả"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "{0} dòng"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "Only the first {0} rows are shown."
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Ctrl+Enter chạy truy vấn."
           },
           {
             "@tag": "RUN_QUERY",

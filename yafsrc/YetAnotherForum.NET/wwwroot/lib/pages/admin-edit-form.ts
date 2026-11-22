@@ -1,4 +1,6 @@
-﻿// The admin edit forms: a switch shows (data-shows) or hides (data-hides) the options that depend on it
+﻿import * as bootstrap from 'bootstrap';
+
+// The admin edit forms: a switch shows (data-shows) or hides (data-hides) the options that depend on it
 // (e.g. the moderation options of a forum), the page is not sent to the server for it
 document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll<HTMLInputElement>('.admin-edit-form input[data-shows], .admin-edit-form input[data-hides]').forEach(input => {
@@ -194,8 +196,38 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 
-		nav.querySelectorAll<HTMLElement>('[data-bs-toggle="tab"]').forEach(tab => {
+		nav.querySelectorAll<HTMLElement>('[data-bs-toggle="tab"], [data-bs-toggle="pill"]').forEach(tab => {
 			tab.addEventListener('shown.bs.tab', () => input.value = tab.dataset.tab ?? '');
 		});
+	});
+});
+
+// A select with data-tab-select shows the tab of the nav of the selector that has the selected value as its target
+// (data-bs-target), e.g. the sections of the host settings on a phone; it shows the tab that is open
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLSelectElement>('.admin-edit-form select[data-tab-select]').forEach(select => {
+		const nav = document.querySelector<HTMLElement>(select.dataset.tabSelect ?? '');
+
+		if (!nav) {
+			return;
+		}
+
+		const tabs = Array.from(nav.querySelectorAll<HTMLElement>('[data-bs-toggle="tab"], [data-bs-toggle="pill"]'));
+
+		select.addEventListener('change', () => {
+			const tab = tabs.find(item => item.dataset.bsTarget === select.value);
+
+			if (tab) {
+				bootstrap.Tab.getOrCreateInstance(tab).show();
+			}
+		});
+
+		tabs.forEach(tab => tab.addEventListener('shown.bs.tab', () => select.value = tab.dataset.bsTarget ?? ''));
+
+		const active = tabs.find(tab => tab.classList.contains('active'));
+
+		if (active) {
+			select.value = active.dataset.bsTarget ?? '';
+		}
 	});
 });

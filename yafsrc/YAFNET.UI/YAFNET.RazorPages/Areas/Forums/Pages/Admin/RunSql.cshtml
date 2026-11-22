@@ -4,33 +4,38 @@
 @using YAF.Web.HtmlHelpers
 @model RunSqlModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("database","ADMIN_RUNSQL","SQL_COMMAND")
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <textarea asp-for="Editor"
-                                  class="form-control"
-                                  rows="15"
-                                  cols="100"
-                                  maxlength="@int.MaxValue"
-                                  max-characters="@int.MaxValue"
-                                  editor-mode="Sql"></textarea>
-                    </div>
-                </div>
-                <div class="card-footer text-center">
-                    <button button-style="Primary"
-                            asp-page-handler="RunQuery"
-                            Icon="rocket"
-                            text-localized-tag="RUN_QUERY"
-                            text-localized-page="ADMIN_RUNSQL">
-                    </button>
-                </div>
-            </div>
+<form method="post" class="needs-validation admin-run-sql" novalidate>
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("database")@Html.LocalizedText("ADMIN_RUNSQL", "TITLE")
+        </h2>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.Icon("code")@Html.LocalizedText("ADMIN_RUNSQL", "SQL_COMMAND")
+        </div>
+        <div class="card-body">
+            <textarea asp-for="Editor"
+                      class="form-control"
+                      rows="15"
+                      cols="100"
+                      maxlength="@int.MaxValue"
+                      max-characters="@int.MaxValue"
+                      editor-mode="Sql"
+                      aria-label="@Html.LocalizedText("ADMIN_RUNSQL", "SQL_COMMAND")"></textarea>
+        </div>
+        <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <span class="small text-body-secondary run-sql-hint">
+                @Html.Icon("keyboard")@Html.LocalizedText("ADMIN_RUNSQL", "RUN_HINT")
+            </span>
+            <button button-style="Primary"
+                    asp-page-handler="RunQuery"
+                    data-run-query="true"
+                    Icon="rocket"
+                    text-localized-tag="RUN_QUERY"
+                    text-localized-page="ADMIN_RUNSQL">
+            </button>
         </div>
     </div>
 
@@ -40,9 +45,15 @@
 
         <div class="row">
             <div class="col-xl-12">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.IconHeader("rocket", "ADMIN_RUNSQL", "RESULT")
+                <div class="card mb-3" id="RunSqlResult">
+                    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <span>@Html.Icon("table")@Html.LocalizedText("ADMIN_RUNSQL", "RESULT")</span>
+                        @if (result.ResultSets.Count > 0)
+                        {
+                            <span class="badge text-bg-secondary run-sql-rows">
+                                @Model.GetTextFormatted("ROW_COUNT", result.ResultSets.Sum(r => r.Rows.Count))
+                            </span>
+                        }
                     </div>
                     <div class="card-body">
                         @if (result.Error is not null)
@@ -94,7 +105,7 @@
                                             </div>
                                         }
 
-                                        <div class="table-responsive mb-3" style="max-height: 600px;">
+                                        <div class="table-responsive mb-3 run-sql-table">
                                             <table class="table table-sm table-striped table-hover table-bordered mb-0 small">
                                                 <thead class="sticky-top">
                                                     <tr>
@@ -131,8 +142,8 @@
                                     }
                                 </div>
                                 <div class="tab-pane fade" id="RunSqlCsv" role="tabpanel">
-                                    <textarea class="form-control text-bg-dark" rows="15" wrap="off" readonly
-                                              style="font-size: 8pt;" aria-label="CSV">@result.ToString()</textarea>
+                                    <textarea class="form-control font-monospace run-sql-csv" rows="15" wrap="off" readonly
+                                              aria-label="CSV">@result.ToString()</textarea>
                                 </div>
                             </div>
                         }

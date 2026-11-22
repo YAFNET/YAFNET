@@ -6,61 +6,87 @@
 
 @model HostSettingsModel
 
-<form method="post">
+<form method="post" class="admin-edit-form admin-host-settings">
 
-<div class="row">
-		<div class="col-md-auto mt-3">
-			<div class="nav nav-pills nav-settings flex-md-column" id="v-pills-tab" role="tablist">
-				<button data-bs-target="#ServerInfo" class="nav-link" data-bs-toggle="pill" role="tab" icon="server" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SERVER_INFO"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SERVER_INFO">
-				</button>
-				<button data-bs-target="#Setup" class="nav-link" data-bs-toggle="pill" role="tab" icon="gears" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SETUP"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SETUP">
-				</button>
-				<button data-bs-target="#Features" class="nav-link" data-bs-toggle="pill" role="tab" icon="wand-sparkles" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_FEATURES"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_FEATURES">
-				</button>
-				<button data-bs-target="#Display" class="nav-link" data-bs-toggle="pill" role="tab" icon="display" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_DISPLAY"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_DISPLAY">
-				</button>
-				<button data-bs-target="#Adverts" class="nav-link" data-bs-toggle="pill" role="tab" icon="rectangle-ad" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_ADVERTS"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_ADVERTS">
-				</button>
-				<button data-bs-target="#Permission" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-lock" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_PERMISSION"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_PERMISSION">
-				</button>
-				<button data-bs-target="#Avatars" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-tie" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_AVATARS"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_AVATARS">
-				</button>
-				<button data-bs-target="#Cache" class="nav-link" data-bs-toggle="pill" role="tab" icon="memory" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_CACHE"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_CACHE">
-				</button>
-				<button data-bs-target="#Search" class="nav-link" data-bs-toggle="pill" role="tab" icon="magnifying-glass" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_SEARCH"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_SEARCH">
-				</button>
-				<button data-bs-target="#Log" class="nav-link" data-bs-toggle="pill" role="tab" icon="book" icon-mobile-only="true"
-				        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_LOG"
-						title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_LOG">
-				</button>
+	<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+		<h2 class="h4 mb-0">
+			@Html.Icon("cogs")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "TITLE")
+		</h2>
+	</div>
+
+	<div class="row g-3">
+		<div class="col-md-auto">
+			<select class="form-select d-md-none host-section-select" data-tab-select="#v-pills-tab"
+			        aria-label="@Html.LocalizedText("ADMIN_HOSTSETTINGS", "SECTIONS")">
+				<option value="#ServerInfo">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")</option>
+				<option value="#Setup">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SETUP")</option>
+				<option value="#Features">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_FEATURES")</option>
+				<option value="#Display">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_DISPLAY")</option>
+				<option value="#Adverts">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_ADVERTS")</option>
+				<option value="#Permission">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_PERMISSION")</option>
+				<option value="#Avatars">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_AVATARS")</option>
+				<option value="#Cache">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_CACHE")</option>
+				<option value="#Search">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_SEARCH")</option>
+				<option value="#Log">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_LOG")</option>
+			</select>
+			<div class="card host-settings-nav d-none d-md-block">
+				<div class="nav nav-pills flex-column p-2" id="v-pills-tab" role="tablist" data-tab-input="#Input_LastTabId">
+					<button data-bs-target="#ServerInfo" data-tab="ServerInfo" class="nav-link" data-bs-toggle="pill" role="tab" icon="server"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SERVER_INFO"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SERVER_INFO">
+					</button>
+					<button data-bs-target="#Setup" data-tab="Setup" class="nav-link" data-bs-toggle="pill" role="tab" icon="gears"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HEADER_SETUP"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HEADER_SETUP">
+					</button>
+					<button data-bs-target="#Features" data-tab="Features" class="nav-link" data-bs-toggle="pill" role="tab" icon="wand-sparkles"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_FEATURES"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_FEATURES">
+					</button>
+					<button data-bs-target="#Display" data-tab="Display" class="nav-link" data-bs-toggle="pill" role="tab" icon="display"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_DISPLAY"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_DISPLAY">
+					</button>
+					<button data-bs-target="#Adverts" data-tab="Adverts" class="nav-link" data-bs-toggle="pill" role="tab" icon="rectangle-ad"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_ADVERTS"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_ADVERTS">
+					</button>
+					<button data-bs-target="#Permission" data-tab="Permission" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-lock"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_PERMISSION"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_PERMISSION">
+					</button>
+					<button data-bs-target="#Avatars" data-tab="Avatars" class="nav-link" data-bs-toggle="pill" role="tab" icon="user-tie"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_AVATARS"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_AVATARS">
+					</button>
+					<button data-bs-target="#Cache" data-tab="Cache" class="nav-link" data-bs-toggle="pill" role="tab" icon="memory"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_CACHE"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_CACHE">
+					</button>
+					<button data-bs-target="#Search" data-tab="Search" class="nav-link" data-bs-toggle="pill" role="tab" icon="magnifying-glass"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_SEARCH"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_SEARCH">
+					</button>
+					<button data-bs-target="#Log" data-tab="Log" class="nav-link" data-bs-toggle="pill" role="tab" icon="book"
+					        text-localized-page="ADMIN_HOSTSETTINGS" text-localized-tag="HOST_LOG"
+							title-localized-page="ADMIN_HOSTSETTINGS" title-localized-tag="HOST_LOG">
+					</button>
+				</div>
 			</div>
 		</div>
-<div class="col">
+		<div class="col host-settings-main">
+			@* the save bar is the first submit button of the form (Enter in a field saves), it is shown at the bottom *@
+			<div class="admin-edit-actions host-settings-actions">
+				<button button-style="Primary" asp-page-handler="Save"
+				        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+				</button>
+			</div>
 <div id="HostSettingsTabs" class="tab-content">
 
 <div class="tab-pane fade" id="ServerInfo" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
+			@Html.Icon("server")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
 		</div>
 		<div class="card-body">
 			<div class="mb-3">
@@ -109,56 +135,11 @@
 	</div>
 </div>
 <div class="tab-pane fade" id="Setup" role="tabpanel">
-<div class="card mb-3">
-<div class="card-header">
-	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-	- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SETUP")
-</div>
-<div class="card-body">
-<ul class="nav nav-tabs" id="tabSetup" role="tablist">
-	<li class="nav-item" role="presentation">
-		<a class="nav-link active" id="setup-tab" data-bs-toggle="tab" data-bs-target="#setup" role="tab" aria-controls="setup" aria-selected="true">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SETUP")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PASSWORD")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="spam-tab" data-bs-toggle="tab" data-bs-target="#spam" role="tab" aria-controls="spam" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SPAM")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="bot-tab" data-bs-toggle="tab" data-bs-target="#bot" role="tab" aria-controls="bot" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_BOTSPAM")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" role="tab" aria-controls="login" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOGIN")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="attachments-tab" data-bs-toggle="tab" data-bs-target="#attachments" role="tab" aria-controls="attachments" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ATTACHMENTS")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="albums-tab" data-bs-toggle="tab" data-bs-target="#albums" role="tab" aria-controls="albums" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ALBUM")
-		</a>
-	</li>
-	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" role="tab" aria-controls="image" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_IMAGE_ATTACH")
-		</a>
-	</li>
-</ul>
-<div class="tab-content" id="setupTabContent">
-<div class="tab-pane fade show active" id="setup" role="tabpanel" aria-labelledby="setup-tab">
+	<div class="card mb-3 host-section" id="Section_setup">
+		<div class="card-header">
+			@Html.Icon("gears")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SETUP")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.ServerTimeCorrection"
@@ -250,8 +231,13 @@
 			<input type="number" class="form-control" asp-for="Input.PostFloodDelay"/>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_password">
+		<div class="card-header">
+			@Html.Icon("key")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PASSWORD")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.MinRequiredPasswordLength"
@@ -295,8 +281,13 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="spam" role="tabpanel" aria-labelledby="spam-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_spam">
+		<div class="card-header">
+			@Html.Icon("shield-halved")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SPAM")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.SpamServiceType"
@@ -325,8 +316,13 @@
 		       localized-tag="SPAMCHECK_ALLOWED_URLS"></label>
 		<input type="number" asp-for="Input.AllowedNumberOfUrls" class="form-control"/>
 	</div>
-</div>
-<div class="tab-pane fade" id="bot" role="tabpanel" aria-labelledby="bot-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_bot">
+		<div class="card-header">
+			@Html.Icon("robot")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_BOTSPAM")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.BotSpamServiceType"
@@ -373,8 +369,13 @@
 			<input type="checkbox" class="form-check-input" asp-for="Input.BanBotIpOnDetection"/>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_login">
+		<div class="card-header">
+			@Html.Icon("right-to-bracket")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOGIN")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"
@@ -421,8 +422,13 @@
 											   localized-tag="ALLOWED_NAME_CHARS"></label>
 										<input type="text" class="form-control" asp-for="Input.AllowedUserNameCharacters" />
 									</div>
-</div>
-<div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_attachments">
+		<div class="card-header">
+			@Html.Icon("paperclip")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ATTACHMENTS")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.MaxFileSize"
@@ -435,8 +441,13 @@
 		       localized-tag="ALLOWED_EXTENSIONS"></label>
 		<input type="text" class="form-control" asp-for="Input.AllowedFileExtensions"/>
 	</div>
-</div>
-<div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_albums">
+		<div class="card-header">
+			@Html.Icon("images")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ALBUM")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.EnableAlbum"
@@ -466,8 +477,13 @@
 			<input type="text" class="form-control" asp-for="Input.AlbumImagesPerPage"/>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_image">
+		<div class="card-header">
+			@Html.Icon("image")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_IMAGE_ATTACH")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.PictureAttachmentDisplayTreshold"
@@ -510,74 +526,15 @@
 			<input type="number" class="form-control" asp-for="Input.ImageAttachmentResizeHeight"/>
 		</div>
 	</div>
-</div>
-</div>
-
-
-</div>
-<div class="card-footer text-lg-center">
-	<button button-style="Primary" asp-page-handler="Save"
-	        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-	</button>
-</div>
-</div>
+		</div>
+	</div>
 </div>
 <div class="tab-pane fade" id="Features" role="tabpanel">
-<div class="card mb-3">
-<div class="card-header">
-	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-	- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_FEATURES")
-</div>
-<div class="card-body">
-<ul class="nav nav-tabs" id="featuresTab" role="tablist">
-	<li class="nav-item">
-		<a class="nav-link active" id="display-tab" data-bs-toggle="tab" data-bs-target="#display" role="tab" aria-controls="display" aria-selected="true">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_DISPLAY")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="hover-tab" data-bs-toggle="tab" data-bs-target="#hover" role="tab" aria-controls="hover" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_HOVERCARD")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="poll-tab" data-bs-toggle="tab" data-bs-target="#poll" role="tab" aria-controls="poll" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_POLL")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="pms-tab" data-bs-toggle="tab" data-bs-target="#pms" role="tab" aria-controls="pms" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PMS")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="hot-tab" data-bs-toggle="tab" data-bs-target="#hot" role="tab" aria-controls="hot" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_HOTTOPICS")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="syndication-tab" data-bs-toggle="tab" data-bs-target="#syndication" role="tab" aria-controls="syndication" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SYNDICATION")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="geo-tab" data-bs-toggle="tab" data-bs-target="#geo" role="tab" aria-controls="geo" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_GEOLOCATION")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="reputation-tab" data-bs-toggle="tab" data-bs-target="#reputation" role="tab" aria-controls="reputation" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_REPUTATION")
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification" role="tab" aria-controls="notification" aria-selected="false">
-			@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_MESSAGE_NOTIFICATION")
-		</a>
-	</li>
-</ul>
-<div class="tab-content" id="featuresTabContent">
-<div class="tab-pane fade show active" id="display" role="tabpanel" aria-labelledby="display-tab">
+	<div class="card mb-3 host-section" id="Section_display">
+		<div class="card-header">
+			@Html.Icon("eye")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_DISPLAY")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"
@@ -734,8 +691,13 @@
 		<select class="form-select" asp-for="Input.ShowShareTopicTo" asp-items="Model.ShowShareTopicToList">
 		</select>
 	</div>
-</div>
-<div class="tab-pane fade" id="hover" role="tabpanel" aria-labelledby="hover-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_hover">
+		<div class="card-header">
+			@Html.Icon("id-card")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_HOVERCARD")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"
@@ -752,8 +714,13 @@
 			<input type="number" class="form-control" asp-for="Input.HoverCardOpenDelay"/>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="poll" role="tabpanel" aria-labelledby="poll-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_poll">
+		<div class="card-header">
+			@Html.Icon("square-poll-vertical")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_POLL")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.AllowedPollChoiceNumber"
@@ -802,8 +769,13 @@
 		       localized-tag="POLL_IMAGE_FILESIZE"></label>
 		<input type="number" class="form-control" asp-for="Input.PollImageMaxFileSize" maxlength="4"/>
 	</div>
-</div>
-<div class="tab-pane fade" id="pms" role="tabpanel" aria-labelledby="pms-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_pms">
+		<div class="card-header">
+			@Html.Icon("envelope")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PMS")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"
@@ -822,8 +794,13 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="hot" role="tabpanel" aria-labelledby="hot-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_hot">
+		<div class="card-header">
+			@Html.Icon("fire")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_HOTTOPICS")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"
@@ -844,8 +821,13 @@
 			<input type="number" class="form-control" asp-for="Input.PopularTopicDays"/>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="syndication" role="tabpanel" aria-labelledby="syndication-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_syndication">
+		<div class="card-header">
+			@Html.Icon("rss")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SYNDICATION")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3">
 			<label class="form-label" info-button="true"
@@ -885,8 +867,13 @@
 		<select class="form-select" asp-for="Input.TopicsFeedAccess" asp-items="Model.TopicsFeedAccessList">
 		</select>
 	</div>
-</div>
-<div class="tab-pane fade" id="geo" role="tabpanel" aria-labelledby="geo-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_geo">
+		<div class="card-header">
+			@Html.Icon("location-dot")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_GEOLOCATION")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.EnableIPInfoService"
@@ -913,8 +900,13 @@
 											   localized-tag="ABUSEIPDB_APIKEY"></label>
 										<input type="text" class="form-control" asp-for="Input.AbuseIpDbApiKey" />
 									</div>
-</div>
-<div class="tab-pane fade" id="reputation" role="tabpanel" aria-labelledby="reputation-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_reputation">
+		<div class="card-header">
+			@Html.Icon("star")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_REPUTATION")
+		</div>
+		<div class="card-body">
 	<div class="row">
 		<div class="mb-3 col-md-6">
 			<label class="form-label" info-button="true"
@@ -961,29 +953,26 @@
 			<input type="number" class="form-control" asp-for="Input.ReputationMinDownVoting"/>
 		</div>
 	</div>
-</div>
-<div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+		</div>
+	</div>
+	<div class="card mb-3 host-section" id="Section_notification">
+		<div class="card-header">
+			@Html.Icon("bell")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_MESSAGE_NOTIFICATION")
+		</div>
+		<div class="card-body">
 	<div class="mb-3">
 		<label class="form-label" info-button="true"
 		       asp-for="Input.MessageNotifcationDuration"
 		       localized-tag="NOTIFICATION_DURATION"></label>
 		<input type="number" class="form-control" asp-for="Input.MessageNotifcationDuration"/>
 	</div>
-</div>
-</div>
-</div>
-<div class="card-footer text-lg-center">
-	<button button-style="Primary" asp-page-handler="Save"
-	        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-	</button>
-</div>
-</div>
+		</div>
+	</div>
 </div>
 <div class="tab-pane fade" id="Display" role="tabpanel">
 <div class="card mb-3">
 <div class="card-header">
-	@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-	- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_DISPLAY")
+	@Html.Icon("display")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_DISPLAY")
 </div>
 <div class="card-body">
 <div class="mb-3">
@@ -1258,18 +1247,12 @@
 	</div>
 </div>
 </div>
-<div class="card-footer text-lg-center">
-	<button button-style="Primary" asp-page-handler="Save"
-	        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-	</button>
-</div>
 </div>
 </div>
 <div class="tab-pane fade" id="Adverts" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ADVERTS")
+			@Html.Icon("rectangle-ad")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ADVERTS")
 		</div>
 		<div class="card-body">
 			<div class="mb-3">
@@ -1290,18 +1273,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-lg-center">
-			<button button-style="Primary" asp-page-handler="Save"
-			        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-			</button>
-		</div>
 	</div>
 </div>
 <div class="tab-pane fade" id="Permission" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PERMISSION")
+			@Html.Icon("user-lock")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PERMISSION")
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -1407,18 +1384,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-lg-center">
-			<button button-style="Primary" asp-page-handler="Save"
-			        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-			</button>
-		</div>
 	</div>
 </div>
 <div class="tab-pane fade" id="Avatars" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_AVATARS")
+			@Html.Icon("user-tie")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_AVATARS")
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -1460,98 +1431,142 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-lg-center">
-			<button button-style="Primary" asp-page-handler="Save"
-			        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-			</button>
-		</div>
 	</div>
 </div>
 <div class="tab-pane fade" id="Cache" role="tabpanel">
 	<div class="card mb-3">
-		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_CACHE")
-		</div>
-		<div class="card-body">
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       asp-for="Input.ForumStatisticsCacheTimeout"
-				       localized-tag="STATS_CACHE_TIMEOUT"></label>
-				<div class="input-group">
-					<input type="number" class="form-control" asp-for="Input.ForumStatisticsCacheTimeout"/>
-					<button button-style="Primary"
-					        text-localized-tag="CLEAR"
-					        Icon="trash"
-					        asp-page-handler="ForumStatisticsCacheReset"></button>
-				</div>
-			</div>
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       localized-tag="USRSTATS_CACHE_TIMEOUT"></label>
-				<div class="input-group">
-					<input type="number" class="form-control" asp-for="Input.BoardUserStatsCacheTimeout"/>
-					<button button-style="Primary"
-					        text-localized-tag="CLEAR"
-					        Icon="trash"
-					        asp-page-handler="BoardUserStatsCacheReset"></button>
-				</div>
-			</div>
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       localized-tag="DISCUSSIONS_CACHE_TIMEOUT"></label>
-				<div class="input-group">
-					<input type="number" class="form-control" asp-for="Input.ActiveDiscussionsCacheTimeout"/>
-					<button button-style="Primary"
-					        text-localized-tag="CLEAR"
-					        Icon="trash"
-					        asp-page-handler="ActiveDiscussionsCacheReset"></button>
-				</div>
-			</div>
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       localized-tag="MOD_CACHE_TIMEOUT"></label>
-				<div class="input-group">
-					<input type="number" class="form-control" asp-for="Input.BoardModeratorsCacheTimeout"/>
-					<button button-style="Primary"
-					        text-localized-tag="CLEAR"
-					        Icon="trash"
-					        asp-page-handler="BoardModeratorsCacheReset"></button>
-				</div>
-			</div>
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       localized-tag="ONLINE_STATUS_TIMEOUT"></label>
-				<input type="number" asp-for="Input.OnlineStatusCacheTimeout"
-				       class="form-control"/>
-			</div>
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       localized-tag="LAZY_CACHE_TIMEOUT"></label>
-				<div class="input-group">
-					<input type="number" asp-for="Input.ActiveUserLazyDataCacheTimeout"
-					       class="form-control"/>
-
-					<button button-style="Primary"
-					        text-localized-tag="CLEAR"
-					        Icon="trash"
-					        asp-page-handler="UserLazyDataCacheReset"></button>
-				</div>
-			</div>
-		</div>
-		<div class="card-footer text-lg-center">
-			<button button-style="Primary"
+		<div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+			<span>@Html.Icon("memory")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_CACHE")</span>
+			<button button-style="None"
+			        class="btn btn-sm btn-danger"
 			        text-localized-tag="CLEAR_CACHE"
 			        Icon="trash"
 			        asp-page-handler="ResetCacheAll"></button>
+		</div>
+		<div class="card-body">
+			<p class="card-text text-body-secondary mb-0">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "CACHE_INFO")</p>
+		</div>
+	</div>
+	<div class="row row-cols-1 row-cols-lg-2 g-3 mb-3">
+		<div class="col">
+			<div class="card h-100 cache-card" data-cache="ForumStatisticsCacheTimeout">
+				<div class="card-body">
+					<label class="form-label" info-button="true"
+					       asp-for="Input.ForumStatisticsCacheTimeout"
+					       localized-tag="STATS_CACHE_TIMEOUT"></label>
+					<div class="input-group">
+						<input type="number" class="form-control" asp-for="Input.ForumStatisticsCacheTimeout"/>
+						<span class="input-group-text">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "MINUTES")</span>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end">
+					<button button-style="None"
+					        class="btn btn-sm btn-outline-danger cache-clear"
+					        asp-page-handler="ForumStatisticsCacheReset"
+					        Icon="trash"
+					        text-localized-tag="CLEAR"></button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100 cache-card" data-cache="BoardUserStatsCacheTimeout">
+				<div class="card-body">
+					<label class="form-label" info-button="true"
+					       asp-for="Input.BoardUserStatsCacheTimeout"
+					       localized-tag="USRSTATS_CACHE_TIMEOUT"></label>
+					<div class="input-group">
+						<input type="number" class="form-control" asp-for="Input.BoardUserStatsCacheTimeout"/>
+						<span class="input-group-text">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "MINUTES")</span>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end">
+					<button button-style="None"
+					        class="btn btn-sm btn-outline-danger cache-clear"
+					        asp-page-handler="BoardUserStatsCacheReset"
+					        Icon="trash"
+					        text-localized-tag="CLEAR"></button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100 cache-card" data-cache="ActiveDiscussionsCacheTimeout">
+				<div class="card-body">
+					<label class="form-label" info-button="true"
+					       asp-for="Input.ActiveDiscussionsCacheTimeout"
+					       localized-tag="DISCUSSIONS_CACHE_TIMEOUT"></label>
+					<div class="input-group">
+						<input type="number" class="form-control" asp-for="Input.ActiveDiscussionsCacheTimeout"/>
+						<span class="input-group-text">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "MINUTES")</span>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end">
+					<button button-style="None"
+					        class="btn btn-sm btn-outline-danger cache-clear"
+					        asp-page-handler="ActiveDiscussionsCacheReset"
+					        Icon="trash"
+					        text-localized-tag="CLEAR"></button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100 cache-card" data-cache="BoardModeratorsCacheTimeout">
+				<div class="card-body">
+					<label class="form-label" info-button="true"
+					       asp-for="Input.BoardModeratorsCacheTimeout"
+					       localized-tag="MOD_CACHE_TIMEOUT"></label>
+					<div class="input-group">
+						<input type="number" class="form-control" asp-for="Input.BoardModeratorsCacheTimeout"/>
+						<span class="input-group-text">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "MINUTES")</span>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end">
+					<button button-style="None"
+					        class="btn btn-sm btn-outline-danger cache-clear"
+					        asp-page-handler="BoardModeratorsCacheReset"
+					        Icon="trash"
+					        text-localized-tag="CLEAR"></button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100 cache-card" data-cache="OnlineStatusCacheTimeout">
+				<div class="card-body">
+					<label class="form-label" info-button="true"
+					       asp-for="Input.OnlineStatusCacheTimeout"
+					       localized-tag="ONLINE_STATUS_TIMEOUT"></label>
+					<div class="input-group">
+						<input type="number" class="form-control" asp-for="Input.OnlineStatusCacheTimeout"/>
+						<span class="input-group-text">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "MILLISECONDS")</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100 cache-card" data-cache="ActiveUserLazyDataCacheTimeout">
+				<div class="card-body">
+					<label class="form-label" info-button="true"
+					       asp-for="Input.ActiveUserLazyDataCacheTimeout"
+					       localized-tag="LAZY_CACHE_TIMEOUT"></label>
+					<div class="input-group">
+						<input type="number" class="form-control" asp-for="Input.ActiveUserLazyDataCacheTimeout"/>
+						<span class="input-group-text">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "MINUTES")</span>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end">
+					<button button-style="None"
+					        class="btn btn-sm btn-outline-danger cache-clear"
+					        asp-page-handler="UserLazyDataCacheReset"
+					        Icon="trash"
+					        text-localized-tag="CLEAR"></button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 <div class="tab-pane fade" id="Search" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SEARCH")
+			@Html.Icon("magnifying-glass")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SEARCH")
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -1579,28 +1594,33 @@
 					<input type="checkbox" class="form-check-input" asp-for="Input.ShowQuickSearch"/>
 				</div>
 			</div>
-			<div class="mb-3">
-				<label class="form-label" info-button="true"
-				       localized-tag="INDEX_SEARCH"></label>
-				<button text-localized-tag="INDEX_SEARCH"
-				        title-localized-tag="INDEX_SEARCH_HELP"
-				        Icon="sync"
-				        button-style="Danger"
-				        asp-page-handler="IndexSearch"></button>
-			</div>
 		</div>
-		<div class="card-footer text-lg-center">
-			<button button-style="Primary" asp-page-handler="Save"
-			        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-			</button>
+	</div>
+	<div class="card mb-3" id="SearchIndex">
+		<div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+			<span>@Html.Icon("arrows-rotate")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "INDEX_SEARCH")</span>
+			@if (Model.SearchIndexPending)
+			{
+				<span class="badge text-bg-info search-index-pending">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "SEARCH_INDEX_PENDING")</span>
+			}
+		</div>
+		<div class="card-body">
+			<p class="card-text text-body-secondary mb-0">@Html.LocalizedText("ADMIN_HOSTSETTINGS", "INDEX_SEARCH_HELP")</p>
+		</div>
+		<div class="card-footer d-flex justify-content-end">
+			<button text-localized-tag="INDEX_SEARCH"
+			        Icon="arrows-rotate"
+			        button-style="OutlineSecondary"
+			        button-size="Small"
+			        return-confirm-tag="CONFIRM_INDEX_SEARCH"
+			        asp-page-handler="IndexSearch"></button>
 		</div>
 	</div>
 </div>
 <div class="tab-pane fade" id="Log" role="tabpanel">
 	<div class="card mb-3">
 		<div class="card-header">
-			@Html.IconHeader("cog", "ADMIN_HOSTSETTINGS", "TITLE")
-			- @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOG")
+			@Html.Icon("book")@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOG")
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -1620,10 +1640,9 @@
 					<input type="number" class="form-control" asp-for="Input.MessageHistoryDaysToLog"/>
 				</div>
 			</div>
-			<h2>
+			<h3 class="h6 border-top pt-3 mb-3">
 				@Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOGSCOPE")
-			</h2>
-			<hr/>
+			</h3>
 			<div class="row">
 				<div class="mb-3 col-md-6">
 									<label class="form-label" info-button="true"
@@ -1671,22 +1690,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-lg-center">
-			<button button-style="Primary" asp-page-handler="Save"
-			        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-			</button>
-		</div>
 	</div>
 </div>
 </div>
-</div>
-</div>
+		</div>
+	</div>
 
-<input type="hidden" asp-for="Input.LastTabId" Value="@Model.Input.LastTabId"/>
+	<input type="hidden" asp-for="Input.LastTabId" Value="@Model.Input.LastTabId"/>
 
 </form>
 
 @section Scripts {
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
     <script>
 		@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("v-pills-tab", "Input_LastTabId")));
 	</script>

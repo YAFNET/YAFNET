@@ -5,84 +5,101 @@
 @using YAF.Web.HtmlHelpers
 @model LanguagesModel
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            @Html.IconHeader("language","ADMIN_LANGUAGES","TITLE")
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm me-2" role="group">
-                                    <div class="input-group-text">
-                                        @Html.LocalizedText("SHOW"):
-                                    </div>
-                                    <select asp-for="@Model.Size"
-                                            asp-items="Model.PageSizeList"
-                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            class="form-select"
-                                            onchange="this.form.submit();"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @if (!Model.List.NullOrEmpty())
-                    {
-                        <ul class="list-group">
-                            @foreach (var t in Model.List)
-                            {
-                                <li class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between text-break">
-                                        <h5 class="mb-1">
-                                            @Html.Raw(t.CultureEnglishName)
-                                        </h5>
-                                        <small class="d-none d-md-block">
-                                            @Html.LocalizedText("ADMIN_LANGUAGES","CULTURE_TAG"):
-                                            <span class="badge text-bg-secondary">
-                                                @Html.Raw(t.CultureTag)
-                                            </span>
-                                        </small>
-                                    </div>
-                                    <strong>@Html.LocalizedText("ADMIN_LANGUAGES","PROGRESS"):</strong>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar"
-                                             style="width: @Html.Raw(t.TranslatedPercentage)%;"
-                                             aria-valuenow="@Html.Raw(t.TranslatedPercentage)" aria-valuemin="0" aria-valuemax="100" title="@Html.Raw($"{t.TranslatedPercentage}% - ({t.TranslatedCount} of {t.TagsCount})")">
-                                            @Html.Raw($"{t.TranslatedPercentage}% - ({t.TranslatedCount} of {t.TagsCount})")
-                                        </div>
-                                    </div>
-                                    <p><strong>@Html.LocalizedText("FILENAME"):</strong>
-                                        @Html.Raw(t.CultureFile)
-                                    </p>
-                                    <small>
-                                        <div class="btn-group btn-group-sm">
-                                            <a button-style="Info" button-size="Small"
-                                       asp-page="@Html.Raw(ForumPages.Admin_EditLanguage.GetPageName())"
-                                               asp-route-x="@Html.Raw(t.CultureFile)"
-                                               title-localized-tag="EDIT"
-                                               Icon="edit"
-                                               text-localized-tag="EDIT">
-                                            </a>
-                                        </div>
-                                    </small>
-                                </li>
-                            }
-
-                        </ul>
-                    }
-                </div>
+<form method="post" class="admin-languages">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("language")@Html.LocalizedText("ADMIN_LANGUAGES", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.Count</span>
+        </h2>
+        <div class="input-group input-group-sm w-auto" role="group">
+            <div class="input-group-text">
+                @Html.LocalizedText("SHOW"):
             </div>
+            <select asp-for="@Model.Size"
+                    asp-items="Model.PageSizeList"
+                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    class="form-select"
+                    onchange="this.form.submit();"></select>
         </div>
     </div>
 
     @if (!Model.List.NullOrEmpty())
     {
-        @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.Count, Size = Model.Size })
+        <div class="language-grid mb-3">
+            @foreach (var t in Model.List)
+            {
+                var complete = t.TranslatedPercentage >= 100;
+
+                <div class="card language-card list-group-item-menu" data-culture="@t.CultureTag">
+                    <div class="card-body">
+                        <div class="language-head">
+                            <div class="language-name text-break">
+                                <div class="fw-semibold">@t.CultureEnglishName</div>
+                                @if (t.CultureNativeName.IsSet() && t.CultureNativeName != t.CultureEnglishName)
+                                {
+                                    <div class="small text-body-secondary">@t.CultureNativeName</div>
+                                }
+                            </div>
+                            <span class="badge bg-body-tertiary text-body-secondary border"
+                                  title="@Html.LocalizedText("ADMIN_LANGUAGES", "CULTURE_TAG")">@t.CultureTag</span>
+                        </div>
+
+                        <div class="language-progress">
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span class="language-count">
+                                    @Model.GetTextFormatted("TRANSLATED_OF", t.TranslatedCount, t.TagsCount)
+                                </span>
+                                @if (complete)
+                                {
+                                    <span class="text-success-emphasis">@Html.Icon("check")@Html.LocalizedText("ADMIN_LANGUAGES", "COMPLETE")</span>
+                                }
+                                else
+                                {
+                                    <span class="text-body-secondary">@t.TranslatedPercentage%</span>
+                                }
+                            </div>
+                            <div class="progress" role="progressbar"
+                                 aria-label="@Html.LocalizedText("ADMIN_LANGUAGES", "PROGRESS")"
+                                 aria-valuenow="@t.TranslatedPercentage" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar @(complete ? "bg-success" : string.Empty)"
+                                     style="width: @t.TranslatedPercentage%"></div>
+                            </div>
+                        </div>
+
+                        <div class="language-footer">
+                            <span class="small text-body-secondary text-break" title="@Html.LocalizedText("FILENAME")">
+                                @Html.Icon("file-code")@t.CultureFile
+                            </span>
+                            <a button-style="OutlineSecondary" button-size="Small"
+                               class="language-edit"
+                               asp-page="@ForumPages.Admin_EditLanguage.GetPageName()"
+                               asp-route-x="@t.CultureFile"
+                               title-localized-tag="EDIT"
+                               Icon="edit"
+                               text-localized-tag="EDIT"></a>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <a button-style="None"
+                           class="dropdown-item"
+                           asp-page="@ForumPages.Admin_EditLanguage.GetPageName()"
+                           asp-route-x="@t.CultureFile"
+                           Icon="edit"
+                           text-localized-tag="EDIT"></a>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @await Html.PartialAsync("_Pagination", new Pagination { TotalRows = Model.Count, Size = Model.Size })
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                @await Html.PartialAsync("_NoEntryInfo")
+            </div>
+        </div>
     }
 </form>

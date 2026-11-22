@@ -1022,6 +1022,18 @@
             "#text": "Slette denne sikkerhetskopien?"
           },
           {
+            "@tag": "CONFIRM_DELETE_NAME",
+            "#text": "Slette sikkerhetskopien {0}? Den kan ikke gjenopprettes etterpå."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen sikkerhetskopier ennå"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Lag en sikkerhetskopi nå, eller slå på den nattlige sikkerhetskopieringen."
+          },
+          {
             "@tag": "ENABLED",
             "#text": "Nattlig backup"
           },
@@ -3059,6 +3071,14 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
+            "@tag": "ALL_TRANSLATED",
+            "#text": "Alle tekstene på denne siden er oversatt."
+          },
+          {
+            "@tag": "COPY_ORIGINAL",
+            "#text": "Kopier engelsk tekst"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Språkoversettelse – <em>gjeldende ressursside:</em>"
           },
@@ -3073,6 +3093,10 @@
           {
             "@tag": "NEED_TRANSLATION",
             "#text": "Trenger oversettelse."
+          },
+          {
+            "@tag": "NOT_TRANSLATED_COUNT",
+            "#text": "{0} ikke oversatt"
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -3093,6 +3117,10 @@
           {
             "@tag": "TITLE",
             "#text": "Språkoversetter"
+          },
+          {
+            "@tag": "UNTRANSLATED_ONLY",
+            "#text": "Bare tekster som ikke er oversatt"
           }
         ]
       },
@@ -4390,6 +4418,14 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
+            "@tag": "CACHE_CLEARED",
+            "#text": "Hurtigbufferen ble tømt."
+          },
+          {
+            "@tag": "CACHE_INFO",
+            "#text": "Dataene ligger i hurtigbufferen i den angitte tiden. Tøm en hurtigbuffer for å vise en endring med en gang."
+          },
+          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Velg en tjeneste for automatisk brukerbotkontroll:"
           },
@@ -4412,6 +4448,10 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Kollapset"
+          },
+          {
+            "@tag": "CONFIRM_INDEX_SEARCH",
+            "#text": "Indeksere søket på nytt for alle meldinger i dette forumet? Det kan ta litt tid i et stort forum."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5062,6 +5102,14 @@
             "#text": "Du kan velge mellom modal dialog eller en toppvarslingslinje for systemmeldinger."
           },
           {
+            "@tag": "MILLISECONDS",
+            "#text": "Millisekunder"
+          },
+          {
+            "@tag": "MINUTES",
+            "#text": "Minutter"
+          },
+          {
             "@tag": "MOD_CACHE_TIMEOUT",
             "#text": "Tidsavbrudd for styremoderatorer:"
           },
@@ -5080,6 +5128,10 @@
           {
             "@tag": "MODAL_LOGIN_HELP",
             "#text": "Hvis avkrysset, vises påloggingskontrollen som påloggingsboks. Ellers vil påloggingskontroll vises på en enkelt side."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Vertsinnstillingene ble lagret."
           },
           {
             "@tag": "NAME_LENGTH",
@@ -5350,6 +5402,10 @@
             "#text": "Hvis aktivert det ruller til det første uleste innlegget/eller første nye innlegget når du åpner et emne"
           },
           {
+            "@tag": "SEARCH_INDEX_PENDING",
+            "#text": "Ny indeksering planlagt"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maksimal lengde for søketekst:"
           },
@@ -5380,6 +5436,10 @@
           {
             "@tag": "SEARCH_PERMISS_HELP",
             "#text": "Tillat søk til:"
+          },
+          {
+            "@tag": "SECTIONS",
+            "#text": "Seksjoner"
           },
           {
             "@tag": "SERVER_VERSION",
@@ -5899,6 +5959,10 @@
         "@name": "ADMIN_LANGUAGES",
         "Resource": [
           {
+            "@tag": "COMPLETE",
+            "#text": "Fullført"
+          },
+          {
             "@tag": "CULTURE_TAG",
             "#text": "Kultur Tag"
           },
@@ -5909,6 +5973,10 @@
           {
             "@tag": "TITLE",
             "#text": "Språk"
+          },
+          {
+            "@tag": "TRANSLATED_OF",
+            "#text": "{0} av {1} oversatt"
           }
         ]
       },
@@ -6402,6 +6470,10 @@
             "#text": "Er du sikker på at du vil krympe databasen?<br /> Operasjonen kan gjøre DB utilgjengelig og kan ta litt tid."
           },
           {
+            "@tag": "DATABASE_SIZE",
+            "#text": "Databasestørrelse"
+          },
+          {
             "@tag": "HEADER",
             "#text": "YAF DB driftsrapport:"
           },
@@ -6412,6 +6484,14 @@
           {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Noe gikk galt med denne operasjonen. Den rapporterte feilen er: {0}"
+          },
+          {
+            "@tag": "RECOVERY_INFO",
+            "#text": "Gjenopprettingsmodellen bestemmer hvordan transaksjonene logges og til hvilket punkt databasen kan gjenopprettes fra en sikkerhetskopi."
+          },
+          {
+            "@tag": "RECOVERY_MODE",
+            "#text": "Gjenopprettingsmodell"
           },
           {
             "@tag": "RECOVERY1",
@@ -6438,6 +6518,10 @@
             "#text": "Angi gjenopprettingsmodus"
           },
           {
+            "@tag": "SHOW",
+            "#text": "Vis"
+          },
+          {
             "@tag": "SHOW_STATS",
             "#text": "Vis statistisk informasjon om YAF-tabellindekser."
           },
@@ -6448,6 +6532,10 @@
           {
             "@tag": "SHRINK_BTN",
             "#text": "Krympe databasen"
+          },
+          {
+            "@tag": "SIZE_MB",
+            "#text": "{0} MB"
           },
           {
             "@tag": "TBLINDEXSTATS_BTN",
@@ -6604,6 +6692,14 @@
           {
             "@tag": "TITLE",
             "#text": "Start applikasjonen på nytt"
+          },
+          {
+            "@tag": "WARNING",
+            "#text": "Inntil programmet kjører igjen, får besøkende på alle forum en feilside. Et innlegg som sendes under omstarten, går tapt."
+          },
+          {
+            "@tag": "WARNING_HEADER",
+            "#text": "Alle forum startes på nytt"
           }
         ]
       },
@@ -6720,8 +6816,16 @@
             "#text": "Resultat"
           },
           {
+            "@tag": "ROW_COUNT",
+            "#text": "{0} rader"
+          },
+          {
             "@tag": "ROWS_TRUNCATED",
             "#text": "Only the first {0} rows are shown."
+          },
+          {
+            "@tag": "RUN_HINT",
+            "#text": "Ctrl+Enter kjører spørringen."
           },
           {
             "@tag": "RUN_QUERY",

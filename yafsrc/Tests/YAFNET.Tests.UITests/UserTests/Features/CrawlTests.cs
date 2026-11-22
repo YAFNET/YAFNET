@@ -834,7 +834,6 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     private async Task CreateAlbumAsync(IPage page)
     {
         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
-        await page.GetByRole(AriaRole.Tab, new PageGetByRoleOptions { Name = "Album Settings" }).ClickAsync();
         await page.GetByRole(AriaRole.Checkbox, new PageGetByRoleOptions { Name = "Enable Album Feature:" }).CheckAsync();
         await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save Settings" }));
 

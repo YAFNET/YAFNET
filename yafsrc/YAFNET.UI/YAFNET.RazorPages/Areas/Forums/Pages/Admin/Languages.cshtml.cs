@@ -99,7 +99,11 @@ public class LanguagesModel : AdminPage
 
         var pager = new Paging { CurrentPageIndex = this.PageBoardContext.PageIndex, PageSize = this.Size };
 
-        var cultures = StaticDataHelper.LanguageFiles().ToList();
+        // the languages that are not complete first, they need the translators
+        var cultures = StaticDataHelper.LanguageFiles()
+            .OrderBy(c => c.TranslatedPercentage >= 100)
+            .ThenBy(c => c.CultureEnglishName, StringComparer.OrdinalIgnoreCase)
+            .ToList();
 
         this.Count = cultures.Count;
 

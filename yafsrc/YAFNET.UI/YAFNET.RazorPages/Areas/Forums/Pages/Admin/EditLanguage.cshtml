@@ -5,88 +5,140 @@
 @using YAF.Web.HtmlHelpers
 @model EditLanguageModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("language", "ADMIN_EDITLANGUAGE", "HEADER") @Html.Raw(Model.Input.Pages)
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label asp-for="Input.Pages" class="form-label" localized-page="ADMIN_EDITLANGUAGE" localized-tag="SELECT_PAGE">
-                        </label>
-                        <select asp-for="Input.Pages" asp-items="Model.PagesList" class="form-select"></select>
-                    </div>
-                    <div class="mb-3">
-                        <button asp-page-handler="LoadPageLocalization"
-                                asp-route-x="@Model.Request.RouteValues["x"]"
-                                button-style="Primary" 
-                                Icon="share" 
-                                text-localized-tag="LOAD_PAGE" text-localized-page="ADMIN_EDITLANGUAGE"></button>
-                    </div>
-                    <hr />
-                    <div class="table-responsive">
-                        @if (!Model.Locals.NullOrEmpty())
-                        {
-                            <table class="table table-striped">
-                                <caption>@Html.LocalizedText("ADMIN_EDITLANGUAGE", "HEADER") @Html.Raw(Model.Input.Pages)</caption>
-                                <thead>
-                                <tr>
-                                    <th scope="col">
-                                        @Html.LocalizedText("ADMIN_EDITLANGUAGE", "RESOURCE_NAME")
-                                    </th>
-                                    <th scope="col">
-                                        @Html.LocalizedText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")
-                                    </th>
-                                    <th scope="col">
-                                        @Html.LocalizedText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @for (var index = 0; index < Model.Locals.Count; index++)
-                                {
-                                    <tr>
-                                        <td>
-	                                        @Html.Raw(Model.Locals[index].ResourceName)
-                                        </td>
-                                        <td>
-                                            <input type="hidden" asp-for="Locals[index].ResourceName" value="@Model.Locals[index].ResourceName"/>
-                                            <input type="hidden" asp-for="Locals[index].PageName" value="@Model.Locals[index].PageName"/>
-                                            <input type="hidden" asp-for="Locals[index].OriginalResourceText" value="@Model.Locals[index].OriginalResourceText"/>
-                                            <textarea asp-for="Locals[index].OriginalResourceText" rows="4" disabled="disabled" class="form-control" 
-                                                          placeholder="@Model.GetText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")"></textarea>
-                                        </td>
-                                        <td>
-                                            <textarea asp-for="Locals[index].LocalizedResourceText" rows="4" title="@Html.Raw(Model.Locals[index].LocalizedResourceText)"
-                                                  placeholder="@Model.GetText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")"
-                                                  class="@(Model.LocalizedTextBoxClass(Model.Locals[index]))"></textarea>
+@{
+    var missing = Model.Locals?.Count(l => !EditLanguageModel.IsTranslated(l)) ?? 0;
+}
 
-                                            <div class="invalid-feedback">
-                                                @Html.LocalizedText("NEED_TRANSLATION")
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                                </tbody>
-                            </table>
+<form method="post" class="needs-validation admin-edit-form admin-edit-language" novalidate>
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("language")@Html.LocalizedText("ADMIN_EDITLANGUAGE", "TITLE")
+            <span class="badge bg-body-tertiary text-body-secondary border align-middle ms-1">@Model.FileName</span>
+        </h2>
+        <div class="form-check form-switch mb-0">
+            <input type="checkbox" class="form-check-input" role="switch" id="UntranslatedOnly" />
+            <label class="form-check-label" for="UntranslatedOnly">
+                @Html.LocalizedText("ADMIN_EDITLANGUAGE", "UNTRANSLATED_ONLY")
+            </label>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-4 col-xl-3">
+            <div class="card language-pages">
+                <div class="card-header">
+                    @Html.Icon("file-lines")@Html.LocalizedText("ADMIN_EDITLANGUAGE", "SELECT_PAGE")
+                </div>
+                <div class="list-group list-group-flush" id="LanguagePages">
+                    @foreach (var item in Model.PageStats)
+                    {
+                        var active = item.Name == Model.Input.Pages;
+                        var complete = item.Translated >= item.Total;
+
+                        <button type="submit"
+                                class="list-group-item list-group-item-action language-page @(active ? "active" : string.Empty) @(complete ? "is-complete" : string.Empty)"
+                                asp-page-handler="LoadPageLocalization"
+                                asp-route-x="@Model.FileName"
+                                name="Input.Pages"
+                                value="@item.Name"
+                                aria-current="@(active ? "true" : null)">
+                            <span class="d-flex justify-content-between gap-2">
+                                <span class="text-break">@item.Name</span>
+                                <span class="small language-page-count">@item.Translated/@item.Total</span>
+                            </span>
+                            <span class="progress" aria-hidden="true">
+                                <span class="progress-bar @(complete ? "bg-success" : string.Empty)" style="width: @item.Percentage%"></span>
+                            </span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-xl-9">
+            <div class="card mb-3">
+                <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <span class="text-break">@Html.Icon("file-code")@Model.Input.Pages</span>
+                    @if (!Model.Locals.NullOrEmpty())
+                    {
+                        <span class="badge @(missing > 0 ? "text-bg-warning" : "text-bg-success") translations-missing">
+                            @(missing > 0
+                                  ? Model.GetTextFormatted("NOT_TRANSLATED_COUNT", missing)
+                                  : Model.GetText("ADMIN_EDITLANGUAGE", "ALL_TRANSLATED"))
+                        </span>
+                    }
+                </div>
+                <div class="list-group list-group-flush translations">
+                    @if (!Model.Locals.NullOrEmpty())
+                    {
+                        @for (var index = 0; index < Model.Locals.Count; index++)
+                        {
+                            var local = Model.Locals[index];
+                            var translated = EditLanguageModel.IsTranslated(local);
+
+                            <div class="list-group-item translation-row @(translated ? "is-translated" : "is-missing")"
+                                 data-resource="@local.ResourceName">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                                    <code class="text-break">@local.ResourceName</code>
+                                    @if (!translated)
+                                    {
+                                        <span class="badge text-bg-warning">@Html.LocalizedText("ADMIN_EDITLANGUAGE", "NEED_TRANSLATION")</span>
+                                    }
+                                </div>
+                                <input type="hidden" asp-for="Locals[index].ResourceName" value="@local.ResourceName" />
+                                <input type="hidden" asp-for="Locals[index].PageName" value="@local.PageName" />
+                                <input type="hidden" asp-for="Locals[index].OriginalResourceText" value="@local.OriginalResourceText" />
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="small text-body-secondary mb-1">
+                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")
+                                        </div>
+                                        <div class="translation-original" id="@($"Original_{index}")">@local.OriginalResourceText</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between align-items-center small text-body-secondary mb-1">
+                                            <label asp-for="Locals[index].LocalizedResourceText" class="mb-0">
+                                                @Html.LocalizedText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")
+                                            </label>
+                                            <button type="button"
+                                                    class="btn btn-link btn-sm p-0 translation-copy"
+                                                    data-set-values="@Model.GetCopyValues(index)">
+                                                @Html.Icon("copy")@Html.LocalizedText("ADMIN_EDITLANGUAGE", "COPY_ORIGINAL")
+                                            </button>
+                                        </div>
+                                        <textarea asp-for="Locals[index].LocalizedResourceText" rows="3"
+                                                  class="@(Model.LocalizedTextBoxClass(local))"></textarea>
+                                        <div class="invalid-feedback">
+                                            @Html.LocalizedText("NEED_TRANSLATION")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
-                    
-                    </div>
+
+                        <div class="list-group-item all-translated-note text-body-secondary">
+                            @Html.Icon("check")@Html.LocalizedText("ADMIN_EDITLANGUAGE", "ALL_TRANSLATED")
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="list-group-item">
+                            @await Html.PartialAsync("_NoEntryInfo")
+                        </div>
+                    }
                 </div>
-                <div class="card-footer text-center">
-                    <button class="me-1"
-                            asp-page-handler="Save"
-                            asp-route-x="@Model.Request.RouteValues["x"]"
-                            button-style="Primary"
-                            Icon="save" 
-                            text-localized-tag="SAVE"></button>
-                    <a asp-page="@ForumPages.Admin_Languages.GetPageName()"
-                       button-style="Secondary" 
-                       Icon="xmark"
-                       text-localized-tag="CANCEL"></a>
-                </div>
+            </div>
+
+            <div class="admin-edit-actions">
+                <button asp-page-handler="Save"
+                        asp-route-x="@Model.FileName"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE"></button>
+                <a asp-page="@ForumPages.Admin_Languages.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"></a>
             </div>
         </div>
     </div>
@@ -94,4 +146,5 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

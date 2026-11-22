@@ -77,6 +77,13 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                     var button = page.Locator($"button[formaction$='/{handler}']");
 
+                    // the recovery mode is only shown for SQL Server
+                    if (handler == "RecoveryMode" && await button.CountAsync() == 0)
+                    {
+                        Assert.That(await page.Locator("#DatabaseServer").InnerTextAsync(), Does.Not.Contain("SQL Server"), "The recovery mode is missing");
+                        continue;
+                    }
+
                     IResponse response = null;
 
                     await page.RunAndWaitForNextPageAsync(

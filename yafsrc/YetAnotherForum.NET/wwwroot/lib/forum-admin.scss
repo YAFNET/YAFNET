@@ -1207,13 +1207,209 @@
     }
 }
 
+// Admin languages: a card per language with its progress
+.admin-languages {
+    .language-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+        gap: .75rem;
+    }
+
+    .language-card {
+        transition: border-color .15s ease-in-out;
+
+        &:hover {
+            border-color: var(--bs-primary-border-subtle);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+        }
+    }
+
+    .language-head,
+    .language-footer {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: .5rem;
+    }
+
+    .language-name {
+        min-width: 0;
+    }
+
+    .language-footer {
+        align-items: center;
+        margin-top: auto;
+    }
+
+    .progress {
+        height: .5rem;
+    }
+}
+
+// Admin edit language: the pages with their progress and the texts of the page
+.admin-edit-language {
+    .language-pages .list-group {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    @media (min-width: 992px) {
+        .language-pages {
+            position: sticky;
+            top: 1rem;
+        }
+    }
+
+    .language-page {
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        font-size: .875rem;
+
+        .progress {
+            height: .25rem;
+        }
+
+        &.active .language-page-count {
+            color: inherit;
+        }
+    }
+
+    .language-page-count {
+        color: var(--bs-secondary-color);
+        white-space: nowrap;
+    }
+
+    .translation-row.is-missing {
+        border-left: 3px solid var(--bs-warning);
+    }
+
+    .translation-original {
+        padding: .375rem .75rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-size: .875rem;
+    }
+
+    // the switch shows only the texts that are not translated
+    &:has(#UntranslatedOnly:checked) .translation-row.is-translated {
+        display: none;
+    }
+
+    .all-translated-note {
+        display: none;
+    }
+
+    &:has(#UntranslatedOnly:checked) .translations:not(:has(.translation-row.is-missing)) .all-translated-note {
+        display: block;
+    }
+}
+
+// Admin database maintenance, run sql and backup
+.admin-reindex {
+    .database-info .badge {
+        font-weight: 500;
+    }
+
+    .index-statistics {
+        max-height: 30rem;
+        overflow: auto;
+        font-size: .8125rem;
+        white-space: pre-wrap;
+    }
+}
+
+.admin-run-sql {
+    .run-sql-table {
+        max-height: 37.5rem;
+    }
+
+    .run-sql-csv {
+        font-size: .75rem;
+    }
+}
+
+.admin-backup {
+    .backup-row {
+        @extend %maintenance-row;
+    }
+
+    .backup-icon {
+        @extend %maintenance-icon;
+    }
+
+    .backup-main {
+        flex: 1 1 14rem;
+        min-width: 0;
+    }
+
+    .backup-meta {
+        @extend %maintenance-meta;
+    }
+}
+
+// Admin test data: the icons don't take the click of the tab (the tab script reads the target of the clicked element)
+.admin-test-data {
+    .test-data-nav .nav-link {
+        text-align: start;
+        white-space: nowrap;
+
+        > * {
+            pointer-events: none;
+        }
+    }
+}
+
+// Admin host settings: the sections, the save bar is the first submit button of the form but shown at the bottom
+.admin-host-settings {
+    .host-settings-nav .nav-link {
+        text-align: start;
+        white-space: nowrap;
+    }
+
+    @media (min-width: 768px) {
+        .host-settings-nav {
+            position: sticky;
+            top: 1rem;
+        }
+    }
+
+    .host-settings-main {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .host-settings-actions {
+        order: 1;
+    }
+
+    // the tab content of the forum has a padding at the top, the section starts on the line of the menu
+    #HostSettingsTabs {
+        padding-top: 0;
+    }
+
+    .cache-card .card-footer {
+        background-color: transparent;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .admin-boards .board-card,
     .admin-boards .board-card:hover,
     .admin-boards .board-card-new,
     .admin-boards .board-card-new:hover,
     .admin-dashboard .stats-card,
-    .admin-dashboard .stats-card:hover {
+    .admin-dashboard .stats-card:hover,
+    .admin-languages .language-card {
         transition: none;
         transform: none;
     }
