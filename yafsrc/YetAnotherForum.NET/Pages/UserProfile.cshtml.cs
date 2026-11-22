@@ -323,7 +323,8 @@ public class UserProfileModel : ForumPage
             string.Format(Constants.Cache.UserCustomProfileData, this.CombinedUser.Item1.ID),
             () => this.GetRepository<ProfileCustom>().ListByUser(this.CombinedUser.Item1.ID));
 
-        if (this.CombinedUser.Item1.ID == this.PageBoardContext.PageUserID)
+        // no contact buttons on the own profile and for guests (a guest can't send messages or emails)
+        if (this.CombinedUser.Item1.ID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsGuest)
         {
             return;
         }

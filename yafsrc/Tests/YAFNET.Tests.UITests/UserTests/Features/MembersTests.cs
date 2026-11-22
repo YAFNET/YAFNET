@@ -133,4 +133,70 @@ public class MembersTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(await page.Locator(".member-row").CountAsync(), Is.GreaterThan(0), "No members are listed");
             });
     }
+
+    /// <summary>
+    /// A guest who can view the profiles (profile view permission "everyone") gets no "PM" and "Email" buttons
+    /// (they led to "access denied").
+    /// </summary>
+    [Test]
+    public async Task GuestSeesNoContactButtonsOnAProfileTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}members?letter=T");
+
+                var profileLink = await page.Locator(".member-row a", new PageLocatorOptions { HasText = this.TestSettings.TestUserName })
+                                      .First.GetAttributeAsync("href");
+
+                Assert.That(profileLink, Is.Not.Null, "The profile link of the test user was not found");
+
+                var profileUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), profileLink).ToString();
+
+                await SetHostSettingAsync(page, this.TestSettings, "ProfileViewPermissions", "2");
+
+                int contactButtons;
+
+                try
+                {
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    await page.GotoAsync(profileUrl);
+
+                    Assert.That(await page.ContentAsync(), Does.Contain(this.TestSettings.TestUserName), "The profile is not shown");
+
+                    contactButtons = await page.Locator("a[href*='MyMessages'], a[href*='/Email']").CountAsync();
+                }
+                finally
+                {
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword);
+
+                    await SetHostSettingAsync(page, this.TestSettings, "ProfileViewPermissions", "1");
+                }
+
+                Assert.That(contactButtons, Is.Zero, "The guest gets the PM and Email buttons");
+            });
+    }
+
+    /// <summary>
+    /// Sets a select or a text box of the host settings.
+    /// </summary>
+    private async static Task SetHostSettingAsync(IPage page, TestConfig testSettings, string name, string value)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        await page.Locator($"#Input_{name}").EvaluateAsync("(input, value) => input.value = value", value);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+        await page.WaitForLoadStateAsync();
+    }
 }

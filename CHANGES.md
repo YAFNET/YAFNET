@@ -165,6 +165,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active users: the guests and the hidden users were filtered after the paging, the guest list showed only the guests of the first sessions, pages had fewer entries and the count included the filtered users
 * [FIXED] Members: the selected letter was lost by the pager and the sort
 * [FIXED] Members, active users: a change of the page size on a later page showed an empty page without pager
+* [FIXED] Profile: guests (profile view permission "everyone") got the PM and email buttons, which led to "access denied"
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
