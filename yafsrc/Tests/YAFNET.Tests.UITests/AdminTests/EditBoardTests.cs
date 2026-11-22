@@ -50,4 +50,28 @@ public class EditBoardTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                 Assert.That(await link.GetAttributeAsync("href"), Does.EndWith("Admin/Boards"), "The link doesn't go to the boards");
             });
     }
+
+    /// <summary>
+    /// Cancel goes back to the boards with empty fields: the form was checked and nothing happened.
+    /// </summary>
+    [Test]
+    public async Task CancelWithEmptyFieldsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBoard");
+
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Cancel" })
+                    .Or(page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Cancel" }))
+                    .First.ClickAsync();
+
+                await page.WaitForURLAsync("**/Admin/Boards", new PageWaitForURLOptions { Timeout = 10000 });
+
+                Assert.That(page.Url, Does.EndWith("Admin/Boards"), "Cancel didn't go to the boards");
+            });
+    }
 }

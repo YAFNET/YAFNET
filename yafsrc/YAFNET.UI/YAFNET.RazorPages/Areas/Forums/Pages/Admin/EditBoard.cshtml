@@ -117,10 +117,11 @@
                             button-style="Primary"
                             Icon="save"
                             text-localized-tag="SAVE"></button>
-                    <button asp-page="@ForumPages.Admin_Boards.GetPageName()"
-                            button-style="Secondary"
-                            Icon="xmark"
-                            text-localized-tag="CANCEL"></button>
+                    @* a link: the form is not checked (a button sent the form, the empty fields of a new board stopped it) *@
+                    <a asp-page="@ForumPages.Admin_Boards.GetPageName()"
+                       button-style="Secondary"
+                       Icon="xmark"
+                       text-localized-tag="CANCEL"></a>
                 </div>
             </div>
         </div>

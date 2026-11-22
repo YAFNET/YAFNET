@@ -113,6 +113,7 @@ YetAnotherForum.NET Changelog
 [CHANGES] Admin: the version check is shown on the dashboard (running version, up to date or a link to the new version), the page Admin > Upgrade > Version was removed
 [FIXED] Admin > Mail: after the mail to a group was sent the subject and the message were shown again (a second click sent the mail again)
 [FIXED] Admin > Edit Board: the link Boards of the page links went to a new board instead of the list of the boards
+[FIXED] Admin > Edit Board: Cancel did nothing when the fields of a new board were empty (it sent the form, the form was checked)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
