@@ -184,6 +184,10 @@
             "#text": "Patvirtinti naują slaptažodį"
           },
           {
+            "@tag": "INFO",
+            "#text": "Įveskite paskyros el. pašto adresą ir pasirinkite naują slaptažodį."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Įveskite naują slaptažodį"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Įveskite patvirtinimo raktas "
           },
           {
+            "@tag": "INFO",
+            "#text": "Įveskite patvirtinimo raktą iš jums išsiųsto el. laiško arba tiesiog atidarykite to laiško nuorodą."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Patvirtinkite elektroninio pašto adresas "
           },
@@ -11456,6 +11464,10 @@
             "#text": "Automatinis prisijungimas: "
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Grįžti į prisijungimą"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Elektroninio pašto adresas "
           },
@@ -11476,6 +11488,10 @@
             "#text": "Patikrinimo laiškas vėl buvo išsiųstas jums."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Dar neturite paskyros?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Slaptažodis: "
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registracija Vietoj to kaip naujas naudotojas"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Sveiki sugrįžę! Prisijunkite, kad galėtumėte tęsti."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Atsiprašome, kad šiukšlintojams draudžiama dalyvauti forume!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Patikrinkite el. paštą"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Patvirtinti slaptažodį"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Elektroninio pašto adresas "
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Jau turite paskyrą?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Pakartokite slaptažodį "
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Susikurkite paskyrą, kad galėtumėte dalyvauti forume."
           },
           {
             "@tag": "TIMEZONE",

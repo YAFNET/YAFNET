@@ -184,6 +184,10 @@
                     "#text": "Confirm New Password"
                 },
                 {
+                    "@tag": "INFO",
+                    "#text": "Enter the email address of your account and choose a new password."
+                },
+                {
                     "@tag": "PASSWORD",
                     "#text": "Enter New Password"
                 },
@@ -7708,6 +7712,10 @@
                     "#text": "Enter validation key"
                 },
                 {
+                    "@tag": "INFO",
+                    "#text": "Enter the validation key from the email we sent you, or simply open the link in that email."
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "Validate Email Address"
                 },
@@ -11440,6 +11448,10 @@
                     "#text": "Remember me"
                 },
                 {
+                    "@tag": "BACK_TO_LOGIN",
+                    "#text": "Back to login"
+                },
+                {
                     "@tag": "EMAIL",
                     "#text": "Email Address"
                 },
@@ -11460,6 +11472,10 @@
                     "#text": "Verification Mail was send again to you."
                 },
                 {
+                    "@tag": "NO_ACCOUNT",
+                    "#text": "Don't have an account yet?"
+                },
+                {
                     "@tag": "PASSWORD",
                     "#text": "Password:"
                 },
@@ -11474,6 +11490,10 @@
                 {
                     "@tag": "REGISTER_INSTEAD",
                     "#text": "Register Instead as new User"
+                },
+                {
+                    "@tag": "SUBTITLE",
+                    "#text": "Welcome back! Please log in to continue."
                 },
                 {
                     "@tag": "TITLE",
@@ -13587,6 +13607,10 @@
                     "#text": "Sorry Spammers are not allowed in the Forum!"
                 },
                 {
+                    "@tag": "CHECK_MAIL",
+                    "#text": "Check your email"
+                },
+                {
                     "@tag": "CONFIRM_PASSWORD",
                     "#text": "Confirm Password"
                 },
@@ -13605,6 +13629,10 @@
                 {
                     "@tag": "EMAIL",
                     "#text": "Email Address"
+                },
+                {
+                    "@tag": "HAVE_ACCOUNT",
+                    "#text": "Already have an account?"
                 },
                 {
                     "@tag": "HOMEPAGE",
@@ -13677,6 +13705,10 @@
                 {
                     "@tag": "RETYPE_PASSWORD",
                     "#text": "Confirmed password is required."
+                },
+                {
+                    "@tag": "SUBTITLE",
+                    "#text": "Create your account to take part in the forum."
                 },
                 {
                     "@tag": "TIMEZONE",

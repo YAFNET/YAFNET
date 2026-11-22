@@ -184,6 +184,10 @@
             "#text": "Confirmați noua parolă"
           },
           {
+            "@tag": "INFO",
+            "#text": "Introdu adresa de e-mail a contului tău și alege o parolă nouă."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Introduceți o nouă parolă"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Introduceti codul de verificare."
           },
           {
+            "@tag": "INFO",
+            "#text": "Introdu cheia de validare din e-mailul pe care ți l-am trimis sau deschide pur și simplu linkul din acel e-mail."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Validare Adresa Email "
           },
@@ -11456,6 +11464,10 @@
             "#text": "Intrare automata:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Înapoi la autentificare"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Addresa email"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Mailul de verificare a fost trimis din nou către dumneavoastră."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Nu ai încă un cont?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Parola:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "În schimb, înregistrați-vă ca utilizator nou"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Bine ai revenit! Autentifică-te pentru a continua."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Ne pare rău Spammerii nu sunt permise în forum!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Verifică-ți e-mailul"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Confirmați parola"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Adresa Email"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Ai deja un cont?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Reintrodu parola"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Creează-ți contul pentru a participa la forum."
           },
           {
             "@tag": "TIMEZONE",

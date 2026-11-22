@@ -67,6 +67,11 @@ public class RegisterModel : AccountPage
     public string ErrorMessage { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the account was created but the verification mail could not be sent.
+    /// </summary>
+    public bool MailFailed { get; set; }
+
+    /// <summary>
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
@@ -200,6 +205,7 @@ public class RegisterModel : AccountPage
                 this.Get<ILogger<RegisterModel>>().Error(x, $"Verification mail to {email} failed");
 
                 verificationText = "ACCOUNT_CREATED_MAIL_FAILED";
+                this.MailFailed = true;
             }
         }
 

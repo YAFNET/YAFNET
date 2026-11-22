@@ -154,7 +154,7 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     {
                         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ProfileDefinitions");
 
-                        await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").ClickAsync();
+                        await page.Locator("#NewProfileDefinition").ClickAsync();
 
                         var dialog = page.Locator(".modal.show");
 
@@ -170,7 +170,7 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         Assert.That(response.Status, Is.EqualTo(200), "The definition was not saved");
 
-                        await page.Locator("h5", new PageLocatorOptions { HasText = name }).WaitForAsync();
+                        await page.Locator(".profile-definition-name", new PageLocatorOptions { HasText = name }).WaitForAsync();
                     }
 
                     async Task<bool> LoginAdminAsync()
@@ -293,14 +293,14 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         {
                             await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ProfileDefinitions");
 
-                            var item = page.Locator(".list-group-item", new PageLocatorOptions { HasText = name });
+                            var item = page.Locator(".profile-definition-row", new PageLocatorOptions { HasText = name });
 
                             if (await item.CountAsync() == 0)
                             {
                                 continue;
                             }
 
-                            await item.Locator(".btn-group button[formaction*='Delete']").ClickAsync();
+                            await item.Locator(".profile-definition-actions button[formaction*='Delete']").ClickAsync();
 
                             await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
                         }

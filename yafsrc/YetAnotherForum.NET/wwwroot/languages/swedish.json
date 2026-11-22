@@ -184,6 +184,10 @@
             "#text": "Bekräfta det nya lösenordet"
           },
           {
+            "@tag": "INFO",
+            "#text": "Ange e-postadressen för ditt konto och välj ett nytt lösenord."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Ange nytt lösenord"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Ange valideringsnyckel"
           },
           {
+            "@tag": "INFO",
+            "#text": "Ange valideringsnyckeln från e-postmeddelandet vi skickade, eller öppna helt enkelt länken i meddelandet."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Godkänn e-postadress"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Automatisk inloggning:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Tillbaka till inloggningen"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-postadress"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Verifieringsmail skickades igen till dig."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Har du inget konto än?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Lösenord:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registrera istället som ny användare"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Välkommen tillbaka! Logga in för att fortsätta."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Spammare är tyvärr inte tillåtna i forumet!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Kontrollera din e-post"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Bekräfta lösenordet"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "E-postadress"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Har du redan ett konto?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Upprepa lösenord"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Skapa ditt konto för att delta i forumet."
           },
           {
             "@tag": "TIMEZONE",

@@ -184,6 +184,10 @@
             "#text": "Confirmar nueva contraseña"
           },
           {
+            "@tag": "INFO",
+            "#text": "Introduzca la dirección de correo de su cuenta y elija una nueva contraseña."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Introducir nueva contraseña"
           },
@@ -7708,6 +7712,10 @@
             "#text": "Ingresar clave de validación"
           },
           {
+            "@tag": "INFO",
+            "#text": "Introduzca la clave de validación del correo que le enviamos, o simplemente abra el enlace de ese correo."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Validar correo electrónico"
           },
@@ -11440,6 +11448,10 @@
             "#text": "Iniciar sesión automaticamente:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Volver al inicio de sesión"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Correo electrónico"
           },
@@ -11460,6 +11472,10 @@
             "#text": "El correo de verificación fue enviado de nuevo a usted."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "¿Aún no tiene una cuenta?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Contraseña:"
           },
@@ -11474,6 +11490,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registrarse como usuario nuevo"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "¡Bienvenido de nuevo! Inicie sesión para continuar."
           },
           {
             "@tag": "TITLE",
@@ -13595,6 +13615,10 @@
             "#text": "Lo sentimos, no se permiten spammers en el foro."
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Revise su correo electrónico"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Confirmar clave"
           },
@@ -13613,6 +13637,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Direccion de correo (Email)"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "¿Ya tiene una cuenta?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13685,6 +13713,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Confirmacion de clave requerida."
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Cree su cuenta para participar en el foro."
           },
           {
             "@tag": "TIMEZONE",

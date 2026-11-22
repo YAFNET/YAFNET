@@ -184,6 +184,10 @@
             "#text": "Potvrďte nové heslo"
           },
           {
+            "@tag": "INFO",
+            "#text": "Zadejte e-mailovou adresu svého účtu a zvolte nové heslo."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Zadejte nové heslo"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Zadejte ověřovací kód"
           },
           {
+            "@tag": "INFO",
+            "#text": "Zadejte ověřovací klíč z e-mailu, který jsme vám poslali, nebo jednoduše otevřete odkaz v tomto e-mailu."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Ověření e-mailové adresy"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Automatické přihlášení:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Zpět na přihlášení"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mailová adresa"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Byl vám znovu odeslán ověřovací e-mail."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Ještě nemáte účet?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Heslo:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Místo toho se zaregistrujte jako nový uživatel"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Vítejte zpět! Pro pokračování se přihlaste."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Promiňte, spameři nemají povolen vstup do fóra!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Zkontrolujte svůj e-mail"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Potvrďte heslo"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "E-mailová adresa"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Už máte účet?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Napište heslo ještě jednou"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Vytvořte si účet a zapojte se do fóra."
           },
           {
             "@tag": "TIMEZONE",

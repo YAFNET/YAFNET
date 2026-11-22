@@ -184,6 +184,10 @@
             "#text": "Bevestig nieuw wachtwoord"
           },
           {
+            "@tag": "INFO",
+            "#text": "Voer het e-mailadres van je account in en kies een nieuw wachtwoord."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Voer een nieuw wachtwoord in"
           },
@@ -7708,6 +7712,10 @@
             "#text": "Voer validatiesleutel in"
           },
           {
+            "@tag": "INFO",
+            "#text": "Voer de validatiesleutel in uit de e-mail die we je hebben gestuurd, of open gewoon de link in die e-mail."
+          },
+          {
             "@tag": "TITLE",
             "#text": "E-mail adres valideren"
           },
@@ -11440,6 +11448,10 @@
             "#text": "Automatisch inloggen"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Terug naar inloggen"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mail adres"
           },
@@ -11460,6 +11472,10 @@
             "#text": "Verificatiemail is opnieuw naar u verzonden."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Heb je nog geen account?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Wachtwoord:"
           },
@@ -11474,6 +11490,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "In plaats daarvan registreren als nieuwe gebruiker"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Welkom terug! Log in om verder te gaan."
           },
           {
             "@tag": "TITLE",
@@ -13595,6 +13615,10 @@
             "#text": "Sorry Spammers zijn niet toegestaan ​​op het Forum!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Controleer je e-mail"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Bevestig wachtwoord"
           },
@@ -13613,6 +13637,10 @@
           {
             "@tag": "EMAIL",
             "#text": "E-mail Adres"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Heb je al een account?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13685,6 +13713,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Wachtwoordbevestiging is verplicht."
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Maak je account aan om mee te doen op het forum."
           },
           {
             "@tag": "TIMEZONE",

@@ -184,6 +184,10 @@
             "#text": "Bekrefte nytt passord"
           },
           {
+            "@tag": "INFO",
+            "#text": "Skriv inn e-postadressen til kontoen din og velg et nytt passord."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Skriv inn nytt passord"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Tast inn valideringskode"
           },
           {
+            "@tag": "INFO",
+            "#text": "Skriv inn valideringsnøkkelen fra e-posten vi sendte deg, eller åpne lenken i e-posten."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Valider e-postadresse"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Husk innlogging:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Tilbake til innlogging"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-postadresse"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Bekreftelsespost ble sendt til deg igjen."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Har du ikke en konto ennå?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Passord:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registrer deg i stedet som ny bruker"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Velkommen tilbake! Logg inn for å fortsette."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Beklager spammere er ikke tillatt i forumet!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Sjekk e-posten din"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "bekreft passord"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "E-postadresse"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Har du allerede en konto?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Gjenta passord"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Opprett kontoen din for å delta i forumet."
           },
           {
             "@tag": "TIMEZONE",

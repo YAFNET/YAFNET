@@ -1,28 +1,39 @@
 ﻿@page
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 @model AuthorizeModel
 
-<div class="row mb-3">
-    <div class="col">
-        <div class="card mx-auto rounded-4 shadow" style="max-width:450px">
-            <div class="card-body p-4 m-4">
-                <section>
-                    <h1 class="fw-bold mb-4 fs-2">@Html.IconHeader("key", "LOGIN", "TWO_FA_VALIDATION")</h1>
-                    <form method="post" class="needs-validation" novalidate>
-                        <alert type="info" icon="info" localized-page="LOGIN" localized-tag="TWO_FA_INFO"></alert>
-                        <div class="mb-3">
-                            <label asp-for="ValidationCode" class="form-label" localized-page="EDIT_SETTINGS" localized-tag="SETUP_CODE"></label>
-                            <input type="text" class="form-control" asp-for="ValidationCode" placeholder="@Html.LocalizedText("TWO_FA_PLACEHOLDER")" required>
-                        </div>
-                        <div class="mb-3 d-grid gap-2">
-                            <button type="submit" button-style="Primary"
-                                    text-localized-tag="VALIDATE"
-                                    text-localized-page="APPROVE"
-                                    Icon="check-circle">
-                            </button>
-                        </div>
-                    </form>
-                </section>
+<div class="account-page">
+    <div class="card account-card">
+        <div class="card-body">
+            <div class="account-head">
+                <span class="account-icon">@Html.Icon("shield-alt")</span>
+                <h1 class="account-title">@Html.LocalizedText("LOGIN", "TWO_FA_VALIDATION")</h1>
+                <p class="account-subtitle">@Html.LocalizedText("LOGIN", "TWO_FA_INFO")</p>
+            </div>
+            <form method="post" class="needs-validation" novalidate>
+                <div class="mb-4">
+                    <label asp-for="ValidationCode" class="form-label" localized-page="EDIT_SETTINGS" localized-tag="SETUP_CODE"></label>
+                    <input type="text" class="form-control account-code" asp-for="ValidationCode"
+                           placeholder="### ###"
+                           inputmode="numeric"
+                           autocomplete="one-time-code"
+                           autofocus
+                           required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" button-style="Primary"
+                            text-localized-tag="VALIDATE"
+                            text-localized-page="APPROVE"
+                            icon="check-circle">
+                    </button>
+                </div>
+            </form>
+            <div class="account-footer">
+                <a asp-page="@ForumPages.Account_Login.GetPageName()" id="BackToLogin">
+                    @Html.Icon("arrow-left")@Html.LocalizedText("LOGIN", "BACK_TO_LOGIN")
+                </a>
             </div>
         </div>
     </div>

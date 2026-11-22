@@ -184,6 +184,10 @@
             "#text": "Conferma la nuova password"
           },
           {
+            "@tag": "INFO",
+            "#text": "Inserisci l’indirizzo e-mail del tuo account e scegli una nuova password."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Inserire la nuova password"
           },
@@ -7708,6 +7712,10 @@
             "#text": "Digita la chiave di verifica (\"validation key\") "
           },
           {
+            "@tag": "INFO",
+            "#text": "Inserisci la chiave di convalida dell’e-mail che ti abbiamo inviato, oppure apri semplicemente il link in quell’e-mail."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Verifica l'indirizzo e-mail"
           },
@@ -11440,6 +11448,10 @@
             "#text": "Ricordami"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Torna all’accesso"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Indirizzo e-mail"
           },
@@ -11460,6 +11472,10 @@
             "#text": "La posta di verifica è stata nuovamente inviata all'utente."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Non hai ancora un account?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Password"
           },
@@ -11474,6 +11490,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Crea nuovo account"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Bentornato! Accedi per continuare."
           },
           {
             "@tag": "TITLE",
@@ -13595,6 +13615,10 @@
             "#text": "Spiacenti, ma gli spammer non sono ammessi su questo forum!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Controlla la tua e-mail"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Conferma password"
           },
@@ -13613,6 +13637,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Indirizzo e-mail"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Hai già un account?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13685,6 +13713,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "La password di conferma e' obbligatoria."
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Crea il tuo account per partecipare al forum."
           },
           {
             "@tag": "TIMEZONE",

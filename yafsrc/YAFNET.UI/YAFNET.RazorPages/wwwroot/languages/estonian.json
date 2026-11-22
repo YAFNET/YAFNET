@@ -184,6 +184,10 @@
             "#text": "Kinnita Uus salasõna"
           },
           {
+            "@tag": "INFO",
+            "#text": "Sisesta oma konto e-posti aadress ja vali uus parool."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Sisestage uus parool"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Sisestage kontrollvõti"
           },
           {
+            "@tag": "INFO",
+            "#text": "Sisesta kinnitusvõti e-kirjast, mille sulle saatsime, või ava lihtsalt selles kirjas olev link."
+          },
+          {
             "@tag": "TITLE",
             "#text": "E-posti kinnitus"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Jäta mind meelde"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Tagasi sisselogimisse"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-posti aadress"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Teile saadeti uuesti kinnituskiri."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Sul pole veel kontot?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Parool:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registreeruge selle asemel uueks kasutajaks"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Tere tulemast tagasi! Jätkamiseks logi sisse."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Kahjuks ei ole rämpsposti saatjad foorumisse lubatud!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Kontrolli oma e-posti"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Korda parooli"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "E-posti aadress"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Sul on juba konto?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Parooli tuleb korrata."
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Loo konto, et foorumis osaleda."
           },
           {
             "@tag": "TIMEZONE",

@@ -184,6 +184,10 @@
             "#text": "Potwierdź nowe hasło"
           },
           {
+            "@tag": "INFO",
+            "#text": "Wpisz adres e-mail swojego konta i wybierz nowe hasło."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Wprowadź nowe hasło"
           },
@@ -7708,6 +7712,10 @@
             "#text": "Wpisz klucz weryfikacyjny"
           },
           {
+            "@tag": "INFO",
+            "#text": "Wpisz klucz weryfikacyjny z wiadomości, którą Ci wysłaliśmy, lub po prostu otwórz link w tej wiadomości."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Weryfikuj adres Email"
           },
@@ -11444,6 +11452,10 @@
             "#text": "Zapamiętaj mnie"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Powrót do logowania"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Adres e-mail"
           },
@@ -11464,6 +11476,10 @@
             "#text": "Ponownie wysłano do Ciebie pocztę weryfikacyjną."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Nie masz jeszcze konta?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Hasło"
           },
@@ -11478,6 +11494,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Zarejestruj się jako nowy użytkownik"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Witaj ponownie! Zaloguj się, aby kontynuować."
           },
           {
             "@tag": "TITLE",
@@ -13599,6 +13619,10 @@
             "#text": "Spamerzy nie są mile widziani na Forum!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Sprawdź swoją pocztę"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Potwierdź hasło"
           },
@@ -13617,6 +13641,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Adres Email"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Masz już konto?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13689,6 +13717,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Powtórz Hasło"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Utwórz konto, aby brać udział w forum."
           },
           {
             "@tag": "TIMEZONE",

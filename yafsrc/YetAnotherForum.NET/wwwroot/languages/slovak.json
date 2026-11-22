@@ -184,6 +184,10 @@
             "#text": "Potvrdenie nového hesla"
           },
           {
+            "@tag": "INFO",
+            "#text": "Zadajte e-mailovú adresu svojho účtu a zvoľte nové heslo."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Zadajte nové heslo"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Zadajte overovací kód"
           },
           {
+            "@tag": "INFO",
+            "#text": "Zadajte overovací kľúč z e-mailu, ktorý sme vám poslali, alebo jednoducho otvorte odkaz v tomto e-maile."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Overenie e-mailovej adresy"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Automatické prihlásenie:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Späť na prihlásenie"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mailová adresa"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Overovacia pošta vám bola opäť odoslaná."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Ešte nemáte účet?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Heslo:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registrácia Namiesto toho ako nový používateľ"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Vitajte späť! Ak chcete pokračovať, prihláste sa."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Ospravedlňujeme sa Spameri nie sú povolené na fóre!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Skontrolujte svoj e-mail"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Potvrdenie hesla"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "E-mailová adresa"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Už máte účet?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Napíšte heslo ešte raz"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Vytvorte si účet a zapojte sa do fóra."
           },
           {
             "@tag": "TIMEZONE",

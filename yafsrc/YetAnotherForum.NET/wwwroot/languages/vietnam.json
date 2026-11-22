@@ -184,6 +184,10 @@
             "#text": "Xác nhận mật khẩu mới"
           },
           {
+            "@tag": "INFO",
+            "#text": "Nhập địa chỉ email của tài khoản và chọn mật khẩu mới."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Nhập mật khẩu mới"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Nhập mã xác nhận"
           },
           {
+            "@tag": "INFO",
+            "#text": "Nhập khóa xác thực trong email chúng tôi đã gửi cho bạn, hoặc chỉ cần mở liên kết trong email đó."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Xác nhận email"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Ghi nhớ"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Quay lại đăng nhập"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Email"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Thư xác minh đã được gửi lại cho bạn."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Bạn chưa có tài khoản?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Mật khẩu:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Đăng ký thay thế với tư cách người dùng mới"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Chào mừng bạn trở lại! Vui lòng đăng nhập để tiếp tục."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Xin lỗi Người gửi thư rác không được phép trong Diễn đàn!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Kiểm tra email của bạn"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Xác nhận lại mật khẩu"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Email"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Bạn đã có tài khoản?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Bạn chưa nhập Mật khẩu xác nhận."
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Tạo tài khoản để tham gia diễn đàn."
           },
           {
             "@tag": "TIMEZONE",

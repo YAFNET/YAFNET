@@ -1151,7 +1151,7 @@ public static class JavaScriptBlocks
                            // the form is not sent with different passwords (the classes alone did not stop it)
                            passwordConfirm.setCustomValidity("{{JsEncode(notMatchText)}}");
                
-                           password.classList.add("is-invalid");
+                           // only the confirmation is marked (the password showed "password is required")
                            passwordConfirm.classList.add("is-invalid");
                        }
                

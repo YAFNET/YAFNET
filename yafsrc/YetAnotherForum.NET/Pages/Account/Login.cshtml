@@ -4,108 +4,107 @@
 @using YAF.Web.HtmlHelpers
 @model LoginModel
 
-<div class="row mb-3">
-    <div class="col">
-        <div class="card mx-auto rounded-4 shadow" style="max-width:450px">
-            <div class="card-body p-4 m-4">
-	            <section>
-					<h1 class="fw-bold mb-4 fs-2">@Html.IconHeader("sign-in-alt", "LOGIN", "TITLE")</h1>
-		            <form method="post" class="needs-validation" novalidate>
-			            @* Enter in a field logs in (the first submit button of the form, it was "send the verification mail again") *@
-			            <button type="submit" asp-page="@ForumPages.Account_Login.GetPageName()" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
-
-			            @if (Model.ShowNotApproved)
-			            {
-				            <div class="mb-3">
-					            <alert type="warning">
-						            @Html.LocalizedText("LOGIN", "ACCOUNT_NOT_APPROVED")
-						            <button button
-						                    button-style="Secondary"
-						                    asp-page-handler="ResendConfirm"
-						                    formnovalidate
-						                    text-localized-tag="ADMIN_RESEND_EMAIL"></button>
-					            </alert>
-				            </div>
-			            }
-
-			            <div class="mb-3">
-				            <label asp-for="Input.UserName" localized-page="LOGIN" localized-tag="USERNAME" class="form-label">
-				            </label>
-				            <div class="input-group">
-					            <span class="input-group-text">
-						            @Html.Icon("user", "text-secondary")
-					            </span>
-					            <input asp-for="Input.UserName" class="form-control" autocomplete="username" required/>
-					            <div class="invalid-feedback">
-						            @Html.LocalizedText("LOGIN", "NEED_USERNAME")
-					            </div>
-				            </div>
-			            </div>
-			            <div class="mb-3">
-				            <label asp-for="Input.Password" localized-page="LOGIN" localized-tag="PASSWORD" class="form-label">
-				            </label>
-							<div class="input-group">
-					            <span class="input-group-text">
-						            @Html.Icon("key", "text-secondary")
-					            </span>
-					            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" required/>
-					            <div class="invalid-feedback">
-						            @Html.LocalizedText("PAGE", "NEED_PASSWORD")
-					            </div>
-					            <span class="input-group-text link-underline link-underline-opacity-0" id="PasswordToggle">
-						            <i class="fa fa-eye-slash" aria-hidden="true"></i>
-					            </span>
-				            </div>
-			            </div>
-			            <div class="row">
-				            <div class="mb-3 col-md-6">
-					            <div class="form-check">
-						            <input asp-for="Input.RememberMe" class="form-check-input"/>
-						            <label asp-for="Input.RememberMe" class="form-check-label"
-						                   localized-page="LOGIN" localized-tag="AUTO">
-						            </label>
-					            </div>
-				            </div>
-				            <div class="mb-3 col-md-6 text-end">
-					            <a asp-page="@ForumPages.Account_ForgotPassword.GetPageName()"
-					               button-style="Secondary"
-					               button-size="Small"
-					               icon="key"
-					               text-localized-page="LOGIN"
-					               text-localized-tag="LOSTPASSWORD">
-					            </a>
-				            </div>
-				            <button type="submit" class="btn-login" id="Login" button-style="Primary"
-				                    asp-page="@ForumPages.Account_Login.GetPageName()"
-				                    icon="sign-in-alt"
-				                    text-localized-page="LOGIN"
-				                    text-localized-tag="FORUM_LOGIN">
-				            </button>
-				            @* with disabled registrations the button led to an access denied page *@
-				            @if (!Model.PageBoardContext.BoardSettings.DisableRegistrations)
-				            {
-					            <hr class="my-4" />
-
-					            <button type="submit"
-					                    asp-page-handler="Register"
-					                    formnovalidate
-					                    button-style="OutlineSecondary"
-					                    button-size="Small"
-					                    icon="user-plus"
-					                    text-localized-page="LOGIN"
-					                    text-localized-tag="REGISTER_INSTEAD">
-					            </button>
-				            }
-			            </div>
-		            </form>
-	            </section>
+<div class="account-page">
+    <div class="card account-card">
+        <div class="card-body">
+            <div class="account-head">
+                <span class="account-icon">@Html.Icon("sign-in-alt")</span>
+                <h1 class="account-title">@Html.LocalizedText("LOGIN", "TITLE")</h1>
+                <p class="account-subtitle">@Html.LocalizedText("LOGIN", "SUBTITLE")</p>
             </div>
+            <form method="post" class="needs-validation" novalidate>
+                @* Enter in a field logs in (the first submit button of the form, it was "send the verification mail again") *@
+                <button type="submit" asp-page="@ForumPages.Account_Login.GetPageName()" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
+
+                @if (Model.ShowNotApproved)
+                {
+                    <div class="alert alert-warning d-flex flex-column gap-2" role="alert" id="NotApproved">
+                        <div>
+                            @Html.Icon("envelope")@Html.LocalizedText("LOGIN", "ACCOUNT_NOT_APPROVED")
+                        </div>
+                        <div>
+                            <button type="submit"
+                                    button-style="None"
+                                    class="btn btn-sm btn-warning"
+                                    asp-page-handler="ResendConfirm"
+                                    formnovalidate
+                                    icon="paper-plane"
+                                    text-localized-tag="ADMIN_RESEND_EMAIL"></button>
+                        </div>
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <label asp-for="Input.UserName" localized-page="LOGIN" localized-tag="USERNAME" class="form-label">
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            @Html.Icon("user", "text-secondary")
+                        </span>
+                        <input asp-for="Input.UserName" class="form-control" autocomplete="username" autofocus required/>
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("LOGIN", "NEED_USERNAME")
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-baseline gap-2">
+                        <label asp-for="Input.Password" localized-page="LOGIN" localized-tag="PASSWORD" class="form-label">
+                        </label>
+                        <a asp-page="@ForumPages.Account_ForgotPassword.GetPageName()" class="small" id="LostPassword">
+                            @Html.LocalizedText("LOGIN", "LOSTPASSWORD")
+                        </a>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            @Html.Icon("key", "text-secondary")
+                        </span>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" required/>
+                        <span class="input-group-text link-underline link-underline-opacity-0" id="PasswordToggle">
+                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                        </span>
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("PAGE", "NEED_PASSWORD")
+                        </div>
+                    </div>
+                </div>
+                <div class="form-check form-switch mb-4">
+                    <input asp-for="Input.RememberMe" class="form-check-input" role="switch"/>
+                    <label asp-for="Input.RememberMe" class="form-check-label"
+                           localized-page="LOGIN" localized-tag="AUTO">
+                    </label>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn-login" id="Login" button-style="Primary"
+                            asp-page="@ForumPages.Account_Login.GetPageName()"
+                            icon="sign-in-alt"
+                            text-localized-page="LOGIN"
+                            text-localized-tag="FORUM_LOGIN">
+                    </button>
+                </div>
+
+                @if (!Model.PageBoardContext.BoardSettings.DisableRegistrations)
+                {
+                    <div class="account-footer">
+                        @Html.LocalizedText("LOGIN", "NO_ACCOUNT")
+                        <button type="submit"
+                                asp-page-handler="Register"
+                                formnovalidate
+                                button-style="None"
+                                class="btn btn-link p-0 align-baseline"
+                                id="RegisterInstead"
+                                text-localized-page="REGISTER"
+                                text-localized-tag="REGISTER">
+                        </button>
+                    </div>
+                }
+            </form>
         </div>
     </div>
 </div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
-	
-	<script>togglePassword(); </script>
+
+    <script>togglePassword(); </script>
 }

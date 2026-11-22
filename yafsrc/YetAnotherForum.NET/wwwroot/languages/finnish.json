@@ -184,6 +184,10 @@
             "#text": "Vahvista uusi salasana"
           },
           {
+            "@tag": "INFO",
+            "#text": "Syötä tilisi sähköpostiosoite ja valitse uusi salasana."
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Anna uusi salasana"
           },
@@ -7716,6 +7720,10 @@
             "#text": "Syötä varmistusavain"
           },
           {
+            "@tag": "INFO",
+            "#text": "Syötä vahvistusavain lähettämästämme sähköpostista tai avaa sähköpostissa oleva linkki."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Varmista sähköpostiosoite"
           },
@@ -11456,6 +11464,10 @@
             "#text": "Kirjaudu automaattisesti:"
           },
           {
+            "@tag": "BACK_TO_LOGIN",
+            "#text": "Takaisin kirjautumiseen"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Sähköpostiosoite"
           },
@@ -11476,6 +11488,10 @@
             "#text": "Verification Mail lähetettiin sinulle uudelleen."
           },
           {
+            "@tag": "NO_ACCOUNT",
+            "#text": "Eikö sinulla ole vielä tiliä?"
+          },
+          {
             "@tag": "PASSWORD",
             "#text": "Salasana:"
           },
@@ -11490,6 +11506,10 @@
           {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Rekisteröidy sen sijaan uutena käyttäjänä"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Tervetuloa takaisin! Kirjaudu sisään jatkaaksesi."
           },
           {
             "@tag": "TITLE",
@@ -13611,6 +13631,10 @@
             "#text": "Valitettavasti roskapostittajat eivät ole sallittuja foorumilla!"
           },
           {
+            "@tag": "CHECK_MAIL",
+            "#text": "Tarkista sähköpostisi"
+          },
+          {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Vahvista salasana"
           },
@@ -13629,6 +13653,10 @@
           {
             "@tag": "EMAIL",
             "#text": "Sähköposti"
+          },
+          {
+            "@tag": "HAVE_ACCOUNT",
+            "#text": "Onko sinulla jo tili?"
           },
           {
             "@tag": "HOMEPAGE",
@@ -13701,6 +13729,10 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Varmista salasana"
+          },
+          {
+            "@tag": "SUBTITLE",
+            "#text": "Luo tili osallistuaksesi foorumille."
           },
           {
             "@tag": "TIMEZONE",
