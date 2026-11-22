@@ -214,4 +214,30 @@ public class SearchTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     "Enter in the posted by field did not search");
             });
     }
+
+    /// <summary>
+    /// The help search marks the found words in the titles (the marks were shown as text).
+    /// </summary>
+    [Test]
+    public async Task HelpSearchMarksTheTitleTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Help");
+
+                await page.Locator("#Input_Search").FillAsync("Avatars");
+                await page.SubmitAndWaitAsync(page.Locator("form:has(#Input_Search) button[type=submit]"));
+
+                var header = page.Locator(".card-header", new PageLocatorOptions { HasText = "Avatars" }).First;
+
+                Assert.Multiple(
+                    async () =>
+                        {
+                            Assert.That(await header.InnerTextAsync(), Does.Not.Contain("<mark>"), "The mark is shown as text");
+                            Assert.That(await header.Locator("mark").CountAsync(), Is.EqualTo(1), "The word is not marked");
+                        });
+            });
+    }
 }

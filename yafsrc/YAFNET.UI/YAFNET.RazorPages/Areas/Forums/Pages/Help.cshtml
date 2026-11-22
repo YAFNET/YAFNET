@@ -26,7 +26,8 @@
                         <div class="card my-3">
                             <div class="card-header">
                                 @Html.Icon("question-circle", "text-secondary")
-                                @content.Title
+                                @* the title is encoded and the found words are marked *@
+                                @Html.Raw(content.Title)
                             </div>
                             <div class="card-body">
                                 @Html.Raw(content.Content)

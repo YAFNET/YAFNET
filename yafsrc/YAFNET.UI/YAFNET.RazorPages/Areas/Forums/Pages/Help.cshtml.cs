@@ -133,7 +133,8 @@ public class HelpModel : ForumPage
             return Task.FromResult<IActionResult>(this.PageBoardContext.Notify(this.GetText("SEARCHLONGER"), MessageTypes.danger));
         }
 
-        var highlightWords = new List<string> { this.Input.Search };
+        // the titles are text: they are encoded before the words are marked (the view showed the marks as text)
+        var highlightWords = new List<string> { this.HtmlEncode(this.Input.Search) };
 
         var searchList = this.helpContents.FindAll(
             check => check.Content.Contains(this.Input.Search, StringComparison.CurrentCultureIgnoreCase) ||
@@ -148,7 +149,7 @@ public class HelpModel : ForumPage
                     "<mark>",
                     "</mark>");
                 item.Title = this.Get<IFormatMessage>().SurroundWordList(
-                    item.Title,
+                    this.HtmlEncode(item.Title),
                     highlightWords,
                     "<mark>",
                     "</mark>");
