@@ -108,9 +108,8 @@ public class TopicsModel : ForumPage
     /// </summary>
     public async Task<IActionResult> OnGetAsync()
     {
-        this.ShowTopicListSelected = this.ShowTopicListSelected == -1
-                                         ? this.PageBoardContext.BoardSettings.ShowTopicsDefault
-                                         : this.ShowTopicListSelected;
+        // the filter is only sent by the post handlers, a page opened with get shows the default of the board
+        this.ShowTopicListSelected = this.PageBoardContext.BoardSettings.ShowTopicsDefault;
 
         if (this.PageBoardContext.IsGuest && !this.PageBoardContext.ForumReadAccess)
         {

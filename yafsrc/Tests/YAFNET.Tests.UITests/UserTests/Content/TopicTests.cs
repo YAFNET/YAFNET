@@ -1205,4 +1205,61 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     "The page size was reset by the date filter");
             });
     }
+
+    /// <summary>
+    /// The topic list of a forum uses the date filter that is set as default in the board settings
+    /// (all topics were shown).
+    /// </summary>
+    [Test]
+    public async Task TopicListUsesTheDefaultDateFilterTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                try
+                {
+                    await SetShowTopicsDefaultAsync(page, this.TestSettings, "3");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/test");
+
+                    Assert.That(
+                        await page.Locator("#ShowTopicListSelected").InputValueAsync(),
+                        Is.EqualTo("3"),
+                        "The default date filter of the board is not used");
+                }
+                finally
+                {
+                    await SetShowTopicsDefaultAsync(page, this.TestSettings, "0");
+                }
+            });
+    }
+
+    /// <summary>
+    /// Sets the default date filter of the topic lists in the board settings.
+    /// </summary>
+    private async static Task SetShowTopicsDefaultAsync(IPage page, TestConfig testSettings, string value)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/Settings");
+
+        await page.Locator("#Input_ShowTopic").EvaluateAsync(
+            """
+            (select, value) => {
+                if (![...select.options].some(o => o.value === value)) select.add(new Option(value, value));
+                select.value = value;
+            }
+            """,
+            value);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+        await page.WaitForLoadStateAsync();
+    }
 }
