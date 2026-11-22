@@ -228,9 +228,8 @@ public class ActiveUsersModel : ForumPage
             return;
         }
 
-        // remove hidden users...
-        activeUsers.RemoveAll(
-            row => !row.IsActiveExcluded && this.PageBoardContext.PageUserID != row.UserID);
+        // remove the users who are not hidden (the admin who views the list too)
+        activeUsers.RemoveAll(row => !row.IsActiveExcluded);
     }
 
     /// <summary>

@@ -161,6 +161,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New topic, reply, edit: Enter in a field (subject, reason of the edit, ...) showed the preview instead of saving
 * [FIXED] New topic: a missing subject showed "You must enter an email subject.", the preview had the title "Message:"
 * [FIXED] Active users: an empty page (e.g. the guests while only members were on the page, or a page after the last one) failed with an error
+* [FIXED] Active users: the list of the hidden users always listed the admin who viewed it
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

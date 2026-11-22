@@ -185,4 +185,29 @@ public class ActiveUsersTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 Assert.That(await page.Locator(".active-user-row").CountAsync(), Is.Zero, "The page after the last page lists users");
             });
     }
+
+    /// <summary>
+    /// The list of the hidden active users doesn't list the admin who views it when the admin is not hidden
+    /// (the admin was always listed).
+    /// </summary>
+    [Test]
+    public async Task HiddenActiveUsersListOnlyHiddenUsersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}active-users/3");
+
+                Assert.That(
+                    await page.Locator(".active-user-row", new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).CountAsync(),
+                    Is.Zero,
+                    "The admin who is not hidden is listed as hidden user");
+            });
+    }
 }
