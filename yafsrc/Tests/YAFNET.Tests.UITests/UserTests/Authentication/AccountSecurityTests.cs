@@ -524,4 +524,48 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                         "The password was changed");
                 });
     }
+
+    /// <summary>
+    /// Enter in the password field logs in, also when the "account not approved" message is shown
+    /// (it sent the verification mail again).
+    /// </summary>
+    [Test]
+    public async Task EnterAfterNotApprovedMessageLogsInTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = $"TempUser{Random.Shared.Next()}";
+
+                    Assert.That(
+                        await page.SubmitRegistrationAsync(
+                            this.TestSettings,
+                            userName,
+                            $"{userName.ToLower()}@test.com",
+                            this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Registrations are disabled");
+
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.False,
+                        "Login of a not approved account");
+
+                    Assert.That(
+                        await page.ContentAsync(),
+                        Does.Contain("Your account is not approved yet"),
+                        "The account state is not shown");
+
+                    await page.Locator("#Input_UserName").FillAsync(userName);
+                    await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+
+                    await page.RunAndWaitForNavigationAsync(() => page.Locator("#Input_Password").PressAsync("Enter"));
+
+                    Assert.That(
+                        await page.ContentAsync(),
+                        Does.Not.Contain("Verification Mail was send again"),
+                        "Enter sent the verification mail again instead of logging in");
+                });
+    }
 }

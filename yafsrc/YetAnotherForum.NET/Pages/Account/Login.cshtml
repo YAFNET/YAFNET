@@ -11,6 +11,8 @@
 	            <section>
 					<h1 class="fw-bold mb-4 fs-2">@Html.IconHeader("sign-in-alt", "LOGIN", "TITLE")</h1>
 		            <form method="post" class="needs-validation" novalidate>
+			            @* Enter in a field logs in (the first submit button of the form, it was "send the verification mail again") *@
+			            <button type="submit" asp-page="@ForumPages.Account_Login.GetPageName()" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
 
 			            @if (Model.ShowNotApproved)
 			            {

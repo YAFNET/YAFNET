@@ -135,6 +135,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit Avatar: an upload without a file or with a file that is not an image showed the page again without a message
 * [CHANGES] Profile pages redesigned (Edit Profile, Edit Settings, Signature, Avatar, Attachments, Notification Preferences, Block Options, Change Password, Delete Account): page headers, sections as cards, a sticky save bar, the pages stay open after saving with a message, attachments show the posts they are used in
 * [FIXED] Register, Reset Password and Change Password: a confirm password that differed was accepted and the password typed first was saved (the browser only marked the field, the server did not compare them)
+* [FIXED] Login: Enter in a field sent the verification mail again instead of logging in when the "account not approved" message was shown
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
