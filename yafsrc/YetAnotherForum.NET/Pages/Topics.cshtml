@@ -2,6 +2,7 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
+@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
@@ -229,14 +230,18 @@
                 </form>
             }
 			
-            <button button-style="Secondary"
-                    button-size="Small"
-                    bs-toggle="popover"
-                    class="forum-mods-popover"
-                    bs-content="@await Html.GetModeratorsAsync(Model.PageBoardContext.PageForumID)"
-                    text-localized-page="DEFAULT"
-                    text-localized-tag="MODERATORS"
-                    icon="user-secret"></button>
+            @* only a forum with moderators (the list was empty) *@
+            @if ((await Model.Get<DataBroker>().GetModeratorsAsync()).Exists(x => x.ForumID == Model.PageBoardContext.PageForumID))
+            {
+                <button button-style="Secondary"
+                        button-size="Small"
+                        bs-toggle="popover"
+                        class="forum-mods-popover"
+                        bs-content="@await Html.GetModeratorsAsync(Model.PageBoardContext.PageForumID)"
+                        text-localized-page="DEFAULT"
+                        text-localized-tag="MODERATORS"
+                        icon="user-secret"></button>
+            }
 
             @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.TopicsFeedAccess))
             {

@@ -300,6 +300,59 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// The button of the moderators is shown only when the forum has moderators: an empty list was shown.
+    /// </summary>
+    [Test]
+    public async Task ModeratorsButtonOnlyWithModeratorsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // the test forum is moderated by the admins
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/test");
+
+                Assert.That(await page.Locator(".forum-mods-popover").CountAsync(), Is.EqualTo(1), "The button of the moderators is missing");
+
+                // a forum without moderators (all roles read only)
+                var name = $"No moderators {Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+                await page.Locator("#Input_Name").FillAsync(name);
+                await page.Locator("#Input_Description").FillAsync("A forum without moderators");
+                await page.EvaluateAsync(
+                    """
+                    () => document.querySelectorAll("select[id^='AccessList_'][id$='__AccessMaskID']").forEach(select => {
+                        const option = [...select.options].find(o => o.text.trim() === 'Read Only Access');
+                        if (option) { select.value = option.value; }
+                    })
+                    """);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                var forumId = await this.ForumIdAsync(page, name);
+
+                try
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{forumId}/test");
+
+                    Assert.That(await page.ContentAsync(), Does.Contain(name), "The forum is not shown");
+                    Assert.That(await page.Locator(".forum-mods-popover").CountAsync(), Is.Zero, "The button of the moderators is shown without moderators");
+                }
+                finally
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/DeleteForum/{forumId}");
+                    await page.Locator("#ConfirmName").FillAsync(name);
+                    await page.SubmitAndWaitAsync(page.Locator("[data-delete-submit]"));
+                }
+            });
+    }
+
+    /// <summary>
     /// A forum is deleted with its topics only when its name is typed in (also checked by the server),
     /// or its topics are moved to another forum; the sub forums are kept without parent.
     /// </summary>
