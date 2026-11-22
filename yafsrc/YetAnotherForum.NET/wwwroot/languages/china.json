@@ -11629,6 +11629,18 @@
             "#text": "删除此话题？"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "从此论坛的用户中移除 {0}？"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "主题将与其所有帖子一起删除。"
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "删除所选主题？"
+          },
+          {
             "@tag": "DELETED",
             "#text": "话题已删除."
           },
@@ -11657,6 +11669,10 @@
             "#text": "您要移动主题的论坛必须与当前论坛不同。"
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "移动所选主题"
+          },
+          {
             "@tag": "MOVED",
             "#text": "已移动的主题"
           },
@@ -11681,6 +11697,14 @@
             "#text": "回复"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "选择此页上的全部"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "已选择 {0} 个"
+          },
+          {
             "@tag": "TITLE",
             "#text": "版主审核"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "话题"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "已锁定 {0} 个主题。"
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "已解锁 {0} 个主题。"
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "分类"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有需要审核的内容"
+          },
+          {
             "@tag": "FORUM",
             "#text": "论坛"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "管理主题"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "删除此帖子吗?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "删除主题 {0} 中的这个帖子？"
           },
           {
             "@tag": "COPYOVER",

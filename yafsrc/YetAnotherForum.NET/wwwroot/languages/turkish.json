@@ -11629,6 +11629,18 @@
             "#text": "Bu Konuyu Sil?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "{0} bu forumun kullanıcılarından çıkarılsın mı?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Konular tüm iletileriyle birlikte silinir."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Seçili konular silinsin mi?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Konu Silindi."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Konu(lar)ı taşımak istediğiniz forum mevcut forumdan farklı olmalıdır."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Seçili konuları taşı"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Taşınan Konu(lar)"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Cevaplar"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Bu sayfadakilerin tümünü seç"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "{0} seçildi"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Yönet"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Konular"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "{0} konu kilitlendi."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "{0} konunun kilidi açıldı."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Kategori"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Denetlenecek bir şey yok"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Forum"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Konuları denetle"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Bu mesaj silinsin mi?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "{0} konusunun bu iletisi silinsin mi?"
           },
           {
             "@tag": "COPYOVER",

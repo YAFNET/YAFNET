@@ -1038,16 +1038,81 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/Forums/{this.TestSettings.TestForumId}");
 
-                var topic = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = subject });
+                var topic = page.Locator(".moderate-topic-row", new PageLocatorOptions { HasText = subject });
 
                 await topic.Locator("input[type=checkbox]").CheckAsync();
 
-                // confirmed in a dialog
-                await page.Locator("button[formaction*='DeleteTopics']").ClickAsync();
-                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+                // the dialog lists the selected topics
+                await page.Locator("#BulkBar [data-bs-target='#DeleteTopicsDialog']").ClickAsync();
+
+                var dialog = page.Locator("#DeleteTopicsDialog");
+
+                await Assertions.Expect(dialog).ToBeVisibleAsync();
+
+                Assert.That(await dialog.Locator("[data-bulk-names]").InnerTextAsync(), Does.Contain(subject), "The dialog doesn't list the topic");
+
+                await page.SubmitAndWaitAsync(dialog.Locator("button[formaction*='DeleteTopics']"));
 
                 Assert.That(await page.ContentAsync(), Does.Contain("Topic(s) deleted."), "The topic was not deleted");
                 Assert.That(await topic.CountAsync(), Is.Zero, "The deleted topic is listed");
+            });
+    }
+
+    /// <summary>
+    /// The selected topics of the moderation of a forum are locked and unlocked.
+    /// </summary>
+    [Test]
+    public async Task ModerateLockAndUnlockTopicsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var subject = $"Moderate lock {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, subject, "A topic to lock"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/Forums/{this.TestSettings.TestForumId}");
+
+                var topic = page.Locator(".moderate-topic-row", new PageLocatorOptions { HasText = subject });
+
+                await topic.Locator("input[type=checkbox]").CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("#BulkBar button[formaction*='/LockTopics']"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("1 topic(s) locked."), "The topic was not locked");
+                Assert.That(await topic.Locator(".fa-lock").CountAsync(), Is.EqualTo(1), "The topic is not shown as locked");
+
+                await topic.Locator("input[type=checkbox]").CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("#BulkBar button[formaction*='/UnlockTopics']"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("1 topic(s) unlocked."), "The topic was not unlocked");
+                Assert.That(await topic.Locator(".fa-lock").CountAsync(), Is.Zero, "The topic is still shown as locked");
+            });
+    }
+
+    /// <summary>
+    /// Enter in a field of the moderation of a forum shows the page again: the first button of the form was the
+    /// removal of the first user of the forum.
+    /// </summary>
+    [Test]
+    public async Task ModerateForumDefaultButtonTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/Forums/{this.TestSettings.TestForumId}");
+
+                var first = page.Locator("form.moderate-forum button[type=submit]").First;
+
+                Assert.That(await first.GetAttributeAsync("formaction"), Is.Null, "The first button of the form has an action");
             });
     }
 
@@ -1069,9 +1134,11 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 Assert.That(topics, Is.GreaterThan(0), "The test forum has no topics");
 
-                // delete without a selected topic (confirmed in a dialog)
-                await page.Locator("button[formaction*='DeleteTopics']").ClickAsync();
-                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+                // delete without a selected topic (the bar is hidden, the form is sent with the button of the dialog)
+                Assert.That(await page.Locator("#BulkBar").IsVisibleAsync(), Is.False, "The actions are shown without a selection");
+
+                await page.RunAndWaitForNextPageAsync(
+                    () => page.Locator("#DeleteTopicsDialog button[formaction*='DeleteTopics']").EvaluateAsync("b => b.form.requestSubmit(b)"));
 
                 Assert.That(
                     await page.ContentAsync(),

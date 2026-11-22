@@ -78,38 +78,6 @@ public class ModerateModel : ModerateForumPage
     }
 
     /// <summary>
-    /// The on post unapproved.
-    /// </summary>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public IActionResult OnPostUnapproved(int forumId)
-    {
-        return this.Get<ILinkBuilder>().Redirect(
-            ForumPages.Moderate_UnapprovedPosts,
-            new { f = forumId });
-    }
-
-    /// <summary>
-    /// The on post reported.
-    /// </summary>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public IActionResult OnPostReported(int forumId)
-    {
-        return this.Get<ILinkBuilder>().Redirect(
-            ForumPages.Moderate_ReportedPosts,
-            new { f = forumId });
-    }
-
-    /// <summary>
     /// Bind data for this control.
     /// </summary>
     private async Task BindDataAsync()

@@ -128,6 +128,12 @@ public class ReportPostTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 Assert.That(text, Does.Contain("before | after"), "The report text was split");
                 Assert.That(text, Does.Not.Contain("[error]"), "A part of the text was shown as a report without a date");
+
+                // the question before the delete names the topic
+                Assert.That(
+                    await report.Locator("button[formaction*='Delete']").GetAttributeAsync("data-title"),
+                    Does.Contain(topicName),
+                    "The question doesn't name the topic");
             });
     }
 

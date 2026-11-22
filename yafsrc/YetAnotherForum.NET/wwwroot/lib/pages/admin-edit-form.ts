@@ -273,3 +273,52 @@ document.addEventListener('DOMContentLoaded', () => {
 		update();
 	});
 });
+
+// A bar with data-bulk-select shows the actions of the selected boxes of its selector (e.g. the topics of the moderation
+// of a forum): it is hidden without a selection, [data-bulk-count] shows the number (data-template, {0}), the dialogs
+// list the names (data-bulk-name of the boxes) in [data-bulk-names] and [data-bulk-summary] the number, [data-bulk-clear]
+// clears the selection
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLElement>('.admin-edit-form [data-bulk-select]').forEach(bar => {
+		const selector = bar.dataset.bulkSelect ?? '';
+		const boxes = () => Array.from(document.querySelectorAll<HTMLInputElement>(selector));
+		const count = bar.querySelector<HTMLElement>('[data-bulk-count]');
+
+		const update = () => {
+			const checked = boxes().filter(box => box.checked);
+			const text = (count?.dataset.template ?? '{0}').replace('{0}', checked.length.toString());
+
+			bar.hidden = checked.length === 0;
+
+			if (count) {
+				count.textContent = text;
+			}
+
+			document.querySelectorAll<HTMLElement>('[data-bulk-summary]').forEach(summary => summary.textContent = text);
+
+			document.querySelectorAll<HTMLElement>('[data-bulk-names]').forEach(list => {
+				list.replaceChildren(...checked.map(box => {
+					const item = document.createElement('li');
+
+					item.textContent = box.dataset.bulkName ?? '';
+
+					return item;
+				}));
+			});
+		};
+
+		// the switch "select all" (data-check-all) sets the boxes without a change event of them
+		document.addEventListener('change', () => update());
+
+		bar.querySelector('[data-bulk-clear]')?.addEventListener('click', () => {
+			boxes().forEach(box => box.checked = false);
+			document.querySelectorAll<HTMLInputElement>('input[data-check-all]').forEach(master => {
+				master.checked = false;
+				master.indeterminate = false;
+			});
+			update();
+		});
+
+		update();
+	});
+});

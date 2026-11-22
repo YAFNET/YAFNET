@@ -1,11 +1,127 @@
 // Moderate Pages
-.page-Moderate_Moderate {
+
+// the index: a row per moderated forum with its unapproved and reported posts
+.moderate-index {
+    .moderate-totals .badge,
+    .moderate-forum-actions .badge {
+        font-weight: 500;
+    }
 
     .moderate-forum-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem 1rem;
         transition: background-color .15s ease;
 
         &:hover {
-            background: var(--bs-tertiary-bg);
+            background-color: var(--bs-tertiary-bg);
         }
+    }
+
+    .moderate-forum-name {
+        min-width: 0;
+    }
+
+    .moderate-forum-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem;
+    }
+}
+
+// the unapproved and the reported posts: a card per post
+.moderate-posts {
+    .moderate-post-author {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem .75rem;
+        margin-bottom: .75rem;
+    }
+
+    .moderate-post-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .moderate-post-message {
+        padding: .75rem 1rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        overflow-wrap: anywhere;
+    }
+
+    .moderate-report-count {
+        font-weight: 500;
+    }
+
+    .moderate-report-text + .moderate-report-text {
+        margin-top: .25rem;
+    }
+}
+
+// the moderation of the topics of a forum
+.moderate-forum {
+    .moderate-topic-row,
+    .moderate-user-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem .75rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .moderate-topic-select {
+        flex: 0 0 auto;
+        margin: 0;
+    }
+
+    .moderate-topic-main,
+    .moderate-user-main {
+        flex: 1 1 14rem;
+        min-width: 0;
+    }
+
+    .moderate-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem 1rem;
+        margin-top: .25rem;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+
+    .bulk-names {
+        max-height: 12rem;
+        overflow-y: auto;
+    }
+
+    // the actions of the selected topics stay visible at the bottom of the window
+    .bulk-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: .5rem;
+        margin-bottom: 1rem;
+        padding: .75rem 1rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, .06);
     }
 }

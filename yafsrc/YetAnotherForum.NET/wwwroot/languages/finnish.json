@@ -11629,6 +11629,18 @@
             "#text": "Poista aihe?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Poistetaanko {0} tämän foorumin käyttäjistä?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Aiheet poistetaan kaikkine viesteineen."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Poistetaanko valitut aiheet?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Aihe poistettu."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Foorumin, johon haluat siirtää aiheen (aiheet), on oltava eri kuin nykyinen foorumi."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Siirrä valitut aiheet"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Aihe(et) Siirretty"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Vastauksia"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Valitse kaikki tältä sivulta"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "{0} valittu"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Moderointi"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Aiheet"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "{0} aihetta lukittu."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "{0} aiheen lukitus avattu."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Kategoria"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei moderoitavaa"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Forumi"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderoi aiheita"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Poista tämä viesti?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Poistetaanko tämä viesti aiheesta {0}?"
           },
           {
             "@tag": "COPYOVER",

@@ -3,90 +3,87 @@
 @using YAF.Web.HtmlHelpers
 @model YAF.Pages.Moderate.ModerateModel
 
-<div class="row">
-    @foreach (var category in Model.Categories)
+@{
+    var unapproved = Model.Forums.Sum(f => f.MessageCount);
+    var reported = Model.Forums.Sum(f => f.ReportedCount);
+}
+
+<div class="moderate-index">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("gavel")@Html.LocalizedText("MODERATE_DEFAULT", "TITLE")
+        </h2>
+        <div class="d-flex flex-wrap gap-2 moderate-totals">
+            <span class="badge @(unapproved > 0 ? "bg-warning-subtle text-warning-emphasis border border-warning-subtle" : "bg-body-tertiary text-body-secondary border")"
+                  id="UnapprovedTotal">
+                @Html.Icon("hourglass-half")@Html.LocalizedText("MODERATE_DEFAULT", "UNAPPROVED"): @unapproved
+            </span>
+            <span class="badge @(reported > 0 ? "bg-danger-subtle text-danger-emphasis border border-danger-subtle" : "bg-body-tertiary text-body-secondary border")"
+                  id="ReportedTotal">
+                @Html.Icon("flag")@Html.LocalizedText("MODERATE_DEFAULT", "REPORTED"): @reported
+            </span>
+        </div>
+    </div>
+
+    @if (unapproved + reported == 0)
     {
-        var forums = Model.Forums.Where(f => f.CategoryID == category.ID).ToList();
+        <div class="card mb-3" id="NothingToModerate">
+            <div class="card-body">
+                <empty icon="check"
+                       header-text-page="MODERATE_DEFAULT" header-text-tag="EMPTY_HEADER"
+                       message-text-page="MODERATE" message-text-tag="NOMODERATION">
+                </empty>
+            </div>
+        </div>
+    }
 
-        if (forums.HasItems())
+    @if (Model.Forums.HasItems())
+    {
+        @foreach (var category in Model.Categories)
         {
-            <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.Icon("folder")
-                        @category.Name
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="list-group list-group-flush small">
-                            @foreach (var forum in forums)
-                            {
-                                <div class="list-group-item list-group-item-action moderate-forum-row">
-                                    <h5 class="fw-bold">
-	                                    @forum.Name
-                                    </h5>
-                                    <form method="post">
-                                        @if (forum.MessageCount > 0)
-                                        {
-                                            <button type="submit"
-                                                    asp-page-handler="Unapproved"
-                                                    asp-route-forumId="@forum.ForumID"
-                                                    button-style="Secondary"
-                                                    button-size="Small">
-                                                @Html.LocalizedText("MODERATE_DEFAULT", "UNAPPROVED")
-                                                <span class="badge text-light-emphasis bg-light-subtle">
-                                                    @forum.MessageCount
-                                                </span>
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <a text-localized-page="MODERATE"
-                                               text-localized-tag="NO_POSTS"
-                                               button-style="Secondary"
-                                               button-size="Small"
-                                               aria-disabled="true"
-                                               class="disabled"></a>
-                                        }
+            var forums = Model.Forums.Where(f => f.CategoryID == category.ID).ToList();
 
-                                        @if (forum.ReportedCount > 0)
-                                        {
-                                            <button type="submit"
-                                                    asp-page-handler="Reported"
-                                                    asp-route-forumId="@forum.ForumID"
-                                                    button-style="Secondary"
-                                                    button-size="Small">
-                                                @Html.LocalizedText("MODERATE_DEFAULT", "REPORTED")
-                                                <span class="badge text-light-emphasis bg-light-subtle">
-                                                    @forum.ReportedCount
-                                                </span>
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <a text-localized-page="MODERATE"
-                                               text-localized-tag="NO_POSTS"
-                                               button-style="Secondary"
-                                               button-size="Small"
-                                               aria-disabled="true"
-                                               class="disabled"></a>
-                                        }
-                                    </form>
-                                </div>
-                            }
-                        </div>
-                    </div>
+            if (!forums.HasItems())
+            {
+                continue;
+            }
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("folder")@category.Name
                 </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var forum in forums)
+                    {
+                        <li class="list-group-item moderate-forum-row" data-forum-id="@forum.ForumID">
+                            <div class="moderate-forum-name fw-semibold text-break">@forum.Name</div>
+                            <div class="moderate-forum-actions">
+                                @if (forum.MessageCount > 0)
+                                {
+                                    <a class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle text-decoration-none moderate-unapproved"
+                                       asp-page="@ForumPages.Moderate_UnapprovedPosts.GetPageName()"
+                                       asp-route-f="@forum.ForumID">
+                                        @Html.Icon("hourglass-half")@Html.LocalizedText("MODERATE_DEFAULT", "UNAPPROVED"): @forum.MessageCount
+                                    </a>
+                                }
+                                @if (forum.ReportedCount > 0)
+                                {
+                                    <a class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle text-decoration-none moderate-reported"
+                                       asp-page="@ForumPages.Moderate_ReportedPosts.GetPageName()"
+                                       asp-route-f="@forum.ForumID">
+                                        @Html.Icon("flag")@Html.LocalizedText("MODERATE_DEFAULT", "REPORTED"): @forum.ReportedCount
+                                    </a>
+                                }
+                                <a class="btn btn-sm btn-outline-secondary moderate-topics"
+                                   asp-page="@ForumPages.Moderate_Forums.GetPageName()"
+                                   asp-route-f="@forum.ForumID">
+                                    @Html.Icon("list-check")@Html.LocalizedText("MODERATE_DEFAULT", "MODERATE_TOPICS")
+                                </a>
+                            </div>
+                        </li>
+                    }
+                </ul>
             </div>
         }
     }
 </div>
-
-@if (!Model.Forums.HasItems())
-{
-    <alert icon="check"
-           icon-text-color="text-success"
-           type="success"
-           localized-page="MODERATE"
-           localized-tag="NOMODERATION">
-    </alert>
-}

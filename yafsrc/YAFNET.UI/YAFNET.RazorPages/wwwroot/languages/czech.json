@@ -11629,6 +11629,18 @@
             "#text": "Odstranit toto téma?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Odebrat {0} z uživatelů tohoto fóra?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Témata se smažou se všemi příspěvky."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Smazat vybraná témata?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Téma bylo odstraněno."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Fórum, do kterého chcete přesunout téma(a), musí být jiné než aktuální fórum."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Přesunout vybraná témata"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Téma(a) přesunuto"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Odpovědí"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Vybrat vše na této stránce"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "Vybráno: {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Moderovat"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Témata"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "Zamčeno témat: {0}."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "Odemčeno témat: {0}."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Kategorie"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nic k moderování"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Fórum"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderovat témata"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Odstranit tuto zprávu?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Smazat tento příspěvek tématu {0}?"
           },
           {
             "@tag": "COPYOVER",

@@ -263,6 +263,24 @@ public class ForumsModel : ModerateForumPage
     }
 
     /// <summary>
+    /// Locks the selected topics.
+    /// </summary>
+    /// <returns>The <see cref="IActionResult"/>.</returns>
+    public IActionResult OnPostLockTopics()
+    {
+        return this.SetLocked(true);
+    }
+
+    /// <summary>
+    /// Unlocks the selected topics.
+    /// </summary>
+    /// <returns>The <see cref="IActionResult"/>.</returns>
+    public IActionResult OnPostUnlockTopics()
+    {
+        return this.SetLocked(false);
+    }
+
+    /// <summary>
     /// Deletes all the Selected Topics
     /// </summary>
     public async Task<IActionResult> OnPostDeleteTopicsAsync()
@@ -284,6 +302,51 @@ public class ForumsModel : ModerateForumPage
         this.PageBoardContext.SessionNotify(this.GetText("moderate", "deleted"), MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });
+    }
+
+    /// <summary>
+    /// Locks or unlocks the selected topics (like the lock of a topic on its page).
+    /// </summary>
+    /// <param name="locked">Lock (true) or unlock (false).</param>
+    /// <returns>The <see cref="IActionResult"/>.</returns>
+    private IActionResult SetLocked(bool locked)
+    {
+        var list = this.SelectedForumTopics();
+
+        if (list.NullOrEmpty())
+        {
+            this.BindData();
+
+            return this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
+        }
+
+        var count = 0;
+
+        foreach (var item in list)
+        {
+            var topic = this.GetRepository<Topic>().GetById(item.TopicID);
+            var flags = topic.TopicFlags;
+
+            if (flags.IsLocked == locked)
+            {
+                continue;
+            }
+
+            flags.IsLocked = locked;
+
+            this.GetRepository<Topic>().Lock(topic.ID, flags.BitValue);
+
+            count++;
+        }
+
+        this.PageBoardContext.SessionNotify(
+            this.GetTextFormatted(locked ? "TOPICS_LOCKED" : "TOPICS_UNLOCKED", count),
+            MessageTypes.success);
+
+        // the list is shown again with the new state (the selection is not kept)
+        return this.Get<ILinkBuilder>().Redirect(
+            ForumPages.Moderate_Forums,
+            new { f = this.PageBoardContext.PageForumID, p = this.PageBoardContext.PageIndex + 1 });
     }
 
     /// <summary>

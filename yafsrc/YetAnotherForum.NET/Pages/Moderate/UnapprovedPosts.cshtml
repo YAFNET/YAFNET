@@ -8,90 +8,100 @@
 
 @model YAF.Pages.Moderate.UnapprovedPostsModel
 
-<div class="row">
-    @foreach (var message in Model.Messages)
-    {
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.IconHeader("comment", "DEFAULT", "TOPIC")
+<div class="moderate-posts">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("hourglass-half")@Html.LocalizedText("MODERATE_DEFAULT", "UNAPPROVED"):
+            @Model.PageBoardContext.PageForum.Name
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.Messages.Count</span>
+        </h2>
+        <a asp-page="@ForumPages.Moderate_Moderate.GetPageName()"
+           button-style="OutlineSecondary"
+           button-size="Small"
+           Icon="gavel"
+           text-localized-page="MODERATE_DEFAULT"
+           text-localized-tag="TITLE"></a>
+    </div>
+
+    <form method="post">
+        @foreach (var message in Model.Messages)
+        {
+            var topicName = message.Item1.TopicName;
+
+            <div class="card mb-3 moderate-post" data-message-id="@message.Item2.ID">
+                <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <span class="text-break">
+                        @Html.Icon("comment")
                         @if (message.Item1.NumPosts > 0)
                         {
                             <a asp-page="@ForumPages.Posts.GetPageName()"
                                asp-route-t="@message.Item1.ID"
-                               asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(message.Item1.TopicName))">
-                                @message.Item1.TopicName
-                            </a>
+                               asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(topicName))">@topicName</a>
                         }
                         else
                         {
-                            @message.Item1.TopicName
+                            @topicName
                         }
-
-                        <div class="float-end">
-                            <span class="fw-bold">
-                                @Html.LocalizedText("POSTED")
-                            </span>
-                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateShort(message.Item2.Posted))
-
-                            <span class="fw-bold ps-3">
-                                @Html.LocalizedText("REPORTPOST", "POSTEDBY")
-                            </span>
+                    </span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">
+                        @Html.Icon("hourglass-half")@Html.LocalizedText("MODERATE_DEFAULT", "UNAPPROVED")
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="moderate-post-author">
+                        <img class="moderate-post-avatar" alt=""
+                             src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(message.Item3))" />
+                        <div>
                             @Html.UserLink(message.Item2.UserID,
                                 message.Item3.DisplayOrUserName(),
                                 message.Item3.Suspended,
                                 message.Item3.UserStyle)
-                            @if (Model.PageBoardContext.IsAdmin)
-                            {
-                                <a role="button"
-                                   button-size="Small"
-                                   button-style="Danger"
-                                   icon="user-cog"
-                                   text-localized-page="PROFILE"
-                                   text-localized-tag="ADMIN_USER"
-                                   asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-                                   asp-route-u="@message.Item2.UserID"></a>
-                            }
+                            <div class="small text-body-secondary">
+                                @Html.Icon("clock")@Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(message.Item2.Posted))
+                            </div>
                         </div>
+                        @if (Model.PageBoardContext.IsAdmin)
+                        {
+                            <a class="btn btn-sm btn-outline-secondary ms-auto"
+                               asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+                               asp-route-u="@message.Item2.UserID"
+                               title="@Model.GetText("PROFILE", "ADMIN_USER")">
+                                @Html.Icon("user-cog")<span class="d-none d-md-inline">@Html.LocalizedText("PROFILE", "ADMIN_USER")</span>
+                            </a>
+                        }
                     </div>
-                    <div class="card-body">
+                    <div class="moderate-post-message">
                         @await Model.FormatMessageAsync(message)
                     </div>
-                    <div class="card-footer text-center">
-                        <div class="row justify-content-md-center">
-                            <div class="col-md-auto mb-1">
-                                <form method="post">
-                                    <button type="submit"
-                                            asp-page-handler="Approve"
-                                            asp-route-messageId="@message.Item2.ID"
-                                        asp-route-f="@Model.PageBoardContext.PageForumID"
-                                            button-style="Success"
-                                            text-localized-page="MODERATE_FORUM"
-                                            text-localized-tag="APPROVE"
-                                            icon="check"></button>
-                                </form>
-                            </div>
-                            <div class="col-md-auto mb-1">
-                                <form asp-page-handler="Delete"
-                                      asp-route-messageId="@message.Item2.ID"
-                                      asp-route-topicId="@message.Item1.ID"
-                                      asp-route-f="@Model.PageBoardContext.PageForumID"
-                                      method="post">
-                                    <button type="submit"
-                                            button-style="Danger"
-                                            text-localized-page="MODERATE_FORUM"
-                                            text-localized-tag="DELETE"
-                                        return-confirm-tag="ASK_DELETE"
-                                            icon="trash"></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-end gap-2">
+                    <button type="submit"
+                            button-style="None"
+                            class="btn btn-sm btn-outline-danger"
+                            asp-page-handler="Delete"
+                            asp-route-messageId="@message.Item2.ID"
+                            asp-route-topicId="@message.Item1.ID"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            bs-toggle="confirm"
+                            data-title="@Model.GetTextFormatted("CONFIRM_DELETE_POST", Model.HtmlEncode(topicName))"
+                            data-yes="@Html.LocalizedText("YES")"
+                            data-no="@Html.LocalizedText("NO")"
+                            text-localized-page="MODERATE_FORUM"
+                            text-localized-tag="DELETE"
+                            icon="trash"></button>
+                    <button type="submit"
+                            asp-page-handler="Approve"
+                            asp-route-messageId="@message.Item2.ID"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            button-style="Success"
+                            button-size="Small"
+                            text-localized-page="MODERATE_FORUM"
+                            text-localized-tag="APPROVE"
+                            icon="check"></button>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </form>
 </div>
 
 @section Scripts {

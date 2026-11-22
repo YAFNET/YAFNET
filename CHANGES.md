@@ -118,6 +118,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Board: the switch for a new admin of a new board emptied the select of the cultures (the board was created without a culture)
 * [FIXED] Admin > Edit Board: the message of a missing password of the new admin ended with ">"
 * [FIXED] Moderate > Reported Posts: a report text with a "|" was split, the second part was shown as another report with the date "[error]"
+* [CHANGES] Moderate redesigned: the index with the totals and links to the unapproved and reported posts and the topics of a forum, a card per unapproved or reported post (author, message, reporters with their reasons, the delete question names the topic), the moderation of a forum with topic rows (badges, starter, replies, last post), select all and a bar for the selected topics: lock, unlock, move and delete (the dialog lists them); Enter no longer removes the first user of the forum
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

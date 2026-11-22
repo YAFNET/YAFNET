@@ -11629,6 +11629,18 @@
             "#text": "Radera denna konversation?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Ta bort {0} från användarna i det här forumet?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Ämnena tas bort med alla sina inlägg."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Ta bort de markerade ämnena?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Konversationen raderades."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Det forum du vill flytta ämnet/ämnena måste vara ett annat än det nuvarande forumet."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Flytta de markerade ämnena"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Ämnet/ämnena flyttas"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Svar"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Markera alla på den här sidan"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "{0} markerade"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Moderera"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Konversationer"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "{0} ämne(n) låst(a)."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "{0} ämne(n) upplåst(a)."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Kategori"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inget att moderera"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Forum"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderera ämnen"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Radera detta meddelande?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Ta bort det här inlägget i ämnet {0}?"
           },
           {
             "@tag": "COPYOVER",

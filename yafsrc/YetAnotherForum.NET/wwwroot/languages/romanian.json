@@ -11629,6 +11629,18 @@
             "#text": "Stergi acesta tema?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Elimini {0} din utilizatorii acestui forum?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Subiectele sunt șterse cu toate mesajele lor."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Ștergi subiectele selectate?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Tema stearsa."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Forumul pe care doriți să mutați subiectul (subiectele) trebuie să fie diferit de forumul actual."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Mută subiectele selectate"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Subiect(e) mutat(e)"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Raspunsuri"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Selectează tot pe această pagină"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "{0} selectate"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Moderat"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Teme"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "{0} subiect(e) blocat(e)."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "{0} subiect(e) deblocat(e)."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Categorie"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nimic de moderat"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Forum"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderează subiectele"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Stergi acesta postare?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Ștergi acest mesaj din subiectul {0}?"
           },
           {
             "@tag": "COPYOVER",

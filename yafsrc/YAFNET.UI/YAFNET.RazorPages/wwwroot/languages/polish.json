@@ -11617,6 +11617,18 @@
             "#text": "Usunąć ten temat?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Usunąć {0} z użytkowników tego forum?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Tematy zostaną usunięte wraz ze wszystkimi postami."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Usunąć zaznaczone tematy?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Temat usunięty."
           },
@@ -11645,6 +11657,10 @@
             "#text": "Forum, na które chcesz przenieść temat(y), musi być inne niż obecne forum."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Przenieś zaznaczone tematy"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Temat(y) przeniesiony(e)"
           },
@@ -11669,6 +11685,14 @@
             "#text": "Odpowiedzi"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Zaznacz wszystko na tej stronie"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "Zaznaczono: {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Moderowany"
           },
@@ -11679,6 +11703,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Tematy"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "Zablokowano tematy: {0}."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "Odblokowano tematy: {0}."
           },
           {
             "@tag": "USER",
@@ -11698,8 +11730,16 @@
             "#text": "Kategoria"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nic do moderowania"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Dział"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderuj tematy"
           },
           {
             "@tag": "REPORTED",
@@ -11729,6 +11769,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Usunąć ten post?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Usunąć ten post z tematu {0}?"
           },
           {
             "@tag": "COPYOVER",

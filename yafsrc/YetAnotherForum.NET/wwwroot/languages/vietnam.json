@@ -11629,6 +11629,18 @@
             "#text": "Xóa chủ đề?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Xóa {0} khỏi người dùng của diễn đàn này?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Các chủ đề sẽ bị xóa cùng tất cả bài viết."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Xóa các chủ đề đã chọn?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Chủ đề đã xóa."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Diễn đàn bạn muốn chuyển (các) chủ đề phải khác với diễn đàn hiện tại."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Di chuyển các chủ đề đã chọn"
+          },
+          {
             "@tag": "MOVED",
             "#text": "(Các) chủ đề đã được chuyển"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Trả lời"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Chọn tất cả trên trang này"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "Đã chọn {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Điều hành"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Chủ đề"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "Đã khóa {0} chủ đề."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "Đã mở khóa {0} chủ đề."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Nhóm"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có gì cần kiểm duyệt"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Diễn đàn"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Kiểm duyệt chủ đề"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Xóa bài viết này?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Xóa bài viết này của chủ đề {0}?"
           },
           {
             "@tag": "COPYOVER",

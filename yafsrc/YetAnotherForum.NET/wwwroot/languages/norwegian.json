@@ -11629,6 +11629,18 @@
             "#text": "Slett emne?"
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Fjerne {0} fra brukerne av dette forumet?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Emnene slettes med alle innleggene sine."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Slette de merkede emnene?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Innlegg slettet."
           },
@@ -11657,6 +11669,10 @@
             "#text": "Forumet du ønsker å flytte emnet(e) må være annerledes enn det gjeldende forumet."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Flytt de merkede emnene"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Emne(r) flyttet"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Svar"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Merk alle på denne siden"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "{0} merket"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Moderer"
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Emner"
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "{0} emne(r) låst."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "{0} emne(r) låst opp."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Kategori"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingenting å moderere"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Forum"
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderer emner"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Slett dette inlegget?"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Slette dette innlegget i emnet {0}?"
           },
           {
             "@tag": "COPYOVER",

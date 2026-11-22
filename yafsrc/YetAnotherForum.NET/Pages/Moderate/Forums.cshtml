@@ -4,188 +4,306 @@
 @using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Flags
 @using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
 @model YAF.Pages.Moderate.ForumsModel
 
-<form method="post">
-    @if (Model.PageBoardContext.IsAdmin)
-{
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("user-secret", "MODERATE", "MEMBERS")
-                </div>
-                <div class="card-body">
-                    @if (!Model.UserList.NullOrEmpty())
-                    {
-                        <ul class="list-group list-group-flush">
-                            @foreach (var item in Model.UserList)
-                            {
-                                <li class="list-group-item">
-                                    <span class="fw-bold">
-                                        <label ID="LocalizedLabel2" localized-tag="USER" localized-page="MODERATE"></label>:
-                                    </span>
-                                    
-                                    @item.Item1.DisplayOrUserName()
-                                    
-                                    <span class="fw-bold">
-                                        <label ID="LocalizedLabel3" localized-tag="ACCEPTED" localized-page="MODERATE"></label>:
-                                    </span>
-                                    
-                                    @item.Item2.Accepted
-                                    
-                                    <span class="fw-bold">
-                                        <label ID="LocalizedLabel4" localized-tag="ACCESSMASK" localized-page="MODERATE"></label>:
-                                    </span>
-                                    
-                                    @item.Item3.Name
-                                    
-                                    <button bs-toggle="ajax-modal"
-                                            bs-target-url="@(Url.Page("Forums", "EditUser", new {userId = item.Item1.ID, f = Model.PageBoardContext.PageForumID}))"
-                                            title-localized-tag="EDIT"
-                                            button-size="Small"
-                                            button-style="Primary"
-                                            Icon="edit"></button>
-                                        <button return-confirm-tag="CONFIRM_DELETE"
-                                            asp-page-handler="RemoveUser"
-                                            asp-route-id="@Html.Raw(item.Item1.ID)"
-                                            asp-route-f="@Html.Raw(Model.PageBoardContext.PageForumID)"
-                                            title-localized-tag="REMOVE"
-                                            button-size="Small"
-                                            button-style="Danger"
-                                            Icon="trash"></button>
-                                </li>
-                            }
-                        </ul>
-                    }
-
-                </div>
-                <div class="card-footer text-center">
-                    <button bs-toggle="ajax-modal"
-                            bs-target-url="@(Url.Page("Forums", "AddUser", new {f = Model.PageBoardContext.PageForumID}))"
-                            text-localized-tag="INVITE" text-localized-page="MODERATE"
-                            button-style="Secondary"
-                            icon="user-check"></button>
-                </div>
-            </div>
-        </div>
-    </div>
+@{
+    var totalRows = Model.TopicList.NullOrEmpty() ? 0 : Model.TopicList[0].TotalRows;
 }
 
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3 mt-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            @Html.IconHeader("tasks", "MODERATE", "TITLE")
-                        </div>
-                        <div class="col-auto">
-                            <div class="input-group input-group-sm me-2" role="group">
-                                <div class="input-group-text">
-                                    @Html.LocalizedText("SHOW"):
+<form method="post" class="admin-edit-form moderate-forum">
+    @* the default button of the form (Enter in a field): shows the page again, the first button was the removal of a user *@
+    <button type="submit" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("list-check")@Html.LocalizedText("MODERATE", "TITLE"):
+            @Model.PageBoardContext.PageForum.Name
+            <span class="badge text-bg-secondary align-middle ms-1">@totalRows</span>
+        </h2>
+        <div class="input-group input-group-sm w-auto" role="group">
+            <div class="input-group-text">
+                @Html.LocalizedText("SHOW"):
+            </div>
+            <select asp-for="@Model.Size"
+                    asp-items="Model.PageSizeList"
+                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    class="form-select"
+                    onchange="this.form.submit();"></select>
+        </div>
+    </div>
+
+    @if (Model.PageBoardContext.IsAdmin)
+    {
+        @* the users with their own access to the forum *@
+        <div class="card mb-3" id="ForumUsers">
+            <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <span>@Html.Icon("user-secret")@Html.LocalizedText("MODERATE", "MEMBERS")</span>
+                <button bs-toggle="ajax-modal"
+                        bs-target-url="@(Url.Page("Forums", "AddUser", new { f = Model.PageBoardContext.PageForumID }))"
+                        text-localized-tag="INVITE" text-localized-page="MODERATE"
+                        button-style="OutlineSecondary"
+                        button-size="Small"
+                        icon="user-plus"></button>
+            </div>
+            @if (!Model.UserList.NullOrEmpty())
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var item in Model.UserList)
+                    {
+                        var name = item.Item1.DisplayOrUserName();
+
+                        <li class="list-group-item moderate-user-row list-group-item-menu" data-user-id="@item.Item1.ID">
+                            <div class="moderate-user-main">
+                                @Html.UserLink(item.Item1.ID, name, item.Item1.Suspended, item.Item1.UserStyle)
+                                <div class="moderate-meta">
+                                    <span class="badge bg-body-tertiary text-body-secondary border"
+                                          title="@Model.GetText("MODERATE", "ACCESSMASK")">
+                                        @Html.Icon("user-lock")@item.Item3.Name
+                                    </span>
+                                    <span class="badge @(item.Item2.Accepted ? "bg-success-subtle text-success-emphasis" : "bg-body-tertiary text-body-secondary") border">
+                                        @Html.LocalizedText("MODERATE", "ACCEPTED"): @Html.LocalizedText(item.Item2.Accepted ? "YES" : "NO")
+                                    </span>
                                 </div>
-                                <select asp-for="@Model.Size"
-                                        asp-items="Model.PageSizeList"
-                                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                        class="form-select"
-                                        onchange="this.form.submit();"></select>
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                <button bs-toggle="ajax-modal"
+                                        bs-target-url="@(Url.Page("Forums", "EditUser", new { userId = item.Item1.ID, f = Model.PageBoardContext.PageForumID }))"
+                                        title-localized-tag="EDIT"
+                                        button-size="Small"
+                                        button-style="OutlineSecondary"
+                                        Icon="edit"></button>
+                                <button button-style="None"
+                                        class="btn btn-sm btn-outline-danger"
+                                        asp-page-handler="RemoveUser"
+                                        asp-route-id="@item.Item1.ID"
+                                        asp-route-f="@Model.PageBoardContext.PageForumID"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetTextFormatted("CONFIRM_REMOVE_USER", Model.HtmlEncode(name))"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"
+                                        title-localized-tag="REMOVE"
+                                        Icon="user-minus"></button>
+                            </div>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <button bs-toggle="ajax-modal"
+                                        bs-target-url="@(Url.Page("Forums", "EditUser", new { userId = item.Item1.ID, f = Model.PageBoardContext.PageForumID }))"
+                                        button-style="None"
+                                        class="dropdown-item"
+                                        Icon="edit"
+                                        text-localized-tag="EDIT"></button>
+                                <button button-style="None"
+                                        class="dropdown-item"
+                                        asp-page-handler="RemoveUser"
+                                        asp-route-id="@item.Item1.ID"
+                                        asp-route-f="@Model.PageBoardContext.PageForumID"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetTextFormatted("CONFIRM_REMOVE_USER", Model.HtmlEncode(name))"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"
+                                        Icon="user-minus"
+                                        text-localized-tag="REMOVE"></button>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    }
+
+    @if (!Model.TopicList.NullOrEmpty())
+    {
+        <div class="card mb-3" id="ForumTopics">
+            <div class="card-header py-2">
+                <div class="form-check mb-0">
+                    <input type="checkbox" class="form-check-input" id="BulkSelectAll" data-check-all=".moderate-topic-select" />
+                    <label class="form-check-label" for="BulkSelectAll">
+                        @Html.LocalizedText("MODERATE", "SELECT_ALL")
+                    </label>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                @for (var index = 0; index < Model.TopicList.Count; index++)
+                {
+                    var topic = Model.TopicList[index];
+                    var flags = new TopicFlags(topic.TopicFlags);
+
+                    <li class="list-group-item moderate-topic-row" data-topic-id="@topic.TopicID">
+                        <input type="hidden" asp-for="TopicList[index].TopicID" value="@topic.TopicID" />
+                        <input type="checkbox" asp-for="TopicList[index].Selected"
+                               class="form-check-input moderate-topic-select"
+                               data-bulk-name="@topic.Subject"
+                               aria-label="@topic.Subject" />
+                        <div class="moderate-topic-main">
+                            <div class="d-flex flex-wrap align-items-center gap-1">
+                                <a class="fw-semibold text-break"
+                                   asp-page="@ForumPages.Posts.GetPageName()"
+                                   asp-route-t="@topic.TopicID"
+                                   asp-route-name="@UrlRewriteHelper.CleanStringForUrl(topic.Subject)">@topic.Subject</a>
+                                @if (topic.Priority == 2)
+                                {
+                                    <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">@Html.LocalizedText("ICONLEGEND", "ANNOUNCEMENT")</span>
+                                }
+                                else if (topic.Priority == 1)
+                                {
+                                    <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">@Html.LocalizedText("ICONLEGEND", "STICKY")</span>
+                                }
+                                @if (flags.IsLocked)
+                                {
+                                    <span class="badge bg-body-tertiary text-body-secondary border">@Html.Icon("lock")@Html.LocalizedText("ADMIN_FORUMS", "LOCKED")</span>
+                                }
+                                @if (topic.PollID.HasValue)
+                                {
+                                    <span class="badge bg-body-tertiary text-body-secondary border">@Html.Icon("square-poll-vertical")@Html.LocalizedText("ICONLEGEND", "POLL")</span>
+                                }
+                                @if (topic.TopicMovedID.HasValue)
+                                {
+                                    <span class="badge bg-body-tertiary text-body-secondary border">@Html.Icon("arrow-right")@Html.LocalizedText("ICONLEGEND", "MOVED")</span>
+                                }
+                            </div>
+                            <div class="moderate-meta small text-body-secondary">
+                                <span title="@Model.GetText("MODERATE", "TOPIC_STARTER")">
+                                    @Html.Icon("user")@Html.UserLink(topic.UserID, topic.StarterDisplay.IsSet() ? topic.StarterDisplay : topic.Starter, topic.StarterSuspended, topic.StarterStyle)
+                                </span>
+                                <span title="@Model.GetText("MODERATE", "REPLIES")">@Html.Icon("comments")@($"{topic.Replies:N0}")</span>
+                                <span title="@Model.GetText("MODERATE", "VIEWS")">@Html.Icon("eye")@($"{topic.Views:N0}")</span>
+                                @if (topic.LastPosted.HasValue)
+                                {
+                                    <span title="@Model.GetText("MODERATE", "LASTPOST")">
+                                        @Html.Icon("clock")@Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(topic.LastPosted.Value))
+                                    </span>
+                                }
                             </div>
                         </div>
-                    </div>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        @* the actions of the selected topics, shown when a topic is selected *@
+        <div class="admin-edit-actions bulk-bar" id="BulkBar" hidden
+             data-bulk-select=".moderate-topic-select">
+            <span class="me-auto align-self-center">
+                <strong data-bulk-count data-template="@Model.GetText("MODERATE", "SELECTED")"></strong>
+                <button type="button" class="btn btn-link btn-sm" data-bulk-clear>@Html.LocalizedText("CLEAR")</button>
+            </span>
+            <button button-style="OutlineSecondary"
+                    button-size="Small"
+                    asp-page-handler="LockTopics"
+                    asp-route-f="@Model.PageBoardContext.PageForumID"
+                    Icon="lock"
+                    text-localized-page="BUTTON"
+                    text-localized-tag="BUTTON_LOCKTOPIC"></button>
+            <button button-style="OutlineSecondary"
+                    button-size="Small"
+                    asp-page-handler="UnlockTopics"
+                    asp-route-f="@Model.PageBoardContext.PageForumID"
+                    Icon="lock-open"
+                    text-localized-page="BUTTON"
+                    text-localized-tag="BUTTON_UNLOCKTOPIC"></button>
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+                    data-bs-toggle="modal" data-bs-target="#MoveTopicsDialog">
+                @Html.Icon("arrows-alt")@Html.LocalizedText("MOVETOPIC", "MOVE")
+            </button>
+            <button type="button" class="btn btn-sm btn-danger"
+                    data-bs-toggle="modal" data-bs-target="#DeleteTopicsDialog">
+                @Html.Icon("trash")@Html.LocalizedText("BUTTON_DELETETOPIC")
+            </button>
+        </div>
+
+        @await Html.PartialAsync("_Pagination", new Pagination { TotalRows = totalRows, Size = Model.Size })
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                @await Html.PartialAsync("_NoEntryInfo")
+            </div>
+        </div>
+    }
+
+    @* move the selected topics to another forum *@
+    <div class="modal fade" id="MoveTopicsDialog" tabindex="-1" aria-labelledby="MoveTopicsTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MoveTopicsTitle">
+                        @Html.Icon("arrows-alt")@Html.LocalizedText("MODERATE", "MOVE_TOPICS_TITLE")
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Model.GetText("CANCEL")"></button>
                 </div>
-                <div class="card-body">
-                    @if (!Model.TopicList.NullOrEmpty())
+                <div class="modal-body">
+                    <p class="small text-body-secondary" data-bulk-summary></p>
+                    <div class="mb-3">
+                        <label for="ForumList" class="form-label" localized-page="MOVETOPIC" localized-tag="SELECT_FORUM"></label>
+                        <select id="ForumList" name="forumList"></select>
+                        <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected" />
+                    </div>
+                    @if (Model.PageBoardContext.BoardSettings.ShowMoved)
                     {
-                        <ul class="list-group list-group-flush">
-                            @for (var index = 0; index < Model.TopicList.Count; index++)
-                            {
-                                <li class="list-group-item">
-                                    <input type="hidden" asp-for="TopicList[index].TopicID" value="@Model.TopicList[index].TopicID"/>
-                                
-                                    <h5>
-                                        <div class="form-check">
-                                            <input type="checkbox" asp-for="TopicList[index].Selected"
-                                                   class="form-check-input" />
-                                            <label class="form-check-label" asp-for="TopicList[index].Selected">
-                                                <a asp-page="@ForumPages.Posts.GetPageName()"
-                                                   asp-route-t="@Model.TopicList[index].TopicID"
-                                                   asp-route-name="@UrlRewriteHelper.CleanStringForUrl(Model.TopicList[index].Subject)">@Model.TopicList[index].Subject</a>
-                                            </label>
-                                        </div>
-                                   
-                                    </h5>
-                                </li>
-                            }
-                        </ul>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="Input.LeavePointer"
+                                   data-shows="#PointerDays">
+                            <label class="form-check-label" asp-for="Input.LeavePointer" localized-page="MOVETOPIC" localized-tag="LEAVE_POINTER"></label>
+                        </div>
+                        <div class="mb-0" id="PointerDays">
+                            <label asp-for="Input.LinkDays" class="form-label" localized-page="MOVETOPIC" localized-tag="POINTER_DAYS"></label>
+                            <input asp-for="Input.LinkDays" class="form-control" type="number" min="1" />
+                        </div>
                     }
                 </div>
-                <div class="card-footer text-center">
-                    <!-- Move Topic Button -->
-                    <button text-localized-tag="MOVE"
-                            text-localized-page="MOVETOPIC"
-                            class="dropdown-toggle"
-                            bs-toggle="dropdown"
-                            icon="arrows-alt"
-                            button-style="Primary"></button>
-                    <div class="dropdown-menu">
-                        <div class="px-4 py-3 dropdown-sm w-100">
-                            <div class="mb-3">
-                                <label for="ForumList" class="form-label" localized-tag="select_forum">
-                                </label>
-                                <select id="ForumList" name="forumList"></select>
-                                <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected" />
-                            </div>
-
-                            @if (Model.PageBoardContext.BoardSettings.ShowMoved)
-                            {
-                                <div class="mb-3">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" switch asp-for="Input.LeavePointer">
-                                        <label class="form-check-label" asp-for="Input.LeavePointer" localized-tag="LEAVE_POINTER"></label>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label asp-for="Input.LinkDays" localized-tag="POINTER_DAYS">
-                                    </label>
-                                    <input asp-for="Input.LinkDays" class="form-control" type="number"/>
-                                </div>
-                            }
-
-                            <button asp-page-handler="Move"
-                                    asp-route-f="@Model.PageBoardContext.PageForumID"
-                                    button-style="Primary"
-                                    button-size="Small"
-                                    Icon="arrows-alt"
-                                    text-localized-tag="MOVE" text-localized-page="MOVETOPIC"></button>
-                        </div>
-                    </div>
-
-                    <!-- End of Move Topic Button -->
-                    <button text-localized-tag="BUTTON_DELETETOPIC" title-localized-tag="BUTTON_DELETETOPIC_TT"
-                            return-confirm-tag="confirm_delete"
-                            asp-page-handler="DeleteTopics"
+                <div class="modal-footer">
+                    <button type="button" button-style="Secondary" Icon="xmark"
+                            data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+                    <button asp-page-handler="Move"
                             asp-route-f="@Model.PageBoardContext.PageForumID"
-                            button-style="Danger"
-                            Icon="trash"></button>
+                            button-style="Primary"
+                            Icon="arrows-alt"
+                            text-localized-tag="MOVE" text-localized-page="MOVETOPIC"></button>
                 </div>
             </div>
         </div>
     </div>
-    @if (!Model.TopicList.NullOrEmpty())
-    {
-	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.TopicList.FirstOrDefault().TotalRows, Size = Model.Size })
-    }
-</form>
 
+    @* delete the selected topics: the dialog lists them *@
+    <div class="modal fade" id="DeleteTopicsDialog" tabindex="-1" aria-labelledby="DeleteTopicsTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteTopicsTitle">
+                        @Html.Icon("exclamation-triangle", "text-danger")@Html.LocalizedText("MODERATE", "DELETE_TOPICS_TITLE")
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Model.GetText("CANCEL")"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="bulk-names mb-2" data-bulk-names></ul>
+                    <div class="alert alert-warning mb-0" role="alert">
+                        @Html.LocalizedText("MODERATE", "DELETE_TOPICS_INFO")
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" button-style="Secondary" Icon="xmark"
+                            data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+                    <button button-style="Danger"
+                            asp-page-handler="DeleteTopics"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            Icon="trash"
+                            text-localized-tag="BUTTON_DELETETOPIC"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 @section Scripts {
     @await Html.PartialAsync("_ChoicesScriptsPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
     <script>
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
@@ -200,7 +318,6 @@
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.DialogFunctionsJs($"{JavaScriptBlocks.ChoicesLoadJs}{JavaScriptBlocks.SelectUsersLoadJs("UserSelect", "UserID", Model.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))}")))
-
 
     </script>
 }

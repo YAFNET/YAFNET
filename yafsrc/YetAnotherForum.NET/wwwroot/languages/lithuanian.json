@@ -11629,6 +11629,18 @@
             "#text": "Ištrinti šią temą? "
           },
           {
+            "@tag": "CONFIRM_REMOVE_USER",
+            "#text": "Pašalinti {0} iš šio forumo naudotojų?"
+          },
+          {
+            "@tag": "DELETE_TOPICS_INFO",
+            "#text": "Temos ištrinamos su visais pranešimais."
+          },
+          {
+            "@tag": "DELETE_TOPICS_TITLE",
+            "#text": "Ištrinti pažymėtas temas?"
+          },
+          {
             "@tag": "DELETED",
             "#text": "Tema ištrinta. "
           },
@@ -11657,6 +11669,10 @@
             "#text": "Forumas, į kurį norite perkelti temą (-as), turi skirtis nuo dabartinio forumo."
           },
           {
+            "@tag": "MOVE_TOPICS_TITLE",
+            "#text": "Perkelti pažymėtas temas"
+          },
+          {
             "@tag": "MOVED",
             "#text": "Perkelta (-os) tema (-os)"
           },
@@ -11681,6 +11697,14 @@
             "#text": "Atsakymai "
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Pažymėti visus šiame puslapyje"
+          },
+          {
+            "@tag": "SELECTED",
+            "#text": "Pažymėta: {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Vidutiniškas "
           },
@@ -11691,6 +11715,14 @@
           {
             "@tag": "TOPICS",
             "#text": "Temos "
+          },
+          {
+            "@tag": "TOPICS_LOCKED",
+            "#text": "Užrakinta temų: {0}."
+          },
+          {
+            "@tag": "TOPICS_UNLOCKED",
+            "#text": "Atrakinta temų: {0}."
           },
           {
             "@tag": "USER",
@@ -11710,8 +11742,16 @@
             "#text": "Kategorija "
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nėra ką moderuoti"
+          },
+          {
             "@tag": "FORUM",
             "#text": "Forumas "
+          },
+          {
+            "@tag": "MODERATE_TOPICS",
+            "#text": "Moderuoti temas"
           },
           {
             "@tag": "REPORTED",
@@ -11741,6 +11781,10 @@
           {
             "@tag": "ASK_DELETE",
             "#text": "Ištrinti šį pranešimą? "
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Ištrinti šį temos {0} pranešimą?"
           },
           {
             "@tag": "COPYOVER",
