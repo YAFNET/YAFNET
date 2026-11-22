@@ -1,0 +1,64 @@
+// The information pages (team, help, cookies, privacy)
+.info-page {
+    max-width: 64rem;
+    margin: 0 auto;
+
+    // long texts of the language files
+    .info-text {
+        line-height: 1.6;
+
+        h1, h2, h3, h4 {
+            margin-top: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+    }
+
+    // privacy: accept or decline at the bottom of the window
+    .info-accept-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+        margin-bottom: 1rem;
+        padding: .75rem 1rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, .06);
+    }
+}
+
+// the members of the team as cards
+.team-page {
+    .team-avatar {
+        flex: 0 0 3rem;
+        width: 3rem;
+        height: 3rem;
+        object-fit: cover;
+    }
+
+    .team-member {
+        transition: box-shadow .15s ease;
+
+        &:hover {
+            box-shadow: var(--bs-box-shadow-sm);
+        }
+    }
+}
+
+// help: the found words and the topics
+.help-page {
+    .help-topic .card-body {
+        line-height: 1.6;
+    }
+
+    mark {
+        padding: 0 .15em;
+        border-radius: .2rem;
+    }
+}

@@ -2,15 +2,13 @@
 @using YAF.Web.HtmlHelpers
 @model CookiesModel
 
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                @Html.IconHeader("cookie", "COOKIES", "TITLE")
-            </div>
-            <div class="card-body">
-                @await Html.LocalizedTextAsync("COOKIES","COOKIES_TEXT", true)
-            </div>
+<div class="info-page">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">@Html.Icon("cookie")@Html.LocalizedText("COOKIES", "TITLE")</h2>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body info-text">
+            @await Html.LocalizedTextAsync("COOKIES","COOKIES_TEXT", true)
         </div>
     </div>
 </div>

@@ -5,80 +5,71 @@
 
 @{
     Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode($"{Model.Get<ILocalization>().GetText("HELP_INDEX", "SUBTITLE")} &#183; {Model.Get<ILocalization>().GetText("HELP_INDEX", HelpModel.TitleTag(Request.RouteValues["faq"]?.ToString()))}").ToString();
+
+    var faq = Request.RouteValues["faq"]?.ToString() ?? "index";
+    var isSearch = faq == "search";
+    var contents = isSearch
+                       ? Model.HelpContents ?? []
+                       : (Model.HelpContents ?? []).Where(check => check.HelpPage.ToLower().Equals(faq)).ToList();
 }
 
-<div class="container-fluid">
+<div class="container-fluid help-page">
     <div class="row g-0">
 
         @Html.HelpMenu()
 
         <div class="col flex-grow-1 ms-lg-3">
-            <h1 class="h2">
-                @Html.LocalizedText("HELP_INDEX", "TITLE")
-            </h1>
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <h2 class="h4 mb-0">@Html.Icon("question-circle")@Html.LocalizedText("HELP_INDEX", "TITLE")</h2>
+            </div>
 
-            @if (Request.RouteValues.ContainsKey("faq") && Request.RouteValues["faq"].ToString() != "index")
+            @if (faq == "index" || isSearch)
             {
-                @if (Request.RouteValues["faq"].ToString() == "search")
-                {
-                    @foreach (var content in Model.HelpContents)
-                    {
-                        <div class="card my-3">
-                            <div class="card-header">
-                                @Html.Icon("question-circle", "text-secondary")
-                                @* the title is encoded and the found words are marked *@
-                                @Html.Raw(content.Title)
-                            </div>
-                            <div class="card-body">
-                                @Html.Raw(content.Content)
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    @foreach (var content in Model.HelpContents.Where(check => check.HelpPage.ToLower().Equals(Request.RouteValues["faq"])))
-                    {
-                        <div class="card my-3">
-                            <div class="card-header">
-                                @Html.Icon("question-circle", "text-secondary")
-                                @content.Title
-                            </div>
-                            <div class="card-body">
-                                @Html.Raw(content.Content)
-                            </div>
-                        </div>
-                    }
-                }
-            }
-            else
-            {
-                <form method="post" asp-route-faq="search">
-                    <div class="card my-3">
-                        <div class="card-header">
-                            @Html.Icon("search", "text-secondary")
-                            @Html.LocalizedText("HELP_INDEX", "subtitle")
-                        </div>
+                <form method="post" asp-route-faq="search" class="mb-3">
+                    <div class="card help-search">
                         <div class="card-body">
-                            <p class="card-text">
-                                @Html.LocalizedText("HELP_INDEX", "WELCOME")
-                            </p>
-                            <div class="g-3">
-                                <label asp-for="Input.Search" class="form-label"
-                                       localized-page="HELP_INDEX" localized-tag="SEARCHFOR">
-                                </label>
-                                <input asp-for="Input.Search" class="form-control" />
+                            @if (!isSearch)
+                            {
+                                <p class="text-body-secondary">
+                                    @Html.LocalizedText("HELP_INDEX", "WELCOME")
+                                </p>
+                            }
+                            <label asp-for="Input.Search" class="form-label visually-hidden"
+                                   localized-page="HELP_INDEX" localized-tag="SEARCHFOR">
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">@Html.Icon("search", "text-secondary")</span>
+                                <input asp-for="Input.Search" class="form-control" type="search"
+                                       placeholder="@Model.GetText("HELP_INDEX", "SEARCHFOR").TrimEnd(':')" />
+                                <button type="submit" button-style="Primary"
+                                        text-localized-page="HELP_INDEX"
+                                        text-localized-tag="BTNSEARCH">
+                                </button>
                             </div>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="submit" button-style="Primary"
-                                    icon="search"
-                                    text-localized-page="HELP_INDEX"
-                                    text-localized-tag="BTNSEARCH">
-                            </button>
                         </div>
                     </div>
                 </form>
+            }
+
+            @foreach (var content in contents)
+            {
+                <div class="card mb-3 help-topic">
+                    <div class="card-header fw-semibold">
+                        @Html.Icon("question-circle", "text-primary")
+                        @if (isSearch)
+                        {
+                            @* the title is encoded and the found words are marked *@
+                            @Html.Raw(content.Title)
+                        }
+                        else
+                        {
+                            @content.Title
+                        }
+                    </div>
+                    <div class="card-body">
+                        @Html.Raw(content.Content)
+                    </div>
+                </div>
             }
         </div>
     </div>

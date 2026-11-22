@@ -145,6 +145,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Error page: the message and the stack trace of an error were shown to every visitor, now only host admins see them (the error is in the event log)
 * [FIXED] Search: Enter in the "posted by" and the tags field did nothing, now it searches (a search by the user or the tag alone is possible)
 * [FIXED] Help: the search showed the marks of the found words in the titles as text ("<mark>Avatars</mark>")
+* [CHANGES] Team, Help, Info, Cookies and Privacy redesigned: page headers, the team members as cards with their contact buttons, the help search box stays on the results, the info messages as a card with an icon for the kind of message, the privacy accept and decline in a bar at the bottom
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

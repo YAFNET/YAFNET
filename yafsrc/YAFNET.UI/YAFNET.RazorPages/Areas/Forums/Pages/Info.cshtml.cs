@@ -52,6 +52,21 @@ public class InfoModel : ForumPage
     public string InfoLabel { get; private set; }
 
     /// <summary>
+    /// Gets a value indicating whether the info label is html (encoded user text or a text with markup).
+    /// </summary>
+    public bool InfoIsHtml { get; private set; }
+
+    /// <summary>
+    /// Gets the icon of the message.
+    /// </summary>
+    public string Icon { get; private set; } = "info-circle";
+
+    /// <summary>
+    /// Gets a value indicating whether the message is a warning (denied, suspended, failure).
+    /// </summary>
+    public bool IsWarning { get; private set; }
+
+    /// <summary>
     /// The on get.
     /// </summary>
     /// <param name="info">
@@ -69,10 +84,14 @@ public class InfoModel : ForumPage
             switch ((InfoMessage)info.ToType<int>())
             {
                 case InfoMessage.Moderated: // Moderated
+                    this.Icon = "hourglass-half";
                     this.Title = this.GetText("title_moderated");
                     this.InfoLabel = this.GetText("moderated");
                     break;
                 case InfoMessage.Suspended: // Suspended
+                    this.Icon = "ban";
+                    this.IsWarning = true;
+                    this.InfoIsHtml = true;
                     this.Title = this.GetText("title_suspended");
 
                     if (this.PageBoardContext.SuspendedReason.IsSet())
@@ -89,26 +108,37 @@ public class InfoModel : ForumPage
 
                     break;
                 case InfoMessage.RegistrationEmail: // Registration email
+                    this.Icon = "envelope";
                     this.Title = this.GetText("title_registration");
                     this.InfoLabel = this.GetText("registration");
                     break;
                 case InfoMessage.AccessDenied: // Access Denied
+                    this.Icon = "lock";
+                    this.IsWarning = true;
                     this.Title = this.GetText("title_accessdenied");
                     this.InfoLabel = this.GetText("accessdenied");
                     break;
                 case InfoMessage.Disabled: // Disabled feature
+                    this.Icon = "lock";
+                    this.IsWarning = true;
                     this.Title = this.GetText("TITLE_ACCESSDENIED");
                     this.InfoLabel = this.GetText("DISABLED");
                     break;
                 case InfoMessage.Invalid: // Invalid argument!
+                    this.Icon = "exclamation-triangle";
+                    this.IsWarning = true;
                     this.Title = this.GetText("TITLE_INVALID");
                     this.InfoLabel = this.GetText("INVALID");
                     break;
                 case InfoMessage.Failure: // some sort of failure
+                    this.Icon = "exclamation-triangle";
+                    this.IsWarning = true;
                     this.Title = this.GetText("TITLE_FAILURE");
                     this.InfoLabel = this.GetText("FAILURE");
                     break;
                 case InfoMessage.HostAdminPermissionsAreRequired: // some sort of failure
+                    this.Icon = "lock";
+                    this.IsWarning = true;
                     this.Title = this.GetText("TITLE_HOSTADMINPERMISSIONSREQUIRED");
                     this.InfoLabel = this.GetText("HOSTADMINPERMISSIONSREQUIRED");
                     break;
@@ -125,12 +155,17 @@ public class InfoModel : ForumPage
             // exception message
             this.InfoLabel =
                 $"{this.GetText("exception")} <strong>{this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())}</strong>.";
+            this.InfoIsHtml = true;
+            this.Icon = "exclamation-triangle";
+            this.IsWarning = true;
         }
 
         // the message is part of the url (anybody can send such a link), it is shown as text
         if (message.IsSet())
         {
+            // encoded here, shown as html (it was encoded twice)
             this.InfoLabel = this.HtmlEncode(message);
+            this.InfoIsHtml = true;
         }
 
         return this.Page();

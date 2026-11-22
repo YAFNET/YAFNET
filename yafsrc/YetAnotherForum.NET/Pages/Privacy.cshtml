@@ -14,33 +14,29 @@
         Model.PageBoardContext.BoardSettings.ForumEmail;
 }
 
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                @Html.IconHeader("user-secret", "RULES", "TITLE")
-            </div>
-            <div class="card-body">
-                @Html.Raw(await Model.Get<IBBCodeService>().MakeHtmlAsync(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email), true, true))
-            </div>
-
-            @if (BoardContext.Current.IsGuest)
-            {
-                <div class="card-footer text-center">
-                    <form method="post">
-                        <button type="submit" button-style="Success" role="button"
-                                icon="check"
-                                text-localized-page="RULES"
-                                text-localized-tag="ACCEPT">
-                        </button>
-                        <a button-style="Danger" role="button" asp-page="@ForumPages.Index.GetPageName()"
-                           icon="hand-paper"
-                           text-localized-page="RULES"
-                           text-localized-tag="DECLINE">
-                        </a>
-                    </form>
-                </div>
-            }
+<div class="info-page">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">@Html.Icon("user-secret")@Html.LocalizedText("RULES", "TITLE")</h2>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body info-text">
+            @Html.Raw(await Model.Get<IBBCodeService>().MakeHtmlAsync(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email), true, true))
         </div>
     </div>
+
+    @if (BoardContext.Current.IsGuest)
+    {
+        <form method="post" class="info-accept-bar">
+            <a button-style="Secondary" role="button" asp-page="@ForumPages.Index.GetPageName()"
+               icon="hand-paper"
+               text-localized-page="RULES"
+               text-localized-tag="DECLINE">
+            </a>
+            <button type="submit" button-style="Success"
+                    icon="check"
+                    text-localized-page="RULES"
+                    text-localized-tag="ACCEPT">
+            </button>
+        </form>
+    }
 </div>

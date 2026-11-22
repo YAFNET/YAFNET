@@ -1,5 +1,4 @@
 ﻿@page "{handler?}"
-
 @using YAF.Core.Extensions
 @using YAF.Core.Model
 @using YAF.Web.HtmlHelpers
@@ -10,230 +9,167 @@
 @using YAF.Types.Objects.Model
 @model TeamModel
 
-<div class="row">
-	<div class="col">
-		<div class="card mb-3">
-			<div class="card-header">
-				@Html.IconHeader("user-shield", "TEAM", "ADMINS")
-			</div>
-			<div class="card-body">
-				<ul class="list-group">
-					@foreach (var user in Model.Admins)
-					{
-						<li class="list-group-item list-group-item-action">
-							<div class="d-flex w-100 justify-content-between mb-3">
-								<h5 class="mb-1 text-break">
-									<img style="width: 40px;height:40px" class="rounded img-fluid" alt="avatar" title="avatar"
-									     src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" />
-									@Html.UserLink(user)
-								</h5>
-								<small>
-									<span class="fw-bold">
-										@Html.LocalizedText("FORUMS"):
-									</span>
-									@Html.LocalizedText("TEAM", "FORUMS_ALL")
-								</small>
-							</div>
-							<div class="small">
-								<div class="btn-group" role="group">
-									<form method="post">
-										@if (user.ID != Model.PageBoardContext.PageUserID)
-										{
-											// the user has the current user in the friend list (not just a request)
-											var isFriend = await Model.GetRepository<YAF.Types.Models.Buddy>().ExistsAsync(b => b.FromUserID == user.ID && b.ToUserID == Model.PageBoardContext.PageUserID && b.Approved);
+@{
+    // the buttons to contact a member of the team (the same rules as on the profile)
+    async Task<(bool Pm, bool Email)> GetContactAsync(int userId, bool blockPms, bool blockEmails)
+    {
+        if (userId == Model.PageBoardContext.PageUserID || Model.PageBoardContext.IsGuest)
+        {
+            return (false, false);
+        }
 
-											@if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
-											{
-												var showPm = !user.Block.BlockPMs || Model.PageBoardContext.IsAdmin || isFriend;
+        // the user has the current user in the friend list (not just a request)
+        var isFriend = await Model.GetRepository<YAF.Types.Models.Buddy>().ExistsAsync(
+                           b => b.FromUserID == userId && b.ToUserID == Model.PageBoardContext.PageUserID && b.Approved);
 
-												@if (showPm)
-												{
-													<a role="button"
-													   button-style="Secondary"
-													   button-size="Small"
-													   icon="envelope"
-													   text-localized-page="POSTS"
-													   text-localized-tag="PM"
-													   title-localized-page="POSTS"
-													   title-localized-tag="PM_TITLE"
-													   title-param0="@user.DisplayOrUserName()"
-													   bs-toggle="tooltip"
-													   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = user.ID }))">
-													</a>
-												}
-											}
+        var pm = Model.PageBoardContext.BoardSettings.AllowPrivateMessages
+                 && (!blockPms || Model.PageBoardContext.IsAdmin || isFriend);
 
-											@if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowEmailSending)
-											{
-												var showEmail = !user.Block.BlockEmails || Model.PageBoardContext.IsAdmin || isFriend;
+        var email = Model.PageBoardContext.BoardSettings.AllowEmailSending
+                    && (!blockEmails || Model.PageBoardContext.IsAdmin || isFriend);
 
-												@if (showEmail)
-												{
-													<a role="button"
-													   button-style="Secondary"
-													   button-size="Small"
-													   icon="at"
-													   text-localized-page="POSTS"
-													   text-localized-tag="EMAIL"
-													   title-localized-page="POSTS"
-													   title-localized-tag="EMAIL_TITLE"
-													   title-param0="@user.DisplayOrUserName()"
-													   bs-toggle="tooltip"
-													   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = user.ID }))">
-													</a>
-												}
-											}
-										}
+        return (pm, email);
+    }
 
+    async Task RenderActionsAsync(int userId, string name, bool blockPms, bool blockEmails)
+    {
+        var contact = await GetContactAsync(userId, blockPms, blockEmails);
 
-										@if (Model.PageBoardContext.IsAdmin)
-										{
-											<a role="button"
-											   button-style="Danger"
-											   button-size="Small"
-											   icon="user-cog"
-											   text-localized-page="PROFILE"
-											   text-localized-tag="ADMIN_USER"
-											   title-localized-page="PROFILE"
-											   title-localized-tag="ADMIN_USER"
-											   bs-toggle="tooltip"
-											   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = user.ID }))"></a>
-										}
+        if (!contact.Pm && !contact.Email && !Model.PageBoardContext.IsAdmin)
+        {
+            return;
+        }
 
-									</form>
-								</div>
-							</div>
-						</li>
-					}
-				</ul>
-			</div>
-		</div>
-	</div>
+        <div class="card-footer bg-transparent d-flex flex-wrap gap-1">
+            @if (contact.Pm)
+            {
+                <a role="button"
+                   button-style="OutlineSecondary"
+                   button-size="Small"
+                   icon="envelope"
+                   text-localized-page="POSTS"
+                   text-localized-tag="PM"
+                   title-localized-page="POSTS"
+                   title-localized-tag="PM_TITLE"
+                   title-param0="@name"
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = userId }))">
+                </a>
+            }
+            @if (contact.Email)
+            {
+                <a role="button"
+                   button-style="OutlineSecondary"
+                   button-size="Small"
+                   icon="at"
+                   text-localized-page="POSTS"
+                   text-localized-tag="EMAIL"
+                   title-localized-page="POSTS"
+                   title-localized-tag="EMAIL_TITLE"
+                   title-param0="@name"
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = userId }))">
+                </a>
+            }
+            @if (Model.PageBoardContext.IsAdmin)
+            {
+                <a role="button"
+                   button-style="None"
+                   class="btn btn-sm btn-outline-danger ms-auto"
+                   icon="user-cog"
+                   text-localized-page="PROFILE"
+                   text-localized-tag="ADMIN_USER"
+                   title-localized-page="PROFILE"
+                   title-localized-tag="ADMIN_USER"
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = userId }))"></a>
+            }
+        </div>
+    }
+}
 
-	@if (!Model.CompleteMods.NullOrEmpty())
-	{
-		<div class="col">
-			<div class="card mb-3">
-				<div class="card-header">
-					@Html.IconHeader("user-secret", "TEAM", "MODS")
-				</div>
-				<div class="card-body">
-					<ul class="list-group">
-						@for (var index = 0; index < Model.CompleteMods.Count; index++)
-						{
-							var mod = Model.CompleteMods[index];
+<div class="info-page team-page">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">@Html.Icon("users")@Html.LocalizedText("TEAM", "TITLE")</h2>
+    </div>
 
-							var forums = mod.ForumIDs.Select(forumsItem => forumsItem);
+    <section class="mb-4" id="TeamAdmins">
+        <h3 class="h5 mb-3">
+            @Html.Icon("user-shield")@Html.LocalizedText("TEAM", "ADMINS")
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.Admins.Count</span>
+        </h3>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+            @foreach (var user in Model.Admins)
+            {
+                <div class="col">
+                    <div class="card h-100 team-member">
+                        <div class="card-body d-flex gap-3 align-items-center">
+                            <img class="team-avatar rounded" alt="" aria-hidden="true"
+                                 src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" />
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="fw-semibold text-break">@Html.UserLink(user)</div>
+                                <div class="small text-body-secondary">
+                                    @Html.Icon("folder")@Html.LocalizedText("TEAM", "FORUMS_ALL")
+                                </div>
+                            </div>
+                        </div>
+                        @{ await RenderActionsAsync(user.ID, user.DisplayOrUserName(), user.Block.BlockPMs, user.Block.BlockEmails); }
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
 
-							var sortedForums = Model.GetRepository<Types.Models.Forum>().SortModeratorList(forums);
+    @if (!Model.CompleteMods.NullOrEmpty())
+    {
+        <section class="mb-4" id="TeamModerators">
+            <h3 class="h5 mb-3">
+                @Html.Icon("user-secret")@Html.LocalizedText("TEAM", "MODS")
+                <span class="badge text-bg-secondary align-middle ms-1">@Model.CompleteMods.Count</span>
+            </h3>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+                @for (var index = 0; index < Model.CompleteMods.Count; index++)
+                {
+                    var mod = Model.CompleteMods[index];
 
-							var modForums = new SelectList(sortedForums, nameof(ForumSorted.ForumID), nameof(ForumSorted.Forum), null, nameof(ForumSorted.Category))
-								.ToList();
+                    var forums = mod.ForumIDs.Select(forumsItem => forumsItem);
 
-							var placeHolder = Model.Get<ILocalization>().GetTextFormatted("VIEW_FORUMS", forums.Count());
+                    var sortedForums = Model.GetRepository<Types.Models.Forum>().SortModeratorList(forums);
 
-							modForums.Insert(0, new SelectListItem(placeHolder, null));
+                    var modForums = new SelectList(sortedForums, nameof(ForumSorted.ForumID), nameof(ForumSorted.Forum), null, nameof(ForumSorted.Category))
+                        .ToList();
 
-							<li class="list-group-item list-group-item-action">
-								<div class="d-flex w-100 justify-content-between mb-3">
-									<h5 class="mb-1 text-break">
-										<img style="width: 40px;height:40px" class="rounded img-fluid" title="avatar"
-										     alt="avatar"
-										     src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(mod.ModeratorID, mod.Avatar, mod.AvatarImage != null))" />
-										@Html.UserLink(mod.ModeratorID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name, mod.Suspended, mod.Style)
-									</h5>
-								</div>
+                    var placeHolder = Model.Get<ILocalization>().GetTextFormatted("VIEW_FORUMS", forums.Count());
 
-								<span class="fw-bold">
-									@Html.LocalizedText("FORUMS"):
-								</span>
-								<form method="post">
-									<div class="input-group mb-3">
-										<select asp-for="@Model.CompleteMods[index].SelectedForumId" class="select2-image-select" asp-list="@modForums" 
-										        icon-item="comments"
-										        onchange="this.form.submit();"
-										        placeholder="@placeHolder">
-										</select>
-									</div>
-								</form>
-								<div class="small">
-									<div class="btn-group" role="group">
-										<form method="post">
-											@if (mod.ModeratorID != Model.PageBoardContext.PageUserID)
-											{
-												// the moderator has the current user in the friend list (not just a request)
-												var isFriend = await Model.GetRepository<YAF.Types.Models.Buddy>().ExistsAsync(b => b.FromUserID == mod.ModeratorID && b.ToUserID == Model.PageBoardContext.PageUserID && b.Approved);
+                    modForums.Insert(0, new SelectListItem(placeHolder, null));
 
-												@if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
-												{
-													var showPm = !mod.UserBlockFlags.BlockPMs || Model.PageBoardContext.IsAdmin || isFriend;
+                    var modName = Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name;
 
-													@if (showPm)
-													{
-														<a role="button"
-														   button-style="Secondary"
-														   button-size="Small"
-														   icon="envelope"
-														   text-localized-page="POSTS"
-														   text-localized-tag="PM"
-														   title-localized-page="POSTS"
-														   title-localized-tag="PM_TITLE"
-														   title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
-														   bs-toggle="tooltip"
-														   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = mod.ModeratorID }))">
-														</a>
-													}
-												}
-
-												@if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowEmailSending)
-												{
-													var showEmail = !mod.UserBlockFlags.BlockEmails || Model.PageBoardContext.IsAdmin || isFriend;
-
-													@if (showEmail)
-													{
-														<a role="button"
-														   button-style="Secondary"
-														   button-size="Small"
-														   icon="at"
-														   text-localized-page="POSTS"
-														   text-localized-tag="EMAIL"
-														   title-localized-page="POSTS"
-														   title-localized-tag="EMAIL_TITLE"
-														   title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
-														   bs-toggle="tooltip"
-														   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = mod.ModeratorID }))">
-														</a>
-													}
-												}
-											}
-
-
-											@if (Model.PageBoardContext.IsAdmin)
-											{
-												<a role="button"
-												   button-style="Danger"
-												   button-size="Small"
-												   icon="user-cog"
-												   text-localized-page="PROFILE"
-												   text-localized-tag="ADMIN_USER"
-												   title-localized-page="PROFILE"
-												   title-localized-tag="ADMIN_USER"
-												   bs-toggle="tooltip"
-												   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = mod.ModeratorID }))"></a>
-											}
-
-										</form>
-									</div>
-								</div>
-							</li>
-						}
-					</ul>
-				</div>
-			</div>
-		</div>
-	}
+                    <div class="col">
+                        <div class="card h-100 team-member">
+                            <div class="card-body">
+                                <div class="d-flex gap-3 align-items-center mb-3">
+                                    <img class="team-avatar rounded" alt="" aria-hidden="true"
+                                         src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(mod.ModeratorID, mod.Avatar, mod.AvatarImage != null))" />
+                                    <div class="flex-grow-1 min-w-0">
+                                        <div class="fw-semibold text-break">@Html.UserLink(mod.ModeratorID, modName, mod.Suspended, mod.Style)</div>
+                                    </div>
+                                </div>
+                                <form method="post">
+                                    <label class="visually-hidden" for="CompleteMods_@(index)__SelectedForumId">@Html.LocalizedText("FORUMS")</label>
+                                    <select asp-for="@Model.CompleteMods[index].SelectedForumId" class="select2-image-select" asp-list="@modForums"
+                                            icon-item="comments"
+                                            onchange="this.form.submit();"
+                                            placeholder="@placeHolder">
+                                    </select>
+                                </form>
+                            </div>
+                            @{ await RenderActionsAsync(mod.ModeratorID, modName, mod.UserBlockFlags.BlockPMs, mod.UserBlockFlags.BlockEmails); }
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
 </div>
 
 @section Scripts {
-	@await Html.PartialAsync("_ChoicesScriptsPartial")
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
 }
