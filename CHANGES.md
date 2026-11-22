@@ -138,6 +138,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Login: Enter in a field sent the verification mail again instead of logging in when the "account not approved" message was shown
 * [FIXED] Validate Email Address: the page without a key said that the verification failed before a key was entered
 * [FIXED] Login: the "Register Instead" button was shown when registrations are disabled and led to an access denied page
+* [FIXED] Register: the button stayed "Loading..." and disabled when the browser did not send the form (an empty or wrong field), the form could not be sent again
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

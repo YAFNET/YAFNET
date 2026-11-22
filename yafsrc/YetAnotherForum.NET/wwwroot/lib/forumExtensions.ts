@@ -46,10 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const loginButton = document.querySelector<HTMLElement>('a.btn-login,input.btn-login, .btn-spinner')!;
     if (loginButton) {
-        loginButton.addEventListener('click', (event) => {
-            const button = event.target as HTMLElement;
-            button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
-            button.classList.add('disabled');
+        loginButton.addEventListener('click', () => {
+            // a form that the browser does not send keeps its button (it stayed disabled, the form could not be sent again)
+            const form = (loginButton as HTMLButtonElement).form;
+
+            if (form && !form.checkValidity()) {
+                return;
+            }
+
+            // the button itself (the click can be on its icon)
+            loginButton.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+            loginButton.classList.add('disabled');
         });
     }
 

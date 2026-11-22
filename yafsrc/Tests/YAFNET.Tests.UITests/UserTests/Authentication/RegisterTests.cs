@@ -362,4 +362,37 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                             });
                 });
     }
+
+    /// <summary>
+    /// The register button stays usable when the browser does not send the form (it stayed "Loading..." and disabled,
+    /// the form could not be sent again).
+    /// </summary>
+    [Test]
+    public async Task RegisterButtonStaysUsableWhenTheFormIsNotSentTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
+
+                    if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+                    {
+                        await page.LogOutUserAsync();
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
+                    }
+
+                    var button = page.Locator("form:has(#Input_ConfirmPassword) button[type=submit]").Last;
+
+                    // the fields are empty, the browser does not send the form
+                    await button.ClickAsync();
+
+                    Assert.Multiple(
+                        async () =>
+                            {
+                                Assert.That(await button.GetAttributeAsync("class"), Does.Not.Contain("disabled"), "The button is disabled");
+                                Assert.That(await button.InnerTextAsync(), Does.Not.Contain("Loading"), "The button shows Loading...");
+                            });
+                });
+    }
 }
