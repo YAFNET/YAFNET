@@ -928,4 +928,42 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
         return int.Parse(Regex.Match(link, @"/forum/(\d+)/").Groups[1].Value);
     }
+
+    /// <summary>
+    /// The collapse button of the sub forums on the page of a forum hides and shows the sub forums
+    /// (the button only reloaded the page, the sub forums stayed open).
+    /// </summary>
+    [Test]
+    public async Task SubForumsOfAForumCanBeCollapsedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+
+                var top = await this.SaveForumAsync(page, null, $"CollapseTop{suffix}", null);
+                await this.SaveForumAsync(page, null, $"CollapseSub{suffix}", top, parentOfNew: top);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{top}/test");
+
+                var subForum = page.Locator("a", new PageLocatorOptions { HasText = $"CollapseSub{suffix}" }).First;
+                var toggle = page.Locator("button[formaction*='ToggleCollapse']").First;
+
+                Assert.That(await subForum.IsVisibleAsync(), Is.True, "The sub forum is not shown");
+
+                await page.SubmitAndWaitAsync(toggle);
+
+                Assert.That(await subForum.IsVisibleAsync(), Is.False, "The sub forums were not collapsed");
+
+                await page.SubmitAndWaitAsync(toggle);
+
+                Assert.That(await subForum.IsVisibleAsync(), Is.True, "The sub forums were not expanded again");
+            });
+    }
 }

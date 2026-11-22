@@ -8,6 +8,7 @@
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Types.Models
 
 @model TopicsModel
@@ -30,19 +31,20 @@
                                         type="submit"
                                         class="btn px-0"
                                         bs-toggle="collapse"
-                                        data-bs-target="@Html.Raw($"forumPanel{Model.PageBoardContext.PageForumID}")"
+                                        data-bs-target="@Html.Raw($"#forumPanel{Model.PageBoardContext.PageForumID}")"
                                         aria-label="collapse"
                                         aria-expanded="false"
                                         aria-controls="@Html.Raw($"forumPanel{Model.PageBoardContext.PageForumID}")">
                                     @Html.Icon(
-                                        CollapsePanelHelper.GetCollapsiblePanelIcon($"forum{Model.PageBoardContext.PageForumID}", Model.PageBoardContext.BoardSettings.DefaultCollapsiblePanelState),
+                                        CollapsePanelHelper.GetCollapsiblePanelIcon($"forumPanel{Model.PageBoardContext.PageForumID}", Model.PageBoardContext.BoardSettings.DefaultCollapsiblePanelState),
                                         "text-primary")
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="card-body" id="body">
+                <div class="card-body collapse @Html.Raw(Model.Get<ISessionService>().PanelState[$"forumPanel{Model.PageBoardContext.PageForumID}"] == CollapsiblePanelState.Expanded ? "show" : "")"
+                     id="@Html.Raw($"forumPanel{Model.PageBoardContext.PageForumID}")">
                     @await Html.PartialAsync("_ForumList", Model)
                 </div>
             </div>
