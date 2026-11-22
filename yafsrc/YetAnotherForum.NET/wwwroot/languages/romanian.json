@@ -7761,6 +7761,14 @@
             "#text": "Aruncați fișierul(ele) aici"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Niciun atașament"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Fișierele pe care le atașezi la mesajele tale apar aici."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' nu este valid penru incarcare."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Nu aveți încă niciun atașament, pentru a adăuga unul, faceți clic pe butonul <strong>Încărcați fișier(e) nou(e)</strong>."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Neutilizat"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Folosit în {0} mesaj(e)"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Blocați mesajele private"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nu ignori pe nimeni"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Mesajele utilizatorilor ignorați sunt ascunse, un utilizator poate fi ignorat din meniul mesajelor sale."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Lista de utilizatori ignorați"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Mesajele utilizatorilor ignorați vor fi ascunse. Aceasta nu include mesajele citate"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Opțiunile de blocare au fost salvate."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Altele"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Profilul tău a fost salvat."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Care este numele tau real?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Dezactivați autentificarea cu doi factori"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Un link de confirmare este trimis la noua adresă, adresa se schimbă după confirmare."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Porniți autentificarea cu doi factori"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Setările tale au fost salvate."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Cod de configurare"
           },
           {
             "@tag": "TITLE",
             "#text": "Editați setările"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Dezactivată"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Activată"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Previzualizare semnătură"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Max. {0} caractere, BBCode permise: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Semnătura ta a fost salvată."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Renunta la inscriere"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} abonament(e) eliminat(e)."
           },
           {
             "@tag": "VIEWS",

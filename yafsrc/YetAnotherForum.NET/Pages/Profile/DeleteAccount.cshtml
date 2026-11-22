@@ -11,61 +11,61 @@
     <div class="col-12 col-lg-auto mb-3 mb-lg-0">
         <profileMenu></profileMenu>
     </div>
-    <div class="col">
-        <div class="row">
-            <div class="col">
-                <div class="card border-danger mb-3">
-                    <div class="card-header bg-danger-subtle">
-                        @Html.Icon("user-alt-slash")
-                            @Html.LocalizedTextFormatted("TITLE", Html.Encode(Model.PageBoardContext.PageUser.DisplayOrUserName()))
+    <div class="col profile-page">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h2 class="h4 mb-0 text-danger-emphasis">
+                @Html.Icon("user-alt-slash")@Html.LocalizedTextFormatted("TITLE", Html.Encode(Model.PageBoardContext.PageUser.DisplayOrUserName()))
+            </h2>
+        </div>
+        <div class="card border-danger-subtle mb-3">
+            <div class="card-header bg-danger-subtle text-danger-emphasis">
+                @Html.Icon("exclamation-triangle")@Html.LocalizedText("OPTIONS_TITLE")
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="delete-account-options mb-3">
+                        @foreach (var option in Model.Options)
+                        {
+                            @* each option has an own id (the labels selected the first option) *@
+                            <label class="delete-account-option card" for="Option_@option">
+                                <span class="card-body d-flex gap-3">
+                                    <input class="form-check-input flex-shrink-0 mt-1"
+                                           type="radio"
+                                           name="Option"
+                                           id="Option_@option"
+                                           value="@option"
+                                           checked="@(Model.Option == option)" />
+                                    <span>
+                                        <strong class="d-block mb-1">@Html.Icon(option == "delete" ? "trash" : "pause-circle")@Html.Raw(Model.Get<ILocalization>().GetText($"option_{option}_title"))</strong>
+                                        <span class="small text-body-secondary">@Html.Raw(Model.Get<ILocalization>().GetText($"option_{option}_text"))</span>
+                                    </span>
+                                </span>
+                            </label>
+                        }
                     </div>
-                    <div class="card-body">
-                        <form method="post">
-                            <h6 class="card-title">
-                                @Html.LocalizedText("OPTIONS_TITLE")
-                            </h6>
-                            <div class="mb-3">
-                                @foreach (var option in Model.Options)
-                                {
-                                    <div class="form-check">
-                                        <input class="form-check-input" 
-                                               type="radio" 
-                                               asp-for="Option" 
-                                               value="@option" />
-                                        <label class="form-check-label" asp-for="Option">
-                                            <strong>@Html.Raw(Model.Get<ILocalization>().GetText($"option_{option}_title"))</strong>
-                                            <br />
-                                            @Html.Raw(Model.Get<ILocalization>().GetText($"option_{option}_text"))
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-                            @if (Model.PageBoardContext.MembershipUser.PasswordHash.IsSet())
-                            {
-                                <div class="mb-3">
-                                    <label asp-for="CurrentPassword" localized-page="EDIT_PROFILE" localized-tag="CURRENT_PASSWORD" class="form-label">
-                                    </label>
-                                    <input asp-for="CurrentPassword" type="password" class="form-control" autocomplete="current-password" required />
-                                </div>
-                            }
-                            <div class="text-lg-center">
-                                <button type="submit" 
-                                        class="me-2"
-                                        button-style="Danger"
-                                        text-localized-page="DEFAULT"
-                                        text-localized-tag="CONTINUE"
-                                        icon="user-alt-slash"
-                                        return-confirm-tag="CONFIRM"></button>
-                                <a role="button"
-                                   asp-page="@ForumPages.MyAccount.GetPageName()"
-                                   button-style="Secondary"
-                                   icon="reply"
-                                   text-localized-page="COMMON"
-                                   text-localized-tag="CANCEL"></a>
-                            </div>
-                        </form>
+                    @if (Model.PageBoardContext.MembershipUser.PasswordHash.IsSet())
+                    {
+                        <div class="mb-3">
+                            <label asp-for="CurrentPassword" localized-page="EDIT_PROFILE" localized-tag="CURRENT_PASSWORD" class="form-label">
+                            </label>
+                            <input asp-for="CurrentPassword" type="password" class="form-control" autocomplete="current-password" required />
+                        </div>
+                    }
+                    <div class="d-flex flex-wrap justify-content-between gap-2">
+                        <a role="button"
+                           asp-page="@ForumPages.MyAccount.GetPageName()"
+                           button-style="Secondary"
+                           icon="reply"
+                           text-localized-page="COMMON"
+                           text-localized-tag="CANCEL"></a>
+                        <button type="submit"
+                                button-style="Danger"
+                                text-localized-page="DEFAULT"
+                                text-localized-tag="CONTINUE"
+                                icon="user-alt-slash"
+                                return-confirm-tag="CONFIRM"></button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -602,7 +602,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
         await page.Locator("#Input_DisplayName").FillAsync($"Crawl {Canary}");
-        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
         Assert.That(
             await page.TryCreateNewReplyInTestTopicAsync(this.TestSettings, "A reply of a user with a display name"),
@@ -621,7 +621,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             })
             """);
 
-        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@type,'submit')]").Last);
+        await page.SubmitAndWaitAsync(page.Locator(".profile-edit-actions button[type='submit']"));
 
         this.localeUserName = userName;
 
@@ -749,7 +749,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             await page.Locator($"#Input_{field}").FillAsync($"{field} {Canary}");
         }
 
-        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='UpdateProfile']"));
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='UpdateProfile']:not([aria-hidden])"));
     }
 
     /// <summary>

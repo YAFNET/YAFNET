@@ -7761,6 +7761,14 @@
             "#text": "Súbor(y) vložte sem"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne prílohy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tu sa zobrazujú súbory, ktoré prikladáte k svojim príspevkom."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' nie je platný súbor pre nahranie."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Zatiaľ nemáte žiadne prílohy, ak ich chcete pridať, kliknite na tlačidlo <strong>Nahrať nový súbor(y)</strong>."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Nepoužité"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Použité v príspevkoch: {0}"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Blokovanie súkromných správ"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nikoho neignorujete"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Príspevky ignorovaných používateľov sú skryté, používateľa možno ignorovať v ponuke jeho príspevkov."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Zoznam ignorovaných používateľov"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Príspevky ignorovaných používateľov budú skryté. Toto sa netýka citovaných príspevkov"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Možnosti blokovania boli uložené."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Iné"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Váš profil bol uložený."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Méno a priezvisko"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Zakázať autentifikáciu dvoch faktorov"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Na novú adresu sa odošle potvrdzovací odkaz, adresa sa zmení po potvrdení."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Zapnite dve faktorové overenie"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Vaše nastavenia boli uložené."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Kódovací kód"
           },
           {
             "@tag": "TITLE",
             "#text": "Upraviť nastavenia"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Vypnuté"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Zapnuté"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Náhľad podpisu"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Max. {0} znakov, povolené BBCode: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Váš podpis bol uložený."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Odhlásiť"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "Odstránené odbery: {0}."
           },
           {
             "@tag": "VIEWS",

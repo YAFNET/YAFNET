@@ -174,7 +174,11 @@ public class EditSignatureModel : ProfilePage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount);
+        // the page stays open (it went to the account without a message)
+        return this.PageBoardContext.SessionNotify(
+            this.GetText("EDIT_SIGNATURE", "SIGNATURE_SAVED"),
+            MessageTypes.success,
+            ForumPages.Profile_EditSignature);
     }
 
     /// <summary>

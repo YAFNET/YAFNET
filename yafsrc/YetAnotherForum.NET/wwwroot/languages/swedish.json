@@ -7761,6 +7761,14 @@
             "#text": "Lämna filen/filerna här"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga bilagor"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Filerna du bifogar till dina inlägg visas här."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' är inte en giltig fil för uppladdning."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Du har inga bilagor ännu, för att lägga till en klickar du på knappen <strong>Överför ny(a) fil(er)</strong>."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Används inte"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Används i {0} inlägg"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Blockera privata meddelanden"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Du ignorerar ingen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Inlägg från ignorerade användare döljs, användare kan ignoreras i menyn för deras inlägg."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Ignorerad användarlista"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Inlägg från ignorerade användare kommer att döljas. Detta omfattar inte citerade inlägg."
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Blockeringsalternativen har sparats."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Övriga"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Din profil har sparats."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Vad är ditt riktiga namn?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Inaktivera två faktorautentisering"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "En bekräftelselänk skickas till den nya adressen, adressen ändras när den har bekräftats."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Slå på två faktorautentisering"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Dina inställningar har sparats."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Installationskod"
           },
           {
             "@tag": "TITLE",
             "#text": "Redigera inställningar"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Av"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "På"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Förhandsgranskning av signaturer"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Max {0} tecken, tillåtna BBCodes: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Din signatur har sparats."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Avsluta prenumeration"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} prenumeration(er) borttagna."
           },
           {
             "@tag": "VIEWS",

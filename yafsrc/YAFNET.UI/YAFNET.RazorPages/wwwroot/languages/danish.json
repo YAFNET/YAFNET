@@ -7761,6 +7761,14 @@
             "#text": "Slip fil(er) her"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen vedhæftede filer"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "De filer, du vedhæfter dine indlæg, vises her."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' er ikke en gyldig fil."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Du har ikke nogen vedhæftede filer endnu, for at tilføje ét klik på knappen <strong>Upload ny(e) fil(er)</strong>"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Ikke brugt"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Brugt i {0} indlæg"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Bloker private beskeder"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Du ignorerer ingen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Indlæg fra ignorerede brugere skjules, brugere kan ignoreres i menuen til deres indlæg."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Ignoreret brugerliste"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Indlæg fra ignorerede brugere vil blive skjult. "
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Blokeringsindstillingerne er gemt."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Andet"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Din profil er gemt."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Hvad er dit rigtige navn?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Deaktiver to faktorgodkendelse"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Et bekræftelseslink sendes til den nye adresse, adressen ændres, når den er bekræftet."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Tænd for to faktorgodkendelse"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Åbn din Authenticator-app, og tilføj en ny konto</li><li>Scan QR-koden, eller indtast manuelt opsætningskoden</li><li>Indtast valideringskoden fra din Authenticator</li><li>Klik for at <i>Slå tofaktorgodkendelse til</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Dine indstillinger er gemt."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Opsætningskode"
           },
           {
             "@tag": "TITLE",
             "#text": "Rediger indstillinger"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Fra"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Til"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Signatur forhåndsvisning"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Maks. {0} tegn, tilladte BBCodes: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Din signatur er gemt."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Afmeld"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} abonnement(er) fjernet."
           },
           {
             "@tag": "VIEWS",

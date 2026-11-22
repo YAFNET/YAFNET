@@ -7753,6 +7753,14 @@
                     "#text": "Drop file(s) here"
                 },
                 {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No attachments"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "The files you attach to your posts are shown here."
+                },
+                {
                     "@tag": "FILEERROR",
                     "#text": "'{0}' is not an allowed file type for upload."
                 },
@@ -7763,6 +7771,10 @@
                 {
                     "@tag": "NO_ATTACHMENTS",
                     "#text": "You don't have any attachments uploaded yet, to add one click on the <strong>Upload New File(s)</strong> button"
+                },
+                {
+                    "@tag": "NOT_USED",
+                    "#text": "Not used"
                 },
                 {
                     "@tag": "SELECT_FILE",
@@ -7791,6 +7803,10 @@
                 {
                     "@tag": "UPLOAD_TOOBIG",
                     "#text": "You cannot attach files that are bigger than {1} KB. Your File size is {0} KB."
+                },
+                {
+                    "@tag": "USED_IN",
+                    "#text": "Used in {0} post(s)"
                 }
             ]
         },
@@ -7940,6 +7956,14 @@
                     "#text": "Block Private Messages"
                 },
                 {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "You do not ignore anyone"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "The posts of ignored users are hidden, users can be ignored in the menu of their posts."
+                },
+                {
                     "@tag": "IGNORED_USERS",
                     "#text": "Ignored User List"
                 },
@@ -7950,6 +7974,10 @@
                 {
                     "@tag": "NOTE_USERS",
                     "#text": "Posts of Ignored Users will be hidden. This does not include Quoted Posts"
+                },
+                {
+                    "@tag": "OPTIONS_SAVED",
+                    "#text": "The block options were saved."
                 },
                 {
                     "@tag": "SELECT_OPTIONS",
@@ -10447,6 +10475,10 @@
                     "#text": "Other"
                 },
                 {
+                    "@tag": "PROFILE_SAVED",
+                    "#text": "Your profile was saved."
+                },
+                {
                     "@tag": "REALNAME2",
                     "#text": "What's your real name?"
                 },
@@ -10500,8 +10532,16 @@
             "@name": "EDIT_SETTINGS",
             "Resource": [
                 {
+                    "@tag": "EMAIL_INFO",
+                    "#text": "A confirmation link is sent to the new address, the address is changed after it is confirmed."
+                },
+                {
                     "@tag": "ENABLE_2FA",
                     "#text": "Turn on Two Factor Authentication"
+                },
+                {
+                    "@tag": "SETTINGS_SAVED",
+                    "#text": "Your settings were saved."
                 },
                 {
                     "@tag": "TITLE",
@@ -10518,6 +10558,14 @@
                 {
                     "@tag": "INFO",
                     "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+                },
+                {
+                    "@tag": "TWO_FA_OFF",
+                    "#text": "Disabled"
+                },
+                {
+                    "@tag": "TWO_FA_ON",
+                    "#text": "Enabled"
                 },
                 {
                     "@tag": "TWO_FACTOR_HEADER",
@@ -10555,6 +10603,14 @@
                 {
                     "@tag": "SIGNATURE_PREVIEW",
                     "#text": "Signature Preview"
+                },
+                {
+                    "@tag": "SIGNATURE_RULES",
+                    "#text": "Max. {0} characters, allowed BBCodes: {1}"
+                },
+                {
+                    "@tag": "SIGNATURE_SAVED",
+                    "#text": "Your signature was saved."
                 },
                 {
                     "@tag": "TITLE",
@@ -14008,6 +14064,10 @@
                 {
                     "@tag": "UNSUBSCRIBE",
                     "#text": "Unwatch"
+                },
+                {
+                    "@tag": "UNSUBSCRIBED",
+                    "#text": "{0} subscription(s) removed."
                 },
                 {
                     "@tag": "VIEWS",

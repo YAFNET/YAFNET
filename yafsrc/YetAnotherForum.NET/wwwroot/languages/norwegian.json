@@ -7761,6 +7761,14 @@
             "#text": "Slipp filen(e) her"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen vedlegg"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Filene du legger ved innleggene dine vises her."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' er ikke en gyldig fil."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Du har ingen vedlegg ennå, for å legge til ett klikk på <strong>Last opp ny(e) fil(er)</strong> -knappen"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Ikke brukt"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Brukt i {0} innlegg"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Blokker private meldinger"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Du ignorerer ingen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Innlegg fra ignorerte brukere skjules, brukere kan ignoreres i menyen til innleggene deres."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Ignorert brukerliste"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Innlegg fra ignorerte brukere vil bli skjult. Dette inkluderer ikke siterte innlegg"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Blokkeringsvalgene er lagret."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Annen"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Profilen din er lagret."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Hva er ditt fulle navn?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Deaktiver to faktorautentisering"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "En bekreftelseslenke sendes til den nye adressen, adressen endres etter at den er bekreftet."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Slå på to faktorautentisering"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Innstillingene dine er lagret."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Oppsettkode"
           },
           {
             "@tag": "TITLE",
             "#text": "Endre innstillinger"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Av"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "På"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Forhåndsvisning av signatur"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Maks. {0} tegn, tillatte BBCodes: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Signaturen din er lagret."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Unsubscribe"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} abonnement(er) fjernet."
           },
           {
             "@tag": "VIEWS",

@@ -86,4 +86,32 @@ public class DeleteAccountTests(ComposeScenario scenario) : DatabaseTestBase(sce
             await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
         }
     }
+
+    /// <summary>
+    /// A click on the text of an option selects the option (both labels selected the first option).
+    /// </summary>
+    [Test]
+    public async Task OptionLabelSelectsTheOptionTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword), Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/DeleteAccount");
+
+                    await page.Locator("label[for='Option_delete'] strong").ClickAsync();
+
+                    Assert.That(
+                        await page.Locator("input[name=Option][value=delete]").IsCheckedAsync(),
+                        Is.True,
+                        "The text of the delete option does not select it");
+                });
+    }
 }

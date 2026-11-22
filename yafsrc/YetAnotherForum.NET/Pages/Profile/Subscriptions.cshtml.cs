@@ -95,6 +95,16 @@ public class SubscriptionsModel : ProfilePage
     public List<DeviceSubscription> DeviceSubscriptions { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of the watched forums.
+    /// </summary>
+    public int ForumCount { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of the watched topics.
+    /// </summary>
+    public int TopicCount { get; set; }
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -206,8 +216,11 @@ public class SubscriptionsModel : ProfilePage
         if (items.Count != 0)
         {
             // only own subscriptions (the ids are sent by the client)
-            await this.GetRepository<WatchForum>().DeleteAsync(
+            var deleted = await this.GetRepository<WatchForum>().DeleteAsync(
                 w => items.Contains(w.ID) && w.UserID == this.PageBoardContext.PageUserID);
+
+            // the forums were removed without a message
+            this.PageBoardContext.SessionNotify(this.GetTextFormatted("UNSUBSCRIBED", deleted), MessageTypes.success);
         }
         else
         {
@@ -233,8 +246,11 @@ public class SubscriptionsModel : ProfilePage
         if (items.Count != 0)
         {
             // only own subscriptions (the ids are sent by the client)
-            await this.GetRepository<WatchTopic>().DeleteAsync(
+            var deleted = await this.GetRepository<WatchTopic>().DeleteAsync(
                 w => items.Contains(w.ID) && w.UserID == this.PageBoardContext.PageUserID);
+
+            // the topics were removed without a message
+            this.PageBoardContext.SessionNotify(this.GetTextFormatted("UNSUBSCRIBED", deleted), MessageTypes.success);
         }
         else
         {
@@ -324,6 +340,8 @@ public class SubscriptionsModel : ProfilePage
 
         this.ClearPostedList("Input.Forums");
 
+        this.ForumCount = (int)await this.GetRepository<WatchForum>().CountAsync(w => w.UserID == this.PageBoardContext.PageUserID);
+
         if (list is null)
         {
             return;
@@ -351,6 +369,8 @@ public class SubscriptionsModel : ProfilePage
             this.SizeTopics);
 
         this.ClearPostedList("Input.Topics");
+
+        this.TopicCount = (int)await this.GetRepository<WatchTopic>().CountAsync(w => w.UserID == this.PageBoardContext.PageUserID);
 
         if (list is null)
         {

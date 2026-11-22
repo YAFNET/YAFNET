@@ -7753,6 +7753,14 @@
             "#text": "Datei(en) hier ablegen"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Anhänge"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Die Dateien, die du an deine Beiträge anhängst, werden hier angezeigt."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' ist kein gültiger Dateiname."
           },
@@ -7763,6 +7771,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Sie haben noch keine Anhänge. Um einen hinzuzufügen, klicken Sie auf die Schaltfläche <strong>Neue Datei(en)</strong> hochladen"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Nicht verwendet"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7791,6 +7803,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "Du kannst keine Dateien anhängen, die größer als {1} KB. Ihre Dateigröße beträgt {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "In {0} Beitrag/Beiträgen verwendet"
           }
         ]
       },
@@ -7940,6 +7956,14 @@
             "#text": "Private Nachrichten blockieren"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Du ignorierst niemanden"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Die Beiträge ignorierter Benutzer werden ausgeblendet, Benutzer können im Menü ihrer Beiträge ignoriert werden."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Ignorierte Benutzerliste"
           },
@@ -7950,6 +7974,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Beiträge von ignorierten Benutzern werden ausgeblendet. Dies gilt nicht für zitierte Beiträge"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Die Blockier-Optionen wurden gespeichert."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10447,6 +10475,10 @@
             "#text": "Andere"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Dein Profil wurde gespeichert."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Wie ist dein richtiger Name?"
           },
@@ -10508,6 +10540,10 @@
             "#text": "Deaktivieren Sie die Authentifizierung von zwei Faktoren"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "An die neue Adresse wird ein Bestätigungslink gesendet, die Adresse wird nach der Bestätigung geändert."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Schalten Sie zwei Faktorauthentifizierung ein"
           },
@@ -10516,12 +10552,24 @@
             "#text": "<li>Öffnen Sie Ihre Authenticator-App und fügen Sie ein neues Konto hinzu</li><li>Scannen Sie den QR-Code oder geben Sie den Einrichtungscode manuell ein</li><li>Geben Sie den Validierungscode von Ihrem Authenticator ein</li><li>Klicken Sie auf <i>Zwei-Faktor-Authentifizierung aktivieren</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Deine Einstellungen wurden gespeichert."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Setup -Code"
           },
           {
             "@tag": "TITLE",
             "#text": "Einstellungen bearbeiten"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Deaktiviert"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Aktiviert"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10555,6 +10603,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Signatur Vorschau"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Max. {0} Zeichen, erlaubte BBCodes: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Deine Signatur wurde gespeichert."
           },
           {
             "@tag": "TITLE",
@@ -14096,6 +14152,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Abonnements kündigen"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} Abonnement(s) entfernt."
           },
           {
             "@tag": "VIEWS",

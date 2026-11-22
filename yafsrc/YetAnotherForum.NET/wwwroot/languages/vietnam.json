@@ -7761,6 +7761,14 @@
             "#text": "Thả (các) tệp vào đây"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có tệp đính kèm"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Các tệp bạn đính kèm vào bài viết được hiển thị ở đây."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "Tập tin '{0}' không hợp lệ."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Bạn chưa có bất kỳ tệp đính kèm nào, để thêm một cú nhấp chuột vào nút <strong>Tải lên (các) Tệp Mới</strong>"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Không dùng"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Dùng trong {0} bài viết"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Chặn tin nhắn riêng tư"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Bạn không bỏ qua ai"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Bài viết của người dùng bị bỏ qua sẽ bị ẩn, có thể bỏ qua người dùng trong menu bài viết của họ."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Danh sách người dùng bị bỏ qua"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Bài đăng của Người dùng bị Bỏ qua sẽ bị ẩn. Điều này không bao gồm các bài đăng được trích dẫn"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Tùy chọn chặn đã được lưu."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Khác"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Hồ sơ của bạn đã được lưu."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Tên thật của bạn?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Tắt xác thực hai yếu tố"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Một liên kết xác nhận được gửi đến địa chỉ mới, địa chỉ được đổi sau khi xác nhận."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Bật xác thực hai yếu tố"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Cài đặt của bạn đã được lưu."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Mã thiết lập"
           },
           {
             "@tag": "TITLE",
             "#text": "Chỉnh sửa cài đặt"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Tắt"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Bật"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Xem trước Chữ ký"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Tối đa {0} ký tự, BBCode được phép: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Chữ ký của bạn đã được lưu."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Ngừng theo dõi"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "Đã xóa {0} đăng ký."
           },
           {
             "@tag": "VIEWS",

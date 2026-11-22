@@ -7753,6 +7753,14 @@
             "#text": "فایل (ها) را اینجا بکشید"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "پیوستی نیست"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "فایل‌هایی که به ارسال‌های خود پیوست می‌کنید اینجا نمایش داده می‌شوند."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' فایل مجازی برای ارسال نمی باشد."
           },
@@ -7763,6 +7771,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "شما هنوز هیچ پیوستی ندارید، برای اضافه کردن بر روی دکمه<strong>آپلود فایل(های) جدید</strong> کلیک کنید."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "استفاده نشده"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7791,6 +7803,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "شما نمی توانید فایل های بزرگتر از {1} کیلوبایت را پیوست کنید. اندازه فایل شما {0} کیلوبایت می باشد."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "استفاده‌شده در {0} ارسال"
           }
         ]
       },
@@ -7936,6 +7952,14 @@
             "#text": "مسدود کردن پیام های خصوصی"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "شما کسی را نادیده نمی‌گیرید"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "ارسال‌های کاربران نادیده‌گرفته‌شده پنهان می‌شوند، می‌توانید کاربر را از منوی ارسال‌هایش نادیده بگیرید."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "فهرست کاربران نادیده گرفته شده"
           },
@@ -7946,6 +7970,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "پست های کاربران نادیده گرفته شده پنهان خواهد شد. این شامل پست های نقل قول شده نمی شود"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "گزینه‌های مسدودسازی ذخیره شد."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10443,6 +10471,10 @@
             "#text": "سایر"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "نمایه شما ذخیره شد."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "نام حقیقی شما چیست؟"
           },
@@ -10504,6 +10536,10 @@
             "#text": "احراز هویت دو عامل را غیرفعال کنید"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "یک پیوند تأیید به نشانی جدید فرستاده می‌شود، نشانی پس از تأیید تغییر می‌کند."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "احراز هویت دو عامل را روشن کنید"
           },
@@ -10512,12 +10548,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "تنظیمات شما ذخیره شد."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "رمز تنظیم"
           },
           {
             "@tag": "TITLE",
             "#text": "ویرایش تنظیمات"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "غیرفعال"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "فعال"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10551,6 +10599,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "پیش نمایش امضا"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "حداکثر {0} نویسه، BBCodeهای مجاز: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "امضای شما ذخیره شد."
           },
           {
             "@tag": "TITLE",
@@ -14092,6 +14148,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "لغو پیگیری"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} اشتراک حذف شد."
           },
           {
             "@tag": "VIEWS",

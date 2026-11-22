@@ -7753,6 +7753,14 @@
             "#text": "Zet bestand(en) hier neer"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen bijlagen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "De bestanden die je aan je berichten toevoegt, worden hier getoond."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' is geen geldig bestand om te uploaden."
           },
@@ -7763,6 +7771,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "U heeft nog geen bijlagen, om één klik op de knop <strong>Nieuwe bestand(en) uploaden</strong> toe te voegen"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Niet gebruikt"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7791,6 +7803,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "Je kunt geen bestanden bijsluiten die groter zijn dan {1} KB. Deze grootte is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Gebruikt in {0} bericht(en)"
           }
         ]
       },
@@ -7940,6 +7956,14 @@
             "#text": "Privéberichten blokkeren"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Je negeert niemand"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "De berichten van genegeerde gebruikers worden verborgen, gebruikers kunnen worden genegeerd via het menu van hun berichten."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Genegeerde gebruikerslijst"
           },
@@ -7950,6 +7974,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Berichten van genegeerde gebruikers worden verborgen. "
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "De blokkeeropties zijn opgeslagen."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10447,6 +10475,10 @@
             "#text": "Ander"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Je profiel is opgeslagen."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Wat is je echte naam?"
           },
@@ -10508,6 +10540,10 @@
             "#text": "Schakel twee factor authenticatie uit"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Er wordt een bevestigingslink naar het nieuwe adres gestuurd, het adres wordt gewijzigd na bevestiging."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Schakel twee factor authenticatie in"
           },
@@ -10516,12 +10552,24 @@
             "#text": "<li>Open uw Authenticator-app en voeg een nieuw account toe</li><li>Scan de QR-code of voer de installatiecode handmatig in</li><li>Voer de validatiecode van uw Authenticator in</li><li>Klik om <i>Twee-factor-authenticatie in te schakelen</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Je instellingen zijn opgeslagen."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Setup -code"
           },
           {
             "@tag": "TITLE",
             "#text": "Instellingen bewerken"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Uitgeschakeld"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Ingeschakeld"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10555,6 +10603,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Handtekening voorbeeld"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Max. {0} tekens, toegestane BBCodes: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Je handtekening is opgeslagen."
           },
           {
             "@tag": "TITLE",
@@ -14096,6 +14152,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Niet meer volgen"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} abonnement(en) verwijderd."
           },
           {
             "@tag": "VIEWS",

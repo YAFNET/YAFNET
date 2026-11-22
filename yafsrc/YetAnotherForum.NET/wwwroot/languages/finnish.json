@@ -7761,6 +7761,14 @@
             "#text": "Pudota tiedosto(t) tänne"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei liitteitä"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Viesteihisi liittämäsi tiedostot näkyvät täällä."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' ei ole hyväksytty tiedostomuoto."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Sinulla ei ole vielä liitetiedostoja, voit lisätä yhden napsauttamalla <strong>Lata uusi(t) tiedosto(t)</strong> -painiketta."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Ei käytössä"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Käytössä {0} viestissä"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Estä yksityiset viestit"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Et ohita ketään"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Ohitettujen käyttäjien viestit piilotetaan, käyttäjän voi ohittaa hänen viestiensä valikosta."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Unohdettu käyttäjäluettelo"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Ignoroitujen käyttäjien viestit piilotetaan. Tämä ei koske lainattuja viestejä"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Estoasetukset on tallennettu."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Muut"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Profiilisi on tallennettu."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Oikea nimesi:"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Poista kaksi tekijän todennusta käytöstä"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Uuteen osoitteeseen lähetetään vahvistuslinkki, osoite vaihtuu vahvistuksen jälkeen."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Kytke kaksi tekijän todennusta päälle"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Avaa Authenticator-sovellus ja lisää uusi tili.</li><li>Skannaa QR-koodi tai kirjoita asetuskoodi manuaalisesti.</li><li>Anna vahvistuskoodi Authenticatorista.</li><li>Klikkaa <i>Ota käyttöön kaksivaiheinen todennus</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Asetuksesi on tallennettu."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Asennuskoodi"
           },
           {
             "@tag": "TITLE",
             "#text": "Muokkaa asetuksia"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Pois käytöstä"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Käytössä"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Allekirjoituksen esikatselu"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Enintään {0} merkkiä, sallitut BBCodet: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Allekirjoituksesi on tallennettu."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Peruuta seuranta"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} tilausta poistettu."
           },
           {
             "@tag": "VIEWS",

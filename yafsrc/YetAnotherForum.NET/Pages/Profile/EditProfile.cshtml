@@ -3,6 +3,7 @@
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Interfaces
 
 @model YAF.Pages.Profile.EditProfileModel
 
@@ -14,16 +15,25 @@
 <div class="col-12 col-lg-auto mb-3 mb-lg-0">
     <profileMenu></profileMenu>
 </div>
-<div class="col">
-<div class="card">
+<div class="col profile-page">
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <h2 class="h4 mb-0">@Html.Icon("user-edit")@Html.LocalizedText("EDIT_PROFILE", "TITLE")</h2>
+    <a role="button"
+       button-style="OutlineSecondary"
+       button-size="Small"
+       icon="user"
+       text-localized-page="ACCOUNT"
+       text-localized-tag="VIEW_PROFILE"
+       href="@(Model.Get<ILinkBuilder>().GetUserProfileLink(Model.PageBoardContext.PageUser))"></a>
+</div>
+<form method="post" class="needs-validation" novalidate>
+@* Enter in a field saves the profile (the first submit button of the form, it was "get location") *@
+<button type="submit" asp-page-handler="UpdateProfile" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
+<div class="card mb-3">
 <div class="card-header">
-    @Html.IconHeader("user-edit", "EDIT_PROFILE", "TITLE")
+    @Html.Icon("user")@Html.LocalizedText("EDIT_PROFILE", "ABOUTYOU")
 </div>
 <div class="card-body">
-<form method="post" class="needs-validation" novalidate>
-<h2>
-    @Html.LocalizedText("EDIT_PROFILE", "ABOUTYOU")
-</h2>
 @if (Model.PageBoardContext.BoardSettings.EnableDisplayName && Model.PageBoardContext.BoardSettings.AllowDisplayNameModification)
 {
     <div class="mb-3">
@@ -72,21 +82,25 @@
         }
     </select>
 </div>
-<h4>
-    @Html.LocalizedText("EDIT_PROFILE", "LOCATION")
-</h4>
+</div>
+</div>
 
-@if (Model.PageBoardContext.BoardSettings.EnableIPInfoService)
-{
-    <div class="mb-3">
+<div class="card mb-3">
+<div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <span>@Html.Icon("map-marker-alt")@Html.LocalizedText("EDIT_PROFILE", "LOCATION")</span>
+    @if (Model.PageBoardContext.BoardSettings.EnableIPInfoService)
+    {
         <button type="submit"
                 asp-page-handler="GetLocation"
-                button-style="Secondary"
+                formnovalidate="formnovalidate"
+                button-style="OutlineSecondary"
+                button-size="Small"
                 icon="location-arrow"
                 text-localized-page="EDIT_PROFILE"
                 text-localized-tag="GET_LOCATION"></button>
-    </div>
-}
+    }
+</div>
+<div class="card-body">
 <div class="row">
     <div class="mb-3 col-md-4">
         <label asp-for="Input.Country" localized-page="EDIT_PROFILE" localized-tag="COUNTRY" class="form-label">
@@ -129,14 +143,19 @@
     </div>
 </div>
 
-<div class="mb-3">
+<div class="mb-0">
     <label asp-for="Input.Location" localized-page="EDIT_PROFILE" localized-tag="WHERE" class="form-label">
     </label>
     <input asp-for="Input.Location" class="form-control"/>
 </div>
-<h2>
-    @Html.LocalizedText("EDIT_PROFILE", "HOMEPAGE")
-</h2>
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header">
+    @Html.Icon("globe")@Html.LocalizedText("EDIT_PROFILE", "HOMEPAGE")
+</div>
+<div class="card-body pb-0">
 <div class="row">
     <div class="mb-3 col-md-6">
         <label asp-for="Input.HomePage" localized-page="EDIT_PROFILE" localized-tag="HOMEPAGE2" class="form-label">
@@ -149,13 +168,16 @@
         <input asp-for="Input.Blog" class="form-control"/>
     </div>
 </div>
+</div>
+</div>
 
 @if (!Model.Input.CustomProfile.NullOrEmpty())
 {
-    <hr/>
-    <h4>
-        @Html.LocalizedText("EDIT_PROFILE", "OTHER")
-    </h4>
+    <div class="card mb-3">
+    <div class="card-header">
+        @Html.Icon("list")@Html.LocalizedText("EDIT_PROFILE", "OTHER")
+    </div>
+    <div class="card-body">
 
     @for (var i = 0; i < Model.Input.CustomProfile.Count; i++)
     {
@@ -213,26 +235,25 @@
 		    }
 	    </div>
     }
+    </div>
+    </div>
 }
 
-<div class="text-lg-center">
-    <button type="submit"
-            asp-page-handler="UpdateProfile"
-            class="me-2"
-            button-style="Primary"
-            text-localized-page="COMMON"
-            text-localized-tag="SAVE"
-            icon="save"></button>
+<div class="profile-edit-actions">
     <a role="button"
        asp-page="@ForumPages.MyAccount.GetPageName()"
        button-style="Secondary"
        icon="reply"
        text-localized-page="COMMON"
        text-localized-tag="CANCEL"></a>
+    <button type="submit"
+            asp-page-handler="UpdateProfile"
+            button-style="Primary"
+            text-localized-page="COMMON"
+            text-localized-tag="SAVE"
+            icon="save"></button>
 </div>
 </form>
-</div>
-</div>
 </div>
 </div>
 

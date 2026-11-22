@@ -112,9 +112,11 @@ public class BlockOptionsModel : ProfilePage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        await this.BindDataAsync();
-
-        return this.Page();
+        // the page is loaded again with the saved options and a message (it was shown again without a message)
+        return this.PageBoardContext.SessionNotify(
+            this.GetText("BLOCK_OPTIONS", "OPTIONS_SAVED"),
+            MessageTypes.success,
+            ForumPages.Profile_BlockOptions);
     }
 
     /// <summary>

@@ -7761,6 +7761,14 @@
             "#text": "将文件拖放到此处"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有附件"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "你附加到帖子中的文件会显示在这里。"
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' 不能上传."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "您还没有任何附件，添加一键<strong>上传新文件</strong>按钮"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "未使用"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "您不能上传大于 {1} KB 的附件. 您试图上传的文件为 {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "用于 {0} 个帖子"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "阻止私人消息"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "你没有忽略任何人"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "被忽略用户的帖子会被隐藏，可以在用户帖子的菜单中忽略该用户。"
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "忽略的用户列表"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "忽略用户的帖子将被隐藏。"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "屏蔽选项已保存。"
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "其他"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "你的个人资料已保存。"
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "您的真实名字?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "禁用两个因素身份验证"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "确认链接会发送到新地址，地址在确认后更改。"
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "打开两个因素身份验证"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>打开您的身份验证器应用并添加新帐户</li><li>扫描二维码或手动输入设置代码</li><li>输入身份验证器中的验证代码</li><li>点击<i>开启双因素身份验证</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "你的设置已保存。"
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "设置代码"
           },
           {
             "@tag": "TITLE",
             "#text": "编辑设置"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "已停用"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "已启用"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "签名预览"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "最多 {0} 个字符，允许的 BBCode：{1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "你的签名已保存。"
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "退订"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "已移除 {0} 个订阅。"
           },
           {
             "@tag": "VIEWS",

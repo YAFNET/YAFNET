@@ -61,6 +61,16 @@ public class AttachmentsModel : ProfilePage
     public List<Attachment> Attachments { get; set; }
 
     /// <summary>
+    /// Gets or sets the posts of each attachment of the page (by the attachment id).
+    /// </summary>
+    public Dictionary<int, List<(int MessageId, int TopicId, string TopicName)>> Usages { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the number of all attachments of the user.
+    /// </summary>
+    public int TotalCount { get; set; }
+
+    /// <summary>
     /// The create page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -170,6 +180,11 @@ public class AttachmentsModel : ProfilePage
             this.Size);
 
         this.Attachments = list;
+
+        this.TotalCount = (int)await this.GetRepository<Attachment>().CountAsync(a => a.UserID == this.PageBoardContext.PageUserID);
+
+        // the posts that show the attachments (a deleted attachment is missing in these posts)
+        this.Usages = this.GetRepository<Attachment>().GetUsages([.. list.Select(x => x.ID)]);
 
         this.ClearPostedList(nameof(this.Attachments));
     }

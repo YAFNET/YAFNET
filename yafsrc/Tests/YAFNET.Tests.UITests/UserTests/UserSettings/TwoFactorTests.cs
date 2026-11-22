@@ -282,11 +282,11 @@ public class TwoFactorTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                         Does.Contain("The password you entered is not correct."),
                         "Enabling 2FA with a wrong password was not refused");
 
-                    // the settings are saved, the user is sent to the account page
+                    // the settings are saved (the page says so)
                     await page.SubmitAndWaitAsync(
                         page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save", Exact = true }));
 
-                    Assert.That(page.Url, Does.Contain("MyAccount"), "The settings were not saved");
+                    Assert.That(await page.ContentAsync(), Does.Contain("Your settings were saved."), "The settings were not saved");
                 });
     }
 }

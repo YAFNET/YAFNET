@@ -7753,6 +7753,14 @@
             "#text": "Suelte el/los archivo(s) aquí"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No hay adjuntos"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aquí se muestran los archivos que adjunta a sus mensajes."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' no es un archivo válido para cargar."
           },
@@ -7763,6 +7771,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Todavía no tienes ningún archivo adjunto, para añadir uno haz clic en el botón <strong>Cargar nuevo(s) archivo(s)</strong>."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Sin usar"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7791,6 +7803,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "No puedes adjuntar imágenes mayores de {1} KB. El tamaño de tu archivo es de {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Usado en {0} mensaje(s)"
           }
         ]
       },
@@ -7940,6 +7956,14 @@
             "#text": "Bloquear mensajes privados"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No ignora a nadie"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Los mensajes de los usuarios ignorados se ocultan, puede ignorar a un usuario desde el menú de sus mensajes."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Lista de usuarios ignorados"
           },
@@ -7950,6 +7974,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Los mensajes de los usuarios ignorados se ocultarán. Esto no incluye los mensajes citados"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Las opciones de bloqueo se han guardado."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10447,6 +10475,10 @@
             "#text": "Otros"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Su perfil se ha guardado."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Nombre verdadero"
           },
@@ -10508,6 +10540,10 @@
             "#text": "Deshabilitar la autenticación de dos factores"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Se envía un enlace de confirmación a la nueva dirección, la dirección se cambia después de confirmarla."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Activar la autenticación de dos factores"
           },
@@ -10516,12 +10552,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Su configuración se ha guardado."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Código de configuración"
           },
           {
             "@tag": "TITLE",
             "#text": "Editar la configuración"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Desactivada"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Activada"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10555,6 +10603,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Previsualización de firma"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Máx. {0} caracteres, BBCodes permitidos: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Su firma se ha guardado."
           },
           {
             "@tag": "TITLE",
@@ -14096,6 +14152,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Cancelar subscripción"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} suscripción(es) eliminada(s)."
           },
           {
             "@tag": "VIEWS",

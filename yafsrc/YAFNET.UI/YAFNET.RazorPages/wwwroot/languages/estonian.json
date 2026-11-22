@@ -7761,6 +7761,14 @@
             "#text": "Pukseerige fail(id) siia"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Manuseid pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Siin kuvatakse failid, mille oma postitustele lisad."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "Faili tüüp '{0}' ei ole üleslaadimiseks lubatud"
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Teil ei ole veel manuseid, et lisada üks klõps nupul <strong>Laadi uus fail(id)</strong>"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Pole kasutusel"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "Te ei saa manustada faile, mis on suuremad kui {1} KB. "
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Kasutusel {0} postituses"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Blokeeri privaatsõnumid"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Sa ei ignoreeri kedagi"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Ignoreeritud kasutajate postitused peidetakse, kasutajat saab ignoreerida tema postituste menüüst."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Eiratud kasutajate loend"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Ignoreeritud kasutajate postitused peidetakse. "
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Blokeerimise valikud on salvestatud."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "muud"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Sinu profiil on salvestatud."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Mis on teie tegelik nimi?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Keelake kahe teguri autentimine"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Uuele aadressile saadetakse kinnituslink, aadress muudetakse pärast kinnitamist."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Lülitage sisse kaks teguri autentimist"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Avage oma Authenticatori rakendus ja lisage uus konto.</li><li>Skannige QR-kood või sisestage seadistuskood käsitsi.</li><li>Sisestage autentimiskood oma autentimisseadmest.</li><li>Klõpsake, et <i>Lülita sisse kahefaktoriline autentimine</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Sinu seaded on salvestatud."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Seadistuskood"
           },
           {
             "@tag": "TITLE",
             "#text": "Redigeeri sätteid"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Väljas"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Sees"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Allkirja eelvaade"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Kuni {0} märki, lubatud BBCode’id: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Sinu allkiri on salvestatud."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Eemalda jälgimine"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} tellimust eemaldatud."
           },
           {
             "@tag": "VIEWS",

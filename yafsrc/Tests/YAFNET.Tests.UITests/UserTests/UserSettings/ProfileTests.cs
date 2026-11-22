@@ -85,7 +85,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//div[contains(@data-value,'de-DE')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
+                    await page.Locator(".profile-edit-actions button[type='submit']").ClickAsync();
 
                     await page.ReloadAsync();
 
@@ -100,7 +100,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//div[contains(@data-value,'en-US')]").First.ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
+                    await page.Locator(".profile-edit-actions button[type='submit']").ClickAsync();
 
                     await page.ReloadAsync();
 
@@ -166,7 +166,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//div[contains(@data-value,'flatly')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
+                    await page.Locator(".profile-edit-actions button[type='submit']").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -181,7 +181,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//div[contains(@data-value,'yaf')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
+                    await page.Locator(".profile-edit-actions button[type='submit']").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -351,7 +351,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//div[contains(@data-value,'BER')]").Last.ClickAsync();
 
                     // Save the Profile Changes
-                    await page.Locator("//button[contains(@formaction,'UpdateProfile')]").ClickAsync();
+                    await page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]").ClickAsync();
 
                     await page.GetByText("View Profile").First.ClickAsync();
 
@@ -386,7 +386,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("#Input_City").FillAsync(city);
                     await page.Locator("#Input_Interests").FillAsync(interests);
 
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 
@@ -428,7 +428,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         // the guest name is not allowed
                         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
                         await page.Locator("#Input_DisplayName").FillAsync("Guest");
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         Assert.That(
                             await page.ContentAsync(),
@@ -438,7 +438,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         // an empty name is too short
                         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
                         await page.Locator("#Input_DisplayName").FillAsync(string.Empty);
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         Assert.That(
                             await page.ContentAsync(),
@@ -456,7 +456,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         var displayName = $"Temp Display {userName[8..]}";
 
                         await page.Locator("#Input_DisplayName").FillAsync(displayName);
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 
@@ -536,7 +536,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await field.EvaluateAsync("input => input.type = 'text'");
                         await field.FillAsync("big");
 
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         Assert.That(
                             await page.ContentAsync(),
@@ -547,7 +547,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         await page.GetByLabel(fieldName).FillAsync("42");
 
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 
@@ -650,8 +650,8 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.That(pageSource, Does.Not.Contain(firstOfPage2.Split(' ')[0]), "The selected attachment of page 2 was not deleted");
-                    Assert.That(pageSource, Does.Contain(firstOfPage1.Split(' ')[0]), "The attachment of page 1 was deleted");
+                    Assert.That(pageSource, Does.Not.Contain(firstOfPage2.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)[0]), "The selected attachment of page 2 was not deleted");
+                    Assert.That(pageSource, Does.Contain(firstOfPage1.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)[0]), "The attachment of page 1 was deleted");
                 });
     }
 
@@ -792,7 +792,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await field.EvaluateAsync("input => input.type = 'text'");
                         await field.FillAsync("big");
 
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         await page.Locator(".toast").First.WaitForAsync();
                         await page.WaitForTimeoutAsync(500);
@@ -1053,7 +1053,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.Locator("#Input_Birthday").EvaluateAsync("input => input.value = '1990-05-10'");
 
-                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='UpdateProfile']"));
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='UpdateProfile']:not([aria-hidden])"));
 
                     var profileLink = await page.Locator("a", new PageLocatorOptions { HasText = "View Profile" }).First.GetAttributeAsync("href");
 
@@ -1163,7 +1163,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await page.Locator(field).EvaluateAsync("input => { input.removeAttribute('maxlength'); input.type = 'text'; input.form.noValidate = true; }");
                         await page.Locator(field).FillAsync(value);
 
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         Assert.That(page.Url, Does.Contain("Profile/EditProfile"), $"{field}: the too long value was not refused ({page.Url})");
                         Assert.That(
@@ -1175,9 +1175,9 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // a value of 255 characters can be saved
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
                     await page.Locator("#Input_RealName").FillAsync(new string('r', 255));
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
-                    Assert.That(page.Url, Does.Contain("MyAccount"), "The profile was not saved");
+                    Assert.That(await page.ContentAsync(), Does.Contain("Your profile was saved."), "The profile was not saved");
                 });
     }
 
@@ -1212,7 +1212,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await page.Locator("#Input_Interests").FillAsync(interests);
                         await page.Locator("#Input_DisplayName").FillAsync("Guest");
 
-                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                         Assert.Multiple(
                             async () =>
@@ -1276,7 +1276,37 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // the test image has 5480 bytes
                     var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name });
 
-                    Assert.That(await item.First.InnerTextAsync(), Does.Contain("(5 KB)"), "The size is not shown in KB");
+                    Assert.That(await item.First.InnerTextAsync(), Does.Contain("5 KB").And.Not.Contain("/1024"), "The size is not shown in KB");
+                });
+    }
+
+    /// <summary>
+    /// The settings stay open after saving and say that they were saved (the page went to the account without a message).
+    /// </summary>
+    [Test]
+    public async Task SettingsSavedMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword), Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    await page.SubmitAndWaitAsync(page.Locator(".profile-edit-actions button[type='submit']"));
+
+                    Assert.Multiple(
+                        async () =>
+                            {
+                                Assert.That(page.Url, Does.Contain("EditSettings"), "The settings page is not shown again");
+                                Assert.That(await page.ContentAsync(), Does.Contain("Your settings were saved."), "No message");
+                            });
                 });
     }
 }

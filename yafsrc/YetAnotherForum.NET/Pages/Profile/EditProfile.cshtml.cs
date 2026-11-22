@@ -296,7 +296,11 @@ public class EditProfileModel : ProfilePage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount);
+        // the page stays open (it went to the account without a message)
+        return this.PageBoardContext.SessionNotify(
+            this.GetText("EDIT_PROFILE", "PROFILE_SAVED"),
+            MessageTypes.success,
+            ForumPages.Profile_EditProfile);
     }
 
     /// <summary>

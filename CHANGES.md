@@ -133,6 +133,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit Profile: a field that was not accepted (e.g. a display name that is taken) loaded the page again and all changes were lost, now the form is shown again with the changes
 * [FIXED] Attachments: the size of an attachment showed the bytes and "/1024kb" instead of the size in KB
 * [FIXED] Edit Avatar: an upload without a file or with a file that is not an image showed the page again without a message
+* [CHANGES] Profile pages redesigned (Edit Profile, Edit Settings, Signature, Avatar, Attachments, Notification Preferences, Block Options, Change Password, Delete Account): page headers, sections as cards, a sticky save bar, the pages stay open after saving with a message, attachments show the posts they are used in
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

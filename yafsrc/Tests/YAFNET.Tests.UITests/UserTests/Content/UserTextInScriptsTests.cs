@@ -59,7 +59,7 @@ public class UserTextInScriptsTests(ComposeScenario scenario) : DatabaseTestBase
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
                     await page.Locator("#Input_DisplayName").FillAsync(displayName);
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 

@@ -7761,6 +7761,14 @@
             "#text": "Déposer le(s) fichier(s) ici"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucune pièce jointe"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Les fichiers que vous joignez à vos messages apparaissent ici."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' n'est pas un fichier valide pour le téléchargement."
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Vous n'avez pas encore de pièces jointes, pour en ajouter une cliquez sur le bouton <strong>Transférer nouveau(x) fichier(s)</strong>."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Non utilisée"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Utilisée dans {0} message(s)"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Bloquer les messages privés"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Vous n’ignorez personne"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Les messages des utilisateurs ignorés sont masqués, vous pouvez ignorer un utilisateur depuis le menu de ses messages."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Liste des utilisateurs ignorés"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Les messages des utilisateurs ignorés seront cachés. Ceci n'inclut pas les messages cités."
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Les options de blocage ont été enregistrées."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Autre"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Votre profil a été enregistré."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Quel est votre vrai nom ?"
           },
@@ -10516,6 +10548,10 @@
             "#text": "Désactiver l'authentification à deux facteurs"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Un lien de confirmation est envoyé à la nouvelle adresse, l’adresse est modifiée après confirmation."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Activer l'authentification à deux facteurs"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Ouvrez votre application Authenticator et ajoutez un nouveau compte</li><li>Scannez le code QR ou saisissez manuellement le code de configuration</li><li>Saisissez le code de validation de votre Authenticator</li><li>Cliquez pour <i>Activer l'authentification à deux facteurs</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Vos paramètres ont été enregistrés."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Code de configuration"
           },
           {
             "@tag": "TITLE",
             "#text": "Modifier les paramètres"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Désactivée"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Activée"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Aperçu de la signature"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "{0} caractères max., BBCodes autorisés : {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Votre signature a été enregistrée."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Se désabonner"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} abonnement(s) supprimé(s)."
           },
           {
             "@tag": "VIEWS",

@@ -7753,6 +7753,14 @@
             "#text": "Upuść plik(i) tutaj"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak załączników"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tutaj są wyświetlane pliki dołączone do Twoich postów."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "'{0}' nie jest prawidłowym plikiem do wgrania."
           },
@@ -7763,6 +7771,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Nie masz jeszcze żadnych załączników, aby je dodać, kliknij przycisk <strong>Prześlij nowy plik(i)</strong>."
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Nieużywany"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7791,6 +7803,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "Nie możesz załączyć plików większych niż {1} KB. Rozmiar Twoich plików to {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "Użyty w postach: {0}"
           }
         ]
       },
@@ -7940,6 +7956,14 @@
             "#text": "Zablokuj prywatne wiadomości"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nikogo nie ignorujesz"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Posty ignorowanych użytkowników są ukryte, użytkownika można zignorować w menu jego postów."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Ignorowana lista użytkowników"
           },
@@ -7950,6 +7974,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Posty Ignorowanych użytkowników będą ukrywane. Nie dotyczy to postów cytowanych."
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Opcje blokowania zostały zapisane."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10451,6 +10479,10 @@
             "#text": "Inne"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Twój profil został zapisany."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Jakie jest Twoje prawdziwe imię?"
           },
@@ -10512,6 +10544,10 @@
             "#text": "Wyłącz uwierzytelnianie dwóch czynników"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Na nowy adres zostanie wysłany link potwierdzający, adres zmieni się po potwierdzeniu."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "Włącz uwierzytelnianie dwóch czynników"
           },
@@ -10520,12 +10556,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Twoje ustawienia zostały zapisane."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Kod konfiguracji"
           },
           {
             "@tag": "TITLE",
             "#text": "Edytuj ustawienia"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Wyłączone"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Włączone"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10559,6 +10607,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "Podgląd podpisu"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "Maks. {0} znaków, dozwolone BBCode: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "Twój podpis został zapisany."
           },
           {
             "@tag": "TITLE",
@@ -14100,6 +14156,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Usuń Subskrypcje"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "Usunięto subskrypcje: {0}."
           },
           {
             "@tag": "VIEWS",

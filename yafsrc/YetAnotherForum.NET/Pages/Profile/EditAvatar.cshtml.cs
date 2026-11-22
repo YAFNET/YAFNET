@@ -89,6 +89,11 @@ public class EditAvatarModel : ProfilePage
     public string AvatarUrl { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the user has an avatar (not the generated avatar with the initials).
+    /// </summary>
+    public bool HasAvatar { get; set; }
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -288,6 +293,8 @@ public class EditAvatarModel : ProfilePage
         {
             showNoAvatar = true;
         }
+
+        this.HasAvatar = !showNoAvatar;
 
         if (showNoAvatar)
         {

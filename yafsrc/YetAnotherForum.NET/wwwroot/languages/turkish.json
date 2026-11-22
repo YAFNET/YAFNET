@@ -7761,6 +7761,14 @@
             "#text": "Dosya(lar)ı buraya bırakın"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ek yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Gönderilerinize eklediğiniz dosyalar burada gösterilir."
+          },
+          {
             "@tag": "FILEERROR",
             "#text": "{0}' Yüklemek İçin Geçerli Bir Dosya Değil"
           },
@@ -7771,6 +7779,10 @@
           {
             "@tag": "NO_ATTACHMENTS",
             "#text": "Henüz herhangi bir eklentiniz yok, bir tane eklemek için <strong>Yeni Dosya(lar)</strong> Yükle düğmesine tıklayın"
+          },
+          {
+            "@tag": "NOT_USED",
+            "#text": "Kullanılmıyor"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7799,6 +7811,10 @@
           {
             "@tag": "UPLOAD_TOOBIG",
             "#text": "You cannot attach files that bigger than {1} KB. Your File size is {0} KB."
+          },
+          {
+            "@tag": "USED_IN",
+            "#text": "{0} gönderide kullanılıyor"
           }
         ]
       },
@@ -7948,6 +7964,14 @@
             "#text": "Özel Mesajları Engelle"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Kimseyi yok saymıyorsunuz"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Yok sayılan kullanıcıların gönderileri gizlenir, bir kullanıcıyı gönderilerinin menüsünden yok sayabilirsiniz."
+          },
+          {
             "@tag": "IGNORED_USERS",
             "#text": "Yoksayılan Kullanıcı Listesi"
           },
@@ -7958,6 +7982,10 @@
           {
             "@tag": "NOTE_USERS",
             "#text": "Yoksayılan Kullanıcıların gönderileri gizlenecektir. Bu, Alıntılanan Gönderileri içermez"
+          },
+          {
+            "@tag": "OPTIONS_SAVED",
+            "#text": "Engelleme seçenekleri kaydedildi."
           },
           {
             "@tag": "SELECT_OPTIONS",
@@ -10455,6 +10483,10 @@
             "#text": "Diğer"
           },
           {
+            "@tag": "PROFILE_SAVED",
+            "#text": "Profiliniz kaydedildi."
+          },
+          {
             "@tag": "REALNAME2",
             "#text": "Adınız ve Soyadınız:"
           },
@@ -10516,6 +10548,10 @@
             "#text": "İki faktörlü kimlik doğrulamasını devre dışı bırakın"
           },
           {
+            "@tag": "EMAIL_INFO",
+            "#text": "Yeni adrese bir onay bağlantısı gönderilir, adres onaylandıktan sonra değiştirilir."
+          },
+          {
             "@tag": "ENABLE_2FA",
             "#text": "İki faktörlü kimlik doğrulamasını açın"
           },
@@ -10524,12 +10560,24 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
+            "@tag": "SETTINGS_SAVED",
+            "#text": "Ayarlarınız kaydedildi."
+          },
+          {
             "@tag": "SETUP_CODE",
             "#text": "Kurulum kodu"
           },
           {
             "@tag": "TITLE",
             "#text": "Ayarları Düzenle"
+          },
+          {
+            "@tag": "TWO_FA_OFF",
+            "#text": "Kapalı"
+          },
+          {
+            "@tag": "TWO_FA_ON",
+            "#text": "Açık"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -10563,6 +10611,14 @@
           {
             "@tag": "SIGNATURE_PREVIEW",
             "#text": "İmza Önizlemesi"
+          },
+          {
+            "@tag": "SIGNATURE_RULES",
+            "#text": "En fazla {0} karakter, izin verilen BBCode’lar: {1}"
+          },
+          {
+            "@tag": "SIGNATURE_SAVED",
+            "#text": "İmzanız kaydedildi."
           },
           {
             "@tag": "TITLE",
@@ -14112,6 +14168,10 @@
           {
             "@tag": "UNSUBSCRIBE",
             "#text": "Abonelik İptali"
+          },
+          {
+            "@tag": "UNSUBSCRIBED",
+            "#text": "{0} abonelik kaldırıldı."
           },
           {
             "@tag": "VIEWS",
