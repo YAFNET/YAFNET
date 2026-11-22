@@ -568,4 +568,38 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                         "Enter sent the verification mail again instead of logging in");
                 });
     }
+
+    /// <summary>
+    /// The validate email page without a key shows the form without an error
+    /// (it said that the verification failed before a key was entered).
+    /// </summary>
+    [Test]
+    public async Task ApprovePageWithoutKeyShowsNoErrorTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Approve");
+
+                    Assert.Multiple(
+                        async () =>
+                            {
+                                Assert.That(await page.Locator("#Input_Key").IsVisibleAsync(), Is.True, "No key field");
+                                Assert.That(
+                                    await page.ContentAsync(),
+                                    Does.Not.Contain("Failed to verify email address"),
+                                    "The verification failed before a key was entered");
+                            });
+
+                    // a wrong key is still refused
+                    await page.Locator("#Input_Key").FillAsync("WrongKey");
+                    await page.SubmitAndWaitAsync(page.Locator("form:has(#Input_Key) button[type=submit]"));
+
+                    Assert.That(
+                        await page.ContentAsync(),
+                        Does.Contain("Failed to verify email address"),
+                        "A wrong key was not refused");
+                });
+    }
 }

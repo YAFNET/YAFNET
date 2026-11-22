@@ -136,6 +136,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Profile pages redesigned (Edit Profile, Edit Settings, Signature, Avatar, Attachments, Notification Preferences, Block Options, Change Password, Delete Account): page headers, sections as cards, a sticky save bar, the pages stay open after saving with a message, attachments show the posts they are used in
 * [FIXED] Register, Reset Password and Change Password: a confirm password that differed was accepted and the password typed first was saved (the browser only marked the field, the server did not compare them)
 * [FIXED] Login: Enter in a field sent the verification mail again instead of logging in when the "account not approved" message was shown
+* [FIXED] Validate Email Address: the page without a key said that the verification failed before a key was entered
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

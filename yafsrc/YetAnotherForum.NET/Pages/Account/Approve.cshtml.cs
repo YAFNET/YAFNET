@@ -36,6 +36,7 @@ using YAF.Core.Extensions;
 using YAF.Core.Identity;
 using YAF.Core.Model;
 using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -96,6 +97,12 @@ public class ApproveModel : AccountPage
         this.ErrorMessage = string.Empty;
 
         this.Input.Key = code;
+
+        // without a key the form is shown (it said that the verification failed before a key was entered)
+        if (code.IsNotSet())
+        {
+            return Task.FromResult<IActionResult>(this.Page());
+        }
 
         return this.ValidateKeyAsync();
     }
