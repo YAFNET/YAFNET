@@ -62,7 +62,7 @@
     <div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-8" : "col")">
 
         <div id="category-list"
-             data-load-more-url="@Url.Page("", "ShowMore")"
+             data-load-more-url="@Url.Page("", "ShowMore", Model.PageBoardContext.PageCategoryID > 0 ? new { c = Model.PageBoardContext.PageCategoryID } : null)"
              data-refresh-url="@Url.Page("", "RefreshCategories", Model.PageBoardContext.PageCategoryID > 0 ? new { c = Model.PageBoardContext.PageCategoryID } : null)"
              data-forum-icon-legend-content="@((await Html.PartialAsync("_ForumIconLegend")).RenderToString())"
              data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
