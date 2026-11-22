@@ -147,6 +147,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Help: the search showed the marks of the found words in the titles as text ("<mark>Avatars</mark>")
 * [CHANGES] Team, Help, Info, Cookies and Privacy redesigned: page headers, the team members as cards with their contact buttons, the help search box stays on the results, the info messages as a card with an icon for the kind of message, the privacy accept and decline in a bar at the bottom
 * [FIXED] Topics: the collapse button of the sub forums only reloaded the page, the sub forums stayed open and the icon did not change
+* [FIXED] Topics: a change of the page size showed all topics again (the date filter was lost), a change of the date filter reset the page size
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

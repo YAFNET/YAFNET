@@ -1160,4 +1160,49 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(errors, Is.Empty, "The dialog failed with an error");
             });
     }
+
+    /// <summary>
+    /// The page size and the date filter of the topic list keep each other (a change of the page size showed
+    /// all topics again, a change of the date filter reset the page size).
+    /// </summary>
+    [Test]
+    public async Task TopicListFiltersKeepEachOtherTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/test");
+
+                // the date filter is a Choices.js select, the page size a select (both are in the hidden filter menu)
+                const string Choose = """
+                                      ([id, value]) => {
+                                          const select = document.getElementById(id);
+                                          if (![...select.options].some(o => o.value === value)) select.add(new Option(value, value));
+                                          select.value = value;
+                                          select.form.submit();
+                                      }
+                                      """;
+
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(Choose, new[] { "ShowTopicListSelected", "3" }));
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(Choose, new[] { "Size", "50" }));
+
+                Assert.That(
+                    await page.Locator("#ShowTopicListSelected").InputValueAsync(),
+                    Is.EqualTo("3"),
+                    "The date filter was reset by the page size");
+
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(Choose, new[] { "ShowTopicListSelected", "2" }));
+
+                Assert.That(
+                    await page.Locator("#Size").InputValueAsync(),
+                    Is.EqualTo("50"),
+                    "The page size was reset by the date filter");
+            });
+    }
 }

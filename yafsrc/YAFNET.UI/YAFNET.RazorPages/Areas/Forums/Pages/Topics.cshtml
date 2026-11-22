@@ -106,6 +106,7 @@
                                                 aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
                                                 class="form-select"
                                                 onchange="this.form.submit();"></select>
+                                        <input type="hidden" name="@nameof(Model.ShowTopicListSelected)" value="@Model.ShowTopicListSelected" />
                                     </form>
                                 </div>
                                 
@@ -116,6 +117,7 @@
                                                 asp-items="Model.ShowList"
                                                 class="select2-select"
                                                 onchange="this.form.submit();"></select>
+                                        <input type="hidden" name="@nameof(Model.Size)" value="@Model.Size" />
                                     </form>
                                 </div>
                                 
