@@ -18,7 +18,9 @@
 
 @await Html.PartialAsync("_PollList", Model)
 
-<form method="post">
+<form method="post" asp-page-handler="PostReply" asp-route-t="@Request.Query["t"]" asp-route-f="@Request.Query["f"]" asp-route-q="@Request.Query["q"]">
+    @* Enter in a field of the form saves (the form action, the first submit button of the form was "preview") *@
+    <button type="submit" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
         <div class="row">
             <div class="col">
                 <div class="card mb-3">

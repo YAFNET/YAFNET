@@ -14,7 +14,9 @@
     }
 }
 
-<form method="post">
+<form method="post" asp-page-handler="PostReply" asp-route-f="@Model.PageBoardContext.PageForumID">
+    @* Enter in a field of the form saves (the form action, the first submit button of the form was "preview") *@
+    <button type="submit" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
         <div class="row">
             <div class="col">
                 <div class="card mb-3">

@@ -1346,4 +1346,51 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(await placeHolder.InnerTextAsync(), Does.Not.Contain("Error"), "The similar topics show an error");
             });
     }
+
+    /// <summary>
+    /// Enter in the subject of a new topic posts the topic, Enter in the reason of an edit saves the edit
+    /// (both showed the preview, the first button of the form).
+    /// </summary>
+    [Test]
+    public async Task EnterInTheEditorFormsSavesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+
+                var body = page.FrameLocator(".sceditor-container >> iframe").Locator("body");
+
+                await body.ClickAsync();
+                await body.FillAsync("A topic of the enter test");
+
+                var subject = page.Locator("//input[contains(@id,'_TopicSubject')]");
+
+                await subject.FillAsync($"Enter test {Random.Shared.Next()}");
+
+                await page.RunAndWaitForNextPageAsync(() => subject.PressAsync("Enter"));
+
+                Assert.That(page.Url, Does.Contain("/topic/"), "Enter in the subject did not post the topic");
+
+                var editLink = await page.Locator("a[href*='EditMessage']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "Edit link of the message not found");
+
+                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString());
+
+                var reason = page.Locator("#Input_ReasonEditor");
+
+                await reason.FillAsync("Enter test");
+
+                await page.RunAndWaitForNextPageAsync(() => reason.PressAsync("Enter"));
+
+                Assert.That(page.Url, Does.Not.Contain("EditMessage"), "Enter in the reason did not save the edit");
+            });
+    }
 }
