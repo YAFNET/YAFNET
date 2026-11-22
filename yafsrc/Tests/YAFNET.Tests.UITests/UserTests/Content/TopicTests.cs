@@ -1262,4 +1262,55 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.WaitForLoadStateAsync();
     }
+
+    /// <summary>
+    /// A max post size of 0 is unlimited: the editor takes the typed text (every key was undone).
+    /// </summary>
+    [Test]
+    public async Task EditorWithoutMaxPostSizeTakesTheTextTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await SetMaxPostSizeAsync(page, this.TestSettings, "0");
+
+                try
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+
+                    var body = page.FrameLocator(".sceditor-container >> iframe").Locator("body");
+
+                    await body.ClickAsync();
+                    await page.Keyboard.TypeAsync("Unlimited text");
+
+                    Assert.That(await body.InnerTextAsync(), Does.Contain("Unlimited text"), "The editor did not take the text");
+                }
+                finally
+                {
+                    await SetMaxPostSizeAsync(page, this.TestSettings, "32767");
+                }
+            });
+    }
+
+    /// <summary>
+    /// Sets the max post size (0 is unlimited).
+    /// </summary>
+    private async static Task SetMaxPostSizeAsync(IPage page, TestConfig testSettings, string value)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        await page.Locator("#Input_MaxPostSize").EvaluateAsync("(input, value) => input.value = value", value);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+        await page.WaitForLoadStateAsync();
+    }
 }

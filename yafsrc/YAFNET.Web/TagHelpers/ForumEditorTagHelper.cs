@@ -87,6 +87,13 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var containerCardBody = new TagBuilder(HtmlTag.Div) { Attributes = { [HtmlAttribute.Class] = "card-body" } };
 
+        // a max post size of 0 is unlimited, the browser would not accept a single character with maxlength="0"
+        if (output.Attributes.TryGetAttribute("maxlength", out var maxLength)
+            && (!int.TryParse(maxLength.Value?.ToString(), out var length) || length <= 0))
+        {
+            output.Attributes.Remove(maxLength);
+        }
+
         if (BoardContext.Current.BoardSettings.EnableWysiwygEditor && this.EditorMode is EditorMode.Standard)
         {
             this.EditorMode = EditorMode.SCEditor;
