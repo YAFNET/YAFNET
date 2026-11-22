@@ -122,6 +122,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topics: the button "Moderators" was shown in a forum without moderators (with an empty list)
 * [FIXED] Admin > Attachments: the usages of an attachment were the hits of the search index (the number in any post, only after an update of the index) and "show topics" searched for the number; the usages are the posts with the attachment, "show posts" leads to them
 * [FIXED] Topic: the dialog "move topic" showed no forums ("dialogFunctions is not a function"), the scripts of the page were a module and the functions of the dialogs not global
+* [FIXED] My Topics: the title of the page was "Reset Password" (the texts of the page had no title), the German "my topics" was "no topics"
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

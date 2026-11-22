@@ -12018,6 +12018,10 @@
             "#text": "Depuis"
           },
           {
+            "@tag": "TITLE",
+            "#text": "Mes sujets"
+          },
+          {
             "@tag": "TOPIC_STARTER",
             "#text": "Initiateur du sujet"
           },

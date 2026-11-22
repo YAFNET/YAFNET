@@ -12002,6 +12002,10 @@
                     "#text": "Since"
                 },
                 {
+                    "@tag": "TITLE",
+                    "#text": "My Topics"
+                },
+                {
                     "@tag": "TOPIC_STARTER",
                     "#text": "Topic Starter"
                 },

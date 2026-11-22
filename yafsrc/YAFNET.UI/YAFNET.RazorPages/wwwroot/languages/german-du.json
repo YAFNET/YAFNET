@@ -11975,7 +11975,7 @@
           },
           {
             "@tag": "MEMBERTITLE",
-            "#text": "Keine Themen"
+            "#text": "Meine Themen"
           },
           {
             "@tag": "MYTOPICS",
@@ -12000,6 +12000,10 @@
           {
             "@tag": "SINCE",
             "#text": "Seit"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Meine Themen"
           },
           {
             "@tag": "TOPIC_STARTER",
