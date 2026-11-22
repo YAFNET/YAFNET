@@ -10294,6 +10294,10 @@
             "#text": "Filen som laddades upp är inte en riktig bildfil."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Välj en bild att ladda upp."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Ingen avatar ]"
           },

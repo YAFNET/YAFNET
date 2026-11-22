@@ -317,4 +317,35 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             Is.EqualTo(size),
             "The avatar size was not saved");
     }
+
+    /// <summary>
+    /// An upload without a file tells the user to select an image (the page was shown again without a message).
+    /// </summary>
+    [Test]
+    public async Task UploadAvatarWithoutFileTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await this.SetAvatarSizeAsync(page, "50000");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditAvatar");
+
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UploadUpdate')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Select an image to upload."), "No message without a file");
+            });
+    }
 }

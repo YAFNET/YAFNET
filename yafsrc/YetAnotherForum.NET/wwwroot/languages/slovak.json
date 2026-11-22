@@ -10294,6 +10294,10 @@
             "#text": "Odoslaný súbor nie je správny súbor s obrázkom."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Vyberte obrázok na nahranie."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Žiadna personifikácia ]"
           },

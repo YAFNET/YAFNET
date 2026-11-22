@@ -10294,6 +10294,10 @@
             "#text": "Tệp được tải lên không phải là tệp hình ảnh thích hợp."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Chọn một hình để tải lên."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Không có hình ]"
           },

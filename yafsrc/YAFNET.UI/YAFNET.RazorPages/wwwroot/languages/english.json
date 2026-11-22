@@ -10286,6 +10286,10 @@
                     "#text": "The file uploaded is not a proper image file."
                 },
                 {
+                    "@tag": "NO_FILE",
+                    "#text": "Select an image to upload."
+                },
+                {
                     "@tag": "NOAVATAR",
                     "#text": "[ No Avatar ]"
                 },

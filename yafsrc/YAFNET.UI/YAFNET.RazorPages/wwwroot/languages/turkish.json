@@ -10294,6 +10294,10 @@
             "#text": "Yüklenen resim uygun biçimde değil."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Yüklenecek bir resim seçin."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Avatar Yok ]"
           },

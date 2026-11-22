@@ -10294,6 +10294,10 @@
             "#text": "Nahraný soubor není správný soubor obrázku."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Vyberte obrázek k nahrání."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Žádná personifikace ]"
           },

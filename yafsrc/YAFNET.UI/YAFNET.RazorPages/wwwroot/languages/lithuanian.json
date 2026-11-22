@@ -10294,6 +10294,10 @@
             "#text": "Įkeltas failas nėra tinkamas vaizdo failas."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Pasirinkite vaizdą įkėlimui."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[Nr Avataras] "
           },

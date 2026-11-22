@@ -10286,6 +10286,10 @@
             "#text": "El archivo no es un archivo de imagen apropiado."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Seleccione una imagen para subir."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Sin Avatar ]"
           },

@@ -10286,6 +10286,10 @@
             "#text": "Il file caricato non risulta essere un'immagine."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Seleziona un’immagine da caricare."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Nessun avatar ]"
           },

@@ -10294,6 +10294,10 @@
             "#text": "Filen der er uploaded er ikke et korrekt billede format."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Vælg et billede, der skal uploades."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Ingen avatar ]"
           },

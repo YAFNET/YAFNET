@@ -10294,6 +10294,10 @@
             "#text": "O ficheiro carregado não é um ficheiro de imagem adequado."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Selecione uma imagem para carregar."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Sem Avatar ]"
           },

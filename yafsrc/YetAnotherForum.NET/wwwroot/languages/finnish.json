@@ -10294,6 +10294,10 @@
             "#text": "Ladattu tiedosto ei ole oikea kuvatiedosto."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Valitse ladattava kuva."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[Ei Avataria]"
           },

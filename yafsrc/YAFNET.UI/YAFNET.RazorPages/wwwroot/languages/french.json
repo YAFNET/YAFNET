@@ -10294,6 +10294,10 @@
             "#text": "Le fichier envoyé n'est pas une image valide."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Choisissez une image à téléverser."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Pas d'Avatar ]"
           },

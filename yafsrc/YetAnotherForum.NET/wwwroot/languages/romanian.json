@@ -10294,6 +10294,10 @@
             "#text": "Fișierul încărcat nu este un fișier imagine corespunzător."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Alege o imagine de încărcat."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[Fără avatar]"
           },

@@ -10286,6 +10286,10 @@
             "#text": "Die hochgeladene Datei war kein gültiges Bildformat"
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Wähle ein Bild zum Hochladen."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Kein Bild ]"
           },

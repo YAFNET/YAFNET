@@ -152,9 +152,21 @@ public class EditAvatarModel : ProfilePage
     public async Task<IActionResult> OnPostUploadUpdateAsync()
     {
         // the upload form is only shown with the avatar upload enabled
-        if (!this.PageBoardContext.BoardSettings.AvatarUpload || this.Upload is null || this.Upload.FileName.Trim().Length <= 0 ||
-            !this.Upload.FileName.Trim().IsImageName())
+        if (!this.PageBoardContext.BoardSettings.AvatarUpload)
         {
+            return this.LoadPage();
+        }
+
+        // without a file or with another file the page was shown again without a message
+        if (this.Upload is null || this.Upload.FileName.Trim().Length <= 0)
+        {
+            this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "NO_FILE"), MessageTypes.warning);
+            return this.LoadPage();
+        }
+
+        if (!this.Upload.FileName.Trim().IsImageName())
+        {
+            this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.warning);
             return this.LoadPage();
         }
 

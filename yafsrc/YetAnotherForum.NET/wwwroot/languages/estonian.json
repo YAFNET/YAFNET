@@ -10294,6 +10294,10 @@
             "#text": "Üleslaaditud fail ei ole pildifail."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Vali üleslaaditav pilt."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Avatar puudub ]"
           },

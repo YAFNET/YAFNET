@@ -10290,6 +10290,10 @@
             "#text": "Wysłany plik nie jest obrazem."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Wybierz obraz do przesłania."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "[ Brak Avatara]"
           },

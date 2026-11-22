@@ -10286,6 +10286,10 @@
             "#text": "Het bestand dat je hebt geupload heeft geen bekend formaat."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Kies een afbeelding om te uploaden."
+          },
+          {
             "@tag": "NOAVATAR",
             "#text": "(Geen avatar)"
           },
