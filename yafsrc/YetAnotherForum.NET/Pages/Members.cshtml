@@ -6,7 +6,8 @@
 @using YAF.Types.Objects
 @model MembersModel
 
-<form method="post">
+@* the page size starts at the first page (the form was sent to the current page, a later page was empty) *@
+<form method="post" action="@Url.Page("Members", Model.LetterRoute)" asp-antiforgery="true">
 	<div class="row">
 		<div class="col">
 			<div class="card mb-3">

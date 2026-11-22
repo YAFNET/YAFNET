@@ -106,4 +106,31 @@ public class MembersTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     "The sort lost the selected letter");
             });
     }
+
+    /// <summary>
+    /// A change of the page size on a later page shows the first page (the page stayed, it was empty
+    /// and had no pager to go back).
+    /// </summary>
+    [Test]
+    public async Task PageSizeOnALaterPageShowsMembersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}members?p=2");
+
+                var size = page.Locator("select#Size");
+
+                await page.RunAndWaitForNextPageAsync(
+                    () => size.EvaluateAsync("select => { select.value = '50'; select.form.submit(); }"));
+
+                Assert.That(await page.Locator(".member-row").CountAsync(), Is.GreaterThan(0), "No members are listed");
+            });
+    }
 }

@@ -15,7 +15,8 @@
     @await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
 }
 
-<form method="post">
+@* the page size starts at the first page (the form was sent to the current page, a later page was empty) *@
+<form method="post" action="@Url.Page("ActiveUsers", new { v = ViewContext.RouteData.Values["v"] })" asp-antiforgery="true">
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
