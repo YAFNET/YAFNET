@@ -1,109 +1,183 @@
 @page "{handler?}"
+@using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 @model PollEditModel
 
+@{
+    var allowImages = (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowUsersImagedPoll) && Model.PageBoardContext.ForumPollAccess;
 
-<div class="row">
-    <div class="col">
-        <form method="post">
-            @if (Model.TopicUnapproved)
+    // the filled choices and one empty choice are shown, the others with "add choice"
+    var lastFilled = -1;
+
+    for (var c = 0; c < Model.Input.Choices.Count; c++)
+    {
+        if (Model.Input.Choices[c].ChoiceName.IsSet())
+        {
+            lastFilled = c;
+        }
+    }
+
+    var visibleChoices = Math.Min(Model.Input.Choices.Count, Math.Max(2, lastFilled + 2));
+}
+
+<form method="post" class="post-action-page">
+    @* Enter in a field saves the poll (the first submit button of the form) *@
+    <button type="submit"
+            asp-page-handler="SavePoll"
+            asp-route-f="@Request.Query["f"].ToString()"
+            asp-route-t="@Request.Query["t"].ToString()"
+            class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
+
+    @if (Model.TopicUnapproved)
+    {
+        <input type="hidden" name="ra" value="1" />
+    }
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">@Html.Icon("poll-h")@Html.LocalizedText("POLLEDIT", Model.PollId.HasValue ? "EDITPOLL" : "CREATEPOLL")</h2>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.Icon("question-circle")@Html.LocalizedText("POLLEDIT", "POLLQUESTION")
+        </div>
+        <div class="card-body">
+            <div class="@(allowImages ? "mb-3" : string.Empty)">
+                <label asp-for="Input.Question" localized-tag="pollquestion" class="form-label visually-hidden">
+                </label>
+                <input asp-for="Input.Question" maxlength="256" class="form-control" autofocus />
+            </div>
+
+            @if (allowImages)
             {
-                <input type="hidden" name="ra" value="1" />
+                <label asp-for="Input.QuestionObjectPath" localized-page="POLLEDIT" localized-tag="POLLIMAGE_TEXT" class="form-label">
+                </label>
+                <input asp-for="Input.QuestionObjectPath" maxlength="255" class="form-control" type="url" placeholder="https://" />
             }
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("poll-h", "POLLEDIT", Model.PollId.HasValue ? "EDITPOLL" : "CREATEPOLL")
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label asp-for="Input.Question" localized-tag="pollquestion" class="form-label">
-                        </label>
-                        <input asp-for="Input.Question" maxlength="256" class="form-control" />
-                    </div>
+        </div>
+    </div>
 
-                    @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowUsersImagedPoll) && Model.PageBoardContext.ForumPollAccess)
-                    {
-                        <div class="mb-3">
-                            <label asp-for="Input.QuestionObjectPath" localized-page="POLLEDIT" localized-tag="POLLIMAGE_TEXT" class="form-label">
+    <div class="card mb-3" id="PollChoices">
+        <div class="card-header">
+            @Html.Icon("list-ol")@Html.LocalizedText("POLLEDIT", "CHOICES")
+        </div>
+        <div class="card-body d-grid gap-3">
+            @for (var i = 0; i < Model.Input.Choices.Count; i++)
+            {
+                <div class="poll-choice" data-poll-choice hidden="@(i >= visibleChoices ? "hidden" : null)">
+                    <span class="poll-choice-number" aria-hidden="true">@(i + 1)</span>
+                    <input type="hidden" asp-for="Input.Choices[i].ID" />
+                    <div class="poll-choice-fields @(allowImages ? "has-image" : string.Empty)">
+                        <div>
+                            <label asp-for="Input.Choices[i].ChoiceName" localized-tag="choice" param0="@(i + 1)" class="form-label visually-hidden">
                             </label>
-                            <input asp-for="Input.QuestionObjectPath" maxlength="255" class="form-control" />
+                            <input asp-for="Input.Choices[i].ChoiceName" class="form-control" maxlength="50"
+                                   placeholder="@Model.GetTextFormatted("CHOICE", i + 1).TrimEnd(':')" />
                         </div>
-                    }
-
-                    @for (var i = 0; i < Model.Input.Choices.Count; i++)
-                    {
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <input type="hidden" asp-for="Input.Choices[i].ID" />
-                                <label asp-for="Input.Choices[i].ChoiceName" localized-tag="choice" param0="@(i + 1)" class="form-label">
+                        @if (allowImages)
+                        {
+                            <div>
+                                <label asp-for="Input.Choices[i].ObjectPath" localized-tag="POLLIMAGE_TEXT" class="form-label visually-hidden">
                                 </label>
-                                <input asp-for="Input.Choices[i].ChoiceName" class="form-control" maxlength="50" />
+                                <input asp-for="Input.Choices[i].ObjectPath" class="form-control" maxlength="255" type="url"
+                                       placeholder="@Model.GetText("POLLEDIT", "POLLIMAGE_TEXT").TrimEnd(':')" />
                             </div>
-                            @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowUsersImagedPoll) && Model.PageBoardContext.ForumPollAccess)
-                            {
-                                <div class="mb-3 col-md-6">
-                                    <label asp-for="Input.Choices[i].ObjectPath" localized-tag="POLLIMAGE_TEXT" class="form-label">
-                                    </label>
-                                    <input asp-for="Input.Choices[i].ObjectPath" class="form-control" maxlength="255" />
-                                </div>
-                            }
-                        </div>
-                    }
-
-                    @if (Model.PageBoardContext.BoardSettings.AllowMultipleChoices || Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess)
-                    {
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input asp-for="Input.AllowMultipleChoicesCheckBox" class="form-check-input" type="checkbox" />
-                                <label class="form-check-label" asp-for="Input.AllowMultipleChoicesCheckBox" localized-tag="POLL_MULTIPLECHOICES"></label>
-                            </div>
-                        </div>
-                    }
-
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input asp-for="Input.ShowVotersCheckBox" class="form-check-input" type="checkbox" />
-                            <label class="form-check-label" asp-for="Input.ShowVotersCheckBox" localized-tag="POLL_SHOWVOTERS"></label>
-                        </div>
+                        }
                     </div>
-
-                    <div class="mb-3">
-                        <label asp-for="Input.PollExpire" localized-page="EDIT_PROFILE" localized-tag="poll_expire" class="form-label">
-                        </label>
-                        <input asp-for="Input.PollExpire" class="form-control" type="number" />
-                        <small class="form-text text-body-secondary">
-                            @Html.LocalizedText("poll_expire_explain")
-                        </small>
-                    </div>
-
-                    @if (Model.PageBoardContext.BoardSettings.AllowUsersHidePollResults || Model.PageBoardContext.IsAdmin || Model.PageBoardContext.IsForumModerator)
-                    {
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input asp-for="Input.IsClosedBoundCheckBox" class="form-check-input" type="checkbox" role="switch" switch />
-                                <label class="form-check-label" asp-for="Input.IsClosedBoundCheckBox" localized-tag="pollgroup_closedbound"></label>
-                            </div>
-                            <small class="form-text text-body-secondary">
-                                @Html.LocalizedText("POLLGROUP_CLOSEDBOUND_WARN")
-                            </small>
-                        </div>
-                    }
                 </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="SavePoll"
-                            asp-route-f="@Request.Query["f"].ToString()"
-                            asp-route-t="@Request.Query["t"].ToString()"
-                            text-localized-tag="POLLSAVE"
-                            icon="save"
-                            button-style="Primary"></button>
-                    <button asp-page-handler="Cancel"
-                            asp-route-f="@Request.Query["f"].ToString()"
-                            asp-route-t="@Request.Query["t"].ToString()"
-                            text-localized-tag="CANCEL"
-                            icon="xmark"
-                            button-style="Secondary"></button>
+            }
+            @if (visibleChoices < Model.Input.Choices.Count)
+            {
+                <div>
+                    <button type="button"
+                            id="AddChoice"
+                            button-style="OutlineSecondary"
+                            button-size="Small"
+                            icon="plus"
+                            text-localized-page="POLLEDIT"
+                            text-localized-tag="ADD_CHOICE"></button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.Icon("sliders-h")@Html.LocalizedText("POLLEDIT", "OPTIONS")
+        </div>
+        <div class="card-body">
+            <div class="mb-3 col-sm-6 col-lg-4">
+                <label asp-for="Input.PollExpire" localized-page="POLLEDIT" localized-tag="poll_expire" class="form-label">
+                </label>
+                <input asp-for="Input.PollExpire" class="form-control" type="number" min="1" />
+                <small class="form-text text-body-secondary">
+                    @Html.LocalizedText("POLLEDIT", "POLL_EXPIRE_EXPLAIN")
+                </small>
+            </div>
+
+            @if (Model.PageBoardContext.BoardSettings.AllowMultipleChoices || Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess)
+            {
+                <div class="post-action-option">
+                    <div class="form-check form-switch mb-0">
+                        <input asp-for="Input.AllowMultipleChoicesCheckBox" class="form-check-input" type="checkbox" role="switch" />
+                        <label class="form-check-label" asp-for="Input.AllowMultipleChoicesCheckBox" localized-tag="POLL_MULTIPLECHOICES"></label>
+                    </div>
+                </div>
+            }
+
+            <div class="post-action-option">
+                <div class="form-check form-switch mb-0">
+                    <input asp-for="Input.ShowVotersCheckBox" class="form-check-input" type="checkbox" role="switch" />
+                    <label class="form-check-label" asp-for="Input.ShowVotersCheckBox" localized-tag="POLL_SHOWVOTERS"></label>
                 </div>
             </div>
-        </form>
+
+            @if (Model.PageBoardContext.BoardSettings.AllowUsersHidePollResults || Model.PageBoardContext.IsAdmin || Model.PageBoardContext.IsForumModerator)
+            {
+                <div class="post-action-option">
+                    <div class="form-check form-switch mb-0">
+                        <input asp-for="Input.IsClosedBoundCheckBox" class="form-check-input" type="checkbox" role="switch" />
+                        <label class="form-check-label" asp-for="Input.IsClosedBoundCheckBox" localized-tag="pollgroup_closedbound"></label>
+                    </div>
+                    <div class="form-text">
+                        @Html.LocalizedText("POLLGROUP_CLOSEDBOUND_WARN")
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
+
+    <div class="post-action-bar">
+        <button type="submit"
+                asp-page-handler="Cancel"
+                asp-route-f="@Request.Query["f"].ToString()"
+                asp-route-t="@Request.Query["t"].ToString()"
+                text-localized-tag="CANCEL"
+                icon="xmark"
+                button-style="Secondary"></button>
+        <button type="submit"
+                asp-page-handler="SavePoll"
+                asp-route-f="@Request.Query["f"].ToString()"
+                asp-route-t="@Request.Query["t"].ToString()"
+                text-localized-tag="POLLSAVE"
+                icon="save"
+                button-style="Primary"></button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById("AddChoice")?.addEventListener("click", event => {
+            const next = document.querySelector("[data-poll-choice][hidden]");
+
+            if (next) {
+                next.hidden = false;
+                next.querySelector("input[type=text], input:not([type])")?.focus();
+            }
+
+            if (!document.querySelector("[data-poll-choice][hidden]")) {
+                event.currentTarget.closest("div").remove();
+            }
+        });
+    </script>
+}

@@ -10167,6 +10167,10 @@
             "#text": "Prioridade:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} respostas a esta mensagem"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Assunto:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Eviar Email"
           },
           {
+            "@tag": "SENT",
+            "#text": "O e-mail foi enviado para {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Assunto:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Enviar E-mail"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "O seu e-mail foi enviado para {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "É necessário seleccionar duas versões diferentes para fazer uma comparação válida."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Selecione duas versões para as comparar."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Apenas 2 Versões podem ser seleccionadas para comparação!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Criar Tópico para onde ir:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Selecione o tópico para onde mover a mensagem."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Seleccionar Fórum para onde se deslocar:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Adicionar escolha"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Quer mesmo remover a sondagem?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Escolha {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Escolhas"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Deve introduzir uma pergunta de sondagem."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Opções"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

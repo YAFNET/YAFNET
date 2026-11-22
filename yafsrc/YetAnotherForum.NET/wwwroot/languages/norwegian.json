@@ -10167,6 +10167,10 @@
             "#text": "Prioritet:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} svar på dette innlegget"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Emne:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Send e-post"
           },
           {
+            "@tag": "SENT",
+            "#text": "E-posten ble sendt til {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Emne:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Send e-post"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "E-posten din ble sendt til {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Du må velge to forskjellige versjoner for å gjøre en gyldig sammenligning."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Velg to versjoner for å sammenligne dem."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Kun 2 versjoner kan velges ved sammenligning!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Opprett emne å flytte til:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Velg emnet meldingen skal flyttes til."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Velg Forum for å flytte til:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Legg til alternativ"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Vil du virkelig fjerne avstemningen?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Valg {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Svaralternativer"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Du må legge inn et avstemningsspørsmål."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Innstillinger"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

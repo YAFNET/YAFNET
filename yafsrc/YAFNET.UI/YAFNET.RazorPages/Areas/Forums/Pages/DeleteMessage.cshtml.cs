@@ -48,6 +48,19 @@ public class DeleteMessageModel : ForumPage
     [BindProperty]
     public List<Message> LinkedPosts { get; set; }
 
+    /// <summary>
+    /// The author of the message.
+    /// </summary>
+    private User messageAuthor;
+
+    /// <summary>
+    /// Gets the author of the message (shown above the message).
+    /// </summary>
+    public User MessageAuthor =>
+        this.messageAuthor ??= this.PageBoardContext.PageMessage is null
+                                   ? null
+                                   : this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+
     [BindProperty]
     public bool DeleteAllPosts { get; set; } = true;
 

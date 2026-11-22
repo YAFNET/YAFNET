@@ -10159,6 +10159,10 @@
             "#text": "Prioridad:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} respuestas a este mensaje"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Asunto:"
           },
@@ -10654,6 +10658,10 @@
             "#text": "Enviar correo"
           },
           {
+            "@tag": "SENT",
+            "#text": "El correo se envió a {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Asunto:"
           },
@@ -11138,6 +11146,10 @@
           {
             "@tag": "SEND",
             "#text": "Enviar correo electrónico"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Su correo se envió a {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11711,6 +11723,10 @@
             "#text": "Debe seleccionar dos versiones diferentes para hacer una comparación válida."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Seleccione dos versiones para compararlas."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Sólo se pueden seleccionar 2 versiones por comparación."
           },
@@ -12036,6 +12052,10 @@
             "#text": "Crear un tema al que mover:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Seleccione el tema al que desea mover el mensaje."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Seleccionar un foro al que mover:"
           },
@@ -12293,12 +12313,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Añadir opción"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "¿Deseas realmente eliminar la encuesta?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Elección {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Opciones de respuesta"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12315,6 +12343,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Debes introducir una pregunta para la encuesta."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Ajustes"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

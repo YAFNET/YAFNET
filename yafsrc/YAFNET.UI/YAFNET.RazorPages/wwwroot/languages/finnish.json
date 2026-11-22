@@ -10167,6 +10167,10 @@
             "#text": "Prioriteetti:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} vastausta tähän viestiin"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Aihe:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Lähetä sähköposti"
           },
           {
+            "@tag": "SENT",
+            "#text": "Sähköposti lähetettiin osoitteeseen {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Aihe:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Lähetä sähköposti"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Sähköpostisi lähetettiin käyttäjälle {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Sinun on valittava kaksi eri versiota, jotta vertailu olisi pätevä."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Valitse kaksi versiota vertailtavaksi."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Vain 2 versiota voidaan valita vertailun ajaksi!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Luo aihe, johon siirrytään:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Valitse aihe, johon viesti siirretään."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Valitse foorumi, johon haluat siirtyä:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Lisää vaihtoehto"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Haluatko todella poistaa kyselyn?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Valinta {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Vaihtoehdot"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Sinun on annettava kyselykysymys."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Asetukset"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

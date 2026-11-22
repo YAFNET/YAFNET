@@ -6,127 +6,127 @@
 @model DeleteMessageModel
 
 @{
-    Model.PageBoardContext.CurrentForumPage.PageTitle = Html.Encode(Model.Get<ILocalization>().GetText(Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? "UNDELETE" : "DELETE"));
+    var isDeleted = Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted;
+
+    Model.PageBoardContext.CurrentForumPage.PageTitle = Html.Encode(Model.Get<ILocalization>().GetText(isDeleted ? "UNDELETE" : "DELETE"));
 }
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("trash", "DELETEMESSAGE", Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? "UNDELETE" : "DELETE")
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <span class="fw-bold">@Html.LocalizedText("SUBJECT")</span> @Model.PageBoardContext.PageTopic.TopicName
-                    </div>
-                    <div class="mb-3">
-                        @Html.LocalizedText("previewtitle")
-                        <div class="card text-bg-light-subtle">
-                            <div class="card-body">
-                                <message current-message="@Model.PageBoardContext.PageMessage" 
-                                         message-id="@Model.PageBoardContext.PageMessage.ID" 
-                                         message-flags="@Model.DeleteMessageFlags"></message>
-                            </div>
-                        </div>
-                    </div>
+<form method="post" class="needs-validation post-action-page" novalidate>
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon(isDeleted ? "trash-arrow-up" : "trash")@Html.LocalizedText("DELETEMESSAGE", isDeleted ? "UNDELETE" : "DELETE")
+        </h2>
+    </div>
 
-                    <div class="mb-3">
-                        <label class="form-check-label" asp-for="ReasonEditor">@Html.LocalizedText(Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? "UNDELETE_REASON" : "DELETE_REASON")</label>
-                        <input type="text" asp-for="ReasonEditor" class="form-control" maxlength="100" required="required"/>
-                        <div class="invalid-feedback">
-                            @Html.LocalizedText("NEED_REASON")
-                        </div>
-                    </div>
+    <div class="card mb-3 post-action-preview">
+        <div class="card-header">
+            <div class="fw-semibold text-break">@Model.PageBoardContext.PageTopic.TopicName</div>
+            <div class="post-action-meta">
+                @if (Model.MessageAuthor is not null)
+                {
+                    <span>@Html.Icon("user")@Html.UserLink(Model.MessageAuthor)</span>
+                }
+                <span>@Html.Icon("clock")@Html.DisplayDateTime(DateTimeFormat.Both, Model.PageBoardContext.PageMessage.Posted)</span>
+            </div>
+        </div>
+        <div class="card-body post-action-body">
+            <message current-message="@Model.PageBoardContext.PageMessage"
+                     message-id="@Model.PageBoardContext.PageMessage.ID"
+                     message-flags="@Model.DeleteMessageFlags"></message>
+        </div>
+    </div>
 
-                    @if (!Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted && Model.PageBoardContext.IsAdmin)
-                    {
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input asp-for="EraseMessage" class="form-check-input" type="checkbox"/>
-                                <label class="form-check-label" asp-for="EraseMessage" localized-tag="ERASEMESSAGE"></label>
-                            </div>
-                        </div>
-                    }
-                
-                
-                    @if (Model.PageBoardContext.ForumModeratorAccess || Model.PageBoardContext.IsAdmin)
-                    {
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input asp-for="DeleteAllPosts" class="form-check-input" type="checkbox"  />
-                                <label class="form-check-label" asp-for="DeleteAllPosts" localized-tag="DELETE_ALL" localized-page="DELETEMESSAGE"></label>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="card-footer text-center">
-                    @if (Model.PageBoardContext.PageMessage.MessageFlags.IsDeleted)
-                    {
-                        <button type="submit" asp-page-handler="Restore" asp-route-m="@Model.PageBoardContext.PageMessage.ID"
-                                id="restore"
-                                button-style="Warning"
-                                icon="trash-arrow-up"
-                                text-localized-tag="UNDELETE" title-localized-tag="UNDELETE_TT"></button>
-                    }
-                    else
-                    {
-                        <button type="submit"
-                                asp-route-m="@Model.PageBoardContext.PageMessage.ID" 
-                                asp-page-handler="Delete"
-                                button-style="Danger"
-                                icon="trash"
-                                text-localized-tag="DELETE"
-                                title-localized-tag="BUTTON_DELETE_TT"
-                                bs-toggle="tooltip"></button>
-                    }
-
-                    <a role="button"
-                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetMessageLink(Model.PageBoardContext.PageTopic, Model.PageBoardContext.PageMessage.ID))"
-                       button-style="Secondary"
-                       icon="reply"
-                       text-localized-page="COMMON"
-                       text-localized-tag="CANCEL"></a>
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.Icon("sliders-h")@Html.LocalizedText("DELETEMESSAGE", isDeleted ? "UNDELETE_REASON" : "DELETE_REASON")
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" asp-for="ReasonEditor">@Html.LocalizedText(isDeleted ? "UNDELETE_REASON" : "DELETE_REASON")</label>
+                <input type="text" asp-for="ReasonEditor" class="form-control" maxlength="100" required="required" autofocus/>
+                <div class="invalid-feedback">
+                    @Html.LocalizedText("NEED_REASON")
                 </div>
             </div>
+
+            @if (!isDeleted && (Model.PageBoardContext.ForumModeratorAccess || Model.PageBoardContext.IsAdmin))
+            {
+                <div class="post-action-option">
+                    <div class="form-check form-switch mb-0">
+                        <input asp-for="DeleteAllPosts" class="form-check-input" type="checkbox" role="switch"/>
+                        <label class="form-check-label" asp-for="DeleteAllPosts" localized-tag="DELETE_ALL" localized-page="DELETEMESSAGE"></label>
+                    </div>
+                    @if (!Model.LinkedPosts.NullOrEmpty())
+                    {
+                        <div class="form-text">
+                            @Html.LocalizedTextFormatted("REPLIES", Model.LinkedPosts.Count)
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (!isDeleted && Model.PageBoardContext.IsAdmin)
+            {
+                <div class="post-action-option post-action-option-danger">
+                    <div class="form-check form-switch mb-0">
+                        <input asp-for="EraseMessage" class="form-check-input" type="checkbox" role="switch"/>
+                        <label class="form-check-label" asp-for="EraseMessage" localized-tag="ERASEMESSAGE"></label>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 
     @if (!Model.LinkedPosts.NullOrEmpty())
     {
-        <div class="row">
-            <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.IconStack("comment", "text-secondary", "trash", "fa-inverse", "fa-1x")
-                    </div>
-                    <div class="card-body">
-                        @foreach (var message in Model.LinkedPosts)
-                        {
-                            <div class="card my-3">
-                                <div class="card-body">
-                                    <div class="card-title h5">
-                                        <footer class="blockquote-footer">
-                                            @Html.UserLink(message.User)
-                                            <small class="text-body-secondary">
-                                                @Html.IconBadge("calendar-day", "clock")
-                                                @Html.DisplayDateTime(DateTimeFormat.Both, message.Posted)
-                                            </small>
-                                        </footer>
-                                    </div>
-                                    <div class="card-text">
-                                        <messagePostData current-message="@message"
-                                                         show-attachments="false"
-                                                         show-signature="false"></messagePostData>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+        <div class="card mb-3" id="LinkedPosts">
+            <div class="card-header">
+                @Html.Icon("comments")@Html.LocalizedTextFormatted("REPLIES", Model.LinkedPosts.Count)
             </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var message in Model.LinkedPosts)
+                {
+                    <li class="list-group-item">
+                        <div class="post-action-meta small text-body-secondary mb-1">
+                            @Html.UserLink(message.User)
+                            <span class="ms-2">@Html.Icon("clock")@Html.DisplayDateTime(DateTimeFormat.Both, message.Posted)</span>
+                        </div>
+                        <messagePostData current-message="@message"
+                                         show-attachments="false"
+                                         show-signature="false"></messagePostData>
+                    </li>
+                }
+            </ul>
         </div>
     }
+
+    <div class="post-action-bar">
+        <a role="button"
+           href="@Html.Raw(Model.Get<ILinkBuilder>().GetMessageLink(Model.PageBoardContext.PageTopic, Model.PageBoardContext.PageMessage.ID))"
+           button-style="Secondary"
+           icon="reply"
+           text-localized-page="COMMON"
+           text-localized-tag="CANCEL"></a>
+
+        @if (isDeleted)
+        {
+            <button type="submit" asp-page-handler="Restore" asp-route-m="@Model.PageBoardContext.PageMessage.ID"
+                    id="restore"
+                    button-style="Warning"
+                    icon="trash-arrow-up"
+                    text-localized-tag="UNDELETE" title-localized-tag="UNDELETE_TT"></button>
+        }
+        else
+        {
+            <button type="submit"
+                    asp-route-m="@Model.PageBoardContext.PageMessage.ID"
+                    asp-page-handler="Delete"
+                    button-style="Danger"
+                    icon="trash"
+                    text-localized-tag="DELETE"
+                    title-localized-tag="DELETE_TT"></button>
+        }
+    </div>
 </form>
 
 @section Scripts {

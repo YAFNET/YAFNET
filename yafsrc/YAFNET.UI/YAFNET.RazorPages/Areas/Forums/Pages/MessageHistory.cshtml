@@ -10,144 +10,124 @@
 @using YAF.Web.HtmlHelpers
 @model MessageHistoryModel
 
-
-<form method="post">
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("history", "MESSAGEHISTORY", "TITLE")
-                </div>
-                <div class="card-body">
-                    @if (!Model.RevisionsList.NullOrEmpty())
-                    {
-                        <ul class="list-group">
-
-                            @for (var i = 0; i < Model.RevisionsList.Count; i++)
-                            {
-                                var message = Model.RevisionsList[i];
-
-                                <li class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">
-                                            <div class="form-check d-inline-block">
-                                                <input asp-for="@Model.RevisionsList[i].Selected" class="form-check-input" onclick="toggleSelection(this);" />
-                                                <label class="form-check-label" asp-for="@Model.RevisionsList[i].Selected">
-                                                </label>
-                                            </div>
-
-                                            @Html.LocalizedText("POSTMESSAGE","EDITEREASON"): @Model.GetEditReason(message)
-                                            @(i.Equals(Model.RevisionsList.Count - 1) ? $"({Model.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")})" : string.Empty)
-                                        </h5>
-                                        <small class="d-none d-md-block">
-                                            @Html.LocalizedText("POSTMESSAGE","EDITED"): @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(message.Edited))
-                                        </small>
-                                    </div>
-                                    <p class="mb-1">
-                                        @Html.LocalizedText("POSTMESSAGE","EDITEDBY"):
-                                        @Html.UserLink(message.EditedBy,
-                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.DisplayName : message.Name,
-                                            message.Suspended,
-                                            message.UserStyle)
-
-                                        @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowModeratorsViewIPs && Model.PageBoardContext.ForumModeratorAccess)
-                                        {
-                                            <span class="fw-bold me-2">
-                                                @Html.LocalizedText("IP"):
-                                            </span>
-                                            <a href="@(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, Model.GetIpAddress(message)))"
-                                               title="@(Model.GetText("COMMON", "TT_IPDETAILS"))"
-                                               target="_blank" rel="noopener">
-                                                @(Model.GetIpAddress(message))
-                                            </a>
-                                        }
-
-                                        @Html.LocalizedText("POSTMESSAGE","EDITEDBY_MOD"):
-                                        <span class="badge text-bg-secondary">
-                                            @Html.LocalizedText(message.IsModeratorChanged.Value ? "YES" : "NO")
-                                        </span>
-                                    </p>
-
-                                    @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess) && !i.Equals(Model.RevisionsList.Count - 1))
-                                    {
-                                        <small>
-                                            <button asp-page-handler="Restore"
-                                                    asp-route-f="@Request.Query["f"]"
-                                                    asp-route-m="@Request.Query["m"]"
-                                                    asp-route-edited="@message.Edited.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)"
-                                                    title-localized-tag="RESTORE_MESSAGE"
-                                                    text-localized-tag="RESTORE_MESSAGE"
-                                                    return-confirm-tag="CONFIRM_RESTORE"
-                                                    button-style="Secondary"
-                                                    button-size="Small"
-                                                    icon="undo">
-                                            </button>
-                                        </small>
-                                    }
-                                </li>
-                            }
-
-                        </ul>
-                    }
-                </div>
-                <div class="card-footer text-center">
-                    <button class="mb-1"
-                            text-localized-tag="COMPARE_VERSIONS"
-                            icon="equals"
-                            asp-page-handler="ShowDiff"
-                            asp-route-f="@Request.Query["f"]"
-                            asp-route-m="@Request.Query["m"]"
-                            button-style="Primary">
-                    </button>
-                    <button class="mb-1"
-                            asp-page-handler="Return"
-                            asp-route-f="@Request.Query["f"]"
-                            asp-route-m="@Request.Query["m"]"
-                            text-localized-tag="TOMESSAGE"
-                            button-style="Secondary"
-                            icon="external-link-square-alt">
-                    </button>
-                    
-                    @if (Request.Query.ContainsKey("f"))
-                    {
-                        <button class="mb-1"
-                                asp-page-handler="ReturnForum"
-                                asp-route-f="@Request.Query["f"]"
-                                asp-route-m="@Request.Query["m"]"
-                                text-localized-tag="GOMODERATE"
-                                button-style="Secondary"
-                                icon="external-link-square-alt">
-                        </button>
-                    }
-                </div>
-            </div>
+<form method="post" class="post-action-page">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("history")@Html.LocalizedText("MESSAGEHISTORY", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1" id="VersionCount">@(Model.RevisionsList?.Count ?? 0)</span>
+        </h2>
+        <div class="d-flex flex-wrap gap-2">
+            <button type="submit"
+                    asp-page-handler="Return"
+                    asp-route-f="@Request.Query["f"]"
+                    asp-route-m="@Request.Query["m"]"
+                    text-localized-tag="TOMESSAGE"
+                    button-style="OutlineSecondary"
+                    icon="external-link-square-alt">
+            </button>
+            @if (Request.Query.ContainsKey("f"))
+            {
+                <button type="submit"
+                        asp-page-handler="ReturnForum"
+                        asp-route-f="@Request.Query["f"]"
+                        asp-route-m="@Request.Query["m"]"
+                        text-localized-tag="GOMODERATE"
+                        button-style="OutlineSecondary"
+                        icon="tasks">
+                </button>
+            }
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("history","MESSAGEHISTORY", "COMPARE_TITLE")
-                </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-body-secondary">
-                        @Html.LocalizedText("TEXT_CHANGES")
-                    </h6>
-                    <div id="diffContent">
-                        @if (Model.DiffText.IsNotSet())
+
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <span>@Html.Icon("list")@Html.LocalizedText("MESSAGEHISTORY", "SELECT_INFO")</span>
+            <button type="submit"
+                    text-localized-tag="COMPARE_VERSIONS"
+                    icon="equals"
+                    asp-page-handler="ShowDiff"
+                    asp-route-f="@Request.Query["f"]"
+                    asp-route-m="@Request.Query["m"]"
+                    button-style="Primary"
+                    button-size="Small"
+                    id="CompareVersions">
+            </button>
+        </div>
+        @if (!Model.RevisionsList.NullOrEmpty())
+        {
+            <ul class="list-group list-group-flush">
+                @for (var i = 0; i < Model.RevisionsList.Count; i++)
+                {
+                    var message = Model.RevisionsList[i];
+                    var isCurrent = i.Equals(Model.RevisionsList.Count - 1);
+
+                    <li class="list-group-item history-version @(message.Selected ? "is-selected" : string.Empty)">
+                        <div class="form-check mt-1">
+                            <input asp-for="@Model.RevisionsList[i].Selected" class="form-check-input" onclick="toggleSelection(this);" />
+                            <label class="form-check-label visually-hidden" asp-for="@Model.RevisionsList[i].Selected">@Model.GetEditReason(message)</label>
+                        </div>
+                        <div class="history-version-main">
+                            <div class="fw-semibold text-break">
+                                @Model.GetEditReason(message)
+                                @if (isCurrent)
+                                {
+                                    <span class="badge text-bg-primary ms-1">@Html.LocalizedText("MESSAGEHISTORY", "CURRENTMESSAGE")</span>
+                                }
+                                @if (message.IsModeratorChanged == true)
+                                {
+                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle ms-1">@Html.LocalizedText("POSTMESSAGE", "EDITEDBY_MOD")</span>
+                                }
+                            </div>
+                            <div class="history-version-meta">
+                                <span>@Html.Icon("clock")@Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(message.Edited))</span>
+                                <span>
+                                    @Html.Icon("user")@Html.UserLink(message.EditedBy,
+                                        Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.DisplayName : message.Name,
+                                        message.Suspended,
+                                        message.UserStyle)
+                                </span>
+                                @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowModeratorsViewIPs && Model.PageBoardContext.ForumModeratorAccess)
+                                {
+                                    <span>
+                                        @Html.Icon("network-wired")<a href="@(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, Model.GetIpAddress(message)))"
+                                           title="@(Model.GetText("COMMON", "TT_IPDETAILS"))"
+                                           target="_blank" rel="noopener">@(Model.GetIpAddress(message))</a>
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess) && !isCurrent)
                         {
-                            <alert type="info" icon="info-circle" localized-tag="SELECT_DIFFERENT" localized-page="MESSAGEHISTORY">
-                            </alert>
+                            <button type="submit"
+                                    asp-page-handler="Restore"
+                                    asp-route-f="@Request.Query["f"]"
+                                    asp-route-m="@Request.Query["m"]"
+                                    asp-route-edited="@message.Edited.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)"
+                                    title-localized-tag="RESTORE_MESSAGE"
+                                    text-localized-tag="RESTORE_MESSAGE"
+                                    return-confirm-tag="CONFIRM_RESTORE"
+                                    button-style="OutlineSecondary"
+                                    button-size="Small"
+                                    icon="undo">
+                            </button>
                         }
-                        else
-                        {
-                            @Html.Raw(Model.DiffText)
-                        }
-                    </div>
-                </div>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    @if (Model.DiffText.IsSet())
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.Icon("equals")@Html.LocalizedText("MESSAGEHISTORY", "TEXT_CHANGES")
+            </div>
+            <div class="card-body" id="diffContent">
+                @Html.Raw(Model.DiffText)
             </div>
         </div>
-    </div>
+    }
 </form>
 
 @section Scripts {

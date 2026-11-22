@@ -46,6 +46,19 @@ public class MoveMessageModel : ForumPageRegistered
     public MoveMessageInputModel Input { get; set; }
 
     /// <summary>
+    /// The author of the message.
+    /// </summary>
+    private User messageAuthor;
+
+    /// <summary>
+    /// Gets the author of the message (shown above the message).
+    /// </summary>
+    public User MessageAuthor =>
+        this.messageAuthor ??= this.PageBoardContext.PageMessage is null
+                                   ? null
+                                   : this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+
+    /// <summary>
     ///   Initializes a new instance of the <see cref = "MoveMessageModel" /> class.
     /// </summary>
     public MoveMessageModel()
@@ -124,7 +137,7 @@ public class MoveMessageModel : ForumPageRegistered
         if (topic is null || topic.ID == this.PageBoardContext.PageTopicID || topic.TopicFlags.IsDeleted
             || topic.TopicMovedID.HasValue)
         {
-            return this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
+            return this.PageBoardContext.Notify(this.GetText("NO_TOPIC"), MessageTypes.warning);
         }
 
         // ... in a forum the user moderates (of this board)

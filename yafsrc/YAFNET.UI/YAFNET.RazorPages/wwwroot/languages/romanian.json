@@ -10167,6 +10167,10 @@
             "#text": "Prioritate:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} răspunsuri la această postare"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Subiect:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Trimite email"
           },
           {
+            "@tag": "SENT",
+            "#text": "E-mailul a fost trimis la {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Subiect:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Trimite E-mail"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "E-mailul tău a fost trimis către {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Trebuie să selectați două versiuni diferite pentru a face o comparație validă."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Selectează două versiuni pentru a le compara."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Doar 2 versiuni pot fi selectate pentru comparație!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Creați subiectul în care să vă mutați:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Selectează subiectul în care să fie mutat mesajul."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Selectați Forumul în care doriți să vă mutați:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Adaugă variantă"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Chiar doriți să eliminați sondajul?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Alegerea {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Variante"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Trebuie să introduceți o întrebare de sondaj."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Opțiuni"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

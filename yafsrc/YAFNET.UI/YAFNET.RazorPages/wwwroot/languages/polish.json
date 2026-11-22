@@ -10163,6 +10163,10 @@
             "#text": "Priorytet:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "Odpowiedzi na ten post: {0}"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Tytuł:"
           },
@@ -10658,6 +10662,10 @@
             "#text": "Wyślij Email"
           },
           {
+            "@tag": "SENT",
+            "#text": "Wiadomość e-mail została wysłana do {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Temat:"
           },
@@ -11142,6 +11150,10 @@
           {
             "@tag": "SEND",
             "#text": "Wyślij E-mail"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Twoja wiadomość e-mail została wysłana do {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11715,6 +11727,10 @@
             "#text": "Aby dokonać poprawnego porównania, należy wybrać dwie różne wersje."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Wybierz dwie wersje, aby je porównać."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Przed porównaniem można wybrać tylko 2 wersje!"
           },
@@ -12040,6 +12056,10 @@
             "#text": "Stwórz temat do przeniesienia:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Wybierz temat, do którego ma zostać przeniesiona wiadomość."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Wybierz forum do przeniesienia:"
           },
@@ -12297,12 +12317,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Dodaj odpowiedź"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Na pewno chcesz usunąć ankietę?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Wybór {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Odpowiedzi"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12319,6 +12347,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Musisz zadać jakieś pytanie w ankiecie."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Opcje"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

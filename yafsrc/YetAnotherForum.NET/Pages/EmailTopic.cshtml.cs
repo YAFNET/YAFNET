@@ -150,6 +150,9 @@ public class EmailTopicModel : ForumPage
 
             await emailTopic.SendEmailAsync(new MailboxAddress(email, email), this.Subject);
 
+            // the email was sent without a message
+            this.PageBoardContext.SessionNotify(this.GetTextFormatted("SENT", this.HtmlEncode(email)), MessageTypes.success);
+
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Posts,
                 new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });

@@ -10167,6 +10167,10 @@
             "#text": "优先级:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "此帖子有 {0} 条回复"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "主题:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "发送电子邮件"
           },
           {
+            "@tag": "SENT",
+            "#text": "电子邮件已发送至 {0}。"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "标题:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "发送电子邮件"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "你的电子邮件已发送给 {0}。"
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "您必须选择两个不同的版本才能进行有效比较。"
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "选择两个版本进行比较。"
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "比较只能选择 2 个版本！"
           },
@@ -12052,6 +12068,10 @@
             "#text": "创建要移动到的主题："
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "请选择要将消息移动到的主题。"
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "移动到论坛:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "添加选项"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "您真的要删除投票吗？"
           },
           {
             "@tag": "CHOICE",
             "#text": "选择 {0}："
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "选项"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "您必须输入一个投票问题。"
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "设置"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

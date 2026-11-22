@@ -158,6 +158,11 @@ public class EmailModel : ForumPage
                 this.Input.Subject.Trim(),
                 this.Input.Body.Trim());
 
+            // the email was sent without a message
+            this.PageBoardContext.SessionNotify(
+                this.GetTextFormatted("SENT", this.HtmlEncode(this.EmailUser.DisplayOrUserName())),
+                MessageTypes.success);
+
             // redirect to profile page...
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.UserProfile,

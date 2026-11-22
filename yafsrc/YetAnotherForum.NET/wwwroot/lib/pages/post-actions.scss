@@ -1,0 +1,134 @@
+// The pages of the actions of a post (delete, move, report, edit history), the email pages and the poll editor
+.post-action-page {
+    max-width: 64rem;
+    margin: 0 auto;
+
+    // the post the action is for
+    .post-action-preview {
+        border-left: .25rem solid var(--bs-primary-border-subtle);
+
+        .post-action-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .25rem .75rem;
+            font-size: .875rem;
+            color: var(--bs-secondary-color);
+        }
+
+        .post-action-body {
+            max-height: 20rem;
+            overflow: auto;
+        }
+    }
+
+    // the buttons at the bottom of the window
+    .post-action-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+        margin-bottom: 1rem;
+        padding: .75rem 1rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, .06);
+    }
+
+    // a switch with a short explanation below
+    .post-action-option {
+        padding: .75rem 1rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+
+        & + .post-action-option {
+            margin-top: .5rem;
+        }
+
+        .form-text {
+            margin-left: 2.5em;
+        }
+
+        &.post-action-option-danger {
+            border-color: var(--bs-danger-border-subtle);
+            background-color: var(--bs-danger-bg-subtle);
+        }
+    }
+
+    // move: the two ways side by side
+    .move-way {
+        height: 100%;
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .move-way-action {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+    }
+
+    // edit history: one version per row
+    .history-version {
+        display: flex;
+        gap: .75rem;
+        align-items: flex-start;
+
+        &.is-selected {
+            background-color: var(--bs-primary-bg-subtle);
+        }
+
+        .history-version-main {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .history-version-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .25rem .75rem;
+            font-size: .875rem;
+            color: var(--bs-secondary-color);
+        }
+    }
+
+    // poll editor: a choice with its number
+    .poll-choice {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+
+        .poll-choice-number {
+            flex: 0 0 2rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--bs-primary-text-emphasis);
+            background-color: var(--bs-primary-bg-subtle);
+        }
+
+        .poll-choice-fields {
+            flex: 1 1 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: .5rem;
+
+            @media (min-width: 768px) {
+                &.has-image {
+                    grid-template-columns: 3fr 2fr;
+                }
+            }
+        }
+    }
+}

@@ -49,7 +49,9 @@ public class EmailTopicTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}EmailTopic/{this.TestSettings.TestTopicId}");
 
                     Assert.That(
-                        await page.Locator("#EmailBody").GetAttributeAsync("readonly"), Is.Not.Null,
+                        await page.Locator("#EmailBody").EvaluateAsync<bool>(
+                            "e => !(e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement) || e.readOnly"),
+                        Is.True,
                         "The text of the email can be changed");
 
                     // the browser already refuses it in an email field, the server must check it too (crafted request)
@@ -66,7 +68,7 @@ public class EmailTopicTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}EmailTopic/{this.TestSettings.TestTopicId}");
 
-                    var expectedText = await page.Locator("#EmailBody").InputValueAsync();
+                    var expectedText = await page.Locator("#EmailBody").InnerTextAsync();
 
                     await page.Locator("#Input_Email").FillAsync("friend@test.com");
                     await page.EvaluateAsync(

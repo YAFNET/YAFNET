@@ -141,6 +141,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Register: the button stayed "Loading..." and disabled when the browser did not send the form (an empty or wrong field), the form could not be sent again
 * [CHANGES] Login, Register, Lost Password, Reset Password, Validate Email and the two-factor code redesigned: one centered card with an icon and a short explanation, the lost password link next to the password, the register and login links at the bottom, the register page in sections with a "check your email" result, the reset password page with the password strength and its own labels
 * [FIXED] Move Message: Enter in the name of the new topic moved the message to the selected topic (without a selected topic only a warning was shown) instead of creating the new topic
+* [CHANGES] Delete Message, Move Message, Report Post, Message History, Email Topic, Email User and the poll editor redesigned: page headers, the post the action is for with its author above the form, a sticky action bar, the poll editor shows only the filled choices with "add choice", the version list of the history with the edit details, "email sent" messages, the report page shows the topic in the breadcrumb
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

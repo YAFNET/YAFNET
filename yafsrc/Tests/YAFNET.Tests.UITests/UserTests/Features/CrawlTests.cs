@@ -535,7 +535,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         await page.Locator("//input[contains(@id,'Input_Choices_1__ChoiceName')]").FillAsync($"Choice 2 {Canary}");
         await page.Locator("//input[contains(@id,'_ShowVotersCheckBox')]").CheckAsync();
 
-        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
         Assert.That(await page.ContentAsync(), Does.Contain("Choice 1"), "The poll was not created");
     }
@@ -555,7 +555,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.Locator("#Input_TopicSubject").FillAsync($"Moved reply {Canary}");
 
-        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='CreateAndMove']"));
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='CreateAndMove']:not([aria-hidden])"));
 
         Assert.That(await page.ContentAsync(), Does.Contain("Moved reply"), "The reply was not moved to a new topic");
     }

@@ -10167,6 +10167,10 @@
             "#text": "Priorita:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "Odpovede na tento príspevok: {0}"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Predmet:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Odoslať e-mail"
           },
           {
+            "@tag": "SENT",
+            "#text": "E-mail bol odoslaný na adresu {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Predmet:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Poslať e-mail"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Váš e-mail bol odoslaný používateľovi {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Na platné porovnanie musíte vybrať dve rôzne verzie."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Vyberte dve verzie, ktoré chcete porovnať."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Pri porovnávaní je možné vybrať iba 2 verzie!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Vytvorenie témy, do ktorej sa chcete presunúť:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Vyberte tému, do ktorej sa má správa presunúť."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Vyberte fórum, na ktoré sa chcete presunúť:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Pridať možnosť"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Naozaj chcete odstrániť anketu?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Možnosť {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Možnosti odpovedí"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Musíte zadať anketovú otázku."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Nastavenia"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

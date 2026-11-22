@@ -60,6 +60,22 @@ public class ReportPostModel : ForumPage
     }
 
     /// <summary>
+    /// Create the Page links (the page only showed the board).
+    /// </summary>
+    public override void CreatePageLinks()
+    {
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("REPORTPOST", "HEADER"));
+    }
+
+    /// <summary>
     /// Checks the access for all handlers: the post must exist, its forum must be readable (deleted posts
     /// only for moderators) and the user must be allowed to report posts.
     /// </summary>

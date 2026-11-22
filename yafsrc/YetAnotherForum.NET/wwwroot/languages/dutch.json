@@ -10159,6 +10159,10 @@
             "#text": "Prioriteit:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} antwoorden op dit bericht"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Onderwerp:"
           },
@@ -10654,6 +10658,10 @@
             "#text": "E-mail verzenden"
           },
           {
+            "@tag": "SENT",
+            "#text": "De e-mail is verzonden naar {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Onderwerp:"
           },
@@ -11138,6 +11146,10 @@
           {
             "@tag": "SEND",
             "#text": "E-mail verzenden"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Je e-mail is verzonden naar {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11711,6 +11723,10 @@
             "#text": "U moet twee verschillende versies selecteren om een ​​geldige vergelijking te maken."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Selecteer twee versies om ze te vergelijken."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Er kunnen slechts 2 versies worden geselecteerd om te vergelijken!"
           },
@@ -12036,6 +12052,10 @@
             "#text": "Maak nieuw topic om naartoe te verplaatsen:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Selecteer het onderwerp waarnaar het bericht moet worden verplaatst."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Selecteer forum om naartoe te verplaatsen:"
           },
@@ -12293,12 +12313,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Keuze toevoegen"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Wil je de poll echt verwijderen?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Keuze {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Keuzes"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12315,6 +12343,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Je moet een poll vraag opgeven."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Opties"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

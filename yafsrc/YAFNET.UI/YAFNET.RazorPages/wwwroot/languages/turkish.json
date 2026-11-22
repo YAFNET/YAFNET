@@ -10167,6 +10167,10 @@
             "#text": "Öncelik:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "Bu gönderiye {0} yanıt"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Konu:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "E-posta Gönder"
           },
           {
+            "@tag": "SENT",
+            "#text": "E-posta {0} adresine gönderildi."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Konu:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "E-posta Gönder"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "E-postanız {0} kullanıcısına gönderildi."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Geçerli bir karşılaştırma yapmak için iki farklı sürüm seçmelisiniz."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Karşılaştırmak için iki sürüm seçin."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Karşılaştırma için sadece 2 Versiyon seçilebilir!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Taşıma için konu oluştur"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Lütfen mesajın taşınacağı konuyu seçin."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Taşıyacağınız forumu seçin:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Seçenek ekle"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Anketi gerçekten kaldırmak istiyor musunuz?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Seçenek {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Seçenekler"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Bir anket sorusu girmelisiniz."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Ayarlar"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

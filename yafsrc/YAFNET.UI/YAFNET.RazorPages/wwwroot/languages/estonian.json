@@ -10167,6 +10167,10 @@
             "#text": "Prioriteet:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} vastust sellele postitusele"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Pealkiri:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Saada e-kiri"
           },
           {
+            "@tag": "SENT",
+            "#text": "E-kiri saadeti aadressile {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Pealkiri:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Saada e-kiri"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Sinu e-kiri saadeti kasutajale {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Õige võrdluse tegemiseks peate valima kaks erinevat versiooni."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Vali võrdlemiseks kaks versiooni."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Võrreldes saab valida ainult 2 versiooni!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Loo teema, kuhu liigutada:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Vali teema, kuhu sõnum teisaldada."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Vali foorum, kuhu liigutada:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Lisa valik"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Kas te olete kindel, et soovite küsitluse eemaldada?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Valik {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Valikud"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Palun sisestage küsitluse küsimus."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Seaded"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

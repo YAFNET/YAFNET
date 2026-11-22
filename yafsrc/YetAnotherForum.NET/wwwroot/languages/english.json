@@ -10155,6 +10155,10 @@
                     "#text": "Priority:"
                 },
                 {
+                    "@tag": "REPLIES",
+                    "#text": "{0} replies to this post"
+                },
+                {
                     "@tag": "SUBJECT",
                     "#text": "Subject:"
                 },
@@ -10654,6 +10658,10 @@
                     "#text": "Send Email"
                 },
                 {
+                    "@tag": "SENT",
+                    "#text": "The email was sent to {0}."
+                },
+                {
                     "@tag": "SUBJECT",
                     "#text": "Subject:"
                 },
@@ -11138,6 +11146,10 @@
                 {
                     "@tag": "SEND",
                     "#text": "Send E-mail"
+                },
+                {
+                    "@tag": "SENT",
+                    "#text": "Your email was sent to {0}."
                 },
                 {
                     "@tag": "SUBJECT",
@@ -11711,6 +11723,10 @@
                     "#text": "You must select two different versions to make a valid comparison."
                 },
                 {
+                    "@tag": "SELECT_INFO",
+                    "#text": "Select two versions to compare them."
+                },
+                {
                     "@tag": "SELECT_TWO",
                     "#text": "Only 2 Versions can be selected vor comparing!"
                 },
@@ -12036,6 +12052,10 @@
                     "#text": "Create Topic to move to:"
                 },
                 {
+                    "@tag": "NO_TOPIC",
+                    "#text": "Please select the topic to move the message to."
+                },
+                {
                     "@tag": "SELECT_FORUM_MOVETO",
                     "#text": "Select Forum to move to:"
                 },
@@ -12285,12 +12305,20 @@
             "@name": "POLLEDIT",
             "Resource": [
                 {
+                    "@tag": "ADD_CHOICE",
+                    "#text": "Add choice"
+                },
+                {
                     "@tag": "ASK_POLL_DELETE",
                     "#text": "Do you really want to remove the poll?"
                 },
                 {
                     "@tag": "CHOICE",
                     "#text": "Choice {0}:"
+                },
+                {
+                    "@tag": "CHOICES",
+                    "#text": "Choices"
                 },
                 {
                     "@tag": "CREATEPOLL",
@@ -12307,6 +12335,10 @@
                 {
                     "@tag": "NEED_QUESTION",
                     "#text": "You must enter a poll question."
+                },
+                {
+                    "@tag": "OPTIONS",
+                    "#text": "Options"
                 },
                 {
                     "@tag": "POLL_CLOSEDBOUND",

@@ -10167,6 +10167,10 @@
             "#text": "Prioritet:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} svar på detta inlägg"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Ämne:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Skicka e-post"
           },
           {
+            "@tag": "SENT",
+            "#text": "E-postmeddelandet skickades till {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Ärende:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Skicka e-post"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Ditt e-postmeddelande skickades till {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Du måste välja två olika versioner för att kunna göra en giltig jämförelse."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Välj två versioner för att jämföra dem."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Endast 2 versioner kan väljas för jämförelse!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Skapa ett ämne att flytta till:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Välj det ämne som meddelandet ska flyttas till."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Välj det forum du vill flytta till:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Lägg till alternativ"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Vill du verkligen ta bort omröstningen?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Val {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Svarsalternativ"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Du måste ange en fråga för omröstningen."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Inställningar"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

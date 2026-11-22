@@ -10167,6 +10167,10 @@
             "#text": "Prioritetas:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "Atsakymų į šį pranešimą: {0}"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Tema:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Send Email "
           },
           {
+            "@tag": "SENT",
+            "#text": "El. laiškas išsiųstas adresu {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Tema: "
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Siųsti E-PASTOJE "
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Jūsų el. laiškas išsiųstas naudotojui {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Kad galėtumėte tinkamai palyginti, turite pasirinkti dvi skirtingas versijas."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Pasirinkite dvi versijas, kad jas palygintumėte."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Galima pasirinkti tik 2 versijas vor lyginant!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Sukurkite temą, į kurią norite perkelti:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Pasirinkite temą, į kurią perkelti pranešimą."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Pasirinkite forumą, į kurį norite persikelti:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Pridėti pasirinkimą"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Ar tikrai norite pašalinti apklausą?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Pasirinkimas {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Pasirinkimai"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Turite įvesti apklausos klausimą."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Parinktys"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",

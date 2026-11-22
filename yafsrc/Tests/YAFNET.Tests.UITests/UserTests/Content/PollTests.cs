@@ -134,17 +134,17 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 // without question: the warning
                 await page.Locator("//input[contains(@id,'Question')]").First.FillAsync(string.Empty);
-                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
                 Assert.That(
-                    await page.Locator("//button[contains(@formaction,'SavePoll')]").CountAsync(),
+                    await page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]").CountAsync(),
                     Is.EqualTo(1),
                     "The page is not shown again with the warning");
 
                 var question = $"A changed question {Random.Shared.Next()}?";
 
                 await page.Locator("//input[contains(@id,'Question')]").First.FillAsync(question);
-                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
                 var content = await page.ContentAsync();
 
@@ -245,7 +245,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.Locator("//input[contains(@id,'Input_Choices_0__ChoiceName')]").FillAsync("Choice A");
                 await page.Locator("//input[contains(@id,'Input_Choices_1__ChoiceName')]").FillAsync("Choice B");
 
-                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
                 Assert.That(
                     await page.ContentAsync(),
@@ -310,18 +310,21 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.Locator("//input[contains(@id,'Input_Choices_1__ChoiceName')]").FillAsync("Option 2");
 
                 // Enter Poll Answer Choice 3
+                await ShowChoiceAsync(page, 2);
                 await page.Locator("//input[contains(@id,'Input_Choices_2__ChoiceName')]").FillAsync("Option 3");
 
                 // Enter Poll Answer Choice 4
+                await ShowChoiceAsync(page, 3);
                 await page.Locator("//input[contains(@id,'Input_Choices_3__ChoiceName')]").FillAsync("Option 4");
 
                 // Enter Poll Answer Choice 5
+                await ShowChoiceAsync(page, 4);
                 await page.Locator("//input[contains(@id,'Input_Choices_4__ChoiceName')]").FillAsync("Option 5");
 
                 await page.Locator("//input[contains(@id,'_ShowVotersCheckBox')]").ClickAsync();
 
                 // Save Poll
-                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
                 pageSource = await page.ContentAsync();
 
@@ -603,7 +606,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.EvaluateAsync(
                     """
                     () => {
-                        const form = document.querySelector("button[formaction*='SavePoll']").form;
+                        const form = document.querySelector("button[formaction*='SavePoll']:not([aria-hidden])").form;
                         for (const name of ['Input.QuestionObjectPath', 'Input.Choices[0].ObjectPath']) {
                             const field = document.createElement('input');
                             field.type = 'hidden';
@@ -614,7 +617,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     }
                     """);
 
-                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
                 Assert.That(await page.ContentAsync(), Does.Contain("Choice A"), "The poll was not created");
 
@@ -701,6 +704,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         }
 
         // Enter Poll Answer Choice 3
+        await ShowChoiceAsync(page, 2);
         await page.Locator("//input[contains(@id,'Input_Choices_2__ChoiceName')]").FillAsync("Option 3");
 
         // Enter Poll Question Image if exists
@@ -711,6 +715,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         }
 
         // Enter Poll Answer Choice 4
+        await ShowChoiceAsync(page, 3);
         await page.Locator("//input[contains(@id,'Input_Choices_3__ChoiceName')]").FillAsync("Option 4");
 
         // Enter Poll Question Image if exists
@@ -721,6 +726,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         }
 
         // Enter Poll Answer Choice 5
+        await ShowChoiceAsync(page, 4);
         await page.Locator("//input[contains(@id,'Input_Choices_4__ChoiceName')]").FillAsync("Option 5");
 
         // Enter Poll Question Image if exists
@@ -738,12 +744,27 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         await page.Locator("//input[contains(@id,'_ShowVotersCheckBox')]").CheckAsync();
 
         // Save Poll
-        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll') and not(@aria-hidden)]"));
 
         pageSource = await page.ContentAsync();
 
         Assert.That(pageSource, Does.Contain("Poll Question:") | Does.Contain("Option 1"), "Poll Creating Failed");
 
         return page.Url;
+    }
+
+    /// <summary>
+    /// Shows a choice of the poll editor (only the filled choices and one empty choice are shown, the others
+    /// with "add choice").
+    /// </summary>
+    private async static Task ShowChoiceAsync(IPage page, int index)
+    {
+        var choice = page.Locator($"#Input_Choices_{index}__ChoiceName");
+        var add = page.Locator("#AddChoice");
+
+        while (!await choice.IsVisibleAsync() && await add.IsVisibleAsync())
+        {
+            await add.ClickAsync();
+        }
     }
 }

@@ -10167,6 +10167,10 @@
             "#text": "Quyền ưu tiên:"
           },
           {
+            "@tag": "REPLIES",
+            "#text": "{0} trả lời cho bài viết này"
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Tiêu đề:"
           },
@@ -10662,6 +10666,10 @@
             "#text": "Gửi Email"
           },
           {
+            "@tag": "SENT",
+            "#text": "Email đã được gửi tới {0}."
+          },
+          {
             "@tag": "SUBJECT",
             "#text": "Tiêu đề:"
           },
@@ -11154,6 +11162,10 @@
           {
             "@tag": "SEND",
             "#text": "Gửi"
+          },
+          {
+            "@tag": "SENT",
+            "#text": "Email của bạn đã được gửi tới {0}."
           },
           {
             "@tag": "SUBJECT",
@@ -11727,6 +11739,10 @@
             "#text": "Bạn phải chọn hai phiên bản khác nhau để so sánh hợp lệ."
           },
           {
+            "@tag": "SELECT_INFO",
+            "#text": "Chọn hai phiên bản để so sánh."
+          },
+          {
             "@tag": "SELECT_TWO",
             "#text": "Chỉ có thể chọn 2 phiên bản để so sánh!"
           },
@@ -12052,6 +12068,10 @@
             "#text": "Tạo chủ đề mới:"
           },
           {
+            "@tag": "NO_TOPIC",
+            "#text": "Vui lòng chọn chủ đề để chuyển tin nhắn tới."
+          },
+          {
             "@tag": "SELECT_FORUM_MOVETO",
             "#text": "Chọn diễn đàn chuyển tới:"
           },
@@ -12309,12 +12329,20 @@
         "@name": "POLLEDIT",
         "Resource": [
           {
+            "@tag": "ADD_CHOICE",
+            "#text": "Thêm lựa chọn"
+          },
+          {
             "@tag": "ASK_POLL_DELETE",
             "#text": "Bạn có thực sự muốn xóa cuộc thăm dò ý kiến không?"
           },
           {
             "@tag": "CHOICE",
             "#text": "Lựa chọn {0}:"
+          },
+          {
+            "@tag": "CHOICES",
+            "#text": "Lựa chọn"
           },
           {
             "@tag": "CREATEPOLL",
@@ -12331,6 +12359,10 @@
           {
             "@tag": "NEED_QUESTION",
             "#text": "Bạn phải nhập một câu hỏi thăm dò ý kiến."
+          },
+          {
+            "@tag": "OPTIONS",
+            "#text": "Tùy chọn"
           },
           {
             "@tag": "POLL_CLOSEDBOUND",
