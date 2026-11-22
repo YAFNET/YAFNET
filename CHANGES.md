@@ -166,6 +166,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Members: the selected letter was lost by the pager and the sort
 * [FIXED] Members, active users: a change of the page size on a later page showed an empty page without pager
 * [FIXED] Profile: guests (profile view permission "everyone") got the PM and email buttons, which led to "access denied"
+* [FIXED] Profile: the tooltips of the PM and email buttons showed the name of the user encoded twice (e.g. "O&#39;Brien")
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
