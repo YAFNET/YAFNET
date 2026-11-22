@@ -13,6 +13,13 @@
 
 @inject BoardContext Current
 
+@{
+    // the page of a category shows the category again after the toggle, the category is a query value
+    var categoryRoute = Current.PageCategoryID > 0
+                            ? new Dictionary<string, string> { { "c", Current.PageCategoryID.ToString() } }
+                            : new Dictionary<string, string>();
+}
+
 @foreach (var category in Model)
 {
     var tuple = new List<ForumRead>(
@@ -77,6 +84,7 @@
                             <form method="post">
                                 <button button-style="Link"
                                     asp-page-handler="ToggleCollapse"
+                                    asp-all-route-data="categoryRoute"
                                     asp-route-target="@Html.Raw($"categoryPanel{category.CategoryID}")"
                                     type="submit"
                                     class="btn btn-collapse px-0"

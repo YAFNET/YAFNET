@@ -150,6 +150,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topics: a change of the page size showed all topics again (the date filter was lost), a change of the date filter reset the page size
 * [FIXED] Topics: the default date filter of the topic lists (board settings) was ignored, all topics were shown
 * [FIXED] Index: "mark all read" and "watch all forums" on the page of a category acted on the forums of all categories and showed the whole board
+* [FIXED] Index: the collapse button of a category on the page of the category showed the whole board
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

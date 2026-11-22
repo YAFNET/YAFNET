@@ -1026,4 +1026,37 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
         return categoryId;
     }
+
+    /// <summary>
+    /// The collapse button of a category on the page of the category shows the category again
+    /// (the whole board was shown).
+    /// </summary>
+    [Test]
+    public async Task CollapseOnACategoryPageKeepsTheCategoryTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var categoryId = await this.CreateCategoryWithForumAsync(page, $"Collapse{Random.Shared.Next()}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}category/{categoryId}/test");
+
+                var categories = page.Locator("#category-list .card-body.collapse");
+                var toggle = page.Locator("#category-list button[formaction*='ToggleCollapse']").First;
+
+                // collapse and expand again
+                for (var i = 0; i < 2; i++)
+                {
+                    await page.SubmitAndWaitAsync(toggle);
+
+                    Assert.That(await categories.CountAsync(), Is.EqualTo(1), "The collapse button did not keep the category");
+                }
+            });
+    }
 }
