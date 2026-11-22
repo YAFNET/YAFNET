@@ -127,6 +127,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] My Topics redesigned: header with the count and mark all as read, the lists as tabs (active topics since the last visit, the other lists all topics, a time selected afterwards is kept), the time and the page size in view, an empty state with show all
 * [FIXED] Albums: a new album was not counted (the number of the albums and the images of the user was cached), the albums page showed the number before it and "add new album" at the limit
 * [CHANGES] Albums redesigned: album cards with the cover, the number of images and the quota, a cover badge and copy BBCode on the album, the edit page with sections, a sticky bar and a message for an upload without a file
+* [FIXED] Messages: a conversation that was opened again before it was loaded showed the messages twice (a click on another conversation gave a script error)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

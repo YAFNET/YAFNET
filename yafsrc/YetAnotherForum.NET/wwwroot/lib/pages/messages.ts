@@ -14,10 +14,20 @@ function currentUserId(): number {
 }
 
 chatHub.on('onConnected', (toUserId: string, conversations: Array<{ body: string, dateTime: string, toUserId: number }>) => {
+	const ctrId = `private_${toUserId}`;
+	const control = document.getElementById(ctrId) as HTMLElement | null;
+
+	// another conversation was opened meanwhile
+	if (!control) {
+		return;
+	}
+
+	// the whole conversation is loaded (the conversation can be opened again before it was loaded,
+	// the messages were shown twice)
+	control.querySelector('#divMessage')?.replaceChildren();
+
 	// load existing conversations
 	for (let i = 0; i < conversations.length; i++) {
-		const ctrId = `private_${toUserId}`;
-		const control = document.getElementById(ctrId) as HTMLElement;
 		const avatar = control.dataset.avatar;
 
 		let toAvatar = control.dataset.toAvatar!;

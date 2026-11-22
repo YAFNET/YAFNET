@@ -198,4 +198,45 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
         return adminLink![(adminLink.LastIndexOf('/') + 1)..];
     }
+
+    /// <summary>
+    /// The conversation that the page opens can be clicked again before it was loaded: the messages are shown once
+    /// (they were shown twice).
+    /// </summary>
+    [Test]
+    public async Task ConversationIsShownOnceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var adminId = await this.GetAdminIdAsync(page);
+
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages?u={adminId}");
+
+                    var text = $"Once {Random.Shared.Next()}";
+                    var message = page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text });
+
+                    await page.Locator("#txtPrivateMessage").FillAsync(text);
+                    await page.Locator("#txtPrivateMessage").PressAsync("Enter");
+                    await message.WaitForAsync();
+
+                    // the page opens the conversation, it is clicked right away
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages?u={adminId}");
+                    await page.Locator($"li.chat-list-user[id='{adminId}']").ClickAsync();
+
+                    await message.First.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+                    await page.WaitForTimeoutAsync(2000);
+
+                    Assert.That(await message.CountAsync(), Is.EqualTo(1), "The messages are shown twice");
+                });
+    }
 }
