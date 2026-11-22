@@ -180,4 +180,38 @@ public class SearchTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     "The post was found by its hidden content");
             });
     }
+
+    /// <summary>
+    /// Enter in the "posted by" field searches the posts of the user (it did nothing, only the button searched).
+    /// </summary>
+    [Test]
+    public async Task EnterInPostedBySearchesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                var marker = $"PostedBy{Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, marker, "A topic for the posted by search"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Search");
+
+                await page.Locator("#Input_SearchStringFromWho").FillAsync(userName);
+                await page.Locator("#Input_SearchStringFromWho").PressAsync("Enter");
+
+                await page.Locator("#SearchResultsPlaceholder").GetByText(marker).First.WaitForAsync(
+                    new LocatorWaitForOptions { Timeout = 10000 });
+
+                Assert.That(
+                    await page.Locator("#SearchResultsPlaceholder").InnerTextAsync(),
+                    Does.Contain(marker),
+                    "Enter in the posted by field did not search");
+            });
+    }
 }

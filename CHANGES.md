@@ -143,6 +143,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Move Message: Enter in the name of the new topic moved the message to the selected topic (without a selected topic only a warning was shown) instead of creating the new topic
 * [CHANGES] Delete Message, Move Message, Report Post, Message History, Email Topic, Email User and the poll editor redesigned: page headers, the post the action is for with its author above the form, a sticky action bar, the poll editor shows only the filled choices with "add choice", the version list of the history with the edit details, "email sent" messages, the report page shows the topic in the breadcrumb
 * [FIXED] Error page: the message and the stack trace of an error were shown to every visitor, now only host admins see them (the error is in the event log)
+* [FIXED] Search: Enter in the "posted by" and the tags field did nothing, now it searches (a search by the user or the tag alone is possible)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

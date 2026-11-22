@@ -366,14 +366,16 @@ function getSearchResultsData(pageNumber: number): void {
 
 
 //////////////
-const searchInput = document.querySelector('.searchInput') as HTMLInputElement;
-
-searchInput.addEventListener('keypress', (event: KeyboardEvent) => {
-	if (event.key === 'Enter') {
-		event.preventDefault();
-		const pageNumberSearch = 0;
-		getSearchResultsData(pageNumberSearch);
-	}
+// Enter in the text, the user or the tag field searches (it did nothing in the user and the tag field,
+// a search by the user or the tag alone is possible)
+document.querySelectorAll<HTMLInputElement>('.searchInput, .searchUserInput, .searchTagInput').forEach(input => {
+	input.addEventListener('keypress', (event: KeyboardEvent) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			const pageNumberSearch = 0;
+			getSearchResultsData(pageNumberSearch);
+		}
+	});
 });
 
 document.querySelectorAll('.searchType, .searchWhat, .titleOnly, .resultsPage').forEach(element => {
