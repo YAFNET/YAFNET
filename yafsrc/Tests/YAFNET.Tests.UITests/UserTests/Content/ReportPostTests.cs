@@ -86,6 +86,51 @@ public class ReportPostTests(ComposeScenario scenario) : DatabaseTestBase(scenar
             });
     }
 
+    /// <summary>
+    /// A report text with a "|" is shown as one text: it was split into two reports, the second with the date
+    /// "[error]" (the reports of a user are stored joined with "|").
+    /// </summary>
+    [Test]
+    public async Task ReportTextWithPipeTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                var topicName = $"Pipe report test {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, topicName, "A post for the report test"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                var messageId = await page.Locator(".message .selectionQuoteable").First.GetAttributeAsync("id");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await ReportAsync(page, this.TestSettings, messageId, "before | after");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/ReportedPosts/{this.TestSettings.TestForumId}");
+
+                var report = page.Locator(".card", new PageLocatorOptions { HasText = topicName }).Last;
+                var text = await report.InnerTextAsync();
+
+                Assert.That(text, Does.Contain("before | after"), "The report text was split");
+                Assert.That(text, Does.Not.Contain("[error]"), "A part of the text was shown as a report without a date");
+            });
+    }
+
     private async static Task ReportAsync(IPage page, TestConfig testSettings, string messageId, string text)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}ReportPost/{messageId}");

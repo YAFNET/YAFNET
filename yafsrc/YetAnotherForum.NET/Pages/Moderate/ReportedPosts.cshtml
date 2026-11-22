@@ -87,7 +87,8 @@
 								{
 									string howMany = null;
 									var reporterName = reporter.Item2.DisplayOrUserName();
-									var reportString = reporter.Item1.ReportText.Trim().Split('|');
+									// the reports of the user (a "|" in a text was taken as the start of the next report)
+									var reports = ReportTextHelper.Parse(reporter.Item1.ReportText);
 
 									<div class="alert alert-secondary" role="alert">
 
@@ -132,27 +133,21 @@
 										</a>
 									</div>
 
-									@foreach (var t in reportString)
+									@foreach (var item in reports)
 									{
-										// date??text, the text is user input (encoded below)
-										var textString = t.Split("??", 2);
+										// the text is user input (encoded)
+										@if (item.Date.HasValue)
+										{
+											<p class="card-text">
+												@@
+												<span class="ps-1">
+													@Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(item.Date.Value))
+												</span>
+											</p>
+										}
 
 										<p class="card-text">
-											@@
-											<span class="ps-1">
-												@Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]))
-											</span>
-										</p>
-
-										<p class="card-text">
-											@if (textString.Length > 1)
-											{
-												@textString[1]
-											}
-											else
-											{
-												@t
-											}
+											@item.Text
 										</p>
 									}
 								}
