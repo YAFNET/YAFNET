@@ -25,6 +25,7 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -217,17 +218,17 @@ public class MyTopicsModel : ForumPageRegistered
     /// </summary>
     public void OnPostMarkAll()
     {
-        this.BindData();
+        var since = this.GetSinceDate(this.Input.SinceValue);
 
-        if (this.TopicList.Count <= 0)
+        // all topics of the list, not only of the first page (the list loads the next pages when it is scrolled)
+        var total = this.GetTopicsList(this.Input.TopicModeValue, since, 0, 1).FirstOrDefault()?.TotalRows ?? 0;
+
+        if (total > 0)
         {
-            return;
+            this.GetTopicsList(this.Input.TopicModeValue, since, 0, total).ForEach(
+                item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.TopicID));
         }
 
-        this.TopicList.ForEach(
-                item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.TopicID));
-
-        // Rebind
         this.BindData();
     }
 

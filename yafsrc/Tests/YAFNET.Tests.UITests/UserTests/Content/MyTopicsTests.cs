@@ -51,4 +51,92 @@ public class MyTopicsTests(ComposeScenario scenario) : DatabaseTestBase(scenario
                 Assert.That(title, Does.StartWith("My Topics"), $"The title is wrong ({title})");
             });
     }
+
+    /// <summary>
+    /// "Mark all as read" marks all topics of the list: only the topics of the first page were marked (the list
+    /// shows the next pages when it is scrolled).
+    /// </summary>
+    [Test]
+    public async Task MarkAllAsReadMarksAllTopicsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // new topics of another user (more than a page)
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var prefix = $"Mark all {Random.Shared.Next()}";
+
+                for (var i = 1; i <= 6; i++)
+                {
+                    Assert.That(
+                        await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"{prefix} {i}", "A new topic"),
+                        Is.Not.Null,
+                        "The topic was not created");
+                }
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                var topics = page.Locator("#topicsContainer > *", new PageLocatorOptions { HasText = prefix });
+                var unread = topics.Filter(new LocatorFilterOptions { HasText = "New Posts" });
+
+                // the active topics of all time, all on one page: the new topics are not read
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyTopics");
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(
+                    """
+                    () => {
+                        document.querySelector('#Input_TopicModeValue').value = '0';
+                        document.querySelector('#Input_SinceValue').value = '9999';
+                        const size = document.querySelector('#Size');
+                        size.value = '50';
+                        size.form.submit();
+                    }
+                    """));
+
+                Assert.That(await unread.CountAsync(), Is.EqualTo(6), "The new topics are not shown as new");
+
+                // 5 per page
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(
+                    """
+                    () => {
+                        document.querySelector('#Input_TopicModeValue').value = '0';
+                        document.querySelector('#Input_SinceValue').value = '9999';
+                        const size = document.querySelector('#Size');
+                        size.value = '5';
+                        size.form.submit();
+                    }
+                    """));
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='MarkAll']"));
+
+                // all topics on one page
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(
+                    """
+                    () => {
+                        const size = document.querySelector('#Size');
+                        size.value = '50';
+                        size.form.submit();
+                    }
+                    """));
+
+                Assert.That(await topics.CountAsync(), Is.EqualTo(6), "The new topics are not listed");
+                Assert.That(
+                    await unread.CountAsync(),
+                    Is.Zero,
+                    "A topic of the next page is not marked as read");
+            });
+    }
 }
