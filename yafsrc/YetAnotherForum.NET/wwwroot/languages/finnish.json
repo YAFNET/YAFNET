@@ -997,6 +997,10 @@
             "#text": "Tässä näkyvät tiedostot, jotka käyttäjät liittävät viesteihinsä."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Näytä viestit"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Käyttäjän liitteet"
           },

@@ -997,6 +997,10 @@
             "#text": "Os ficheiros que os utilizadores anexam às suas mensagens são listados aqui."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mostrar mensagens"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Anexos do utilizador"
           },

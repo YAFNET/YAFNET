@@ -997,6 +997,10 @@
             "#text": "Hier werden die Dateien aufgelistet, die Benutzer an ihre Beiträge anhängen."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Beiträge anzeigen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Benutzer-Anhänge"
           },

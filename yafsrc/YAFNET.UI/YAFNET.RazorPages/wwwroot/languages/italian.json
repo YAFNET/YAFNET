@@ -997,6 +997,10 @@
             "#text": "Qui sono elencati i file che gli utenti allegano ai loro messaggi."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mostra i messaggi"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Allegati dell'utente"
           },

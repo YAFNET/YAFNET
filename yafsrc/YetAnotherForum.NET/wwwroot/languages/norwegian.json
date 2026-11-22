@@ -997,6 +997,10 @@
             "#text": "Her vises filene som brukerne legger ved innleggene sine."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Vis innlegg"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Brukervedlegg"
           },

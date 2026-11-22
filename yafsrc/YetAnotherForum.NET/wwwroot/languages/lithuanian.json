@@ -997,6 +997,10 @@
             "#text": "Čia rodomi failai, kuriuos naudotojai prisega prie savo pranešimų."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Rodyti pranešimus"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Naudotojo priedai"
           },

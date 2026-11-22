@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -47,6 +48,22 @@ public class AttachmentsModel : AdminPage
     /// </summary>
     [BindProperty]
     public List<Tuple<User, Attachment>> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the posts that show the attachments of the page (by the attachment id).
+    /// </summary>
+    public Dictionary<int, List<(int MessageId, int TopicId, string TopicName)>> Usages { get; set; } = [];
+
+    /// <summary>
+    /// Gets the link to a post.
+    /// </summary>
+    /// <param name="messageId">The message id.</param>
+    /// <param name="topicName">The topic name.</param>
+    /// <returns>The link.</returns>
+    public string GetPostLink(int messageId, string topicName)
+    {
+        return this.Get<ILinkBuilder>().GetLink(ForumPages.Post, new { m = messageId, name = topicName });
+    }
 
     /// <summary>
     /// Gets or sets the count.
@@ -174,5 +191,8 @@ public class AttachmentsModel : AdminPage
             this.Size);
 
         this.Count = count;
+
+        // the posts with the attachments (the search index found the number in any post, and only after an update)
+        this.Usages = this.GetRepository<Attachment>().GetUsages([.. this.List.Select(x => x.Item2.ID)]);
     }
 }

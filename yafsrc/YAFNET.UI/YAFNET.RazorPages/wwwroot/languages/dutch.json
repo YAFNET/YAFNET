@@ -997,6 +997,10 @@
             "#text": "Hier staan de bestanden die gebruikers aan hun berichten toevoegen."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Berichten tonen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Gebruikersbijlagen"
           },

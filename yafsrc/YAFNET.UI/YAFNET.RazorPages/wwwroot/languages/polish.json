@@ -997,6 +997,10 @@
             "#text": "Tutaj są wyświetlane pliki, które użytkownicy dołączają do swoich postów."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Pokaż posty"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Załączniki użytkownika"
           },

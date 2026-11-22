@@ -997,6 +997,10 @@
             "#text": "Siin on failid, mille kasutajad oma postitustele lisavad."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Näita postitusi"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kasutaja manused"
           },

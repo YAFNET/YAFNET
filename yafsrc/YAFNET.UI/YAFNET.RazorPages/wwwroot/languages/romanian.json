@@ -997,6 +997,10 @@
             "#text": "Aici sunt listate fișierele pe care utilizatorii le atașează la mesajele lor."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Afișează mesajele"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Atașamente de utilizator"
           },

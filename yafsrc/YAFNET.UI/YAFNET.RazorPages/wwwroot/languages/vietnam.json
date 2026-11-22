@@ -997,6 +997,10 @@
             "#text": "Các tệp mà người dùng đính kèm vào bài viết được liệt kê ở đây."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Hiển thị bài viết"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
           },

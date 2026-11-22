@@ -997,6 +997,10 @@
             "#text": "Här visas filerna som användarna bifogar till sina inlägg."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Visa inlägg"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Användarens bilagor"
           },

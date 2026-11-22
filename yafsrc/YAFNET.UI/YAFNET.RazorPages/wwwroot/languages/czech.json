@@ -997,6 +997,10 @@
             "#text": "Zde jsou soubory, které uživatelé přikládají ke svým příspěvkům."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Zobrazit příspěvky"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Uživatelské přílohy"
           },

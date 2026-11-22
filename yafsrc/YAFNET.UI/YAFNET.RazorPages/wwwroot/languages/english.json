@@ -993,6 +993,10 @@
                     "#text": "The files that users attach to their posts are listed here."
                 },
                 {
+                    "@tag": "SHOW_POSTS",
+                    "#text": "Show posts"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "User Attachments"
                 },

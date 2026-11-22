@@ -997,6 +997,10 @@
             "#text": "Kullanıcıların gönderilerine eklediği dosyalar burada listelenir."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "İletileri göster"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kullanıcı Ekleri"
           },

@@ -997,6 +997,10 @@
             "#text": "Les fichiers que les utilisateurs joignent à leurs messages sont listés ici."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Afficher les messages"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Pièces jointes par l'utilisateur"
           },

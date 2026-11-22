@@ -997,6 +997,10 @@
             "#text": "Aquí se muestran los archivos que los usuarios adjuntan a sus mensajes."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mostrar mensajes"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Archivos adjuntos de los usuarios"
           },

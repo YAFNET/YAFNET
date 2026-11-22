@@ -31,7 +31,9 @@
         <ul class="list-group mb-3">
             @foreach (var (user, attachment) in Model.List)
             {
-                var usages = Model.Get<ISearch>().CountHits($"]{attachment.ID}[");
+                // the posts that show the attachment
+                var posts = Model.Usages.GetValueOrDefault(attachment.ID) ?? [];
+                var usages = posts.Count;
 
                 <li class="list-group-item list-group-item-menu attachment-row">
                     <div class="attachment-preview">@Html.Raw(Model.GetPreviewImage(attachment))</div>
@@ -46,13 +48,33 @@
                         </div>
                     </div>
                     <div class="btn-group btn-group-sm attachment-actions">
-                        <a asp-route-search="@($"]{attachment.ID}[")"
-                           asp-page="@ForumPages.Search.GetPageName()"
-                           button-style="Info"
-                           button-size="Small"
-                           Icon="search"
-                           title-localized-tag="SHOW_TOPICS"
-                           text-localized-tag="SHOW_TOPICS"></a>
+                        @if (posts.Count == 1)
+                        {
+                            <a href="@Model.GetPostLink(posts[0].MessageId, posts[0].TopicName)"
+                               class="btn btn-sm btn-outline-secondary attachment-posts"
+                               title="@posts[0].TopicName">
+                                @Html.Icon("comment")@Html.LocalizedText("ADMIN_ATTACHMENTS", "SHOW_POSTS")
+                            </a>
+                        }
+                        else if (posts.Count > 1)
+                        {
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle attachment-posts"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    @Html.Icon("comments")@Html.LocalizedText("ADMIN_ATTACHMENTS", "SHOW_POSTS")
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    @foreach (var post in posts)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-break" href="@Model.GetPostLink(post.MessageId, post.TopicName)">
+                                                @Html.Icon("comment")@post.TopicName
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
                         <button button-style="Danger"
                                 button-size="Small"
                                 asp-page-handler="Delete"
@@ -63,12 +85,16 @@
                                 text-localized-tag="DELETE"></button>
                     </div>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                        <a asp-route-search="@($"]{attachment.ID}[")"
-                           class="dropdown-item"
-                           asp-page="@ForumPages.Search.GetPageName()"
-                           button-style="None"
-                           Icon="search"
-                           text-localized-tag="SHOW_TOPICS"></a>
+                        @foreach (var post in posts)
+                        {
+                            <a class="dropdown-item text-break" href="@Model.GetPostLink(post.MessageId, post.TopicName)">
+                                @Html.Icon("comment")@post.TopicName
+                            </a>
+                        }
+                        @if (posts.Count > 0)
+                        {
+                            <div class="dropdown-divider"></div>
+                        }
                         <button class="dropdown-item"
                                 button-style="None"
                                 asp-page-handler="Delete"

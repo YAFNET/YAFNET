@@ -997,6 +997,10 @@
             "#text": "Her vises de filer, som brugerne vedhæfter deres indlæg."
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Vis indlæg"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Brugervedhæftede filer"
           },

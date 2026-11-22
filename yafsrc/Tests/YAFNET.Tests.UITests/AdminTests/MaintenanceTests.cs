@@ -217,4 +217,71 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 Assert.That(await page.Locator(".tag-card").CountAsync(), Is.Zero, "Tags are listed that don't match");
             });
     }
+
+    /// <summary>
+    /// The usages of an attachment are the posts that show it, the button leads to them: they were the hits of the
+    /// search index for "]id[" (the number in any post, only after the index was updated).
+    /// </summary>
+    [Test]
+    public async Task AttachmentUsagesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var image = Convert.ToBase64String(
+                    await System.IO.File.ReadAllBytesAsync(System.IO.Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png")));
+                var fileName = $"usage-{Random.Shared.Next()}.png";
+
+                var attachmentId = await page.EvaluateAsync<int>(
+                    """
+                    async ([baseUrl, image, name]) => {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const bytes = Uint8Array.from(atob(image), c => c.charCodeAt(0));
+                        const data = new FormData();
+                        data.append('file', new File([bytes], name, { type: 'image/png' }));
+                        const response = await fetch(baseUrl + 'api/FileUpload/Upload', {
+                            method: 'POST', headers: { 'RequestVerificationToken': token }, body: data });
+                        return (await response.json())[0].fileID;
+                    }
+                    """,
+                    new object[] { this.TestSettings.TestForumUrl, image, fileName });
+
+                Assert.That(attachmentId, Is.GreaterThan(0), "The attachment was not uploaded");
+
+                var subject = $"Attachment usage {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, subject, $"[attach]{attachmentId}[/attach]"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                // a post with the number of the attachment is no usage
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"Number {Random.Shared.Next()}", $"The number {attachmentId} is no attachment"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Attachments");
+
+                var row = page.Locator(".attachment-row", new PageLocatorOptions { HasText = fileName });
+
+                Assert.That(await row.CountAsync(), Is.EqualTo(1), "The attachment is not listed");
+                Assert.That(
+                    (await row.Locator(".attachment-meta .badge").InnerTextAsync()).Trim(),
+                    Is.EqualTo("1"),
+                    "The post of the attachment is not counted");
+
+                await page.RunAndWaitForNextPageAsync(() => row.Locator(".attachment-posts").ClickAsync());
+
+                Assert.That(await page.ContentAsync(), Does.Contain(subject), "The button doesn't lead to the post");
+            });
+    }
 }
