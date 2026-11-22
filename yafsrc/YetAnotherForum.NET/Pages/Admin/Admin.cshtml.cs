@@ -85,6 +85,21 @@ public class AdminModel : AdminPage
     public string UpdateHighlight { get; set; }
 
     /// <summary>
+    /// Gets or sets the text of the running version (the version check of the removed version page).
+    /// </summary>
+    public string RunningVersion { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text of the latest version, empty if the check failed.
+    /// </summary>
+    public string LatestVersion { get; set; }
+
+    /// <summary>
+    /// Gets the name of the running version.
+    /// </summary>
+    public string AppVersionName => this.Get<BoardInfo>().AppVersionName;
+
+    /// <summary>
     /// Gets or sets the pageSize List.
     /// </summary>
     public SelectList UnverifiedPageSizeList { get; set; }
@@ -321,6 +336,11 @@ public class AdminModel : AdminPage
     /// </summary>
     private async Task ShowUpgradeMessageAsync()
     {
+        this.RunningVersion = this.GetTextFormatted(
+            "RUNNING_VERSION",
+            this.Get<BoardInfo>().AppVersionName,
+            this.Get<IDateTimeService>().FormatDateShort(this.Get<BoardInfo>().AppVersionDate));
+
         try
         {
             var version = await this.Get<IDataCache>().GetOrSetAsync(
@@ -328,6 +348,11 @@ public class AdminModel : AdminPage
                 TimeSpan.FromDays(1));
 
             var latestVersion = (DateTime)version.VersionDate;
+
+            this.LatestVersion = this.GetTextFormatted(
+                "LATEST_VERSION",
+                (string)version.Version,
+                this.Get<IDateTimeService>().FormatDateShort(latestVersion));
 
             if (latestVersion.ToUniversalTime().Date <= this.Get<BoardInfo>().AppVersionDate.ToUniversalTime().Date)
             {
@@ -340,6 +365,7 @@ public class AdminModel : AdminPage
         catch (Exception)
         {
             this.UpdateHighlight = null;
+            this.LatestVersion = null;
         }
     }
 

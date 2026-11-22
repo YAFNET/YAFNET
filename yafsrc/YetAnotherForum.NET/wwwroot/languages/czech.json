@@ -968,6 +968,10 @@
             "#text": "Témata na den:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Aktuální"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Uživatelé za den:"
           }

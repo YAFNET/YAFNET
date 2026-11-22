@@ -968,6 +968,10 @@
             "#text": "Ämnen per dag:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Uppdaterad"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Användare per dag:"
           }

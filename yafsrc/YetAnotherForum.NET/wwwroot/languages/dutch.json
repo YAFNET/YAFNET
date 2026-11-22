@@ -968,6 +968,10 @@
             "#text": "Topics per dag:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Up-to-date"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Nieuwe gebruikers per dag:"
           }

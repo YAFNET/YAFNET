@@ -968,6 +968,10 @@
             "#text": "Teemad päevas:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Ajakohane"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Kasutajad päevas:"
           }

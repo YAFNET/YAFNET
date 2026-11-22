@@ -115,8 +115,7 @@ public class PageAccessEditModel : AdminPage
             "Admin_EditGroup", "Admin_Users", "Admin_EditUser", "Admin_RegisterUser", "Admin_Ranks", "Admin_EditRank",
             "Admin_Medals", "Admin_EditMedal", "Admin_Mail", "Admin_Digest"]),
         ("MAINTENANCE", "toolbox", ["Admin_Attachments", "Admin_Tags", "Admin_Prune", "Admin_Restore", "Admin_Pm",
-            "Admin_EventLog"]),
-        ("UPGRADE", "download", ["Admin_Version"])
+            "Admin_EventLog"])
     ];
 
     /// <summary>

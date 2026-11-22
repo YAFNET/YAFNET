@@ -968,6 +968,10 @@
             "#text": "Günlük konular:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Güncel"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Günlük kullanıcı sayısı:"
           }

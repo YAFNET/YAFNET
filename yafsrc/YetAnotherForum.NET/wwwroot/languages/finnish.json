@@ -968,6 +968,10 @@
             "#text": "Aiheita päivässä:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Ajan tasalla"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Käyttäjiä päivässä:"
           }

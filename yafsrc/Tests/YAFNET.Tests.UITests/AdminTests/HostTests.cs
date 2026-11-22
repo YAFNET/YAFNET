@@ -144,6 +144,34 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The dashboard shows the running version (the version page was removed).
+    /// </summary>
+    [Test]
+    public async Task DashboardShowsTheVersionTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Admin");
+
+                var version = page.Locator("#DashboardVersion");
+
+                Assert.That(await version.InnerTextAsync(), Does.Contain("YAF.NET"), "The version is not shown");
+                Assert.That(
+                    await version.Locator("span[title]").First.GetAttributeAsync("title"),
+                    Does.Contain("Your YAF.NET Version"),
+                    "The running version is not in the title");
+
+                var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Version");
+
+                Assert.That(response?.Status, Is.EqualTo(404), "The version page still exists");
+            });
+    }
+
+    /// <summary>
     /// A number of backups to keep that is too large keeps the setting: it was saved as 0 (all backups are kept).
     /// </summary>
     [Test]

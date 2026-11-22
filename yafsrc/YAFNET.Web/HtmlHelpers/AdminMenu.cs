@@ -99,12 +99,6 @@ public static class AdminMenuHtmlHelper
             content.AppendHtml(RenderAdminMaintenance(pagesAccess, context));
         }
 
-        // Admin - Upgrade Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(x => x.PageName == "Admin_Version"))
-        {
-            content.AppendHtml(RenderAdminUpgrade(pagesAccess, context));
-        }
-
         return content;
     }
 
@@ -661,57 +655,6 @@ public static class AdminMenuHtmlHelper
                     context.CurrentForumPage.PageName == ForumPages.Admin_EventLog,
                     false,
                     "book"));
-        }
-
-        listItem.InnerHtml.AppendHtml(list);
-
-        return listItem;
-    }
-
-    /// <summary>
-    /// Render Admin Upgrade sub menu
-    /// </summary>
-    /// <param name="pagesAccess">
-    /// The pages access.
-    /// </param>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    private static TagBuilder RenderAdminUpgrade(
-        IEnumerable<AdminPageUserAccess> pagesAccess,
-        BoardContext context)
-    {
-        var listItem = new TagBuilder(HtmlTag.Li);
-
-        listItem.AddCssClass("dropdown dropend");
-
-        listItem.InnerHtml.AppendHtml(
-            RenderMenuItem(
-                "dropdown-item dropdown-toggle subdropdown-toggle",
-                context.Get<ILocalization>().GetText("ADMINMENU", "Upgrade"),
-                "#",
-                context.CurrentForumPage.PageName == ForumPages.Admin_Version,
-                true,
-                "download"));
-
-        var list = new TagBuilder(HtmlTag.Ul);
-
-        list.AddCssClass("dropdown-menu dropdown-submenu");
-
-        // Admin Version
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item dropdown",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_Version"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Version),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_Version,
-                    false,
-                    "info"));
         }
 
         listItem.InnerHtml.AppendHtml(list);

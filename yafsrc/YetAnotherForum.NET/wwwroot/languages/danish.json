@@ -968,6 +968,10 @@
             "#text": "Emner om dagen:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Opdateret"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Brugere pr. dag:"
           }

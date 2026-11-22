@@ -968,6 +968,10 @@
             "#text": "Argomenti al giorno:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Aggiornato"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Utenti al giorno:"
           }

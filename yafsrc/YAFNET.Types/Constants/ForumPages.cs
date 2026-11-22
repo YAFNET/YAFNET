@@ -370,11 +370,6 @@ public enum ForumPages
     Admin_SpamLog,
 
     /// <summary>
-    /// The Admin version page.
-    /// </summary>
-    Admin_Version,
-
-    /// <summary>
     /// The Admin edit access mask page.
     /// </summary>
     Admin_EditAccessMask,

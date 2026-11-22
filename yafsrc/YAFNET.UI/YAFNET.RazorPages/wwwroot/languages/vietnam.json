@@ -968,6 +968,10 @@
             "#text": "Chủ đề mỗi ngày:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Đã cập nhật"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Người dùng mỗi ngày:"
           }

@@ -968,6 +968,10 @@
             "#text": "Subiecte pe zi:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "La zi"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Utilizatori pe zi:"
           }

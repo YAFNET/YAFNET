@@ -968,6 +968,10 @@
             "#text": "Temos per dieną:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Naujausia"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Vartotojų per dieną:"
           }

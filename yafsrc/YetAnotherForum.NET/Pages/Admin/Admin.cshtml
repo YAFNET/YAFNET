@@ -50,9 +50,27 @@
 		@Html.IconHeader("tachometer-alt", "ADMIN_ADMIN", "HEADER3")
 		<strong>@(Model.PageBoardContext.BoardSettings.Name)</strong>
 	</h2>
-	<small class="text-body-secondary">
-		@Html.LocalizedText("ADMIN_ADMIN", "STATS_DONTCOUNT")
-	</small>
+	@* the version check (it was the page admin version) *@
+	<div class="d-flex flex-wrap align-items-center gap-2 dashboard-version" id="DashboardVersion">
+		<span class="badge bg-body-tertiary text-body-secondary border"
+		      title="@HtmlTagHelper.StripHtml(Model.RunningVersion)">
+			@Html.Icon("code-branch")YAF.NET @Model.AppVersionName
+		</span>
+		@if (Model.UpdateHighlight.IsSet())
+		{
+			<a class="badge text-bg-warning text-decoration-none version-new" href="@Model.UpdateHighlight"
+			   title="@HtmlTagHelper.StripHtml(Model.LatestVersion ?? string.Empty)">
+				@Html.Icon("cloud-download-alt")@Html.LocalizedText("NEW_VERSION")
+			</a>
+		}
+		else if (Model.LatestVersion.IsSet())
+		{
+			<span class="badge bg-success-subtle text-success-emphasis border border-success-subtle version-current"
+			      title="@HtmlTagHelper.StripHtml(Model.LatestVersion)">
+				@Html.Icon("check")@Html.LocalizedText("ADMIN_ADMIN", "UP_TO_DATE")
+			</span>
+		}
+	</div>
 </div>
 
 @* key figures *@
@@ -151,6 +169,10 @@
 		</div>
 	</div>
 </div>
+
+<p class="small text-body-secondary mt-n2 mb-3">
+	@Html.LocalizedText("ADMIN_ADMIN", "STATS_DONTCOUNT")
+</p>
 
 @* registrations and the background tasks *@
 <div class="row g-3 mb-3">

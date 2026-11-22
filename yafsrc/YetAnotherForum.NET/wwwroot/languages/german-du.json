@@ -968,6 +968,10 @@
             "#text": "Themen pro Tag:"
           },
           {
+            "@tag": "UP_TO_DATE",
+            "#text": "Aktuell"
+          },
+          {
             "@tag": "USERS_DAY",
             "#text": "Benutzer pro Tag:"
           }
