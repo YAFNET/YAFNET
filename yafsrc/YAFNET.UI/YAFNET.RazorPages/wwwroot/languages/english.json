@@ -11934,6 +11934,18 @@
                     "#text": "by {0}"
                 },
                 {
+                    "@tag": "EMPTY_ALL",
+                    "#text": "There are no topics in this list yet."
+                },
+                {
+                    "@tag": "EMPTY_FILTERED",
+                    "#text": "No topics in the selected time. Show all topics to see the older ones."
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No topics"
+                },
+                {
                     "@tag": "LAST_DAY",
                     "#text": "last day"
                 },

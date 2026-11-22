@@ -11950,6 +11950,18 @@
             "#text": "pagal {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Šiame sąraše dar nėra temų."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Pasirinktu laikotarpiu temų nėra. Rodykite visas temas, kad pamatytumėte senesnes."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Temų nėra"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "paskutinė diena"
           },

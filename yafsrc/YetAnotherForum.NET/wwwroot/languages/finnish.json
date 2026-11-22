@@ -11950,6 +11950,18 @@
             "#text": "{0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Tässä luettelossa ei ole vielä aiheita."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Valitulla aikavälillä ei ole aiheita. Näytä kaikki aiheet nähdäksesi vanhemmat."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei aiheita"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "viimeinen päivä"
           },

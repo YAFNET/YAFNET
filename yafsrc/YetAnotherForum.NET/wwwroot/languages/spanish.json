@@ -11934,6 +11934,18 @@
             "#text": "por {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Todavía no hay temas en esta lista."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "No hay temas en el periodo elegido. Muestre todos los temas para ver los más antiguos."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Sin temas"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "el último día"
           },

@@ -139,4 +139,43 @@ public class MyTopicsTests(ComposeScenario scenario) : DatabaseTestBase(scenario
                     "A topic of the next page is not marked as read");
             });
     }
+
+    /// <summary>
+    /// The tabs show the lists: the active topics since the last visit, the other lists all topics; a time that is
+    /// selected after the tab is kept.
+    /// </summary>
+    [Test]
+    public async Task TabsSetTheTimeTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyTopics");
+
+                var since = page.Locator("#Input_SinceValue");
+                var active = page.Locator(".my-topics-tabs .nav-link.active");
+
+                Assert.That(await since.InputValueAsync(), Is.EqualTo("0"), "The active topics are not shown since the last visit");
+
+                // the watched topics: all
+                await page.SubmitAndWaitAsync(page.Locator("#MyTopicsTab2"));
+
+                Assert.That(await active.GetAttributeAsync("data-mode"), Is.EqualTo("2"), "The tab is not active");
+                Assert.That(await since.InputValueAsync(), Is.EqualTo("9999"), "The watched topics are not shown of all time");
+
+                // another time is kept
+                await page.RunAndWaitForNextPageAsync(() => since.SelectOptionAsync("7"));
+
+                Assert.That(await since.InputValueAsync(), Is.EqualTo("7"), "The selected time was set back");
+                Assert.That(await active.GetAttributeAsync("data-mode"), Is.EqualTo("2"), "The list was changed");
+
+                // the active topics: since the last visit
+                await page.SubmitAndWaitAsync(page.Locator("#MyTopicsTab0"));
+
+                Assert.That(await since.InputValueAsync(), Is.EqualTo("0"), "The active topics are not shown since the last visit");
+            });
+    }
 }

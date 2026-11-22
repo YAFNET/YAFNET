@@ -11950,6 +11950,18 @@
             "#text": "de {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Încă nu există subiecte în această listă."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Nu există subiecte în perioada aleasă. Afișează toate subiectele pentru a le vedea pe cele mai vechi."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Niciun subiect"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "ultima zi"
           },

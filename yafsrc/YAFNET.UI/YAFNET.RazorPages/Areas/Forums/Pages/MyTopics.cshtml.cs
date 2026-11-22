@@ -109,6 +109,35 @@ public class MyTopicsModel : ForumPageRegistered
     }
 
     /// <summary>
+    /// Shows a list (the tabs): the active topics since the last visit, the other lists all topics (most of them are
+    /// older than the last visit, the list was empty).
+    /// </summary>
+    /// <param name="mode">The list (the value of <see cref="TopicListMode"/>, it comes from the client).</param>
+    public void OnPostMode(int mode)
+    {
+        var listMode = Enum.IsDefined(typeof(TopicListMode), mode) ? (TopicListMode)mode : TopicListMode.Active;
+
+        this.ModelState.Clear();
+
+        this.Input.TopicModeValue = (int)listMode;
+        this.Input.SinceValue = listMode == TopicListMode.Active ? 0 : 9999;
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Shows all topics of the list (the button of an empty list).
+    /// </summary>
+    public void OnPostShowAll()
+    {
+        this.ModelState.Clear();
+
+        this.Input.SinceValue = 9999;
+
+        this.BindData();
+    }
+
+    /// <summary>
     /// The bind data.
     /// </summary>
     public void BindData()

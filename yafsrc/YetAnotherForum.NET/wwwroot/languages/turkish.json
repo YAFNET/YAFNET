@@ -11950,6 +11950,18 @@
             "#text": "{0} Tarafından "
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Bu listede henüz konu yok."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Seçilen sürede konu yok. Eski konuları görmek için tüm konuları gösterin."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Konu yok"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "Son Gün"
           },

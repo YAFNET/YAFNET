@@ -11950,6 +11950,18 @@
             "#text": "av {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Det er ingen emner i denne listen ennå."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Ingen emner i den valgte perioden. Vis alle emner for å se de eldre."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen emner"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "siste dag"
           },

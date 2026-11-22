@@ -6,119 +6,119 @@
 @using YAF.Web.HtmlHelpers
 @model MyTopicsModel
 
+@{
+    var mode = Model.Input.TopicModeValue.ToEnum<TopicListMode>();
+    var totalTopics = Model.TopicList.NullOrEmpty() ? 0 : Model.TopicList.FirstOrDefault().TotalRows;
 
-<form method="post">
-    <div class="row">
-        <div class="col">
-            <div class="card my-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
+    // the tabs of the lists (the text of the tab and the title of the page)
+    var modes = new[]
+    {
+        (Mode: TopicListMode.Active, Tag: "ACTIVETOPICS"),
+        (Mode: TopicListMode.Unanswered, Tag: "UNANSWEREDTOPICS"),
+        (Mode: TopicListMode.Watch, Tag: "WATCHTOPICS"),
+        (Mode: TopicListMode.User, Tag: "MEMBERTITLE")
+    };
 
-                            @switch (Model.Input.TopicModeValue.ToEnum<TopicListMode>())
-                            {
-                                case TopicListMode.Active:
-                                    @Html.IconHeader("comments", "MYTOPICS", "ActiveTopics")
-                                    break;
-                                case TopicListMode.Unanswered:
-                                    @Html.IconHeader("comments", "MYTOPICS", "UnansweredTopics")
-                                    break;
-                                case TopicListMode.Watch:
-                                    @Html.IconHeader("comments", "MYTOPICS", "WatchTopics")
-                                    break;
-                                case TopicListMode.User:
-                                    @Html.IconHeader("comments", "MYTOPICS", "MyTopics")
-                                    break;
-                            }
+    var title = modes.FirstOrDefault(m => m.Mode == mode).Tag ?? "ACTIVETOPICS";
+}
 
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm me-2 mb-1" role="group">
-                                    <div class="input-group-text">
-                                        @Html.LocalizedText("SHOW"):
-                                    </div>
-                                    <select asp-for="@Model.Size"
-                                            asp-items="Model.PageSizeList"
-                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            class="form-select"
-                                            onchange="this.form.submit();"></select>
-                                </div>
-                                <div class="btn-group me-2 mb-1" role="group" aria-label="Filters">
-                                    <button 
-                                        class="dropdown-toggle"
-                                        bs-toggle="dropdown"
-                                        button-size="Small"
-                                        button-style="Secondary"
-                                        Icon="filter"
-                                        text-localized-tag="FILTER_DROPDOWN"
-                                        text-localized-page="ADMIN_USERS"></button>
+@* the action without a handler: the selects send the form to the page (after a tab the address was the handler of
+   the tab, the time was set back) *@
+<form method="post" class="my-topics" action="@Url.Page(ForumPages.MyTopics.GetPageName())" asp-antiforgery="true">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 my-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("comment")@Html.LocalizedText("MYTOPICS", title)
+            <span class="badge text-bg-secondary align-middle ms-1" id="TopicCount">@totalTopics</span>
+        </h2>
+        <button asp-page-handler="MarkAll"
+                text-localized-tag="MARK_ALL_ASREAD" text-localized-page="DEFAULT"
+                button-style="OutlineSecondary"
+                button-size="Small"
+                Icon="glasses"></button>
+    </div>
 
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                        <div class="px-3 py-1">
-                                            <div class="mb-3">
-                                                <label asp-for="Input.TopicModeValue" class="form-label" localized-tag="SELECT"></label>
-                                                <select asp-items="Model.TopicMode" asp-for="Input.TopicModeValue" class="form-select"
-                                                        onchange="this.form.submit();"></select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label asp-for="Input.SinceValue" class="form-label" localized-tag="SINCE"></label>
-                                                <select asp-items="Model.Since" asp-for="Input.SinceValue" class="form-select"
-                                                        onchange="this.form.submit();"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @{
-                    var totalTopics = Model.TopicList.NullOrEmpty() ? 0 : Model.TopicList.FirstOrDefault().TotalRows;
+    @* the lists: a tab sets the list and its default time (active: since the last visit, the others: all) *@
+    <ul class="nav nav-pills my-topics-tabs mb-3" role="tablist">
+        @foreach (var item in modes)
+        {
+            <li class="nav-item" role="presentation">
+                <button type="submit"
+                        id="@($"MyTopicsTab{(int)item.Mode}")"
+                        class="nav-link @(item.Mode == mode ? "active" : string.Empty)"
+                        asp-page-handler="Mode"
+                        asp-route-mode="@((int)item.Mode)"
+                        aria-current="@(item.Mode == mode ? "page" : null)"
+                        data-mode="@((int)item.Mode)">
+                    @Html.LocalizedText("MYTOPICS", item.Tag)
+                </button>
+            </li>
+        }
+    </ul>
+
+    <input type="hidden" asp-for="Input.TopicModeValue" />
+
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-wrap align-items-center gap-2 my-topics-filter">
+            <div class="input-group input-group-sm w-auto">
+                <label class="input-group-text" asp-for="Input.SinceValue" localized-tag="SINCE"></label>
+                <select asp-items="Model.Since" asp-for="Input.SinceValue" class="form-select"
+                        onchange="this.form.submit();"></select>
+            </div>
+            <div class="input-group input-group-sm w-auto ms-md-auto">
+                <span class="input-group-text">@Html.LocalizedText("SHOW"):</span>
+                <select asp-for="@Model.Size"
+                        asp-items="Model.PageSizeList"
+                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                        class="form-select"
+                        onchange="this.form.submit();"></select>
+            </div>
+        </div>
+        <div class="card-body topic-list"
+             id="topicsContainer"
+             data-load-more-url="@Url.Page("MyTopics", "LoadMoreTopics")"
+             data-live-url="@(Model.PageBoardContext.PageIndex == 0 ? Url.Page("MyTopics", "LoadMoreTopics") : null)"
+             data-next-page="@(Model.PageBoardContext.PageIndex + 1)"
+             data-page-size="@Model.Size"
+             data-show="@Model.Input.SinceValue"
+             data-mode="@Model.Input.TopicModeValue"
+             data-total="@totalTopics"
+             data-loaded-count="@(Model.TopicList?.Count ?? 0)"
+             data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
+             data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))"
+             data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
+            @if (!Model.TopicList.NullOrEmpty())
+            {
+                @foreach (var topic in Model.TopicList)
+                {
+                    @Html.TopicContainer(topic, false)
                 }
-                <div class="card-body topic-list"
-                     id="topicsContainer"
-                     data-load-more-url="@Url.Page("MyTopics", "LoadMoreTopics")"
-                     data-live-url="@(Model.PageBoardContext.PageIndex == 0 ? Url.Page("MyTopics", "LoadMoreTopics") : null)"
-                     data-next-page="@(Model.PageBoardContext.PageIndex + 1)"
-                     data-page-size="@Model.Size"
-                     data-show="@Model.Input.SinceValue"
-                     data-mode="@Model.Input.TopicModeValue"
-                     data-total="@totalTopics"
-                     data-loaded-count="@(Model.TopicList?.Count ?? 0)"
-                     data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
-                     data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))"
-                     data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
-                    @if (!Model.TopicList.NullOrEmpty())
-                    {
-                        @foreach (var topic in Model.TopicList)
-                        {
-                            @Html.TopicContainer(topic, false)
-                        }
-                    }
-                    else
-                    {
-                        <alert type="info" icon="info-circle" localized-tag="NO_POSTS">
-                        </alert>
-                    }
+            }
+            else
+            {
+                var filtered = Model.Input.SinceValue != 9999;
 
-                    <div id="topicsLoadMoreSentinel" class="text-center py-3">
-                        <div class="spinner-border spinner-border-sm text-secondary d-none" role="status">
-                            <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
-                        </div>
-                    </div>
+                <div class="my-topics-empty text-center">
+                    <empty icon="comment"
+                           header-text-page="MYTOPICS" header-text-tag="EMPTY_HEADER"
+                           message-text-page="MYTOPICS" message-text-tag="@(filtered ? "EMPTY_FILTERED" : "EMPTY_ALL")">
+                    </empty>
+                    @if (filtered)
+                    {
+                        <button type="submit"
+                                asp-page-handler="ShowAll"
+                                button-style="OutlineSecondary"
+                                button-size="Small"
+                                Icon="clock-rotate-left"
+                                text-localized-page="MYTOPICS"
+                                text-localized-tag="SHOW_ALL"></button>
+                    }
                 </div>
-                <div class="card-footer">
-                    <div class="row justify-content-end">
-                        <div class="col-auto">
-                            <button asp-page-handler="MarkAll"
-                                    text-localized-tag="MARK_ALL_ASREAD" text-localized-page="DEFAULT"
-                                    button-style="Secondary"
-                                    button-size="Small"
-                                    Icon="glasses"></button>
-                        </div>
-                    </div>
+            }
+
+            <div id="topicsLoadMoreSentinel" class="text-center py-3">
+                <div class="spinner-border spinner-border-sm text-secondary d-none" role="status">
+                    <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
                 </div>
             </div>
         </div>
@@ -127,4 +127,8 @@
 
 @section Scripts {
     <script src="~/js/topics.min.js" asp-append-version="true" defer></script>
+    <script>
+        // the tabs scroll on small screens: the tab of the list is shown
+        document.querySelector('.my-topics-tabs .active')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    </script>
 }

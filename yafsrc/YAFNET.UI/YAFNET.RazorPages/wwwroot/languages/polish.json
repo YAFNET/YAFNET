@@ -11938,6 +11938,18 @@
             "#text": "przez {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Na tej liście nie ma jeszcze tematów."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Brak tematów w wybranym okresie. Pokaż wszystkie tematy, aby zobaczyć starsze."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak tematów"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "ostatni dzień"
           },

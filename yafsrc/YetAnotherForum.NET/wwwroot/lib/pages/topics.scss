@@ -59,3 +59,20 @@
         }
     }
 }
+
+// My topics: the lists as tabs (they scroll on small screens)
+.my-topics {
+    .my-topics-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+
+        .nav-link {
+            white-space: nowrap;
+        }
+    }
+
+    .my-topics-empty {
+        padding: 1rem 0;
+    }
+}

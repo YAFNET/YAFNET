@@ -11934,6 +11934,18 @@
             "#text": "door {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Er staan nog geen topics in deze lijst."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Geen topics in de gekozen periode. Toon alle topics om ook de oudere te zien."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen topics"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "afgelopen dag"
           },

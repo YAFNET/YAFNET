@@ -11950,6 +11950,18 @@
             "#text": "bởi {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Danh sách này chưa có chủ đề nào."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Không có chủ đề trong khoảng thời gian đã chọn. Hiển thị tất cả chủ đề để xem các chủ đề cũ hơn."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có chủ đề"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "1 ngày trước đây"
           },

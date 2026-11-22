@@ -124,6 +124,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topic: the dialog "move topic" showed no forums ("dialogFunctions is not a function"), the scripts of the page were a module and the functions of the dialogs not global
 * [FIXED] My Topics: the title of the page was "Reset Password" (the texts of the page had no title), the German "my topics" was "no topics"
 * [FIXED] My Topics: "mark all as read" marked only the topics of the first page (the list shows the next pages when it is scrolled)
+* [CHANGES] My Topics redesigned: header with the count and mark all as read, the lists as tabs (active topics since the last visit, the other lists all topics, a time selected afterwards is kept), the time and the page size in view, an empty state with show all
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

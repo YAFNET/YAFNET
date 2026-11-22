@@ -11950,6 +11950,18 @@
             "#text": "autor: {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "V tomto seznamu zatím nejsou žádná témata."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Ve zvoleném období nejsou žádná témata. Zobrazte všechna témata, abyste viděli i starší."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádná témata"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "poslední den"
           },

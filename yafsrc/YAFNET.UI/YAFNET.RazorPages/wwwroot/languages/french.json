@@ -11950,6 +11950,18 @@
             "#text": "par {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Il n’y a encore aucun sujet dans cette liste."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Aucun sujet dans la période choisie. Affichez tous les sujets pour voir les plus anciens."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun sujet"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "ce dernier jour"
           },

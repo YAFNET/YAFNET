@@ -11934,6 +11934,18 @@
             "#text": "Da {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "In questo elenco non ci sono ancora discussioni."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Nessuna discussione nel periodo scelto. Mostra tutte le discussioni per vedere quelle più vecchie."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessuna discussione"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "Ultimo giorno"
           },

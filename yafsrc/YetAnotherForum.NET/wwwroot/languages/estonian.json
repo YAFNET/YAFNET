@@ -11950,6 +11950,18 @@
             "#text": "{0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Selles loendis pole veel teemasid."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Valitud ajavahemikus pole teemasid. Näita kõiki teemasid, et näha ka vanemaid."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Teemasid pole"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "eelmine päev"
           },

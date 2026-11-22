@@ -11950,6 +11950,18 @@
             "#text": "podľa {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "V tomto zozname zatiaľ nie sú žiadne témy."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Vo zvolenom období nie sú žiadne témy. Zobrazte všetky témy, aby ste videli aj staršie."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne témy"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "posledný deň"
           },

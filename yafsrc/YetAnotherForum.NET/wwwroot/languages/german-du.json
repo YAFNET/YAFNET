@@ -11934,6 +11934,18 @@
             "#text": "von {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "In dieser Liste gibt es noch keine Themen."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Keine Themen im gewählten Zeitraum. Zeige alle Themen, um auch die älteren zu sehen."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Themen"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "Letzter Tag"
           },

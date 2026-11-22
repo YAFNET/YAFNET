@@ -11950,6 +11950,18 @@
             "#text": "med {0}"
           },
           {
+            "@tag": "EMPTY_ALL",
+            "#text": "Det finns inga ämnen i den här listan ännu."
+          },
+          {
+            "@tag": "EMPTY_FILTERED",
+            "#text": "Inga ämnen under den valda tiden. Visa alla ämnen för att se de äldre."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga ämnen"
+          },
+          {
             "@tag": "LAST_DAY",
             "#text": "sista dagen"
           },
