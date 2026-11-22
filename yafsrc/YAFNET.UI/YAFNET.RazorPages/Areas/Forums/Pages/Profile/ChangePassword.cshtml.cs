@@ -73,6 +73,14 @@ public class ChangePasswordModel : ProfilePage
             return;
         }
 
+        // the confirmation was only checked in the browser (and only while typing): the first password was saved
+        if (this.Input.NewPassword != this.Input.ConfirmNewPassword)
+        {
+            this.PageBoardContext.Notify(this.GetText("REGISTER", "PASSWORD_NOTMATCH"), MessageTypes.danger);
+
+            return;
+        }
+
         var result = await this.Get<IAspNetUsersHelper>().ChangePasswordAsync(
                          this.PageBoardContext.MembershipUser,
                          this.Input.Password,

@@ -115,7 +115,18 @@ public class RegisterModel : AccountPage
     {
         await this.LoadCustomProfileAsync(this.Input.CustomProfile ?? []);
 
-        if (!this.ModelState.IsValid || !await this.ValidateUserAsync().ConfigureAwait(false) || this.ErrorMessage.IsSet())
+        if (!this.ModelState.IsValid)
+        {
+            return this.Page();
+        }
+
+        // the confirmation was only checked in the browser (and only while typing): the first password was saved
+        if (this.Input.Password != this.Input.ConfirmPassword)
+        {
+            return this.PageBoardContext.Notify(this.GetText("REGISTER", "PASSWORD_NOTMATCH"), MessageTypes.danger);
+        }
+
+        if (!await this.ValidateUserAsync().ConfigureAwait(false) || this.ErrorMessage.IsSet())
         {
             return this.Page();
         }

@@ -100,4 +100,45 @@ public class ChangePasswordTests(ComposeScenario scenario) : DatabaseTestBase(sc
                         "Changing Password Failed");
                 });
     }
+
+    /// <summary>
+    /// A confirm password that differs is refused (the new password typed first was saved).
+    /// </summary>
+    [Test]
+    public async Task DifferentConfirmPasswordIsRefusedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/ChangePassword");
+
+                    await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                    await page.Locator("#Input_NewPassword").FillAsync($"{this.TestSettings.TestUserPassword}New");
+                    await page.Locator("#Input_ConfirmNewPassword").FillAsync($"{this.TestSettings.TestUserPassword}Typo");
+
+                    Assert.That(
+                        await page.Locator("#Input_ConfirmNewPassword").EvaluateAsync<bool>("e => e.validity.valid"),
+                        Is.False,
+                        "The browser sends the form with different passwords");
+
+                    // without the browser check the server refuses it too
+                    await page.RunAndWaitForNavigationAsync(
+                        () => page.Locator("#Input_ConfirmNewPassword").EvaluateAsync("e => e.form.submit()"));
+
+                    Assert.That(
+                        await page.ContentAsync(),
+                        Does.Contain("Password and Confirm Password do not match"),
+                        "No message");
+
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "The password was changed");
+                });
+    }
 }

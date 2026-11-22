@@ -1125,11 +1125,12 @@ public static class JavaScriptBlocks
                        passwordConfirm = document.getElementById("{{confirmPasswordClientId}}"),
                        progressBar = document.getElementById("progress-password");
                
-                   password.addEventListener("keyup",
+                   // "input" also covers pasted and filled in passwords
+                   password.addEventListener("input",
                        () => {
                            checkPassword();
                        });
-                   passwordConfirm.addEventListener("keyup",
+                   passwordConfirm.addEventListener("input",
                        () => {
                            checkPassword();
                        });
@@ -1139,12 +1140,16 @@ public static class JavaScriptBlocks
                
                        if (password.value !== "" && passwordConfirm.value !== "" && password.value === passwordConfirm.value) {
                            invalid.style.display = "none";
+                           passwordConfirm.setCustomValidity("");
                
                            password.classList.remove("is-invalid");
                            passwordConfirm.classList.remove("is-invalid");
                        } else {
                            invalid.style.display = "block";
                            invalid.innerText = "{{JsEncode(notMatchText)}}";
+
+                           // the form is not sent with different passwords (the classes alone did not stop it)
+                           passwordConfirm.setCustomValidity("{{JsEncode(notMatchText)}}");
                
                            password.classList.add("is-invalid");
                            passwordConfirm.classList.add("is-invalid");

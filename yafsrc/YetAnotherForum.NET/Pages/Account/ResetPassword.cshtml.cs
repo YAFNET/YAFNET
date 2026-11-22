@@ -98,6 +98,12 @@ public class ResetPasswordModel : AccountPage
             return this.Page();
         }
 
+        // the confirmation was not checked, a typo in the password locked the user out
+        if (this.Input.Password != this.Input.ConfirmPassword)
+        {
+            return this.PageBoardContext.Notify(this.GetText("REGISTER", "PASSWORD_NOTMATCH"), MessageTypes.danger);
+        }
+
         var user = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.Email);
 
         if (user is null)

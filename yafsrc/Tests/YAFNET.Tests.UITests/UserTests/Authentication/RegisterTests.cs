@@ -309,4 +309,57 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     }
                 });
     }
+
+    /// <summary>
+    /// A confirm password that differs is refused (the account was created with the password typed first).
+    /// </summary>
+    [Test]
+    public async Task DifferentConfirmPasswordIsRefusedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = $"TempUser{Random.Shared.Next()}";
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
+
+                    if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+                    {
+                        await page.LogOutUserAsync();
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
+                    }
+
+                    Assert.That(await page.Locator("#Input_ConfirmPassword").CountAsync(), Is.EqualTo(1), "Registrations are disabled");
+
+                    await page.Locator("#Input_UserName").FillAsync(userName);
+
+                    if (await page.Locator("#Input_DisplayName").CountAsync() > 0)
+                    {
+                        await page.Locator("#Input_DisplayName").FillAsync(userName);
+                    }
+
+                    await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                    await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                    await page.Locator("#Input_ConfirmPassword").FillAsync($"{this.TestSettings.TestUserPassword}Typo");
+
+                    Assert.That(
+                        await page.Locator("#Input_ConfirmPassword").EvaluateAsync<bool>("e => e.validity.valid"),
+                        Is.False,
+                        "The browser sends the form with different passwords");
+
+                    // without the browser check the server refuses it too
+                    await page.RunAndWaitForNavigationAsync(
+                        () => page.Locator("#Input_ConfirmPassword").EvaluateAsync("e => e.form.submit()"));
+
+                    var pageSource = await page.ContentAsync();
+
+                    Assert.Multiple(
+                        () =>
+                            {
+                                Assert.That(pageSource, Does.Contain("Password and Confirm Password do not match"), "No message");
+                                Assert.That(pageSource, Does.Not.Contain("successfully created"), "The account was created");
+                            });
+                });
+    }
 }

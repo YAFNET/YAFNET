@@ -476,4 +476,52 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                         "The login failed");
                 });
     }
+
+    /// <summary>
+    /// The reset password page refuses a confirm password that differs (the password typed first was set,
+    /// a typo locked the user out).
+    /// </summary>
+    [Test]
+    public async Task ResetPasswordWithDifferentConfirmPasswordTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+                    var email = $"{userName.ToLower()}@test.com";
+
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    this.Fixture.SmtpServer.ClearReceivedEmail();
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/ForgotPassword");
+
+                    await page.Locator("#Input_UserName").FillAsync(userName);
+                    await page.SubmitAndWaitAsync(page.Locator("form:has(#Input_UserName) button[type=submit]"));
+
+                    var resetLink = await this.Fixture.SmtpServer.WaitForEmailLinkAsync(email);
+
+                    Assert.That(resetLink, Is.Not.Null, "No reset mail was sent");
+
+                    await page.GotoAsync(resetLink);
+
+                    await page.Locator("#Input_Email").FillAsync(email);
+                    await page.Locator("#Input_Password").FillAsync($"{this.TestSettings.TestUserPassword}New");
+                    await page.Locator("#Input_ConfirmPassword").FillAsync($"{this.TestSettings.TestUserPassword}Typo");
+
+                    await page.RunAndWaitForNavigationAsync(
+                        () => page.Locator("#Input_ConfirmPassword").EvaluateAsync("e => e.form.submit()"));
+
+                    Assert.That(
+                        await page.ContentAsync(),
+                        Does.Contain("Password and Confirm Password do not match"),
+                        "No message");
+
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "The password was changed");
+                });
+    }
 }
