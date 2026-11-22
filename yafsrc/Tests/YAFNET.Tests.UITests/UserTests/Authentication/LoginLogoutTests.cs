@@ -202,4 +202,67 @@ public class LoginLogoutUser(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout Failed");
             });
     }
+
+    /// <summary>
+    /// The login page has no register button when registrations are disabled (it led to an access denied page).
+    /// </summary>
+    [Test]
+    public async Task NoRegisterButtonWhenRegistrationsAreDisabledTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await SetRegistrationsDisabledAsync(page, this.TestSettings, true);
+
+                    try
+                    {
+                        await using var guestContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                                           new BrowserNewContextOptions
+                                                               {
+                                                                   BaseURL = this.TestSettings.TestForumUrl,
+                                                                   IgnoreHTTPSErrors = true
+                                                               });
+
+                        var guest = await guestContext.NewPageAsync();
+
+                        await guest.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Login");
+
+                        Assert.Multiple(
+                            async () =>
+                                {
+                                    Assert.That(await guest.Locator("#Login").CountAsync(), Is.EqualTo(1), "No login page");
+                                    Assert.That(
+                                        await guest.Locator("button[formaction*='Register']").CountAsync(),
+                                        Is.Zero,
+                                        "The login page offers to register");
+                                });
+                    }
+                    finally
+                    {
+                        await SetRegistrationsDisabledAsync(page, this.TestSettings, false);
+                    }
+                });
+    }
+
+    /// <summary>
+    /// Turns the registrations off or on in the host settings.
+    /// </summary>
+    private async static Task SetRegistrationsDisabledAsync(IPage page, TestConfig testSettings, bool disabled)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        await page.Locator("#Input_DisableRegistrations").EvaluateAsync("(e, v) => e.checked = v", disabled);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+        await page.WaitForLoadStateAsync();
+    }
 }

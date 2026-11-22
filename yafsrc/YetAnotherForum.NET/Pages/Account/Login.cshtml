@@ -81,17 +81,21 @@
 				                    text-localized-page="LOGIN"
 				                    text-localized-tag="FORUM_LOGIN">
 				            </button>
-				            <hr class="my-4" />
-							
-				            <button type="submit"
-				                    asp-page-handler="Register"
-				                    formnovalidate
-				                    button-style="OutlineSecondary"
-				                    button-size="Small"
-				                    icon="user-plus"
-				                    text-localized-page="LOGIN"
-				                    text-localized-tag="REGISTER_INSTEAD">
-				            </button>
+				            @* with disabled registrations the button led to an access denied page *@
+				            @if (!Model.PageBoardContext.BoardSettings.DisableRegistrations)
+				            {
+					            <hr class="my-4" />
+
+					            <button type="submit"
+					                    asp-page-handler="Register"
+					                    formnovalidate
+					                    button-style="OutlineSecondary"
+					                    button-size="Small"
+					                    icon="user-plus"
+					                    text-localized-page="LOGIN"
+					                    text-localized-tag="REGISTER_INSTEAD">
+					            </button>
+				            }
 			            </div>
 		            </form>
 	            </section>
