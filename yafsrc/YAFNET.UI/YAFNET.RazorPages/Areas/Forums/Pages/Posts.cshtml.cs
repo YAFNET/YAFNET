@@ -463,7 +463,7 @@ public class PostsModel : ForumPage
     public IActionResult OnPostEmailTopic()
     {
         return this.PageBoardContext.IsGuest
-                   ? this.PageBoardContext.Notify(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning)
+                   ? this.StayOnTopic(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning)
                    : this.Get<ILinkBuilder>().Redirect(
                        ForumPages.EmailTopic,
                       new {t = this.PageBoardContext.PageTopicID});

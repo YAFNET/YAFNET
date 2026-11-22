@@ -114,4 +114,72 @@ public class EmailTopicTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     }
                 });
     }
+
+    /// <summary>
+    /// A guest who chooses "Email topic" (the share menu is shown to everyone) gets a message on the topic
+    /// (the page failed with an error).
+    /// </summary>
+    [Test]
+    public async Task GuestEmailTopicShowsAMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var topicId = await page.CreateTopicAsync(
+                                  this.TestSettings,
+                                  this.TestSettings.TestForumId,
+                                  $"Guest email topic {Random.Shared.Next()}",
+                                  "A topic of the guest email topic test");
+
+                Assert.That(topicId, Is.Not.Null, $"The topic was not created ({page.Url})");
+
+                await SetShowShareTopicToAsync(page, this.TestSettings, "2");
+
+                string content;
+
+                try
+                {
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
+
+                    var emailTopic = page.Locator("button[formaction*='EmailTopic']").First;
+
+                    await page.RunAndWaitForNextPageAsync(() => emailTopic.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+                    content = await page.ContentAsync();
+                }
+                finally
+                {
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword);
+
+                    await SetShowShareTopicToAsync(page, this.TestSettings, "1");
+                }
+
+                Assert.That(content, Does.Contain("You must be registered to send emails."), "The guest got no message");
+                Assert.That(content, Does.Contain("A topic of the guest email topic test"), "The topic is not shown");
+            });
+    }
+
+    /// <summary>
+    /// Sets who sees the share menu of a topic (0 nobody, 1 registered users, 2 everyone).
+    /// </summary>
+    private async static Task SetShowShareTopicToAsync(IPage page, TestConfig testSettings, string value)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        await page.Locator("#Input_ShowShareTopicTo").EvaluateAsync("(select, value) => select.value = value", value);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+        await page.WaitForLoadStateAsync();
+    }
 }
