@@ -1120,4 +1120,44 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Save')]").First);
         }
     }
+
+    /// <summary>
+    /// The dialog "move topic" of a topic shows the select of the forums: the functions of the dialogs were in a
+    /// script module (not global), the dialog failed with "dialogFunctions is not a function".
+    /// </summary>
+    [Test]
+    public async Task MoveTopicDialogShowsTheForumsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var errors = new List<string>();
+
+                page.PageError += (_, error) => errors.Add(error);
+
+                var topicId = await page.CreateTopicAsync(
+                                  this.TestSettings,
+                                  this.TestSettings.TestForumId,
+                                  $"Move dialog {Random.Shared.Next()}",
+                                  "A topic for the move dialog");
+
+                Assert.That(topicId, Is.Not.Null, "The topic was not created");
+
+                // the button is in the menu of the moderation (closed)
+                await page.Locator("[data-url*='MoveTopic']").First.EvaluateAsync("b => b.click()");
+
+                var dialog = page.Locator(".modal.show");
+
+                await Assertions.Expect(dialog).ToBeVisibleAsync();
+                await Assertions.Expect(dialog.Locator(".choices")).ToBeVisibleAsync();
+
+                Assert.That(errors, Is.Empty, "The dialog failed with an error");
+            });
+    }
 }

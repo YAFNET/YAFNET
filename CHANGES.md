@@ -121,6 +121,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Moderate redesigned: the index with the totals and links to the unapproved and reported posts and the topics of a forum, a card per unapproved or reported post (author, message, reporters with their reasons, the delete question names the topic), the moderation of a forum with topic rows (badges, starter, replies, last post), select all and a bar for the selected topics: lock, unlock, move and delete (the dialog lists them); Enter no longer removes the first user of the forum
 * [FIXED] Topics: the button "Moderators" was shown in a forum without moderators (with an empty list)
 * [FIXED] Admin > Attachments: the usages of an attachment were the hits of the search index (the number in any post, only after an update of the index) and "show topics" searched for the number; the usages are the posts with the attachment, "show posts" leads to them
+* [FIXED] Topic: the dialog "move topic" showed no forums ("dialogFunctions is not a function"), the scripts of the page were a module and the functions of the dialogs not global
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

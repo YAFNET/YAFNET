@@ -461,7 +461,9 @@
 	{
 		@await Html.PartialAsync("_EditorScriptsPartial")
 	}
-    <script type="module">
+    @* no module: the functions of the dialogs (dialogFunctions) must be global, the dialogs (e.g. "move topic") call
+       them *@
+    <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
             $"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
 
