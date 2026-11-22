@@ -7039,6 +7039,90 @@
             "#text": "Đã được phê duyệt"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Thêm vào vai trò"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Quản trị viên được bỏ qua."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Phê duyệt"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "Đã phê duyệt {0} người dùng."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} ngày"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Xóa các người dùng đã chọn?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "Đã xóa {0} người dùng."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Người dùng luôn giữ ít nhất một vai trò, vai trò cuối cùng không bị xóa."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Hãy chọn một vai trò."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Xóa khỏi vai trò"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "Đã thêm {0} người dùng vào vai trò {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "Đã xóa {0} người dùng khỏi vai trò {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Vai trò của các người dùng đã chọn"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Vai trò"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "Đã chọn {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "Đã bỏ qua {0} người dùng (không được phép với họ)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Tạm khóa"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Tạm khóa các người dùng đã chọn"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "Đã tạm khóa {0} người dùng."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Gỡ tạm khóa"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Đã gỡ tạm khóa cho {0} người dùng."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa người dùng này?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Tìm kiếm"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Chọn tất cả trên trang này"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Chọn {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

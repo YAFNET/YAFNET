@@ -7039,6 +7039,90 @@
             "#text": "Aprovado"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Adicionar à função"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Os administradores são ignorados."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Aprovar"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} utilizadores foram aprovados."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dias"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Eliminar os utilizadores selecionados?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} utilizadores foram eliminados."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Um utilizador mantém pelo menos uma função, a última função não é removida."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Selecione uma função."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Remover da função"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} utilizadores foram adicionados à função {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} utilizadores foram removidos da função {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Função dos utilizadores selecionados"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Funções"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} selecionados"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} utilizadores foram ignorados (não permitido para eles)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Suspender"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Suspender os utilizadores selecionados"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} utilizadores foram suspensos."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Remover a suspensão"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "A suspensão de {0} utilizadores foi removida."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Eliminar este utilizador?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Pesquisa"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Selecionar todos nesta página"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Selecionar {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

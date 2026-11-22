@@ -7039,6 +7039,90 @@
             "#text": "Patvirtinta"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Pridėti prie rolės"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administratoriai praleidžiami."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Patvirtinti"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "Patvirtinta naudotojų: {0}."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} d."
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Ištrinti pažymėtus naudotojus?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "Ištrinta naudotojų: {0}."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Naudotojui lieka bent viena rolė, paskutinė rolė nepašalinama."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Pasirinkite rolę."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Pašalinti iš rolės"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "Prie rolės {1} pridėta naudotojų: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "Iš rolės {1} pašalinta naudotojų: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Pažymėtų naudotojų rolė"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Rolės"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "Pažymėta: {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "Praleista naudotojų: {0} (jiems neleidžiama)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Suspenduoti"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Suspenduoti pažymėtus naudotojus"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "Suspenduota naudotojų: {0}."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Panaikinti suspendavimą"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Suspendavimas panaikintas naudotojams: {0}."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ištrinti šį naudotoją?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Paieška"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Pažymėti visus šiame puslapyje"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Pažymėti {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

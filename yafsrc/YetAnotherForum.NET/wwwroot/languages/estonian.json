@@ -7039,6 +7039,90 @@
             "#text": "Kinnitatud"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Lisa rolli"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administraatorid jäetakse vahele."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Kinnita"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} kasutajat kinnitati."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} päeva"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Kas kustutada valitud kasutajad?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} kasutajat kustutati."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Kasutajale jääb vähemalt üks roll, viimast rolli ei eemaldata."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Vali roll."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Eemalda rollist"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} kasutajat lisati rolli {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} kasutajat eemaldati rollist {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Valitud kasutajate roll"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Rollid"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} valitud"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} kasutajat jäeti vahele (neile pole lubatud)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Peata"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Peata valitud kasutajad"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} kasutajat peatati."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Eemalda peatamine"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "{0} kasutaja peatamine eemaldati."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada see kasutaja?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Otsing"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Vali kõik sellel lehel"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Vali {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

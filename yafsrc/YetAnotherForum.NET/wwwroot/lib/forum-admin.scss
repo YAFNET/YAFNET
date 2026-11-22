@@ -333,6 +333,20 @@
         }
     }
 
+    // the bulk actions: the box of a user (a space for the users that can't be selected)
+    .bulk-select,
+    .bulk-select-spacer {
+        flex: 0 0 auto;
+        width: 1.125rem;
+        height: 1.125rem;
+        margin: 0;
+    }
+
+    .bulk-names {
+        max-height: 12rem;
+        overflow-y: auto;
+    }
+
     .user-avatar {
         width: 2.5rem;
         height: 2.5rem;

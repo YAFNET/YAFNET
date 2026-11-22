@@ -7031,6 +7031,90 @@
                     "#text": "Approved"
                 },
                 {
+                    "@tag": "BULK_ADD_ROLE",
+                    "#text": "Add to role"
+                },
+                {
+                    "@tag": "BULK_ADMINS_SKIPPED",
+                    "#text": "Administrators are skipped."
+                },
+                {
+                    "@tag": "BULK_APPROVE",
+                    "#text": "Approve"
+                },
+                {
+                    "@tag": "BULK_APPROVED",
+                    "#text": "{0} users were approved."
+                },
+                {
+                    "@tag": "BULK_DAYS",
+                    "#text": "{0} days"
+                },
+                {
+                    "@tag": "BULK_DELETE_TITLE",
+                    "#text": "Delete the selected users?"
+                },
+                {
+                    "@tag": "BULK_DELETED",
+                    "#text": "{0} users were deleted."
+                },
+                {
+                    "@tag": "BULK_LAST_ROLE",
+                    "#text": "A user keeps at least one role, the last role is not removed."
+                },
+                {
+                    "@tag": "BULK_NO_ROLE",
+                    "#text": "Select a role."
+                },
+                {
+                    "@tag": "BULK_REMOVE_ROLE",
+                    "#text": "Remove from role"
+                },
+                {
+                    "@tag": "BULK_ROLE_ADDED",
+                    "#text": "{0} users were added to the role {1}."
+                },
+                {
+                    "@tag": "BULK_ROLE_REMOVED",
+                    "#text": "{0} users were removed from the role {1}."
+                },
+                {
+                    "@tag": "BULK_ROLE_TITLE",
+                    "#text": "Role of the selected users"
+                },
+                {
+                    "@tag": "BULK_ROLES",
+                    "#text": "Roles"
+                },
+                {
+                    "@tag": "BULK_SELECTED",
+                    "#text": "{0} selected"
+                },
+                {
+                    "@tag": "BULK_SKIPPED",
+                    "#text": "{0} users were skipped (not allowed for them)."
+                },
+                {
+                    "@tag": "BULK_SUSPEND",
+                    "#text": "Suspend"
+                },
+                {
+                    "@tag": "BULK_SUSPEND_TITLE",
+                    "#text": "Suspend the selected users"
+                },
+                {
+                    "@tag": "BULK_SUSPENDED",
+                    "#text": "{0} users were suspended."
+                },
+                {
+                    "@tag": "BULK_UNSUSPEND",
+                    "#text": "Remove suspension"
+                },
+                {
+                    "@tag": "BULK_UNSUSPENDED",
+                    "#text": "The suspension of {0} users was removed."
+                },
+                {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Delete this user?"
                 },
@@ -7089,6 +7173,14 @@
                 {
                     "@tag": "LOCKED_ACCOUNTS",
                     "#text": "{0} inactive account(s) were locked."
+                },
+                {
+                    "@tag": "SELECT_ALL",
+                    "#text": "Select all on this page"
+                },
+                {
+                    "@tag": "SELECT_USER",
+                    "#text": "Select {0}"
                 },
                 {
                     "@tag": "SUSPENDED_UNTIL",

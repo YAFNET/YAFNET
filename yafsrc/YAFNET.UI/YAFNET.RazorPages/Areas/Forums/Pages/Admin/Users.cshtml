@@ -18,7 +18,7 @@
 	               || Model.Input.SuspendedOnly || (Model.Input.Since.IsSet() && Model.Input.Since != "9999");
 }
 
-<form method="post" class="needs-validation admin-users" novalidate>
+<form method="post" class="needs-validation admin-edit-form admin-users" novalidate>
 
 @* the default button of the form (Enter in a field): the search, the first button was "lock inactive accounts" *@
 <button type="submit" asp-page-handler="Search" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
@@ -161,6 +161,15 @@
 @if (!Model.List.NullOrEmpty())
 {
 	<div class="card mb-3">
+		@* the bulk actions: the users of the shown page can be selected (not the guest, a host admin or yourself) *@
+		<div class="card-header py-2 bulk-header">
+			<div class="form-check mb-0">
+				<input type="checkbox" class="form-check-input" id="BulkSelectAll" data-check-all=".bulk-select" />
+				<label class="form-check-label" for="BulkSelectAll">
+					@Html.LocalizedText("ADMIN_USERS", "SELECT_ALL")
+				</label>
+			</div>
+		</div>
 		<ul class="list-group list-group-flush">
 			@foreach (var user in Model.List)
 			{
@@ -170,6 +179,16 @@
 				var showUserName = user.DisplayName.IsSet() && user.DisplayName != user.Name;
 
 				<li class="list-group-item user-row list-group-item-menu" data-user-id="@user.UserID">
+					@if (Model.CanSelect(user))
+					{
+						<input type="checkbox" class="form-check-input bulk-select" name="SelectedUsers" value="@user.UserID"
+						       data-user-name="@(user.DisplayName.IsSet() ? user.DisplayName : user.Name)"
+						       aria-label="@string.Format(Model.GetText("ADMIN_USERS", "SELECT_USER"), user.DisplayName.IsSet() ? user.DisplayName : user.Name)" />
+					}
+					else
+					{
+						<span class="bulk-select-spacer" aria-hidden="true"></span>
+					}
 					<img class="user-avatar" alt=""
 					     src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user.UserID, user.Avatar, user.AvatarImage != null))"/>
 					<div class="user-main">
@@ -264,12 +283,153 @@
 		</ul>
 	</div>
 
+	@* the bulk actions of the selected users, shown when a user is selected *@
+	<div class="admin-edit-actions bulk-bar" id="BulkBar" hidden>
+		<span class="me-auto align-self-center">
+			<strong data-bulk-count data-template="@Model.GetText("ADMIN_USERS", "BULK_SELECTED")"></strong>
+			<button type="button" class="btn btn-link btn-sm" data-bulk-clear>@Html.LocalizedText("CLEAR")</button>
+		</span>
+		<button button-style="OutlineSecondary"
+		        button-size="Small"
+		        asp-page-handler="BulkApprove"
+		        Icon="check"
+		        text-localized-tag="BULK_APPROVE"
+		        text-localized-page="ADMIN_USERS"></button>
+		<button type="button" class="btn btn-sm btn-outline-secondary"
+		        data-bs-toggle="modal" data-bs-target="#BulkSuspendDialog">
+			@Html.Icon("user-clock")@Html.LocalizedText("ADMIN_USERS", "BULK_SUSPEND")
+		</button>
+		<button button-style="OutlineSecondary"
+		        button-size="Small"
+		        asp-page-handler="BulkUnsuspend"
+		        Icon="user-check"
+		        text-localized-tag="BULK_UNSUSPEND"
+		        text-localized-page="ADMIN_USERS"></button>
+		<button type="button" class="btn btn-sm btn-outline-secondary"
+		        data-bs-toggle="modal" data-bs-target="#BulkRoleDialog">
+			@Html.Icon("users-gear")@Html.LocalizedText("ADMIN_USERS", "BULK_ROLES")
+		</button>
+		<button type="button" class="btn btn-sm btn-danger"
+		        data-bs-toggle="modal" data-bs-target="#BulkDeleteDialog">
+			@Html.Icon("trash")@Html.LocalizedText("DELETE")
+		</button>
+	</div>
+
 	@await Html.PartialAsync("_Pagination", new Pagination { TotalRows = totalRows, Size = Model.Size })
 }
 else
 {
 	@await Html.PartialAsync("_NoEntryInfo")
 }
+
+@* the suspension of the selected users *@
+<div class="modal fade" id="BulkSuspendDialog" tabindex="-1" aria-labelledby="BulkSuspendTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="BulkSuspendTitle">
+					@Html.Icon("user-clock")@Html.LocalizedText("ADMIN_USERS", "BULK_SUSPEND_TITLE")
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Model.GetText("CANCEL")"></button>
+			</div>
+			<div class="modal-body">
+				<p class="small text-body-secondary" data-bulk-summary></p>
+				<div class="d-flex flex-wrap gap-2 mb-3">
+					<button type="button" class="btn btn-sm btn-outline-secondary" data-set-values='{"#BulkSuspendCount":"3","#BulkSuspendUnit":"1"}'>@string.Format(Model.GetText("ADMIN_USERS", "BULK_DAYS"), 3)</button>
+					<button type="button" class="btn btn-sm btn-outline-secondary" data-set-values='{"#BulkSuspendCount":"7","#BulkSuspendUnit":"1"}'>@string.Format(Model.GetText("ADMIN_USERS", "BULK_DAYS"), 7)</button>
+					<button type="button" class="btn btn-sm btn-outline-secondary" data-set-values='{"#BulkSuspendCount":"30","#BulkSuspendUnit":"1"}'>@string.Format(Model.GetText("ADMIN_USERS", "BULK_DAYS"), 30)</button>
+				</div>
+				<div class="input-group mb-3">
+					<input type="number" min="1" class="form-control" asp-for="BulkSuspendCount"
+					       aria-label="@Model.GetText("PROFILE", "SUSPEND_USER")" />
+					<select class="form-select" asp-for="BulkSuspendUnit" asp-items="Model.SuspendUnits"
+					        aria-label="@Model.GetText("PROFILE", "SUSPEND_USER")"></select>
+				</div>
+				<label asp-for="BulkSuspendReason" class="form-label">
+					@Html.LocalizedText("PROFILE", "SUSPEND_REASON")
+				</label>
+				<textarea asp-for="BulkSuspendReason" rows="2" maxlength="250" class="form-control"></textarea>
+				<div class="form-text">@Html.LocalizedText("ADMIN_USERS", "BULK_ADMINS_SKIPPED")</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" button-style="Secondary" Icon="xmark"
+				        data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+				<button button-style="Danger"
+				        asp-page-handler="BulkSuspend"
+				        Icon="user-clock"
+				        text-localized-tag="BULK_SUSPEND"
+				        text-localized-page="ADMIN_USERS"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* a role for the selected users *@
+<div class="modal fade" id="BulkRoleDialog" tabindex="-1" aria-labelledby="BulkRoleTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="BulkRoleTitle">
+					@Html.Icon("users-gear")@Html.LocalizedText("ADMIN_USERS", "BULK_ROLE_TITLE")
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Model.GetText("CANCEL")"></button>
+			</div>
+			<div class="modal-body">
+				<p class="small text-body-secondary" data-bulk-summary></p>
+				<label asp-for="BulkRole" class="form-label">
+					@Html.LocalizedText("ADMIN_USERS", "ROLE")
+				</label>
+				<select asp-for="BulkRole" asp-items="Model.BulkRoles" class="form-select"></select>
+				<div class="form-text">@Html.LocalizedText("ADMIN_USERS", "BULK_LAST_ROLE")</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" button-style="Secondary" Icon="xmark"
+				        data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+				<button button-style="OutlineSecondary"
+				        asp-page-handler="BulkRemoveRole"
+				        Icon="user-minus"
+				        text-localized-tag="BULK_REMOVE_ROLE"
+				        text-localized-page="ADMIN_USERS"></button>
+				<button button-style="Primary"
+				        asp-page-handler="BulkAddRole"
+				        Icon="user-plus"
+				        text-localized-tag="BULK_ADD_ROLE"
+				        text-localized-page="ADMIN_USERS"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* the delete of the selected users: the dialog lists them (the posts are kept) *@
+<div class="modal fade" id="BulkDeleteDialog" tabindex="-1" aria-labelledby="BulkDeleteTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="BulkDeleteTitle">
+					@Html.Icon("exclamation-triangle", "text-danger")@Html.LocalizedText("ADMIN_USERS", "BULK_DELETE_TITLE")
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Model.GetText("CANCEL")"></button>
+			</div>
+			<div class="modal-body">
+				<ul class="bulk-names mb-2" data-bulk-names></ul>
+				<div class="alert alert-warning mb-2" role="alert">
+					@Html.LocalizedText("ADMIN_USERS", "DELETE_WARNING")
+				</div>
+				<div class="small text-body-secondary">
+					@Html.Icon("info-circle")@Html.LocalizedText("ADMIN_USERS", "BULK_ADMINS_SKIPPED")
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" button-style="Secondary" Icon="xmark"
+				        data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+				<button button-style="Danger"
+				        asp-page-handler="BulkDelete"
+				        Icon="trash"
+				        text-localized-tag="DELETE"></button>
+			</div>
+		</div>
+	</div>
+</div>
 
 @* the delete of a user: the dialog says what is deleted (the posts are kept) *@
 <div class="modal fade" id="DeleteUserDialog" tabindex="-1" aria-labelledby="DeleteUserTitle" aria-hidden="true">

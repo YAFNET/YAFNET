@@ -7031,6 +7031,90 @@
             "#text": "تائید شده"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "افزودن به نقش"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "مدیران نادیده گرفته می‌شوند."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "تأیید"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} کاربر تأیید شدند."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} روز"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "کاربران انتخاب‌شده حذف شوند؟"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} کاربر حذف شدند."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "هر کاربر دست‌کم یک نقش نگه می‌دارد، آخرین نقش حذف نمی‌شود."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "یک نقش انتخاب کنید."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "حذف از نقش"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} کاربر به نقش {1} افزوده شدند."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} کاربر از نقش {1} حذف شدند."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "نقش کاربران انتخاب‌شده"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "نقش‌ها"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} انتخاب شده"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} کاربر نادیده گرفته شدند (برای آن‌ها مجاز نیست)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "تعلیق"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "تعلیق کاربران انتخاب‌شده"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} کاربر تعلیق شدند."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "لغو تعلیق"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "تعلیق {0} کاربر لغو شد."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "این کاربر حذف شود؟"
           },
@@ -7157,6 +7241,14 @@
           {
             "@tag": "SEARCH",
             "#text": "جستجو"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "انتخاب همه در این صفحه"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "انتخاب {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

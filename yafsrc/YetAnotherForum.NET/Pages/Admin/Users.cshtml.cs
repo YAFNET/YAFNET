@@ -39,11 +39,14 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
+using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Flags;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Modals;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 using YAF.Types.Objects.Model;
 
 /// <summary>
@@ -81,6 +84,46 @@ public class UsersModel : AdminPage
     /// <value>The list.</value>
     [BindProperty]
     public List<PagedUser> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ids of the users that are selected for a bulk action (only of the shown page).
+    /// </summary>
+    [BindProperty]
+    public List<int> SelectedUsers { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the number of time units of the bulk suspension.
+    /// </summary>
+    [BindProperty]
+    public int BulkSuspendCount { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the time unit of the bulk suspension (1 days, 2 hours, 3 minutes).
+    /// </summary>
+    [BindProperty]
+    public int BulkSuspendUnit { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the reason of the bulk suspension.
+    /// </summary>
+    [BindProperty]
+    public string BulkSuspendReason { get; set; }
+
+    /// <summary>
+    /// Gets or sets the role of the bulk role actions.
+    /// </summary>
+    [BindProperty]
+    public int BulkRole { get; set; }
+
+    /// <summary>
+    /// Gets or sets the roles of the board (bulk role actions).
+    /// </summary>
+    public SelectList BulkRoles { get; set; }
+
+    /// <summary>
+    /// Gets or sets the time units of the bulk suspension.
+    /// </summary>
+    public List<SelectListItem> SuspendUnits { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UsersModel"/> class.
@@ -162,6 +205,160 @@ public class UsersModel : AdminPage
         return this.PageBoardContext.Notify(
             this.GetTextFormatted("USER_DELETED", WebUtility.HtmlEncode(userToDelete.Item1.DisplayOrUserName())),
             MessageTypes.success);
+    }
+
+    /// <summary>
+    /// Checks if a user of the list can be selected for the bulk actions (not the guest, a host admin or yourself).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>True if the user can be selected.</returns>
+    public bool CanSelect(PagedUser user)
+    {
+        return user.IsGuest != true && !new UserFlags(user.Flags).IsHostAdmin
+                                     && user.UserID != this.PageBoardContext.PageUserID;
+    }
+
+    /// <summary>
+    /// Approves the selected users.
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostBulkApproveAsync()
+    {
+        var (users, skipped) = await this.GetSelectedUsersAsync(false);
+        var count = 0;
+
+        foreach (var user in users.Where(u => !u.Item1.UserFlags.IsApproved))
+        {
+            if (await this.Get<IAspNetUsersHelper>().ApproveUserAsync(user.Item1.ID))
+            {
+                count++;
+            }
+        }
+
+        return this.BulkDone(this.GetTextFormatted("BULK_APPROVED", count), skipped);
+    }
+
+    /// <summary>
+    /// Suspends the selected users (not the admins, the moderators only by an admin).
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostBulkSuspendAsync()
+    {
+        var (users, skipped) = await this.GetSelectedUsersAsync(true);
+
+        // at most 100 years like the suspension of a user, a huge value would fail
+        var unit = this.BulkSuspendUnit is >= 1 and <= 3 ? this.BulkSuspendUnit : 1;
+        var count = Math.Clamp(
+            this.BulkSuspendCount,
+            1,
+            unit switch
+            {
+                2 => 36500 * 24,
+                3 => 36500 * 24 * 60,
+                _ => 36500
+            });
+
+        var suspend = unit switch
+        {
+            2 => DateTime.UtcNow.AddHours(count),
+            3 => DateTime.UtcNow.AddMinutes(count),
+            _ => DateTime.UtcNow.AddDays(count)
+        };
+
+        var reason = this.BulkSuspendReason?.Trim();
+
+        foreach (var user in users)
+        {
+            await this.GetRepository<User>().SuspendAsync(user.Item1.ID, suspend, reason, this.PageBoardContext.PageUserID);
+
+            if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+            {
+                this.Get<ILogger<UsersModel>>().Log(
+                    this.PageBoardContext.PageUserID,
+                    this,
+                    $"User {user.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+                    EventLogTypes.UserSuspended);
+            }
+
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.Item1.ID));
+
+            await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
+                this.Get<IDateTimeService>().GetUserDateTime(suspend, user.Item1.TimeZoneInfo),
+                reason,
+                user.Item1);
+        }
+
+        return this.BulkDone(this.GetTextFormatted("BULK_SUSPENDED", users.Count), skipped);
+    }
+
+    /// <summary>
+    /// Removes the suspension of the selected users.
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostBulkUnsuspendAsync()
+    {
+        var (users, skipped) = await this.GetSelectedUsersAsync(false);
+        var count = 0;
+
+        foreach (var user in users.Where(u => u.Item1.Suspended.HasValue))
+        {
+            await this.GetRepository<User>().SuspendAsync(user.Item1.ID);
+
+            if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+            {
+                this.Get<ILogger<UsersModel>>().Log(
+                    this.PageBoardContext.PageUserID,
+                    this,
+                    $"User {user.Item1.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+                    EventLogTypes.UserUnsuspended);
+            }
+
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.Item1.ID));
+
+            await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(user.Item1);
+
+            count++;
+        }
+
+        return this.BulkDone(this.GetTextFormatted("BULK_UNSUSPENDED", count), skipped);
+    }
+
+    /// <summary>
+    /// Adds the selected users to the role.
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public Task<IActionResult> OnPostBulkAddRoleAsync()
+    {
+        return this.BulkRoleAsync(true);
+    }
+
+    /// <summary>
+    /// Removes the selected users from the role (a user keeps at least one role).
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public Task<IActionResult> OnPostBulkRemoveRoleAsync()
+    {
+        return this.BulkRoleAsync(false);
+    }
+
+    /// <summary>
+    /// Deletes the selected users (not the admins), their posts are kept like the delete of a user.
+    /// </summary>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostBulkDeleteAsync()
+    {
+        var (users, skipped) = await this.GetSelectedUsersAsync(true);
+        var count = 0;
+
+        foreach (var user in users)
+        {
+            if (await this.Get<IAspNetUsersHelper>().DeleteUserAsync(user.Item1.ID))
+            {
+                count++;
+            }
+        }
+
+        return this.BulkDone(this.GetTextFormatted("BULK_DELETED", count), skipped);
     }
 
     /// <summary>
@@ -324,6 +521,128 @@ public class UsersModel : AdminPage
     }
 
     /// <summary>
+    /// Adds the selected users to the role or removes them from it.
+    /// </summary>
+    /// <param name="add">Add (true) or remove (false).</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    private async Task<IActionResult> BulkRoleAsync(bool add)
+    {
+        // only a role of the board (the id is sent by the client)
+        var role = this.BulkRole > 0 ? await this.GetRepository<Group>().GetByIdAsync(this.BulkRole) : null;
+
+        if (role is null || role.BoardID != this.PageBoardContext.PageBoardID)
+        {
+            this.BindData();
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_USERS", "BULK_NO_ROLE"), MessageTypes.warning);
+        }
+
+        var (users, skipped) = await this.GetSelectedUsersAsync(false);
+        var count = 0;
+
+        foreach (var user in users)
+        {
+            var memberships = this.GetRepository<Group>().Member(this.PageBoardContext.PageBoardID, user.Item1.ID)
+                .Where(g => g.IsMember).ToList();
+            var isMember = memberships.Exists(g => g.GroupID == role.ID);
+
+            if (isMember == add)
+            {
+                // nothing to change
+                continue;
+            }
+
+            if (!add && memberships.Count <= 1)
+            {
+                // a user keeps at least one role
+                skipped++;
+                continue;
+            }
+
+            this.GetRepository<UserGroup>().AddOrRemove(user.Item1.ID, role.ID, add);
+
+            if (add)
+            {
+                if (!await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, role.Name))
+                {
+                    this.Get<IAspNetRolesHelper>().AddUserToRole(user.Item2, role.Name);
+                }
+            }
+            else if (await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, role.Name))
+            {
+                await this.Get<IAspNetUsersHelper>().RemoveUserFromRoleAsync(user.Item2, role.Name);
+            }
+
+            await this.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStyleEvent(user.Item1.ID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.Item1.ID));
+
+            count++;
+        }
+
+        var name = WebUtility.HtmlEncode(role.Name);
+
+        return this.BulkDone(
+            add
+                ? this.GetTextFormatted("BULK_ROLE_ADDED", count, name)
+                : this.GetTextFormatted("BULK_ROLE_REMOVED", count, name),
+            skipped);
+    }
+
+    /// <summary>
+    /// Gets the selected users of the board that can be changed: not the guest, a host admin or yourself, the ids
+    /// are sent by the client.
+    /// </summary>
+    /// <param name="skipAdmins">Skip the admins and (if the current user is no admin) the moderators, e.g. for the
+    /// delete and the suspension like for a single user.</param>
+    /// <returns>The users and the number of the skipped users.</returns>
+    private async Task<(List<Tuple<User, AspNetUsers, Rank, VAccess>> Users, int Skipped)> GetSelectedUsersAsync(bool skipAdmins)
+    {
+        var users = new List<Tuple<User, AspNetUsers, Rank, VAccess>>();
+        var skipped = 0;
+
+        foreach (var id in (this.SelectedUsers ?? []).Distinct())
+        {
+            var user = id == this.PageBoardContext.PageUserID
+                           ? null
+                           : await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(id, this.PageBoardContext.PageBoardID, true);
+
+            if (user is null || user.Item1.UserFlags.IsGuest || user.Item1.UserFlags.IsHostAdmin
+                || skipAdmins && (user.Item4.IsAdmin > 0
+                                  || !this.PageBoardContext.IsAdmin && user.Item4.IsForumModerator > 0))
+            {
+                skipped++;
+                continue;
+            }
+
+            users.Add(user);
+        }
+
+        return (users, skipped);
+    }
+
+    /// <summary>
+    /// Shows the list again with the message of a bulk action (and the number of skipped users).
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="skipped">The number of skipped users.</param>
+    /// <returns>The <see cref="IActionResult"/>.</returns>
+    private IActionResult BulkDone(string message, int skipped)
+    {
+        if (skipped > 0)
+        {
+            message = $"{message} {this.GetTextFormatted("BULK_SKIPPED", skipped)}";
+        }
+
+        // the selection is not kept (the list can be another one)
+        this.ModelState.Clear();
+        this.SelectedUsers = [];
+
+        this.BindData();
+
+        return this.PageBoardContext.Notify(message, skipped > 0 ? MessageTypes.warning : MessageTypes.success);
+    }
+
+    /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()
@@ -339,6 +658,15 @@ public class UsersModel : AdminPage
         groups.Insert(0, new Group { Name = this.GetText("FILTER_NO"), ID = 0 });
 
         this.Groups = new SelectList(groups, nameof(Group.ID), nameof(Group.Name));
+
+        // the roles of the bulk actions (without the "no filter" item)
+        this.BulkRoles = new SelectList(groups.Where(g => g.ID > 0), nameof(Group.ID), nameof(Group.Name));
+
+        this.SuspendUnits = [
+            new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
+            new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
+            new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
+        ];
 
         // get list of user ranks for filtering
         var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();

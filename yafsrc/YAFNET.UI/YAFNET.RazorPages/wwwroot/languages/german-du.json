@@ -7031,6 +7031,90 @@
             "#text": "Genehmigt"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Zur Rolle hinzufügen"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administratoren werden übersprungen."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Freischalten"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} Benutzer wurden freigeschaltet."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} Tage"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Die ausgewählten Benutzer löschen?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} Benutzer wurden gelöscht."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Ein Benutzer behält mindestens eine Rolle, die letzte Rolle wird nicht entfernt."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Wähle eine Rolle."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Aus der Rolle entfernen"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} Benutzer wurden zur Rolle {1} hinzugefügt."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} Benutzer wurden aus der Rolle {1} entfernt."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Rolle der ausgewählten Benutzer"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Rollen"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} ausgewählt"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} Benutzer wurden übersprungen (für sie nicht erlaubt)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Sperren"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Ausgewählte Benutzer sperren"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} Benutzer wurden gesperrt."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Sperre aufheben"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Die Sperre von {0} Benutzern wurde aufgehoben."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Diesen Benutzer löschen?"
           },
@@ -7157,6 +7241,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Suche"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Alle auf dieser Seite auswählen"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "{0} auswählen"
           },
           {
             "@tag": "SUSPENDED_ONLY",

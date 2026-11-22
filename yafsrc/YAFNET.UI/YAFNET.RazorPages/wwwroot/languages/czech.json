@@ -7039,6 +7039,90 @@
             "#text": "Schválený"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Přidat do role"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administrátoři se přeskakují."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Schválit"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "Schváleno uživatelů: {0}."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dní"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Smazat vybrané uživatele?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "Smazáno uživatelů: {0}."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Uživateli zůstane alespoň jedna role, poslední role se neodebere."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Vyberte roli."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Odebrat z role"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "Do role {1} přidáno uživatelů: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "Z role {1} odebráno uživatelů: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Role vybraných uživatelů"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Role"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "Vybráno: {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "Přeskočeno uživatelů: {0} (pro ně nepovoleno)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Pozastavit"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Pozastavit vybrané uživatele"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "Pozastaveno uživatelů: {0}."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Zrušit pozastavení"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Pozastavení zrušeno uživatelům: {0}."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Smazat tohoto uživatele?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Vyhledávání"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Vybrat vše na této stránce"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Vybrat {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

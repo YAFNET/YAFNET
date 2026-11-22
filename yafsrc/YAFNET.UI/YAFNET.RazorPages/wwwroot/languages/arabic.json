@@ -7031,6 +7031,90 @@
             "#text": "وافق"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "إضافة إلى الدور"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "يتم تخطي المديرين."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "موافقة"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "تمت الموافقة على {0} مستخدمين."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} أيام"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "هل تريد حذف المستخدمين المحددين؟"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "تم حذف {0} مستخدمين."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "يحتفظ المستخدم بدور واحد على الأقل، لا تتم إزالة الدور الأخير."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "اختر دورًا."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "إزالة من الدور"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "تمت إضافة {0} مستخدمين إلى الدور {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "تمت إزالة {0} مستخدمين من الدور {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "دور المستخدمين المحددين"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "الأدوار"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "تم تحديد {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "تم تخطي {0} مستخدمين (غير مسموح لهم)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "إيقاف"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "إيقاف المستخدمين المحددين"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "تم إيقاف {0} مستخدمين."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "إلغاء الإيقاف"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "تم إلغاء إيقاف {0} مستخدمين."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "حذف هذا المستخدم؟"
           },
@@ -7157,6 +7241,14 @@
           {
             "@tag": "SEARCH",
             "#text": "يبحث"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "تحديد الكل في هذه الصفحة"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "تحديد {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

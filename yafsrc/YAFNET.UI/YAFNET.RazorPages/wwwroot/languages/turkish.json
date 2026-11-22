@@ -7039,6 +7039,90 @@
             "#text": "Onaylandı"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Role ekle"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Yöneticiler atlanır."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Onayla"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} kullanıcı onaylandı."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} gün"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Seçili kullanıcılar silinsin mi?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} kullanıcı silindi."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Bir kullanıcının en az bir rolü kalır, son rol kaldırılmaz."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Bir rol seçin."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Rolden çıkar"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} kullanıcı {1} rolüne eklendi."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} kullanıcı {1} rolünden çıkarıldı."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Seçili kullanıcıların rolü"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Roller"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} seçildi"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} kullanıcı atlandı (onlar için izin verilmiyor)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Askıya al"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Seçili kullanıcıları askıya al"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} kullanıcı askıya alındı."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Askıyı kaldır"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "{0} kullanıcının askısı kaldırıldı."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Bu kullanıcıyı silelim mi?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Arama"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Bu sayfadakilerin tümünü seç"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "{0} kullanıcısını seç"
           },
           {
             "@tag": "SUSPENDED_ONLY",

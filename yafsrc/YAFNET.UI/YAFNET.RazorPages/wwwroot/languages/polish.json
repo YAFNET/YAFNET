@@ -7031,6 +7031,90 @@
             "#text": "Zatwierdzony"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Dodaj do roli"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administratorzy są pomijani."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Zatwierdź"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "Zatwierdzono użytkowników: {0}."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dni"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Usunąć zaznaczonych użytkowników?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "Usunięto użytkowników: {0}."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Użytkownik zachowuje co najmniej jedną rolę, ostatnia rola nie jest usuwana."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Wybierz rolę."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Usuń z roli"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "Dodano do roli {1} użytkowników: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "Usunięto z roli {1} użytkowników: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Rola zaznaczonych użytkowników"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Role"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "Zaznaczono: {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "Pominięto użytkowników: {0} (niedozwolone dla nich)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Zawieś"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Zawieś zaznaczonych użytkowników"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "Zawieszono użytkowników: {0}."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Usuń zawieszenie"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Usunięto zawieszenie użytkowników: {0}."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Usunąć tego użytkownika?"
           },
@@ -7157,6 +7241,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Szukaj na stronie"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Zaznacz wszystkich na tej stronie"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Zaznacz {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

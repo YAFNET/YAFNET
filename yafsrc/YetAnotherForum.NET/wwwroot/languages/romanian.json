@@ -7039,6 +7039,90 @@
             "#text": "Aprobat"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Adaugă la rol"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administratorii sunt omiși."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Aprobă"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} utilizatori au fost aprobați."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} zile"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Ștergi utilizatorii selectați?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} utilizatori au fost șterși."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Un utilizator păstrează cel puțin un rol, ultimul rol nu este eliminat."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Alege un rol."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Elimină din rol"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} utilizatori au fost adăugați la rolul {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} utilizatori au fost eliminați din rolul {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Rolul utilizatorilor selectați"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Roluri"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} selectați"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} utilizatori au fost omiși (nepermis pentru ei)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Suspendă"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Suspendă utilizatorii selectați"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} utilizatori au fost suspendați."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Anulează suspendarea"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Suspendarea a {0} utilizatori a fost anulată."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți acest utilizator?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Căutare"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Selectează tot pe această pagină"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Selectează {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

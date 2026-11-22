@@ -7031,6 +7031,90 @@
             "#text": "Goedgekeurd"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Aan rol toevoegen"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Beheerders worden overgeslagen."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Goedkeuren"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} gebruikers zijn goedgekeurd."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dagen"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "De geselecteerde gebruikers verwijderen?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} gebruikers zijn verwijderd."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Een gebruiker houdt minstens één rol, de laatste rol wordt niet verwijderd."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Kies een rol."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Uit rol verwijderen"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} gebruikers zijn aan de rol {1} toegevoegd."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} gebruikers zijn uit de rol {1} verwijderd."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Rol van de geselecteerde gebruikers"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Rollen"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} geselecteerd"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} gebruikers zijn overgeslagen (niet toegestaan voor hen)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Schorsen"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "De geselecteerde gebruikers schorsen"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} gebruikers zijn geschorst."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Schorsing opheffen"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "De schorsing van {0} gebruikers is opgeheven."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Verwijder deze gebruiker?"
           },
@@ -7157,6 +7241,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Zoeken"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Alles op deze pagina selecteren"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "{0} selecteren"
           },
           {
             "@tag": "SUSPENDED_ONLY",

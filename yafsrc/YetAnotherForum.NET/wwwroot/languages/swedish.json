@@ -7039,6 +7039,90 @@
             "#text": "Godkänd"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Lägg till i roll"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administratörer hoppas över."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Godkänn"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} användare godkändes."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dagar"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Ta bort de markerade användarna?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} användare togs bort."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "En användare behåller minst en roll, den sista rollen tas inte bort."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Välj en roll."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Ta bort från roll"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} användare lades till i rollen {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} användare togs bort från rollen {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Roll för de markerade användarna"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Roller"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} markerade"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} användare hoppades över (inte tillåtet för dem)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Stäng av"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Stäng av de markerade användarna"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} användare stängdes av."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Ta bort avstängning"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Avstängningen av {0} användare togs bort."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ta bort den här användaren?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Sök på"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Markera alla på den här sidan"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Markera {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

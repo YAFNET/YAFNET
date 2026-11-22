@@ -7039,6 +7039,90 @@
             "#text": "אושר"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "הוסף לתפקיד"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "מנהלים מדולגים."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "אשר"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} משתמשים אושרו."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} ימים"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "למחוק את המשתמשים שנבחרו?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} משתמשים נמחקו."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "למשתמש נשאר לפחות תפקיד אחד, התפקיד האחרון לא מוסר."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "בחר תפקיד."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "הסר מתפקיד"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} משתמשים נוספו לתפקיד {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} משתמשים הוסרו מהתפקיד {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "תפקיד המשתמשים שנבחרו"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "תפקידים"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} נבחרו"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} משתמשים דולגו (אסור עבורם)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "השעה"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "השעה את המשתמשים שנבחרו"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} משתמשים הושעו."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "בטל השעיה"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "ההשעיה של {0} משתמשים בוטלה."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "למחוק את המשתמש הזה?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "לחפש"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "בחר את כולם בדף זה"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "בחר את {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

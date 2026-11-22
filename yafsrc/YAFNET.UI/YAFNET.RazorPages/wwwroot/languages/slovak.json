@@ -7039,6 +7039,90 @@
             "#text": "Schválené"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Pridať do roly"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administrátori sa preskakujú."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Schváliť"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "Schválení používatelia: {0}."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dní"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Odstrániť vybraných používateľov?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "Odstránení používatelia: {0}."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Používateľovi zostane aspoň jedna rola, posledná rola sa neodoberie."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Vyberte rolu."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Odobrať z roly"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "Do roly {1} pridaní používatelia: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "Z roly {1} odobratí používatelia: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Rola vybraných používateľov"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Roly"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "Vybraté: {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "Preskočení používatelia: {0} (pre nich nepovolené)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Pozastaviť"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Pozastaviť vybraných používateľov"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "Pozastavení používatelia: {0}."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Zrušiť pozastavenie"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Pozastavenie zrušené používateľom: {0}."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vymazať tohto používateľa?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Vyhľadávanie"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Vybrať všetko na tejto stránke"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Vybrať {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

@@ -7031,6 +7031,90 @@
             "#text": "Одобрено"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Добави към роля"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Администраторите се пропускат."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Одобри"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "Одобрени потребители: {0}."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} дни"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Да се изтрият ли избраните потребители?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "Изтрити потребители: {0}."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Потребителят запазва поне една роля, последната роля не се премахва."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Изберете роля."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Премахни от роля"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "Добавени към ролята {1} потребители: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "Премахнати от ролята {1} потребители: {0}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Роля на избраните потребители"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Роли"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "Избрани: {0}"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "Пропуснати потребители: {0} (не е разрешено за тях)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Спри"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Спри избраните потребители"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "Спрени потребители: {0}."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Премахни спирането"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Спирането е премахнато за потребители: {0}."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Изтрийте този потребител?"
           },
@@ -7157,6 +7241,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Търсене"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Избери всички на тази страница"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Избери {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

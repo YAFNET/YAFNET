@@ -7039,6 +7039,90 @@
             "#text": "得到正式认可的"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "添加到角色"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "管理员会被跳过。"
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "批准"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "已批准 {0} 个用户。"
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} 天"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "删除所选用户？"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "已删除 {0} 个用户。"
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "用户至少保留一个角色，最后一个角色不会被移除。"
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "请选择一个角色。"
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "从角色中移除"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "已将 {0} 个用户添加到角色 {1}。"
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "已将 {0} 个用户从角色 {1} 中移除。"
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "所选用户的角色"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "角色"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "已选择 {0} 个"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "已跳过 {0} 个用户（对他们不允许）。"
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "暂停"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "暂停所选用户"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "已暂停 {0} 个用户。"
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "解除暂停"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "已解除 {0} 个用户的暂停。"
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "删除此用户？"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "搜索"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "选择此页上的全部"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "选择 {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

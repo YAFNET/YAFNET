@@ -7039,6 +7039,90 @@
             "#text": "Hyväksytty"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Lisää rooliin"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Ylläpitäjät ohitetaan."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Hyväksy"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} käyttäjää hyväksyttiin."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} päivää"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Poistetaanko valitut käyttäjät?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} käyttäjää poistettiin."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Käyttäjälle jää vähintään yksi rooli, viimeistä roolia ei poisteta."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Valitse rooli."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Poista roolista"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} käyttäjää lisättiin rooliin {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} käyttäjää poistettiin roolista {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Valittujen käyttäjien rooli"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Roolit"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} valittu"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} käyttäjää ohitettiin (ei sallittu heille)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Estä"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Estä valitut käyttäjät"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} käyttäjää estettiin."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Poista esto"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "{0} käyttäjän esto poistettiin."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poista tämä käyttäjä?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Etsi"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Valitse kaikki tältä sivulta"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Valitse {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",

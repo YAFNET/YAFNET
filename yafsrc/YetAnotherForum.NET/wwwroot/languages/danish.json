@@ -7039,6 +7039,90 @@
             "#text": "godkendt"
           },
           {
+            "@tag": "BULK_ADD_ROLE",
+            "#text": "Føj til rolle"
+          },
+          {
+            "@tag": "BULK_ADMINS_SKIPPED",
+            "#text": "Administratorer springes over."
+          },
+          {
+            "@tag": "BULK_APPROVE",
+            "#text": "Godkend"
+          },
+          {
+            "@tag": "BULK_APPROVED",
+            "#text": "{0} brugere blev godkendt."
+          },
+          {
+            "@tag": "BULK_DAYS",
+            "#text": "{0} dage"
+          },
+          {
+            "@tag": "BULK_DELETE_TITLE",
+            "#text": "Slet de valgte brugere?"
+          },
+          {
+            "@tag": "BULK_DELETED",
+            "#text": "{0} brugere blev slettet."
+          },
+          {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "En bruger beholder mindst én rolle, den sidste rolle fjernes ikke."
+          },
+          {
+            "@tag": "BULK_NO_ROLE",
+            "#text": "Vælg en rolle."
+          },
+          {
+            "@tag": "BULK_REMOVE_ROLE",
+            "#text": "Fjern fra rolle"
+          },
+          {
+            "@tag": "BULK_ROLE_ADDED",
+            "#text": "{0} brugere blev føjet til rollen {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_REMOVED",
+            "#text": "{0} brugere blev fjernet fra rollen {1}."
+          },
+          {
+            "@tag": "BULK_ROLE_TITLE",
+            "#text": "Rolle for de valgte brugere"
+          },
+          {
+            "@tag": "BULK_ROLES",
+            "#text": "Roller"
+          },
+          {
+            "@tag": "BULK_SELECTED",
+            "#text": "{0} valgt"
+          },
+          {
+            "@tag": "BULK_SKIPPED",
+            "#text": "{0} brugere blev sprunget over (ikke tilladt for dem)."
+          },
+          {
+            "@tag": "BULK_SUSPEND",
+            "#text": "Udeluk"
+          },
+          {
+            "@tag": "BULK_SUSPEND_TITLE",
+            "#text": "Udeluk de valgte brugere"
+          },
+          {
+            "@tag": "BULK_SUSPENDED",
+            "#text": "{0} brugere blev udelukket."
+          },
+          {
+            "@tag": "BULK_UNSUSPEND",
+            "#text": "Ophæv udelukkelse"
+          },
+          {
+            "@tag": "BULK_UNSUSPENDED",
+            "#text": "Udelukkelsen af {0} brugere blev ophævet."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette denne bruger?"
           },
@@ -7165,6 +7249,14 @@
           {
             "@tag": "SEARCH",
             "#text": "Søg"
+          },
+          {
+            "@tag": "SELECT_ALL",
+            "#text": "Vælg alle på denne side"
+          },
+          {
+            "@tag": "SELECT_USER",
+            "#text": "Vælg {0}"
           },
           {
             "@tag": "SUSPENDED_ONLY",
