@@ -238,7 +238,7 @@ public class EditMessageModel : ForumPage
     /// <returns>
     /// Returns the Message Id
     /// </returns>
-    private async Task<Message> PostReplyHandleEditPostAsync()
+    private async Task<Message> PostReplyHandleEditPostAsync(bool isPossibleSpamMessage)
     {
         var subjectSave = string.Empty;
         var descriptionSave = string.Empty;
@@ -298,7 +298,8 @@ public class EditMessageModel : ForumPage
             this.PageBoardContext.PageMessage,
             this.PageBoardContext.PageForum,
             messageUser,
-            this.PageBoardContext.PageUserID);
+            this.PageBoardContext.PageUserID,
+            isPossibleSpamMessage);
 
         // Update Topic Tags, only when the tags are shown in the form (topic starter or moderator),
         // otherwise editing a reply would remove the tags of the topic
@@ -386,10 +387,10 @@ public class EditMessageModel : ForumPage
         }
 
         // Edit existing post
-        var editMessage = await this.PostReplyHandleEditPostAsync();
+        var editMessage = await this.PostReplyHandleEditPostAsync(isPossibleSpamMessage);
 
-        // Check if message is approved
-        var isApproved = editMessage.MessageFlags.IsApproved;
+        // Check if message is approved (an edit found as spam is not approved any more)
+        var isApproved = !isPossibleSpamMessage && editMessage.MessageFlags.IsApproved;
 
         var messageId = editMessage.ID;
 

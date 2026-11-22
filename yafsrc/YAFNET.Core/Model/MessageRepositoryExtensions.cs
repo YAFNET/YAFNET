@@ -1151,12 +1151,26 @@ public static class MessageRepositoryExtensions
             Message originalMessage,
             Forum forum,
             User originalMessageUser,
-            int editedBy)
+            int editedBy,
+            bool isPossibleSpam = false)
         {
             // MessageFlags returns a new instance on every get, so keep a local copy to modify
             var flags = originalMessage.MessageFlags;
 
-            if (overrideApproval || !forum.ForumFlags.IsModerated)
+            if (isPossibleSpam)
+            {
+                // an edit that is found as spam is hidden until a moderator approves it,
+                // the approval counts the post of the user again
+                if (flags.IsApproved && !forum.ForumFlags.IsTest)
+                {
+                    await BoardContext.Current.GetRepository<User>().UpdateAddAsync(
+                        () => new User { NumPosts = -1 },
+                        u => u.ID == originalMessage.UserID);
+                }
+
+                flags.IsApproved = false;
+            }
+            else if (overrideApproval || !forum.ForumFlags.IsModerated)
             {
                 flags.IsApproved = true;
             }

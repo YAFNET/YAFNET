@@ -71,7 +71,6 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 var editorContent = await page.FrameLocator(".sceditor-container >> iframe").Locator("body")
                     .TextContentAsync();
 
-
                 await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(
                     $"{editorContent} This messsage was edited.");
 
@@ -1195,5 +1194,105 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         Assert.That(forumLink, Is.Not.Null, "The forum was not created");
 
         return int.Parse(System.Text.RegularExpressions.Regex.Match(forumLink, "/forum/([0-9]+)/").Groups[1].Value);
+    }
+
+    /// <summary>
+    /// A post that is edited to spam is not approved any more when the spam handling flags spam as not approved
+    /// (the edited spam stayed visible).
+    /// </summary>
+    [Test]
+    public async Task EditToSpamIsNotApprovedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var forumId = await this.CreateMemberForumAsync(page, "Spam Edit");
+
+                await SetSpamMessageHandlingAsync(page, this.TestSettings, "1");
+
+                string content;
+
+                try
+                {
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Login failed");
+
+                    var topicId = await page.CreateTopicAsync(
+                                      this.TestSettings,
+                                      forumId,
+                                      $"Edit to spam {Random.Shared.Next()}",
+                                      "A clean post of the spam edit test");
+
+                    Assert.That(topicId, Is.Not.Null, $"The topic was not created ({page.Url})");
+
+                    var editLink = await page.Locator("a[href*='EditMessage']").First.GetAttributeAsync("href");
+
+                    Assert.That(editLink, Is.Not.Null, "Edit link of the message not found");
+
+                    await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString());
+
+                    // more links than a new user may post
+                    var links = string.Empty;
+
+                    for (var i = 1; i <= 11; i++)
+                    {
+                        links += $" https://spam{i}.example.com";
+                    }
+
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(links);
+
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                    content = $"{page.Url} {await page.Locator("body").InnerTextAsync()}";
+                }
+                finally
+                {
+                    if (await page.Locator(".nav-link-user-dropdown").IsVisibleAsync())
+                    {
+                        await page.LogOutUserAsync();
+                    }
+
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword);
+
+                    await SetSpamMessageHandlingAsync(page, this.TestSettings, "0");
+
+                }
+
+                Assert.That(
+                    content,
+                    Does.Contain("a forum moderator must approve your post"),
+                    "The edited spam was not flagged as not approved");
+            });
+    }
+
+    /// <summary>
+    /// Sets the handling of posts that are found as spam (0 nothing, 1 flag as not approved, 2 reject, 3 delete and ban).
+    /// </summary>
+    private async static Task SetSpamMessageHandlingAsync(IPage page, TestConfig testSettings, string value)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        await page.Locator("#Input_SpamMessageHandling").EvaluateAsync("(select, value) => select.value = value", value);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+        await page.WaitForLoadStateAsync();
     }
 }
