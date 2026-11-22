@@ -168,8 +168,7 @@ public class EditProfileModel : ProfilePage
 
             if (!ValidationHelper.IsValidUrl(this.Input.HomePage))
             {
-                return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning,
-                    ForumPages.Profile_EditProfile);
+                return await this.ShowInvalidAsync(this.GetText("PROFILE", "BAD_HOME"));
             }
 
             // Check for spam
@@ -210,8 +209,7 @@ public class EditProfileModel : ProfilePage
 
         if (this.Input.Blog.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Blog.Trim()))
         {
-            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning,
-                ForumPages.Profile_EditProfile);
+            return await this.ShowInvalidAsync(this.GetText("PROFILE", "BAD_WEBLOG"));
         }
 
         string displayName = null;
@@ -225,17 +223,13 @@ public class EditProfileModel : ProfilePage
             // Check if name matches the required minimum length
             if (newDisplayName.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
             {
-                return this.PageBoardContext.SessionNotify(
-                    this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
-                    MessageTypes.warning, ForumPages.Profile_EditProfile);
+                return await this.ShowInvalidAsync(this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength));
             }
 
             // Check if name matches the required maximum length
             if (newDisplayName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
             {
-                return this.PageBoardContext.SessionNotify(
-                    this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
-                    MessageTypes.warning, ForumPages.Profile_EditProfile);
+                return await this.ShowInvalidAsync(this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength));
             }
 
             if (newDisplayName != this.PageBoardContext.PageUser.DisplayName)
@@ -243,16 +237,12 @@ public class EditProfileModel : ProfilePage
                 // the same rules as for the registration (e.g. the guest can't be impersonated)
                 if (!await UserHelper.IsAllowedNameAsync(newDisplayName, this.PageBoardContext.PageBoardID))
                 {
-                    return this.PageBoardContext.SessionNotify(
-                        this.GetText("COMMON", "BAD_USERNAME"),
-                        MessageTypes.warning, ForumPages.Profile_EditProfile);
+                    return await this.ShowInvalidAsync(this.GetText("COMMON", "BAD_USERNAME"));
                 }
 
                 if (this.Get<IUserDisplayName>().FindUserByName(newDisplayName) != null)
                 {
-                    return this.PageBoardContext.SessionNotify(
-                        this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
-                        MessageTypes.warning, ForumPages.Profile_EditProfile);
+                    return await this.ShowInvalidAsync(this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
                 }
 
                 displayName = newDisplayName;
@@ -261,16 +251,12 @@ public class EditProfileModel : ProfilePage
 
         if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 4000)
         {
-            return this.PageBoardContext.SessionNotify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
-                MessageTypes.warning, ForumPages.Profile_EditProfile);
+            return await this.ShowInvalidAsync(this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000));
         }
 
         if (this.Input.Occupation.IsSet() && this.Input.Occupation.Trim().Length > 400)
         {
-            return this.PageBoardContext.SessionNotify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
-                MessageTypes.warning, ForumPages.Profile_EditProfile);
+            return await this.ShowInvalidAsync(this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400));
         }
 
         // the columns have 255 characters (the homepage with the "https://" added above)
@@ -283,9 +269,7 @@ public class EditProfileModel : ProfilePage
 
         if (tooLongField is not null)
         {
-            return this.PageBoardContext.SessionNotify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", tooLongField), 255),
-                MessageTypes.warning, ForumPages.Profile_EditProfile);
+            return await this.ShowInvalidAsync(this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", tooLongField), 255));
         }
 
         // the required fields and the types are taken from the database (the client can leave out fields)
@@ -297,9 +281,7 @@ public class EditProfileModel : ProfilePage
 
         if (invalidField is not null)
         {
-            return this.PageBoardContext.SessionNotify(
-                string.Format(this.GetText("EDIT_PROFILE", isNumberError ? "NEED_CUSTOM_NUMBER" : "NEED_CUSTOM"), this.HtmlEncode(invalidField.Name)),
-                MessageTypes.warning, ForumPages.Profile_EditProfile);
+            return await this.ShowInvalidAsync(string.Format(this.GetText("EDIT_PROFILE", isNumberError ? "NEED_CUSTOM_NUMBER" : "NEED_CUSTOM"), this.HtmlEncode(invalidField.Name)));
         }
 
         await this.UpdateUserProfileAsync();
@@ -330,6 +312,29 @@ public class EditProfileModel : ProfilePage
         {
             this.Input.City = userIpLocator.CityName;
         }
+    }
+
+    /// <summary>
+    /// Shows the form again with the posted values and the message (a redirect to the page lost all changes).
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>The page.</returns>
+    private async Task<IActionResult> ShowInvalidAsync(string message)
+    {
+        // the custom fields are posted without their definitions (name, type, required)
+        this.UserProfileCustom =
+        [
+            .. (this.Input.CustomProfile ?? []).Where(p => p.Value.IsSet())
+                .Select(p => new ProfileCustom { ProfileDefinitionID = p.ID, Value = p.Value })
+        ];
+
+        await this.LoadCustomProfileAsync();
+
+        this.LoadCountriesAndRegions(this.Input.Country);
+
+        this.LoadGenders(Math.Max(0, StaticDataHelper.Gender().ToList().FindIndex(g => g.Value == this.Input.Gender)));
+
+        return this.PageBoardContext.Notify(message, MessageTypes.warning);
     }
 
     /// <summary>

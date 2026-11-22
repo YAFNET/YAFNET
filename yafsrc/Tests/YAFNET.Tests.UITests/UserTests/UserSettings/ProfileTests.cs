@@ -1180,4 +1180,60 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(page.Url, Does.Contain("MyAccount"), "The profile was not saved");
                 });
     }
+
+    /// <summary>
+    /// A field that is not accepted (here a display name that is not allowed) shows the form again with the changes:
+    /// the page was loaded again and all changes were lost.
+    /// </summary>
+    [Test]
+    public async Task InvalidProfileKeepsTheChangesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    await page.SetDisplayNamesAsync(this.TestSettings, true);
+
+                    try
+                    {
+                        Assert.That(
+                            await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                            Is.True,
+                            "Login failed");
+
+                        var interests = $"Interests {Random.Shared.Next()}";
+
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
+
+                        await page.Locator("#Input_Interests").FillAsync(interests);
+                        await page.Locator("#Input_DisplayName").FillAsync("Guest");
+
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+
+                        Assert.Multiple(
+                            async () =>
+                                {
+                                    Assert.That(
+                                        await page.ContentAsync(),
+                                        Does.Contain("Username cannot contain semi-colons"),
+                                        "No message about the display name");
+                                    Assert.That(
+                                        await page.Locator("#Input_Interests").InputValueAsync(),
+                                        Is.EqualTo(interests),
+                                        "The changes are lost");
+                                });
+
+                        Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+                    }
+                    finally
+                    {
+                        // the other tests run without display names
+                        await page.SetDisplayNamesAsync(this.TestSettings, false);
+                    }
+                });
+    }
 }
