@@ -75,4 +75,35 @@ public class MembersTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Search')]"));
     }
+
+    /// <summary>
+    /// A sort of the members keeps the selected letter (all members were listed again).
+    /// </summary>
+    [Test]
+    public async Task SortKeepsTheSelectedLetterTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}members?letter=T");
+
+                var sort = page.Locator("button[formaction*='UserNameDesc']");
+
+                await page.RunAndWaitForNextPageAsync(() => sort.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+                var names = await page.Locator(".member-row h5").AllInnerTextsAsync();
+
+                Assert.That(names, Is.Not.Empty, "No members are listed");
+                Assert.That(
+                    names,
+                    Has.All.Matches<string>(n => n.Trim().Split((char)10)[^1].Trim().StartsWith('T') || n.Trim().Split((char)10)[^1].Trim().StartsWith('t')),
+                    "The sort lost the selected letter");
+            });
+    }
 }

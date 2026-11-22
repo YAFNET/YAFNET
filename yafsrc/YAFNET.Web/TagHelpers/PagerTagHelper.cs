@@ -163,6 +163,13 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     {
         var query = routeData.Values.ToDictionary(q => q.Key, q => q.Value.ToString());
 
+        // the links keep the query values of the list (e.g. the letter of the members), not the page
+        foreach (var value in this.ViewContext.HttpContext.Request.Query.Where(
+                     q => q.Key != this.QueryName && !query.ContainsKey(q.Key)))
+        {
+            query[value.Key] = value.Value.ToString();
+        }
+
         var content = new HtmlContentBuilder();
 
         var start = this.CurrentPageIndex - 2;

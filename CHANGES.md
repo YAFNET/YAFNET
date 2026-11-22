@@ -163,6 +163,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active users: an empty page (e.g. the guests while only members were on the page, or a page after the last one) failed with an error
 * [FIXED] Active users: the list of the hidden users always listed the admin who viewed it
 * [FIXED] Active users: the guests and the hidden users were filtered after the paging, the guest list showed only the guests of the first sessions, pages had fewer entries and the count included the filtered users
+* [FIXED] Members: the selected letter was lost by the pager and the sort
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

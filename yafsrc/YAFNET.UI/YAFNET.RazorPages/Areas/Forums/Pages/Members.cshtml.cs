@@ -90,6 +90,14 @@ public class MembersModel : ForumPage
     }
 
     /// <summary>
+    /// Gets the route values of the selected letter (a query value), the sort buttons keep it.
+    /// </summary>
+    public Dictionary<string, string> LetterRoute =>
+        this.Request.Query.ContainsKey("letter")
+            ? new Dictionary<string, string> { { "letter", this.Request.Query["letter"].ToString() } }
+            : [];
+
+    /// <summary>
     ///   Gets actually selected letter.
     /// </summary>
     public char CurrentLetter {

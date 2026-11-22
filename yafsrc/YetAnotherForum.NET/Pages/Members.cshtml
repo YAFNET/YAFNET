@@ -93,11 +93,13 @@
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="UserNameAsc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortNameField == 1 ? "check-square" : "sort-alpha-down")"
 										        text-localized-tag="USERNAME_ASC"></button>
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="UserNameDesc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
 										        text-localized-tag="USERNAME_DESC"></button>
 										<div class="dropdown-divider"></div>
@@ -105,11 +107,13 @@
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="RankAsc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortRankNameField == 1 ? "check-square" : "sort-alpha-down")"
 										        text-localized-tag="RANK_ASC"></button>
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="RankDesc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortRankNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
 										        text-localized-page="MEMBERS"
 										        text-localized-tag="RANK_DESC"></button>
@@ -118,11 +122,13 @@
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="JoinedAsc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortJoinedField == 1 ? "check-square" : "sort-alpha-down")"
 										        text-localized-tag="JOINED_ASC"></button>
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="JoinedDesc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortJoinedField == 2 ? "check-square" : "sort-alpha-down-alt")"
 										        text-localized-tag="JOINED_DESC"></button>
 										<div class="dropdown-divider"></div>
@@ -130,11 +136,13 @@
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="PostsAsc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortNumPostsField == 1 ? "check-square" : "sort-alpha-down")"
 										        text-localized-tag="POSTS_ASC"></button>
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="PostsDesc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortNumPostsField == 2 ? "check-square" : "sort-alpha-down-alt")"
 										        text-localized-tag="POSTS_DESC"></button>
 										<div class="dropdown-divider"></div>
@@ -142,11 +150,13 @@
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="LastVisitAsc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortLastVisitField == 1 ? "check-square" : "sort-alpha-down")"
 										        text-localized-tag="LASTVISIT_ASC"></button>
 										<button class="dropdown-item"
 										        button-style="None"
 										        asp-page-handler="LastVisitDesc"
+										        asp-all-route-data="Model.LetterRoute"
 										        icon="@(Model.Input.SortLastVisitField == 2 ? "check-square" : "sort-alpha-down-alt")"
 										        text-localized-tag="LASTVISIT_DESC"></button>
 									</div>
