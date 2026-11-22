@@ -155,6 +155,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topics, Posts: "new topic" was shown to the members in a locked forum and led to "access denied"
 * [FIXED] Posts: a guest who chose "email topic" (share menu shown to everyone) got an error page instead of the message to register
 * [FIXED] New topic, reply, edit: a max post size of 0 (unlimited) did not accept any text in the editor
+* [FIXED] New topic: the similar topics showed a script error instead of the topics, and a longer subject ran into the request limit (a search per typed key)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -1313,4 +1313,37 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.WaitForLoadStateAsync();
     }
+
+    /// <summary>
+    /// The subject of a new topic lists the topics with a similar title (a script error was shown instead).
+    /// </summary>
+    [Test]
+    public async Task NewTopicListsSimilarTopicsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var word = $"Similar{Random.Shared.Next()}";
+
+                var topicId = await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"{word} topic", "A topic of the similar topics test");
+
+                Assert.That(topicId, Is.Not.Null, $"The topic was not created ({page.Url})");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+
+                await page.Locator(".searchSimilarTopics").PressSequentiallyAsync(word);
+
+                var placeHolder = page.Locator("#SearchResultsPlaceholder");
+
+                await Assertions.Expect(placeHolder.Locator("a", new LocatorLocatorOptions { HasText = word })).ToBeVisibleAsync();
+
+                Assert.That(await placeHolder.InnerTextAsync(), Does.Not.Contain("Error"), "The similar topics show an error");
+            });
+    }
 }

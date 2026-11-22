@@ -5,7 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const input = document.querySelector('.searchSimilarTopics') as HTMLInputElement;
 
+		// the api allows only a few requests per minute: search when the typing pauses, not on every key
+		let timer: number | undefined;
+
 		input.addEventListener('keyup', () => {
+			window.clearTimeout(timer);
+			timer = window.setTimeout(searchSimilar, 500);
+		});
+
+		function searchSimilar() {
 
 			const placeHolder = document.getElementById('SearchResultsPlaceholder')!,
 				searchText = input.value;
@@ -30,7 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
 							"Content-Type": 'application/json;charset=utf-8',
 							"RequestVerificationToken": (document.querySelector('input[name="__RequestVerificationToken"]') as HTMLInputElement).value
 						}
-					}).then(res => res.json()).then(data => {
+					}).then(res => {
+						if (!res.ok) {
+							throw new Error(res.statusText);
+						}
+
+						return res.json();
+					}).then(data => {
+
+					// a newer text was typed while this search ran
+					if (input.value !== searchText) {
+						return;
+					}
+
 
 					Utilities.empty(placeHolder);
 
@@ -48,11 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 						list.classList.add('list-group','list-similar');
 
 						if (data.searchResults.length > 0) {
-							const markRead = document.getElementById('MarkRead')!;
-
-							markRead.classList.remove('d-none');
-							markRead.classList.add('d-block');
-
 							data.searchResults.forEach((dataItem: any) => {
 								var li = document.createElement('li');
 
@@ -68,10 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					}
 				}).catch(error => {
 					console.log(error);
-					placeHolder.textContent = error;
+					Utilities.empty(placeHolder);
 				});
 			}
-
-		});
+		}
 	}
 });
