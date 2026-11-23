@@ -30,10 +30,10 @@
     <None Include="..\..\yafsrc\YetAnotherForum.NET\languages\german-du.json" Link="languages\german-du.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Acornima" Version="1.9.1" />
+    <PackageReference Include="Acornima" Version="1.9.2" />
     <PackageReference Include="Autofac" Version="9.3.4" />
     <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
-    <PackageReference Include="coverlet.collector" Version="10.1.0">
+    <PackageReference Include="coverlet.collector" Version="10.1.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

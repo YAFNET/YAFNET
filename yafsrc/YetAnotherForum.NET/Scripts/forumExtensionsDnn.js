@@ -1940,9 +1940,37 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         Input.prototype.setWidth = function() {
             var element = this.element;
-            element.style.minWidth = "5ch";
-            element.style.width = "auto";
-            element.style.fieldSizing = "content";
+            var value = element.value, placeholder = element.placeholder;
+            var minWidth = 0;
+            var width = 0;
+            if (value || placeholder) {
+                var e = document.createElement("span");
+                e.style.position = "absolute";
+                e.style.visibility = "hidden";
+                e.style.whiteSpace = "pre";
+                e.style.height = "auto";
+                e.style.width = "auto";
+                e.style.minWidth = "1ch";
+                addClassesToElement(e, Array.from(element.classList));
+                element.after(e);
+                var chInPx = parseFloat(getComputedStyle(e).width);
+                if (Number.isNaN(chInPx)) {
+                    minWidth = placeholder.length;
+                    width = value.length;
+                } else {
+                    if (placeholder) {
+                        e.innerText = placeholder;
+                        minWidth = parseFloat(getComputedStyle(e).width) / chInPx;
+                    }
+                    if (value) {
+                        e.innerText = value;
+                        width = parseFloat(getComputedStyle(e).width) / chInPx;
+                    }
+                }
+                e.remove();
+            }
+            element.style.minWidth = "".concat(Math.ceil(minWidth) + 1, "ch");
+            element.style.width = "".concat(Math.ceil(width) + 1, "ch");
         };
         Input.prototype.setActiveDescendant = function(activeDescendantID) {
             this.element.setAttribute("aria-activedescendant", activeDescendantID);
@@ -4844,6 +4872,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this._hasNonChoicePlaceholder = false;
             this._lastAddedChoiceId = 0;
             this._lastAddedGroupId = 0;
+            this._keepInputWhileLoading = false;
             var defaults = Choices.defaults;
             this.config = __assign(__assign(__assign({}, defaults.allOptions), defaults.options), userConfig);
             ObjectsInConfig.forEach(function(key) {
@@ -5032,7 +5061,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (this.containerOuter.isDisabled) {
                 this._addEventListeners();
                 this.input.enable();
-                this.input.element.focus();
                 this.containerOuter.enable();
             }
             return this;
@@ -5156,13 +5184,13 @@ document.addEventListener("DOMContentLoaded", function() {
             if (preventInputFocus === undefined) {
                 preventInputFocus = !this._canSearch;
             }
+            this.dropdown.show();
+            var rect = this.dropdown.element.getBoundingClientRect();
+            this.containerOuter.open(rect.bottom, rect.height);
+            if (!preventInputFocus) {
+                this.input.focus();
+            }
             requestAnimationFrame(function() {
-                _this.dropdown.show();
-                var rect = _this.dropdown.element.getBoundingClientRect();
-                _this.containerOuter.open(rect.bottom, rect.height);
-                if (!preventInputFocus) {
-                    _this.input.focus();
-                }
                 _this.passedElement.triggerEvent(EventType.showDropdown);
                 var activeElement = _this.choiceList.element.querySelector(getClassNamesSelector(_this.config.classNames.selectedState));
                 if (activeElement !== null && !isScrolledIntoView(activeElement, _this.choiceList.element)) {
@@ -5812,7 +5840,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             var el = this.itemList.element;
             if (setLoading) {
-                this.disable();
+                this._keepInputWhileLoading = this._keepInputWhileLoading || this.input.isFocussed;
+                if (!this._keepInputWhileLoading) {
+                    this.disable();
+                }
                 this.containerOuter.addLoadingState();
                 if (this._isSelectOneElement) {
                     el.replaceChildren(this._templates.placeholder(this.config, this.config.loadingText));
@@ -5820,7 +5851,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     this.input.placeholder = this.config.loadingText;
                 }
             } else {
-                this.enable();
+                if (this._keepInputWhileLoading) {
+                    this._keepInputWhileLoading = false;
+                } else {
+                    this.enable();
+                }
                 this.containerOuter.removeLoadingState();
                 if (this._isSelectOneElement) {
                     el.replaceChildren("");
@@ -6154,7 +6189,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         nextEl = this.dropdown.element.querySelector(selectableChoiceIdentifier);
                     }
                 } else {
-                    var currentEl = this.dropdown.element.querySelector(getClassNamesSelector(this.config.classNames.highlightedState));
+                    var currentEl = this.dropdown.element.querySelector(getClassNamesSelector(this.config.classNames.highlightedState)) || this.dropdown.element.querySelector(getClassNamesSelector(this.config.classNames.selectedState));
                     if (currentEl) {
                         nextEl = getAdjacentEl(currentEl, selectableChoiceIdentifier, directionInt);
                     } else {
@@ -6238,8 +6273,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             this.input.focus();
                         }
                     } else {
-                        this.showDropdown();
                         containerOuter.element.focus();
+                        this.showDropdown();
                     }
                 } else if (this._isSelectOneElement && target !== this.input.element && !this.dropdown.element.contains(target)) {
                     this.hideDropdown();
