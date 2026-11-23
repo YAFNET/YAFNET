@@ -175,6 +175,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Install: the test page showed the whole connection string with the password of the database to every visitor of a forum that was not installed yet, the password is hidden now
 * [FIXED] Install: the mail test without a from or to address showed "Object reference not set to an instance of an object", the entered addresses were cleared after the test
 * [FIXED] Install: the labels of the language, the forum email address and the base url were WebForms tags ("asp:Label"), they were not linked to their fields
+* [FIXED] Install: a click on "Next" with an empty field turned the button into "Loading..." (in English) and it stayed so while the browser showed the missing field
 * [CHANGES] Topic list, topic, new topic, reply, edit post, print, members, active users, search, profile and board index redesigned: page headers with the counts and the main actions, the filters and the forum tools of the topic list in one bar, the topic with its forum, replies and views above the posts, the editors with a preview card, switches for the options and the buttons in a bar at the bottom, the print page with the topic title and a print button, the members as cards with a filter panel, the active users with tabs for members, guests and hidden users, the last posts, friends and albums of the profile side by side
 
 # YetAnotherForum.NET v4.0.11
