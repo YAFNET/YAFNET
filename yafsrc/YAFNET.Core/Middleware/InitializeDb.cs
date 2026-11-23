@@ -43,6 +43,11 @@ public class InitializeDb : IHaveServiceLocator
     private readonly RequestDelegate requestDelegate;
 
     /// <summary>
+    /// A board exists (checked once, a board is never removed again).
+    /// </summary>
+    private static volatile bool boardExists;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="InitializeDb"/> class.
     /// </summary>
     /// <param name="next">
@@ -127,6 +132,22 @@ public class InitializeDb : IHaveServiceLocator
                         ? $"/{this.Get<BoardConfiguration>().Area}/Install/Install"
                         : "/Install/Install");
                     return;
+            }
+
+            // an install that stopped after the database was initialized (no board yet): the pages failed with
+            // "No data for board ID: 1", the install is continued
+            if (!boardExists)
+            {
+                if (!this.Get<InstallService>().IsForumInstalled)
+                {
+                    BoardContext.Current.BoardSettings = new BoardSettings();
+                    response.Redirect(this.Get<BoardConfiguration>().Area.IsSet()
+                        ? $"/{this.Get<BoardConfiguration>().Area}/Install/Install"
+                        : "/Install/Install");
+                    return;
+                }
+
+                boardExists = true;
             }
         }
 

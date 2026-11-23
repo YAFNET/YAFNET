@@ -145,6 +145,22 @@ public class InstallServiceTests
     }
 
     [Test]
+    [Description("The database step can run again (an install that stopped before the board was created is continued), it failed with \"view already exists\"")]
+    public void InitializeDatabase_Twice_Test()
+    {
+        var install = this.CreateInstallService(emptyDatabase: true);
+
+        install.InitializeDatabase().Should().BeTrue();
+
+        using var db = this.board.Resolve<IDbAccess>().CreateConnectionOpen();
+        var views = db.SqlScalar<int>("SELECT COUNT(*) FROM sqlite_master WHERE type = 'view'");
+
+        install.Invoking(i => i.InitializeDatabase()).Should().NotThrow();
+
+        db.SqlScalar<int>("SELECT COUNT(*) FROM sqlite_master WHERE type = 'view'").Should().Be(views, "the views are created again");
+    }
+
+    [Test]
     [Description("The connection test returns the error of a database that can not be opened")]
     public void TestDatabaseConnection_Test()
     {
