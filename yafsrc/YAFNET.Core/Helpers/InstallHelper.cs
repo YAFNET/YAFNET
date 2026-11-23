@@ -41,7 +41,7 @@ public static class InstallHelper
     /// <summary>
     /// The keys of the connection string values that are secrets.
     /// </summary>
-    private static readonly string[] SecretKeys = ["password", "pwd"];
+    private readonly static string[] SecretKeys = ["password", "pwd"];
 
     /// <summary>
     /// The connection string without its secrets (the password of the database), it is shown on the test page of the
