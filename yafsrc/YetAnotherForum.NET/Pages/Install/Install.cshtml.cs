@@ -254,7 +254,15 @@ public class InstallModel : InstallPage
                                              ViewData = new ViewDataDictionary<InstallModal>(
                                                  this.ViewData,
                                                  new InstallModal {
-                                                                      Message = result.Message
+                                                                      Message = result.Message,
+
+                                                                      // the entered values are shown again (the passwords not)
+                                                                      ForumName = forumName,
+                                                                      Culture = cultures,
+                                                                      ForumEmail = forumEmailAddress,
+                                                                      ForumBaseUrl = forumBaseUrlMask,
+                                                                      UserName = userName,
+                                                                      AdminEmail = adminEmail
                                                  })
                                          };
         }

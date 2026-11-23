@@ -19,7 +19,7 @@
 
     Localization.TransPage = "INSTALL";
 
-    var cultures = new SelectList(StaticDataHelper.Cultures(), nameof(Culture.CultureTag), nameof(Culture.CultureNativeName), "en-US");
+    var cultures = new SelectList(StaticDataHelper.Cultures(), nameof(Culture.CultureTag), nameof(Culture.CultureNativeName), Model.Culture.IsSet() ? Model.Culture : "en-US");
 }
 
 <form method="post">
@@ -36,7 +36,7 @@
         {
             <div class="alert alert-warning">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>
-                @Html.Raw(Model.Message)
+                @Model.Message
             </div>
         }
 
@@ -46,6 +46,7 @@
         <div class="mb-3">
             <label for="forumName">@Localization.GetText("BoardName")</label>
             <input id="forumName" name="forumName" required placeholder="@Localization.GetText("BoardName")"
+                   value="@Model.ForumName"
                    class="form-control"/>
         </div>
         <div class="mb-3">
@@ -61,6 +62,7 @@
             </asp:Label>
             <input id="forumEmailAddress" name="forumEmailAddress" required
                    placeholder="@Localization.GetText("ForumEmail")"
+                   value="@Model.ForumEmail"
                    type="Email"
                    class="form-control"/>
         </div>
@@ -70,7 +72,7 @@
             </asp:Label>
             <input id="forumBaseUrlMask" name="forumBaseUrlMask" required
                    placeholder="@Localization.GetText("ForumUrl")"
-                   type="text" value="@ContextAccessor.HttpContext?.Request.BaseUrl()"
+                   type="text" value="@(Model.ForumBaseUrl.IsSet() ? Model.ForumBaseUrl : ContextAccessor.HttpContext?.Request.BaseUrl())"
                    class="form-control"/>
         </div>
         <hr/>
@@ -81,12 +83,14 @@
             <label for="userName" class="form-label">@Localization.GetText("AdminName")</label>
             <input id="userName" name="userName" required
                    placeholder="@Localization.GetText("AdminName")"
+                   value="@Model.UserName"
                    class="form-control"/>
         </div>
         <div class="mb-3">
             <label for="adminEmail" class="form-label">@Localization.GetText("AdminEmail")</label>
             <input id="adminEmail" name="adminEmail" required
                    placeholder="@Localization.GetText("AdminEmail")"
+                   value="@Model.AdminEmail"
                    type="email"
                    class="form-control"/>
         </div>

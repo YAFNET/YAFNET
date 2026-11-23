@@ -58,4 +58,34 @@ public class InstallModal
     /// </summary>
     /// <value>The test email information.</value>
     public string TestEmailInfo { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entered name of the new board (kept when the board can't be created).
+    /// </summary>
+    public string ForumName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selected culture of the new board.
+    /// </summary>
+    public string Culture { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entered email address of the new board.
+    /// </summary>
+    public string ForumEmail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entered base url of the new board.
+    /// </summary>
+    public string ForumBaseUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entered name of the host admin.
+    /// </summary>
+    public string UserName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entered email address of the host admin.
+    /// </summary>
+    public string AdminEmail { get; set; }
 }
