@@ -1,5 +1,16 @@
 // Active Users Page
-.page-ActiveUsers {
+.active-users-page {
+
+    // the views (all, members, guests, hidden) scroll on small screens
+    .active-users-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+
+        .nav-link {
+            white-space: nowrap;
+        }
+    }
 
     .active-user-row {
         transition: background-color .15s ease;
@@ -8,12 +19,22 @@
             background: var(--bs-tertiary-bg);
         }
 
-        .d-flex.flex-wrap {
-            gap: .4rem;
+        .active-user-location {
+            overflow-wrap: anywhere;
         }
 
-        .badge {
-            font-weight: 500;
+        .active-user-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .25rem 1rem;
+            font-size: .875rem;
+            color: var(--bs-secondary-color);
+        }
+
+        .active-user-detail {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
         }
     }
 }

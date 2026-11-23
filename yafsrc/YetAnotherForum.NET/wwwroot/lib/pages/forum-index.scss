@@ -19,13 +19,20 @@
         gap: .5rem;
         flex-wrap: wrap;
         margin-bottom: 1rem;
+        padding: .5rem .75rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+
+        form {
+            margin: 0;
+        }
 
         .index-clock {
             display: inline-flex;
             align-items: center;
             gap: .4rem;
-            background: var(--bs-tertiary-bg);
-            padding: .4rem 1rem;
+            margin-right: auto;
             font-size: .85rem;
             color: var(--bs-secondary-color);
 

@@ -191,7 +191,7 @@
 					<button asp-controller="Friends"
 					   asp-action="AddFriendRequest"
 					   asp-route-u="@Model.CombinedUser.Item1.ID"
-					   button-style="Success"
+					   button-style="OutlineSuccess"
 					   icon="user-plus"
 					   text-localized-page="PAGE"
 					   text-localized-tag="ADDBUDDY"></button>
@@ -202,7 +202,7 @@
 					<button asp-controller="Friends"
 					   asp-action="RemoveBuddy"
 					   asp-route-u="@Model.CombinedUser.Item1.ID"
-					   button-style="Danger"
+					   button-style="OutlineSecondary"
 					   icon="user-minus"
 					   text-localized-page="PAGE"
 					   text-localized-tag="REMOVEBUDDY"
@@ -212,7 +212,7 @@
 				@if (Model.ShowPmLink)
 				{
 					<a role="button"
-					   button-style="Info"
+					   button-style="Primary"
 					   icon="envelope-open-text"
 					   text-localized-page="POSTS"
 					   text-localized-tag="PM"
@@ -226,7 +226,7 @@
 				@if (Model.ShowEmailLink)
 				{
 					<a role="button"
-					   button-style="Info"
+					   button-style="OutlineSecondary"
 					   icon="at"
 					   text-localized-page="POSTS"
 					   text-localized-tag="EMAIL"
@@ -240,7 +240,7 @@
 				@if (Model.PageBoardContext.IsAdmin)
 				{
 					<a role="button"
-					   button-style="Danger"
+					   button-style="OutlineSecondary"
 					   icon="user-cog"
 					   text-localized-page="PROFILE"
 					   text-localized-tag="ADMIN_USER"
@@ -250,7 +250,7 @@
 				@if (ValidationHelper.IsLinkUrl(Model.CombinedUser.Item2.Profile_Homepage))
 				{
 					<a  role="button"
-					    button-style="Secondary"
+					    button-style="OutlineSecondary"
 					    icon="house"
 						href="@Model.CombinedUser.Item2.Profile_Homepage"
 					   text-localized-page="PROFILE"
@@ -263,7 +263,7 @@
 					   target="_blank"
 					   rel="nofollow"
 					   icon="blog"
-					   button-style="Secondary"
+					   button-style="OutlineSecondary"
 					   text-localized-page="POSTS"
 					   text-localized-tag="BLOG"
 					   title-localized-page="POSTS"
@@ -277,113 +277,103 @@
 		</div>
 	</div>
 
-	<div class="row mt-3">
-	<div class="@(!Model.Albums.NullOrEmpty() ? "col col-lg-8": "col")">
+	@{
+		var hasPosts = !Model.LastPosts.NullOrEmpty();
+		var hasSide = !Model.Albums.NullOrEmpty() || !Model.Friends.NullOrEmpty();
+	}
 
-			@if (!Model.LastPosts.NullOrEmpty())
-			{
-				<div class="card profile-content-card mb-3">
-					<div class="card-header">
-						@Html.LocalizedText("PROFILE", "LAST10")
-					</div>
-					<div class="card-body">
-						<a role="button" button-style="Secondary"
+	<div class="row g-3 mt-0 mb-3 profile-lower">
+		@if (hasPosts)
+		{
+			<div class="@(hasSide ? "col-lg-8" : "col-12")">
+				<div class="card profile-content-card">
+					<div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+						<span>@Html.Icon("comments", "text-secondary")@Html.LocalizedText("PROFILE", "LAST10")</span>
+						<a role="button" button-style="OutlineSecondary"
+						   button-size="Small"
 						   text-localized-page="POSTS"
 						   text-localized-tag="SEARCHUSER"
 						   icon="search"
-						   class=" mb-3"
 						   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
-
-
+					</div>
+					<ul class="list-group list-group-flush">
 						@foreach (var message in Model.LastPosts)
 						{
-							<div class="card profile-content-card mb-3">
-								<div class="card-header">
-									@Html.Icon("comment", "", "far")
-									<span class="fw-bold">
-										@Html.LocalizedText("TOPIC")
-									</span>
-									<a role="button"
-									   title-localized-page="COMMON"
-									   title-localized-tag="VIEW_TOPIC"
-									   bs-toggle="tooltip"
-									   href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(message.Item2))"
-									   text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
-									</a>
-								</div>
-								<div class="card-body">
-									<message show-attachments="false"
-									         current-message="@message.Item1"></message>
-								</div>
-								<div class="card-footer">
+							<li class="list-group-item profile-last-post">
+								<div class="profile-last-post-meta">
+									<a title="@Html.LocalizedText("COMMON", "VIEW_TOPIC")"
+									   data-bs-toggle="tooltip"
+									   class="fw-semibold"
+									   href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(message.Item2))">@Html.Icon("comment", "text-secondary", "far")@(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))</a>
 									<small class="text-body-secondary">
-										@Html.LocalizedText("POSTED")
-										&nbsp;
 										@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(message.Item1.Posted))
 									</small>
 								</div>
-							</div>
-						}
-					</div>
-				</div>
-			}
-
-		</div>
-
-
-		@if (!Model.Albums.NullOrEmpty())
-		{
-			<div class="col col-lg-4">
-				<div class="card profile-content-card">
-					<div class="card-body">
-						<h5 class="card-title">@Html.LocalizedText("ALBUM", "ALBUMS")</h5>
-						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-							@foreach (var album in Model.Albums)
-							{
-								<div class="col">
-									<div class="card mb-4 shadow-sm">
-										<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
-										   target="_parent" title="@Html.StoredText(album.Title)" bs-toggle="tooltip">
-											<img title="@Html.StoredText(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
-											     src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))'/>
-
-										</a>
-									</div>
+								<div class="profile-last-post-body">
+									<message show-attachments="false"
+									         current-message="@message.Item1"></message>
 								</div>
-							}
-						</div>
-						<div class="row justify-content-end">
-							<div class="col-auto">
-								<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
-								       count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.CombinedUser.Item1.ID).Count.ToType<int>() : 0">
-								</pager>
-							</div>
-						</div>
-					</div>
+							</li>
+						}
+					</ul>
 				</div>
 			</div>
 		}
 
-		@if (!Model.Friends.NullOrEmpty())
+		@if (hasSide)
 		{
-			<div class="col">
-				<div class="card profile-content-card my-3">
-					<div class="card-body">
-						<h5 class="card-title">
-							@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
-						</h5>
-						<ul class="list-group list-group-horizontal">
-							@foreach (var user in Model.Friends)
-							{
-								<li class="list-group-item">
-									@Html.UserLink(user.UserID,
-										Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
-										user.Suspended,
-										user.UserStyle)
-								</li>
-							}
-						</ul>
-					</div>
+			<div class="@(hasPosts ? "col-lg-4" : "col-12")">
+				<div class="@(hasPosts ? "d-flex flex-column gap-3" : "row row-cols-1 row-cols-md-2 g-3")">
+					@if (!Model.Friends.NullOrEmpty())
+					{
+						<div class="@(hasPosts ? "" : "col")">
+							<div class="card profile-content-card h-100">
+								<div class="card-header">
+									@Html.Icon("user-group", "text-secondary")@Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
+									<span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis ms-1">@Model.Friends.Count</span>
+								</div>
+								<div class="card-body profile-friends">
+									@foreach (var user in Model.Friends)
+									{
+										@Html.UserLink(user.UserID,
+											Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
+											user.Suspended,
+											user.UserStyle)
+									}
+								</div>
+							</div>
+						</div>
+					}
+
+					@if (!Model.Albums.NullOrEmpty())
+					{
+						<div class="@(hasPosts ? "" : "col")">
+							<div class="card profile-content-card h-100">
+								<div class="card-header">
+									@Html.Icon("images", "text-secondary")@Html.LocalizedText("ALBUM", "ALBUMS")
+								</div>
+								<div class="card-body">
+									<div class="row row-cols-2 row-cols-sm-3 g-2">
+										@foreach (var album in Model.Albums)
+										{
+											<div class="col">
+												<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
+												   class="profile-album" title="@Html.StoredText(album.Title)" bs-toggle="tooltip">
+													<img alt="@Html.StoredText(album.Title)" class="rounded"
+													     src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))'/>
+												</a>
+											</div>
+										}
+									</div>
+									<div class="d-flex justify-content-end mt-2">
+										<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
+										       count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.CombinedUser.Item1.ID).Count.ToType<int>() : 0">
+										</pager>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
 				</div>
 			</div>
 		}

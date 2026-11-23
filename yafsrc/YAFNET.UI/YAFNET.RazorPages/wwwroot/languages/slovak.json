@@ -738,6 +738,22 @@
             "#text": "Platforma"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Všetci"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Hostia"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Skrytí"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Členovia"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktívny používatelia"
           },

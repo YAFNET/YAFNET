@@ -1,7 +1,65 @@
-// PostMessage (Reply) Page
-.page-PostMessage {
+// The editor pages (new topic, reply, edit): they share the action bar of the post action pages (post-actions.scss)
+.post-action-page.post-editor-page {
+    max-width: none;
 
+    // the title and where the post goes (the forum or the topic)
+    .post-editor-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: .25rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .post-editor-context {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--bs-secondary-color);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--bs-link-hover-color);
+            text-decoration: underline;
+        }
+    }
+
+    // the preview looks like the post
+    .post-editor-preview {
+        border-left: .25rem solid var(--bs-info-border-subtle);
+
+        .card-header {
+            background-color: var(--bs-info-bg-subtle);
+            color: var(--bs-info-text-emphasis);
+        }
+    }
+
+    .post-editor-options {
+        .form-check + .form-check {
+            margin-top: .5rem;
+        }
+    }
+}
+
+// Reply: the last posts of the topic below the editor
+.post-editor-last-posts {
     .last-posts-panel {
-        height: 400px;
+        max-height: 400px;
+    }
+
+    .last-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem .75rem;
+        margin-bottom: .25rem;
+        font-size: .875rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .last-post-body {
+        overflow-wrap: anywhere;
     }
 }

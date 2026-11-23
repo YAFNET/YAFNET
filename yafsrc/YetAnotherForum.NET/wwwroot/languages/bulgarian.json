@@ -738,6 +738,22 @@
             "#text": "Платформа"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Всички"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Гости"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Скрити"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Членове"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Активни потребители"
           },

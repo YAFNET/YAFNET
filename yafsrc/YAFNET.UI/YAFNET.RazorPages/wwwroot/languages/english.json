@@ -738,6 +738,22 @@
                     "#text": "Platform"
                 },
                 {
+                    "@tag": "TAB_ALL",
+                    "#text": "All"
+                },
+                {
+                    "@tag": "TAB_GUESTS",
+                    "#text": "Guests"
+                },
+                {
+                    "@tag": "TAB_HIDDEN",
+                    "#text": "Hidden"
+                },
+                {
+                    "@tag": "TAB_MEMBERS",
+                    "#text": "Members"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "Active Users"
                 },

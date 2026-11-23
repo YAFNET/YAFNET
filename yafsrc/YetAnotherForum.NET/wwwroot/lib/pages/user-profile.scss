@@ -113,6 +113,44 @@
         }
     }
 
+    // the last posts of the user
+    .profile-last-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: .25rem 1rem;
+        margin-bottom: .35rem;
+
+        a {
+            min-width: 0;
+            overflow-wrap: anywhere;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .profile-last-post-body {
+        max-height: 12rem;
+        overflow: auto;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-friends {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+
+    .profile-album img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+    }
+
     @media (max-width: 575.98px) {
         .profile-hero-top {
             margin-top: -40px;

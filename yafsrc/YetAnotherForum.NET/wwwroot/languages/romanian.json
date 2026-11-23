@@ -738,6 +738,22 @@
             "#text": "Platforma"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Toți"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Vizitatori"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Ascunși"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Membri"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Utilizatori Activi"
           },

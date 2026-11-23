@@ -738,6 +738,22 @@
             "#text": "سیستم عامل"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "همه"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "مهمانان"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "پنهان"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "اعضا"
+          },
+          {
             "@tag": "TITLE",
             "#text": "کاربران فعال"
           },

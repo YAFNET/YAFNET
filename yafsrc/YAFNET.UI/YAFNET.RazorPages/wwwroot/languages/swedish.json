@@ -738,6 +738,22 @@
             "#text": "Operativsystem"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Alla"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Gäster"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Dolda"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Medlemmar"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktiva användare"
           },

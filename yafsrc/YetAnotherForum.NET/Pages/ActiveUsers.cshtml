@@ -15,128 +15,148 @@
     @await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
 }
 
+@{
+    var view = ViewContext.RouteData.Values["v"]?.ToString() ?? "0";
+
+    var tabs = new List<(string View, string Tag, string Icon)> { ("0", "TAB_ALL", "users"), ("1", "TAB_MEMBERS", "user") };
+
+    if (Model.PageBoardContext.BoardSettings.ShowGuestsInDetailedActiveList || Model.PageBoardContext.BoardSettings.ShowCrawlersInActiveList)
+    {
+        tabs.Add(("2", "TAB_GUESTS", "user-clock"));
+    }
+
+    if (Current.IsAdmin)
+    {
+        tabs.Add(("3", "TAB_HIDDEN", "user-secret"));
+    }
+}
+
 @* the page size starts at the first page (the form was sent to the current page, a later page was empty) *@
-<form method="post" action="@Url.Page("ActiveUsers", new { v = ViewContext.RouteData.Values["v"] })" asp-antiforgery="true">
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-auto">
-                        @Html.IconHeader("users", "ACTIVEUSERS", "TITLE")
-                    </div>
-                    <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm me-2" role="group">
-                                    <div class="input-group-text">
-                                        @Html.LocalizedText("SHOW"):
-                                    </div>
-                                    <select asp-for="@Model.Size"
-                                    asp-items="Model.PageSizeList"
-                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                    class="form-select"
-                                    onchange="this.form.submit();"></select>
-
-                                </div>
-                            </div>
-                    </div>
-                </div>
+<form method="post" class="active-users-page" action="@Url.Page("ActiveUsers", new { v = ViewContext.RouteData.Values["v"] })" asp-antiforgery="true">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("users")@Html.LocalizedText("ACTIVEUSERS", "TITLE")
+            <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis align-middle ms-1">@(Model.UserList.NullOrEmpty() ? 0 : Model.UserList[0].UserCount)</span>
+        </h2>
+        <div class="input-group input-group-sm w-auto" role="group">
+            <div class="input-group-text">
+                @Html.LocalizedText("SHOW"):
             </div>
-            <div class="card-body">
-                @if (Model.UserList.NullOrEmpty())
-                {
-                    @await Html.PartialAsync("_NoEntryInfo")
-                }
-                else
-                {
-                <ul class="list-group">
-                    @foreach (var user in Model.UserList)
-                    {
-                        <li class="list-group-item list-group-item-action active-user-row">
-                            <div class="d-flex w-100 justify-content-between align-items-start flex-wrap text-break">
-                                <h5 class="mb-1">
-                                    @Html.UserLink(user.UserID,
-                                                 Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName,
-                                                 user.Suspended, user.UserStyle,
-                                                 user.IsGuest, Model.PageBoardContext.BoardSettings.EnableUserInfoHoverCards, false, "", user.ActiveFlags.IsCrawler ? user.Browser : string.Empty)
-
-                                    @if (user.IsActiveExcluded)
-                                    {
-                                        @Html.Icon("user-secret", "text-secondary")
-                                    }
-                                </h5>
-
-                                @if (Current.IsAdmin)
-                                {
-                                    var ipAddress = IPHelper.GetIpAddressAsString(user.IP);
-
-                                    <span class="badge text-bg-secondary d-none d-md-inline-flex">
-                                        @Html.LocalizedText("IP")
-                                        <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
-                                           title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
-                                           target="_blank" class="link-light ms-1" rel="noopener">
-                                            @ipAddress
-                                        </a>
-                                    </span>
-                                }
-                            </div>
-                            <p class="text-secondary mb-2">
-                                <strong>@Html.LocalizedText("latest_action")</strong>
-                                @Html.ActiveLocation(user.UserID, user.HasForumAccess, user.ForumPage, user.Path, user.ForumID ?? 0, user.ForumName, user.TopicID ?? 0, user.TopicName, false)
-                            </p>
-                            <div class="d-flex flex-wrap">
-                                <span class="badge text-light-emphasis bg-light-subtle"
-                                      title="@Html.LocalizedText("logged_in")"
-                                      data-bs-toggle="tooltip">
-                                    @Html.Icon("sign-in-alt")
-                                    @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.Login))
-                                </span>
-                                <span class="badge text-light-emphasis bg-light-subtle"
-                                      title="@Html.LocalizedText("last_active")"
-                                      data-bs-toggle="tooltip">
-                                    @Html.Icon("clock")
-                                    @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.LastActive))
-                                </span>
-                                <span class="badge text-light-emphasis bg-light-subtle"
-                                      title="@Html.LocalizedText("active")"
-                                      data-bs-toggle="tooltip">
-                                    @Html.Icon("hourglass-half")
-                                    @Html.Raw(Current.Get<ILocalization>().GetTextFormatted("minutes", user.Active))
-                                </span>
-                                <span class="badge text-light-emphasis bg-light-subtle d-none d-md-inline-flex"
-                                      title="@Html.LocalizedText("browser")"
-                                      data-bs-toggle="tooltip">
-                                    @Html.Icon("globe")
-                                    @user.Browser
-                                </span>
-                                <span class="badge text-light-emphasis bg-light-subtle d-none d-md-inline-flex"
-                                      title="@Html.LocalizedText("platform")"
-                                      data-bs-toggle="tooltip">
-                                    @Html.Icon("desktop")
-                                    @user.Platform
-                                </span>
-                                @if (user.Country.IsSet() && !user.Country.Equals("--"))
-                                {
-                                    <span class="badge text-light-emphasis bg-light-subtle"
-                                          title="@(Model.GetText("COUNTRY", user.Country))"
-                                          data-bs-toggle="tooltip">
-                                        <span class="@($"fi fi-{user.Country.ToLower()}")"></span>
-                                        @Html.LocalizedText("COUNTRY")
-                                    </span>
-                                }
-                            </div>
-                        </li>
-                    }
-                </ul>
-                }
-            </div>
+            <select asp-for="@Model.Size"
+                    asp-items="Model.PageSizeList"
+                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    class="form-select"
+                    onchange="this.form.submit();"></select>
         </div>
     </div>
-</div>
 
-@if (!Model.UserList.NullOrEmpty())
-{
-    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.UserList[0].UserCount, Size = Model.Size })
-}
+    <ul class="nav nav-pills active-users-tabs mb-3">
+        @foreach (var tab in tabs)
+        {
+            <li class="nav-item">
+                <a class="@(tab.View == view ? "nav-link active" : "nav-link")"
+                   aria-current="@(tab.View == view ? "page" : null)"
+                   href="@Url.Page("ActiveUsers", new { v = tab.View })">
+                    @Html.Icon(tab.Icon)@Html.LocalizedText("ACTIVEUSERS", tab.Tag)
+                </a>
+            </li>
+        }
+    </ul>
+
+    <div class="card mb-3">
+        @if (Model.UserList.NullOrEmpty())
+        {
+            <div class="card-body">
+                @await Html.PartialAsync("_NoEntryInfo")
+            </div>
+        }
+        else
+        {
+            <ul class="list-group list-group-flush">
+                @foreach (var user in Model.UserList)
+                {
+                    <li class="list-group-item active-user-row">
+                        <div class="d-flex w-100 justify-content-between align-items-start flex-wrap text-break">
+                            <h5 class="mb-1">
+                                @Html.UserLink(user.UserID,
+                                             Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName,
+                                             user.Suspended, user.UserStyle,
+                                             user.IsGuest, Model.PageBoardContext.BoardSettings.EnableUserInfoHoverCards, false, "", user.ActiveFlags.IsCrawler ? user.Browser : string.Empty)
+
+                                @if (user.IsActiveExcluded)
+                                {
+                                    @Html.Icon("user-secret", "text-secondary")
+                                }
+                            </h5>
+
+                            @if (Current.IsAdmin)
+                            {
+                                var ipAddress = IPHelper.GetIpAddressAsString(user.IP);
+
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis d-none d-md-inline-flex">
+                                    @Html.LocalizedText("IP")
+                                    <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
+                                       title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
+                                       target="_blank" class="link-secondary ms-1" rel="noopener">
+                                        @ipAddress
+                                    </a>
+                                </span>
+                            }
+                        </div>
+                        <p class="active-user-location mb-2">
+                            <span class="text-secondary">@Html.LocalizedText("latest_action")</span>
+                            @Html.ActiveLocation(user.UserID, user.HasForumAccess, user.ForumPage, user.Path, user.ForumID ?? 0, user.ForumName, user.TopicID ?? 0, user.TopicName, false)
+                        </p>
+                        <div class="active-user-details">
+                            <span class="active-user-detail"
+                                  title="@Html.LocalizedText("logged_in")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("sign-in-alt")
+                                @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.Login))
+                            </span>
+                            <span class="active-user-detail"
+                                  title="@Html.LocalizedText("last_active")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("clock")
+                                @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.LastActive))
+                            </span>
+                            <span class="active-user-detail"
+                                  title="@Html.LocalizedText("active")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("hourglass-half")
+                                @Html.Raw(Current.Get<ILocalization>().GetTextFormatted("minutes", user.Active))
+                            </span>
+                            <span class="active-user-detail d-none d-md-inline-flex"
+                                  title="@Html.LocalizedText("browser")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("globe")
+                                @user.Browser
+                            </span>
+                            <span class="active-user-detail d-none d-md-inline-flex"
+                                  title="@Html.LocalizedText("platform")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("desktop")
+                                @user.Platform
+                            </span>
+                            @if (user.Country.IsSet() && !user.Country.Equals("--"))
+                            {
+                                <span class="active-user-detail"
+                                      title="@(Model.GetText("COUNTRY", user.Country))"
+                                      data-bs-toggle="tooltip">
+                                    <span class="@($"fi fi-{user.Country.ToLower()}")"></span>
+                                    @Html.LocalizedText("COUNTRY")
+                                </span>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    @if (!Model.UserList.NullOrEmpty())
+    {
+        @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.UserList[0].UserCount, Size = Model.Size })
+    }
 </form>

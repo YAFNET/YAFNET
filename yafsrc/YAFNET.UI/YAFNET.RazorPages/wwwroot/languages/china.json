@@ -738,6 +738,22 @@
             "#text": "平台"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "全部"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "访客"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "隐藏"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "会员"
+          },
+          {
             "@tag": "TITLE",
             "#text": "在线用户"
           },

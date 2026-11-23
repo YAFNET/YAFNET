@@ -738,6 +738,22 @@
             "#text": "Käyttöjärjestelmä"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Kaikki"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Vieraat"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Piilotetut"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Jäsenet"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktiiviset käyttäjät"
           },

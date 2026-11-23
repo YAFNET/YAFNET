@@ -4,6 +4,7 @@
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Types.Flags
 @using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
@@ -18,100 +19,106 @@
 
 @await Html.PartialAsync("_PollList", Model)
 
-<form method="post" asp-page-handler="PostReply" asp-route-t="@Request.Query["t"]" asp-route-f="@Request.Query["f"]" asp-route-q="@Request.Query["q"]">
+<form method="post" class="post-action-page post-editor-page" asp-page-handler="PostReply" asp-route-t="@Request.Query["t"]" asp-route-f="@Request.Query["f"]" asp-route-q="@Request.Query["q"]">
     @* Enter in a field of the form saves (the form action, the first submit button of the form was "preview") *@
     <button type="submit" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
-        <div class="row">
-            <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.Icon("comment-dots", "text-secondary")
-                        @Html.LocalizedText("reply")
-                    </div>
-                    <div class="card-body">
-                    @if (Model.Input.PreviewMessage.IsSet())
-                    {
-                        <h5 class="card-title">
-                            @Html.LocalizedText("previewtitle")
-                        </h5>
-                        <alert type="light">
-                            <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" display-user-id="@Model.PageBoardContext.PageUserID" message="@Model.Input.PreviewMessage"></message>
-                        </alert>
-                    }
-                    @if (Model.PageBoardContext.IsGuest)
-                    {
-                        <div class="mb-3">
-                            <label asp-for="Input.From" class="form-label" localized-page="POSTMESSAGE" localized-tag="FROM">
-                            </label>
-                            <input asp-for="Input.From" class="form-control" maxlength="100" />
-                        </div>
-                    }
-                    <div class="mb-3">
-                        <label asp-for="Input.Editor" class="form-label" localized-tag="MESSAGE"></label>
-                        <textarea asp-for="Input.Editor"
-                                  class="form-control"
-                                  rows="15"
-                                  cols="100"
-                                  editor-mode="Standard"
-                                  users-can-upload="@(Model.PageBoardContext.UploadAccess)"
-                                  maxlength="@Model.PageBoardContext.BoardSettings.MaxPostSize"
-                                  max-characters="@Model.PageBoardContext.BoardSettings.MaxPostSize"></textarea>
-                    </div>
 
-                    @if (!Model.PageBoardContext.IsGuest)
-                    {
-                        <div class="row">
-                            <div class="col">
-                                <h6>
-                                    @Html.LocalizedText("NEWPOSTOPTIONS")
-                                </h6>
+    <div class="post-editor-header">
+        <h2 class="h4 mb-0">@Html.Icon("reply")@Html.LocalizedText("reply")</h2>
+        @if (Model.PageBoardContext.PageTopic != null)
+        {
+            <a class="post-editor-context" href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))">
+                @Html.Icon("comment", "text-secondary")@Model.PageBoardContext.PageTopic.TopicName
+            </a>
+        }
+    </div>
 
-                                @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess)
-                                {
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" asp-for="Input.Persistent">
-                                        <label class="form-check-label" asp-for="Input.Persistent">
-                                            @Html.LocalizedText("PERSISTENCY") (@Html.LocalizedText("PERSISTENCY_INFO"))
-                                        </label>
-                                    </div>
-                                }
+    @if (Model.Input.PreviewMessage.IsSet())
+    {
+        <div class="card mb-3 post-editor-preview">
+            <div class="card-header">
+                @Html.Icon("eye")@Html.LocalizedText("previewtitle")
+            </div>
+            <div class="card-body">
+                <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" display-user-id="@Model.PageBoardContext.PageUserID" message="@Model.Input.PreviewMessage"></message>
+            </div>
+        </div>
+    }
 
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" asp-for="Input.TopicWatch">
-                                    <label class="form-check-label" asp-for="Input.TopicWatch" localized-tag="TOPICWATCH"></label>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    
+    <div class="card mb-3">
+        <div class="card-body">
+            @if (Model.PageBoardContext.IsGuest)
+            {
+                <div class="mb-3">
+                    <label asp-for="Input.From" class="form-label" localized-page="POSTMESSAGE" localized-tag="FROM">
+                    </label>
+                    <input asp-for="Input.From" class="form-control" maxlength="100" />
+                </div>
+            }
+            <div>
+                <label asp-for="Input.Editor" class="form-label" localized-tag="MESSAGE"></label>
+                <textarea asp-for="Input.Editor"
+                          class="form-control"
+                          rows="15"
+                          cols="100"
+                          editor-mode="Standard"
+                          users-can-upload="@(Model.PageBoardContext.UploadAccess)"
+                          maxlength="@Model.PageBoardContext.BoardSettings.MaxPostSize"
+                          max-characters="@Model.PageBoardContext.BoardSettings.MaxPostSize"></textarea>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.PageBoardContext.IsGuest)
+    {
+        <div class="card mb-3 post-editor-options">
+            <div class="card-header">
+                @Html.Icon("sliders")@Html.LocalizedText("NEWPOSTOPTIONS")
+            </div>
+            <div class="card-body">
+                @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess)
+                {
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" asp-for="Input.Persistent">
+                        <label class="form-check-label" asp-for="Input.Persistent">
+                            @Html.LocalizedText("PERSISTENCY")
+                            <span class="form-text d-block mt-0">@Html.LocalizedText("PERSISTENCY_INFO")</span>
+                        </label>
                     </div>
-                <div class="card-footer text-center">
-                    <button class="mt-1"
-                            asp-page-handler="Preview"
-                            asp-route-t="@Request.Query["t"]"
-                            asp-route-f="@Request.Query["f"]"
-                            asp-route-q="@Request.Query["q"]"
-                            text-localized-tag="PREVIEW" title-localized-tag="PREVIEW_TITLE"
-                            button-style="Secondary"
-                            Icon="image"></button>
-                    <button class="mt-1 btn-spinner"
-                            asp-page-handler="PostReply"
-                            asp-route-t="@Request.Query["t"]"
-                            asp-route-f="@Request.Query["f"]"
-                            asp-route-q="@Request.Query["q"]"
-                            text-localized-tag="SAVE" title-localized-tag="SAVE_TITLE"
-                            button-style="Primary"
-                            Icon="save"></button>
-                    <button class="mt-1"
-                            asp-page-handler="Cancel"
-                            asp-route-t="@Request.Query["t"]"
-                            asp-route-f="@Request.Query["f"]"
-                            asp-route-q="@Request.Query["q"]"
-                            text-localized-tag="CANCEL"
-                            button-style="Secondary"
-                            Icon="xmark"></button>
+                }
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" asp-for="Input.TopicWatch">
+                    <label class="form-check-label" asp-for="Input.TopicWatch" localized-tag="TOPICWATCH"></label>
                 </div>
             </div>
+        </div>
+    }
+
+    <div class="post-action-bar">
+        <button asp-page-handler="Cancel"
+                asp-route-t="@Request.Query["t"]"
+                asp-route-f="@Request.Query["f"]"
+                asp-route-q="@Request.Query["q"]"
+                text-localized-tag="CANCEL"
+                button-style="Secondary"
+                Icon="xmark"></button>
+        <div class="d-flex flex-wrap gap-2">
+            <button asp-page-handler="Preview"
+                    asp-route-t="@Request.Query["t"]"
+                    asp-route-f="@Request.Query["f"]"
+                    asp-route-q="@Request.Query["q"]"
+                    text-localized-tag="PREVIEW" title-localized-tag="PREVIEW_TITLE"
+                    button-style="OutlineSecondary"
+                    Icon="eye"></button>
+            <button class="btn-spinner"
+                    asp-page-handler="PostReply"
+                    asp-route-t="@Request.Query["t"]"
+                    asp-route-f="@Request.Query["f"]"
+                    asp-route-q="@Request.Query["q"]"
+                    text-localized-tag="SAVE" title-localized-tag="SAVE_TITLE"
+                    button-style="Primary"
+                    Icon="paper-plane"></button>
         </div>
     </div>
 </form>
@@ -122,39 +129,31 @@
 
 @if (!messages.NullOrEmpty())
 {
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("comment", "PROFILE", "LAST10")
-                </div>
-                <div class="card-body p-2 last-posts-panel overflow-y-auto">
-                    @foreach (var message in messages)
-                    {
-                        <div class="card my-3">
-                            <div class="card-body">
-                                <div class="card-title h5 mt-2">
-                                    <footer class="blockquote-footer">
-                                        @Html.UserLink(message.Item2.ID,
-                                            message.Item2.DisplayOrUserName(),
-                                            message.Item2.Suspended,
-                                            message.Item2.UserStyle,
-                                            blankTarget: true)
-                                        <small class="text-body-secondary">
-                                            @Html.IconBadge("calendar-day", "clock")
-                                            @Html.DisplayDateTime(DateTimeFormat.Both, message.Item1.Posted)
-                                        </small>
-                                    </footer>
-                                </div>
-                                <div class="card-text">
-                                    <messagePostData current-message="message.Item1" show-attachments="false"></messagePostData>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
+    <div class="card mb-3 post-editor-last-posts">
+        <div class="card-header">
+            @Html.IconHeader("comments", "PROFILE", "LAST10")
         </div>
+        <ul class="list-group list-group-flush last-posts-panel overflow-y-auto">
+            @foreach (var message in messages)
+            {
+                <li class="list-group-item last-post">
+                    <div class="last-post-meta">
+                        @Html.UserLink(message.Item2.ID,
+                            message.Item2.DisplayOrUserName(),
+                            message.Item2.Suspended,
+                            message.Item2.UserStyle,
+                            blankTarget: true)
+                        <span>
+                            @Html.Icon("clock", "text-secondary")
+                            @Html.DisplayDateTime(DateTimeFormat.Both, message.Item1.Posted)
+                        </span>
+                    </div>
+                    <div class="last-post-body">
+                        <messagePostData current-message="message.Item1" show-attachments="false"></messagePostData>
+                    </div>
+                </li>
+            }
+        </ul>
     </div>
 }
 

@@ -738,6 +738,22 @@
             "#text": "Platvorm"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Kõik"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Külalised"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Peidetud"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Liikmed"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktiivsed kasutajad"
           },

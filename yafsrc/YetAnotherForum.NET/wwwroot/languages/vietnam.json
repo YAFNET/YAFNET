@@ -738,6 +738,22 @@
             "#text": "Hệ điều hành"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Tất cả"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Khách"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Ẩn"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Thành viên"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Thành viên trực tuyến"
           },

@@ -738,6 +738,22 @@
             "#text": "platformu"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Tümü"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Misafirler"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Gizli"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Üyeler"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktif Kullanıcılar"
           },

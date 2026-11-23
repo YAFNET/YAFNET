@@ -738,6 +738,22 @@
             "#text": "Platforma "
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Visi"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Svečiai"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Paslėpti"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Nariai"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktyvūs naudotojai "
           },

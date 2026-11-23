@@ -1,27 +1,62 @@
 // Members Page
-.page-Members {
+.members-page {
+
+    .members-filter .choices {
+        margin-bottom: 0;
+    }
+
+    // the letters wrap on small screens
+    .members-letters {
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
 
     .member-row {
-        transition: background-color .15s ease;
+        .card {
+            transition: box-shadow .15s ease;
 
-        &:hover {
-            background: var(--bs-tertiary-bg);
+            &:hover {
+                box-shadow: var(--bs-box-shadow-sm);
+            }
         }
 
         .member-avatar {
-            width: 3rem;
-            height: 3rem;
+            flex: 0 0 3.5rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            object-fit: cover;
         }
 
         .member-info {
+            flex: 1 1 auto;
             min-width: 0;
+        }
 
-            .d-flex.flex-wrap {
-                gap: .4rem;
+        .member-rank {
+            margin-bottom: .5rem;
+            font-size: .875rem;
+            color: var(--bs-secondary-color);
+        }
+
+        .member-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: .5rem;
+            margin: 0;
+
+            dt {
+                font-size: .75rem;
+                font-weight: 400;
+                color: var(--bs-secondary-color);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-            .badge {
-                font-weight: 500;
+            dd {
+                margin: 0;
+                font-size: .875rem;
+                overflow-wrap: anywhere;
             }
         }
     }

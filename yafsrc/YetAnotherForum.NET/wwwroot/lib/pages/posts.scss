@@ -1,31 +1,170 @@
 // Posts (Topic View) Page
 .page-Posts, .page-Post {
 
-    .posts-toolbar {
-        margin-bottom: 1rem;
+    // the title of the topic with its forum and counts, the actions on the right
+    .topic-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: .75rem 1rem;
+        margin-bottom: .75rem;
+    }
 
-        .btn,
-        .dropdown-toggle {
-            margin-bottom: 0 !important;
+    .topic-header-title {
+        flex: 1 1 20rem;
+        min-width: 0;
+
+        h2 {
+            overflow-wrap: anywhere;
         }
     }
 
-    .topic-toolbar-card {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+    .topic-header-link {
+        color: inherit;
+        text-decoration: none;
 
-        .navbar {
-            padding: .65rem 1rem;
+        &:hover {
+            text-decoration: underline;
         }
+    }
 
-        .navbar-brand {
-            font-weight: 600;
-            font-size: 1.05rem;
+    .topic-header-description {
+        margin-bottom: .25rem;
+        font-style: italic;
+        color: var(--bs-secondary-color);
+    }
+
+    .topic-header-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem 1rem;
+        font-size: .875rem;
+        color: var(--bs-secondary-color);
+
+        a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                color: var(--bs-link-hover-color);
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .topic-header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem;
+    }
+
+    // previous / next topic, share and tools
+    .topic-toolbar-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+        padding: .5rem .75rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    // the pager and the actions below the posts
+    .posts-footer-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+        margin-bottom: 1rem;
+
+        .pagination {
+            margin-bottom: 0;
         }
     }
 
     .card-footer {
         .btn-multiquote {
             align-items: center;
+        }
+    }
+}
+
+// Print topic: a plain list of the posts
+.print-topic {
+    .print-topic-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: .75rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .print-topic-title {
+        flex: 1 1 20rem;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .print-topic-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem 1rem;
+        font-size: .875rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .print-topic-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+
+    .print-post {
+        margin-bottom: 1rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        break-inside: avoid;
+    }
+
+    .print-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: .25rem 1rem;
+        padding: .5rem .75rem;
+        border-bottom: 1px solid var(--bs-border-color);
+        background-color: var(--bs-tertiary-bg);
+        font-size: .875rem;
+    }
+
+    .print-post-body {
+        padding: .75rem;
+        overflow-wrap: anywhere;
+    }
+}
+
+// only the topic on the paper
+@media print {
+    .page-PrintTopic {
+        > header,
+        > nav,
+        > .footer,
+        .print-topic-actions,
+        .btn-scroll,
+        #modal-placeholder,
+        .toast-container {
+            display: none !important;
+        }
+
+        .print-post-meta {
+            background-color: transparent;
         }
     }
 }

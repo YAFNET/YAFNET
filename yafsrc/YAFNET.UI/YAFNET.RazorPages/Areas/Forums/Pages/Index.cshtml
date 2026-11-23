@@ -12,7 +12,15 @@
                             : new Dictionary<string, string>();
 }
 
-<div class="index-toolbar">
+@if (Model.PageBoardContext.PageCategoryID > 0 && Model.PageBoardContext.PageCategory is not null)
+{
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">@Html.Icon("folder")@Model.PageBoardContext.PageCategory.Name</h2>
+    </div>
+}
+
+@* guests only see the clock, it is hidden on small screens *@
+<div class="@(Model.PageBoardContext.IsGuest ? "index-toolbar d-none d-md-flex" : "index-toolbar")">
     <div class="index-clock d-none d-md-inline-flex">
         @Html.Icon("clock")
         @Model.TimeNow
@@ -28,10 +36,10 @@
     @if (!Model.PageBoardContext.IsGuest)
     {
         <form method="post">
-            <div class="btn-group" role="group" aria-label="Tools">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Tools">
                 <button asp-page-handler="WatchAll"
                         asp-all-route-data="categoryRoute"
-                        button-style="Secondary"
+                        button-style="OutlineSecondary"
                         button-size="Small"
                         icon="eye"
                         bs-toggle="tooltip"
@@ -43,7 +51,7 @@
 
                 <button asp-page-handler="MarkAll"
                         asp-all-route-data="categoryRoute"
-                        button-style="Secondary"
+                        button-style="OutlineSecondary"
                         button-size="Small"
                         icon="glasses"
                         bs-toggle="tooltip"

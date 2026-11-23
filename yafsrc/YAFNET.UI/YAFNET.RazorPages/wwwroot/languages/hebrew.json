@@ -738,6 +738,22 @@
             "#text": "מערכת הפעלה"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "כולם"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "אורחים"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "מוסתרים"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "חברים"
+          },
+          {
             "@tag": "TITLE",
             "#text": "משתמשים פעילים"
           },

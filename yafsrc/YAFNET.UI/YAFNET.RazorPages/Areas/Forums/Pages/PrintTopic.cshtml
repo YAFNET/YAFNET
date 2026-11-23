@@ -2,25 +2,44 @@
 
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.Web.HtmlHelpers
 @model PrintTopicModel
 
-@foreach (var post in Model.Posts)
-{
-    <table class="table table-bordered" aria-label="@post.Topic">
-        <thead>
-        <tr>
-            <th scope="col">
-                    <strong>@(Model.Get<ILocalization>().GetText("postedby")): @(Model.PageBoardContext.BoardSettings.EnableDisplayName ? post.DisplayName : post.UserName)</strong> - @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(post.Posted))
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
+<div class="print-topic">
+    <div class="print-topic-header">
+        <div class="print-topic-title">
+            <h2 class="h4 mb-1">@Model.PageBoardContext.PageTopic.TopicName</h2>
+            <div class="print-topic-meta">
+                <span>@Html.Icon("comments", "text-secondary")@Model.PageBoardContext.PageForum.Name</span>
+                <span>@Html.Icon("comment", "text-secondary")@Model.Posts.Count</span>
+            </div>
+        </div>
+        <div class="print-topic-actions">
+            <a role="button"
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))"
+               button-style="Secondary"
+               icon="reply"
+               text-localized-page="COMMON"
+               text-localized-tag="BACK"></a>
+            <button type="button"
+                    button-style="Primary"
+                    icon="print"
+                    onclick="window.print()"
+                    text-localized-page="POSTS"
+                    text-localized-tag="PRINTTOPIC"></button>
+        </div>
+    </div>
+
+    @foreach (var post in Model.Posts)
+    {
+        <article class="print-post" aria-label="@post.Topic">
+            <div class="print-post-meta">
+                <strong>@(Model.Get<ILocalization>().GetText("postedby")): @(Model.PageBoardContext.BoardSettings.EnableDisplayName ? post.DisplayName : post.UserName)</strong>
+                <span>@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(post.Posted))</span>
+            </div>
+            <div class="print-post-body">
                 @Html.Raw(post.Message)
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <br/>
-}
+            </div>
+        </article>
+    }
+</div>

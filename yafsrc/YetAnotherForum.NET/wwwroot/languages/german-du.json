@@ -738,6 +738,22 @@
             "#text": "System"
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "Alle"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "Gäste"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "Versteckt"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "Mitglieder"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktive Benutzer"
           },

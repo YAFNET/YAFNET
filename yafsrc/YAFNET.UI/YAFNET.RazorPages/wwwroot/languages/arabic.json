@@ -738,6 +738,22 @@
             "#text": "بيئة النظام "
           },
           {
+            "@tag": "TAB_ALL",
+            "#text": "الكل"
+          },
+          {
+            "@tag": "TAB_GUESTS",
+            "#text": "الزوار"
+          },
+          {
+            "@tag": "TAB_HIDDEN",
+            "#text": "المخفيون"
+          },
+          {
+            "@tag": "TAB_MEMBERS",
+            "#text": "الأعضاء"
+          },
+          {
             "@tag": "TITLE",
             "#text": "المستخدمين المفعلين"
           },
