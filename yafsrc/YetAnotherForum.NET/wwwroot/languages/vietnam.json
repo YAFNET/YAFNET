@@ -11398,6 +11398,10 @@
             "#text": "Gửi tin nhắn kiểm tra đến địa chỉ Email được xác định là Gửi đến địa chỉ"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Vui lòng điền vào tất cả các trường."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Kế tiếp"
           },

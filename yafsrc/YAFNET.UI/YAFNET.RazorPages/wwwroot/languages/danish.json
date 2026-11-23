@@ -11398,6 +11398,10 @@
             "#text": "Sender en testmeddelelse til den e-mail-adresse, der er defineret som Send til adresse"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Udfyld alle felter."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Næste"
           },

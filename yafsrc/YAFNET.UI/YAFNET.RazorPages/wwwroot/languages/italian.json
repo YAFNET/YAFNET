@@ -11382,6 +11382,10 @@
             "#text": "Invia un messaggio di prova all'indirizzo e-mail definito come Invia a indirizzo"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Compila tutti i campi."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Il prossimo"
           },

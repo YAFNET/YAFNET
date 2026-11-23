@@ -11382,6 +11382,10 @@
             "#text": "Sendet eine Testnachricht an die E-Mail-Adresse, die als An Adresse senden definiert ist"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Bitte fülle alle Felder aus."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Weiter"
           },

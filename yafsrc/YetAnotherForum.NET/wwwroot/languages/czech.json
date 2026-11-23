@@ -11398,6 +11398,10 @@
             "#text": "Odešle zkušební zprávu na e-mailovou adresu, která je definována jako Odeslat na adresu"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Vyplňte všechna pole."
+          },
+          {
             "@tag": "NEXT",
             "#text": "další"
           },

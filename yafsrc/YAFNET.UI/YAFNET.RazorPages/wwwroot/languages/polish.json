@@ -11386,6 +11386,10 @@
             "#text": "Wysyła wiadomość testową na adres e-mail zdefiniowany jako Wyślij na adres"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Wypełnij wszystkie pola."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Kolejny"
           },

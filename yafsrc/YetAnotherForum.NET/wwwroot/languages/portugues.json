@@ -11398,6 +11398,10 @@
             "#text": "Envia uma mensagem de teste para o endereço de e-mail definido como Enviar para o endereço"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Preencha todos os campos."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Próximo"
           },

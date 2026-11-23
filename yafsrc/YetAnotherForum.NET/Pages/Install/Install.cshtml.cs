@@ -34,6 +34,7 @@ using Microsoft.Extensions.Configuration;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Identity;
@@ -204,6 +205,7 @@ public class InstallModel : InstallPage
     /// <param name="userName">Name of the user.</param>
     /// <param name="adminEmail">The admin email.</param>
     /// <param name="password1">The password1.</param>
+    /// <param name="password2">The password entered again.</param>
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostInstallFinishedAsync(
         string forumName,
@@ -213,12 +215,37 @@ public class InstallModel : InstallPage
         string forumBaseUrlMask,
         string userName,
         string adminEmail,
-        string password1)
+        string password1,
+        string password2)
     {
-        var result =
-            await
-                this.CreateForumAsync(forumName, forumDescription, cultures, forumEmailAddress, forumBaseUrlMask,
-                    userName, adminEmail, password1);
+        // the texts of the wizard (the language of the wizard, there is no board and no user yet)
+        this.Get<ILocalization>().TransPage = "INSTALL";
+
+        // the values are checked on the server as well (the confirmation of the password was never compared,
+        // a typo in the password locked the only admin out)
+        var check = InstallHelper.CheckCreateForum(
+            forumName,
+            forumEmailAddress,
+            forumBaseUrlMask,
+            userName,
+            adminEmail,
+            password1,
+            password2);
+
+        (bool Result, string Message) result = check switch
+        {
+            null => await this.CreateForumAsync(
+                        forumName,
+                        forumDescription,
+                        cultures,
+                        forumEmailAddress,
+                        forumBaseUrlMask,
+                        userName,
+                        adminEmail,
+                        password1),
+            InstallHelper.PasswordsDifferent => (false, this.Get<ILocalization>().GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH")),
+            _ => (false, this.Get<ILocalization>().GetText("INSTALL", InstallHelper.MissingValue))
+        };
 
         if (!result.Result)
         {

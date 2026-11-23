@@ -11398,6 +11398,10 @@
             "#text": "Odošle testovaciu správu na e-mailovú adresu, ktorá je definovaná ako Odoslať na adresu"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Vyplňte všetky polia."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Ďalšie"
           },

@@ -11398,6 +11398,10 @@
             "#text": "Lähettää testiviestin sähköpostiosoitteeseen, joka määritetään Lähetä osoitteeseen"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Täytä kaikki kentät."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Seuraava"
           },

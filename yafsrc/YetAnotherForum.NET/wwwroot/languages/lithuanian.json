@@ -11398,6 +11398,10 @@
             "#text": "Siunčia bandomąjį pranešimą el. Pašto adresu, kuris apibūdinamas kaip Siųsti į adresą"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Užpildykite visus laukus."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Kitas"
           },

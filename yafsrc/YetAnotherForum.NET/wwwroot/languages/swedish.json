@@ -11398,6 +11398,10 @@
             "#text": "Skickar ett testmeddelande till e-postadressen som definieras som Skicka till adress"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Fyll i alla fält."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Nästa"
           },

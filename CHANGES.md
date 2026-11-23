@@ -170,6 +170,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Print topic: the title of the page was "Reset Password" (the texts of the page had no title), now it is the name of the topic
 * [FIXED] Topic list, My Topics, My Account, notifications: scrolling down loaded the first page again, the lists stopped after the first page (the page index was sent as "page", the route value of the pages); the real-time updates of a topic always compared the posts of the first page
 * [FIXED] New topic, edit post: the tags input lost the focus after the third letter (the tags of the search were loaded and the input was disabled), the letters typed meanwhile were lost (Choices.js)
+* [FIXED] Install: the confirmation of the admin password was never compared, a typo in the password created a host admin who could not log in; the values are checked on the server as well
 * [CHANGES] Topic list, topic, new topic, reply, edit post, print, members, active users, search, profile and board index redesigned: page headers with the counts and the main actions, the filters and the forum tools of the topic list in one bar, the topic with its forum, replies and views above the posts, the editors with a preview card, switches for the options and the buttons in a bar at the bottom, the print page with the topic title and a print button, the members as cards with a filter panel, the active users with tabs for members, guests and hidden users, the last posts, friends and albums of the profile side by side
 
 # YetAnotherForum.NET v4.0.11

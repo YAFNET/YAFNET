@@ -11382,6 +11382,10 @@
                     "#text": "Sends a test Message to the Email address that is defined as Send to address"
                 },
                 {
+                    "@tag": "NEED_VALUE",
+                    "#text": "Please fill in all fields."
+                },
+                {
                     "@tag": "NEXT",
                     "#text": "Next"
                 },

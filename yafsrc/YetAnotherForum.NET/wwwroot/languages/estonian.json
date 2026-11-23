@@ -11398,6 +11398,10 @@
             "#text": "Saadab testteate e-posti aadressile, mis on määratletud kui Saada aadressile"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Täida kõik väljad."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Järgmine"
           },

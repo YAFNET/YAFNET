@@ -11382,6 +11382,10 @@
             "#text": "Envía un mensaje de prueba a la dirección de correo electrónico que se define como Enviar a dirección"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Rellene todos los campos."
+          },
+          {
             "@tag": "NEXT",
             "#text": "próximo"
           },

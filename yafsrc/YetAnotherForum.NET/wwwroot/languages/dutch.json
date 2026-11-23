@@ -11382,6 +11382,10 @@
             "#text": "Stuurt een testbericht naar het e-mailadres dat is gedefinieerd als Verzenden naar adres"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Vul alle velden in."
+          },
+          {
             "@tag": "NEXT",
             "#text": "volgende"
           },

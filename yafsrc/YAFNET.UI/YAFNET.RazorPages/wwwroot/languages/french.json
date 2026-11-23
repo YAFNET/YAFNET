@@ -11398,6 +11398,10 @@
             "#text": "Envoie un message de test à l'adresse électronique définie comme adresse d'envoi à"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Veuillez remplir tous les champs."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Prochain"
           },

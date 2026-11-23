@@ -11398,6 +11398,10 @@
             "#text": "Trimite un mesaj de testare la adresa de e-mail care este definită ca Trimite la adresă"
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Completați toate câmpurile."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Următor →"
           },

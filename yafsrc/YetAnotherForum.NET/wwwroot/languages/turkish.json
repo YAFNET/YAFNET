@@ -11398,6 +11398,10 @@
             "#text": "Adrese gönder olarak tanımlanan e-posta adresine bir test mesajı gönderir."
           },
           {
+            "@tag": "NEED_VALUE",
+            "#text": "Lütfen tüm alanları doldurun."
+          },
+          {
             "@tag": "NEXT",
             "#text": "Sonraki"
           },
