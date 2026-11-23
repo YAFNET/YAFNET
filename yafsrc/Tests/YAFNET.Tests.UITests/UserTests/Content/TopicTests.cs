@@ -1536,4 +1536,56 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 }
             });
     }
+
+    /// <summary>
+    /// The tags input of a new topic keeps the focus and the typed keys while the tags of the search are loaded
+    /// (the third key loads the tags from the server, the input was disabled and lost the focus).
+    /// </summary>
+    [Test]
+    public async Task TagsInputKeepsTheFocusWhileTheTagsLoadTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // the answer of the tag search is held back until the keys are typed
+                var release = new TaskCompletionSource();
+
+                await page.RouteAsync(
+                    "**/api/Tags/GetBoardTags**",
+                    async route =>
+                    {
+                        await release.Task;
+                        await route.ContinueAsync();
+                    });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+
+                var input = page.Locator(".choices:has(#Tags) input.choices__input--cloned");
+
+                await input.ClickAsync();
+
+                var request = page.WaitForRequestAsync("**/api/Tags/GetBoardTags**");
+
+                await input.PressSequentiallyAsync("tag");
+                await request;
+
+                // keys typed while the tags are loading
+                await page.Keyboard.TypeAsync("ged");
+
+                await Assertions.Expect(input).ToBeFocusedAsync();
+                await Assertions.Expect(input).ToHaveValueAsync("tagged");
+
+                release.SetResult();
+
+                await Assertions.Expect(page.Locator(".choices:has(#Tags)")).Not.ToHaveClassAsync(new System.Text.RegularExpressions.Regex("is-loading"));
+                await Assertions.Expect(input).ToBeFocusedAsync();
+                await Assertions.Expect(input).ToHaveValueAsync("tagged");
+            });
+    }
 }

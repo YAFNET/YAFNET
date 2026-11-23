@@ -3589,6 +3589,8 @@
             this._hasNonChoicePlaceholder = false;
             this._lastAddedChoiceId = 0;
             this._lastAddedGroupId = 0;
+            /** the input had the focus when the loading of choices started (a search): it stays enabled while they load */
+            this._keepInputWhileLoading = false;
             var defaults = Choices.defaults;
             this.config = __assign(__assign(__assign({}, defaults.allOptions), defaults.options), userConfig);
             ObjectsInConfig.forEach(function (key) {
@@ -4627,7 +4629,12 @@
             if (setLoading === void 0) { setLoading = true; }
             var el = this.itemList.element;
             if (setLoading) {
-                this.disable();
+                // a search that loads its choices (e.g. from a server) while the user types keeps the input enabled:
+                // disabling it removed the focus and the keys typed while the choices were loading were lost
+                this._keepInputWhileLoading = this._keepInputWhileLoading || this.input.isFocussed;
+                if (!this._keepInputWhileLoading) {
+                    this.disable();
+                }
                 this.containerOuter.addLoadingState();
                 if (this._isSelectOneElement) {
                     el.replaceChildren(this._templates.placeholder(this.config, this.config.loadingText));
@@ -4637,7 +4644,12 @@
                 }
             }
             else {
-                this.enable();
+                if (this._keepInputWhileLoading) {
+                    this._keepInputWhileLoading = false;
+                }
+                else {
+                    this.enable();
+                }
                 this.containerOuter.removeLoadingState();
                 if (this._isSelectOneElement) {
                     el.replaceChildren('');
