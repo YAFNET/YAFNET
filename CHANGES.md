@@ -173,6 +173,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Install: the confirmation of the admin password was never compared, a typo in the password created a host admin who could not log in; the values are checked on the server as well
 * [FIXED] Install: an error when the board was created (e.g. a too short password) cleared all entered values and the selected language, the message of the error was shown as html
 * [FIXED] Install: the test page showed the whole connection string with the password of the database to every visitor of a forum that was not installed yet, the password is hidden now
+* [FIXED] Install: the mail test without a from or to address showed "Object reference not set to an instance of an object", the entered addresses were cleared after the test
 * [CHANGES] Topic list, topic, new topic, reply, edit post, print, members, active users, search, profile and board index redesigned: page headers with the counts and the main actions, the filters and the forum tools of the topic list in one bar, the topic with its forum, replies and views above the posts, the editors with a preview card, switches for the options and the buttons in a bar at the bottom, the print page with the topic title and a print button, the members as cards with a filter panel, the active users with tabs for members, guests and hidden users, the last posts, friends and albums of the profile side by side
 
 # YetAnotherForum.NET v4.0.11

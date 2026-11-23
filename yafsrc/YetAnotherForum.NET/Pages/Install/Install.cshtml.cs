@@ -125,22 +125,33 @@ public class InstallModel : InstallPage
         bool testEmailSuccess;
         string testEmailInfo;
 
-        try
-        {
-            await this.Get<IMailService>().SendAsync(
-                fromEmail.Trim(),
-                toEmail.Trim(),
-                fromEmail.Trim(),
-                "Test Email From Yet Another Forum.NET",
-                "The email sending appears to be working from your YAF installation.");
+        this.Get<ILocalization>().TransPage = "INSTALL";
 
-            testEmailSuccess = true;
-            testEmailInfo = "success";
-        }
-        catch (Exception x)
+        if (fromEmail.IsNotSet() || toEmail.IsNotSet())
         {
+            // both addresses are needed (an empty field showed "Object reference not set to an instance of an object")
             testEmailSuccess = false;
-            testEmailInfo = x.Message;
+            testEmailInfo = this.Get<ILocalization>().GetText("EMAILTOPIC", "NEED_EMAIL");
+        }
+        else
+        {
+            try
+            {
+                await this.Get<IMailService>().SendAsync(
+                    fromEmail.Trim(),
+                    toEmail.Trim(),
+                    fromEmail.Trim(),
+                    "Test Email From Yet Another Forum.NET",
+                    "The email sending appears to be working from your YAF installation.");
+
+                testEmailSuccess = true;
+                testEmailInfo = "success";
+            }
+            catch (Exception x)
+            {
+                testEmailSuccess = false;
+                testEmailInfo = x.Message;
+            }
         }
 
         var connectionSuccess = this.InstallService.TestDatabaseConnection(out var message);
@@ -155,7 +166,9 @@ public class InstallModel : InstallPage
                            ConnectionInfo = message,
                            ConnectionSuccess = connectionSuccess,
                            TestEmailSuccess = testEmailSuccess,
-                           TestEmailInfo = testEmailInfo
+                           TestEmailInfo = testEmailInfo,
+                           FromEmail = fromEmail,
+                           ToEmail = toEmail
                        })
                };
     }

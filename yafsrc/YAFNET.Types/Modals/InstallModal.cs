@@ -60,6 +60,16 @@ public class InstallModal
     public string TestEmailInfo { get; set; }
 
     /// <summary>
+    /// Gets or sets the entered from address of the mail test (kept after the test).
+    /// </summary>
+    public string FromEmail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the entered to address of the mail test (kept after the test).
+    /// </summary>
+    public string ToEmail { get; set; }
+
+    /// <summary>
     /// Gets or sets the entered name of the new board (kept when the board can't be created).
     /// </summary>
     public string ForumName { get; set; }
