@@ -176,16 +176,16 @@ public class PostsModel : ForumPage
     /// The posts after a post of a page (real-time updates of the last page of the topic).
     /// The header X-Topic-More-Pages tells the client that the topic has a next page now.
     /// </summary>
-    /// <param name="page">The zero-based page index shown by the client.</param>
+    /// <param name="pageIndex">The zero-based page index shown by the client ("page" is the route value of the razor page).</param>
     /// <param name="after">The id of the last post shown by the client.</param>
-    public IActionResult OnGetNewPosts(int page, int after)
+    public IActionResult OnGetNewPosts(int pageIndex, int after)
     {
         if (this.PageBoardContext.PageTopic is null || !this.PageBoardContext.ForumReadAccess)
         {
             return this.NotFound();
         }
 
-        page = Math.Max(page, 0);
+        var page = Math.Max(pageIndex, 0);
 
         var showDeleted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
                           this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;

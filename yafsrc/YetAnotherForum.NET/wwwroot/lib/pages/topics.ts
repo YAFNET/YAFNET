@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const separator = loadMoreUrl!.includes('?') ? '&' : '?';
 		const modeParam = mode !== undefined ? `&mode=${mode}` : '';
-		const url = `${loadMoreUrl}${separator}page=${nextPage}&show=${show}&size=${pageSize}${modeParam}`;
+		const url = `${loadMoreUrl}${separator}pageIndex=${nextPage}&show=${show}&size=${pageSize}${modeParam}`;
 
 		fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
 			.then(res => res.text())

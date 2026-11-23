@@ -168,6 +168,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile: guests (profile view permission "everyone") got the PM and email buttons, which led to "access denied"
 * [FIXED] Profile: the tooltips of the PM and email buttons showed the name of the user encoded twice (e.g. "O&#39;Brien")
 * [FIXED] Print topic: the title of the page was "Reset Password" (the texts of the page had no title), now it is the name of the topic
+* [FIXED] Topic list, My Topics, My Account, notifications: scrolling down loaded the first page again, the lists stopped after the first page (the page index was sent as "page", the route value of the pages); the real-time updates of a topic always compared the posts of the first page
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -126,8 +126,8 @@ public class MyAccountModel : ForumPageRegistered
     /// <summary>
     /// Loads more Activity for infinite scrolling, also used to (re-)apply the filter checkboxes via AJAX.
     /// </summary>
-    /// <param name="page">
-    /// The zero-based page index to load.
+    /// <param name="pageIndex">
+    /// The zero-based page index to load ("page" is the route value of the razor page).
     /// </param>
     /// <param name="size">
     /// The page size to load.
@@ -137,7 +137,7 @@ public class MyAccountModel : ForumPageRegistered
     /// <param name="givenThanks">Filter: given thanks.</param>
     /// <param name="becomeFriends">Filter: become friends.</param>
     public IActionResult OnGetLoadMoreActivity(
-        int page,
+        int pageIndex,
         int size,
         bool createdTopic,
         bool createdReply,
@@ -145,7 +145,8 @@ public class MyAccountModel : ForumPageRegistered
         bool becomeFriends)
     {
         // the values come from the client (the page offers at most 50 entries)
-        page = Math.Max(page, 0);
+        // "page" is the route value of the razor page (its path), the query value of the page index is "pageIndex"
+        var page = Math.Max(pageIndex, 0);
         size = Math.Clamp(size, 1, 100);
 
         var stream = this.GetFilteredStream(createdTopic, createdReply, givenThanks, becomeFriends);

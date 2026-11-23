@@ -154,8 +154,8 @@ public class MyTopicsModel : ForumPageRegistered
     /// <summary>
     /// Loads more Topics for infinite scrolling.
     /// </summary>
-    /// <param name="page">
-    /// The zero-based page index to load.
+    /// <param name="pageIndex">
+    /// The zero-based page index to load ("page" is the route value of the razor page).
     /// </param>
     /// <param name="mode">
     /// The topic list mode, mirrors <see cref="MyTopicsInputModel.TopicModeValue"/>.
@@ -166,10 +166,11 @@ public class MyTopicsModel : ForumPageRegistered
     /// <param name="size">
     /// The page size to load.
     /// </param>
-    public IActionResult OnGetLoadMoreTopics(int page, int mode, int show, int size)
+    public IActionResult OnGetLoadMoreTopics(int pageIndex, int mode, int show, int size)
     {
         // the values come from the client (the page offers at most 50 entries)
-        page = Math.Max(page, 0);
+        // "page" is the route value of the razor page (its path), the query value of the page index is "pageIndex"
+        var page = Math.Max(pageIndex, 0);
         size = Math.Clamp(size, 1, 100);
 
         var topics = this.GetTopicsList(mode, this.GetSinceDate(show), page, size);

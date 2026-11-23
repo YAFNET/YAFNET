@@ -110,7 +110,7 @@ function initLivePosts(): void {
 			return;
 		}
 
-		const result = await fetchHtml(withParams(newPostsUrl, { page, after: lastMessageId }));
+		const result = await fetchHtml(withParams(newPostsUrl, { pageIndex: page, after: lastMessageId }));
 
 		if (result?.response.headers.get('X-Topic-More-Pages') === 'true') {
 			// the page is full, the next posts are on the next page

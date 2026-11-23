@@ -885,7 +885,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 foreach (var query in new[] { "mode=0&show=2147483647", "mode=0&show=-2147483648", "mode=99&show=0" })
                 {
                     var response = await page.GotoAsync(
-                                       $"{this.TestSettings.TestForumUrl}MyTopics/LoadMoreTopics?page=0&size=10&{query}");
+                                       $"{this.TestSettings.TestForumUrl}MyTopics/LoadMoreTopics?pageIndex=0&size=10&{query}");
 
                     Assert.That(response?.Status, Is.EqualTo(200), $"The topic list failed for {query}");
                 }
@@ -1461,6 +1461,79 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 Assert.That(title, Does.Contain(subject), "The print page has not the name of the topic as title");
                 Assert.That(title, Does.Not.Contain("Reset Password"), "The print page has the title of another page");
+            });
+    }
+
+    /// <summary>
+    /// Scrolling down the topic list loads the next topics (the page index was sent as the query value "page",
+    /// which is the route value of the razor pages, every request loaded the first page again and the list
+    /// stopped after the first page).
+    /// </summary>
+    [Test]
+    public async Task TopicListLoadsTheNextTopicsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var forumUrl = $"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/test";
+
+                await page.GotoAsync(forumUrl);
+
+                const string Choose = """
+                                      ([id, value]) => {
+                                          const select = document.getElementById(id);
+                                          if (![...select.options].some(o => o.value === value)) select.add(new Option(value, value));
+                                          select.value = value;
+                                          select.form.submit();
+                                      }
+                                      """;
+
+                // all topics, 5 per page
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(Choose, new[] { "ShowTopicListSelected", "0" }));
+                await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(Choose, new[] { "Size", "5" }));
+
+                try
+                {
+                    // the forum needs more topics than one page
+                    var total = int.Parse(await page.Locator("#topicsContainer").GetAttributeAsync("data-total") ?? "0");
+
+                    for (var i = total; i < 7; i++)
+                    {
+                        Assert.That(
+                            await page.CreateTopicAsync(
+                                this.TestSettings,
+                                this.TestSettings.TestForumId,
+                                $"Scroll topic {Random.Shared.Next()}",
+                                "A topic for the next page of the list"),
+                            Is.Not.Null,
+                            "The topic was not created");
+                    }
+
+                    await page.GotoAsync(forumUrl);
+
+                    var rows = page.Locator("#topicsContainer > [data-topic-id]");
+                    var firstPage = await rows.CountAsync();
+
+                    // the end of the list (the loader is removed when all topics are loaded)
+                    await page.EvaluateAsync("() => window.scrollTo(0, document.body.scrollHeight)");
+
+                    await Assertions.Expect(rows).Not.ToHaveCountAsync(firstPage);
+
+                    var ids = await rows.EvaluateAllAsync<string[]>("rows => rows.map(r => r.dataset.topicId)");
+
+                    Assert.That(ids, Is.Unique, "A topic of the first page was loaded again");
+                }
+                finally
+                {
+                    await page.GotoAsync(forumUrl);
+                    await page.RunAndWaitForNextPageAsync(() => page.EvaluateAsync(Choose, new[] { "Size", "50" }));
+                }
             });
     }
 }

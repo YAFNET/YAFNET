@@ -169,8 +169,8 @@ public class NotificationModel : ForumPageRegistered
     /// <summary>
     /// Loads more Notifications for infinite scrolling, also used to (re-)apply the filter checkboxes via AJAX.
     /// </summary>
-    /// <param name="page">
-    /// The zero-based page index to load.
+    /// <param name="pageIndex">
+    /// The zero-based page index to load ("page" is the route value of the razor page).
     /// </param>
     /// <param name="size">
     /// The page size to load.
@@ -182,7 +182,7 @@ public class NotificationModel : ForumPageRegistered
     /// <param name="watchTopicReply">Filter: watch topic reply.</param>
     /// <param name="becomeFriends">Filter: become friends.</param>
     public IActionResult OnGetLoadMoreNotifications(
-        int page,
+        int pageIndex,
         int size,
         bool wasMentioned,
         bool receivedThanks,
@@ -192,7 +192,8 @@ public class NotificationModel : ForumPageRegistered
         bool becomeFriends)
     {
         // the values come from the client (the page offers at most 50 entries)
-        page = Math.Max(page, 0);
+        // "page" is the route value of the razor page (its path), the query value of the page index is "pageIndex"
+        var page = Math.Max(pageIndex, 0);
         size = Math.Clamp(size, 1, 100);
 
         var stream = this.GetFilteredNotifications(

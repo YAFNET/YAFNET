@@ -85,6 +85,37 @@ public partial class PageHandlerTests
         string.Join(", ", missing).Should().BeEmpty("these buttons call a handler that does not exist");
     }
 
+    [Test]
+    [Description("No handler of a page has a parameter \"page\": it is the route value of the razor pages (the path of the page), a query value \"page\" is never bound")]
+    public void No_Handler_Has_A_Page_Parameter_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var wrong = new List<string>();
+        var checkedHandlers = 0;
+
+        foreach (var model in Directory.EnumerateFiles(Path.Combine(root, "YetAnotherForum.NET", "Pages"), "*.cshtml.cs", SearchOption.AllDirectories))
+        {
+            foreach (Match handler in HandlerParameters().Matches(Read(model)))
+            {
+                checkedHandlers++;
+
+                if (PageParameter().IsMatch(handler.Groups["parameters"].Value))
+                {
+                    wrong.Add($"{Path.GetFileName(model)}: On{handler.Groups["name"].Value}");
+                }
+            }
+        }
+
+        checkedHandlers.Should().BeGreaterThan(100, "the handlers are found (guards the test against checking nothing)");
+        string.Join(", ", wrong).Should().BeEmpty("a parameter \"page\" of these handlers is always 0");
+    }
+
     private static string Read(string path)
     {
         var bytes = File.ReadAllBytes(path);
@@ -120,4 +151,10 @@ public partial class PageHandlerTests
 
     [GeneratedRegex(@"asp-page-handler=""(?<name>[A-Za-z0-9_]+)""")]
     private static partial Regex PageHandler();
+
+    [GeneratedRegex(@"public\s+[^\n(]*\bOn(?<name>(?:Get|Post)\w*)\s*\((?<parameters>[^)]*)\)")]
+    private static partial Regex HandlerParameters();
+
+    [GeneratedRegex(@"\b(?:int|int\?|long|string)\s+page\b")]
+    private static partial Regex PageParameter();
 }

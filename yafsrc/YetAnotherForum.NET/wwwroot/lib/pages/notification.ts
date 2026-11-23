@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		loading = true;
 		spinner?.classList.remove('d-none');
 
-		const url = `${loadMoreUrl}?page=${nextPage}&size=${pageSize}${getFilterParams()}`;
+		const url = `${loadMoreUrl}?pageIndex=${nextPage}&size=${pageSize}${getFilterParams()}`;
 
 		fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
 			.then(res => res.text())
