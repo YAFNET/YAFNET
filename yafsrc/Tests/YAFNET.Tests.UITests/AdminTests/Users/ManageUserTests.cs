@@ -392,10 +392,12 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 await page.Locator("#Input_Approve").CheckAsync();
                 await Assertions.Expect(page.Locator("#VerifyNote")).ToBeHiddenAsync();
 
-                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+                // the browser does not send passwords that do not match (the page stays, the message is shown)
+                await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                await page.Locator("button[formaction*='ForumRegister']").ClickAsync();
 
-                Assert.That(page.Url, Does.Contain("Admin/RegisterUser"), "Passwords that do not match were registered");
-                Assert.That(await page.ContentAsync(), Does.Contain("Password and Confirm Password do not match"));
+                await Assertions.Expect(page.Locator("#PasswordInvalid")).ToBeVisibleAsync();
+                Assert.That(await page.EvaluateAsync<bool>("() => window.yafTestOldPage === true"), Is.True, "Passwords that do not match were sent");
 
                 await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
                 await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);

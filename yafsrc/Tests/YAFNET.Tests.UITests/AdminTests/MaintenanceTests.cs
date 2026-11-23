@@ -172,11 +172,20 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
             this.TestSettings.TestForumUrl,
             async page =>
             {
+                // a failed login is logged, so there is at least one type (a fresh board has an empty event log,
+                // a successful login is not logged); the login after it resets the failed count.
+                // The context can still be logged in from a test before
+                if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+                {
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+                }
+
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, $"{this.TestSettings.AdminPassword}x"), Is.False, "The wrong password was accepted");
+
                 Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EventLog");
 
-                // the login of the test is logged, there is at least one type
                 var chip = page.Locator(".event-type:not([data-type='-1'])").First;
                 var type = await chip.GetAttributeAsync("data-type");
 
