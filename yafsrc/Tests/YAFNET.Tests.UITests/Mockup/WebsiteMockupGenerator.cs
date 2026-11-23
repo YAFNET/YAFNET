@@ -41,6 +41,9 @@ namespace YAF.Tests.UITests.Mockup;
 /// Run with <c>dotnet test --filter "Category=Mockup"</c>. The image is written to the file of the
 /// YAF_MOCKUP_OUTPUT environment variable (e.g. the Img1.png of the website), without it to
 /// <c>mockup-output/Img1.png</c> in the test output folder. The single screenshots are kept next to the image.
+/// The screenshots of the app (main.webp, forum.webp, topic.webp and admin.webp, 2560x1440 as in the manifest.json,
+/// shown in the README as well) are written to wwwroot/assets of YetAnotherForum.NET, or to the folder of the
+/// YAF_MOCKUP_ASSETS environment variable.
 /// The scenario (database) is Sqlite, set YAF_MOCKUP_SCENARIO to use another one (e.g. SqlServer).
 /// Uses the same port as the ui tests, so it can not run at the same time.
 /// </para>
@@ -422,6 +425,89 @@ public class WebsiteMockupGenerator
             async page => await page.GotoAsync($"{this.settings.TestForumUrl}topic/{showcaseTopic}/topic"));
 
         await TestContext.Progress.WriteLineAsync("📸 screenshots taken");
+
+        await this.TakeAssetScreenshotsAsync(storageState, showcaseTopic);
+    }
+
+    /// <summary>
+    /// Takes the screenshots of the app in wwwroot/assets (the screenshots of the manifest.json and the README):
+    /// the board index, the forum and the topic of the showcase topic and the admin dashboard.
+    /// </summary>
+    private async Task TakeAssetScreenshotsAsync(string storageState, int showcaseTopic)
+    {
+        var assets = Environment.GetEnvironmentVariable("YAF_MOCKUP_ASSETS");
+
+        if (string.IsNullOrWhiteSpace(assets))
+        {
+            // bin/Debug/net10.0 of the ui tests > yafsrc
+            assets = Path.GetFullPath(
+                Path.Combine(
+                    TestContext.CurrentContext.TestDirectory,
+                    "..", "..", "..", "..", "..",
+                    "YetAnotherForum.NET", "wwwroot", "assets"));
+        }
+
+        Assert.That(Directory.Exists(assets), Is.True, $"The assets folder {assets} does not exist");
+
+        var forumIds = await this.ForumIdsAsync();
+        var showcaseForum = MockupContent.Topics.First(t => t.Showcase).Forum;
+
+        var screens = new (string Name, string Url)[]
+                      {
+                          ("main", this.settings.TestForumUrl),
+                          ("forum", $"{this.settings.TestForumUrl}forum/{forumIds[showcaseForum]}/forum"),
+                          ("topic", $"{this.settings.TestForumUrl}topic/{showcaseTopic}/topic"),
+                          ("admin", $"{this.settings.TestForumUrl}Admin/Admin")
+                      };
+
+        foreach (var (name, url) in screens)
+        {
+            // 1280x720 with a scale of 2: the 2560x1440 of the manifest.json
+            await this.ScreenshotAsync(
+                storageState,
+                $"{name}.png",
+                new ViewportSize { Width = 1280, Height = 720 },
+                false,
+                async page => await page.GotoAsync(url),
+                2);
+
+            await this.SaveAsWebpAsync(Path.Combine(this.workDirectory, $"{name}.png"), Path.Combine(assets, $"{name}.webp"));
+        }
+
+        await TestContext.Progress.WriteLineAsync($"📸 screenshots of the app saved in {assets}");
+    }
+
+    /// <summary>
+    /// Converts a png to webp with the browser (Playwright only takes png and jpeg screenshots).
+    /// </summary>
+    /// <param name="png">The path of the png.</param>
+    /// <param name="webp">The path of the webp.</param>
+    private async Task SaveAsWebpAsync(string png, string webp)
+    {
+        await using var context = await this.fixture.Context.Browser!.NewContextAsync();
+
+        var page = await context.NewPageAsync();
+
+        var dataUrl = await page.EvaluateAsync<string>(
+                          """
+                          async png => {
+                              const image = new Image();
+                              image.src = 'data:image/png;base64,' + png;
+                              await image.decode();
+
+                              const canvas = document.createElement('canvas');
+                              canvas.width = image.naturalWidth;
+                              canvas.height = image.naturalHeight;
+                              canvas.getContext('2d').drawImage(image, 0, 0);
+
+                              return canvas.toDataURL('image/webp', 0.85);
+                          }
+                          """,
+                          Convert.ToBase64String(await File.ReadAllBytesAsync(png)));
+
+        Assert.That(dataUrl, Does.StartWith("data:image/webp;base64,"), $"{png} was not converted to webp");
+
+        await File.WriteAllBytesAsync(webp, Convert.FromBase64String(dataUrl[(dataUrl.IndexOf(',') + 1)..]));
     }
 
     private async Task ScreenshotAsync(
@@ -429,7 +515,8 @@ public class WebsiteMockupGenerator
         string fileName,
         ViewportSize viewport,
         bool mobile,
-        Func<IPage, Task> show)
+        Func<IPage, Task> show,
+        float? scale = null)
     {
         await using var context = await this.fixture.Context.Browser!.NewContextAsync(
                                       new BrowserNewContextOptions
@@ -437,7 +524,7 @@ public class WebsiteMockupGenerator
                                           BaseURL = this.settings.TestForumUrl,
                                           StorageState = storageState,
                                           ViewportSize = viewport,
-                                          DeviceScaleFactor = mobile ? 2 : 1,
+                                          DeviceScaleFactor = scale ?? (mobile ? 2 : 1),
                                           IsMobile = mobile,
                                           HasTouch = mobile
                                       });
