@@ -44,22 +44,18 @@
             @Localization.GetText("CreateBoard")
         </h4>
         <div class="mb-3">
-            <label for="forumName">@Localization.GetText("BoardName")</label>
+            <label for="forumName" class="form-label">@Localization.GetText("BoardName")</label>
             <input id="forumName" name="forumName" required placeholder="@Localization.GetText("BoardName")"
                    value="@Model.ForumName"
                    class="form-control"/>
         </div>
         <div class="mb-3">
-            <asp:Label id="Label7" for="cultures">
-                @Localization.GetText("Culture")
-            </asp:Label>
+            <label for="cultures" class="form-label">@Localization.GetText("Culture")</label>
             <select id="cultures" name="cultures" asp-items="cultures"
                     class="form-select"></select>
         </div>
         <div class="mb-3">
-            <asp:Label for="forumEmailAddress">
-                @Localization.GetText("ForumEmail")
-            </asp:Label>
+            <label for="forumEmailAddress" class="form-label">@Localization.GetText("ForumEmail")</label>
             <input id="forumEmailAddress" name="forumEmailAddress" required
                    placeholder="@Localization.GetText("ForumEmail")"
                    value="@Model.ForumEmail"
@@ -67,9 +63,7 @@
                    class="form-control"/>
         </div>
         <div class="mb-3">
-            <asp:Label for="forumBaseUrlMask">
-                @Localization.GetText("ForumUrl")
-            </asp:Label>
+            <label for="forumBaseUrlMask" class="form-label">@Localization.GetText("ForumUrl")</label>
             <input id="forumBaseUrlMask" name="forumBaseUrlMask" required
                    placeholder="@Localization.GetText("ForumUrl")"
                    type="text" value="@(Model.ForumBaseUrl.IsSet() ? Model.ForumBaseUrl : ContextAccessor.HttpContext?.Request.BaseUrl())"
