@@ -180,6 +180,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Install: a click on "Next" with an empty field turned the button into "Loading..." (in English) and it stayed so while the browser showed the missing field
 * [FIXED] Install: the login cookie of an earlier install on the same address (e.g. a new database) made every page fail, also the install, the cookie is not valid anymore now
 * [FIXED] Install: an install that stopped after the database step could not be continued, the pages showed "No data for board ID: 1" instead of the install and the database step failed with "view already exists" (SQLite, MySQL, PostgreSQL)e bar, the topic with its forum, replies and views above the posts, the editors with a preview card, switches for the options and the buttons in a bar at the bottom, the print page with the topic title and a print button, the members as cards with a filter panel, the active users with tabs for members, guests and hidden users, the last posts, friends and albums of the profile side by side
+* [FIXED] Install: the background photo had no credit, the wizard shows "Photo by Luca Bravo on Unsplash" below the dialog now (Lago di Braies, Unsplash photo zAjdgNXsMeg)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

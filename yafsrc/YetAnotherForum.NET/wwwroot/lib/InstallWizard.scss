@@ -167,3 +167,17 @@ html {
 		overflow-wrap: anywhere;
 	}
 }
+
+// the credit of the background photo, under the dialog (the dialog itself takes no clicks)
+.install-credits {
+	margin-top: .5rem;
+	text-align: end;
+	pointer-events: auto;
+	color: rgba(255, 255, 255, .85);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
+	font-size: .75rem;
+
+	a {
+		color: #fff;
+	}
+}
