@@ -85,7 +85,20 @@
             var flags = role.GroupFlags;
             var canDelete = !flags.IsGuest && !flags.IsAdmin;
             var members = Model.MemberCounts.TryGetValue(role.ID, out var count) ? count : 0;
-            var icon = flags.IsGuest ? "user-secret" : flags.IsAdmin ? "user-shield" : flags.IsModerator ? "user-tie" : "users";
+            var icon = "users";
+
+            if (flags.IsGuest)
+            {
+                icon = "user-secret";
+            }
+            else if (flags.IsAdmin)
+            {
+                icon = "user-shield";
+            }
+            else if (flags.IsModerator)
+            {
+                icon = "user-tie";
+            }
 
             <li class="list-group-item group-row list-group-item-menu" data-group-id="@role.ID">
                 <span class="group-icon">@Html.Icon(icon)</span>

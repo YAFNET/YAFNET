@@ -350,19 +350,19 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     /// <summary>
     /// Searches the list with the filter of the page.
     /// </summary>
-    private static async Task SearchAsync(IPage page, string text)
+    private async static Task SearchAsync(IPage page, string text)
     {
         // the search field can be in a closed dropdown
         await page.Locator("#SearchInput").EvaluateAsync("(input, text) => input.value = text", text);
 
-        await page.RunAndWaitForNavigationAsync(
+        await page.RunAndWaitForNextPageAsync(
             () => page.Locator("button[formaction*='Search']").First.EvaluateAsync("button => button.click()"));
     }
 
     /// <summary>
     /// Sets the api key of AbuseIPDB in the host settings.
     /// </summary>
-    private static async Task SetAbuseIpDbApiKeyAsync(IPage page, TestConfig testSettings, string key)
+    private async static Task SetAbuseIpDbApiKeyAsync(IPage page, TestConfig testSettings, string key)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
 

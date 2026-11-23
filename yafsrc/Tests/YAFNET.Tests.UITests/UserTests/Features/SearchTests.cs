@@ -232,7 +232,7 @@ public class SearchTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 var header = page.Locator(".card-header", new PageLocatorOptions { HasText = "Avatars" }).First;
 
-                Assert.Multiple(
+                await Assert.MultipleAsync(
                     async () =>
                         {
                             Assert.That(await header.InnerTextAsync(), Does.Not.Contain("<mark>"), "The mark is shown as text");

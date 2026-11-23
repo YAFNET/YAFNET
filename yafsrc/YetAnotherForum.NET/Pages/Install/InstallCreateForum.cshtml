@@ -21,11 +21,10 @@
 
     // the language of the board: the selected one, else the language of the wizard (if the board has it)
     var cultureList = StaticDataHelper.Cultures();
-    var selectedCulture = Model.Culture.IsSet()
-                              ? Model.Culture
-                              : cultureList.Any(c => c.CultureTag == requestCulture.Culture.Name)
-                                  ? requestCulture.Culture.Name
-                                  : "en-US";
+    var wizardCulture = cultureList.Any(c => c.CultureTag == requestCulture.Culture.Name)
+                            ? requestCulture.Culture.Name
+                            : "en-US";
+    var selectedCulture = Model.Culture.IsSet() ? Model.Culture : wizardCulture;
 
     var cultures = new SelectList(cultureList, nameof(Culture.CultureTag), nameof(Culture.CultureNativeName), selectedCulture);
 }

@@ -1258,7 +1258,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         var save = page.Locator("button[formaction*='Save']").First;
 
-        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+        await page.RunAndWaitForNextPageAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();
     }
@@ -1309,7 +1309,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         var save = page.Locator("button[formaction*='Save']").First;
 
-        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+        await page.RunAndWaitForNextPageAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();
     }

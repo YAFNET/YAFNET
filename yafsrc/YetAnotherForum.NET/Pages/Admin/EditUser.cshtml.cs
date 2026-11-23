@@ -114,7 +114,7 @@ public class EditUserModel : AdminPage
         // the tab of the route (the redirects after a save of a tab), the editor showed the first tab
         var lastTab = view.IsSet() ? view : tab;
 
-        if (lastTab.IsSet() && Regex.IsMatch(lastTab, "^View[0-9]{1,2}$"))
+        if (lastTab.IsSet() && Regex.IsMatch(lastTab, "^View[0-9]{1,2}$", RegexOptions.None, TimeSpan.FromMilliseconds(100)))
         {
             this.LastTab = lastTab;
         }

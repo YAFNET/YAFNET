@@ -1111,9 +1111,9 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.Locator("#Input_TopicSubject").FillAsync(topicName);
 
-                    await page.RunAndWaitForNavigationAsync(() => page.Locator("#Input_TopicSubject").PressAsync("Enter"));
+                    await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_TopicSubject").PressAsync("Enter"));
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(page.Url, Does.Not.Contain("MoveMessage"), "The move page is shown again");
@@ -1291,7 +1291,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         var save = page.Locator("button[formaction*='Save']").First;
 
-        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+        await page.RunAndWaitForNextPageAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();
     }

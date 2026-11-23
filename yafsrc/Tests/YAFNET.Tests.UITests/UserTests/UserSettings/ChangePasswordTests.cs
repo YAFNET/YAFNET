@@ -125,7 +125,7 @@ public class ChangePasswordTests(ComposeScenario scenario) : DatabaseTestBase(sc
                         "The browser sends the form with different passwords");
 
                     // without the browser check the server refuses it too
-                    await page.RunAndWaitForNavigationAsync(
+                    await page.RunAndWaitForNextPageAsync(
                         () => page.Locator("#Input_ConfirmNewPassword").EvaluateAsync("e => e.form.submit()"));
 
                     Assert.That(

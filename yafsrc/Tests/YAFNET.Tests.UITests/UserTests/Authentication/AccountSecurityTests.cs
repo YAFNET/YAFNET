@@ -510,7 +510,7 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                     await page.Locator("#Input_Password").FillAsync($"{this.TestSettings.TestUserPassword}New");
                     await page.Locator("#Input_ConfirmPassword").FillAsync($"{this.TestSettings.TestUserPassword}Typo");
 
-                    await page.RunAndWaitForNavigationAsync(
+                    await page.RunAndWaitForNextPageAsync(
                         () => page.Locator("#Input_ConfirmPassword").EvaluateAsync("e => e.form.submit()"));
 
                     Assert.That(
@@ -560,7 +560,7 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                     await page.Locator("#Input_UserName").FillAsync(userName);
                     await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
 
-                    await page.RunAndWaitForNavigationAsync(() => page.Locator("#Input_Password").PressAsync("Enter"));
+                    await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_Password").PressAsync("Enter"));
 
                     Assert.That(
                         await page.ContentAsync(),
@@ -582,7 +582,7 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                 {
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Approve");
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(await page.Locator("#Input_Key").IsVisibleAsync(), Is.True, "No key field");

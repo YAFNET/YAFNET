@@ -54,7 +54,7 @@ public class AccountPagesTests(ComposeScenario scenario) : DatabaseTestBase(scen
 
                     var crumbs = page.Locator(".breadcrumb li");
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(await page.Locator("#UnreadCount").CountAsync(), Is.EqualTo(1), "The unread count is missing");

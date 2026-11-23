@@ -233,7 +233,7 @@ public class LoginLogoutUser(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                         await guest.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Login");
 
-                        Assert.Multiple(
+                        await Assert.MultipleAsync(
                             async () =>
                                 {
                                     Assert.That(await guest.Locator("#Login").CountAsync(), Is.EqualTo(1), "No login page");
@@ -261,7 +261,7 @@ public class LoginLogoutUser(ComposeScenario scenario) : DatabaseTestBase(scenar
 
         var save = page.Locator("button[formaction*='Save']").First;
 
-        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+        await page.RunAndWaitForNextPageAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();
     }

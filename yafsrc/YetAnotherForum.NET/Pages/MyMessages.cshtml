@@ -84,6 +84,7 @@
                             var isOnline = showStatus && activeUsers.Exists(x => x.UserID == user.ID && !x.IsActiveExcluded);
                             Model.LastMessages.TryGetValue(user.ID, out var lastMessage);
                             var preview = Model.GetLastMessagePreview(user.ID);
+                            var statusTag = isOnline ? "USERONLINESTATUS" : "USEROFFLINESTATUS";
 
                             <li id="@(user.ID)" class="chat-list-user list-group-item list-group-item-action d-flex align-items-center@(user.Selected ? " active" : "")@(unread > 0 ? " unread" : "")"
                                 data-name="@user.DisplayOrUserName()"
@@ -92,7 +93,7 @@
                                 <img class="img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover@(isOnline ? " chat-avatar-online" : "")" loading="lazy"
                                      src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))"
                                      alt="@(user.DisplayOrUserName())"
-                                     title="@(showStatus ? Model.GetText("POSTS", isOnline ? "USERONLINESTATUS" : "USEROFFLINESTATUS") : null)">
+                                     title="@(showStatus ? Model.GetText("POSTS", statusTag) : null)">
                                 <div class="chat-user-info flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-baseline">
                                         <span class="name text-truncate">@Html.UserLabel(user)</span>

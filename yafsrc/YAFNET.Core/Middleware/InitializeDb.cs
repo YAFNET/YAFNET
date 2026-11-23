@@ -44,8 +44,9 @@ public class InitializeDb : IHaveServiceLocator
 
     /// <summary>
     /// A board exists (checked once, a board is never removed again).
+    /// The middleware is created once for the app.
     /// </summary>
-    private static volatile bool boardExists;
+    private volatile bool boardExists;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InitializeDb"/> class.
@@ -136,7 +137,7 @@ public class InitializeDb : IHaveServiceLocator
 
             // an install that stopped after the database was initialized (no board yet): the pages failed with
             // "No data for board ID: 1", the install is continued
-            if (!boardExists)
+            if (!this.boardExists)
             {
                 if (!this.Get<InstallService>().IsForumInstalled)
                 {
@@ -147,7 +148,7 @@ public class InitializeDb : IHaveServiceLocator
                     return;
                 }
 
-                boardExists = true;
+                this.boardExists = true;
             }
         }
 

@@ -178,7 +178,7 @@ public class EmailTopicTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
         var save = page.Locator("button[formaction*='Save']").First;
 
-        await page.RunAndWaitForNavigationAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
+        await page.RunAndWaitForNextPageAsync(() => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();
     }

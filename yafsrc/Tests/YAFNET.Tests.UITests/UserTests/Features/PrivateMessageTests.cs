@@ -262,7 +262,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                     await notSent.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(await notSent.IsVisibleAsync(), Is.True, "No message that the text was not sent");
@@ -331,7 +331,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                     await conversation.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(await conversation.Locator(".chat-unread").TextContentAsync(), Is.EqualTo("1"), "No unread message");

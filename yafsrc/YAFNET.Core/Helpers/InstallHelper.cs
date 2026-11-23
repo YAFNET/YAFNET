@@ -60,8 +60,8 @@ public static class InstallHelper
         {
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
 
-            foreach (var key in builder.Keys.Cast<string>().ToList()
-                         .Where(key => SecretKeys.Contains(key.Trim(), StringComparer.OrdinalIgnoreCase)))
+            foreach (var key in builder.Keys.Cast<string>()
+                         .Where(key => SecretKeys.Contains(key.Trim(), StringComparer.OrdinalIgnoreCase)).ToList())
             {
                 builder[key] = Mask;
             }

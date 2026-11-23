@@ -205,7 +205,7 @@ public class EventLogModel : AdminPage
     {
         var name = Enum.IsDefined(typeof(EventLogTypes), type) ? ((EventLogTypes)type).ToString() : type.ToString();
 
-        return System.Text.RegularExpressions.Regex.Replace(name, "(?<=[a-z])(?=[A-Z])", " ");
+        return System.Text.RegularExpressions.Regex.Replace(name, "(?<=[a-z])(?=[A-Z])", " ", System.Text.RegularExpressions.RegexOptions.None, TimeSpan.FromMilliseconds(100));
     }
 
     /// <summary>

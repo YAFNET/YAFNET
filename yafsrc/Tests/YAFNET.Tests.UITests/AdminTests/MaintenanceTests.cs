@@ -71,7 +71,7 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 var userSize = int.Parse(await select.InputValueAsync());
                 var size = userSize > 5 ? 5 : 10;
 
-                await page.RunAndWaitForNavigationAsync(() => select.SelectOptionAsync(size.ToString()));
+                await page.RunAndWaitForNextPageAsync(() => select.SelectOptionAsync(size.ToString()));
 
                 // the tab of the posts stays open
                 Assert.That(await page.Locator("#DeletedPostsTab").GetAttributeAsync("class"), Does.Contain("active"), "The tab of the posts was closed");
@@ -155,7 +155,7 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 var button = page.Locator("button[formaction*='Commit']");
 
                 // the confirm dialog of the button is skipped
-                await page.RunAndWaitForNavigationAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
+                await page.RunAndWaitForNextPageAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
                 Assert.That(await page.Locator("#Input_Days2").InputValueAsync(), Is.EqualTo("9999"), "The days were reset");
                 Assert.That(await page.ContentAsync(), Does.Contain("0 private messages were deleted."), "The number of the deleted messages is missing");
@@ -180,7 +180,7 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 var chip = page.Locator(".event-type:not([data-type='-1'])").First;
                 var type = await chip.GetAttributeAsync("data-type");
 
-                await page.RunAndWaitForNavigationAsync(() => chip.ClickAsync());
+                await page.RunAndWaitForNextPageAsync(() => chip.ClickAsync());
 
                 var types = await page.Locator(".event-row").EvaluateAllAsync<string[]>("rows => rows.map(r => r.dataset.type)");
 
@@ -210,7 +210,7 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 // a text that no tag has
                 await page.Locator("#Filter").FillAsync($"no tag {Random.Shared.Next()}");
 
-                await page.RunAndWaitForNavigationAsync(() => page.Locator("#Filter").PressAsync("Enter"));
+                await page.RunAndWaitForNextPageAsync(() => page.Locator("#Filter").PressAsync("Enter"));
 
                 Assert.That(page.Url, Does.Contain("Search"), "Enter did not search");
                 Assert.That(await page.Locator(".tags-no-match").CountAsync(), Is.EqualTo(1), "The search did not filter the tags");

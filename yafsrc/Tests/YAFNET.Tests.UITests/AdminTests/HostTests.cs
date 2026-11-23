@@ -202,7 +202,7 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     // the number is larger than an int
                     await keep.EvaluateAsync("e => e.value = '99999999999'");
-                    await page.RunAndWaitForNavigationAsync(
+                    await page.RunAndWaitForNextPageAsync(
                         () => page.Locator("button[formaction*='Save']").EvaluateAsync("b => b.form.requestSubmit(b)"));
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Backup");

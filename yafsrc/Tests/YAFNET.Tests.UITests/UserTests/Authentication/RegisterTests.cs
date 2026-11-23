@@ -349,7 +349,7 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         "The browser sends the form with different passwords");
 
                     // without the browser check the server refuses it too
-                    await page.RunAndWaitForNavigationAsync(
+                    await page.RunAndWaitForNextPageAsync(
                         () => page.Locator("#Input_ConfirmPassword").EvaluateAsync("e => e.form.submit()"));
 
                     var pageSource = await page.ContentAsync();
@@ -387,7 +387,7 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // the fields are empty, the browser does not send the form
                     await button.ClickAsync();
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(await button.GetAttributeAsync("class"), Does.Not.Contain("disabled"), "The button is disabled");

@@ -1214,7 +1214,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile') and not(@aria-hidden)]"));
 
-                        Assert.Multiple(
+                        await Assert.MultipleAsync(
                             async () =>
                                 {
                                     Assert.That(
@@ -1301,7 +1301,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.SubmitAndWaitAsync(page.Locator(".profile-edit-actions button[type='submit']"));
 
-                    Assert.Multiple(
+                    await Assert.MultipleAsync(
                         async () =>
                             {
                                 Assert.That(page.Url, Does.Contain("EditSettings"), "The settings page is not shown again");

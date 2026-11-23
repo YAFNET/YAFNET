@@ -574,7 +574,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 var button = page.Locator("button[formaction*='ResetCacheAll']");
 
                 // the button is on another tab
-                await page.RunAndWaitForNavigationAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
+                await page.RunAndWaitForNextPageAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
                 Assert.That(await page.ContentAsync(), Does.Contain("The cache was cleared."), "No message after the cache was cleared");
                 Assert.That(await page.Locator("#Input_SearchPermissions option").CountAsync(), Is.GreaterThan(0), "The select of the search permissions is empty");
@@ -631,7 +631,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
         var save = page.Locator("button[formaction*='Save']").First;
 
         // the page of the post is shown (it was a redirect), the navigation is finished before the next page
-        var response = await page.RunAndWaitForNavigationAsync(
+        var response = await page.RunAndWaitForNextPageResponseAsync(
                            () => save.EvaluateAsync("b => b.form.requestSubmit(b)"));
 
         await page.WaitForLoadStateAsync();

@@ -286,12 +286,10 @@ public class ForumsModel : AdminPage
         var tree = roots.Select(f => Node(f, 0)).ToList();
 
         // forums of a broken hierarchy that were not reached
-        foreach (var forum in forums.Where(f => !added.Contains(f.ID)).ToList())
+        // (not a list: a forum reached by the node of a forum before is skipped)
+        foreach (var forum in forums.Where(f => added.Add(f.ID)))
         {
-            if (added.Add(forum.ID))
-            {
-                tree.Add(Node(forum, 0));
-            }
+            tree.Add(Node(forum, 0));
         }
 
         return tree;

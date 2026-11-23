@@ -267,25 +267,25 @@ public class UsersModel : AdminPage
 
         var reason = this.BulkSuspendReason?.Trim();
 
-        foreach (var user in users)
+        foreach (var user in users.Select(u => u.Item1))
         {
-            await this.GetRepository<User>().SuspendAsync(user.Item1.ID, suspend, reason, this.PageBoardContext.PageUserID);
+            await this.GetRepository<User>().SuspendAsync(user.ID, suspend, reason, this.PageBoardContext.PageUserID);
 
             if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
             {
                 this.Get<ILogger<UsersModel>>().Log(
                     this.PageBoardContext.PageUserID,
                     this,
-                    $"User {user.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+                    $"User {user.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
                     EventLogTypes.UserSuspended);
             }
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.Item1.ID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.ID));
 
             await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
-                this.Get<IDateTimeService>().GetUserDateTime(suspend, user.Item1.TimeZoneInfo),
+                this.Get<IDateTimeService>().GetUserDateTime(suspend, user.TimeZoneInfo),
                 reason,
-                user.Item1);
+                user);
         }
 
         return this.BulkDone(this.GetTextFormatted("BULK_SUSPENDED", users.Count), skipped);
@@ -300,22 +300,22 @@ public class UsersModel : AdminPage
         var (users, skipped) = await this.GetSelectedUsersAsync(false);
         var count = 0;
 
-        foreach (var user in users.Where(u => u.Item1.Suspended.HasValue))
+        foreach (var user in users.Select(u => u.Item1).Where(u => u.Suspended.HasValue))
         {
-            await this.GetRepository<User>().SuspendAsync(user.Item1.ID);
+            await this.GetRepository<User>().SuspendAsync(user.ID);
 
             if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
             {
                 this.Get<ILogger<UsersModel>>().Log(
                     this.PageBoardContext.PageUserID,
                     this,
-                    $"User {user.Item1.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+                    $"User {user.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
                     EventLogTypes.UserUnsuspended);
             }
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.Item1.ID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.ID));
 
-            await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(user.Item1);
+            await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(user);
 
             count++;
         }
