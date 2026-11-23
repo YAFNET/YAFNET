@@ -26,6 +26,7 @@ using System;
 using System.IO.Compression;
 using System.Threading.RateLimiting;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -117,6 +118,22 @@ public static class ServiceCollectionExtensionsExtensions
 
             services.AddDefaultIdentity<AspNetUsers>(o => o.SignIn.RequireConfirmedAccount = true)
                 .AddUserManager<AspNetUserManager<AspNetUsers>>().AddRoles<AspNetRoles>().AddDefaultTokenProviders();
+
+            // the login cookie of a database that is gone (e.g. a new install on the same host) is not valid:
+            // the check of the user failed with "no such table" and every page (also the install) showed an error
+            services.ConfigureApplicationCookie(
+                options => options.Events.OnValidatePrincipal = async context =>
+                {
+                    try
+                    {
+                        await SecurityStampValidator.ValidatePrincipalAsync(context);
+                    }
+                    catch (DbException)
+                    {
+                        context.RejectPrincipal();
+                        await context.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+                    }
+                });
 
             return services;
         }
