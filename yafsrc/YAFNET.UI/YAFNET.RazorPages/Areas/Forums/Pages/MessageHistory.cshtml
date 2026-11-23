@@ -64,11 +64,11 @@
                     <li class="list-group-item history-version @(message.Selected ? "is-selected" : string.Empty)">
                         <div class="form-check mt-1">
                             <input asp-for="@Model.RevisionsList[i].Selected" class="form-check-input" onclick="toggleSelection(this);" />
-                            <label class="form-check-label visually-hidden" asp-for="@Model.RevisionsList[i].Selected">@Model.GetEditReason(message)</label>
+                            <label class="form-check-label visually-hidden" asp-for="@Model.RevisionsList[i].Selected">@Model.GetEditReason(message, i)</label>
                         </div>
                         <div class="history-version-main">
                             <div class="fw-semibold text-break">
-                                @Model.GetEditReason(message)
+                                @Model.GetEditReason(message, i)
                                 @if (isCurrent)
                                 {
                                     <span class="badge text-bg-primary ms-1">@Html.LocalizedText("MESSAGEHISTORY", "CURRENTMESSAGE")</span>

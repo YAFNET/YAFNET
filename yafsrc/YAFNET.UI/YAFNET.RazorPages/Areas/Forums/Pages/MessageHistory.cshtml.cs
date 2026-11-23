@@ -231,10 +231,13 @@ public class MessageHistoryModel : ForumPageRegistered
     /// Gets the edit reason.
     /// </summary>
     /// <param name="message">The message.</param>
+    /// <param name="index">The position of the version, the oldest is the first (the current message is the last).</param>
     /// <returns>System.String.</returns>
-    public string GetEditReason(MessageHistoryTopic message)
+    public string GetEditReason(MessageHistoryTopic message, int index)
     {
-        if(message.Edited != message.Posted)
+        // only the oldest version can be the original: the time alone is not enough, MySQL stores whole seconds
+        // and an edit in the second of the post looked like the original (its reason was not shown)
+        if (index > 0 || message.Edited != message.Posted)
         {
             // the reason is stored html encoded, the view encodes it (once)
             return message.EditReason.IsNotSet() ? this.GetText("EDIT_REASON_NA") : System.Net.WebUtility.HtmlDecode(message.EditReason);
