@@ -27,6 +27,20 @@ document.querySelectorAll<HTMLFormElement>('.yafWizard form').forEach(form => {
 	});
 });
 
+// a field that must repeat another one (the confirmation of the password), the server checks it again
+document.querySelectorAll<HTMLInputElement>('.yafWizard input[data-match]').forEach(input => {
+	const other = document.querySelector<HTMLInputElement>(input.dataset.match!);
+
+	if (!other) {
+		return;
+	}
+
+	const check = () => input.setCustomValidity(input.value && input.value !== other.value ? input.dataset.matchMessage ?? '' : '');
+
+	input.addEventListener('input', check);
+	other.addEventListener('input', check);
+});
+
 // a page shown again from the back/forward cache has no spinner
 window.addEventListener('pageshow', () => {
 	document.querySelectorAll('.yafWizard .spinner-border').forEach(spinner => spinner.remove());

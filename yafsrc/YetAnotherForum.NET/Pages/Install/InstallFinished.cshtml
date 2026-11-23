@@ -12,21 +12,22 @@
 
 <form method="post">
     <div class="modal-body">
-	    <ol class="wizard-steps mb-4" id="wizard-steps">
-            <li class="completed" data-step="0">@Localization.GetText("Welcome")</li>
-		    <li class="completed" data-step="1">@Localization.GetText("TestSettings")</li>
-		    <li class="completed" data-step="2">@Localization.GetText("Initialize")</li>
-		    <li class="completed" data-step="3">@Localization.GetText("CreateBoard")</li>
-            <li class="active" data-step="4">@Localization.GetText("Setup") @Localization.GetText("Finished")</li>
-	    </ol>
-	    
-        <h4>
-            @Localization.GetText("Setup") @Localization.GetText("Finished")
-        </h4>
-        <p class="text-body-secondary">
-            @Localization.GetText("FinishDesc")
-        </p>
-        <p>@Localization.GetText("InitFinish")</p>
+        <partial name="_WizardSteps" model="4" />
+
+        <div class="install-step">
+            <div class="install-step-icon text-success bg-success-subtle">
+                <i class="fa fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <div class="install-step-content">
+                <h4>
+                    @Localization.GetText("Setup") @Localization.GetText("Finished")
+                </h4>
+                <p class="mb-1">@Localization.GetText("InitFinish")</p>
+                <p class="text-body-secondary mb-0">
+                    @Localization.GetText("FinishDesc")
+                </p>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button icon="check-circle"

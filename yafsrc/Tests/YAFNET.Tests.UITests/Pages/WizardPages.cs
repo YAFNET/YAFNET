@@ -47,7 +47,7 @@ public sealed class DatabasePage(IPage page) : BasePage(page)
 
     private ILocator ToEmail => this.Page.GetByRole(AriaRole.Textbox, new PageGetByRoleOptions { Name = "Enter the to Email Address" });
 
-    private ILocator TestSmtp => this.Page.Locator(".btn-info");
+    private ILocator TestSmtp => this.Page.Locator("button[formaction*='TestSmtp']");
 
     public async Task FillMailTestingAsync(
         string forumEmail = "forum@example.com",

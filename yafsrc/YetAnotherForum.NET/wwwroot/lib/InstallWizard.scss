@@ -6,65 +6,6 @@ html {
   background-size: cover;
 }
 
-.standardList {
-  margin-bottom: 20px;
-  padding-left: 0;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
-  li {
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    &:first-child {
-      border-top-right-radius: 4px;
-      border-top-left-radius: 4px;
-    }
-    &:last-child {
-      margin-bottom: 0;
-      border-bottom-right-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-    &.disabled {
-      background-color: #eeeeee;
-      color: #777777;
-      cursor: not-allowed;
-      &:hover, &:focus {
-        background-color: #eeeeee;
-        color: #777777;
-        cursor: not-allowed;
-      }
-      .list-group-item-heading, &:hover .list-group-item-heading, &:focus .list-group-item-heading {
-        color: inherit;
-      }
-      .list-group-item-text, &:hover .list-group-item-text, &:focus .list-group-item-text {
-        color: #777777;
-      }
-    }
-    &.active {
-      z-index: 2;
-      color: #fff;
-      background-color: #337ab7;
-      border-color: #337ab7;
-      &:hover, &:focus {
-        z-index: 2;
-        color: #fff;
-        background-color: #337ab7;
-        border-color: #337ab7;
-      }
-      .list-group-item-heading, &:hover .list-group-item-heading, &:focus .list-group-item-heading, .list-group-item-heading > small, &:hover .list-group-item-heading > small, &:focus .list-group-item-heading > small, .list-group-item-heading > .small, &:hover .list-group-item-heading > .small, &:focus .list-group-item-heading > .small {
-        color: inherit;
-      }
-      .list-group-item-text, &:hover .list-group-item-text, &:focus .list-group-item-text {
-        color: #c7ddef;
-      }
-    }
-  }
-}
-
 .wizard-steps {
 	counter-reset: step;
 	list-style: none;
@@ -129,3 +70,100 @@ html {
 		background: var(--bs-border-color);
 		z-index: 0;
 	}
+
+// the labels of the steps: only the current one on small screens
+@include bootstrap.media-breakpoint-down(md) {
+	.wizard-steps li:not(.active) .wizard-step-label {
+		display: none;
+	}
+}
+
+.yafWizard {
+	.modal-footer {
+		gap: .5rem;
+	}
+
+	// a step with a large icon (welcome, database, finished)
+	.install-step {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+
+		h4 {
+			margin-bottom: .5rem;
+		}
+	}
+
+	.install-step-icon {
+		flex: 0 0 3.5rem;
+		width: 3.5rem;
+		height: 3.5rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		font-size: 1.5rem;
+	}
+
+	.install-step-content {
+		flex: 1 1 auto;
+		min-width: 0;
+	}
+
+	// the result of a check (the database connection)
+	.install-check {
+		display: flex;
+		gap: .75rem;
+		align-items: flex-start;
+		margin-bottom: 1rem;
+		padding: .75rem 1rem;
+		border: 1px solid var(--bs-border-color);
+		border-left-width: .25rem;
+		border-radius: var(--bs-border-radius);
+
+		&.is-success {
+			border-left-color: var(--bs-success);
+
+			.install-check-icon,
+			.install-check-result {
+				color: var(--bs-success-text-emphasis);
+			}
+		}
+
+		&.is-failed {
+			border-left-color: var(--bs-danger);
+			background-color: var(--bs-danger-bg-subtle);
+
+			.install-check-icon,
+			.install-check-result {
+				color: var(--bs-danger-text-emphasis);
+			}
+		}
+	}
+
+	.install-check-icon {
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.install-check-content {
+		flex: 1 1 auto;
+		min-width: 0;
+	}
+
+	.install-check-detail {
+		font-size: .8125rem;
+		color: var(--bs-secondary-color);
+		overflow-wrap: anywhere;
+	}
+
+	.install-check-result {
+		margin-top: .25rem;
+		font-weight: 600;
+	}
+
+	.install-mail-result {
+		font-size: .875rem;
+		overflow-wrap: anywhere;
+	}
+}

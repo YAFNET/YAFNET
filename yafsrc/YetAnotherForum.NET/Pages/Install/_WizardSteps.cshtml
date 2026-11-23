@@ -1,0 +1,28 @@
+﻿@using YAF.Types.Interfaces
+
+@inject ILocalization Localization;
+
+@model int
+
+@* the steps of the wizard, the model is the index of the current step *@
+@{
+    var steps = new[]
+    {
+        Localization.GetText("INSTALL", "Welcome"),
+        Localization.GetText("INSTALL", "TestSettings"),
+        Localization.GetText("INSTALL", "Initialize"),
+        Localization.GetText("INSTALL", "CreateBoard"),
+        $"{Localization.GetText("INSTALL", "Setup")} {Localization.GetText("INSTALL", "Finished")}"
+    };
+}
+
+<ol class="wizard-steps mb-4" id="wizard-steps">
+    @for (var index = 0; index < steps.Length; index++)
+    {
+        var state = index < Model ? "completed" : index == Model ? "active" : null;
+
+        <li class="@state" data-step="@index" aria-current="@(index == Model ? "step" : null)">
+            <span class="wizard-step-label">@steps[index]</span>
+        </li>
+    }
+</ol>

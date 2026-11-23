@@ -19,88 +19,115 @@
 
     Localization.TransPage = "INSTALL";
 
-    var cultures = new SelectList(StaticDataHelper.Cultures(), nameof(Culture.CultureTag), nameof(Culture.CultureNativeName), Model.Culture.IsSet() ? Model.Culture : "en-US");
+    // the language of the board: the selected one, else the language of the wizard (if the board has it)
+    var cultureList = StaticDataHelper.Cultures();
+    var selectedCulture = Model.Culture.IsSet()
+                              ? Model.Culture
+                              : cultureList.Any(c => c.CultureTag == requestCulture.Culture.Name)
+                                  ? requestCulture.Culture.Name
+                                  : "en-US";
+
+    var cultures = new SelectList(cultureList, nameof(Culture.CultureTag), nameof(Culture.CultureNativeName), selectedCulture);
 }
 
 <form method="post">
     <div class="modal-body">
-	    <ol class="wizard-steps mb-4" id="wizard-steps">
-            <li class="completed" data-step="0">@Localization.GetText("Welcome")</li>
-		    <li class="completed" data-step="1">@Localization.GetText("TestSettings")</li>
-		    <li class="completed" data-step="2">@Localization.GetText("Initialize")</li>
-		    <li class="active" data-step="3">@Localization.GetText("CreateBoard")</li>
-		    <li data-step="4">@Localization.GetText("Setup") @Localization.GetText("Finished")</li>
-	    </ol>
-	    
-	    @if (Model.Message.IsSet())
-        {
-            <div class="alert alert-warning">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>
-                @Model.Message
-            </div>
-        }
+        <partial name="_WizardSteps" model="3" />
 
         <h4>
             @Localization.GetText("CreateBoard")
         </h4>
-        <div class="mb-3">
-            <label for="forumName" class="form-label">@Localization.GetText("BoardName")</label>
-            <input id="forumName" name="forumName" required placeholder="@Localization.GetText("BoardName")"
-                   value="@Model.ForumName"
-                   class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label for="cultures" class="form-label">@Localization.GetText("Culture")</label>
-            <select id="cultures" name="cultures" asp-items="cultures"
-                    class="form-select"></select>
-        </div>
-        <div class="mb-3">
-            <label for="forumEmailAddress" class="form-label">@Localization.GetText("ForumEmail")</label>
-            <input id="forumEmailAddress" name="forumEmailAddress" required
-                   placeholder="@Localization.GetText("ForumEmail")"
-                   value="@Model.ForumEmail"
-                   type="Email"
-                   class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label for="forumBaseUrlMask" class="form-label">@Localization.GetText("ForumUrl")</label>
-            <input id="forumBaseUrlMask" name="forumBaseUrlMask" required
-                   placeholder="@Localization.GetText("ForumUrl")"
-                   type="text" value="@(Model.ForumBaseUrl.IsSet() ? Model.ForumBaseUrl : ContextAccessor.HttpContext?.Request.BaseUrl())"
-                   class="form-control"/>
-        </div>
-        <hr/>
-        <h4>
-            @Localization.GetText("CreateUser")
-        </h4>
-        <div class="mb-3">
-            <label for="userName" class="form-label">@Localization.GetText("AdminName")</label>
-            <input id="userName" name="userName" required
-                   placeholder="@Localization.GetText("AdminName")"
-                   value="@Model.UserName"
-                   class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label for="adminEmail" class="form-label">@Localization.GetText("AdminEmail")</label>
-            <input id="adminEmail" name="adminEmail" required
-                   placeholder="@Localization.GetText("AdminEmail")"
-                   value="@Model.AdminEmail"
-                   type="email"
-                   class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label for="password1" class="form-label">@Localization.GetText("AdminPassword")</label>
-            <input id="password1" name="password1" required
-                   placeholder="@Localization.GetText("AdminPassword")"
-                   type="password"
-                   class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label for="password2" class="form-label">@Localization.GetText("AdminPassword2")</label>
-            <input id="password2" name="password2" required
-                   placeholder="@Localization.GetText("AdminPassword2")"
-                   type="password"
-                   class="form-control"/>
+
+        @if (Model.Message.IsSet())
+        {
+            <div class="alert alert-danger d-flex align-items-start gap-2" role="alert">
+                <i class="fa fa-circle-exclamation mt-1" aria-hidden="true"></i>
+                <div>@Model.Message</div>
+            </div>
+        }
+
+        <div class="row g-3">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <i class="fa fa-comments me-1 text-secondary" aria-hidden="true"></i>@Localization.GetText("ADMIN_BOARDSETTINGS", "BOARD_SETUP")
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="forumName" class="form-label">@Localization.GetText("BoardName")</label>
+                            <input id="forumName" name="forumName" required placeholder="@Localization.GetText("BoardName")"
+                                   value="@Model.ForumName"
+                                   class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cultures" class="form-label">@Localization.GetText("Culture")</label>
+                            <select id="cultures" name="cultures" asp-items="cultures"
+                                    class="form-select"></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="forumEmailAddress" class="form-label">@Localization.GetText("ForumEmail")</label>
+                            <input id="forumEmailAddress" name="forumEmailAddress" required
+                                   placeholder="@Localization.GetText("ForumEmail")"
+                                   value="@Model.ForumEmail"
+                                   type="email"
+                                   autocomplete="email"
+                                   class="form-control"/>
+                        </div>
+                        <div>
+                            <label for="forumBaseUrlMask" class="form-label">@Localization.GetText("ForumUrl")</label>
+                            <input id="forumBaseUrlMask" name="forumBaseUrlMask" required
+                                   placeholder="@Localization.GetText("ForumUrl")"
+                                   type="text" value="@(Model.ForumBaseUrl.IsSet() ? Model.ForumBaseUrl : ContextAccessor.HttpContext?.Request.BaseUrl())"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <i class="fa fa-user-shield me-1 text-secondary" aria-hidden="true"></i>@Localization.GetText("CreateUser")
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">@Localization.GetText("AdminName")</label>
+                            <input id="userName" name="userName" required
+                                   placeholder="@Localization.GetText("AdminName")"
+                                   value="@Model.UserName"
+                                   autocomplete="username"
+                                   class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminEmail" class="form-label">@Localization.GetText("AdminEmail")</label>
+                            <input id="adminEmail" name="adminEmail" required
+                                   placeholder="@Localization.GetText("AdminEmail")"
+                                   value="@Model.AdminEmail"
+                                   type="email"
+                                   autocomplete="email"
+                                   class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">@Localization.GetText("AdminPassword")</label>
+                            <input id="password1" name="password1" required
+                                   placeholder="@Localization.GetText("AdminPassword")"
+                                   type="password"
+                                   autocomplete="new-password"
+                                   class="form-control"/>
+                        </div>
+                        <div>
+                            <label for="password2" class="form-label">@Localization.GetText("AdminPassword2")</label>
+                            @* the browser checks the confirmation as well (install.ts), the server checks it again *@
+                            <input id="password2" name="password2" required
+                                   placeholder="@Localization.GetText("AdminPassword2")"
+                                   type="password"
+                                   autocomplete="new-password"
+                                   data-match="#password1"
+                                   data-match-message="@Localization.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH")"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
