@@ -55,6 +55,7 @@ public static class ForumPageExtensions
             switch (page.PageName)
             {
                 case ForumPages.Post:
+                case ForumPages.PrintTopic:
                     if (BoardContext.Current.PageTopicID != 0)
                     {
                         // Tack on the topic we're viewing

@@ -1429,4 +1429,38 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(content, Does.Not.Contain("You must enter an email subject."), "The message of the email topic page is shown");
             });
     }
+
+    /// <summary>
+    /// The print page has the name of the topic as title (the page had the title "Reset Password").
+    /// </summary>
+    [Test]
+    public async Task PrintTopicTitleTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var subject = $"Print title {Random.Shared.Next()}";
+
+                var topicId = await page.CreateTopicAsync(
+                                  this.TestSettings,
+                                  this.TestSettings.TestForumId,
+                                  subject,
+                                  "A topic for the print page");
+
+                Assert.That(topicId, Is.Not.Null, "The topic was not created");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PrintTopic/{topicId}");
+
+                var title = await page.TitleAsync();
+
+                Assert.That(title, Does.Contain(subject), "The print page has not the name of the topic as title");
+                Assert.That(title, Does.Not.Contain("Reset Password"), "The print page has the title of another page");
+            });
+    }
 }
