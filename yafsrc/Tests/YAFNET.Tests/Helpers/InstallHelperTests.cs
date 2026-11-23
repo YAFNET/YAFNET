@@ -74,4 +74,35 @@ public class InstallHelperTests
         InstallHelper.CheckCreateForum(forumName, forumEmail, forumUrl, userName, adminEmail, password, confirm)
             .Should().Be(InstallHelper.MissingValue);
     }
+
+    [TestCase("Data Source=(local);Initial Catalog=yaf;User ID=yaf;Password=Secret1!;", "Secret1!", "initial catalog=yaf")]
+    [TestCase("Server=localhost;Database=yaf;Uid=yaf;Pwd=Secret1!;", "Secret1!", "database=yaf")]
+    [TestCase("Host=localhost;Database=yaf;Username=yaf;PASSWORD = 'Sec;ret';", "Sec;ret", "username=yaf")]
+    [Description("The password of the connection string is not shown on the test page of the install wizard")]
+    public void MaskConnectionString_Hides_The_Password_Test(string connectionString, string password, string kept)
+    {
+        var masked = InstallHelper.MaskConnectionString(connectionString);
+
+        masked.Should().NotContain(password);
+        masked.Should().Contain(InstallHelper.Mask);
+        masked.Should().ContainEquivalentOf(kept);
+    }
+
+    [Test]
+    [Description("A connection string without a password is shown as it is")]
+    public void MaskConnectionString_Keeps_A_String_Without_Password_Test()
+    {
+        InstallHelper.MaskConnectionString("Data Source=yaf.db;Version=3;")
+            .Should().ContainEquivalentOf("data source=yaf.db").And.ContainEquivalentOf("version=3")
+            .And.NotContain(InstallHelper.Mask);
+    }
+
+    [TestCase(null)]
+    [TestCase("")]
+    [TestCase("this is not a connection string; =")]
+    [Description("A connection string that can not be read is not shown (it may contain a password)")]
+    public void MaskConnectionString_Hides_An_Invalid_String_Test(string connectionString)
+    {
+        InstallHelper.MaskConnectionString(connectionString).Should().BeEmpty();
+    }
 }

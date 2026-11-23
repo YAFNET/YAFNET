@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.Extensions.Configuration
 @using YAF.Core.Context
+@using YAF.Core.Helpers
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Objects
@@ -41,7 +42,8 @@
 			@(BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName)
 		</h4>
 		<p class="text-body-secondary">
-			@(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection"))
+			@* the password of the database is not shown (the wizard is shown to every visitor) *@
+			@(InstallHelper.MaskConnectionString(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection")))
 		</p>
 
 		<hr/>

@@ -25,6 +25,7 @@
 namespace YAF.Core.Helpers;
 
 using System;
+using System.Data.Common;
 using System.Linq;
 
 /// <summary>
@@ -32,6 +33,48 @@ using System.Linq;
 /// </summary>
 public static class InstallHelper
 {
+    /// <summary>
+    /// The text shown instead of a secret value of the connection string.
+    /// </summary>
+    public const string Mask = "********";
+
+    /// <summary>
+    /// The keys of the connection string values that are secrets.
+    /// </summary>
+    private static readonly string[] SecretKeys = ["password", "pwd"];
+
+    /// <summary>
+    /// The connection string without its secrets (the password of the database), it is shown on the test page of the
+    /// wizard.
+    /// </summary>
+    /// <param name="connectionString">The connection string.</param>
+    /// <returns>The connection string with the masked secrets, an empty string if it can not be read.</returns>
+    public static string MaskConnectionString(string connectionString)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
+
+            foreach (var key in builder.Keys.Cast<string>().ToList()
+                         .Where(key => SecretKeys.Contains(key.Trim(), StringComparer.OrdinalIgnoreCase)))
+            {
+                builder[key] = Mask;
+            }
+
+            return builder.ConnectionString;
+        }
+        catch (ArgumentException)
+        {
+            // a connection string that can't be read is not shown (it may contain a password)
+            return string.Empty;
+        }
+    }
+
     /// <summary>
     /// Checks the values of the new board and its host admin.
     /// </summary>
