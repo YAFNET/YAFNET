@@ -22,7 +22,7 @@
 	  <PackageReference Include="LighthousePlaywright.Net" Version="1.0.2" />
 	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
 	  <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.36.0.15337">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.37.0.15768">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>

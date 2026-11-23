@@ -34,7 +34,7 @@
     <PackageReference Include="NSubstitute" Version="6.2.0" />
     <PackageReference Include="NUnit" Version="5.0.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.36.0.15337">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.37.0.15768">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
