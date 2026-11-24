@@ -99,6 +99,9 @@ public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
                 // Ignore
             }
 
+            // the instance owns the lifetime scope of this request, release it when the response completes
+            this.httpContext.HttpContext.Response.RegisterForDispose(pageInstance);
+
             return pageInstance;
         }
     }
