@@ -14398,15 +14398,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Otomobil"
+            "#text": "Otomatik"
           },
           {
             "@tag": "DARK",
-            "#text": "Karanlık"
+            "#text": "Koyu"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Işık"
+            "#text": "Açık"
           }
         ]
       },

@@ -14378,15 +14378,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "آلي"
+            "#text": "تلقائي"
           },
           {
             "@tag": "DARK",
-            "#text": "مظلم"
+            "#text": "داكن"
           },
           {
             "@tag": "LIGHT",
-            "#text": "ضوء"
+            "#text": "فاتح"
           }
         ]
       },

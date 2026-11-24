@@ -14398,15 +14398,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "汽车"
+            "#text": "自动"
           },
           {
             "@tag": "DARK",
-            "#text": "黑暗的"
+            "#text": "深色"
           },
           {
             "@tag": "LIGHT",
-            "#text": "光"
+            "#text": "浅色"
           }
         ]
       },

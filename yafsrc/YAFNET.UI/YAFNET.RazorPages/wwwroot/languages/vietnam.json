@@ -14398,15 +14398,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Tự động"
+            "#text": "Tự động"
           },
           {
             "@tag": "DARK",
-            "#text": "Tối tăm"
+            "#text": "Tối"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Ánh sáng"
+            "#text": "Sáng"
           }
         ]
       },

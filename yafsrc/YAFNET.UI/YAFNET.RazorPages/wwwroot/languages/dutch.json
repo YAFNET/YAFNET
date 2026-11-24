@@ -14382,7 +14382,7 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automatisch"
           },
           {
             "@tag": "DARK",

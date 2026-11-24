@@ -14398,15 +14398,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automatický"
           },
           {
             "@tag": "DARK",
-            "#text": "Tma"
+            "#text": "Tmavý"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Světlo"
+            "#text": "Světlý"
           }
         ]
       },

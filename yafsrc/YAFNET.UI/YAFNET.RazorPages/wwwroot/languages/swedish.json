@@ -14398,15 +14398,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Bil"
+            "#text": "Automatiskt"
           },
           {
             "@tag": "DARK",
-            "#text": "Mörk"
+            "#text": "Mörkt"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Ljus"
+            "#text": "Ljust"
           }
         ]
       },
