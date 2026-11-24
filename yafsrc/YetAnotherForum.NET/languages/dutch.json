@@ -4120,7 +4120,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Indien ingeschakeld, detecteert het spammers tijdens de registratie, u kunt deze gebruiker blokkeren of eenvoudig registreren en een bericht naar de beheerders sturen."
+            "#text": "Wat er gebeurt als de spamcontrole bij de registratie of een profielwijziging een mogelijke spammer vindt: niets (de gebruiker wordt gewoon geregistreerd), de gebruiker wordt gelogd en de beheerders krijgen een e-mail (een nieuw account moet door een beheerder worden goedgekeurd), of de gebruiker wordt geblokkeerd."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4136,7 +4136,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Gebruiker goedkeuren & gebruiker loggen & beheerder een e-mail sturen"
+            "#text": "Gebruiker loggen & beheerders e-mailen (een nieuw account wacht op goedkeuring door een beheerder)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13918,6 +13918,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Bevestiging registratie voor {0} forum"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Je account is aangemaakt. Het moet door een beheerder worden goedgekeurd voordat je kunt inloggen.[/center]"
           }
         ]
       },

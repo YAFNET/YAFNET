@@ -4128,7 +4128,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Pokud je povoleno, detekuje spammery během registrace, můžete nastavit blokování tohoto uživatele nebo jej jednoduše přihlásit a odeslat zprávu správcům."
+            "#text": "Co se stane, když kontrola spamu najde možného spammera při registraci nebo změně profilu: nic (uživatel se zaregistruje jako obvykle), uživatel se zaznamená a admini dostanou e-mail (nový účet musí schválit admin), nebo se uživatel zablokuje."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4144,7 +4144,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Schválit uživatele a přihlásit uživatele a poslat správci e-mail"
+            "#text": "Zaznamenat uživatele & poslat adminům e-mail (nový účet čeká na schválení adminem)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13938,6 +13938,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Ověření registrace pro fórum {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Váš účet byl vytvořen. Před přihlášením jej musí schválit administrátor.[/center]"
           }
         ]
       },

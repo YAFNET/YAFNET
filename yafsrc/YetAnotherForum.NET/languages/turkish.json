@@ -4128,7 +4128,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Etkinleştirilirse, Kayıt sırasında Spam Gönderenleri tespit eder, bu kullanıcıyı Engellemek için ayarlayabilir veya sadece günlüğe kaydedebilir ve Yöneticilere bir Mesaj gönderebilirsiniz."
+            "#text": "Spam kontrolü kayıt sırasında veya bir profil değişikliğinde olası bir spamcı bulduğunda ne olur: hiçbir şey (kullanıcı her zamanki gibi kaydedilir), kullanıcı günlüğe yazılır ve yöneticiler bir e-posta alır (yeni bir hesap bir yönetici tarafından onaylanmalıdır) veya kullanıcı engellenir."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4144,7 +4144,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Kullanıcıyı Onaylayın & Kullanıcının Oturumunu Açın & Yöneticiye E-posta Gönderin"
+            "#text": "Kullanıcıyı günlüğe yaz & yöneticilere e-posta gönder (yeni bir hesap yönetici onayını bekler)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13934,6 +13934,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "{0} Forumu için kayıt onayı"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Hesabınız oluşturuldu. Giriş yapabilmeniz için bir yönetici tarafından onaylanması gerekiyor.[/center]"
           }
         ]
       },

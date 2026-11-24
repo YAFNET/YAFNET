@@ -4128,7 +4128,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Se activado, detecta os Spammers durante o Registo, pode definir para Bloquear esse utilizador ou simplesmente registá-lo e enviar uma Mensagem aos Admins."
+            "#text": "O que acontece quando a verificação de spam encontra um possível spammer no registo ou numa alteração do perfil: nada (o utilizador é registado normalmente), o utilizador é registado no log e os admins recebem um email (uma conta nova tem de ser aprovada por um admin), ou o utilizador é bloqueado."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4144,7 +4144,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Aprovar Utilizador & Registo Utilizador & Enviar Admin um Email"
+            "#text": "Registar o utilizador & enviar um email aos admins (uma conta nova aguarda a aprovação de um admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13934,6 +13934,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Verificação de registo para {0} Fórum"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]A sua conta foi criada. Tem de ser aprovada por um administrador antes de poder iniciar sessão.[/center]"
           }
         ]
       },

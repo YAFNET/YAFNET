@@ -4128,7 +4128,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Jei ši funkcija įjungta, Registracijos metu ji aptinka šiukšlintojus, galite nustatyti, kad toks naudotojas būtų blokuojamas, arba tiesiog jį užregistruoti ir išsiųsti pranešimą administratoriams."
+            "#text": "Kas nutinka, kai šlamšto patikra registracijos ar profilio keitimo metu randa galimą šlamšto siuntėją: nieko (naudotojas registruojamas įprastai), naudotojas įrašomas į žurnalą ir administratoriai gauna el. laišką (naują paskyrą turi patvirtinti administratorius), arba naudotojas užblokuojamas."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4144,7 +4144,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Patvirtinti naudotoją ir prisijungti prie naudotojo bei siųsti administratoriui el. laišką"
+            "#text": "Įrašyti naudotoją į žurnalą & išsiųsti administratoriams el. laišką (nauja paskyra laukia administratoriaus patvirtinimo)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13934,6 +13934,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Registracijos patikrinimas {0} forume"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Jūsų paskyra sukurta. Prieš prisijungiant ją turi patvirtinti administratorius.[/center]"
           }
         ]
       },

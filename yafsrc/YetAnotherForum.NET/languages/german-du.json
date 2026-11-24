@@ -4120,7 +4120,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Wenn aktivieren wird während der Regstrierung gechecked ob der Benutzer ein SPAM Bot ist, Sie haben die Auswahl was dann passieren soll endweder wird der Benutzer blockiert oder es wird nur geloggt und der Admin per Email benachrichtigt."
+            "#text": "Was passiert, wenn die Spam-Prüfung bei der Registrierung oder einer Profiländerung einen möglichen Spammer findet: nichts (der Benutzer wird wie gewohnt registriert), der Benutzer wird protokolliert und die Admins erhalten eine E-Mail (ein neues Konto muss von einem Admin freigeschaltet werden), oder der Benutzer wird blockiert."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4136,7 +4136,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Benutzer registrien aber loggen und Admin benachrichtigen"
+            "#text": "Benutzer protokollieren & Admins per E-Mail benachrichtigen (ein neues Konto wartet auf die Freischaltung durch einen Admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13918,6 +13918,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Bestätigung der Anmeldedaten für {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Dein Konto wurde erstellt. Es muss von einem Administrator freigeschaltet werden, bevor du dich anmelden kannst.[/center]"
           }
         ]
       },

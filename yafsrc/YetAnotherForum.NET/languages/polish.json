@@ -4120,7 +4120,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Jeśli funkcja ta jest włączona, wykrywa spamerów podczas rejestracji, możesz zablokować takiego użytkownika lub po prostu go zalogować i wysłać wiadomość do administratorów."
+            "#text": "Co się dzieje, gdy kontrola spamu wykryje możliwego spamera podczas rejestracji lub zmiany profilu: nic (użytkownik jest rejestrowany normalnie), użytkownik jest zapisywany w dzienniku, a admini otrzymują e-mail (nowe konto musi zatwierdzić admin), albo użytkownik jest blokowany."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4136,7 +4136,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Zatwierdź użytkownika i zaloguj użytkownika oraz wyślij administratorowi wiadomość e-mail"
+            "#text": "Zapisz użytkownika w dzienniku & wyślij e-mail do adminów (nowe konto czeka na zatwierdzenie przez admina)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13922,6 +13922,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Weryfikacja rejestracji na forum {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Twoje konto zostało utworzone. Musi zostać zatwierdzone przez administratora, zanim będziesz mógł się zalogować.[/center]"
           }
         ]
       },

@@ -4,6 +4,7 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v3.2.19
 * [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
 * [FIXED] BB code [img]: webp images were not shown, none of the image bb codes accepted the webp extension
+* [FIXED] Registration: with the bot handling "Do nothing" a user found by the spam check got no verification email and could never log in (the email could not be sent again either), and with "Log User & Send Admin an Email" (it said "Approve User") the page said that a verification email was sent although the account waits for the approval of an admin; "Do nothing" registers the user as usual, the other option says that an admin has to approve the account; all languages
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

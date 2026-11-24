@@ -4120,7 +4120,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Se abilitato, rileva gli spammer durante la registrazione; è possibile impostare il blocco dell'utente o semplicemente registrarlo e inviare un messaggio agli amministratori."
+            "#text": "Cosa succede quando il controllo antispam trova un possibile spammer durante la registrazione o una modifica del profilo: niente (l'utente viene registrato normalmente), l'utente viene registrato nel log e gli admin ricevono un'email (un nuovo account deve essere approvato da un admin), oppure l'utente viene bloccato."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4136,7 +4136,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Approvazione dell'utente, registrazione dell'utente e invio di un'e-mail all'amministratore"
+            "#text": "Registra l'utente nel log & invia un'email agli admin (un nuovo account attende l'approvazione di un admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13918,6 +13918,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Verifica registrazione per il forum {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Il tuo account è stato creato. Deve essere approvato da un amministratore prima che tu possa accedere.[/center]"
           }
         ]
       },

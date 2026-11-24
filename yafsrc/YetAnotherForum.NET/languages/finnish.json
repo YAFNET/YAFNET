@@ -4128,7 +4128,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Jos se on käytössä, se havaitsee roskapostittajat rekisteröinnin aikana, voit estää kyseisen käyttäjän tai yksinkertaisesti kirjautua sisään ja lähettää viestin ylläpitäjille."
+            "#text": "Mitä tapahtuu, kun roskapostitarkistus löytää mahdollisen roskapostittajan rekisteröitymisen tai profiilin muutoksen yhteydessä: ei mitään (käyttäjä rekisteröidään tavalliseen tapaan), käyttäjä kirjataan lokiin ja ylläpitäjät saavat sähköpostin (ylläpitäjän on hyväksyttävä uusi tili), tai käyttäjä estetään."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4144,7 +4144,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Hyväksy käyttäjä & kirjaudu käyttäjäksi & lähetä ylläpitäjälle sähköpostiviesti"
+            "#text": "Kirjaa käyttäjä & lähetä ylläpitäjälle sähköposti (uusi tili odottaa ylläpitäjän hyväksyntää)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -13934,6 +13934,10 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Rekisteröinnin vahvistus {0} foorumille"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Tilisi on luotu. Ylläpitäjän on hyväksyttävä se ennen kuin voit kirjautua sisään.[/center]"
           }
         ]
       },
