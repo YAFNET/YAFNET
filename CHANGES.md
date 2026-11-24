@@ -185,6 +185,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Color mode selector: the options were machine translations of other meanings, e.g. "Auto" as car (Chinese, Hebrew, Norwegian, Swedish, Turkish, Persian; also the word for car in Finnish, Italian, Spanish, Portuguese, Dutch and Czech), "Light" as lamp light, lightweight (Italian, Lithuanian, Persian) or "switch on" (Romanian) and "Dark" as darkness; all languages use the light, dark and automatic mode now
 * [FIXED] Forum Rules and Policies (Privacy page): the text had up to four empty lines between the paragraphs, showed "[br]" as text and a stray "[/b]", the section headings had the size of the text; it named BlogSpam.net (the service is closed, the forum does not use it), a contact form and a shopping cart the forum does not have, and did not mention IPInfoDB, embedded videos, push notifications, the stored IP addresses and the reports to StopForumSpam; the cookie section links to the Cookie Policy now; translated in all languages (it was English in all of them except Persian and a shortened Hebrew text)
 * [FIXED] BBCode: a numbered list without a list type (e.g. in an older post) was changed to roman numerals ([list=i]) when the post was edited; numbered lists ([list=1]) use the list style "decimal" (it was "number", a counter style that does not exist, the browsers fell back to decimal)
+* [FIXED] User menu: the "My Friends" link had a stray attribute "6" in its html
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
