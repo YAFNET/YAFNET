@@ -53,14 +53,28 @@ public class ShortRouteConvention : IPageRouteModelConvention
         var areaPrefix = model.AreaName.IsSet() ? $"{model.AreaName}/" : string.Empty;
         var pagePrefix = $"{areaPrefix}{page}";
 
-        foreach (var route in model.Selectors.Select(selector => selector.AttributeRouteModel))
+        foreach (var selector in model.Selectors)
         {
+            var route = selector.AttributeRouteModel;
+
             if (route?.Template is null || !route.Template.StartsWith(pagePrefix, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }
 
             route.Template = $"{areaPrefix}{segment}{route.Template[pagePrefix.Length..]}";
+
+            // a PageRouteTransformerConvention (e.g. kebab-case urls) builds the route again from the
+            // page route of the metadata (e.g. /Forums/Posts) instead of the template, so it gets the short url segment too
+            var metadata = selector.EndpointMetadata.OfType<PageRouteMetadata>().FirstOrDefault();
+
+            if (metadata is null || !metadata.PageRoute.TrimStart('/').Equals(pagePrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            selector.EndpointMetadata[selector.EndpointMetadata.IndexOf(metadata)] =
+                new PageRouteMetadata($"{metadata.PageRoute[..^pagePrefix.Length]}{areaPrefix}{segment}", metadata.RouteTemplate);
         }
 
         if (!page.Equals(nameof(ForumPages.Posts), StringComparison.OrdinalIgnoreCase))

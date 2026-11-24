@@ -231,6 +231,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: the html of a name was not encoded where a link is rendered as text (the user link BB code [userlink] in posts and the BB code help, the last post popovers of the forums and topics, the notifications, the moderator list): a display name with html ran as a script; the links are encoded like the pages now (an unrelated "]]" in such a text was removed as well)
 * [CHANGES] Admin > Dashboard: the list of the not approved accounts shows the newest registrations first (they were in the order of the database, a new registration was on the last page)
 * [CHANGES] Admin > BBCode Extensions: the extensions the forum itself needs ([ATTACH] attachments, [MEDIA] the media button of the editor, [USERLINK] mentions, [ALBUMIMG] album images) are marked "Required" and can't be deleted or renamed (posts showed the raw BB code until the next upgrade added them again); every extension of the forum has "Restore Default", which replaces it with the version of BBCodeExtensions.xml (the upgrade keeps the extensions an admin changed); all languages
+* [FIXED] Short URLs: with a PageRouteTransformerConvention (e.g. kebab-case urls) the pages kept their old routes (e.g. /forums/posts/1/name) and the redirect to the short url returned 404; the convention replaces the page name in the page route metadata too
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
