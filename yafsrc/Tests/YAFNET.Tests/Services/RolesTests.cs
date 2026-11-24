@@ -37,6 +37,7 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Identity;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.Constants;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
@@ -227,6 +228,23 @@ public class RolesTests
         user.ProviderUserKey.Should().Be(alice.Id);
         user.DisplayName.Should().Be("Alice W.");
         (await this.Repository<UserGroup>().GetAsync(x => x.UserID == userId.Value)).Select(x => x.GroupID).Should().Contain(group);
+    }
+
+    [Test]
+    [Description("A new forum user gets the notification defaults of the board (self registered users had \"Turn off notifications\" and no digest whatever the default was)")]
+    public async Task CreateForumUser_Notification_Defaults_Test()
+    {
+        this.board.BoardSettings.DefaultNotificationSetting = UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+        this.board.BoardSettings.DefaultSendDigestEmail = true;
+
+        var alice = await this.CreateIdentityAsync("alice");
+
+        var userId = await this.roles.CreateForumUserAsync(alice, "Alice", TestDatabase.BoardId);
+
+        var user = await this.Repository<User>().GetByIdAsync(userId!.Value);
+        user.NotificationType.Should().Be(UserNotificationSetting.TopicsIPostToOrSubscribeTo.ToInt());
+        user.DailyDigest.Should().BeTrue();
+        user.AutoWatchTopics.Should().BeTrue();
     }
 
     [Test]

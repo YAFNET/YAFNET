@@ -173,15 +173,6 @@ public class RegisterUserModel : AdminPage
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
         }
 
-        var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
-            .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
-
-        await this.GetRepository<User>().SaveNotificationAsync(
-            userId.Value,
-            autoWatchTopicsEnabled,
-            this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
-            this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
-
         var created = this.GetTextFormatted("MSG_CREATED", this.HtmlEncode(newUsername));
 
         // the new user is opened in the user editor
