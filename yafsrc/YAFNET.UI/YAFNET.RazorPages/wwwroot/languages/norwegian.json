@@ -44,7 +44,7 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Endre Avatar"
+            "#text": "Endre avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Abonnement"
+            "#text": "Varslingsinnstillinger"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -7746,7 +7746,7 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Legg til filer)..."
+            "#text": "Legg til fil(er)..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
@@ -7985,7 +7985,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignorert brukerliste"
+            "#text": "Liste over ignorerte brukere"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -8111,7 +8111,7 @@
           },
           {
             "@tag": "BUTTON_EDIT",
-            "#text": "Redigere"
+            "#text": "Rediger"
           },
           {
             "@tag": "BUTTON_EDIT_TT",
@@ -8139,7 +8139,7 @@
           },
           {
             "@tag": "BUTTON_MOVE",
-            "#text": "Bevege seg"
+            "#text": "Flytt"
           },
           {
             "@tag": "BUTTON_MOVE_TT",
@@ -8155,7 +8155,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Multi-sitat"
+            "#text": "Flersitat"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -8179,7 +8179,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Publisér svar"
+            "#text": "Send svar"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -8199,7 +8199,7 @@
           },
           {
             "@tag": "BUTTON_REPLY",
-            "#text": "Svare"
+            "#text": "Svar"
           },
           {
             "@tag": "BUTTON_REPLY_TT",
@@ -8399,7 +8399,7 @@
           },
           {
             "@tag": "CONTINUE",
-            "#text": "Fortsette"
+            "#text": "Fortsett"
           },
           {
             "@tag": "COOKIE",
@@ -8503,7 +8503,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Gå til:"
+            "#text": "Gå til forum"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Stolpe"
+            "#text": "Send"
           },
           {
             "@tag": "POWERED_BY",
@@ -8679,7 +8679,7 @@
           },
           {
             "@tag": "SELECTED_QUOTE",
-            "#text": "Sitat valgt tekst"
+            "#text": "Siter valgt tekst"
           },
           {
             "@tag": "SELECTED_SEARCH",
@@ -8735,7 +8735,7 @@
           },
           {
             "@tag": "TT_EDITOR",
-            "#text": "Åpne Full Editor"
+            "#text": "Åpne full editor"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Se alle fora"
+            "#text": "Overvåk alle forum"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10128,11 +10128,11 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Vil du slette alle innlegg?"
+            "#text": "Vil du slette alle tilknyttede innlegg?"
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Slett årsak"
+            "#text": "Årsak til sletting"
           },
           {
             "@tag": "DELETE_TT",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Fjern Avatar"
+            "#text": "Fjern avatar"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Aktiver aktivitetsstrøm (Hvis det er merket av for, får du varsler om omtale, sitater og takk."
+            "#text": "Aktiver aktivitetsstrøm (varsler om omtaler, sitater og reaksjoner)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Endre e-post\tadresse"
+            "#text": "Endre e-postadresse"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10460,11 +10460,11 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Forum innstillinger"
+            "#text": "Foruminnstillinger"
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Få plassering fra IP-adresse"
+            "#text": "Hent sted fra IP-adresse"
           },
           {
             "@tag": "HIDEME",
@@ -10557,7 +10557,7 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Deaktiver to faktorautentisering"
+            "#text": "Deaktiver tofaktorautentisering"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
@@ -10569,7 +10569,7 @@
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Slå på to faktorautentisering"
+            "#text": "Slå på tofaktorautentisering"
           },
           {
             "@tag": "INFO",
@@ -10713,7 +10713,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Vedta"
+            "#text": "Godkjenn"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10777,7 +10777,7 @@
           },
           {
             "@tag": "PENDING_REQUESTS",
-            "#text": "Forespørsel under behandling"
+            "#text": "Ventende forespørsler"
           },
           {
             "@tag": "POSTS",
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Husk innlogging:"
+            "#text": "Husk meg"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12106,7 +12106,7 @@
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "To-faktor validering"
+            "#text": "Tofaktorbekreftelse"
           },
           {
             "@tag": "USERNAME",
@@ -12321,11 +12321,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Redigeringshistorikk for innlegg"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Gå til melding"
+            "#text": "Gå til innlegg"
           }
         ]
       },
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Rapporterte innlegg"
           },
           {
             "@tag": "TITLE",
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Flytt melding til et annet emne"
+            "#text": "Flytt innlegg til et annet emne"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Del melding i et nytt emne"
+            "#text": "Del ut innlegg til et nytt emne"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Se emner"
+            "#text": "Overvåkede emner"
           }
         ]
       },
@@ -12939,7 +12939,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Kjør avstemning for:"
+            "#text": "Avstemningens varighet:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12951,7 +12951,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Tillat å stemme for mange valg"
+            "#text": "Tillat å stemme på flere alternativer"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Vis hvem som har stemt"
           },
           {
             "@tag": "POLL_VOTED",
@@ -13007,7 +13007,7 @@
           },
           {
             "@tag": "REMOVEPOLL",
-            "#text": "Fjern meningsmåling"
+            "#text": "Fjern avstemning"
           },
           {
             "@tag": "REMOVEPOLL_MSG",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Siste 10 innlegg"
+            "#text": "Siste 10 innlegg (i omvendt rekkefølge)"
           },
           {
             "@tag": "MESSAGE",
@@ -13068,7 +13068,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Skriv nytt innlegg"
+            "#text": "Opprett nytt emne"
           },
           {
             "@tag": "NORMAL",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Er dette emnet permanent?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Se dette emnet og motta meldinger om aktivitet via e-post?"
+            "#text": "Overvåk dette emnet og motta varsler om aktivitet via e-post?"
           },
           {
             "@tag": "WAIT",
@@ -13161,7 +13161,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atomfôr"
+            "#text": "Atom-feed"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -13297,7 +13297,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Emne URL"
+            "#text": "LinkBack-URL for emnet"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Report Abusive"
+            "#text": "Rapporter"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Del!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,7 +13449,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "Vis/skjul innlegg fra en ignorert bruker"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13485,7 +13485,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "Ikke overvåk dette emnet"
+            "#text": "Slutt å overvåke dette emnet"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -13720,7 +13720,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Se alle innlegg etter bruker"
+            "#text": "Vis alle innlegg av brukeren"
           },
           {
             "@tag": "SUSPEND",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Rapportere"
+            "#text": "Rapporter"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14680,7 +14680,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Motta en gang daglig fordøyelse/oppsummering av aktivitet?"
+            "#text": "Motta et daglig sammendrag av aktiviteten?"
           },
           {
             "@tag": "ENABLE_NOTIFICATIONS",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forums"
+            "#text": "Overvåkede forum"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14712,7 +14712,7 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Skru av notifikasjoner"
+            "#text": "Slå av varsler"
           },
           {
             "@tag": "NOTIFICATIONSBLOCKED",
@@ -14744,7 +14744,7 @@
           },
           {
             "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Push-varsler for enhet (nettleser)."
+            "#text": "Push-varsler på enheten (nettleseren)"
           },
           {
             "@tag": "PWA_INSTALL",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Topics"
+            "#text": "Overvåkede emner"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14796,11 +14796,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Varsling for emner eller fora du har sett selektivt (oppført nedenfor)"
+            "#text": "Varsler for emner eller forum du har valgt å overvåke (oppført nedenfor)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Unsubscribe"
+            "#text": "Slutt å overvåke"
           },
           {
             "@tag": "UNSUBSCRIBED",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "Mine venner"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Min profil"
+            "#text": "Min konto"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15101,7 +15101,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Registrering"
+            "#text": "Registrer"
           },
           {
             "@tag": "REGISTER_CONNECT",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Uovervåket forum"
+            "#text": "Slutt å overvåke forum"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Overvåket forum"
+            "#text": "Overvåk forum"
           },
           {
             "@tag": "YESTERDAYAT",

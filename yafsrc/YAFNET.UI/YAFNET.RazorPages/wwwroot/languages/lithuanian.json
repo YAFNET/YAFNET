@@ -44,11 +44,11 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Keisti Avataras "
+            "#text": "Keisti avatarą"
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "Redaguoti profilį "
+            "#text": "Redaguoti profilį"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -116,11 +116,11 @@
           },
           {
             "@tag": "SIGNATURE",
-            "#text": "Parašas "
+            "#text": "Parašas"
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Prenumerata "
+            "#text": "Pranešimų nuostatos"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -869,7 +869,7 @@
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "Pakartotinis el. pašto siuntimo tikrinimas"
+            "#text": "Pakartotinai siųsti el. pašto patvirtinimą"
           },
           {
             "@tag": "ADMINISTRATION",
@@ -7810,7 +7810,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Priedai "
+            "#text": "Priedai"
           },
           {
             "@tag": "UPLOAD",
@@ -7969,7 +7969,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Bloko parinktys"
+            "#text": "Blokavimo parinktys"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -8155,7 +8155,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Keletas citatų"
+            "#text": "Cituoti kelis"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -8179,7 +8179,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Atsakyti į žinutę"
+            "#text": "Atsakyti"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -8195,7 +8195,7 @@
           },
           {
             "@tag": "BUTTON_REACT_TT",
-            "#text": "Pridėti reakciją prie įrašo"
+            "#text": "Pridėti reakciją prie pranešimo"
           },
           {
             "@tag": "BUTTON_REPLY",
@@ -8219,11 +8219,11 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Nustatyti kaip dangtelį"
+            "#text": "Nustatyti kaip viršelį"
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Ištrinti"
+            "#text": "Atkurti"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -8503,7 +8503,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Forumas Peršokti "
+            "#text": "Pereiti į forumą"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8547,7 +8547,7 @@
           },
           {
             "@tag": "LIVE_NEW_REPLY",
-            "#text": "Šioje temoje paskelbtas naujas atsakymas, parodyk"
+            "#text": "Šioje temoje paskelbtas naujas atsakymas, parodyti"
           },
           {
             "@tag": "LOADING",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Rašyti"
+            "#text": "Skelbti"
           },
           {
             "@tag": "POWERED_BY",
@@ -8671,7 +8671,7 @@
           },
           {
             "@tag": "SAVE",
-            "#text": "Išsaugoti "
+            "#text": "Išsaugoti"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8735,7 +8735,7 @@
           },
           {
             "@tag": "TT_EDITOR",
-            "#text": "Atidarykite visą redaktorių"
+            "#text": "Atidaryti visą redaktorių"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -9910,7 +9910,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "Active Discussions "
+            "#text": "Aktyvios diskusijos"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9986,7 +9986,7 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Pažymėkite visus kaip skaitykite"
+            "#text": "Pažymėti viską kaip perskaitytą"
           },
           {
             "@tag": "MARK_ASREAD",
@@ -9994,7 +9994,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "Pažymėti visus forumus kaip skaitytus "
+            "#text": "Pažymėti visus forumus kaip perskaitytus"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -10002,7 +10002,7 @@
           },
           {
             "@tag": "MODERATORS",
-            "#text": "Moderatoriai "
+            "#text": "Moderatoriai"
           },
           {
             "@tag": "MOST_ACTIVE",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Žiūrėti visus forumus"
+            "#text": "Stebėti visus forumus"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10099,7 +10099,7 @@
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Ištrinkite paskyrą (visam laikui)"
+            "#text": "Ištrinti paskyrą (visam laikui)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
@@ -10107,7 +10107,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Sustabdykite paskyrą 30 dienų"
+            "#text": "Sustabdyti paskyrą 30 dienų"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -10128,11 +10128,11 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Ištrinti visas žinutes?"
+            "#text": "Ištrinti visus susietus pranešimus?"
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Ištrinti priežastį"
+            "#text": "Ištrynimo priežastis"
           },
           {
             "@tag": "DELETE_TT",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Atviras Avataras "
+            "#text": "Išvalyti avatarą"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10331,7 +10331,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Įkelti Avataras iš kompiuterio: "
+            "#text": "Įkelti avatarą iš kompiuterio:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -10351,7 +10351,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Pasirinkite Avataras mūsų Kolekcija: "
+            "#text": "Pasirinkite avatarą iš mūsų kolekcijos:"
           },
           {
             "@tag": "TITLE",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Įjungti aktyvumo srautą (jei pažymėta, gausite pranešimus apie paminėjimus, citatas ir padėkas."
+            "#text": "Įjungti veiklos srautą (pranešimai apie paminėjimus, citatas ir reakcijas)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Pakeisti elektroninio pašto adresas "
+            "#text": "Keisti el. pašto adresą"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10460,11 +10460,11 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Forumas Parametrai "
+            "#text": "Forumo nustatymai"
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Vietos gavimas iš IP adreso"
+            "#text": "Nustatyti vietą pagal IP adresą"
           },
           {
             "@tag": "HIDEME",
@@ -10557,7 +10557,7 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Išjunkite dviejų faktorių autentifikavimą"
+            "#text": "Išjungti dviejų faktorių autentifikavimą"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
@@ -10569,7 +10569,7 @@
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Įjunkite du faktoriaus autentifikavimą"
+            "#text": "Įjungti dviejų faktorių autentifikavimą"
           },
           {
             "@tag": "INFO",
@@ -11726,7 +11726,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Siųsti E-PASTOJE "
+            "#text": "Siųsti el. laišką"
           },
           {
             "@tag": "SENT",
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Automatinis prisijungimas: "
+            "#text": "Prisiminti mane"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12062,7 +12062,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Pamiršote slaptažodį "
+            "#text": "Pamirštas slaptažodis"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -12082,7 +12082,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Atkurti slaptažodį "
+            "#text": "Atkurti slaptažodį"
           },
           {
             "@tag": "REGISTER_INSTEAD",
@@ -12313,7 +12313,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Galima pasirinkti tik 2 versijas vor lyginant!"
+            "#text": "Palyginimui galima pasirinkti tik 2 versijas!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -12321,11 +12321,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Pranešimo redagavimo istorija"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Pereiti prie žinutės"
+            "#text": "Pereiti prie pranešimo"
           }
         ]
       },
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Praneštieji įrašai"
           },
           {
             "@tag": "TITLE",
@@ -12516,7 +12516,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Nepatvirtintų Žinutės "
+            "#text": "Nepatvirtinti pranešimai"
           }
         ]
       },
@@ -12525,7 +12525,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Patvirtinti Post "
+            "#text": "Patvirtinti pranešimą"
           },
           {
             "@tag": "APPROVED",
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Pranešimo perkėlimas į kitą temą"
+            "#text": "Perkelti pranešimą į kitą temą"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Suskirstyti žinutę į naują temą"
+            "#text": "Atskirti pranešimą į naują temą"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Žiūrėti temas"
+            "#text": "Stebimos temos"
           }
         ]
       },
@@ -12939,7 +12939,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Vykdyti apklausą dėl:"
+            "#text": "Apklausos trukmė:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12951,7 +12951,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Leisti balsuoti už daugybę pasirinkimų"
+            "#text": "Leisti balsuoti už kelis pasirinkimus"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Rodyti, kas balsavo"
           },
           {
             "@tag": "POLL_VOTED",
@@ -13040,7 +13040,7 @@
           },
           {
             "@tag": "FROM",
-            "#text": "Nuo: "
+            "#text": "Nuo:"
           },
           {
             "@tag": "GUEST_NAME_EXISTS",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Paskutiniai 10 komentarų (atvirkštine tvarka) "
+            "#text": "Paskutiniai 10 pranešimų (atvirkštine tvarka)"
           },
           {
             "@tag": "MESSAGE",
@@ -13064,11 +13064,11 @@
           },
           {
             "@tag": "NEWPOSTOPTIONS",
-            "#text": "Funkcijos: "
+            "#text": "Parinktys:"
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Nauja tema "
+            "#text": "Skelbti naują temą"
           },
           {
             "@tag": "NORMAL",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Ar ši tema nuolatinė?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13088,7 +13088,7 @@
           },
           {
             "@tag": "PREVIEW",
-            "#text": "Peržiūrėti "
+            "#text": "Peržiūra"
           },
           {
             "@tag": "PREVIEW_TITLE",
@@ -13100,7 +13100,7 @@
           },
           {
             "@tag": "PRIORITY",
-            "#text": "Prioritetas: "
+            "#text": "Prioritetas:"
           },
           {
             "@tag": "REPLY",
@@ -13128,7 +13128,7 @@
           },
           {
             "@tag": "SUBJECT",
-            "#text": "Tema: "
+            "#text": "Tema:"
           },
           {
             "@tag": "SUBJECT_EXISTS",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "\r\n      Stebėti šią temą ir gauti pranešimus apie veiklą, per e-\r\n\r\n      mail?\r\n    "
+            "#text": "Stebėti šią temą ir gauti pranešimus apie veiklą el. paštu?"
           },
           {
             "@tag": "WAIT",
@@ -13161,7 +13161,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "\"Atom Feed"
+            "#text": "Atom kanalas"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -13229,7 +13229,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Siųsti šią temą "
+            "#text": "Siųsti šią temą el. paštu"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -13297,7 +13297,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Temos URL"
+            "#text": "Temos LinkBack URL"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -13345,7 +13345,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Kita tema "
+            "#text": "Kita tema"
           },
           {
             "@tag": "NORMAL",
@@ -13361,7 +13361,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM "
+            "#text": "PŽ"
           },
           {
             "@tag": "PM_TITLE",
@@ -13385,11 +13385,11 @@
           },
           {
             "@tag": "PREVTOPIC",
-            "#text": "Ankstesnė tema "
+            "#text": "Ankstesnė tema"
           },
           {
             "@tag": "PRINTTOPIC",
-            "#text": "Spausdinti šią temą "
+            "#text": "Spausdinti šią temą"
           },
           {
             "@tag": "QUESTION",
@@ -13397,7 +13397,7 @@
           },
           {
             "@tag": "QUICKREPLY",
-            "#text": "Greitas atsakymas "
+            "#text": "Greitas atsakymas"
           },
           {
             "@tag": "RANK",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Report Abusive"
+            "#text": "Pranešti"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Dalintis!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,7 +13449,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "Rodyti / slėpti ignoruojamo naudotojo pranešimą"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13485,7 +13485,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "Nebestebėti šią temą "
+            "#text": "Nebestebėti šios temos"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -13533,7 +13533,7 @@
           },
           {
             "@tag": "WATCHTOPIC",
-            "#text": "Stebėti šią temą "
+            "#text": "Stebėti šią temą"
           }
         ]
       },
@@ -13648,7 +13648,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Paskutiniai 10 komentarų "
+            "#text": "Paskutiniai 10 pranešimų"
           },
           {
             "@tag": "LASTVISIT",
@@ -13720,7 +13720,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Peržiūrėti visas naudotojo žinutes"
+            "#text": "Peržiūrėti visus naudotojo pranešimus"
           },
           {
             "@tag": "SUSPEND",
@@ -14321,7 +14321,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Registruotis "
+            "#text": "Registruotis"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Ataskaita"
+            "#text": "Pranešti"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14575,7 +14575,7 @@
         "Resource": [
           {
             "@tag": "BTNSEARCH",
-            "#text": "Ieškoti "
+            "#text": "Ieškoti"
           },
           {
             "@tag": "BY",
@@ -14680,7 +14680,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Kartą per dieną gaunate veiklos suvestinę / santrauką?"
+            "#text": "Gauti kartą per dieną veiklos suvestinę?"
           },
           {
             "@tag": "ENABLE_NOTIFICATIONS",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forumai "
+            "#text": "Stebimi forumai"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Temos "
+            "#text": "Stebimos temos"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14800,7 +14800,7 @@
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Atsisakyti "
+            "#text": "Nebestebėti"
           },
           {
             "@tag": "UNSUBSCRIBED",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "Mano draugai"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15001,7 +15001,7 @@
           },
           {
             "@tag": "HELP",
-            "#text": "Padėti "
+            "#text": "Pagalba"
           },
           {
             "@tag": "HELP_TITLE",
@@ -15013,7 +15013,7 @@
           },
           {
             "@tag": "INBOX",
-            "#text": "Mano gauto pašto dėžutė"
+            "#text": "Mano gautieji"
           },
           {
             "@tag": "INBOX_TITLE",
@@ -15021,7 +15021,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Prisijungti "
+            "#text": "Prisijungti"
           },
           {
             "@tag": "LOGIN_CONNECT",
@@ -15033,7 +15033,7 @@
           },
           {
             "@tag": "LOGOUT",
-            "#text": "Išsiregistruoti "
+            "#text": "Atsijungti"
           },
           {
             "@tag": "LOGOUT_QUESTION",
@@ -15045,7 +15045,7 @@
           },
           {
             "@tag": "MEMBERS",
-            "#text": "Nariai "
+            "#text": "Nariai"
           },
           {
             "@tag": "MEMBERS_TITLE",
@@ -15053,7 +15053,7 @@
           },
           {
             "@tag": "MODERATE",
-            "#text": "Vidutiniškas "
+            "#text": "Moderuoti"
           },
           {
             "@tag": "MODERATE_NEW",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Mano profilis "
+            "#text": "Mano paskyra"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15101,7 +15101,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Registruotis "
+            "#text": "Registruotis"
           },
           {
             "@tag": "REGISTER_CONNECT",
@@ -15113,7 +15113,7 @@
           },
           {
             "@tag": "SEARCH",
-            "#text": "Ieškoti "
+            "#text": "Ieškoti"
           },
           {
             "@tag": "SEARCH_TITLE",
@@ -15218,7 +15218,7 @@
           },
           {
             "@tag": "MARKREAD",
-            "#text": "Pažymėti šį forumą kaip perskaitytą "
+            "#text": "Pažymėti šį forumą kaip perskaitytą"
           },
           {
             "@tag": "NO_POSTS",
@@ -15242,11 +15242,11 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Paieškos forumas"
+            "#text": "Ieškoti forume"
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Rodyti Temos "
+            "#text": "Rodyti temas"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Nebestebėti Forumas "
+            "#text": "Nebestebėti forumo"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Žiūrėti forumą "
+            "#text": "Stebėti forumą"
           },
           {
             "@tag": "YESTERDAYAT",

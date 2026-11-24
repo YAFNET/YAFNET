@@ -16,7 +16,7 @@
           },
           {
             "@tag": "CHANGE_PASSWORD",
-            "#text": "Resetare parola"
+            "#text": "Schimbare parolă"
           },
           {
             "@tag": "CONTROL_PANEL",
@@ -44,11 +44,11 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Modifica Avatar"
+            "#text": "Modificare avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "Editeaza profil"
+            "#text": "Editare profil"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -116,11 +116,11 @@
           },
           {
             "@tag": "SIGNATURE",
-            "#text": "Semnatura"
+            "#text": "Semnătură"
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Subscrieri"
+            "#text": "Preferințe de notificare"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -869,7 +869,7 @@
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "Reîntoarceți verificarea e-mailului"
+            "#text": "Retrimiteți verificarea e-mailului"
           },
           {
             "@tag": "ADMINISTRATION",
@@ -7750,7 +7750,7 @@
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
-            "#text": "Tipuri de fisiere admise"
+            "#text": "Tipuri de fișiere permise"
           },
           {
             "@tag": "ASK_DELETE",
@@ -7810,7 +7810,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Atasaemnte"
+            "#text": "Atașamente"
           },
           {
             "@tag": "UPLOAD",
@@ -7969,7 +7969,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Opțiuni de bloc"
+            "#text": "Opțiuni de blocare"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -8014,7 +8014,7 @@
         "Resource": [
           {
             "@tag": "ADDBUDDY",
-            "#text": "Adauga ca prieten"
+            "#text": "Adăugați ca prieten"
           },
           {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
@@ -8063,7 +8063,7 @@
         "Resource": [
           {
             "@tag": "BUTTON_ADDALBUM",
-            "#text": "Adauga Album Nou"
+            "#text": "Adăugați album nou"
           },
           {
             "@tag": "BUTTON_ATTACH",
@@ -8075,7 +8075,7 @@
           },
           {
             "@tag": "BUTTON_DELETE",
-            "#text": "Sterge"
+            "#text": "Ștergeți"
           },
           {
             "@tag": "BUTTON_DELETE_TT",
@@ -8103,7 +8103,7 @@
           },
           {
             "@tag": "BUTTON_DELETETOPIC",
-            "#text": "Sterge Topic"
+            "#text": "Ștergeți subiectul"
           },
           {
             "@tag": "BUTTON_DELETETOPIC_TT",
@@ -8111,7 +8111,7 @@
           },
           {
             "@tag": "BUTTON_EDIT",
-            "#text": "Editeaza"
+            "#text": "Editați"
           },
           {
             "@tag": "BUTTON_EDIT_TT",
@@ -8119,11 +8119,11 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Incarca/Sterge Imagine"
+            "#text": "Încărcați/ștergeți imagini"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Inchide Topic"
+            "#text": "Blocați subiectul"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -8139,7 +8139,7 @@
           },
           {
             "@tag": "BUTTON_MOVE",
-            "#text": "Muta"
+            "#text": "Mutați"
           },
           {
             "@tag": "BUTTON_MOVE_TT",
@@ -8147,7 +8147,7 @@
           },
           {
             "@tag": "BUTTON_MOVETOPIC",
-            "#text": "Muta Topic"
+            "#text": "Mutați subiectul"
           },
           {
             "@tag": "BUTTON_MOVETOPIC_TT",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "BUTTON_NEWTOPIC",
-            "#text": "Topic nou"
+            "#text": "Subiect nou"
           },
           {
             "@tag": "BUTTON_NEWTOPIC_TT",
@@ -8179,7 +8179,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Raspuns la Post"
+            "#text": "Răspundeți"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -8191,15 +8191,15 @@
           },
           {
             "@tag": "BUTTON_QUOTE_TT",
-            "#text": "Raspunde cu citat"
+            "#text": "Răspundeți cu citat"
           },
           {
             "@tag": "BUTTON_REACT_TT",
-            "#text": "Adaugă o reacție la mesaj"
+            "#text": "Adăugați o reacție la postare"
           },
           {
             "@tag": "BUTTON_REPLY",
-            "#text": "Răspuns"
+            "#text": "Răspundeți"
           },
           {
             "@tag": "BUTTON_REPLY_TT",
@@ -8219,11 +8219,11 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Seteaza ca coperta"
+            "#text": "Setați ca copertă"
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Recupereaza element sters"
+            "#text": "Restaurați"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -8231,7 +8231,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Deblocheaza Topic"
+            "#text": "Deblocați subiectul"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -8503,7 +8503,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Sari la forum "
+            "#text": "Salt la forum"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8547,7 +8547,7 @@
           },
           {
             "@tag": "LIVE_NEW_REPLY",
-            "#text": "Un nou răspuns a fost postat în acest subiect, arată-l"
+            "#text": "Un nou răspuns a fost publicat în acest subiect, afișați-l"
           },
           {
             "@tag": "LOADING",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Posta"
+            "#text": "Publicați"
           },
           {
             "@tag": "POWERED_BY",
@@ -8671,7 +8671,7 @@
           },
           {
             "@tag": "SAVE",
-            "#text": "Salveaza"
+            "#text": "Salvați"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8735,7 +8735,7 @@
           },
           {
             "@tag": "TT_EDITOR",
-            "#text": "Deschide Editorul complet"
+            "#text": "Deschideți editorul complet"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -9910,7 +9910,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "Discutii Active"
+            "#text": "Discuții active"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9994,7 +9994,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "Marcheaza toate forumurile ca fiind citite."
+            "#text": "Marcați toate forumurile ca citite"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -10128,11 +10128,11 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Ștergeți toate postările?"
+            "#text": "Ștergeți toate postările asociate?"
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Ștergeți motivul"
+            "#text": "Motivul ștergerii"
           },
           {
             "@tag": "DELETE_TT",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Avatar clar"
+            "#text": "Ștergeți avatarul"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10351,7 +10351,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Selectează-ți Avatarul din colecția noastră:"
+            "#text": "Selectați avatarul din colecția noastră:"
           },
           {
             "@tag": "TITLE",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Activează fluxul de activitate (Dacă este bifat, primești notificări pentru mențiuni, citate și mulțumiri."
+            "#text": "Activați fluxul de activitate (notificări pentru mențiuni, citate și reacții)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Schimba adresa de email."
+            "#text": "Schimbați adresa de e-mail"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10444,7 +10444,7 @@
           },
           {
             "@tag": "EDIT_ALBUMS",
-            "#text": "Editeaza Albums"
+            "#text": "Editați albumele"
           },
           {
             "@tag": "EMAIL",
@@ -10460,7 +10460,7 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Setari forum"
+            "#text": "Setări forum"
           },
           {
             "@tag": "GET_LOCATION",
@@ -10713,7 +10713,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Aprobarea"
+            "#text": "Aprobați"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -11726,7 +11726,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Trimite E-mail"
+            "#text": "Trimiteți e-mail"
           },
           {
             "@tag": "SENT",
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Intrare automata:"
+            "#text": "Ține-mă minte"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12082,7 +12082,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Recupereaza parola"
+            "#text": "Recuperați parola"
           },
           {
             "@tag": "REGISTER_INSTEAD",
@@ -12321,7 +12321,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Istoricul editărilor mesajului"
           },
           {
             "@tag": "TOMESSAGE",
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Postări raportate"
           },
           {
             "@tag": "TITLE",
@@ -12516,7 +12516,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Postari neaprobate"
+            "#text": "Postări neaprobate"
           }
         ]
       },
@@ -12525,7 +12525,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Aproba postare"
+            "#text": "Aprobați postarea"
           },
           {
             "@tag": "APPROVED",
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Mutarea mesajului la un alt subiect"
+            "#text": "Mutați mesajul într-un alt subiect"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Împărțiți mesajul într-un nou subiect"
+            "#text": "Separați mesajul într-un subiect nou"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Teme de ceas"
+            "#text": "Subiecte urmărite"
           }
         ]
       },
@@ -12842,7 +12842,7 @@
           },
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Conversațiile tale"
+            "#text": "Conversațiile dumneavoastră"
           },
           {
             "@tag": "DELETE_CONVERSATION",
@@ -12939,7 +12939,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Rulează sondajul pentru:"
+            "#text": "Durata sondajului:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Afișați cine a votat"
           },
           {
             "@tag": "POLL_VOTED",
@@ -13007,7 +13007,7 @@
           },
           {
             "@tag": "REMOVEPOLL",
-            "#text": "Scoateți sondajul"
+            "#text": "Eliminați sondajul"
           },
           {
             "@tag": "REMOVEPOLL_MSG",
@@ -13040,7 +13040,7 @@
           },
           {
             "@tag": "FROM",
-            "#text": "De la :"
+            "#text": "De la:"
           },
           {
             "@tag": "GUEST_NAME_EXISTS",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Ultimile 10 postari (In ordinea inversa)"
+            "#text": "Ultimele 10 postări (în ordine inversă)"
           },
           {
             "@tag": "MESSAGE",
@@ -13064,11 +13064,11 @@
           },
           {
             "@tag": "NEWPOSTOPTIONS",
-            "#text": "Optiuni:"
+            "#text": "Opțiuni:"
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Propune o nou tema"
+            "#text": "Publicați un subiect nou"
           },
           {
             "@tag": "NORMAL",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Este acest subiect persistent?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Urmareste acest topic,si primeste mail de notificare?"
+            "#text": "Urmăriți acest subiect și primiți notificări despre activitate prin e-mail?"
           },
           {
             "@tag": "WAIT",
@@ -13161,7 +13161,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Feed atom"
+            "#text": "Flux Atom"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -13229,7 +13229,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Trimite pe email tema"
+            "#text": "Trimiteți acest subiect prin e-mail"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -13257,7 +13257,7 @@
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
-            "#text": "Clic ptr. a vedea imaginea"
+            "#text": "Faceți clic pentru a vedea imaginea"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
@@ -13297,7 +13297,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack URL-ul subiectului"
+            "#text": "URL-ul LinkBack al subiectului"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -13345,7 +13345,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Urmatoare tema"
+            "#text": "Subiectul următor"
           },
           {
             "@tag": "NORMAL",
@@ -13361,7 +13361,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "P.M"
+            "#text": "MP"
           },
           {
             "@tag": "PM_TITLE",
@@ -13385,11 +13385,11 @@
           },
           {
             "@tag": "PREVTOPIC",
-            "#text": "Tema anterioara"
+            "#text": "Subiectul anterior"
           },
           {
             "@tag": "PRINTTOPIC",
-            "#text": "Printeaza tema"
+            "#text": "Tipăriți acest subiect"
           },
           {
             "@tag": "QUESTION",
@@ -13397,7 +13397,7 @@
           },
           {
             "@tag": "QUICKREPLY",
-            "#text": "Raspuns rapid"
+            "#text": "Răspuns rapid"
           },
           {
             "@tag": "RANK",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Raportat ca: Abuziv"
+            "#text": "Raportați"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Distribuiți!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,11 +13449,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Arata/Ascunde acest Post"
+            "#text": "Afișați/ascundeți postarea unui utilizator ignorat"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Ascunde publicatiile utilizatorului"
+            "#text": "Ascundeți postările utilizatorului"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13485,7 +13485,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "Dezarhivați acest subiect"
+            "#text": "Nu mai urmăriți acest subiect"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -13533,7 +13533,7 @@
           },
           {
             "@tag": "WATCHTOPIC",
-            "#text": "Urmareste aceasta tema"
+            "#text": "Urmăriți acest subiect"
           }
         ]
       },
@@ -13648,7 +13648,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Ultimile 10 postari"
+            "#text": "Ultimele 10 postări"
           },
           {
             "@tag": "LASTVISIT",
@@ -13720,7 +13720,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Vezi toate publicatiile utilizatorului"
+            "#text": "Vedeți toate postările utilizatorului"
           },
           {
             "@tag": "SUSPEND",
@@ -14233,7 +14233,7 @@
           },
           {
             "@tag": "CHECK_MAIL",
-            "#text": "Verifică-ți e-mailul"
+            "#text": "Verificați-vă e-mailul"
           },
           {
             "@tag": "CONFIRM_PASSWORD",
@@ -14321,7 +14321,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Inregistrare"
+            "#text": "Înregistrare"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Raport"
+            "#text": "Raportați"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14575,7 +14575,7 @@
         "Resource": [
           {
             "@tag": "BTNSEARCH",
-            "#text": "Cauta"
+            "#text": "Căutare"
           },
           {
             "@tag": "BY",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forumuri"
+            "#text": "Forumuri urmărite"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14744,7 +14744,7 @@
           },
           {
             "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Notificări push pentru dispozitiv (browser)."
+            "#text": "Notificări push pe dispozitiv (browser)"
           },
           {
             "@tag": "PWA_INSTALL",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Teme"
+            "#text": "Subiecte urmărite"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14800,7 +14800,7 @@
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Renunta la inscriere"
+            "#text": "Nu mai urmăriți"
           },
           {
             "@tag": "UNSUBSCRIBED",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Prieteni"
+            "#text": "Prietenii mei"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15013,7 +15013,7 @@
           },
           {
             "@tag": "INBOX",
-            "#text": "Cutia mea poștală de intrare"
+            "#text": "Căsuța mea de mesaje"
           },
           {
             "@tag": "INBOX_TITLE",
@@ -15021,7 +15021,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Intrare"
+            "#text": "Autentificare"
           },
           {
             "@tag": "LOGIN_CONNECT",
@@ -15033,7 +15033,7 @@
           },
           {
             "@tag": "LOGOUT",
-            "#text": "Iesire"
+            "#text": "Deconectare"
           },
           {
             "@tag": "LOGOUT_QUESTION",
@@ -15045,7 +15045,7 @@
           },
           {
             "@tag": "MEMBERS",
-            "#text": "Membrii"
+            "#text": "Membri"
           },
           {
             "@tag": "MEMBERS_TITLE",
@@ -15053,7 +15053,7 @@
           },
           {
             "@tag": "MODERATE",
-            "#text": "Modereaza"
+            "#text": "Moderare"
           },
           {
             "@tag": "MODERATE_NEW",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Profilul meu"
+            "#text": "Contul meu"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15089,7 +15089,7 @@
           },
           {
             "@tag": "MYTOPICS",
-            "#text": "Topicurile mele"
+            "#text": "Subiectele mele"
           },
           {
             "@tag": "MYTOPICS_TITLE",
@@ -15101,7 +15101,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Inregistrare"
+            "#text": "Înregistrare"
           },
           {
             "@tag": "REGISTER_CONNECT",
@@ -15113,7 +15113,7 @@
           },
           {
             "@tag": "SEARCH",
-            "#text": "Cauta"
+            "#text": "Căutare"
           },
           {
             "@tag": "SEARCH_TITLE",
@@ -15218,7 +15218,7 @@
           },
           {
             "@tag": "MARKREAD",
-            "#text": "Marcheaza forumul ca fiind  citit"
+            "#text": "Marcați acest forum ca citit"
           },
           {
             "@tag": "NO_POSTS",
@@ -15242,11 +15242,11 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Forum de căutare"
+            "#text": "Căutați în forum"
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Arata teme"
+            "#text": "Afișați subiectele"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Forum nesupravegheat"
+            "#text": "Nu mai urmăriți forumul"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Urmareste forum"
+            "#text": "Urmăriți forumul"
           },
           {
             "@tag": "YESTERDAYAT",

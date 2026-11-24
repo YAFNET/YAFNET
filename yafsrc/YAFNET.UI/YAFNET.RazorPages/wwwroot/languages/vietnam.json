@@ -48,7 +48,7 @@
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "Sửa lý lịch"
+            "#text": "Sửa hồ sơ"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -120,11 +120,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Chủ đề theo dõi"
+            "#text": "Tùy chọn thông báo"
           },
           {
             "@tag": "VIEW_PROFILE",
-            "#text": "Xem lí lịch"
+            "#text": "Xem hồ sơ"
           },
           {
             "@tag": "WAS_MENTIONED",
@@ -7746,11 +7746,11 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Thêm các tập tin)..."
+            "#text": "Thêm tệp..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
-            "#text": "Các định dạng cho phép"
+            "#text": "Các loại tệp được phép"
           },
           {
             "@tag": "ASK_DELETE",
@@ -7762,7 +7762,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Tải lên tệp đính kèm hiện tại:"
+            "#text": "Các tệp đính kèm đã tải lên:"
           },
           {
             "@tag": "DELETE",
@@ -7965,15 +7965,15 @@
           },
           {
             "@tag": "BLOCK_EMAILS",
-            "#text": "Chặn thư điện tử"
+            "#text": "Chặn email"
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Tùy chọn khối"
+            "#text": "Tùy chọn chặn"
           },
           {
             "@tag": "BLOCK_PMS",
-            "#text": "Chặn tin nhắn riêng tư"
+            "#text": "Chặn tin nhắn riêng"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -8005,7 +8005,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Tùy chọn Chặn người dùng &amp; Người dùng bị Bỏ qua"
+            "#text": "Tùy chọn chặn người dùng & Người dùng bị bỏ qua"
           }
         ]
       },
@@ -8063,7 +8063,7 @@
         "Resource": [
           {
             "@tag": "BUTTON_ADDALBUM",
-            "#text": "Thêm Anbom Mới"
+            "#text": "Thêm album mới"
           },
           {
             "@tag": "BUTTON_ATTACH",
@@ -8103,7 +8103,7 @@
           },
           {
             "@tag": "BUTTON_DELETETOPIC",
-            "#text": "Xoá"
+            "#text": "Xoá chủ đề"
           },
           {
             "@tag": "BUTTON_DELETETOPIC_TT",
@@ -8123,7 +8123,7 @@
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Khoá"
+            "#text": "Khoá chủ đề"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -8147,7 +8147,7 @@
           },
           {
             "@tag": "BUTTON_MOVETOPIC",
-            "#text": "Di chuyển"
+            "#text": "Di chuyển chủ đề"
           },
           {
             "@tag": "BUTTON_MOVETOPIC_TT",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "BUTTON_NEWTOPIC",
-            "#text": "Gửi chủ đề"
+            "#text": "Chủ đề mới"
           },
           {
             "@tag": "BUTTON_NEWTOPIC_TT",
@@ -8179,7 +8179,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Trả lời"
+            "#text": "Gửi trả lời"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -8231,7 +8231,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Mở khoá"
+            "#text": "Mở khoá chủ đề"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -8367,7 +8367,7 @@
           },
           {
             "@tag": "ATTACH_BBCODE",
-            "#text": "Chèn Tệp đính kèm hiện có hoặc tải lên Tệp mới ..."
+            "#text": "Chèn tệp đính kèm có sẵn hoặc tải lên tệp mới..."
           },
           {
             "@tag": "BACK",
@@ -8547,7 +8547,7 @@
           },
           {
             "@tag": "LIVE_NEW_REPLY",
-            "#text": "Một câu trả lời mới đã được đăng trong chủ đề này, hãy hiển thị nó"
+            "#text": "Có trả lời mới trong chủ đề này, nhấp để xem"
           },
           {
             "@tag": "LOADING",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Bưu kiện"
+            "#text": "Gửi bài"
           },
           {
             "@tag": "POWERED_BY",
@@ -8679,7 +8679,7 @@
           },
           {
             "@tag": "SELECTED_QUOTE",
-            "#text": "Trích dẫn Văn bản đã Chọn"
+            "#text": "Trích dẫn đoạn văn bản đã chọn"
           },
           {
             "@tag": "SELECTED_SEARCH",
@@ -9986,7 +9986,7 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Đánh dấu tất cả như đọc"
+            "#text": "Đánh dấu tất cả là đã đọc"
           },
           {
             "@tag": "MARK_ASREAD",
@@ -9994,7 +9994,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "Đánh dấu tất cả diễn đàn đã đọc"
+            "#text": "Đánh dấu tất cả diễn đàn là đã đọc"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -10002,7 +10002,7 @@
           },
           {
             "@tag": "MODERATORS",
-            "#text": "Điều hành"
+            "#text": "Người điều hành"
           },
           {
             "@tag": "MOST_ACTIVE",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Xem tất cả các diễn đàn"
+            "#text": "Theo dõi tất cả diễn đàn"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10107,7 +10107,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Đình chỉ tài khoản của bạn trong 30 ngày"
+            "#text": "Tạm khóa tài khoản của bạn trong 30 ngày"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -10128,7 +10128,7 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Xóa tất cả bài viết?"
+            "#text": "Xóa tất cả bài viết liên kết?"
           },
           {
             "@tag": "DELETE_REASON",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Xóa hình"
+            "#text": "Xóa hình đại diện"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10331,7 +10331,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Upload hình:"
+            "#text": "Tải hình đại diện lên từ máy tính của bạn:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -10351,7 +10351,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Chọn hình từ thư viện:"
+            "#text": "Chọn hình đại diện từ bộ sưu tập của chúng tôi:"
           },
           {
             "@tag": "TITLE",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Bật Luồng hoạt động (Nếu được chọn, bạn sẽ nhận được Thông báo cho Đề cập, Báo giá và Cảm ơn."
+            "#text": "Bật luồng hoạt động (thông báo về lượt đề cập, trích dẫn và cảm xúc)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Đổi email"
+            "#text": "Đổi địa chỉ email"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10444,7 +10444,7 @@
           },
           {
             "@tag": "EDIT_ALBUMS",
-            "#text": "Chỉnh sửa Anbom"
+            "#text": "Chỉnh sửa album"
           },
           {
             "@tag": "EMAIL",
@@ -10460,11 +10460,11 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Thiết lập diễn đàn"
+            "#text": "Cài đặt diễn đàn"
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Nhận vị trí từ địa chỉ IP"
+            "#text": "Lấy vị trí từ địa chỉ IP"
           },
           {
             "@tag": "HIDEME",
@@ -10777,7 +10777,7 @@
           },
           {
             "@tag": "PENDING_REQUESTS",
-            "#text": "Yêu Câu Đang Đợi Giải Quyêt"
+            "#text": "Yêu cầu đang chờ"
           },
           {
             "@tag": "POSTS",
@@ -11726,7 +11726,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Gửi"
+            "#text": "Gửi email"
           },
           {
             "@tag": "SENT",
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Ghi nhớ"
+            "#text": "Ghi nhớ đăng nhập"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12082,7 +12082,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Nhận lại mật khẩu"
+            "#text": "Khôi phục mật khẩu"
           },
           {
             "@tag": "REGISTER_INSTEAD",
@@ -12321,11 +12321,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Lịch sử chỉnh sửa bài viết"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Đi tới tin nhắn"
+            "#text": "Đi tới bài viết"
           }
         ]
       },
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Báo cáo nội dung vi phạm"
+            "#text": "Bài viết bị báo cáo"
           },
           {
             "@tag": "TITLE",
@@ -12516,7 +12516,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Bài chưa duyệt"
+            "#text": "Bài viết chưa duyệt"
           }
         ]
       },
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Chuyển tin nhắn sang một chủ đề khác"
+            "#text": "Chuyển bài viết sang chủ đề khác"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Tách thông điệp thành một chủ đề mới"
+            "#text": "Tách bài viết thành chủ đề mới"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Xem chủ đề"
+            "#text": "Chủ đề đang theo dõi"
           }
         ]
       },
@@ -12939,7 +12939,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Chạy cuộc thăm dò ý kiến cho:"
+            "#text": "Thời hạn thăm dò:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Hiển thị người đã bỏ phiếu"
           },
           {
             "@tag": "POLL_VOTED",
@@ -12983,7 +12983,7 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bỏ qua bỏ phiếu"
+            "#text": "Bỏ phiếu ràng buộc"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
@@ -13028,7 +13028,7 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Sự mô tả:"
+            "#text": "Mô tả:"
           },
           {
             "@tag": "EDIT",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "10 bài viết cuối cùng (Theo thứ tự ngược lại)"
+            "#text": "10 bài viết gần nhất (theo thứ tự ngược)"
           },
           {
             "@tag": "MESSAGE",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Giữ chủ đề này vĩnh viễn?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13100,7 +13100,7 @@
           },
           {
             "@tag": "PRIORITY",
-            "#text": "Dạng:"
+            "#text": "Mức ưu tiên:"
           },
           {
             "@tag": "REPLY",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Nhận thông báo của chủ đề qua email?"
+            "#text": "Theo dõi chủ đề này và nhận thông báo về hoạt động qua email?"
           },
           {
             "@tag": "WAIT",
@@ -13229,7 +13229,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Email chủ đề này"
+            "#text": "Gửi chủ đề này qua email"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -13361,7 +13361,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "BUỔI CHIỀU"
+            "#text": "Tin nhắn riêng"
           },
           {
             "@tag": "PM_TITLE",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Báo cáo vi phạm"
+            "#text": "Báo cáo"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Chia sẻ!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,11 +13449,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Hiện/Ẩn bài viết"
+            "#text": "Hiện/Ẩn bài viết của người dùng bị bỏ qua"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Ẩn bài viết này"
+            "#text": "Ẩn bài viết của người dùng"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13485,7 +13485,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "chưa xem chủ đề này"
+            "#text": "Ngừng theo dõi chủ đề này"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -13533,7 +13533,7 @@
           },
           {
             "@tag": "WATCHTOPIC",
-            "#text": "Xem chủ đề này"
+            "#text": "Theo dõi chủ đề này"
           }
         ]
       },
@@ -14554,7 +14554,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "Tôi đồng ý với các quy định này"
+            "#text": "Tôi đồng ý với các quy định và chính sách này"
           },
           {
             "@tag": "DECLINE",
@@ -14566,7 +14566,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Nội quy diễn đàn"
+            "#text": "Nội quy và chính sách diễn đàn"
           }
         ]
       },
@@ -14680,7 +14680,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Nhận thông báo / tóm tắt hoạt động hàng ngày một lần?"
+            "#text": "Nhận bản tóm tắt hoạt động mỗi ngày một lần?"
           },
           {
             "@tag": "ENABLE_NOTIFICATIONS",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Diễn đàn"
+            "#text": "Diễn đàn đang theo dõi"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Chủ đề"
+            "#text": "Chủ đề đang theo dõi"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14796,7 +14796,7 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Thông báo cho các chủ đề hoặc diễn đàn bạn đã xem một cách chọn lọc (liệt kê bên dưới)"
+            "#text": "Thông báo cho các chủ đề hoặc diễn đàn bạn đã chọn theo dõi (liệt kê bên dưới)"
           },
           {
             "@tag": "UNSUBSCRIBE",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Bạn bè"
+            "#text": "Bạn bè của tôi"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15033,7 +15033,7 @@
           },
           {
             "@tag": "LOGOUT",
-            "#text": "Thoát"
+            "#text": "Đăng xuất"
           },
           {
             "@tag": "LOGOUT_QUESTION",
@@ -15065,7 +15065,7 @@
           },
           {
             "@tag": "MYALBUMS",
-            "#text": "Anbom của tôi"
+            "#text": "Album của tôi"
           },
           {
             "@tag": "MYALBUMS_TITLE",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Trang cá nhân"
+            "#text": "Tài khoản của tôi"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15129,7 +15129,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Đội"
+            "#text": "Đội ngũ"
           },
           {
             "@tag": "TEAM_TITLE",
@@ -15218,7 +15218,7 @@
           },
           {
             "@tag": "MARKREAD",
-            "#text": "Đánh dấu diễn đàn đã đọc"
+            "#text": "Đánh dấu diễn đàn này là đã đọc"
           },
           {
             "@tag": "NO_POSTS",
@@ -15242,7 +15242,7 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Diễn đàn tìm kiếm"
+            "#text": "Tìm trong diễn đàn"
           },
           {
             "@tag": "SHOWTOPICS",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Hủy theo dõi diễn đàn này"
+            "#text": "Ngừng theo dõi diễn đàn"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Theo dõi diễn đàn này"
+            "#text": "Theo dõi diễn đàn"
           },
           {
             "@tag": "YESTERDAYAT",

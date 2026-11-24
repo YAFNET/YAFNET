@@ -10388,7 +10388,7 @@
                 },
                 {
                     "@tag": "ACTIVITY",
-                    "#text": "Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks."
+                    "#text": "Enable Activity Stream (notifications for mentions, quotes and reactions)"
                 },
                 {
                     "@tag": "AIM",
@@ -12261,7 +12261,7 @@
                 },
                 {
                     "@tag": "EDITEDBY_MOD",
-                    "#text": "Edited By an Moderator"
+                    "#text": "Edited by a Moderator"
                 },
                 {
                     "@tag": "EDITEREASON",
@@ -12313,7 +12313,7 @@
                 },
                 {
                     "@tag": "SELECT_TWO",
-                    "#text": "Only 2 Versions can be selected vor comparing!"
+                    "#text": "Only 2 versions can be selected for comparing!"
                 },
                 {
                     "@tag": "TEXT_CHANGES",
@@ -12650,7 +12650,7 @@
                 },
                 {
                     "@tag": "SPLIT_TITLE",
-                    "#text": "Split Message in to a new Topic"
+                    "#text": "Split Message into a new Topic"
                 },
                 {
                     "@tag": "TITLE",

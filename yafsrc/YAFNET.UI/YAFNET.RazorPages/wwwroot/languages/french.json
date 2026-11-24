@@ -16,7 +16,7 @@
           },
           {
             "@tag": "CHANGE_PASSWORD",
-            "#text": "Modification du mot de passe"
+            "#text": "Changer le mot de passe"
           },
           {
             "@tag": "CONTROL_PANEL",
@@ -44,11 +44,11 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Modifier l'Avatar"
+            "#text": "Modifier l'avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "Editer votre Profil"
+            "#text": "Modifier le profil"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Souscriptions"
+            "#text": "Préférences de notification"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -869,7 +869,7 @@
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "Renvoi de la vérification de l'e-mail"
+            "#text": "Renvoyer l'e-mail de vérification"
           },
           {
             "@tag": "ADMINISTRATION",
@@ -7746,11 +7746,11 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Ajouter le(s) fichier(s)..."
+            "#text": "Ajouter des fichiers..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
-            "#text": "Autorisé les types de fichiers"
+            "#text": "Types de fichiers autorisés"
           },
           {
             "@tag": "ASK_DELETE",
@@ -7762,7 +7762,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Téléchargements actuels de pièces jointes :"
+            "#text": "Pièces jointes envoyées :"
           },
           {
             "@tag": "DELETE",
@@ -7810,7 +7810,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Fichiers attachés"
+            "#text": "Pièces jointes"
           },
           {
             "@tag": "UPLOAD",
@@ -7965,11 +7965,11 @@
           },
           {
             "@tag": "BLOCK_EMAILS",
-            "#text": "Bloquer les courriels"
+            "#text": "Bloquer les e-mails"
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Options de bloc"
+            "#text": "Options de blocage"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -8103,7 +8103,7 @@
           },
           {
             "@tag": "BUTTON_DELETETOPIC",
-            "#text": "Suppression du sujet"
+            "#text": "Supprimer le sujet"
           },
           {
             "@tag": "BUTTON_DELETETOPIC_TT",
@@ -8111,7 +8111,7 @@
           },
           {
             "@tag": "BUTTON_EDIT",
-            "#text": "Edition"
+            "#text": "Modifier"
           },
           {
             "@tag": "BUTTON_EDIT_TT",
@@ -8119,11 +8119,11 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Envoyer/effacer des images"
+            "#text": "Envoyer/supprimer des images"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Bloquer sujet"
+            "#text": "Verrouiller le sujet"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -8147,7 +8147,7 @@
           },
           {
             "@tag": "BUTTON_MOVETOPIC",
-            "#text": "Déplacer sujet"
+            "#text": "Déplacer le sujet"
           },
           {
             "@tag": "BUTTON_MOVETOPIC_TT",
@@ -8155,7 +8155,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Devis multiples"
+            "#text": "Citation multiple"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -8231,7 +8231,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Débloquer sujet"
+            "#text": "Déverrouiller le sujet"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -8367,7 +8367,7 @@
           },
           {
             "@tag": "ATTACH_BBCODE",
-            "#text": "Insérez une pièce jointe existante ou téléchargez un nouveau fichier..."
+            "#text": "Insérer une pièce jointe existante ou envoyer un nouveau fichier..."
           },
           {
             "@tag": "BACK",
@@ -8547,7 +8547,7 @@
           },
           {
             "@tag": "LIVE_NEW_REPLY",
-            "#text": "Une nouvelle réponse a été publiée dans ce sujet, montrez-la"
+            "#text": "Une nouvelle réponse a été publiée dans ce sujet, l'afficher"
           },
           {
             "@tag": "LOADING",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Poste"
+            "#text": "Envoyer"
           },
           {
             "@tag": "POWERED_BY",
@@ -8743,7 +8743,7 @@
           },
           {
             "@tag": "TT_IMAGE",
-            "#text": "Insertion d'image"
+            "#text": "Insérer une image"
           },
           {
             "@tag": "TT_IMAGE_DESC",
@@ -9986,7 +9986,7 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Marquez tout comme lu"
+            "#text": "Tout marquer comme lu"
           },
           {
             "@tag": "MARK_ASREAD",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Voir tous les forums"
+            "#text": "Surveiller tous les forums"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10107,7 +10107,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspendez votre compte pendant 30 jours"
+            "#text": "Suspendre votre compte pendant 30 jours"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -10128,11 +10128,11 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Supprimer tous les messages ?"
+            "#text": "Supprimer tous les messages liés ?"
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Raison pour suppression"
+            "#text": "Motif de la suppression"
           },
           {
             "@tag": "DELETE_TT",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Effacer Avatar"
+            "#text": "Supprimer l'avatar"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10331,7 +10331,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Télécharger un Avatar depuis votre ordinateur:"
+            "#text": "Envoyer un avatar depuis votre ordinateur :"
           },
           {
             "@tag": "INVALID_FILE",
@@ -10351,7 +10351,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Choisir l'Avatar dans notre Collection:"
+            "#text": "Choisir votre avatar dans notre collection :"
           },
           {
             "@tag": "TITLE",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Activer le flux d'activité (Si cette case est cochée, vous recevrez des notifications pour les mentions, les citations et les remerciements."
+            "#text": "Activer le flux d'activité (notifications pour les mentions, les citations et les réactions)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Changer votre adresse courriel"
+            "#text": "Changer l'adresse e-mail"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10460,7 +10460,7 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Propriétés du forum"
+            "#text": "Paramètres du forum"
           },
           {
             "@tag": "GET_LOCATION",
@@ -10468,7 +10468,7 @@
           },
           {
             "@tag": "HIDEME",
-            "#text": "Cachez-moi des utilisateurs actifs"
+            "#text": "Ne pas m'afficher parmi les utilisateurs actifs"
           },
           {
             "@tag": "HOMEPAGE",
@@ -11726,7 +11726,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Envoyer"
+            "#text": "Envoyer l'e-mail"
           },
           {
             "@tag": "SENT",
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Reconnexion automatique&nbsp;:"
+            "#text": "Se souvenir de moi"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12261,7 +12261,7 @@
           },
           {
             "@tag": "EDITEDBY_MOD",
-            "#text": "Édité par un modérateur"
+            "#text": "Modifié par un modérateur"
           },
           {
             "@tag": "EDITEREASON",
@@ -12321,7 +12321,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Historique des modifications du message"
           },
           {
             "@tag": "TOMESSAGE",
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Message rapportés"
+            "#text": "Messages signalés"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Sujets à surveiller"
+            "#text": "Sujets surveillés"
           }
         ]
       },
@@ -12919,7 +12919,7 @@
           },
           {
             "@tag": "EDITPOLL",
-            "#text": "Editer le sondage"
+            "#text": "Modifier le sondage"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12939,7 +12939,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Run Poll For :"
+            "#text": "Durée du sondage :"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Afficher qui a voté"
           },
           {
             "@tag": "POLL_VOTED",
@@ -13036,7 +13036,7 @@
           },
           {
             "@tag": "EDITREASON",
-            "#text": "Raison pour édition:"
+            "#text": "Motif de la modification :"
           },
           {
             "@tag": "FROM",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "10 Derniers Messages (en ordre inversé)"
+            "#text": "10 derniers messages (dans l'ordre inverse)"
           },
           {
             "@tag": "MESSAGE",
@@ -13068,7 +13068,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Envoyer un nouveau sujet"
+            "#text": "Publier un nouveau sujet"
           },
           {
             "@tag": "NORMAL",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistant :"
+            "#text": "Ce sujet est-il persistant ?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Surveiller ce sujet et recevoir des notifications via e-mail?"
+            "#text": "Surveiller ce sujet et recevoir des notifications d'activité par e-mail ?"
           },
           {
             "@tag": "WAIT",
@@ -13161,7 +13161,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Flux atomique"
+            "#text": "Flux Atom"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -13221,7 +13221,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "Courriel :"
+            "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_TITLE",
@@ -13229,7 +13229,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Envoyer ce sujet par courriel"
+            "#text": "Envoyer ce sujet par e-mail"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -13345,7 +13345,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Sujet Suivant"
+            "#text": "Sujet suivant"
           },
           {
             "@tag": "NORMAL",
@@ -13385,7 +13385,7 @@
           },
           {
             "@tag": "PREVTOPIC",
-            "#text": "Sujet Précédent"
+            "#text": "Sujet précédent"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Rapporter ?"
+            "#text": "Signaler"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Partager"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,11 +13449,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Afficher/Masquer message"
+            "#text": "Afficher/masquer le message d'un utilisateur ignoré"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Masquer messages utilisateur"
+            "#text": "Masquer les messages de l'utilisateur"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -14321,7 +14321,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Enregistrer"
+            "#text": "S'inscrire"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Rapporter"
+            "#text": "Signaler"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14575,7 +14575,7 @@
         "Resource": [
           {
             "@tag": "BTNSEARCH",
-            "#text": "Chercher"
+            "#text": "Rechercher"
           },
           {
             "@tag": "BY",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forums"
+            "#text": "Forums surveillés"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14724,7 +14724,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Sélectionnez la préférence de notification par courriel :"
+            "#text": "Sélectionnez la préférence de notification par e-mail :"
           },
           {
             "@tag": "PERMISSIONDENIED",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Sujets"
+            "#text": "Sujets surveillés"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14796,11 +14796,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Notification pour les sujets ou les forums que vous avez suivis de manière sélective (liste ci-dessous)"
+            "#text": "Notification pour les sujets ou les forums que vous surveillez de manière sélective (liste ci-dessous)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Se désabonner"
+            "#text": "Ne plus surveiller"
           },
           {
             "@tag": "UNSUBSCRIBED",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Amis"
+            "#text": "Mes amis"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Mon Profil"
+            "#text": "Mon compte"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15242,11 +15242,11 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Forum de recherche"
+            "#text": "Rechercher dans le forum"
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Montrer les sujets"
+            "#text": "Afficher les sujets"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Ne plus observer ce forum"
+            "#text": "Ne plus surveiller ce forum"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Observer ce forum"
+            "#text": "Surveiller ce forum"
           },
           {
             "@tag": "YESTERDAYAT",

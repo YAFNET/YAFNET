@@ -120,7 +120,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Prenumerationer"
+            "#text": "Aviseringsinställningar"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -7969,7 +7969,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Blockalternativ"
+            "#text": "Blockeringsalternativ"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7985,7 +7985,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignorerad användarlista"
+            "#text": "Lista över ignorerade användare"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -8155,7 +8155,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Flera offerter"
+            "#text": "Flera citat"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -8179,7 +8179,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Inläggssvar"
+            "#text": "Skriv svar"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -8223,7 +8223,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Ta bort radering av"
+            "#text": "Återställ"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -8503,7 +8503,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Gå till"
+            "#text": "Gå till forum"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Inlägg"
+            "#text": "Skicka"
           },
           {
             "@tag": "POWERED_BY",
@@ -8679,7 +8679,7 @@
           },
           {
             "@tag": "SELECTED_QUOTE",
-            "#text": "Citat vald text"
+            "#text": "Citera markerad text"
           },
           {
             "@tag": "SELECTED_SEARCH",
@@ -8735,7 +8735,7 @@
           },
           {
             "@tag": "TT_EDITOR",
-            "#text": "Öppna Full Editor"
+            "#text": "Öppna fullständig editor"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Titta på alla forum"
+            "#text": "Bevaka alla forum"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10128,11 +10128,11 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Radera alla inlägg?"
+            "#text": "Ta bort alla länkade inlägg?"
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Ta bort orsaken"
+            "#text": "Orsak till borttagning"
           },
           {
             "@tag": "DELETE_TT",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Rensa Avatar"
+            "#text": "Ta bort avatar"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Aktivera aktivitetsflöde (om du markerar detta får du meddelanden om omnämnanden, citat och tack."
+            "#text": "Aktivera aktivitetsflöde (aviseringar om omnämnanden, citat och reaktioner)"
           },
           {
             "@tag": "AIM",
@@ -10557,7 +10557,7 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Inaktivera två faktorautentisering"
+            "#text": "Inaktivera tvåfaktorsautentisering"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
@@ -10569,7 +10569,7 @@
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Slå på två faktorautentisering"
+            "#text": "Aktivera tvåfaktorsautentisering"
           },
           {
             "@tag": "INFO",
@@ -10626,7 +10626,7 @@
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
-            "#text": "Förhandsgranskning av signaturer"
+            "#text": "Förhandsgranskning av signatur"
           },
           {
             "@tag": "SIGNATURE_RULES",
@@ -10713,11 +10713,11 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Godkänna"
+            "#text": "Godkänn"
           },
           {
             "@tag": "APPROVE_ALL",
-            "#text": "Godkänna alla"
+            "#text": "Godkänn alla"
           },
           {
             "@tag": "BUDDYLIST",
@@ -10777,7 +10777,7 @@
           },
           {
             "@tag": "PENDING_REQUESTS",
-            "#text": "Pågående ansökningar"
+            "#text": "Väntande förfrågningar"
           },
           {
             "@tag": "POSTS",
@@ -10793,7 +10793,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Dina önskemål"
+            "#text": "Dina förfrågningar"
           }
         ]
       },
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Automatisk inloggning:"
+            "#text": "Kom ihåg mig"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12062,7 +12062,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Bortglömt lösenord"
+            "#text": "Glömt lösenord"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -12082,7 +12082,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Återskapa lösenord"
+            "#text": "Återställ lösenord"
           },
           {
             "@tag": "REGISTER_INSTEAD",
@@ -12106,7 +12106,7 @@
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Tvåfaktorvalidering"
+            "#text": "Tvåfaktorsvalidering"
           },
           {
             "@tag": "USERNAME",
@@ -12297,7 +12297,7 @@
           },
           {
             "@tag": "RESTORE_MESSAGE",
-            "#text": "Återställa version"
+            "#text": "Återställ version"
           },
           {
             "@tag": "SELECT_BOTH",
@@ -12321,11 +12321,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Redigeringshistorik för inlägg"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Gå till meddelande"
+            "#text": "Gå till inlägg"
           }
         ]
       },
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Anmälda inlägg"
           },
           {
             "@tag": "TITLE",
@@ -12516,7 +12516,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Meddelanden ej godkända"
+            "#text": "Ej godkända inlägg"
           }
         ]
       },
@@ -12525,7 +12525,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Godkänn meddelande"
+            "#text": "Godkänn inlägg"
           },
           {
             "@tag": "APPROVED",
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Flytta meddelandet till ett annat ämne"
+            "#text": "Flytta inlägget till ett annat ämne"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Dela meddelandet i ett nytt ämne"
+            "#text": "Dela upp inlägget i ett nytt ämne"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Titta på ämnen"
+            "#text": "Bevakade ämnen"
           }
         ]
       },
@@ -12862,7 +12862,7 @@
           },
           {
             "@tag": "NEW_CONVERSATION",
-            "#text": "Nytt samtal"
+            "#text": "Ny konversation"
           },
           {
             "@tag": "NO_CONVERSATIONS",
@@ -12951,7 +12951,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Tillåt att rösta på många alternativ"
+            "#text": "Tillåt röster på flera alternativ"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Visa vem som röstat"
           },
           {
             "@tag": "POLL_VOTED",
@@ -12983,7 +12983,7 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Omröstning"
+            "#text": "Bunden omröstning"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "De senaste 10 meddelandena (i omvänd ordning)"
+            "#text": "De senaste 10 inläggen (i omvänd ordning)"
           },
           {
             "@tag": "MESSAGE",
@@ -13068,7 +13068,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Skapa ny konversation"
+            "#text": "Skapa nytt ämne"
           },
           {
             "@tag": "NORMAL",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Är detta ämne beständigt?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13128,7 +13128,7 @@
           },
           {
             "@tag": "SUBJECT",
-            "#text": "Ärende:"
+            "#text": "Rubrik:"
           },
           {
             "@tag": "SUBJECT_EXISTS",
@@ -13161,7 +13161,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atomflöde"
+            "#text": "Atom-flöde"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -13229,7 +13229,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Skicka denna konversation som e-post"
+            "#text": "Skicka detta ämne via e-post"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -13297,7 +13297,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Ämnets URL"
+            "#text": "LinkBack-URL för ämnet"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -13345,7 +13345,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Nästa konversation"
+            "#text": "Nästa ämne"
           },
           {
             "@tag": "NORMAL",
@@ -13361,7 +13361,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "Pm"
+            "#text": "PM"
           },
           {
             "@tag": "PM_TITLE",
@@ -13385,11 +13385,11 @@
           },
           {
             "@tag": "PREVTOPIC",
-            "#text": "Föregående konversation"
+            "#text": "Föregående ämne"
           },
           {
             "@tag": "PRINTTOPIC",
-            "#text": "Skriv ut denna konversation"
+            "#text": "Skriv ut detta ämne"
           },
           {
             "@tag": "QUESTION",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Report Abusive"
+            "#text": "Anmäl"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Dela"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,7 +13449,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "Visa/dölj inlägg från en ignorerad användare"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13485,7 +13485,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "Avbryt prenumeration på denna konversation"
+            "#text": "Sluta bevaka detta ämne"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -13533,7 +13533,7 @@
           },
           {
             "@tag": "WATCHTOPIC",
-            "#text": "Prenumerera på denna konversation"
+            "#text": "Bevaka detta ämne"
           }
         ]
       },
@@ -13648,7 +13648,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Senaste 10 meddelanden"
+            "#text": "Senaste 10 inläggen"
           },
           {
             "@tag": "LASTVISIT",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Rapportera"
+            "#text": "Anmäl"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forum"
+            "#text": "Bevakade forum"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14712,7 +14712,7 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Stäng av meddelanden"
+            "#text": "Stäng av aviseringar"
           },
           {
             "@tag": "NOTIFICATIONSBLOCKED",
@@ -14724,7 +14724,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Välj önskemål för e-postmeddelanden:"
+            "#text": "Välj inställning för e-postaviseringar:"
           },
           {
             "@tag": "PERMISSIONDENIED",
@@ -14744,7 +14744,7 @@
           },
           {
             "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Push-meddelanden för enhet (webbläsare)."
+            "#text": "Push-aviseringar för enhet (webbläsare)"
           },
           {
             "@tag": "PWA_INSTALL",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Konversationer"
+            "#text": "Bevakade ämnen"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14796,11 +14796,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Meddelanden om ämnen eller forum som du har bevakat selektivt (lista nedan)"
+            "#text": "Aviseringar om ämnen eller forum som du bevakar selektivt (listade nedan)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Avsluta prenumeration"
+            "#text": "Sluta bevaka"
           },
           {
             "@tag": "UNSUBSCRIBED",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "Mina vänner"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Min profil"
+            "#text": "Mitt konto"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15246,7 +15246,7 @@
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Visa konversationer"
+            "#text": "Visa ämnen"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Avbryt prenumeration på detta forum"
+            "#text": "Sluta bevaka forumet"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Prenumerera på detta forum"
+            "#text": "Bevaka forumet"
           },
           {
             "@tag": "YESTERDAYAT",

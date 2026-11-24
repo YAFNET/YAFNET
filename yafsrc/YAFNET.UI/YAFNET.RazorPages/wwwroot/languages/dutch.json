@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "Uw activiteit"
+            "#text": "Je activiteit"
           },
           {
             "@tag": "BECOME_FRIENDS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Gevolgde discussies"
+            "#text": "Meldingsvoorkeuren"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -128,7 +128,7 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "werd genoemd"
+            "#text": "Werd vermeld"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -7746,7 +7746,7 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Bestanden toevoegen)..."
+            "#text": "Bestand(en) toevoegen..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
@@ -7969,7 +7969,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Opties blokkeren"
+            "#text": "Blokkeeropties"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7985,7 +7985,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Genegeerde gebruikerslijst"
+            "#text": "Lijst met genegeerde gebruikers"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -8063,7 +8063,7 @@
         "Resource": [
           {
             "@tag": "BUTTON_ADDALBUM",
-            "#text": "Nieuw Album maken"
+            "#text": "Nieuw album toevoegen"
           },
           {
             "@tag": "BUTTON_ATTACH",
@@ -8119,7 +8119,7 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Upload/Verwijder Plaatjes"
+            "#text": "Afbeeldingen uploaden/verwijderen"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
@@ -8147,7 +8147,7 @@
           },
           {
             "@tag": "BUTTON_MOVETOPIC",
-            "#text": "Verplaats Topic"
+            "#text": "Verplaats topic"
           },
           {
             "@tag": "BUTTON_MOVETOPIC_TT",
@@ -8155,7 +8155,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Meerdere offertes"
+            "#text": "Meervoudig citeren"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "BUTTON_NEWTOPIC",
-            "#text": "Nieuw Topic"
+            "#text": "Nieuw topic"
           },
           {
             "@tag": "BUTTON_NEWTOPIC_TT",
@@ -8191,7 +8191,7 @@
           },
           {
             "@tag": "BUTTON_QUOTE_TT",
-            "#text": "Antwoord met quote"
+            "#text": "Antwoorden met citaat"
           },
           {
             "@tag": "BUTTON_REACT_TT",
@@ -8219,7 +8219,7 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Gebruik als voorblad"
+            "#text": "Instellen als omslag"
           },
           {
             "@tag": "BUTTON_UNDELETE",
@@ -8503,7 +8503,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Ga naar:"
+            "#text": "Ga naar forum"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Na"
+            "#text": "Plaatsen"
           },
           {
             "@tag": "POWERED_BY",
@@ -8743,7 +8743,7 @@
           },
           {
             "@tag": "TT_IMAGE",
-            "#text": "Plaatje invoegen"
+            "#text": "Afbeelding invoegen"
           },
           {
             "@tag": "TT_IMAGE_DESC",
@@ -8880,7 +8880,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Cookie beleid"
+            "#text": "Cookiebeleid"
           }
         ]
       },
@@ -9910,7 +9910,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "Actieve topics"
+            "#text": "Actieve discussies"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9986,7 +9986,7 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Markeer alles zoals gelezen"
+            "#text": "Alles als gelezen markeren"
           },
           {
             "@tag": "MARK_ASREAD",
@@ -9994,7 +9994,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "Markeer alle fora als gelezen"
+            "#text": "Markeer alle forums als gelezen"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -10002,7 +10002,7 @@
           },
           {
             "@tag": "MODERATORS",
-            "#text": "Moderatoren"
+            "#text": "Moderators"
           },
           {
             "@tag": "MOST_ACTIVE",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Bekijk alle forums"
+            "#text": "Alle forums volgen"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10099,7 +10099,7 @@
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Verwijder uw account (definitief)"
+            "#text": "Verwijder je account (definitief)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
@@ -10107,7 +10107,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Schors uw account gedurende 30 dagen"
+            "#text": "Schors je account voor 30 dagen"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -10128,7 +10128,7 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Alle berichten verwijderen?"
+            "#text": "Alle gekoppelde berichten verwijderen?"
           },
           {
             "@tag": "DELETE_REASON",
@@ -10319,7 +10319,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Deze avatar verwijderen"
+            "#text": "Avatar verwijderen"
           },
           {
             "@tag": "AVATARMODEL",
@@ -10351,7 +10351,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Onze avatar-galerij:"
+            "#text": "Kies je avatar uit onze verzameling:"
           },
           {
             "@tag": "TITLE",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Schakel activiteitenstroom in (indien aangevinkt krijg je meldingen voor vermeldingen, citaten en bedankt."
+            "#text": "Activiteitenstroom inschakelen (meldingen voor vermeldingen, citaten en reacties)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "E-mail adres wijzigen"
+            "#text": "E-mailadres wijzigen"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10444,7 +10444,7 @@
           },
           {
             "@tag": "EDIT_ALBUMS",
-            "#text": "Bewerk Albums"
+            "#text": "Albums bewerken"
           },
           {
             "@tag": "EMAIL",
@@ -10468,7 +10468,7 @@
           },
           {
             "@tag": "HIDEME",
-            "#text": "Laat me niet zien aan andere gebruikers"
+            "#text": "Verberg mij in de lijst met actieve gebruikers"
           },
           {
             "@tag": "HOMEPAGE",
@@ -10557,7 +10557,7 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Schakel twee factor authenticatie uit"
+            "#text": "Tweestapsverificatie uitschakelen"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
@@ -10569,7 +10569,7 @@
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Schakel twee factor authenticatie in"
+            "#text": "Tweestapsverificatie inschakelen"
           },
           {
             "@tag": "INFO",
@@ -10581,7 +10581,7 @@
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup -code"
+            "#text": "Instelcode"
           },
           {
             "@tag": "TITLE",
@@ -10626,7 +10626,7 @@
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
-            "#text": "Handtekening voorbeeld"
+            "#text": "Voorbeeld handtekening"
           },
           {
             "@tag": "SIGNATURE_RULES",
@@ -10713,7 +10713,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Keur goed"
+            "#text": "Goedkeuren"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10777,7 +10777,7 @@
           },
           {
             "@tag": "PENDING_REQUESTS",
-            "#text": "Onbehandelde verzoeken"
+            "#text": "Openstaande verzoeken"
           },
           {
             "@tag": "POSTS",
@@ -12042,7 +12042,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Automatisch inloggen"
+            "#text": "Onthoud mij"
           },
           {
             "@tag": "BACK_TO_LOGIN",
@@ -12062,7 +12062,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Wachtwoord vergeten?"
+            "#text": "Wachtwoord vergeten"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -12106,7 +12106,7 @@
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Validatie met twee factoren"
+            "#text": "Tweestapsverificatie"
           },
           {
             "@tag": "USERNAME",
@@ -12321,7 +12321,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Bericht geschiedenis"
+            "#text": "Bewerkingsgeschiedenis van het bericht"
           },
           {
             "@tag": "TOMESSAGE",
@@ -12504,11 +12504,11 @@
           },
           {
             "@tag": "MODERATE_TOPICS",
-            "#text": "Onderwerpen modereren"
+            "#text": "Topics modereren"
           },
           {
             "@tag": "REPORTED",
-            "#text": "Als kwetsend gerapporteerd"
+            "#text": "Gemelde berichten"
           },
           {
             "@tag": "TITLE",
@@ -12589,7 +12589,7 @@
           },
           {
             "@tag": "RESOLVED",
-            "#text": "Markeer als opgeschoond"
+            "#text": "Markeer als afgehandeld"
           },
           {
             "@tag": "RESOLVEDBY",
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Verplaats naar een ander Topic."
+            "#text": "Bericht naar een ander topic verplaatsen"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Splits Bericht af naar een nieuw Topic."
+            "#text": "Bericht afsplitsen naar een nieuw topic"
           },
           {
             "@tag": "TITLE",
@@ -12692,7 +12692,7 @@
         "Resource": [
           {
             "@tag": "ACTIVETOPICS",
-            "#text": "Actieve Topics"
+            "#text": "Actieve topics"
           },
           {
             "@tag": "ATOMFEED",
@@ -12796,7 +12796,7 @@
           },
           {
             "@tag": "UNANSWEREDTOPICS",
-            "#text": "Onbeantwoorde Topics"
+            "#text": "Onbeantwoorde topics"
           },
           {
             "@tag": "VIEWS",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Onderwerpen bekijken"
+            "#text": "Gevolgde topics"
           }
         ]
       },
@@ -12842,7 +12842,7 @@
           },
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Uw gesprekken"
+            "#text": "Je gesprekken"
           },
           {
             "@tag": "DELETE_CONVERSATION",
@@ -12951,7 +12951,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Meerdere keuzen toegestaan"
+            "#text": "Stemmen op meerdere keuzes toestaan"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Laat stemmers zien."
+            "#text": "Tonen wie er gestemd heeft"
           },
           {
             "@tag": "POLL_VOTED",
@@ -13007,7 +13007,7 @@
           },
           {
             "@tag": "REMOVEPOLL",
-            "#text": "Verwijder Poll"
+            "#text": "Poll verwijderen"
           },
           {
             "@tag": "REMOVEPOLL_MSG",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Is dit topic permanent?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Abbonneer aan dit topic en ontvang updates via e-mail?"
+            "#text": "Dit topic volgen en meldingen van activiteit per e-mail ontvangen?"
           },
           {
             "@tag": "WAIT",
@@ -13161,7 +13161,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atoomvoeding"
+            "#text": "Atom-feed"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -13257,7 +13257,7 @@
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
-            "#text": "Klik om het plaatje te bekijken"
+            "#text": "Klik om de afbeelding te bekijken"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
@@ -13297,7 +13297,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack-onderwerp-URL"
+            "#text": "LinkBack-URL van het topic"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -13309,7 +13309,7 @@
           },
           {
             "@tag": "MANAGE_TOPIC",
-            "#text": "Onderwerp beheren"
+            "#text": "Topic beheren"
           },
           {
             "@tag": "MARK_ANSWER",
@@ -13361,7 +13361,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "Stuur PM"
+            "#text": "PB"
           },
           {
             "@tag": "PM_TITLE",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Rapporteer ongepast gedrag"
+            "#text": "Melden"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13433,7 +13433,7 @@
           },
           {
             "@tag": "SIMILAR_TOPICS",
-            "#text": "Vergelijkbare onderwerpen"
+            "#text": "Vergelijkbare topics"
           },
           {
             "@tag": "THANKSFROM",
@@ -13449,11 +13449,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Verberg Post/Laat Post zien"
+            "#text": "Bericht van een genegeerde gebruiker tonen/verbergen"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Verberg posts van gebruiker"
+            "#text": "Berichten van gebruiker verbergen"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13720,7 +13720,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Bekijk alle berichte van deze gebruiker"
+            "#text": "Bekijk alle berichten van deze gebruiker"
           },
           {
             "@tag": "SUSPEND",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Rapport"
+            "#text": "Melden"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14554,7 +14554,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "Ik ga met deze regels akkoord"
+            "#text": "Ik ga akkoord met deze regels en dit beleid"
           },
           {
             "@tag": "DECLINE",
@@ -14566,7 +14566,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Forumregels"
+            "#text": "Forumregels en beleid"
           }
         ]
       },
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Fora"
+            "#text": "Gevolgde forums"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14724,7 +14724,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Selecteerd e-mail melding voorkeur:"
+            "#text": "Selecteer je voorkeur voor e-mailmeldingen:"
           },
           {
             "@tag": "PERMISSIONDENIED",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Topics"
+            "#text": "Gevolgde topics"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14796,7 +14796,7 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Meldingen voor topics of forums waar je selectief op geabonneerd bent (zie hieronder)"
+            "#text": "Meldingen voor topics of forums die je selectief volgt (zie hieronder)"
           },
           {
             "@tag": "UNSUBSCRIBE",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Vrienden"
+            "#text": "Mijn vrienden"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15001,7 +15001,7 @@
           },
           {
             "@tag": "HELP",
-            "#text": "Helpen"
+            "#text": "Help"
           },
           {
             "@tag": "HELP_TITLE",
@@ -15053,7 +15053,7 @@
           },
           {
             "@tag": "MODERATE",
-            "#text": "Moderatie"
+            "#text": "Modereren"
           },
           {
             "@tag": "MODERATE_NEW",
@@ -15065,7 +15065,7 @@
           },
           {
             "@tag": "MYALBUMS",
-            "#text": "Mijn Albums"
+            "#text": "Mijn albums"
           },
           {
             "@tag": "MYALBUMS_TITLE",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Profiel"
+            "#text": "Mijn account"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15089,7 +15089,7 @@
           },
           {
             "@tag": "MYTOPICS",
-            "#text": "Mijn Topics"
+            "#text": "Mijn topics"
           },
           {
             "@tag": "MYTOPICS_TITLE",
@@ -15242,7 +15242,7 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Zoeken"
+            "#text": "Forum doorzoeken"
           },
           {
             "@tag": "SHOWTOPICS",

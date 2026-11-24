@@ -16,7 +16,7 @@
           },
           {
             "@tag": "CHANGE_PASSWORD",
-            "#text": "Ændre adgangskode"
+            "#text": "Skift adgangskode"
           },
           {
             "@tag": "CONTROL_PANEL",
@@ -44,11 +44,11 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Ændre avatar"
+            "#text": "Skift avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "Ændre profil"
+            "#text": "Rediger profil"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "SUBSCRIPTIONS",
-            "#text": "Abonnement"
+            "#text": "Notifikationsindstillinger"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -7746,7 +7746,7 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Tilføj filer)..."
+            "#text": "Tilføj fil(er)..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
@@ -7762,7 +7762,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Aktuelle vedhæftede uploads:"
+            "#text": "Aktuelle uploadede vedhæftede filer:"
           },
           {
             "@tag": "DELETE",
@@ -7969,7 +7969,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Blokeringsmuligheder"
+            "#text": "Blokeringsindstillinger"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7985,7 +7985,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignoreret brugerliste"
+            "#text": "Liste over ignorerede brugere"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -8191,7 +8191,7 @@
           },
           {
             "@tag": "BUTTON_QUOTE_TT",
-            "#text": "Svar med citering"
+            "#text": "Svar med citat"
           },
           {
             "@tag": "BUTTON_REACT_TT",
@@ -8223,7 +8223,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Gendannet"
+            "#text": "Gendan"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -8399,7 +8399,7 @@
           },
           {
             "@tag": "CONTINUE",
-            "#text": "Blive ved"
+            "#text": "Fortsæt"
           },
           {
             "@tag": "COOKIE",
@@ -8503,7 +8503,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Gå til:"
+            "#text": "Gå til forum"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8647,7 +8647,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Stolpe"
+            "#text": "Send"
           },
           {
             "@tag": "POWERED_BY",
@@ -10078,7 +10078,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Se alle fora"
+            "#text": "Hold øje med alle fora"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -10128,11 +10128,11 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Vil du slette alle indlæg?"
+            "#text": "Slet alle tilknyttede indlæg?"
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Grunden til sletningen"
+            "#text": "Årsag til sletning"
           },
           {
             "@tag": "DELETE_TT",
@@ -10351,7 +10351,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Vælg den avatar fra vores samling:"
+            "#text": "Vælg din avatar fra vores samling:"
           },
           {
             "@tag": "TITLE",
@@ -10388,7 +10388,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Aktiver aktivitetsstream (hvis markeret får du meddelelser om omtaler, citater og tak."
+            "#text": "Aktivér aktivitetsstream (notifikationer om omtaler, citater og reaktioner)"
           },
           {
             "@tag": "AIM",
@@ -10412,7 +10412,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Ændre e-mail adresse"
+            "#text": "Skift e-mailadresse"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10460,7 +10460,7 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Forum indstillinger"
+            "#text": "Forumindstillinger"
           },
           {
             "@tag": "GET_LOCATION",
@@ -10557,7 +10557,7 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Deaktiver to faktorgodkendelse"
+            "#text": "Deaktiver totrinsgodkendelse"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
@@ -10569,7 +10569,7 @@
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Tænd for to faktorgodkendelse"
+            "#text": "Aktivér totrinsgodkendelse"
           },
           {
             "@tag": "INFO",
@@ -10626,7 +10626,7 @@
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
-            "#text": "Signatur forhåndsvisning"
+            "#text": "Forhåndsvisning af signatur"
           },
           {
             "@tag": "SIGNATURE_RULES",
@@ -10721,7 +10721,7 @@
           },
           {
             "@tag": "BUDDYLIST",
-            "#text": "Venne liste"
+            "#text": "Venneliste"
           },
           {
             "@tag": "BUDDYLIST_TT",
@@ -10777,7 +10777,7 @@
           },
           {
             "@tag": "PENDING_REQUESTS",
-            "#text": "Ventende forespørgsler"
+            "#text": "Ventende anmodninger"
           },
           {
             "@tag": "POSTS",
@@ -10793,7 +10793,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Din forespørgsel"
+            "#text": "Dine anmodninger"
           }
         ]
       },
@@ -12082,7 +12082,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Send adgangskode"
+            "#text": "Gendan adgangskode"
           },
           {
             "@tag": "REGISTER_INSTEAD",
@@ -12106,7 +12106,7 @@
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "To-faktor validering"
+            "#text": "Totrinsbekræftelse"
           },
           {
             "@tag": "USERNAME",
@@ -12321,11 +12321,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Besked historie"
+            "#text": "Redigeringshistorik for indlæg"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Gå til besked"
+            "#text": "Gå til indlæg"
           }
         ]
       },
@@ -12508,7 +12508,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Rapporteret som indlægs misbrug"
+            "#text": "Anmeldte indlæg"
           },
           {
             "@tag": "TITLE",
@@ -12525,7 +12525,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Godkend Indlæg"
+            "#text": "Godkend indlæg"
           },
           {
             "@tag": "APPROVED",
@@ -12630,7 +12630,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Flyt besked til et andet emne"
+            "#text": "Flyt indlæg til et andet emne"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -12650,7 +12650,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Opdel besked til et nyt emne"
+            "#text": "Opdel indlæg i et nyt emne"
           },
           {
             "@tag": "TITLE",
@@ -12804,7 +12804,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Se emner"
+            "#text": "Overvågede emner"
           }
         ]
       },
@@ -12939,7 +12939,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Kør afstemning for:"
+            "#text": "Afstemningens varighed:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12951,7 +12951,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Tillad at stemme for mange valg"
+            "#text": "Tillad at stemme på flere svarmuligheder"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12963,7 +12963,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Vis hvem der har stemt"
           },
           {
             "@tag": "POLL_VOTED",
@@ -13036,7 +13036,7 @@
           },
           {
             "@tag": "EDITREASON",
-            "#text": "Grund for redigering:"
+            "#text": "Årsag til redigering:"
           },
           {
             "@tag": "FROM",
@@ -13052,7 +13052,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Sidste 10 Indlæg (Med det nyeste først)"
+            "#text": "Sidste 10 indlæg (nyeste først)"
           },
           {
             "@tag": "MESSAGE",
@@ -13068,7 +13068,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Skriv et indlæg"
+            "#text": "Opret nyt emne"
           },
           {
             "@tag": "NORMAL",
@@ -13076,7 +13076,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Vedvarende:"
+            "#text": "Er dette emne vedvarende?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -13088,7 +13088,7 @@
           },
           {
             "@tag": "PREVIEW",
-            "#text": "Gennemse"
+            "#text": "Forhåndsvisning"
           },
           {
             "@tag": "PREVIEW_TITLE",
@@ -13100,7 +13100,7 @@
           },
           {
             "@tag": "PRIORITY",
-            "#text": "Prioritet::"
+            "#text": "Prioritet:"
           },
           {
             "@tag": "REPLY",
@@ -13136,7 +13136,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Hold øje med dette emne og modtag notifikationer via email hvis der er aktivitet?"
+            "#text": "Hold øje med dette emne og modtag notifikationer om aktivitet via e-mail?"
           },
           {
             "@tag": "WAIT",
@@ -13229,7 +13229,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Email dette emne"
+            "#text": "Send dette emne via e-mail"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -13297,7 +13297,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack emne-URL"
+            "#text": "LinkBack-URL for emnet"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -13345,7 +13345,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Næste Emne"
+            "#text": "Næste emne"
           },
           {
             "@tag": "NORMAL",
@@ -13397,7 +13397,7 @@
           },
           {
             "@tag": "QUICKREPLY",
-            "#text": "Hurtig svar"
+            "#text": "Hurtigt svar"
           },
           {
             "@tag": "RANK",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Rapporter misbrug"
+            "#text": "Anmeld"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -13425,7 +13425,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Del"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13449,11 +13449,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Vis/Skjul indlæg"
+            "#text": "Vis/skjul indlæg fra en ignoreret bruger"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Skjul bruger indlæg"
+            "#text": "Skjul brugerens indlæg"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13485,7 +13485,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "Følg ikke dette emne mere"
+            "#text": "Hold ikke længere øje med dette emne"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -14455,7 +14455,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Rapport"
+            "#text": "Anmeld"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14680,11 +14680,11 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Modtage én gang daglig fordøjelse/oversigt over aktivitet?"
+            "#text": "Modtag en daglig oversigt over aktivitet?"
           },
           {
             "@tag": "ENABLE_NOTIFICATIONS",
-            "#text": "Aktiver meddelelser"
+            "#text": "Aktivér notifikationer"
           },
           {
             "@tag": "FORUM",
@@ -14692,7 +14692,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Fora"
+            "#text": "Overvågede fora"
           },
           {
             "@tag": "IOSHANDLING",
@@ -14724,7 +14724,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Vælg præference for e-mailbeskeder:"
+            "#text": "Vælg indstilling for e-mailnotifikationer:"
           },
           {
             "@tag": "PERMISSIONDENIED",
@@ -14744,7 +14744,7 @@
           },
           {
             "@tag": "PUSH_NOTIFICATIONS",
-            "#text": "Enheds (Browser) push-meddelelser"
+            "#text": "Push-notifikationer på enhed (browser)"
           },
           {
             "@tag": "PWA_INSTALL",
@@ -14788,7 +14788,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Emne"
+            "#text": "Overvågede emner"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14796,11 +14796,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Underretning om emner eller fora, du selektivt har set (angivet nedenfor)"
+            "#text": "Notifikationer om emner eller fora, du selektivt holder øje med (vist nedenfor)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Afmeld"
+            "#text": "Stop med at holde øje"
           },
           {
             "@tag": "UNSUBSCRIBED",
@@ -14981,7 +14981,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Venner"
+            "#text": "Mine venner"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -15077,7 +15077,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Min profil"
+            "#text": "Min konto"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -15101,7 +15101,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Registrering"
+            "#text": "Tilmeld"
           },
           {
             "@tag": "REGISTER_CONNECT",
@@ -15129,7 +15129,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Hold"
+            "#text": "Team"
           },
           {
             "@tag": "TEAM_TITLE",
@@ -15246,7 +15246,7 @@
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Vis Emner"
+            "#text": "Vis emner"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15266,7 +15266,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Stop med at følge dette forum"
+            "#text": "Hold ikke længere øje med forummet"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15286,7 +15286,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Få besked ved ændringer i dette forum"
+            "#text": "Hold øje med forummet"
           },
           {
             "@tag": "YESTERDAYAT",
