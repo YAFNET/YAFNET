@@ -24,7 +24,9 @@
 
 namespace YAF.Core.Helpers;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -33,6 +35,24 @@ using System.Web;
 /// </summary>
 public static partial class BBCodeHelper
 {
+    /// <summary>
+    /// The BBCode extensions the forum itself needs: the attachments of the posts ([attach], inserted by the
+    /// editor), the embedded media ([media], the media button of the editor), the member links of the mentions
+    /// ([userlink], @ in the editor) and the album images ([albumimg]).
+    /// They can't be deleted.
+    /// </summary>
+    public static readonly IReadOnlyList<string> RequiredExtensions = ["ATTACH", "MEDIA", "USERLINK", "ALBUMIMG"];
+
+    /// <summary>
+    /// Is the BBCode extension one the forum itself needs (it can't be deleted)?
+    /// </summary>
+    /// <param name="name">The name of the extension.</param>
+    /// <returns>True if the forum needs it.</returns>
+    public static bool IsRequiredExtension(string name)
+    {
+        return name != null && RequiredExtensions.Contains(name.Trim(), StringComparer.OrdinalIgnoreCase);
+    }
+
     /// <summary>
     /// The find user quoting.
     /// </summary>

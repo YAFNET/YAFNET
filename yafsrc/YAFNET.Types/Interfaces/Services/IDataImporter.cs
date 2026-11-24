@@ -119,6 +119,21 @@ public interface IDataImporter
     Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream, bool isDefaultFile = false);
 
     /// <summary>
+    /// Restores a BBCode extension to the version of the forum (BBCodeExtensions.xml), also when an admin
+    /// changed or deleted it.
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="name">The name of the extension.</param>
+    /// <returns>False if the forum has no extension of that name.</returns>
+    Task<bool> BBCodeExtensionRestoreAsync(int boardId, string name);
+
+    /// <summary>
+    /// Gets the names of the BBCode extensions of the forum (BBCodeExtensions.xml).
+    /// </summary>
+    /// <returns>The names (empty without the file).</returns>
+    List<string> DefaultBBCodeExtensionNames();
+
+    /// <summary>
     /// Import Users from the InputStream
     /// </summary>
     /// <param name="inputStream">

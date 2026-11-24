@@ -69,6 +69,12 @@
             {
                 var code = Model.List[i];
 
+                // the forum needs these (attachments, member links, album images): they can't be deleted
+                var isRequired = BBCodeHelper.IsRequiredExtension(code.Name);
+
+                // the extensions of the forum can be restored to the version of BBCodeExtensions.xml
+                var isDefault = Model.DefaultNames.Exists(n => n.Equals(code.Name, StringComparison.OrdinalIgnoreCase));
+
                 <li class="list-group-item list-group-item-menu bbcode-row">
                     <input type="hidden" asp-for="List[i].ID" />
                     <input asp-for="List[i].Selected" class="form-check-input bbcode-select" />
@@ -90,6 +96,10 @@
                             {
                                 <span class="badge text-bg-secondary">@Html.Icon("puzzle-piece")@Html.LocalizedText("ADMIN_BBCODE", "MODULE")</span>
                             }
+                            @if (isRequired)
+                            {
+                                <span class="badge text-bg-warning" title="@Html.LocalizedText("ADMIN_BBCODE", "REQUIRED_HELP")">@Html.Icon("lock")@Html.LocalizedText("ADMIN_BBCODE", "REQUIRED")</span>
+                            }
                         </div>
                     </div>
                     <div class="btn-group btn-group-sm">
@@ -100,14 +110,28 @@
                            title-localized-tag="EDIT"
                            Icon="edit"
                            text-localized-tag="EDIT"></a>
-                        <button button-style="Danger"
-                                button-size="Small"
-                                asp-page-handler="Delete"
-                                asp-route-b="@code.ID"
-                                title-localized-tag="DELETE"
-                                Icon="trash"
-                                text-localized-tag="DELETE"
-                                return-confirm-tag="CONFIRM_DELETE"></button>
+                        @if (isDefault)
+                        {
+                            <button button-style="Secondary"
+                                    button-size="Small"
+                                    asp-page-handler="Restore"
+                                    asp-route-b="@code.ID"
+                                    title-localized-tag="RESTORE_HELP" title-localized-page="ADMIN_BBCODE"
+                                    Icon="undo"
+                                    text-localized-tag="RESTORE" text-localized-page="ADMIN_BBCODE"
+                                    return-confirm-tag="CONFIRM_RESTORE"></button>
+                        }
+                        @if (!isRequired)
+                        {
+                            <button button-style="Danger"
+                                    button-size="Small"
+                                    asp-page-handler="Delete"
+                                    asp-route-b="@code.ID"
+                                    title-localized-tag="DELETE"
+                                    Icon="trash"
+                                    text-localized-tag="DELETE"
+                                    return-confirm-tag="CONFIRM_DELETE"></button>
+                        }
                     </div>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <a button-style="None"
@@ -117,14 +141,28 @@
                            title-localized-tag="EDIT"
                            Icon="edit"
                            text-localized-tag="EDIT"></a>
-                        <button button-style="None"
-                                class="dropdown-item"
-                                asp-page-handler="Delete"
-                                asp-route-b="@code.ID"
-                                title-localized-tag="DELETE"
-                                Icon="trash"
-                                text-localized-tag="DELETE"
-                                return-confirm-tag="CONFIRM_DELETE"></button>
+                        @if (isDefault)
+                        {
+                            <button button-style="None"
+                                    class="dropdown-item"
+                                    asp-page-handler="Restore"
+                                    asp-route-b="@code.ID"
+                                    title-localized-tag="RESTORE_HELP" title-localized-page="ADMIN_BBCODE"
+                                    Icon="undo"
+                                    text-localized-tag="RESTORE" text-localized-page="ADMIN_BBCODE"
+                                    return-confirm-tag="CONFIRM_RESTORE"></button>
+                        }
+                        @if (!isRequired)
+                        {
+                            <button button-style="None"
+                                    class="dropdown-item"
+                                    asp-page-handler="Delete"
+                                    asp-route-b="@code.ID"
+                                    title-localized-tag="DELETE"
+                                    Icon="trash"
+                                    text-localized-tag="DELETE"
+                                    return-confirm-tag="CONFIRM_DELETE"></button>
+                        }
                         <div class="dropdown-divider"></div>
                         <a asp-page="@ForumPages.Admin_EditBBCode.GetPageName()"
                            button-style="None"

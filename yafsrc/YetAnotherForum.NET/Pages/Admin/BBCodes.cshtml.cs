@@ -53,6 +53,11 @@ public class BBCodesModel : AdminPage
     public List<BBCode> List { get; set; }
 
     /// <summary>
+    /// Gets or sets the names of the BBCode extensions of the forum (they can be restored).
+    /// </summary>
+    public List<string> DefaultNames { get; set; } = [];
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="BBCodesModel"/> class.
     /// </summary>
     public BBCodesModel()
@@ -131,10 +136,43 @@ public class BBCodesModel : AdminPage
     /// Delete entry.
     /// </summary>
     /// <param name="b">The b.</param>
-    public async Task OnPostDeleteAsync(int b)
+    public async Task<IActionResult> OnPostDeleteAsync(int b)
     {
+        var code = await this.GetRepository<BBCode>().GetSingleAsync(x => x.ID == b && x.BoardID == this.PageBoardContext.PageBoardID);
+
+        // the forum needs the attachments, the member links and the album images (posts would show the bb code)
+        if (code != null && BBCodeHelper.IsRequiredExtension(code.Name))
+        {
+            this.BindData();
+
+            return this.PageBoardContext.Notify(
+                this.GetTextFormatted("MSG_REQUIRED", code.Name),
+                MessageTypes.warning);
+        }
+
         await this.GetRepository<BBCode>().DeleteAsync(x => x.ID == b && x.BoardID == this.PageBoardContext.PageBoardID);
+
         this.BindData();
+
+        return this.Page();
+    }
+
+    /// <summary>
+    /// Restores a BBCode extension to the version of the forum (BBCodeExtensions.xml).
+    /// </summary>
+    /// <param name="b">The id of the extension.</param>
+    public async Task<IActionResult> OnPostRestoreAsync(int b)
+    {
+        var code = await this.GetRepository<BBCode>().GetSingleAsync(x => x.ID == b && x.BoardID == this.PageBoardContext.PageBoardID);
+
+        var restored = code != null &&
+                       await this.Get<IDataImporter>().BBCodeExtensionRestoreAsync(this.PageBoardContext.PageBoardID, code.Name);
+
+        this.BindData();
+
+        return restored
+                   ? this.PageBoardContext.Notify(this.GetTextFormatted("MSG_RESTORED", code.Name), MessageTypes.success)
+                   : this.PageBoardContext.Notify(this.GetText("ADMIN_BBCODE", "MSG_NO_DEFAULT"), MessageTypes.warning);
     }
 
     /// <summary>
@@ -173,6 +211,8 @@ public class BBCodesModel : AdminPage
             this.Size);
 
         this.List = list;
+
+        this.DefaultNames = this.Get<IDataImporter>().DefaultBBCodeExtensionNames();
 
         this.ClearPostedList(nameof(this.List));
     }

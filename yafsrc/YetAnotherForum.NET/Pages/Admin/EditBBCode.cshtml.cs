@@ -87,9 +87,23 @@ public class EditBBCodeModel : AdminPage
                 MessageTypes.warning);
         }
 
+        var name = this.Input.Name.Trim();
+
+        // an extension the forum needs keeps its name (a new name would remove it, like a delete)
+        if (id.HasValue)
+        {
+            var code = await this.GetRepository<BBCode>().GetSingleAsync(
+                           x => x.ID == id.Value && x.BoardID == this.PageBoardContext.PageBoardID);
+
+            if (code != null && BBCodeHelper.IsRequiredExtension(code.Name))
+            {
+                name = code.Name;
+            }
+        }
+
         await this.GetRepository<BBCode>().SaveAsync(
             id,
-            this.Input.Name.Trim(),
+            name,
             this.Input.Description,
             this.Input.OnClickJS,
             this.Input.DisplayJS,

@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Importer fra XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Påkrævet"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Forummet har brug for denne BBCode-udvidelse (vedhæftede filer, indlejrede medier, medlemslinks, albumbilleder). Den kan ikke slettes eller omdøbes."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Gendan standard"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Erstatter udvidelsen med forummets version (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Gendan forummets version? Dine ændringer af denne BBCode-udvidelse går tabt."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "BBCode-udvidelsen {0} bruges af forummet og kan ikke slettes."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "BBCode-udvidelsen {0} blev gendannet til forummets version."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Forummet har ingen standardversion af denne BBCode-udvidelse."
           }
         ]
       },

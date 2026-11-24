@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Tuo XML:stä"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Pakollinen"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Foorumi tarvitsee tämän BBCode-laajennuksen (liitteet, upotettu media, jäsenlinkit, albumikuvat). Sitä ei voi poistaa eikä nimetä uudelleen."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Palauta oletus"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Korvaa laajennuksen foorumin versiolla (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Palautetaanko foorumin versio? Tähän BBCode-laajennukseen tekemäsi muutokset menetetään."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "Foorumi tarvitsee BBCode-laajennusta {0}, eikä sitä voi poistaa."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "BBCode-laajennus {0} palautettiin foorumin versioon."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Foorumilla ei ole tämän BBCode-laajennuksen oletusversiota."
           }
         ]
       },

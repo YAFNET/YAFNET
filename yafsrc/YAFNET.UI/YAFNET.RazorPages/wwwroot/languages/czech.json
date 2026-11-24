@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Import z XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Povinné"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Fórum toto rozšíření BBCode potřebuje (přílohy, vložená média, odkazy na členy, obrázky alb). Nelze ho smazat ani přejmenovat."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Obnovit výchozí"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Nahradí rozšíření verzí fóra (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Obnovit verzi fóra? Vaše změny tohoto rozšíření BBCode budou ztraceny."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "Rozšíření BBCode {0} fórum potřebuje a nelze ho smazat."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "Rozšíření BBCode {0} bylo obnoveno na verzi fóra."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Fórum nemá výchozí verzi tohoto rozšíření BBCode."
           }
         ]
       },

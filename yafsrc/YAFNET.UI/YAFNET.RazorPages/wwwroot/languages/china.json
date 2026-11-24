@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "从 XML 导入"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "必需"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "论坛需要此 BBCode 扩展（附件、嵌入媒体、会员链接、相册图片）。它不能被删除或重命名。"
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "恢复默认"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "用论坛的版本（BBCodeExtensions.xml）替换此扩展。"
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "恢复论坛的版本？您对此 BBCode 扩展的修改将丢失。"
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "论坛需要 BBCode 扩展 {0}，不能删除。"
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "BBCode 扩展 {0} 已恢复为论坛的版本。"
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "论坛没有此 BBCode 扩展的默认版本。"
           }
         ]
       },

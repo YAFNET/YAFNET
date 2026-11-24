@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Importuoti iš XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Būtinas"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Forumui reikia šio BBCode plėtinio (priedai, įterpta medija, narių nuorodos, albumų paveikslėliai). Jo negalima ištrinti ar pervadinti."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Atkurti numatytąjį"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Pakeičia plėtinį forumo versija (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Atkurti forumo versiją? Jūsų šio BBCode plėtinio pakeitimai bus prarasti."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "BBCode plėtinys {0} reikalingas forumui ir jo negalima ištrinti."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "BBCode plėtinys {0} atkurtas į forumo versiją."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Forumas neturi numatytosios šio BBCode plėtinio versijos."
           }
         ]
       },

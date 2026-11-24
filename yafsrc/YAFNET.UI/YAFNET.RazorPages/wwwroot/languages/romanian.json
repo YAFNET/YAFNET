@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Importați din XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Necesară"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Forumul are nevoie de această extensie BBCode (atașamente, conținut media încorporat, linkuri către membri, imagini din albume). Nu poate fi ștearsă sau redenumită."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Restaurează implicit"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Înlocuiește extensia cu versiunea forumului (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Restaurați versiunea forumului? Modificările dvs. la această extensie BBCode se pierd."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "Extensia BBCode {0} este necesară forumului și nu poate fi ștearsă."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "Extensia BBCode {0} a fost restaurată la versiunea forumului."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Forumul nu are o versiune implicită a acestei extensii BBCode."
           }
         ]
       },

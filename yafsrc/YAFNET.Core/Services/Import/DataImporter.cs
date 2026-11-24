@@ -82,7 +82,79 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// </exception>
     public async Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream, bool isDefaultFile = false)
     {
+        return (await this.ImportBBCodeExtensionsAsync(boardId, inputStream, isDefaultFile, null)).ImportedCount;
+    }
+
+    /// <summary>
+    /// Restores a BBCode extension to the version of the forum (BBCodeExtensions.xml), also when an admin
+    /// changed or deleted it.
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="name">The name of the extension.</param>
+    /// <returns>False if the forum has no extension of that name.</returns>
+    public async Task<bool> BBCodeExtensionRestoreAsync(int boardId, string name)
+    {
+        await using var stream = this.OpenDefaultBBCodeExtensions();
+
+        if (stream is null || name.IsNotSet())
+        {
+            return false;
+        }
+
+        return (await this.ImportBBCodeExtensionsAsync(boardId, stream, true, name.Trim())).Found;
+    }
+
+    /// <summary>
+    /// Gets the names of the BBCode extensions of the forum (BBCodeExtensions.xml).
+    /// </summary>
+    /// <returns>The names (empty without the file).</returns>
+    public List<string> DefaultBBCodeExtensionNames()
+    {
+        using var stream = this.OpenDefaultBBCodeExtensions();
+
+        if (stream is null)
+        {
+            return [];
+        }
+
+        var dataSet = new DataSet();
+        dataSet.ReadXml(stream);
+
+        return dataSet.Tables["YafBBCode"]?.Columns["Name"] is null
+                   ? []
+                   : [.. dataSet.Tables["YafBBCode"].Rows.Cast<DataRow>().Select(row => row["Name"].ToString())];
+    }
+
+    /// <summary>
+    /// Opens the BBCodeExtensions.xml of the forum (the file of the install and the upgrade).
+    /// </summary>
+    /// <returns>The stream, or null if the file does not exist.</returns>
+    private FileStream OpenDefaultBBCodeExtensions()
+    {
+        var file = Path.Combine(
+            this.Get<BoardInfo>().WebRootPath,
+            this.Get<BoardFolders>().Resources,
+            "BBCodeExtensions.xml");
+
+        return File.Exists(file) ? File.OpenRead(file) : null;
+    }
+
+    /// <summary>
+    /// Imports the BBCode extensions of a file.
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="inputStream">The input stream.</param>
+    /// <param name="isDefaultFile">The file is the BBCodeExtensions.xml of the forum.</param>
+    /// <param name="restoreName">Only this extension is imported, also when an admin changed it (restore).</param>
+    /// <returns>The number of new extensions, and if the restored extension is in the file.</returns>
+    private async Task<(int ImportedCount, bool Found)> ImportBBCodeExtensionsAsync(
+        int boardId,
+        Stream inputStream,
+        bool isDefaultFile,
+        string restoreName)
+    {
         var importedCount = 0;
+        var found = false;
 
         var repository = this.GetRepository<BBCode>();
 
@@ -98,6 +170,16 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             foreach (var row in dsBBCode.Tables["YafBBCode"].Rows.Cast<DataRow>())
             {
                 var name = row["Name"].ToString();
+
+                if (restoreName != null)
+                {
+                    if (!name.Equals(restoreName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    found = true;
+                }
 
                 // an invalid search expression would break the rendering of the posts
                 if (row["SearchRegex"].ToString().IsSet() && !ValidationHelper.IsValidRegex(row["SearchRegex"].ToString()))
@@ -139,7 +221,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
                     // the upgrade replaced the extensions the admin changed: only an extension that is still the
                     // installed one (the hash of the last installed version) is updated, a changed one is kept
-                    if (isDefaultFile && this.IsChangedByAdmin(boardId, bbCodeExtension))
+                    if (isDefaultFile && restoreName is null && this.IsChangedByAdmin(boardId, bbCodeExtension))
                     {
                         this.Get<ILogger<DataImporter>>().Warn(
                             "The BBCode extension {0} was changed by an admin and is not updated. The forum has a new version of it in BBCodeExtensions.xml, import the file to use it.",
@@ -192,7 +274,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             throw new FormatException("Import stream is not expected format.");
         }
 
-        return importedCount;
+        return (importedCount, found);
     }
 
     /// <summary>

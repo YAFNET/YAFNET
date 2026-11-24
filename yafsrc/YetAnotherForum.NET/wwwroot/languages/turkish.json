@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "XML'den İçe Aktar"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Gerekli"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Forumun bu BBCode uzantısına ihtiyacı var (ekler, gömülü medya, üye bağlantıları, albüm resimleri). Silinemez veya yeniden adlandırılamaz."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Varsayılanı geri yükle"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Uzantıyı forumun sürümüyle değiştirir (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Forumun sürümü geri yüklensin mi? Bu BBCode uzantısındaki değişiklikleriniz kaybolur."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "{0} BBCode uzantısı forum için gereklidir ve silinemez."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "{0} BBCode uzantısı forumun sürümüne geri yüklendi."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Forumda bu BBCode uzantısının varsayılan bir sürümü yok."
           }
         ]
       },

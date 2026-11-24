@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Impordi XML-ist"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Nõutud"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Foorum vajab seda BBCode'i laiendust (manused, manustatud meedia, liikmete lingid, albumipildid). Seda ei saa kustutada ega ümber nimetada."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Taasta vaikimisi"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Asendab laienduse foorumi versiooniga (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Kas taastada foorumi versioon? Sinu muudatused selles BBCode'i laienduses lähevad kaduma."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "Foorum vajab BBCode'i laiendust {0} ja seda ei saa kustutada."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "BBCode'i laiendus {0} taastati foorumi versioonile."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Foorumil pole selle BBCode'i laienduse vaikeversiooni."
           }
         ]
       },

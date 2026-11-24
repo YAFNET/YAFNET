@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Importeren uit XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Vereist"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Het forum heeft deze BBCode-extensie nodig (bijlagen, ingesloten media, ledenlinks, albumafbeeldingen). Ze kan niet worden verwijderd of hernoemd."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Standaard herstellen"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Vervangt de extensie door de versie van het forum (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "De versie van het forum herstellen? Je wijzigingen aan deze BBCode-extensie gaan verloren."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "De BBCode-extensie {0} is nodig voor het forum en kan niet worden verwijderd."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "De BBCode-extensie {0} is hersteld naar de versie van het forum."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Het forum heeft geen standaardversie van deze BBCode-extensie."
           }
         ]
       },

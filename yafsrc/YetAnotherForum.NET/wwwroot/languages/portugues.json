@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Importar de XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Necessária"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "O fórum precisa desta extensão BBCode (anexos, multimédia incorporada, ligações para membros, imagens de álbuns). Não pode ser eliminada nem renomeada."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Restaurar predefinição"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Substitui a extensão pela versão do fórum (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Restaurar a versão do fórum? As suas alterações a esta extensão BBCode perdem-se."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "A extensão BBCode {0} é necessária ao fórum e não pode ser eliminada."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "A extensão BBCode {0} foi restaurada para a versão do fórum."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "O fórum não tem uma versão predefinida desta extensão BBCode."
           }
         ]
       },

@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Nhập từ XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Bắt buộc"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Diễn đàn cần tiện ích BBCode này (tệp đính kèm, nội dung đa phương tiện nhúng, liên kết thành viên, ảnh album). Không thể xóa hoặc đổi tên."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Khôi phục mặc định"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Thay tiện ích bằng phiên bản của diễn đàn (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Khôi phục phiên bản của diễn đàn? Các thay đổi của bạn đối với tiện ích BBCode này sẽ bị mất."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "Tiện ích BBCode {0} cần cho diễn đàn và không thể xóa."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "Tiện ích BBCode {0} đã được khôi phục về phiên bản của diễn đàn."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Diễn đàn không có phiên bản mặc định của tiện ích BBCode này."
           }
         ]
       },

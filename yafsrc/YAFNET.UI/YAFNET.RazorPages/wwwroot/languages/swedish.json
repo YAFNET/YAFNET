@@ -1723,6 +1723,38 @@
           {
             "@tag": "IMPORT",
             "#text": "Importera från XML"
+          },
+          {
+            "@tag": "REQUIRED",
+            "#text": "Krävs"
+          },
+          {
+            "@tag": "REQUIRED_HELP",
+            "#text": "Forumet behöver detta BBCode-tillägg (bilagor, inbäddad media, medlemslänkar, albumbilder). Det kan inte tas bort eller byta namn."
+          },
+          {
+            "@tag": "RESTORE",
+            "#text": "Återställ standard"
+          },
+          {
+            "@tag": "RESTORE_HELP",
+            "#text": "Ersätter tillägget med forumets version (BBCodeExtensions.xml)."
+          },
+          {
+            "@tag": "CONFIRM_RESTORE",
+            "#text": "Återställa forumets version? Dina ändringar av detta BBCode-tillägg går förlorade."
+          },
+          {
+            "@tag": "MSG_REQUIRED",
+            "#text": "BBCode-tillägget {0} behövs av forumet och kan inte tas bort."
+          },
+          {
+            "@tag": "MSG_RESTORED",
+            "#text": "BBCode-tillägget {0} återställdes till forumets version."
+          },
+          {
+            "@tag": "MSG_NO_DEFAULT",
+            "#text": "Forumet har ingen standardversion av detta BBCode-tillägg."
           }
         ]
       },

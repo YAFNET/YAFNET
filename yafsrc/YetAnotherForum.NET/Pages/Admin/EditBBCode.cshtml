@@ -1,4 +1,5 @@
 @page "{b:int=0}/{handler?}"
+@using YAF.Core.Helpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
@@ -39,14 +40,27 @@
                                    localized-tag="BBCODE_NAME" localized-page="ADMIN_BBCODE_EDIT"></label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text font-monospace">[</span>
-                                <input type="text" asp-for="Input.Name" maxlength="255"
-                                       required="required"
-                                       class="form-control font-monospace" />
+                                @if (Model.Input.BBCodeId > 0 && BBCodeHelper.IsRequiredExtension(Model.Input.Name))
+                                {
+                                    <input type="text" asp-for="Input.Name" maxlength="255"
+                                           readonly="readonly"
+                                           class="form-control font-monospace" />
+                                }
+                                else
+                                {
+                                    <input type="text" asp-for="Input.Name" maxlength="255"
+                                           required="required"
+                                           class="form-control font-monospace" />
+                                }
                                 <span class="input-group-text font-monospace">]</span>
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("ADMIN_BBCODE_EDIT", "MSG_NAME")
                                 </div>
                             </div>
+                            @if (Model.Input.BBCodeId > 0 && BBCodeHelper.IsRequiredExtension(Model.Input.Name))
+                            {
+                                <div class="form-text">@Html.LocalizedText("ADMIN_BBCODE", "REQUIRED_HELP")</div>
+                            }
                         </div>
                         <div class="mb-3 col-md-4">
                             <label class="form-label" info-button="true"
