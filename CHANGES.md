@@ -213,6 +213,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Edit Language: a page or text missing in the language file stopped the list with an error in the log (the texts after it were not shown), and a missing text could not be added; missing texts are shown as not translated and saving adds them to the file
 [FIXED] Admin > Import dialogs: the user import said "(Must be a *.xml file)" although csv files are imported too, the Import button of the BBCode extensions said "Import List" and the BBCode import used texts of a page that does not exist (the texts of the banned lists or other pages were shown); they have their own texts now; all languages
 [FIXED] BBCode Extensions: the "Exec Order" of the extensions was not used, they were run in the order of the database; they run in their order now, lowest first
+[FIXED] Admin > Import of BBCode extensions, replace words and spam words: an xml file sent by the browser as "application/xml" (e.g. Firefox on Linux) was rejected as an invalid upload format
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

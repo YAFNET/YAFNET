@@ -59,7 +59,8 @@ public class SpamWordsController : ForumBaseController
     [HttpPost("Import")]
     public IActionResult Import([FromForm] IFormFile file)
     {
-        if (!file.ContentType.StartsWith("text"))
+        // an xml file can also be sent as application/xml (it was rejected)
+        if (!file.ContentType.StartsWith("text") && !file.ContentType.Contains("xml", StringComparison.OrdinalIgnoreCase))
         {
             return this.Ok(
                 new MessageModalNotification(

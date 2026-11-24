@@ -124,6 +124,28 @@ public class AdminImportControllerTests
     }
 
     [Test]
+    [Description("The xml imports also take files sent as application/xml (they were rejected as an invalid format)")]
+    public async Task Xml_Imports_Accept_Application_Xml_Test()
+    {
+        Notification(
+                this.board.CreateController<SpamWordsController>().Import(
+                    File(
+                        "<YafSpamWordsList><YafSpamWords><SpamWord>casino</SpamWord></YafSpamWords></YafSpamWordsList>",
+                        "application/xml")))
+            .MessageType.Should().Be(MessageTypes.success.ToString());
+
+        Notification(
+                await this.board.CreateController<ReplaceWordsController>().Import(
+                    File(
+                        "<YafReplaceWordsList><YafReplaceWords><BadWord>darn</BadWord><GoodWord>d**n</GoodWord></YafReplaceWords></YafReplaceWordsList>",
+                        "application/xml")))
+            .MessageType.Should().Be(MessageTypes.success.ToString());
+
+        this.Repository<SpamWords>().Get(_ => true).Select(s => s.SpamWord).Should().Equal("casino");
+        this.Repository<ReplaceWords>().Get(_ => true).Select(r => r.BadWord).Should().Equal("darn");
+    }
+
+    [Test]
     [Description("Import errors are reported in the dialog")]
     public async Task Import_Error_Test()
     {
