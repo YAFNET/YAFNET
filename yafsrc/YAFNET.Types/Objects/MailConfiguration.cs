@@ -54,4 +54,11 @@ public class MailConfiguration
     /// </summary>
     /// <value>The port.</value>
     public int Port { get; set; }
+
+    /// <summary>
+    /// Gets or sets the encryption of the connection: Auto (the default: SSL on port 465, otherwise STARTTLS when the
+    /// server offers it), SslOnConnect, StartTls, StartTlsWhenAvailable or None.
+    /// </summary>
+    /// <value>The encryption.</value>
+    public string Security { get; set; }
 }

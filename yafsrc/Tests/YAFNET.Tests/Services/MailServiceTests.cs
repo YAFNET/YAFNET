@@ -30,6 +30,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
+using MailKit.Security;
+
 using Microsoft.Extensions.Options;
 
 using MimeKit;
@@ -58,6 +60,20 @@ public class MailServiceTests
     public void TearDown()
     {
         this.board?.Dispose();
+    }
+
+    [TestCase(null, SecureSocketOptions.Auto)]
+    [TestCase("", SecureSocketOptions.Auto)]
+    [TestCase("unknown", SecureSocketOptions.Auto)]
+    [TestCase("42", SecureSocketOptions.Auto)]
+    [TestCase("sslonconnect", SecureSocketOptions.SslOnConnect)]
+    [TestCase("StartTls", SecureSocketOptions.StartTls)]
+    [TestCase("None", SecureSocketOptions.None)]
+    [Description("The encryption of the mail server connection is the configured one, otherwise Auto (SSL on port 465, it only used STARTTLS)")]
+    public void Secure_Socket_Options_Test(string security, SecureSocketOptions expected)
+    {
+        MailService.GetSecureSocketOptions(new MailConfiguration { Host = "mail", Port = 465, Security = security })
+            .Should().Be(expected);
     }
 
     [Test]

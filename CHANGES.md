@@ -221,6 +221,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Host Settings: "Abandon Sessions for 'Don't Track' Users" was shown but not saved and had no effect (not migrated from YAF.NET v3); search engines and bots without a session cookie get a session only for their request now, every crawler request started a session that was kept in the memory of the server for hours (with the forum list of the index, the page data of a topic...); all languages
 * [FIXED] Admin > Board Announcement: the preview of the message did not change while typing any more (since the announcement is formatted like a post); the preview is formatted by the server while typing, like the announcement on the pages
 * [FIXED] Registration: with the bot handling "Do nothing" a user found by the spam check got no verification email and could never log in (the email could not be sent again either), and with "Log User & Send Admin an Email" (it said "Approve User") the page said that a verification email was sent although the account waits for the approval of an admin; "Do nothing" registers the user as usual, the other option says that an admin has to approve the account; all languages
+* [FIXED] Mail: a mail server on port 465 (SSL only, e.g. many hosters) could not be used, the connection always used STARTTLS; the encryption is chosen by the port now (SSL on port 465, otherwise STARTTLS when the server offers it), the new optional MailConfiguration setting "Security" (SslOnConnect, StartTls, StartTlsWhenAvailable, None) sets it for other servers
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

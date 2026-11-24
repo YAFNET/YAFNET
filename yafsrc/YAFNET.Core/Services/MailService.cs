@@ -88,6 +88,21 @@ public class MailService : IMailService, IHaveServiceLocator
     }
 
     /// <summary>
+    /// Gets the encryption of the connection to the mail server: the configured one, or Auto (SSL on connect for port
+    /// 465, otherwise STARTTLS when the server offers it). Only STARTTLS was used, a server on port 465 (SSL only)
+    /// could not be used.
+    /// </summary>
+    /// <param name="mailConfiguration">The mail configuration.</param>
+    /// <returns>The <see cref="SecureSocketOptions"/>.</returns>
+    public static SecureSocketOptions GetSecureSocketOptions(MailConfiguration mailConfiguration)
+    {
+        return Enum.TryParse<SecureSocketOptions>(mailConfiguration?.Security, true, out var options)
+               && Enum.IsDefined(options)
+                   ? options
+                   : SecureSocketOptions.Auto;
+    }
+
+    /// <summary>
     /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
     /// </summary>
     /// <param name="messages">
@@ -107,7 +122,7 @@ public class MailService : IMailService, IHaveServiceLocator
 
         var smtpClient = new SmtpClient();
 
-        await smtpClient.ConnectAsync(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);
+        await smtpClient.ConnectAsync(this.mailConfig.Host, this.mailConfig.Port, GetSecureSocketOptions(this.mailConfig));
 
         if (this.mailConfig.Password.IsSet() && this.mailConfig.UserName.IsSet())
         {
