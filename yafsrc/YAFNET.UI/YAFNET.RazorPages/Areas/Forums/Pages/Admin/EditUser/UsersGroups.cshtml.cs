@@ -106,6 +106,15 @@ public class UsersGroupsModel : AdminPage
                 });
         }
 
+        // a user keeps at least one role (without a role the user could not read any forum; the bulk
+        // action of the users list keeps the last role too)
+        if (!this.UserGroups.Exists(item => item.Selected))
+        {
+            this.PageBoardContext.SessionNotify(this.GetText("ADMIN_USERS", "BULK_LAST_ROLE"), MessageTypes.warning);
+
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View2" });
+        }
+
         // go through all roles displayed on page
         foreach (var item in this.UserGroups)
         {
