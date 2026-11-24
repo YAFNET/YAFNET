@@ -205,6 +205,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin menu: an admin whose only page of the Maintenance section is "Private Messages" did not see the section (the check of the section left the page out)
 [FIXED] Admin > Admin Index: the right-click menu of an already banned IP address in "Who is Online" said "Add Banned IP Address", it opens the edit of the ban ("Edit Banned IP Address")
 [FIXED] Admin > Edit User > User Roles: all roles could be removed, the user had no role and could not read any forum; the last role is kept with a message (like the bulk action of the users list)
+[FIXED] Signature: the allowed BB codes of a user with several roles were the alphabetically last list of one role (e.g. only "URL" of one role instead of "B,I" and "URL" of two roles), and of the roles and the rank the longest list was used; all BB codes of the roles and the rank are allowed now
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
