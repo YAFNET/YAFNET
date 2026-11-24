@@ -110,9 +110,13 @@ public interface IDataImporter
     /// <returns>
     /// Returns How Many Extensions where imported.
     /// </returns>
+    /// <param name="isDefaultFile">
+    ///     The file is the BBCodeExtensions.xml of the forum (install, new board, upgrade): an extension the admin
+    ///     changed is kept. An import of the admin replaces the extensions.
+    /// </param>
     /// <exception cref="Exception">Import stream is not expected format.
     /// </exception>
-    Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream);
+    Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream, bool isDefaultFile = false);
 
     /// <summary>
     /// Import Users from the InputStream

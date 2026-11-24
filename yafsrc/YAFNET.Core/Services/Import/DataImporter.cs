@@ -31,6 +31,8 @@ namespace YAF.Core.Services.Import;
 using System;
 using System.Data;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -72,9 +74,13 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <returns>
     /// Returns How Many Extensions where imported.
     /// </returns>
+    /// <param name="isDefaultFile">
+    ///     The file is the BBCodeExtensions.xml of the forum (install, new board, upgrade): an extension the admin
+    ///     changed is kept. An import of the admin replaces the extensions.
+    /// </param>
     /// <exception cref="Exception">Import stream is not expected format.
     /// </exception>
-    public async Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream)
+    public async Task<int> BBCodeExtensionImportAsync(int boardId, Stream inputStream, bool isDefaultFile = false)
     {
         var importedCount = 0;
 
@@ -123,6 +129,22 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 {
                     if (BBCode.Equals(updateEntry, bbCodeExtension))
                     {
+                        if (isDefaultFile)
+                        {
+                            this.SaveDefaultHash(boardId, updateEntry);
+                        }
+
+                        continue;
+                    }
+
+                    // the upgrade replaced the extensions the admin changed: only an extension that is still the
+                    // installed one (the hash of the last installed version) is updated, a changed one is kept
+                    if (isDefaultFile && this.IsChangedByAdmin(boardId, bbCodeExtension))
+                    {
+                        this.Get<ILogger<DataImporter>>().Warn(
+                            "The BBCode extension {0} was changed by an admin and is not updated. The forum has a new version of it in BBCodeExtensions.xml, import the file to use it.",
+                            name);
+
                         continue;
                     }
 
@@ -130,6 +152,11 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
                     // update this bbcode...
                     await repository.UpdateAsync(updateEntry);
+
+                    if (isDefaultFile)
+                    {
+                        this.SaveDefaultHash(boardId, updateEntry);
+                    }
                 }
                 else
                 {
@@ -151,6 +178,11 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                         row["ExecOrder"].ToType<int>(),
                         boardId);
 
+                    if (isDefaultFile)
+                    {
+                        this.SaveDefaultHash(boardId, updateEntry);
+                    }
+
                     importedCount++;
                 }
             }
@@ -161,6 +193,69 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         }
 
         return importedCount;
+    }
+
+    /// <summary>
+    /// Gets the hash of a BBCode extension (all fields of the definition, an empty field is the same as null).
+    /// </summary>
+    /// <param name="code">The code.</param>
+    /// <returns>The hash.</returns>
+    public static string DefinitionHash(BBCode code)
+    {
+        var definition = string.Join(
+            "\u001f",
+            code.Name ?? string.Empty,
+            code.Description ?? string.Empty,
+            code.OnClickJS ?? string.Empty,
+            code.DisplayJS ?? string.Empty,
+            code.EditJS ?? string.Empty,
+            code.DisplayCSS ?? string.Empty,
+            code.SearchRegex ?? string.Empty,
+            code.ReplaceRegex ?? string.Empty,
+            code.Variables ?? string.Empty,
+            code.UseModule ?? false,
+            code.UseToolbar ?? false,
+            code.ModuleClass ?? string.Empty,
+            code.ExecOrder);
+
+        return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(definition)));
+    }
+
+    /// <summary>
+    /// The registry name of the hash of the installed version of a BBCode extension.
+    /// </summary>
+    /// <param name="name">The name of the extension.</param>
+    /// <returns>The registry name.</returns>
+    private static string DefaultHashName(string name)
+    {
+        return $"bbcodedefault.{name}".ToLowerInvariant();
+    }
+
+    /// <summary>
+    /// Saves the hash of the installed version of a BBCode extension (of BBCodeExtensions.xml).
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="code">The code.</param>
+    private void SaveDefaultHash(int boardId, BBCode code)
+    {
+        this.GetRepository<Registry>().Save(DefaultHashName(code.Name), DefinitionHash(code), boardId);
+    }
+
+    /// <summary>
+    /// Is the extension different from the version the forum installed (an admin changed it)? Without a hash
+    /// (installed by an older version) it is not known, the extension is updated like before.
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="code">The extension in the database.</param>
+    /// <returns>True if an admin changed it.</returns>
+    private bool IsChangedByAdmin(int boardId, BBCode code)
+    {
+        var name = DefaultHashName(code.Name);
+
+        var installed = this.GetRepository<Registry>()
+            .GetSingle(r => r.Name == name && r.BoardID == boardId)?.Value;
+
+        return installed.IsSet() && installed != DefinitionHash(code);
     }
 
     /// <summary>

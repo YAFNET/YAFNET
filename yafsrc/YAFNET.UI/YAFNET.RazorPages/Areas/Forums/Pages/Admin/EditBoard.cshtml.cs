@@ -356,7 +356,7 @@ public class EditBoardModel : AdminPage
             });
 
         // load default bbcode if available...
-        loadWrapper("bbCodeExtensions.xml", s => this.Get<IDataImporter>().BBCodeExtensionImportAsync(newBoardId, s));
+        loadWrapper("bbCodeExtensions.xml", s => this.Get<IDataImporter>().BBCodeExtensionImportAsync(newBoardId, s, true));
 
         // load default spam word if available...
         loadWrapper("SpamWords.xml", s => this.Get<IDataImporter>().SpamWordsImport(newBoardId, s));

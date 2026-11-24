@@ -181,7 +181,7 @@ public class UpgradeServiceTests
     {
         var importer = Substitute.For<IDataImporter>();
         var import = new TaskCompletionSource<int>();
-        importer.BBCodeExtensionImportAsync(Arg.Any<int>(), Arg.Any<Stream>()).Returns(import.Task);
+        importer.BBCodeExtensionImportAsync(Arg.Any<int>(), Arg.Any<Stream>(), Arg.Any<bool>()).Returns(import.Task);
 
         var upgrade = this.CreateUpgradeService(b => b.RegisterInstance(importer).As<IDataImporter>());
 

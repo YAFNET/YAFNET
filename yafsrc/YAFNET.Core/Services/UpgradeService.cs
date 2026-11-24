@@ -370,7 +370,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             {
                 if (stream != null)
                 {
-                    await this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, stream);
+                    await this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, stream, true);
                 }
             }
 

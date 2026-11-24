@@ -263,7 +263,7 @@ public class InstallService : IHaveServiceLocator
         {
             if (stream != null)
             {
-                await this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, stream);
+                await this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, stream, true);
             }
         }
 

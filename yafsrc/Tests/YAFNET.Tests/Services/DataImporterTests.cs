@@ -204,6 +204,56 @@ public class DataImporterTests
         this.Masks<BBCode>(c => c.Name).Should().Equal("GOOD");
     }
 
+    [Test]
+    [Description("The upgrade (BBCodeExtensions.xml of the forum) updates an unchanged extension and keeps an extension the admin changed (the upgrade replaced it)")]
+    public async Task BBCode_Upgrade_Keeps_Admin_Changes_Test()
+    {
+        // install: the extensions of the forum
+        await this.importer.BBCodeExtensionImportAsync(Board, Text(CodeList(("KEEP", "a"), ("EDITED", "b"))), true);
+
+        // the admin changes one of them
+        var codes = this.board.Current.GetRepository<BBCode>();
+        var edited = await codes.GetSingleAsync(c => c.Name == "EDITED");
+        edited.ReplaceRegex = "admin";
+        await codes.UpdateAsync(edited);
+
+        // upgrade: the forum has a new version of both
+        await this.importer.BBCodeExtensionImportAsync(Board, Text(CodeList(("KEEP", "a2"), ("EDITED", "b2"))), true);
+
+        (await codes.GetSingleAsync(c => c.Name == "KEEP")).ReplaceRegex.Should().Be("a2", "it was not changed");
+        (await codes.GetSingleAsync(c => c.Name == "EDITED")).ReplaceRegex.Should().Be("admin", "the admin changed it");
+
+        // the next upgrade still keeps it, the unchanged one is updated again
+        await this.importer.BBCodeExtensionImportAsync(Board, Text(CodeList(("KEEP", "a3"), ("EDITED", "b3"))), true);
+
+        (await codes.GetSingleAsync(c => c.Name == "KEEP")).ReplaceRegex.Should().Be("a3");
+        (await codes.GetSingleAsync(c => c.Name == "EDITED")).ReplaceRegex.Should().Be("admin");
+
+        // an import of the admin replaces it
+        await this.importer.BBCodeExtensionImportAsync(Board, Text(CodeList(("EDITED", "b4"))));
+
+        (await codes.GetSingleAsync(c => c.Name == "EDITED")).ReplaceRegex.Should().Be("b4");
+    }
+
+    [Test]
+    [Description("An extension installed by an older version (no hash of the installed version) is updated by the upgrade like before")]
+    public async Task BBCode_Upgrade_Without_Hash_Test()
+    {
+        this.Insert(new BBCode { BoardID = Board, Name = "OLDINSTALL", SearchRegex = "c", ReplaceRegex = "changed?", ExecOrder = 1 });
+
+        await this.importer.BBCodeExtensionImportAsync(Board, Text(CodeList(("OLDINSTALL", "new"))), true);
+
+        (await this.board.Current.GetRepository<BBCode>().GetSingleAsync(c => c.Name == "OLDINSTALL"))
+            .ReplaceRegex.Should().Be("new");
+    }
+
+    private static string CodeList(params (string Name, string Replace)[] codes)
+    {
+        return "<YafBBCodeList>" + string.Concat(
+                   codes.Select(c => $"<YafBBCode><Name>{c.Name}</Name><Description>d</Description><SearchRegex>c</SearchRegex><ReplaceRegex>{c.Replace}</ReplaceRegex><ExecOrder>1</ExecOrder><OnClickJS /><DisplayJS /><EditJS /><DisplayCSS /><Variables /><ModuleClass /><UseModule>false</UseModule><UseToolbar>false</UseToolbar></YafBBCode>"))
+               + "</YafBBCodeList>";
+    }
+
     private static MemoryStream Text(string content)
     {
         return new MemoryStream(Encoding.UTF8.GetBytes(content));
