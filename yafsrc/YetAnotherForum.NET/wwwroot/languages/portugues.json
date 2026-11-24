@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Barra de ferramentas"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Importar de XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Importar BBCode personalizado"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Selecionar ficheiro a importar:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Tem de ser um ficheiro *.xml)"
           }
         ]
       },

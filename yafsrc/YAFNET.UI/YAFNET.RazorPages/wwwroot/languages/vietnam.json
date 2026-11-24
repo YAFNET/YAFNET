@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Thanh công cụ"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Nhập từ XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Nhập YafBBCode tùy chỉnh"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Chọn tệp nhập:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Phải là tệp *.xml)"
           }
         ]
       },

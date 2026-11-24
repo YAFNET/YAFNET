@@ -1719,6 +1719,10 @@
                 {
                     "@tag": "TOOLBAR",
                     "#text": "Toolbar"
+                },
+                {
+                    "@tag": "IMPORT",
+                    "#text": "Import from XML"
                 }
             ]
         },
@@ -1881,6 +1885,14 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Import Custom YafBBCode"
+                },
+                {
+                    "@tag": "SELECT_IMPORT",
+                    "#text": "Select Import File:"
+                },
+                {
+                    "@tag": "SELECT_IMPORT_HELP",
+                    "#text": "(Must be a *.xml file)"
                 }
             ]
         },

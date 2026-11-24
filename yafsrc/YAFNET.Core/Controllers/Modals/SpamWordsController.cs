@@ -84,7 +84,7 @@ public class SpamWordsController : ForumBaseController
         {
             this.Get<ILogger<SpamWordsController>>().Error(
                 x,
-                string.Format(this.GetText("ADMIN_SPAMWORDS_IMPORT", "IMPORT_FAILED"), x.Message));
+                string.Format(this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message));
 
             return this.Ok(
                 new MessageModalNotification(

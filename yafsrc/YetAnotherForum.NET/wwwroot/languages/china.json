@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "工具栏"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "从 XML 导入"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "导入自定义 BBCode"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "选择导入文件："
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "（必须是 *.xml 文件）"
           }
         ]
       },

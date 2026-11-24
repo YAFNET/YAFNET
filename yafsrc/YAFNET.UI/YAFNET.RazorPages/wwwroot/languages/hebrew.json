@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "סרגל כלים"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "ייבוא מ-XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "ייבוא BBCode מותאם אישית"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "בחרו קובץ לייבוא:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(חייב להיות קובץ xml.*)"
           }
         ]
       },

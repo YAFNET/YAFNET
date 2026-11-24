@@ -211,6 +211,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Host Settings > Search and Log, Admin > Delete Forum: 14 labels were not linked to their field (a click on the label did not switch the option or focus the field, screen readers did not read the label for the field)
 [FIXED] Admin > Event Log: the type names (e.g. "Login Failure", "User Suspended", the type filter and the badges) were shown in english in every language; all languages
 [FIXED] Admin > Edit Language: a page or text missing in the language file stopped the list with an error in the log (the texts after it were not shown), and a missing text could not be added; missing texts are shown as not translated and saving adds them to the file
+[FIXED] Admin > Import dialogs: the user import said "(Must be a *.xml file)" although csv files are imported too, the Import button of the BBCode extensions said "Import List" and the BBCode import used texts of a page that does not exist (the texts of the banned lists or other pages were shown); they have their own texts now; all languages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

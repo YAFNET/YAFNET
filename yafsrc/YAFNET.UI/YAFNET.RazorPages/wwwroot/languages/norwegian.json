@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Verktøylinje"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Importer fra XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Importer egendefinerte BBCodes"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Velg importfil:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Må være *.xml-fil)"
           }
         ]
       },

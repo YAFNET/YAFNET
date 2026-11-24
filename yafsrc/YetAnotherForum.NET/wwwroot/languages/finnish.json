@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Työkalurivi"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Tuo XML:stä"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Tuo mukautettuja BBCode-koodeja"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Valitse tuontitiedosto:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Oltava *.xml-tiedosto)"
           }
         ]
       },

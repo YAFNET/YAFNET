@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Verktygsfält"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Importera från XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Importera anpassad YafBBCode"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Välj importfil:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Måste vara en *.xml-fil)"
           }
         ]
       },

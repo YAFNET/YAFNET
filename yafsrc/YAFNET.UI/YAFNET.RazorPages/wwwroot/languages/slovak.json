@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Panel nástrojov"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Import z XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Importovať vlastný BBCode"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Vyberte súbor na import:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Musí to byť súbor *.xml)"
           }
         ]
       },

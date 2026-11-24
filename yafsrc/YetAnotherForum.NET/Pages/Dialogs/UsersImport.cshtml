@@ -17,9 +17,9 @@
                 <form asp-controller="UsersImport" asp-action="Import" enctype="multipart/form-data" id="formImport">
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <!-- Modal Content START !-->
-                    <label asp-for="Import" localized-tag="SELECT_IMPORT" localized-page="ADMIN_USERS_IMPORT"></label>
+                    <label asp-for="Import" localized-tag="IMPORT_FILE" localized-page="ADMIN_USERS_IMPORT"></label>
                     <div class="mb-3">
-                        <label asp-for="Import" localized-tag="SELECT_IMPORT_HELP" localized-page="ADMIN_USERS_IMPORT"></label>
+                        <label asp-for="Import" localized-tag="IMPORT_FILE_HELP" localized-page="ADMIN_USERS_IMPORT"></label>
                         <input type="file" asp-for="Import" class="form-control"/>
                     </div>
                     <!-- Modal Content END !-->

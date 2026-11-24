@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "شريط الأدوات"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "الاستيراد من XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "استيراد BBCode مخصص"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "حدد ملف الاستيراد:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(يجب أن يكون ملف ‎*.xml)"
           }
         ]
       },

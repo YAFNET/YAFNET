@@ -1719,6 +1719,10 @@
           {
             "@tag": "TOOLBAR",
             "#text": "Værktøjslinje"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Importer fra XML"
           }
         ]
       },
@@ -1881,6 +1885,14 @@
           {
             "@tag": "TITLE",
             "#text": "Importér brugerdefineret YafBBCode"
+          },
+          {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Vælg importfil:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Skal være *.xml-fil)"
           }
         ]
       },
