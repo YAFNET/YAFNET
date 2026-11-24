@@ -28,7 +28,6 @@ using System.IO;
 using System.Text.Encodings.Web;
 
 using Microsoft.AspNetCore.Html;
-using Microsoft.Extensions.WebEncoders.Testing;
 
 /// <summary>
 /// Class HtmlContentHelper.
@@ -39,14 +38,16 @@ public static class HtmlContentHelper
     /// Render Control as String
     /// </summary>
     /// <param name="content">The content.</param>
-    /// <param name="encoder">The encoder.</param>
+    /// <param name="encoder">The encoder (the default is the encoder of the pages).</param>
     /// <returns>System.String.</returns>
     public static string RenderToString(this IHtmlContent content, HtmlEncoder encoder = null)
     {
-        encoder ??= new HtmlTestEncoder();
+        // the text of the content (names, titles) is encoded like in the pages, the test encoder only
+        // marked it and the html of a name was written as it is
+        encoder ??= HtmlEncoder.Default;
 
         using var writer = new StringWriter();
         content.WriteTo(writer, encoder);
-        return writer.ToString().Replace("HtmlEncode[[", "").Replace("]]", "");
+        return writer.ToString();
     }
 }
