@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen geblokkeerde landen. Voeg een nieuw geblokkeerd land toe met de knop [b]Nieuw land toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen geblokkeerde landen. Voeg een nieuw geblokkeerd land toe met de knop [b]Nieuw land toevoegen[/b] hierboven."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen geblokkeerde user agents. Voeg een nieuwe geblokkeerde user agent toe met de knop [b]Nieuwe user agent toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen geblokkeerde user agents. Voeg een nieuwe geblokkeerde user agent toe met de knop [b]Nieuwe user agent toevoegen[/b] hierboven."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen geblokkeerde e-mailadressen. Voeg een nieuw geblokkeerd e-mailadres toe met de knop [b]Nieuwe e-mail toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen geblokkeerde e-mailadressen. Voeg een nieuw geblokkeerd e-mailadres toe met de knop [b]Nieuwe e-mail toevoegen[/b] hierboven."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen geblokkeerde IP-adressen. Voeg een nieuw geblokkeerd IP-adres toe met de knop [b]Nieuw adres toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen geblokkeerde IP-adressen. Voeg een nieuw geblokkeerd IP-adres toe met de knop [b]Nieuw adres toevoegen[/b] hierboven."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen geblokkeerde gebruikersnamen. Voeg een nieuwe geblokkeerde naam toe met de knop [b]Nieuwe gebruikersnaam toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen geblokkeerde gebruikersnamen. Voeg een nieuwe geblokkeerde naam toe met de knop [b]Nieuwe gebruikersnaam toevoegen[/b] hierboven."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen medailles. Voeg een nieuwe medaille toe met de knop [b]Nieuwe medaille[/b] hieronder."
+            "#text": "Er zijn momenteel geen medailles. Voeg een nieuwe medaille toe met de knop [b]Nieuwe medaille[/b] hierboven."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen aangepaste profieldefinities. Voeg een nieuwe profieldefinitie toe met de knop [b]Nieuwe definitie toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen aangepaste profieldefinities. Voeg een nieuwe profieldefinitie toe met de knop [b]Nieuwe definitie toevoegen[/b] hierboven."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen vervangwoorden. Voeg een nieuw vervangwoord toe met de knop [b]Nieuw vervangwoord toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen vervangwoorden. Voeg een nieuw vervangwoord toe met de knop [b]Nieuw vervangwoord toevoegen[/b] hierboven."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen spamwoorden. Voeg een nieuw spamwoord toe met de knop [b]Nieuw woord toevoegen [/b] hieronder."
+            "#text": "Er zijn momenteel geen spamwoorden. Voeg een nieuw spamwoord toe met de knop [b]Nieuw woord toevoegen [/b] hierboven."
           },
           {
             "@tag": "EXPORT",

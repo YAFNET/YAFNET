@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne zakázané krajiny. Novú zakázanú krajinu pridáte kliknutím na tlačidlo [b]Pridať novú krajinu[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne zakázané krajiny. Novú zakázanú krajinu pridáte kliknutím na tlačidlo [b]Pridať novú krajinu[/b] vyššie."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne zakázané UserAgenty. Nový zakázaný UserAgent pridáte kliknutím na tlačidlo [b]Pridať nový UserAgent[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne zakázané UserAgenty. Nový zakázaný UserAgent pridáte kliknutím na tlačidlo [b]Pridať nový UserAgent[/b] vyššie."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne zakázané e-mailové adresy. Novú zakázanú e-mailovú adresu pridáte kliknutím na tlačidlo [b]Pridať nový e-mail[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne zakázané e-mailové adresy. Novú zakázanú e-mailovú adresu pridáte kliknutím na tlačidlo [b]Pridať nový e-mail[/b] vyššie."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne zakázané IP adresy. Novú zakázanú IP adresu pridáte kliknutím na tlačidlo [b]Pridať novú adresu[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne zakázané IP adresy. Novú zakázanú IP adresu pridáte kliknutím na tlačidlo [b]Pridať novú adresu[/b] vyššie."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne zakázané používateľské mená. Nové zakázané meno pridáte kliknutím na tlačidlo [b]Pridať nové používateľské meno[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne zakázané používateľské mená. Nové zakázané meno pridáte kliknutím na tlačidlo [b]Pridať nové používateľské meno[/b] vyššie."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne medaily. Novú medailu pridáte kliknutím na tlačidlo [b]Nová medaila[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne medaily. Novú medailu pridáte kliknutím na tlačidlo [b]Nová medaila[/b] vyššie."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne vlastné polia profilu. Nové pole pridáte kliknutím na tlačidlo [b]Pridať novú definíciu[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne vlastné polia profilu. Nové pole pridáte kliknutím na tlačidlo [b]Pridať novú definíciu[/b] vyššie."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne nahrádzané slová. Nové nahradenie pridáte kliknutím na tlačidlo [b]Pridať nové nahradenie slova[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne nahrádzané slová. Nové nahradenie pridáte kliknutím na tlačidlo [b]Pridať nové nahradenie slova[/b] vyššie."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne slová na kontrolu spamu. Nové slovo pridáte kliknutím na tlačidlo [b]Pridať nové slovo[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne slová na kontrolu spamu. Nové slovo pridáte kliknutím na tlačidlo [b]Pridať nové slovo[/b] vyššie."
           },
           {
             "@tag": "EXPORT",

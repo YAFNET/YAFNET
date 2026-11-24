@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen utestengte land. Legg til et nytt utestengt land med knappen [b]Legg til nytt land[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen utestengte land. Legg til et nytt utestengt land med knappen [b]Legg til nytt land[/b] ovenfor."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen utestengte brukeragenter. Legg til en ny utestengt brukeragent med knappen [b]Legg til ny brukeragent[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen utestengte brukeragenter. Legg til en ny utestengt brukeragent med knappen [b]Legg til ny brukeragent[/b] ovenfor."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen utestengte e-postadresser. Legg til en ny utestengt e-postadresse med knappen [b]Legg til ny e-postadresse[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen utestengte e-postadresser. Legg til en ny utestengt e-postadresse med knappen [b]Legg til ny e-postadresse[/b] ovenfor."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen utestengte IP-adresser. Legg til en ny utestengt IP-adresse med knappen [b]Legg til ny adresse[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen utestengte IP-adresser. Legg til en ny utestengt IP-adresse med knappen [b]Legg til ny adresse[/b] ovenfor."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen utestengte brukernavn. Legg til et nytt utestengt navn med knappen [b]Legg til nytt brukernavn[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen utestengte brukernavn. Legg til et nytt utestengt navn med knappen [b]Legg til nytt brukernavn[/b] ovenfor."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen medaljer. Legg til en ny medalje med knappen [b]Ny medalje[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen medaljer. Legg til en ny medalje med knappen [b]Ny medalje[/b] ovenfor."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen egendefinerte profildefinisjoner. Legg til en ny profildefinisjon med knappen [b]Legg til ny definisjon[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen egendefinerte profildefinisjoner. Legg til en ny profildefinisjon med knappen [b]Legg til ny definisjon[/b] ovenfor."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen erstatningsord. Legg til et nytt erstatningsord med knappen [b]Legg til ny ordutskifting[/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen erstatningsord. Legg til et nytt erstatningsord med knappen [b]Legg til ny ordutskifting[/b] ovenfor."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Det er for øyeblikket ingen spamord. Legg til et nytt spamord med knappen [b]Legg til nytt ord [/b] nedenfor."
+            "#text": "Det er for øyeblikket ingen spamord. Legg til et nytt spamord med knappen [b]Legg til nytt ord [/b] ovenfor."
           },
           {
             "@tag": "EXPORT",

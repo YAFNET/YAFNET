@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Estettyjä maita ei ole. Lisää uusi estetty maa alla olevalla [b]Lisää uusi maa[/b] -painikkeella."
+            "#text": "Estettyjä maita ei ole. Lisää uusi estetty maa yllä olevalla [b]Lisää uusi maa[/b] -painikkeella."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Estettyjä käyttäjäagentteja ei ole. Lisää uusi estetty käyttäjäagentti alla olevalla [b]Lisää uusi käyttäjäagentti[/b] -painikkeella."
+            "#text": "Estettyjä käyttäjäagentteja ei ole. Lisää uusi estetty käyttäjäagentti yllä olevalla [b]Lisää uusi käyttäjäagentti[/b] -painikkeella."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Estettyjä sähköpostiosoitteita ei ole. Lisää uusi estetty sähköpostiosoite alla olevalla [b]Lisää uusi sähköpostiosoite[/b] -painikkeella."
+            "#text": "Estettyjä sähköpostiosoitteita ei ole. Lisää uusi estetty sähköpostiosoite yllä olevalla [b]Lisää uusi sähköpostiosoite[/b] -painikkeella."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Estettyjä IP-osoitteita ei ole. Lisää uusi estetty IP-osoite alla olevalla [b]Lisää uusi osoite[/b] -painikkeella."
+            "#text": "Estettyjä IP-osoitteita ei ole. Lisää uusi estetty IP-osoite yllä olevalla [b]Lisää uusi osoite[/b] -painikkeella."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Estettyjä käyttäjänimiä ei ole. Lisää uusi estetty nimi alla olevalla [b]Lisää uusi käyttäjänimi[/b] -painikkeella."
+            "#text": "Estettyjä käyttäjänimiä ei ole. Lisää uusi estetty nimi yllä olevalla [b]Lisää uusi käyttäjänimi[/b] -painikkeella."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Mitaleja ei vielä ole. Lisää uusi mitali alla olevalla [b]Uusi mitali[/b] -painikkeella."
+            "#text": "Mitaleja ei vielä ole. Lisää uusi mitali yllä olevalla [b]Uusi mitali[/b] -painikkeella."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Mukautettuja profiilikenttiä ei vielä ole. Lisää uusi kenttä alla olevalla [b]Lisää uusi kenttä[/b] -painikkeella."
+            "#text": "Mukautettuja profiilikenttiä ei vielä ole. Lisää uusi kenttä yllä olevalla [b]Lisää uusi kenttä[/b] -painikkeella."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Korvattavia sanoja ei vielä ole. Lisää uusi korvattava sana alla olevalla [b]Lisää uusi sanan korvaus[/b] -painikkeella."
+            "#text": "Korvattavia sanoja ei vielä ole. Lisää uusi korvattava sana yllä olevalla [b]Lisää uusi sanan korvaus[/b] -painikkeella."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Roskapostisanoja ei vielä ole. Lisää uusi roskapostisana alla olevalla [b]Lisää uusi sana [/b] -painikkeella."
+            "#text": "Roskapostisanoja ei vielä ole. Lisää uusi roskapostisana yllä olevalla [b]Lisää uusi sana [/b] -painikkeella."
           },
           {
             "@tag": "EXPORT",

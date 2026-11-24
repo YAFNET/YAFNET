@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen forbudte lande. Tilføj et nyt forbudt land ved at klikke på knappen [b]Tilføj nyt land[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen forbudte lande. Tilføj et nyt forbudt land ved at klikke på knappen [b]Tilføj nyt land[/b] ovenfor."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen forbudte brugeragenter. Tilføj en ny forbudt brugeragent ved at klikke på knappen [b]Tilføj ny brugeragent[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen forbudte brugeragenter. Tilføj en ny forbudt brugeragent ved at klikke på knappen [b]Tilføj ny brugeragent[/b] ovenfor."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen forbudte e-mailadresser. Tilføj en ny forbudt e-mailadresse ved at klikke på knappen [b]Tilføj ny e-mail[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen forbudte e-mailadresser. Tilføj en ny forbudt e-mailadresse ved at klikke på knappen [b]Tilføj ny e-mail[/b] ovenfor."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen forbudte IP-adresser. Tilføj en ny forbudt IP-adresse ved at klikke på knappen [b]Tilføj ny adresse[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen forbudte IP-adresser. Tilføj en ny forbudt IP-adresse ved at klikke på knappen [b]Tilføj ny adresse[/b] ovenfor."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen forbudte brugernavne. Tilføj et nyt forbudt navn ved at klikke på knappen [b]Tilføj nyt brugernavn[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen forbudte brugernavne. Tilføj et nyt forbudt navn ved at klikke på knappen [b]Tilføj nyt brugernavn[/b] ovenfor."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen medaljer. Tilføj en ny medalje ved at klikke på knappen [b]Ny medalje[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen medaljer. Tilføj en ny medalje ved at klikke på knappen [b]Ny medalje[/b] ovenfor."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen tilpassede profildefinitioner. Tilføj en ny profildefinition ved at klikke på knappen [b]Tilføj ny definition[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen tilpassede profildefinitioner. Tilføj en ny profildefinition ved at klikke på knappen [b]Tilføj ny definition[/b] ovenfor."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen erstatningsord. Tilføj et nyt erstatningsord ved at klikke på knappen [b]Tilføj ny ordudskiftning[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen erstatningsord. Tilføj et nyt erstatningsord ved at klikke på knappen [b]Tilføj ny ordudskiftning[/b] ovenfor."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen spamkontrolord. Tilføj et nyt spamkontrolord ved at klikke på knappen [b]Tilføj nyt ord [/b] nedenfor."
+            "#text": "I øjeblikket er der ingen spamkontrolord. Tilføj et nyt spamkontrolord ved at klikke på knappen [b]Tilføj nyt ord [/b] ovenfor."
           },
           {
             "@tag": "EXPORT",

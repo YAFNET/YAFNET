@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole keelatud riike. Uue keelatud riigi lisamiseks klõpsake allpool nuppu [b]Lisa uus riik[/b]."
+            "#text": "Praegu pole keelatud riike. Uue keelatud riigi lisamiseks klõpsake ülal nuppu [b]Lisa uus riik[/b]."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole keelatud kasutajaagente. Uue keelatud kasutajaagendi lisamiseks klõpsake allpool nuppu [b]Lisa uus kasutajaagent[/b]."
+            "#text": "Praegu pole keelatud kasutajaagente. Uue keelatud kasutajaagendi lisamiseks klõpsake ülal nuppu [b]Lisa uus kasutajaagent[/b]."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole keelatud e-posti aadresse. Uue keelatud aadressi lisamiseks klõpsake allpool nuppu [b]Lisa uus e-posti aadress[/b]."
+            "#text": "Praegu pole keelatud e-posti aadresse. Uue keelatud aadressi lisamiseks klõpsake ülal nuppu [b]Lisa uus e-posti aadress[/b]."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole keelatud IP-aadresse. Uue keelatud IP-aadressi lisamiseks klõpsake allpool nuppu [b]Lisa uus aadress[/b]."
+            "#text": "Praegu pole keelatud IP-aadresse. Uue keelatud IP-aadressi lisamiseks klõpsake ülal nuppu [b]Lisa uus aadress[/b]."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole keelatud kasutajanimesid. Uue keelatud nime lisamiseks klõpsake allpool nuppu [b]Lisa uus kasutajanimi[/b]."
+            "#text": "Praegu pole keelatud kasutajanimesid. Uue keelatud nime lisamiseks klõpsake ülal nuppu [b]Lisa uus kasutajanimi[/b]."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole medaleid. Uue medali lisamiseks klõpsake allpool nuppu [b]Uus medal[/b]."
+            "#text": "Praegu pole medaleid. Uue medali lisamiseks klõpsake ülal nuppu [b]Uus medal[/b]."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole kohandatud profiili määratlusi. Uue määratluse lisamiseks klõpsake allpool nuppu [b]Lisa uus määratlus[/b]."
+            "#text": "Praegu pole kohandatud profiili määratlusi. Uue määratluse lisamiseks klõpsake ülal nuppu [b]Lisa uus määratlus[/b]."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole asendussõnu. Uue asendussõna lisamiseks klõpsake allpool nuppu [b]Lisa uus sõnaasendus[/b]."
+            "#text": "Praegu pole asendussõnu. Uue asendussõna lisamiseks klõpsake ülal nuppu [b]Lisa uus sõnaasendus[/b]."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Praegu pole rämpspostikontrolli sõnu. Uue sõna lisamiseks klõpsake allpool nuppu [b]Lisa uus sõna [/b]."
+            "#text": "Praegu pole rämpspostikontrolli sõnu. Uue sõna lisamiseks klõpsake ülal nuppu [b]Lisa uus sõna [/b]."
           },
           {
             "@tag": "EXPORT",

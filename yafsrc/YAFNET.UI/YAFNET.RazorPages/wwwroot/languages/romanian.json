@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există țări interzise. Adăugați o țară interzisă nouă făcând clic pe butonul [b]Adăugați o țară nouă[/b] de mai jos."
+            "#text": "În prezent nu există țări interzise. Adăugați o țară interzisă nouă făcând clic pe butonul [b]Adăugați o țară nouă[/b] de mai sus."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există agenți utilizator interziși. Adăugați un agent utilizator interzis nou făcând clic pe butonul [b]Adăugați un agent utilizator nou[/b] de mai jos."
+            "#text": "În prezent nu există agenți utilizator interziși. Adăugați un agent utilizator interzis nou făcând clic pe butonul [b]Adăugați un agent utilizator nou[/b] de mai sus."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există adrese de e-mail interzise. Adăugați o adresă de e-mail interzisă nouă făcând clic pe butonul [b]Adăugați o adresă de e-mail nouă[/b] de mai jos."
+            "#text": "În prezent nu există adrese de e-mail interzise. Adăugați o adresă de e-mail interzisă nouă făcând clic pe butonul [b]Adăugați o adresă de e-mail nouă[/b] de mai sus."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există adrese IP interzise. Adăugați o adresă IP interzisă nouă făcând clic pe butonul [b]Adăugați o adresă nouă[/b] de mai jos."
+            "#text": "În prezent nu există adrese IP interzise. Adăugați o adresă IP interzisă nouă făcând clic pe butonul [b]Adăugați o adresă nouă[/b] de mai sus."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există nume de utilizator interzise. Adăugați un nume interzis nou făcând clic pe butonul [b]Adăugați un nume de utilizator nou[/b] de mai jos."
+            "#text": "În prezent nu există nume de utilizator interzise. Adăugați un nume interzis nou făcând clic pe butonul [b]Adăugați un nume de utilizator nou[/b] de mai sus."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există medalii. Adăugați o medalie nouă făcând clic pe butonul [b]Medalie nouă[/b] de mai jos."
+            "#text": "În prezent nu există medalii. Adăugați o medalie nouă făcând clic pe butonul [b]Medalie nouă[/b] de mai sus."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există definiții personalizate de profil. Adăugați o definiție nouă făcând clic pe butonul [b]Adăugați o definiție nouă[/b] de mai jos."
+            "#text": "În prezent nu există definiții personalizate de profil. Adăugați o definiție nouă făcând clic pe butonul [b]Adăugați o definiție nouă[/b] de mai sus."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există înlocuiri de cuvinte. Adăugați o înlocuire nouă făcând clic pe butonul [b]Adăugați o înlocuire de cuvânt[/b] de mai jos."
+            "#text": "În prezent nu există înlocuiri de cuvinte. Adăugați o înlocuire nouă făcând clic pe butonul [b]Adăugați o înlocuire de cuvânt[/b] de mai sus."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există cuvinte spam. Adăugați un cuvânt spam nou făcând clic pe butonul [b]Adăugați un cuvânt nou[/b] de mai jos."
+            "#text": "În prezent nu există cuvinte spam. Adăugați un cuvânt spam nou făcând clic pe butonul [b]Adăugați un cuvânt nou[/b] de mai sus."
           },
           {
             "@tag": "EXPORT",

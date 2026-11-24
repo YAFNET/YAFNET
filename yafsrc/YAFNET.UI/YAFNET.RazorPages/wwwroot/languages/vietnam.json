@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có quốc gia nào bị cấm. Hãy thêm quốc gia bị cấm mới bằng cách nhấp vào nút [b]Thêm quốc gia mới[/b] bên dưới."
+            "#text": "Hiện tại không có quốc gia nào bị cấm. Hãy thêm quốc gia bị cấm mới bằng cách nhấp vào nút [b]Thêm quốc gia mới[/b] ở trên."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có UserAgent bị cấm. Hãy thêm UserAgent bị cấm mới bằng cách nhấp vào nút [b]Thêm UserAgent mới[/b] bên dưới."
+            "#text": "Hiện tại không có UserAgent bị cấm. Hãy thêm UserAgent bị cấm mới bằng cách nhấp vào nút [b]Thêm UserAgent mới[/b] ở trên."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có địa chỉ email bị cấm. Hãy thêm email bị cấm mới bằng cách nhấp vào nút [b]Thêm email mới[/b] bên dưới."
+            "#text": "Hiện tại không có địa chỉ email bị cấm. Hãy thêm email bị cấm mới bằng cách nhấp vào nút [b]Thêm email mới[/b] ở trên."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có địa chỉ IP bị cấm. Hãy thêm địa chỉ IP bị cấm mới bằng cách nhấp vào nút [b]Thêm địa chỉ mới[/b] bên dưới."
+            "#text": "Hiện tại không có địa chỉ IP bị cấm. Hãy thêm địa chỉ IP bị cấm mới bằng cách nhấp vào nút [b]Thêm địa chỉ mới[/b] ở trên."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có tên người dùng bị cấm. Hãy thêm tên bị cấm mới bằng cách nhấp vào nút [b]Thêm tên người dùng mới[/b] bên dưới."
+            "#text": "Hiện tại không có tên người dùng bị cấm. Hãy thêm tên bị cấm mới bằng cách nhấp vào nút [b]Thêm tên người dùng mới[/b] ở trên."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có huy chương. Hãy thêm huy chương mới bằng cách nhấp vào nút [b]Huy chương mới[/b] bên dưới."
+            "#text": "Hiện tại không có huy chương. Hãy thêm huy chương mới bằng cách nhấp vào nút [b]Huy chương mới[/b] ở trên."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có định nghĩa hồ sơ tùy chỉnh. Hãy thêm định nghĩa hồ sơ mới bằng cách nhấp vào nút [b]Thêm định nghĩa mới[/b] bên dưới."
+            "#text": "Hiện tại không có định nghĩa hồ sơ tùy chỉnh. Hãy thêm định nghĩa hồ sơ mới bằng cách nhấp vào nút [b]Thêm định nghĩa mới[/b] ở trên."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có từ thay thế. Hãy thêm từ thay thế mới bằng cách nhấp vào nút [b]Thêm từ thay thế mới[/b] bên dưới."
+            "#text": "Hiện tại không có từ thay thế. Hãy thêm từ thay thế mới bằng cách nhấp vào nút [b]Thêm từ thay thế mới[/b] ở trên."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Hiện tại không có từ kiểm tra spam. Hãy thêm từ kiểm tra spam mới bằng cách nhấp vào nút [b]Thêm từ mới[/b] bên dưới."
+            "#text": "Hiện tại không có từ kiểm tra spam. Hãy thêm từ kiểm tra spam mới bằng cách nhấp vào nút [b]Thêm từ mới[/b] ở trên."
           },
           {
             "@tag": "EXPORT",

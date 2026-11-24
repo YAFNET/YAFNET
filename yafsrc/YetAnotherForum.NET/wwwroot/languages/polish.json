@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zbanowanych krajów. Dodaj nowy zbanowany kraj, klikając przycisk [b]Dodaj nowy kraj[/b] poniżej."
+            "#text": "Obecnie nie ma zbanowanych krajów. Dodaj nowy zbanowany kraj, klikając przycisk [b]Dodaj nowy kraj[/b] powyżej."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zbanowanych agentów użytkownika. Dodaj nowego zbanowanego agenta użytkownika, klikając przycisk [b]Dodaj nowego agenta użytkownika[/b] poniżej."
+            "#text": "Obecnie nie ma zbanowanych agentów użytkownika. Dodaj nowego zbanowanego agenta użytkownika, klikając przycisk [b]Dodaj nowego agenta użytkownika[/b] powyżej."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zbanowanych adresów e-mail. Dodaj nowy zbanowany adres e-mail, klikając przycisk [b]Dodaj nowy adres e-mail[/b] poniżej."
+            "#text": "Obecnie nie ma zbanowanych adresów e-mail. Dodaj nowy zbanowany adres e-mail, klikając przycisk [b]Dodaj nowy adres e-mail[/b] powyżej."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zbanowanych adresów IP. Dodaj nowy zbanowany adres IP, klikając przycisk [b]Dodaj nowy adres[/b] poniżej."
+            "#text": "Obecnie nie ma zbanowanych adresów IP. Dodaj nowy zbanowany adres IP, klikając przycisk [b]Dodaj nowy adres[/b] powyżej."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zbanowanych nazw użytkowników. Dodaj nową zbanowaną nazwę, klikając przycisk [b]Dodaj nową nazwę użytkownika[/b] poniżej."
+            "#text": "Obecnie nie ma zbanowanych nazw użytkowników. Dodaj nową zbanowaną nazwę, klikając przycisk [b]Dodaj nową nazwę użytkownika[/b] powyżej."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma medali. Dodaj nowy medal, klikając przycisk [b]Nowy medal[/b] poniżej."
+            "#text": "Obecnie nie ma medali. Dodaj nowy medal, klikając przycisk [b]Nowy medal[/b] powyżej."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma własnych definicji profilu. Dodaj nową definicję, klikając przycisk [b]Dodaj nową definicję[/b] poniżej."
+            "#text": "Obecnie nie ma własnych definicji profilu. Dodaj nową definicję, klikając przycisk [b]Dodaj nową definicję[/b] powyżej."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma zamian słów. Dodaj nową zamianę, klikając przycisk [b]Dodaj nową zamianę słowa[/b] poniżej."
+            "#text": "Obecnie nie ma zamian słów. Dodaj nową zamianę, klikając przycisk [b]Dodaj nową zamianę słowa[/b] powyżej."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma słów spamu. Dodaj nowe słowo, klikając przycisk [b]Dodaj nowe słowo[/b] poniżej."
+            "#text": "Obecnie nie ma słów spamu. Dodaj nowe słowo, klikając przycisk [b]Dodaj nowe słowo[/b] powyżej."
           },
           {
             "@tag": "EXPORT",

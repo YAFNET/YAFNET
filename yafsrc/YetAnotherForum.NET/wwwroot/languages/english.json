@@ -1132,7 +1132,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] button below."
+                    "#text": "Currently there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] button above."
                 },
                 {
                     "@tag": "IMPORT_IPS",
@@ -1259,7 +1259,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no banned IP addresses. Add a new banned IP address by clicking the [b]Add New Address[/b] button below."
+                    "#text": "Currently there are no banned IP addresses. Add a new banned IP address by clicking the [b]Add New Address[/b] button above."
                 },
                 {
                     "@tag": "IMPORT_BLACKLIST",
@@ -1414,7 +1414,7 @@
 		        },
 		        {
 			        "@tag": "EMPTY_MESSAGE",
-			        "#text": "Currently there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] button below."
+			        "#text": "Currently there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] button above."
 		        },
 		        {
 			        "@tag": "MASK",
@@ -1533,7 +1533,7 @@
 		        },
 		        {
 			        "@tag": "EMPTY_MESSAGE",
-			        "#text": "Currently there are no banned user agents. Add a new banned user agent by clicking the [b]Add New User Agent[/b] button below."
+			        "#text": "Currently there are no banned user agents. Add a new banned user agent by clicking the [b]Add New User Agent[/b] button above."
 		        },
 		        {
 			        "@tag": "MASK",
@@ -1628,7 +1628,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no banned countries. Add a new banned country by clicking the [b]Add New Country[/b] button below."
+                    "#text": "Currently there are no banned countries. Add a new banned country by clicking the [b]Add New Country[/b] button above."
                 },
                 {
                     "@tag": "MASK",
@@ -6226,7 +6226,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no medals. Add a new Medal by clicking the [b]New Medal[/b] button below."
+                    "#text": "Currently there are no medals. Add a new Medal by clicking the [b]New Medal[/b] button above."
                 },
                 {
                     "@tag": "NEW_MEDAL",
@@ -6386,7 +6386,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] button below."
+                    "#text": "Currently there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] button above."
                 },
                 {
                     "@tag": "NEW_DEF",
@@ -6736,7 +6736,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] button below."
+                    "#text": "Currently there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] button above."
                 },
                 {
                     "@tag": "GOOD",
@@ -7023,7 +7023,7 @@
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently there are no spam check words. Add a new spam check word by clicking the [b]Add New Word[/b] button below."
+                    "#text": "Currently there are no spam check words. Add a new spam check word by clicking the [b]Add New Word[/b] button above."
                 },
                 {
                     "@tag": "EXPORT",

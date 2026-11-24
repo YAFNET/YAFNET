@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay países prohibidos. Añada un nuevo país prohibido con el botón [b]Añadir nuevo país[/b] de abajo."
+            "#text": "Actualmente no hay países prohibidos. Añada un nuevo país prohibido con el botón [b]Añadir nuevo país[/b] de arriba."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay agentes de usuario prohibidos. Añada un nuevo agente de usuario prohibido con el botón [b]Añadir nuevo agente de usuario[/b] de abajo."
+            "#text": "Actualmente no hay agentes de usuario prohibidos. Añada un nuevo agente de usuario prohibido con el botón [b]Añadir nuevo agente de usuario[/b] de arriba."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay direcciones de correo electrónico prohibidas. Añada una nueva dirección prohibida con el botón [b]Añadir nuevo correo electrónico[/b] de abajo."
+            "#text": "Actualmente no hay direcciones de correo electrónico prohibidas. Añada una nueva dirección prohibida con el botón [b]Añadir nuevo correo electrónico[/b] de arriba."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay direcciones IP prohibidas. Añada una nueva dirección IP prohibida con el botón [b]Añadir nueva dirección[/b] de abajo."
+            "#text": "Actualmente no hay direcciones IP prohibidas. Añada una nueva dirección IP prohibida con el botón [b]Añadir nueva dirección[/b] de arriba."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay nombres de usuario prohibidos. Añada un nuevo nombre prohibido con el botón [b]Añadir nuevo nombre de usuario[/b] de abajo."
+            "#text": "Actualmente no hay nombres de usuario prohibidos. Añada un nuevo nombre prohibido con el botón [b]Añadir nuevo nombre de usuario[/b] de arriba."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay medallas. Añada una nueva medalla con el botón [b]Nueva medalla[/b] de abajo."
+            "#text": "Actualmente no hay medallas. Añada una nueva medalla con el botón [b]Nueva medalla[/b] de arriba."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay definiciones de perfil personalizadas. Añada una nueva definición con el botón [b]Añadir nueva definición[/b] de abajo."
+            "#text": "Actualmente no hay definiciones de perfil personalizadas. Añada una nueva definición con el botón [b]Añadir nueva definición[/b] de arriba."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay palabras de reemplazo. Añada un nuevo reemplazo con el botón [b]Añadir nuevo reemplazo de palabra[/b] de abajo."
+            "#text": "Actualmente no hay palabras de reemplazo. Añada un nuevo reemplazo con el botón [b]Añadir nuevo reemplazo de palabra[/b] de arriba."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Actualmente no hay palabras de comprobación de spam. Añada una nueva palabra con el botón [b]Añadir nueva palabra [/b] de abajo."
+            "#text": "Actualmente no hay palabras de comprobación de spam. Añada una nueva palabra con el botón [b]Añadir nueva palabra [/b] de arriba."
           },
           {
             "@tag": "EXPORT",

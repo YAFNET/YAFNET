@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine gesperrten Länder. Füge ein neues gesperrtes Land mit dem Button [b]Neues Land hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine gesperrten Länder. Füge ein neues gesperrtes Land mit dem Button [b]Neues Land hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine gesperrten User-Agents. Füge einen neuen gesperrten User-Agent mit dem Button [b]Neuen User-Agent hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine gesperrten User-Agents. Füge einen neuen gesperrten User-Agent mit dem Button [b]Neuen User-Agent hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine gesperrten E-Mail-Adressen. Füge eine neue gesperrte E-Mail-Adresse mit dem Button [b]Neue E-Mail hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine gesperrten E-Mail-Adressen. Füge eine neue gesperrte E-Mail-Adresse mit dem Button [b]Neue E-Mail hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine gesperrten IP-Adressen. Füge eine neue gesperrte IP-Adresse mit dem Button [b]Neue Adresse hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine gesperrten IP-Adressen. Füge eine neue gesperrte IP-Adresse mit dem Button [b]Neue Adresse hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine gesperrten Benutzernamen. Füge einen neuen gesperrten Namen mit dem Button [b]Neuen Benutzernamen hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine gesperrten Benutzernamen. Füge einen neuen gesperrten Namen mit dem Button [b]Neuen Benutzernamen hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine Medaillen. Füge eine neue Medaille mit dem Button [b]Neue Medaille[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine Medaillen. Füge eine neue Medaille mit dem Button [b]Neue Medaille[/b] oben hinzu."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine benutzerdefinierten Profilfelder. Füge ein neues Profilfeld mit dem Button [b]Neue Definition hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine benutzerdefinierten Profilfelder. Füge ein neues Profilfeld mit dem Button [b]Neue Definition hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine Wortersetzungen. Füge eine neue Wortersetzung mit dem Button [b]Neue Wortersetzung hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine Wortersetzungen. Füge eine neue Wortersetzung mit dem Button [b]Neue Wortersetzung hinzufügen[/b] oben hinzu."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine Spam-Wörter. Füge ein neues Spam-Wort mit dem Button [b]Neues Wort hinzufügen [/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine Spam-Wörter. Füge ein neues Spam-Wort mit dem Button [b]Neues Wort hinzufügen [/b] oben hinzu."
           },
           {
             "@tag": "EXPORT",

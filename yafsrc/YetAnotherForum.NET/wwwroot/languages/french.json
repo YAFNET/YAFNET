@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucun pays interdit. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un nouveau pays[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucun pays interdit. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un nouveau pays[/b] ci-dessus."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucun agent utilisateur interdit. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un agent utilisateur[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucun agent utilisateur interdit. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un agent utilisateur[/b] ci-dessus."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucune adresse e-mail interdite. Ajoutez-en une en cliquant sur le bouton [b]Ajouter une adresse e-mail[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucune adresse e-mail interdite. Ajoutez-en une en cliquant sur le bouton [b]Ajouter une adresse e-mail[/b] ci-dessus."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucune adresse IP interdite. Ajoutez-en une en cliquant sur le bouton [b]Ajouter une nouvelle adresse[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucune adresse IP interdite. Ajoutez-en une en cliquant sur le bouton [b]Ajouter une nouvelle adresse[/b] ci-dessus."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucun nom d'utilisateur interdit. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un nom d'utilisateur[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucun nom d'utilisateur interdit. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un nom d'utilisateur[/b] ci-dessus."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucune médaille. Ajoutez-en une en cliquant sur le bouton [b]Nouvelle médaille[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucune médaille. Ajoutez-en une en cliquant sur le bouton [b]Nouvelle médaille[/b] ci-dessus."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucune définition de profil personnalisée. Ajoutez-en une en cliquant sur le bouton [b]Ajouter une nouvelle définition[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucune définition de profil personnalisée. Ajoutez-en une en cliquant sur le bouton [b]Ajouter une nouvelle définition[/b] ci-dessus."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucun mot à remplacer. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un remplacement de mot[/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucun mot à remplacer. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un remplacement de mot[/b] ci-dessus."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Il n'y a actuellement aucun mot anti-spam. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un mot [/b] ci-dessous."
+            "#text": "Il n'y a actuellement aucun mot anti-spam. Ajoutez-en un en cliquant sur le bouton [b]Ajouter un mot [/b] ci-dessus."
           },
           {
             "@tag": "EXPORT",

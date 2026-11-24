@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda yasaklı ülke yok. Aşağıdaki [b]Yeni Ülke Ekle[/b] düğmesine tıklayarak yeni bir yasaklı ülke ekleyin."
+            "#text": "Şu anda yasaklı ülke yok. Yukarıdaki [b]Yeni Ülke Ekle[/b] düğmesine tıklayarak yeni bir yasaklı ülke ekleyin."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda yasaklanmış UserAgent yok. Aşağıdaki [b]Yeni UserAgent Ekle[/b] düğmesine tıklayarak yeni bir yasaklı UserAgent ekleyin."
+            "#text": "Şu anda yasaklanmış UserAgent yok. Yukarıdaki [b]Yeni UserAgent Ekle[/b] düğmesine tıklayarak yeni bir yasaklı UserAgent ekleyin."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda yasaklanmış e-posta adresi yok. Aşağıdaki [b]Yeni E-posta Ekle[/b] düğmesine tıklayarak yeni bir yasaklı e-posta adresi ekleyin."
+            "#text": "Şu anda yasaklanmış e-posta adresi yok. Yukarıdaki [b]Yeni E-posta Ekle[/b] düğmesine tıklayarak yeni bir yasaklı e-posta adresi ekleyin."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda yasaklanmış IP adresi yok. Aşağıdaki [b]Yeni Adres Ekle[/b] düğmesine tıklayarak yeni bir yasaklı IP adresi ekleyin."
+            "#text": "Şu anda yasaklanmış IP adresi yok. Yukarıdaki [b]Yeni Adres Ekle[/b] düğmesine tıklayarak yeni bir yasaklı IP adresi ekleyin."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda yasaklanmış kullanıcı adı yok. Aşağıdaki [b]Yeni Kullanıcı Adı Ekle[/b] düğmesine tıklayarak yeni bir yasaklı ad ekleyin."
+            "#text": "Şu anda yasaklanmış kullanıcı adı yok. Yukarıdaki [b]Yeni Kullanıcı Adı Ekle[/b] düğmesine tıklayarak yeni bir yasaklı ad ekleyin."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda madalya yok. Aşağıdaki [b]Yeni Madalya[/b] düğmesine tıklayarak yeni bir madalya ekleyin."
+            "#text": "Şu anda madalya yok. Yukarıdaki [b]Yeni Madalya[/b] düğmesine tıklayarak yeni bir madalya ekleyin."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda özel profil tanımı yok. Aşağıdaki [b]Yeni Tanım Ekle[/b] düğmesine tıklayarak yeni bir profil tanımı ekleyin."
+            "#text": "Şu anda özel profil tanımı yok. Yukarıdaki [b]Yeni Tanım Ekle[/b] düğmesine tıklayarak yeni bir profil tanımı ekleyin."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda değiştirilecek kelime yok. Aşağıdaki [b]Yeni Kelime Değiştirme Ekle[/b] düğmesine tıklayarak yeni bir kelime değiştirme ekleyin."
+            "#text": "Şu anda değiştirilecek kelime yok. Yukarıdaki [b]Yeni Kelime Değiştirme Ekle[/b] düğmesine tıklayarak yeni bir kelime değiştirme ekleyin."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Şu anda spam kontrol kelimesi yok. Aşağıdaki [b]Yeni Kelime Ekle[/b] düğmesine tıklayarak yeni bir spam kontrol kelimesi ekleyin."
+            "#text": "Şu anda spam kontrol kelimesi yok. Yukarıdaki [b]Yeni Kelime Ekle[/b] düğmesine tıklayarak yeni bir spam kontrol kelimesi ekleyin."
           },
           {
             "@tag": "EXPORT",

@@ -225,6 +225,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Board Settings: the email to a user who was awarded a medal could not be turned off (the setting had no switch); it is in the email section of the board settings now; all languages
 * [CHANGES] BBCode extensions: the default description of [ATTACH] said "Enter a Album Image Number" (the translations already said attachment ID, it takes the ID of an attachment)
 * [FIXED] Upgrade: every upgrade replaced the BBCode extensions an admin had changed with the version of BBCodeExtensions.xml; the forum remembers the installed version of each extension now, the upgrade only updates the unchanged ones and keeps the changed ones (with a warning in the event log that a new version exists, the import of the file replaces them); an extension installed by an older version is updated like before
+* [FIXED] Admin lists (banned emails, IPs, names, user agents, countries, medals, profile definitions, replace words, spam words): the empty list said to use the add button "below", the button is at the top of the page; all languages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

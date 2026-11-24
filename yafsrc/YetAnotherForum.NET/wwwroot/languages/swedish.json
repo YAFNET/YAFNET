@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga förbjudna länder. Lägg till ett nytt förbjudet land genom att klicka på knappen [b]Lägg till nytt land[/b] nedan."
+            "#text": "För närvarande finns det inga förbjudna länder. Lägg till ett nytt förbjudet land genom att klicka på knappen [b]Lägg till nytt land[/b] ovan."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga förbjudna användaragenter. Lägg till en ny förbjuden användaragent genom att klicka på knappen [b]Lägg till ny användaragent[/b] nedan."
+            "#text": "För närvarande finns det inga förbjudna användaragenter. Lägg till en ny förbjuden användaragent genom att klicka på knappen [b]Lägg till ny användaragent[/b] ovan."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga förbjudna e-postadresser. Lägg till en ny förbjuden e-postadress genom att klicka på knappen [b]Lägg till ny e-postadress[/b] nedan."
+            "#text": "För närvarande finns det inga förbjudna e-postadresser. Lägg till en ny förbjuden e-postadress genom att klicka på knappen [b]Lägg till ny e-postadress[/b] ovan."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga förbjudna IP-adresser. Lägg till en ny förbjuden IP-adress genom att klicka på knappen [b]Lägg till ny adress[/b] nedan."
+            "#text": "För närvarande finns det inga förbjudna IP-adresser. Lägg till en ny förbjuden IP-adress genom att klicka på knappen [b]Lägg till ny adress[/b] ovan."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga förbjudna användarnamn. Lägg till ett nytt förbjudet namn genom att klicka på knappen [b]Lägg till nytt användarnamn[/b] nedan."
+            "#text": "För närvarande finns det inga förbjudna användarnamn. Lägg till ett nytt förbjudet namn genom att klicka på knappen [b]Lägg till nytt användarnamn[/b] ovan."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga medaljer. Lägg till en ny medalj genom att klicka på knappen [b]Ny medalj[/b] nedan."
+            "#text": "För närvarande finns det inga medaljer. Lägg till en ny medalj genom att klicka på knappen [b]Ny medalj[/b] ovan."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga anpassade profildefinitioner. Lägg till en ny profildefinition genom att klicka på knappen [b]Lägg till ny definition[/b] nedan."
+            "#text": "För närvarande finns det inga anpassade profildefinitioner. Lägg till en ny profildefinition genom att klicka på knappen [b]Lägg till ny definition[/b] ovan."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga ersättningsord. Lägg till ett nytt ersättningsord genom att klicka på knappen [b]Lägg till ny ordersättning[/b] nedan."
+            "#text": "För närvarande finns det inga ersättningsord. Lägg till ett nytt ersättningsord genom att klicka på knappen [b]Lägg till ny ordersättning[/b] ovan."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga skräppostkontrollord. Lägg till ett nytt skräppostkontrollord genom att klicka på knappen [b]Lägg till nytt ord [/b] nedan."
+            "#text": "För närvarande finns det inga skräppostkontrollord. Lägg till ett nytt skräppostkontrollord genom att klicka på knappen [b]Lägg till nytt ord [/b] ovan."
           },
           {
             "@tag": "EXPORT",

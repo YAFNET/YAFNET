@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono paesi vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo paese[/b] qui sotto."
+            "#text": "Al momento non ci sono paesi vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo paese[/b] qui sopra."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono user agent vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo user agent[/b] qui sotto."
+            "#text": "Al momento non ci sono user agent vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo user agent[/b] qui sopra."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono indirizzi e-mail vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo indirizzo e-mail[/b] qui sotto."
+            "#text": "Al momento non ci sono indirizzi e-mail vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo indirizzo e-mail[/b] qui sopra."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono indirizzi IP vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo indirizzo[/b] qui sotto."
+            "#text": "Al momento non ci sono indirizzi IP vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo indirizzo[/b] qui sopra."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono nomi utente vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo nome utente[/b] qui sotto."
+            "#text": "Al momento non ci sono nomi utente vietati. Aggiungine uno facendo clic sul pulsante [b]Aggiungi nuovo nome utente[/b] qui sopra."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono medaglie. Aggiungine una facendo clic sul pulsante [b]Nuova medaglia[/b] qui sotto."
+            "#text": "Al momento non ci sono medaglie. Aggiungine una facendo clic sul pulsante [b]Nuova medaglia[/b] qui sopra."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono definizioni di profilo personalizzate. Aggiungine una facendo clic sul pulsante [b]Aggiungi una nuova definizione[/b] qui sotto."
+            "#text": "Al momento non ci sono definizioni di profilo personalizzate. Aggiungine una facendo clic sul pulsante [b]Aggiungi una nuova definizione[/b] qui sopra."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono parole da sostituire. Aggiungine una facendo clic sul pulsante [b]Aggiungi sostituzione di parola[/b] qui sotto."
+            "#text": "Al momento non ci sono parole da sostituire. Aggiungine una facendo clic sul pulsante [b]Aggiungi sostituzione di parola[/b] qui sopra."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Al momento non ci sono parole antispam. Aggiungine una facendo clic sul pulsante [b]Aggiungi parola [/b] qui sotto."
+            "#text": "Al momento non ci sono parole antispam. Aggiungine una facendo clic sul pulsante [b]Aggiungi parola [/b] qui sopra."
           },
           {
             "@tag": "EXPORT",

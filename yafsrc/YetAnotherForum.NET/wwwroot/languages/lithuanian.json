@@ -1132,7 +1132,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra uždraustų šalių. Pridėkite naują uždraustą šalį spustelėdami toliau esantį mygtuką [b]Pridėti naują šalį[/b]."
+            "#text": "Šiuo metu nėra uždraustų šalių. Pridėkite naują uždraustą šalį spustelėdami aukščiau esantį mygtuką [b]Pridėti naują šalį[/b]."
           },
           {
             "@tag": "MASK",
@@ -1182,7 +1182,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra uždraustų naudotojo agentų. Pridėkite naują uždraustą naudotojo agentą spustelėdami toliau esantį mygtuką [b]Pridėti naują naudotojo agentą[/b]."
+            "#text": "Šiuo metu nėra uždraustų naudotojo agentų. Pridėkite naują uždraustą naudotojo agentą spustelėdami aukščiau esantį mygtuką [b]Pridėti naują naudotojo agentą[/b]."
           },
           {
             "@tag": "IMPORT_UA",
@@ -1281,7 +1281,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra uždraustų el. pašto adresų. Pridėkite naują uždraustą adresą spustelėdami toliau esantį mygtuką [b]Pridėti naują el. pašto adresą[/b]."
+            "#text": "Šiuo metu nėra uždraustų el. pašto adresų. Pridėkite naują uždraustą adresą spustelėdami aukščiau esantį mygtuką [b]Pridėti naują el. pašto adresą[/b]."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1400,7 +1400,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra uždraustų IP adresų. Pridėkite naują uždraustą IP adresą spustelėdami toliau esantį mygtuką [b]Pridėti naują adresą[/b]."
+            "#text": "Šiuo metu nėra uždraustų IP adresų. Pridėkite naują uždraustą IP adresą spustelėdami aukščiau esantį mygtuką [b]Pridėti naują adresą[/b]."
           },
           {
             "@tag": "EXPORT",
@@ -1559,7 +1559,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra uždraustų naudotojų vardų. Pridėkite naują uždraustą vardą spustelėdami toliau esantį mygtuką [b]Pridėti naują naudotojo vardą[/b]."
+            "#text": "Šiuo metu nėra uždraustų naudotojų vardų. Pridėkite naują uždraustą vardą spustelėdami aukščiau esantį mygtuką [b]Pridėti naują naudotojo vardą[/b]."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -6222,7 +6222,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu medalių nėra. Pridėkite naują medalį spustelėdami toliau esantį mygtuką [b]Naujas medalis[/b]."
+            "#text": "Šiuo metu medalių nėra. Pridėkite naują medalį spustelėdami aukščiau esantį mygtuką [b]Naujas medalis[/b]."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6382,7 +6382,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra pasirinktinių profilio apibrėžčių. Pridėkite naują apibrėžtį spustelėdami toliau esantį mygtuką [b]Pridėti naują apibrėžtį[/b]."
+            "#text": "Šiuo metu nėra pasirinktinių profilio apibrėžčių. Pridėkite naują apibrėžtį spustelėdami aukščiau esantį mygtuką [b]Pridėti naują apibrėžtį[/b]."
           },
           {
             "@tag": "NEW_DEF",
@@ -6720,7 +6720,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra keičiamų žodžių. Pridėkite naują keičiamą žodį spustelėdami toliau esantį mygtuką [b]Pridėti naują žodžio keitimą[/b]."
+            "#text": "Šiuo metu nėra keičiamų žodžių. Pridėkite naują keičiamą žodį spustelėdami aukščiau esantį mygtuką [b]Pridėti naują žodžio keitimą[/b]."
           },
           {
             "@tag": "EXPORT",
@@ -7023,7 +7023,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Šiuo metu nėra šlamšto tikrinimo žodžių. Pridėkite naują šlamšto tikrinimo žodį spustelėdami toliau esantį mygtuką [b]Pridėti naują žodį [/b]."
+            "#text": "Šiuo metu nėra šlamšto tikrinimo žodžių. Pridėkite naują šlamšto tikrinimo žodį spustelėdami aukščiau esantį mygtuką [b]Pridėti naują žodį [/b]."
           },
           {
             "@tag": "EXPORT",
