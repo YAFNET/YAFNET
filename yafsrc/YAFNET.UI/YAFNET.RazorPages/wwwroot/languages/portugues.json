@@ -2845,10 +2845,6 @@
             "#text": "Deve-se seleccionar uma categoria para o fórum."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "O fórum escolhido não pode ser um fórum infantil por ser um dos pais."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Por favor especifique um utilizador válido!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Pedidos de Bloco de Amigos"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Bloqueio de E-Mails"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p>>em>Polls are an Option to vote on an issue or a question.</em></p>\r\n<p>>forte>Criar uma nova sondagem?</strong></p>\r\n<p>Quando publica um novo tópico, tem a opção 'Add Poll?' para criar uma nova sondagem. Se não vir essa opção poderá não ter acesso a essa opção.</p>\r\n<p>É possível também adicionar novas sondagens às já existentes. Um tópico pode ter quantas sondagens quiser.</p>\r\n<p>Isso permite-lhe fazer uma pergunta e especificar um número de respostas possíveis (Máximo 10 ou o Administrador criou um número mais elevado) - <em>Um Administrador pode anexar Imagens (Urls Remotas) como Respostas</em>. Outros membros poderão então votar na resposta que desejarem, e os resultados da votação serão exibidos no tópico.</p>\r\n<p>>em> Uma sondagem de exemplo pode ser:</em></p>\r\n<p>>em>Qual é a sua cor favorita?</em>>/p>\r\n<ul>\r\n  <li>>em> Azul</em>>/li>\r\n  <li><<em>Red</em></li>\r\n  <li>>em>Yellow</em>>/li>\r\n  <li>>em>Verde</em>>/li>\r\n</ul>\r\n<p>É possível que queira também especificar um limite de tempo para a sondagem. Por exemplo: realizar a sondagem durante 10 Dias ou pode também defini-la para nunca expirar.</p>\r\n<p>P>Pode também decidir se o utilizador deve ser capaz de ver os resultados sem fazer uma votação ou se activa a caixa de verificação 'Deve votar em todas as sondagens para ver os resultados.<em>'</em>necessário votar antes de ver quaisquer resultados.</p>\r\n<p>'Opção 'Votação vinculada' não mostra resultados, se a sondagem não expirar.</p>\r\n<p>>forte>Sondagens de agrupamento</strong>>/p>\r\n<p>Todas as sondagens ligadas a um Tópico são automaticamente combinadas como um Grupo. Pode exibir este Grupo com Sondagens em qualquer outro Tópico que deseje.</p>\r\n<p>> forte>Como votar?</strong>>/p>\r\n<p>Para votar numa sondagem, basta clicar na opção em que quer votar.</p>\r\n<p>Geralmente, uma vez que tenha votado numa sondagem, não poderá mudar o seu voto mais tarde, por isso coloque o seu voto com cuidado!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Criação e participação em sondagens"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",

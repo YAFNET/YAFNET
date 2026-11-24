@@ -7964,10 +7964,6 @@
             "#text": "Блокировать запросы друзей"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Блокировать электронную почту"
           },

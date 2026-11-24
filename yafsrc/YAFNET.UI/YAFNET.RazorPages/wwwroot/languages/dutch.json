@@ -7964,10 +7964,6 @@
             "#text": "Vriendschapsverzoeken blokkeren"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "E-mails blokkeren"
           },

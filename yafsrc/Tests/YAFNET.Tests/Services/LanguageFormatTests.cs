@@ -76,6 +76,54 @@ public partial class LanguageFormatTests
         errors.Should().BeEmpty();
     }
 
+    [Test]
+    [Description("A language file has every page once and every tag of a page once (the forum used the last one, e.g. a wrong copy)")]
+    public void Language_Files_Have_No_Duplicate_Tags_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var files = Directory.EnumerateFiles(Path.Combine(root, "YAFNET.UI", "YAFNET.RazorPages", "wwwroot", "languages"), "*.json")
+            .Append(Path.Combine(root, "YetAnotherForum.NET", "wwwroot", "languages", "english.json"));
+
+        var duplicates = new List<string>();
+
+        foreach (var file in files)
+        {
+            using var json = JsonDocument.Parse(File.ReadAllText(file));
+
+            var pages = new HashSet<string>();
+
+            foreach (var page in json.RootElement.GetProperty("Resources").GetProperty("page").EnumerateArray())
+            {
+                var name = page.GetProperty("@name").GetString();
+
+                if (!pages.Add(name))
+                {
+                    duplicates.Add($"{Path.GetRelativePath(root, file)}: page {name}");
+                }
+
+                var tags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var resource in page.GetProperty("Resource").EnumerateArray())
+                {
+                    var tag = resource.GetProperty("@tag").GetString();
+
+                    if (!tags.Add(tag))
+                    {
+                        duplicates.Add($"{Path.GetRelativePath(root, file)}: {name}.{tag}");
+                    }
+                }
+            }
+        }
+
+        duplicates.Should().BeEmpty();
+    }
+
     private static bool IsValidFormat(string text, object[] arguments)
     {
         try

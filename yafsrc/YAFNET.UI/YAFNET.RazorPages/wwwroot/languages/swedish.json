@@ -2845,10 +2845,6 @@
             "#text": "Du måste välja en kategori för forumet."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "Det valda forumet kan inte vara ett barnforum eftersom det är ett föräldraforum."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Ange en giltig användare!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Blockera vänförfrågningar"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Blockera e-postmeddelanden"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p><em>Polls är ett alternativ för att rösta om en fråga eller ett problem.</em></p>\r\n<p><strong>Skapa en ny omröstning?</strong></p>\r\n<p>När du lägger upp ett nytt ämne har du alternativet \"Lägg till omröstning\" för att skapa en ny omröstning. Om du inte ser det alternativet kanske du inte har tillgång till det alternativet.</p>\r\n<p>Du kan också lägga till nya omröstningar till befintliga omröstningar. Ett ämne kan ha så många omröstningar som du vill.</p>\r\n<p>Detta gör det möjligt att ställa en fråga och ange ett antal möjliga svar (max 10 eller om administratören har ställt in ett högre antal) - <em>En administratör kan bifoga bilder (fjärrurls) som svar</em>. Andra medlemmar kan sedan rösta på det svar de vill ha, och resultatet av omröstningen visas i tråden.</p>\r\n<p><em>En exempelomröstning kan vara:</em></p>\r\n<p><em>Vad är din favoritfärg?</em></p>\r\n<ul>\r\n  <li><em>Blå</em></li>\r\n  <li><em>Röd</em></li>\r\n  <li><em>Gul</em></li>\r\n  <li><em>Grönt</em></li>\r\n</ul>\r\n<p>Du kanske också vill ange en tidsgräns för omröstningen. Till exempel: kör omröstningen i 10 dagar eller så kan du ställa in den så att den aldrig löper ut.</p>\r\n<p>Du kan också bestämma om användaren ska kunna se resultaten utan att rösta eller om du aktiverar kryssrutan \"Du måste rösta i alla omröstningar för att se resultaten.<em>'</em> Du måste rösta innan du kan se några resultat.</p>\r\n<p>Optionen \"Gränsad röstning\" visar inte resultaten om omröstningen inte har löpt ut.</p>\r\n<p><strong>Gruppering av omröstningar</strong></p>\r\n<p>Alla omröstningar som är kopplade till ett ämne kombineras automatiskt som en grupp. Du kan visa den här gruppen tillsammans med omröstningar om vilket annat ämne som helst.</p>\r\n<p><strong>Hur man röstar?</strong></p>\r\n<p>För att rösta i en omröstning klickar du helt enkelt på det alternativ du vill rösta på.</p>\r\n<p>När du väl har röstat i en omröstning kan du i allmänhet inte ändra din röst senare, så lägg din röst med omsorg!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Skapa och delta i omröstningar"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",

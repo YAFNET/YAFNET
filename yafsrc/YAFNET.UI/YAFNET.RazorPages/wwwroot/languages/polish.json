@@ -7964,10 +7964,6 @@
             "#text": "Zablokuj żądania znajomych"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Blokuj wiadomości e-mail"
           },
@@ -8885,10 +8881,6 @@
           {
             "@tag": "TITLE",
             "#text": "Polityka dotycząca plików cookie"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Forum Rules and Policies"
           }
         ]
       },

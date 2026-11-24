@@ -2845,10 +2845,6 @@
             "#text": "Musíte vybrať kategóriu fóra."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "Vybrané fórum nemôže byť detským fórom, pretože je nadradené."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Zadajte platného používateľa!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Blokovanie žiadostí o priateľstvo"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Blokovanie e-mailov"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p><em>Voľby sú možnosťou hlasovať o probléme alebo otázke.</em></p>\r\n<p><strong>Vytvoriť novú anketu?</strong></p>\r\n<p>Pri vytváraní novej Témy máte k dispozícii možnosť \"Pridať anketu?\" na vytvorenie novej ankety. Ak túto možnosť nevidíte, možno k nej nemáte prístup.</p>\r\n<p>Nové ankety môžete pridávať aj do existujúcich ankiet. Téma môže mať ľubovoľný počet ankiet.</p>\r\n<p>To vám umožňuje položiť otázku a určiť počet možných odpovedí (max. 10 alebo správca nastavil vyšší počet) - <em>Správca môže ako odpovede pripojiť obrázky (vzdialené url)</em>. Ostatní členovia potom budú môcť hlasovať za požadovanú odpoveď a výsledky hlasovania sa zobrazia vo vlákne.</p>\r\n<p><em>Príkladom hlasovania môže byť:</em></p>\r\n<p><em>Aká je vaša obľúbená farba?</em></p>\r\n<ul>\r\n  <li><em>Modrá</em></li>\r\n  <li><em>Červená</em></li>\r\n  <li><em>Žltá</em></li>\r\n  <li><em>Zelená</em></li>\r\n</ul>\r\n<p>Môžete tiež určiť časový limit pre hlasovanie. Napríklad: spustite anketu na 10 dní alebo ju môžete nastaviť aj tak, aby nikdy nevypršala.</p>\r\n<p>Môžete tiež rozhodnúť, či má mať používateľ možnosť vidieť výsledky bez vykonania hlasovania, alebo ak povolíte začiarkavacie políčko \"Mali by ste hlasovať vo všetkých anketách, aby ste videli výsledky.<em>\"</em>, musíte hlasovať pred zobrazením akýchkoľvek výsledkov.</p>\r\n<p>'Viazané hlasovanie' Možnosť nezobrazí výsledky, ak platnosť ankety nevypršala.</p>\r\n<p><strong>Zoskupenie ankiet</strong></p>\r\n<p>Všetky ankety pripojené k téme sa automaticky spoja do skupiny. Túto Skupinu môžete zobraziť spolu s anketami na ľubovoľnej inej TÉME, ktorú chcete.</p>\r\n<p><strong>Ako hlasovať?</strong></p>\r\n<p>Ak chcete hlasovať v ankete, jednoducho kliknite na možnosť, za ktorú chcete hlasovať.</p>\r\n<p>Všeobecne platí, že po hlasovaní v ankete nebudete môcť svoj hlas neskôr zmeniť, preto hlasujte opatrne!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Vytváranie a účasť na prieskumoch verejnej mienky"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",

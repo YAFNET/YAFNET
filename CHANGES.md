@@ -187,6 +187,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] BBCode: a numbered list without a list type (e.g. in an older post) was changed to roman numerals ([list=i]) when the post was edited; numbered lists ([list=1]) use the list style "decimal" (it was "number", a counter style that does not exist, the browsers fell back to decimal)
 * [FIXED] User menu: the "My Friends" link had a stray attribute "6" in its html
 * [FIXED] Outdated texts: the attachments dialog without uploads named an "Upload New File(s)" button that does not exist (and showed the html tags as text in the editor; Bulgarian showed "Бордът Дон", Portuguese a translated "<forte>" tag), the tooltip of the topic "Tools" named e-mail and RSS subscriptions, the one of "Share it!" Facebook and Reddit, and "My Account" still the User Control Panel; all languages
+* [CHANGES] Languages: 91 texts were in the language files twice, a second copy that was never used (the forum uses the first one) and was wrong or English, e.g. "Block Private Messages" for the friend requests of the block options; the copies are removed and a test checks the language files for duplicates
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

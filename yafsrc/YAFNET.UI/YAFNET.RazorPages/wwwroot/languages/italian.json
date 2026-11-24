@@ -7964,10 +7964,6 @@
             "#text": "Blocca richieste di amicizia"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Blocca richieste di amicizia"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Blocca e-mail"
           },

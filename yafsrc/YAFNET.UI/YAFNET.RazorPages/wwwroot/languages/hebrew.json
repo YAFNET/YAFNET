@@ -2845,10 +2845,6 @@
             "#text": "עליך לבחור קטגוריה עבור הפורום."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "הפורום הנבחר אינו יכול להיות פורום ילדים מכיוון שהוא הורה."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "נא לציין משתמש חוקי!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "חסום בקשות חברים"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "חסום הודעות דואר אלקטרוני"
           },
@@ -8063,10 +8051,6 @@
           {
             "@tag": "REMOVEBUDDY",
             "#text": "הסר חבר"
-          },
-          {
-            "@tag": "REMOVEBUDDY",
-            "#text": "Remove {0} from your Friend list?"
           },
           {
             "@tag": "REMOVEBUDDY_NOTIFICATION",
@@ -10982,16 +10966,8 @@
             "#text": "<p style=\";text-align:right;direction:rtl\"><em>סקרים הם אפשרות להצביע על נושא או שאלה.</em></p><p style=\";text-align:right;direction:rtl\"> <strong>האם ליצור סקר חדש?</strong></p><p style=\";text-align:right;direction:rtl\"> כאשר אתה מפרסם נושא חדש, יש לך את האפשרות &#39;הוסף סקר?&#39; כדי ליצור סקר חדש. אם אינך רואה את האפשרות הזו, ייתכן שאין לך גישה לאפשרות זו.</p><p style=\";text-align:right;direction:rtl\"> אתה יכול גם להוסיף סקרים חדשים לסקרים קיימים. נושא יכול לכלול כמה סקרים שתרצה.</p><p style=\";text-align:right;direction:rtl\"> זה מאפשר לך לשאול שאלה ולציין מספר תגובות אפשריות (מקסימום 10 או שהמנהל הגדיר מספר גבוה יותר) - <em>מנהל יכול לצרף תמונות (כתובות אתרים מרוחקות) כתגובות</em> . לאחר מכן, חברים אחרים יוכלו להצביע עבור התגובה שהם רוצים, ותוצאות ההצבעה יוצגו בשרשור.</p><p style=\";text-align:right;direction:rtl\"> <em>סקר לדוגמה יכול להיות:</em></p><p style=\";text-align:right;direction:rtl\"> <em>מהו הצבע האהוב עליך?</em></p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <em>כָּחוֹל</em></li><li style=\";text-align:right;direction:rtl\"> <em>אָדוֹם</em></li><li style=\";text-align:right;direction:rtl\"> <em>צהוב</em></li><li style=\";text-align:right;direction:rtl\"> <em>ירוק</em></li></ul><p style=\";text-align:right;direction:rtl\"> ייתכן שתרצה גם לציין מגבלת זמן עבור הסקר. לדוגמה: הפעל את הסקר למשך 10 ימים או שאתה יכול גם להגדיר אותו כך שלא יפוג לעולם.</p><p style=\";text-align:right;direction:rtl\"> אתה יכול גם להחליט אם המשתמש צריך להיות מסוגל לראות את התוצאות מבלי לבצע הצבעה או אם תפעיל את תיבת הסימון &#39;עליך להצביע בכל הסקרים כדי לראות תוצאות. <em>אתה</em> צריך להצביע לפני שתראה תוצאות.</p><p style=\";text-align:right;direction:rtl\"> אפשרות &#39;הצבעה כבולה&#39; לא תציג תוצאות, אם הסקר לא פג.</p><p style=\";text-align:right;direction:rtl\"> <strong>קיבוץ סקרים</strong></p><p style=\";text-align:right;direction:rtl\"> כל הסקרים המצורפים לנושא משולבים באופן אוטומטי כקבוצה. אתה יכול להציג את הקבוצה הזו עם סקרים בכל נושא אחר שתרצה.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך להצביע?</strong></p><p style=\";text-align:right;direction:rtl\"> כדי להצביע בסקר, פשוט לחץ על האפשרות לה אתה רוצה להצביע.</p><p style=\";text-align:right;direction:rtl\"> ככלל, לאחר שהצבעת בסקר, לא תוכל לשנות את הצבעתך מאוחר יותר, אז שים את ההצבעה שלך בזהירות!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "יצירה והשתתפות בסקרים"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",
@@ -12457,16 +12433,8 @@
             "#text": "שאלת סקר:"
           },
           {
-            "@tag": "POLLQUESTION",
-            "#text": "Poll Question:"
-          },
-          {
             "@tag": "POLLSAVE",
             "#text": "שמור סקר"
-          },
-          {
-            "@tag": "POLLSAVE",
-            "#text": "Save Poll"
           },
           {
             "@tag": "REMOVEPOLL",

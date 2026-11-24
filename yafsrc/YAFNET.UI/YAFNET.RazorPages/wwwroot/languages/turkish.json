@@ -2845,10 +2845,6 @@
             "#text": "Forum için bir kategori seçmelisiniz."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "Seçilen forum bir ebeveyn olduğu için çocuk forumu olamaz."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Lütfen geçerli kullanıcı belirtin!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Arkadaşlık İsteklerini Engelle"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "E-postaları Engelle"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p><em>Oylamalar, bir konu veya soru hakkında oy kullanma seçeneğidir</em></p>.\r\n<p><strong>Yeni bir anket oluşturun? </strong></p>\r\n<p>Yeni bir Konu açtığınızda, yeni bir anket oluşturmak için \"Anket Ekle?\" seçeneğine sahipsiniz. Bu seçeneği göremiyorsanız, bu seçeneğe erişiminiz olmayabilir.</p>\r\n<p>Mevcut anketlere yeni anketler de ekleyebilirsiniz. Bir Konu istediğiniz kadar Ankete sahip olabilir.</p>\r\n<p>Bu, bir soru sormanıza ve bir dizi olası yanıt belirlemenize olanak tanır (Maks. 10 veya Yönetici daha yüksek bir sayı ayarlamıştır) - <em>Bir Yönetici Yanıt olarak Görüntüler (Uzak URL'ler) ekleyebilir</em>. Diğer üyeler daha sonra istedikleri yanıt için oy kullanabilecek ve oylama sonuçları konu başlığında görüntülenecektir.</p>\r\n<p><em>Örnek bir anket şöyle olabilir:</em></p>\r\n<p><em>En sevdiğiniz renk nedir? </em></p>\r\n<ul>\r\n  <li><em>Mavi</em></li>\r\n  <li><em>Kırmızı</em></li>\r\n  <li><em>Sarı</em></li>\r\n  <li><em>Yeşil</em></li>\r\n</ul>\r\n<p>Ayrıca anket için bir zaman sınırı belirlemek isteyebilirsiniz. Örneğin: anketi 10 Gün boyunca çalıştırın veya hiçbir zaman sona ermeyecek şekilde de ayarlayabilirsiniz.</p>\r\n<p>Kullanıcının oylama yapmadan sonuçları görüp göremeyeceğine de karar verebilirsiniz veya 'Sonuçları görmek için tüm anketlerde oy kullanmalısınız.<em>'</em> onay kutusunu etkinleştirirseniz, herhangi bir sonucu görmeden önce oy kullanmanız gerekir.</p>\r\n<p>'Bağlı oylama' Seçeneği, anketin süresi dolmadıysa sonuçları göstermez.</p>\r\n<p><strong>Gruplama Anketleri</strong></p>\r\n<p>Bir Konuya eklenen tüm Anketler otomatik olarak bir Grup olarak birleştirilir. Bu Grubu istediğiniz başka bir Konudaki Anketlerle birlikte görüntüleyebilirsiniz.</p>\r\n<p><strong>Nasıl oy kullanılır? </strong></p>\r\n<p>Bir ankette oy kullanmak için, oy vermek istediğiniz seçeneğe tıklamanız yeterlidir.</p>\r\n<p>Genel olarak, bir ankete oy verdikten sonra oyunuzu daha sonra değiştiremezsiniz, bu nedenle oyunuzu dikkatli verin!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Anket Oluşturma ve Anketlere Katılma"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",

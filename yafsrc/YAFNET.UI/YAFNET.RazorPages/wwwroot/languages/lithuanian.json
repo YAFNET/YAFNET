@@ -2845,10 +2845,6 @@
             "#text": "Turite pasirinkti forumo kategoriją."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "Pasirinktas forumas negali būti vaikų forumas, nes jis yra tėvų forumas."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Nurodykite galiojantį naudotoją!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Blokuoti draugų užklausas"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Blokuoti el. laiškus"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p><em>Apklausos - tai galimybė balsuoti tam tikru klausimu ar klausimu.</em></p>\r\n<p><strong>Sukurti naują apklausą?</strong></p>\r\n<p>Kai skelbiate naują temą, turite parinktį \"Pridėti apklausą?\", kad sukurtumėte naują apklausą. Jei šios parinkties nematote, galbūt neturite prieigos prie šios parinkties.</p>\r\n<p>Taip pat galite pridėti naujų apklausų prie jau esamų. Į temą galima įtraukti tiek apklausų, kiek norite.</p>\r\n<p>Tai leidžia užduoti klausimą ir nurodyti galimų atsakymų skaičių (daugiausia 10 arba administratorius nustatė didesnį skaičių) - <em>Administratorius kaip atsakymus gali pridėti paveikslėlius (Remote Urls)</em>. Tada kiti nariai galės balsuoti už norimą atsakymą, o balsavimo rezultatai bus rodomi temoje.</p>\r\n<p><em>Apklausos pavyzdys gali būti toks:</em></p>\r\n<p><em>Kokia yra jūsų mėgstamiausia spalva?\"</em></p>\r\n<ul>\r\n  <li><em>Mėlyna</em></li>\r\n  <li><em>Raudona</em></li>\r\n  <li><em>Geltona</em></li>\r\n  <li><em>Žalia</em></li>\r\n</ul>\r\n<p>Taip pat galite nurodyti apklausos terminą. Pavyzdžiui: paleiskite apklausą 10 dienų arba galite nustatyti, kad ji niekada nepasibaigtų.</p>\r\n<p>Taip pat galite nuspręsti, ar naudotojas turėtų matyti rezultatus nebalsuodamas, ar įjungus žymimąjį langelį \"Turėtumėte balsuoti visose apklausose, kad pamatytumėte rezultatus.<em>\"</em>\"</em>, reikės balsuoti prieš pamatant bet kokius rezultatus.</p>\r\n<p>\"Susieto balsavimo\" parinktis nerodo rezultatų, jei apklausa nepasibaigė.</p>\r\n<p><strong>Apklausų grupavimas</strong></p>\r\n<p>Visos prie temos prijungtos apklausos automatiškai sujungiamos į grupę. Šią Grupę galite rodyti kartu su apklausomis prie bet kurios kitos norimos Temos.</p>\r\n<p><strong>Kaip balsuoti?</strong></p>\r\n<p>Jei norite balsuoti apklausoje, tiesiog spustelėkite parinktį, už kurią norite balsuoti.</p>\r\n<p>Apskritai, kartą balsavę apklausoje, vėliau negalėsite pakeisti savo balso, todėl balsuokite atidžiai!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Apklausų kūrimas ir dalyvavimas jose"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",

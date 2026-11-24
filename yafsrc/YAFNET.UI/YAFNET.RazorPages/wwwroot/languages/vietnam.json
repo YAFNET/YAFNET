@@ -2845,10 +2845,6 @@
             "#text": "Bạn phải chọn một danh mục cho diễn đàn."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "Diễn đàn đã chọn không thể là diễn đàn con vì nó là diễn đàn cha mẹ."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Vui lòng chỉ định người dùng hợp lệ!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Chặn yêu cầu kết bạn"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Chặn thư điện tử"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p><em>Thăm dò ý kiến là một Lựa chọn để bỏ phiếu về một vấn đề hoặc một câu hỏi.</em></p><p> <strong>Tạo một cuộc thăm dò mới?</strong></p><p> Khi bạn đăng một Chủ đề mới, bạn có tùy chọn &#39;Thêm cuộc thăm dò ý kiến?&#39; để tạo một cuộc thăm dò mới. Nếu bạn không thấy tùy chọn đó, bạn có thể không có quyền truy cập vào tùy chọn đó.</p><p> Bạn cũng có thể thêm các Cuộc thăm dò mới vào những cuộc thăm dò hiện có. Một Chủ đề có thể có bao nhiêu Cuộc thăm dò bạn muốn.</p><p> Điều này cho phép bạn đặt câu hỏi và chỉ định một số câu trả lời có thể có (Tối đa 10 hoặc Quản trị viên đã thiết lập một con số cao hơn) - <em>Quản trị viên có thể đính kèm Hình ảnh (Url từ xa) làm Câu trả lời</em> . Các thành viên khác sau đó sẽ có thể bỏ phiếu cho câu trả lời mà họ muốn và kết quả của cuộc bỏ phiếu sẽ được hiển thị trong chuỗi.</p><p> <em>Một cuộc thăm dò ví dụ có thể là:</em></p><p> <em>Màu sắc ưa thích của bạn là gì?</em></p><ul><li> <em>Màu xanh da trời</em></li><li> <em>Màu đỏ</em></li><li> <em>Màu vàng</em></li><li> <em>màu xanh lá</em></li></ul><p> Bạn cũng có thể muốn chỉ định giới hạn thời gian cho cuộc thăm dò ý kiến. Ví dụ: chạy cuộc thăm dò trong 10 Ngày hoặc bạn cũng có thể đặt nó thành không bao giờ hết hạn.</p><p> Bạn cũng có thể quyết định xem người dùng có thể xem kết quả mà không cần bỏ phiếu hay không hoặc nếu bạn bật Hộp kiểm &#39;Bạn nên bỏ phiếu trong tất cả các cuộc thăm dò để xem kết quả. <em>&#39;</em> bạn cần bỏ phiếu trước khi xem bất kỳ kết quả nào.</p><p> Tùy chọn &#39;Bỏ phiếu ràng buộc&#39; không hiển thị kết quả nếu cuộc thăm dò không hết hạn.</p><p> <strong>Nhóm các cuộc thăm dò</strong></p><p> Tất cả các Cuộc thăm dò được đính kèm với một Chủ đề sẽ được tự động kết hợp thành một Nhóm. Bạn có thể hiển thị Nhóm này với các Cuộc thăm dò trên bất kỳ Chủ đề nào khác mà bạn muốn.</p><p> <strong>Làm thế nào để bình chọn?</strong></p><p> Để bỏ phiếu trong một cuộc thăm dò, chỉ cần nhấp vào tùy chọn bạn muốn bỏ phiếu.</p><p> Nói chung, khi bạn đã bỏ phiếu trong một cuộc thăm dò, bạn sẽ không thể thay đổi phiếu bầu của mình sau đó, vì vậy hãy đặt phiếu bầu của bạn một cách cẩn thận!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Tạo và tham gia vào các cuộc thăm dò"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",

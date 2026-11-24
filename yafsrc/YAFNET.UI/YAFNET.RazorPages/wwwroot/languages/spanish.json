@@ -7964,10 +7964,6 @@
             "#text": "Bloquear solicitudes de amistad"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Bloquear correos electrónicos"
           },

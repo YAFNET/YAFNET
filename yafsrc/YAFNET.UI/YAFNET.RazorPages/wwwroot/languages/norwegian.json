@@ -2845,10 +2845,6 @@
             "#text": "Du må velge en kategori for forumet."
           },
           {
-            "@tag": "MSG_CATEGORY",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
-          },
-          {
             "@tag": "MSG_CHILD_PARENT",
             "#text": "Det valgte forumet kan ikke være barneforum da det er en forelder."
           },
@@ -3310,10 +3306,6 @@
           {
             "@tag": "MSG_VALID_USER",
             "#text": "Vennligst spesifiser gyldig bruker!"
-          },
-          {
-            "@tag": "MSG_VALID_USER",
-            "#text": "Please specify valid user!"
           },
           {
             "@tag": "NO_GROUPS",
@@ -7972,10 +7964,6 @@
             "#text": "Blokker venneforespørsler"
           },
           {
-            "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Private Messages"
-          },
-          {
             "@tag": "BLOCK_EMAILS",
             "#text": "Blokker e-poster"
           },
@@ -10978,16 +10966,8 @@
             "#text": "<p><em>Avstemninger er et alternativ for å stemme på en sak eller et spørsmål.</em></p><p> <strong>Vil du opprette en ny meningsmåling?</strong></p><p> Når du legger ut et nytt emne, har du alternativet &quot;Legg til meningsmåling?&quot; for å lage en ny meningsmåling. Hvis du ikke ser det alternativet, har du kanskje ikke tilgang til det alternativet.</p><p> Du kan også legge til nye avstemninger til eksisterende. Et emne kan ha så mange avstemninger du vil.</p><p> Dette lar deg stille et spørsmål og spesifisere et antall mulige svar (maks 10 eller administratoren har satt opp et høyere antall) - <em>En administrator kan legge ved bilder (eksternt URL) som svar</em> . Andre medlemmer vil da kunne stemme på svaret de ønsker, og resultatet av avstemmingen vil vises i tråden.</p><p> <em>Et eksempel på meningsmåling kan være:</em></p><p> <em>Hva er favorittfargen din?</em></p><ul><li> <em>Blå</em></li><li> <em>rød</em></li><li> <em>Gul</em></li><li> <em>Grønn</em></li></ul><p> Det kan også være lurt å angi en tidsbegrensning for avstemningen. For eksempel: kjør avstemningen i 10 dager, eller du kan også angi at den aldri utløper.</p><p> Du kan også bestemme om brukeren skal kunne se resultatene uten å stemme, eller om du aktiverer avmerkingsboksen &#39;Du bør stemme i alle avstemninger for å se resultater. <em>&#39;</em> du må stemme før du ser noen resultater.</p><p> Alternativet &#39;Bundt avstemning&#39; viser ikke resultater hvis avstemningen ikke utløp.</p><p> <strong>Gruppering av meningsmålinger</strong></p><p> Alle avstemninger knyttet til et emne kombineres automatisk som en gruppe. Du kan vise denne gruppen med avstemninger om hvilket som helst annet emne du vil.</p><p> <strong>Hvordan stemme?</strong></p><p> For å stemme i en meningsmåling klikker du bare på alternativet du vil stemme på.</p><p> Vanligvis, når du først har stemt i en meningsmåling, vil du ikke kunne endre stemmen din senere, så plasser din stemme nøye!</p>"
           },
           {
-            "@tag": "POLLSCONTENT",
-            "#text": "<p>Polls are an Option to vote on an issue or a question.</p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>you can choose Images as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option doesn't show results if group is open for voting.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>\r\n"
-          },
-          {
             "@tag": "POLLSTITLE",
             "#text": "Opprette og delta i avstemninger"
-          },
-          {
-            "@tag": "POLLSTITLE",
-            "#text": "Creating and Participating in Polls"
           },
           {
             "@tag": "POPUPSCONTENT",
