@@ -225,6 +225,22 @@ public class QuoteAndEditConversionTests
     }
 
     [Test]
+    [Description("A numbered list is rendered with a valid list style and stays numbered when it is edited")]
+    public async Task NumberedList_Test()
+    {
+        var html = await this.Service.MakeHtmlAsync("[list=1][*]a\r\n[*]b\r\n[/list]", true, false);
+
+        // "number" is no defined counter style (the browsers fell back to decimal)
+        html.Should().Contain("<ol style=\"list-style-type:decimal\"><li>a</li><li>b</li></ol>");
+        (await this.Service.ConvertHtmlToBBCodeForEditAsync(html)).Should().Be("[list=1][*]a\r\n[*]b\r\n[/list]");
+
+        // messages rendered before, and an ordered list without a type (it became roman numerals)
+        (await this.Service.ConvertHtmlToBBCodeForEditAsync("<ol style=\"list-style-type:number\"><li>a</li></ol>"))
+            .Should().Be("[list=1][*]a\r\n[/list]");
+        (await this.Service.ConvertHtmlToBBCodeForEditAsync("<ol><li>a</li></ol>")).Should().Be("[list=1][*]a\r\n[/list]");
+    }
+
+    [Test]
     [Description("Formatting inside links, list items and alignment blocks is converted too")]
     public async Task ConvertHtmlToBBCode_Nested_Formatting_Test()
     {
