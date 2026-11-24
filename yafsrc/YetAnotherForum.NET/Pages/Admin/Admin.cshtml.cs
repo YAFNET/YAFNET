@@ -533,7 +533,9 @@ public class AdminModel : AdminPage
     /// </param>
     private async Task BindUnverifiedUsersAsync(int p2)
     {
-        var unverifiedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
+        // the newest accounts first (a new registration was on the last page)
+        var unverifiedUsers = (await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID))
+            .OrderByDescending(u => u.Joined).ThenByDescending(u => u.ID).ToList();
 
         var pager = new Paging {
                                    CurrentPageIndex = p2 - 1,
