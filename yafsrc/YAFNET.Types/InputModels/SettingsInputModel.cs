@@ -114,6 +114,11 @@ public class SettingsInputModel
     public bool EmailModeratorsOnReportedPost { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether a user gets an email when a medal is awarded to the user.
+    /// </summary>
+    public bool EmailUserOnMedalAward { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [allow digest email].
     /// </summary>
     /// <value><c>true</c> if [allow digest email]; otherwise, <c>false</c>.</value>

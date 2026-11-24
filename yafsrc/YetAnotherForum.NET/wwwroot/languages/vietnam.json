@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Cài đặt bảng"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Gửi email cho người dùng khi được trao huy chương:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Người dùng có nhận email khi được trao huy chương hay không."
           }
         ]
       },

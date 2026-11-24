@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Tahvli seaded"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Saada kasutajatele medali andmisel e-kiri:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Kas kasutaja saab e-kirja, kui talle antakse medal."
           }
         ]
       },

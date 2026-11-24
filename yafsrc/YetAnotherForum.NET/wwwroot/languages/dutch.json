@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Boardinstellingen"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Gebruikers e-mailen bij toekenning van een medaille:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Moet een gebruiker een e-mail krijgen wanneer hem een medaille wordt toegekend."
           }
         ]
       },

@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Pano Ayarları"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Madalya verildiğinde kullanıcılara e-posta gönder:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Kullanıcıya bir madalya verildiğinde e-posta gönderilsin mi."
           }
         ]
       },

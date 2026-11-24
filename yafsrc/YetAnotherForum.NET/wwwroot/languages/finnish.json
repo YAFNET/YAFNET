@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Foorumin asetukset"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Lähetä käyttäjälle sähköposti mitalin myöntämisestä:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Saako käyttäjä sähköpostin, kun hänelle myönnetään mitali."
           }
         ]
       },

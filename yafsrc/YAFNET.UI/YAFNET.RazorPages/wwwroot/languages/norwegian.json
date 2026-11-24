@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Tavleinnstillinger"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Send e-post til brukere ved tildeling av medalje:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Skal en bruker få en e-post når brukeren tildeles en medalje."
           }
         ]
       },

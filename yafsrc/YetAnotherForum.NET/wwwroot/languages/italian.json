@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Impostazioni del forum"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Invia un'email agli utenti all'assegnazione di una medaglia:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Un utente deve ricevere un'email quando gli viene assegnata una medaglia."
           }
         ]
       },

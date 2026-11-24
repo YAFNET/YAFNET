@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Configuración del tablero"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Enviar un correo a los usuarios al otorgar una medalla:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "¿Debe recibir un usuario un correo cuando se le otorga una medalla?"
           }
         ]
       },

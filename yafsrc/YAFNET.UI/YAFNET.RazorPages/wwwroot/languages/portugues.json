@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Definições do quadro"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Enviar email aos utilizadores ao atribuir uma medalha:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Um utilizador deve receber um email quando lhe é atribuída uma medalha."
           }
         ]
       },

@@ -2207,6 +2207,14 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Board Settings"
+                },
+                {
+                    "@tag": "BOARD_EMAIL_MEDAL",
+                    "#text": "Email Users on Medal Award:"
+                },
+                {
+                    "@tag": "BOARD_EMAIL_MEDAL_HELP",
+                    "#text": "Should a user get an email when a medal is awarded to the user."
                 }
             ]
         },

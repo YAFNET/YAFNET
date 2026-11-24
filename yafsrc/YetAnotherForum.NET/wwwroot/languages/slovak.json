@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Nastavenia nástenky"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Poslať používateľom e-mail pri udelení medaily:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Má používateľ dostať e-mail, keď mu je udelená medaila."
           }
         ]
       },

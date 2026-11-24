@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Lentos nustatymai"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Siųsti naudotojams el. laišką suteikus medalį:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Ar naudotojas turi gauti el. laišką, kai jam suteikiamas medalis."
           }
         ]
       },

@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Setările forumului"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Trimite e-mail utilizatorilor la acordarea unei medalii:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Primește un utilizator un e-mail când i se acordă o medalie."
           }
         ]
       },

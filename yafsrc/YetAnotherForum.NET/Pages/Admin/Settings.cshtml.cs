@@ -180,6 +180,7 @@ public class SettingsModel : AdminPage
         boardSettings.NotificationOnUserRegisterEmailList = this.Input.NotificationOnUserRegisterEmailList;
         boardSettings.EmailModeratorsOnModeratedPost = this.Input.EmailModeratorsOnModeratedPost;
         boardSettings.EmailModeratorsOnReportedPost = this.Input.EmailModeratorsOnReportedPost;
+        boardSettings.EmailUserOnMedalAward = this.Input.EmailUserOnMedalAward;
         boardSettings.AllowDigestEmail = this.Input.AllowDigestEmail;
         boardSettings.DefaultSendDigestEmail = this.Input.DefaultSendDigestEmail;
         boardSettings.DefaultNotificationSetting =
@@ -310,6 +311,7 @@ public class SettingsModel : AdminPage
         this.Input.NotificationOnUserRegisterEmailList = boardSettings.NotificationOnUserRegisterEmailList;
         this.Input.EmailModeratorsOnModeratedPost = boardSettings.EmailModeratorsOnModeratedPost;
         this.Input.EmailModeratorsOnReportedPost = boardSettings.EmailModeratorsOnReportedPost;
+        this.Input.EmailUserOnMedalAward = boardSettings.EmailUserOnMedalAward;
         this.Input.AllowDigestEmail = boardSettings.AllowDigestEmail;
         this.Input.DefaultSendDigestEmail = boardSettings.DefaultSendDigestEmail;
         this.Input.ForumEmail = boardSettings.ForumEmail;

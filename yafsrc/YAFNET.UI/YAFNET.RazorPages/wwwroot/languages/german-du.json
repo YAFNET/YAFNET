@@ -2207,6 +2207,14 @@
           {
             "@tag": "TITLE",
             "#text": "Board-Einstellungen"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Benutzer bei Medaillenverleihung per E-Mail benachrichtigen:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Soll ein Benutzer eine E-Mail erhalten, wenn ihm eine Medaille verliehen wird."
           }
         ]
       },
