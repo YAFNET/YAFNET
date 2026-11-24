@@ -125,6 +125,26 @@ public class CustomBBCodeTests
             .Should().Contain("show();").And.Contain("edit('editor1');").And.Contain(".styled");
     }
 
+    [Test]
+    [Description("Custom BBCodes are run in their execution order, lowest first (the order of the database was used)")]
+    public async Task Exec_Order_Test()
+    {
+        using (var connection = this.board.Database.Open())
+        {
+            foreach (var (name, order) in new[] { ("THIRD", 30), ("FIRST", 10), ("SECOND", 20) })
+            {
+                connection.Insert(
+                    new BBCodeModel { BoardID = TestDatabase.BoardId, Name = name, SearchRegex = "x", ExecOrder = order });
+            }
+        }
+
+        this.Service.GetCustomBBCodes().Select(b => b.Name).Should().Equal("FIRST", "SECOND", "THIRD");
+
+        this.board.Current.Get<YAF.Types.Interfaces.IDataCache>().Remove(YAF.Types.Constants.Constants.Cache.CustomBBCode);
+
+        (await this.Service.GetCustomBBCodesAsync()).Select(b => b.Name).Should().Equal("FIRST", "SECOND", "THIRD");
+    }
+
     private IBBCodeService Service => this.board.Resolve<IBBCodeService>();
 
     private void AddCode(string name, string search, Type module = null, string variables = null, string moduleClass = null)
