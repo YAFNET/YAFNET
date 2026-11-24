@@ -19,9 +19,9 @@
                     <input asp-for="Id" type="hidden" value="@Model.Id" />
 
                     <div class="mb-3">
-                        <label info-button="true" class="form-label"
+                        <label class="form-label"
                                        asp-for="SpamWord"
-                                       localized-tag="BAD" localized-page="ADMIN_SPAMWORDS_EDIT"></label>
+                                       localized-tag="SPAM" localized-page="ADMIN_SPAMWORDS_EDIT"></label>
                         <input type="text" asp-for="SpamWord" maxlength="255"
                                class="form-control"
                                required="required"
