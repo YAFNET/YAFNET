@@ -116,21 +116,26 @@ public class MailModel : AdminPage
                 return mail;
             }).ToList();
 
-        // all mails in one connection: a refused mail does not stop the other mails
-        if (mails.Count != 0)
+        // nobody to send to (it was reported as "Mails queued.")
+        if (mails.Count == 0)
         {
-            try
-            {
-                await this.Get<IMailService>().SendAllAsync(mails);
-            }
-            catch (Exception x)
-            {
-                this.Get<ILogger<MailModel>>().Error(x, x.Message);
+            this.BindData();
 
-                this.BindData();
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_MAIL", "MSG_NO_RECIPIENTS"), MessageTypes.warning);
+        }
 
-                return this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
-            }
+        // all mails in one connection: a refused mail does not stop the other mails
+        try
+        {
+            await this.Get<IMailService>().SendAllAsync(mails);
+        }
+        catch (Exception x)
+        {
+            this.Get<ILogger<MailModel>>().Error(x, x.Message);
+
+            this.BindData();
+
+            return this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
         }
 
         // the fields are empty after the mail was sent (the posted values were shown again, a second click sent the
@@ -143,7 +148,10 @@ public class MailModel : AdminPage
 
         this.BindData();
 
-        return this.PageBoardContext.Notify(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
+        // the mails are sent directly, not queued
+        return this.PageBoardContext.Notify(
+            this.GetTextFormatted("MSG_QUEUED", mails.Count),
+            MessageTypes.success);
     }
 
     /// <summary>

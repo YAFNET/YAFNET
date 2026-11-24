@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "Correos en cola."
+            "#text": "El correo se ha enviado a {0} destinatario(s)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Introduzca la dirección de correo electrónico a la que debe enviarse el correo de prueba"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nadie ha recibido el correo, el rol elegido no tiene usuarios con una dirección de correo."
           }
         ]
       },

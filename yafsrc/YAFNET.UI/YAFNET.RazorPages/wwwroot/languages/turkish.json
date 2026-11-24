@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-postalar sıraya alındı."
+            "#text": "E-posta {0} alıcıya gönderildi."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Test e-postasının gönderileceği E-posta Adresini girin"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "E-postayı kimse almadı, seçilen rolün e-posta adresi olan kullanıcısı yok."
           }
         ]
       },

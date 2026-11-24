@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-Mails in die Warteschlange gestellt."
+            "#text": "Die E-Mail wurde an {0} Empfänger gesendet."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Gib die E-Mail-Adresse ein, an die die Test-E-Mail gesendet werden soll"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Niemand hat die E-Mail erhalten, die gewählte Rolle hat keine Benutzer mit einer E-Mail-Adresse."
           }
         ]
       },

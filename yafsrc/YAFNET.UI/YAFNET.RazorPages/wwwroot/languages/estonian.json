@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "Kirjad on järjekorras."
+            "#text": "E-kiri saadeti {0} adressaadile."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Sisestage e-posti aadress, kuhu test-e-kiri saata"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Keegi ei saanud e-kirja, valitud rollil pole e-posti aadressiga kasutajaid."
           }
         ]
       },

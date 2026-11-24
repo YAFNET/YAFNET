@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-maily sú v poradí na odoslanie."
+            "#text": "E-mail bol odoslaný {0} príjemcom."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Zadajte e-mailovú adresu, na ktorú sa má odoslať testovací e-mail"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "E-mail nikto nedostal, zvolená rola nemá žiadnych používateľov s e-mailovou adresou."
           }
         ]
       },

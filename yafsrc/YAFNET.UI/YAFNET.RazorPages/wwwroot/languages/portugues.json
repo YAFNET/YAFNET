@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-mails em fila."
+            "#text": "O email foi enviado para {0} destinatário(s)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Introduza o endereço de e-mail para onde deve ser enviado o e-mail de teste"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Ninguém recebeu o email, a função escolhida não tem utilizadores com um endereço de email."
           }
         ]
       },

@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "Laiškai įtraukti į eilę."
+            "#text": "Laiškas išsiųstas {0} gavėjui (-ams)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Įveskite el. pašto adresą, kuriuo turi būti išsiųstas bandomasis laiškas"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Niekas negavo laiško, pasirinkta rolė neturi naudotojų su el. pašto adresu."
           }
         ]
       },

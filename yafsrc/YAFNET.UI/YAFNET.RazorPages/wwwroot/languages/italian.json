@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-mail messe in coda."
+            "#text": "L'email è stata inviata a {0} destinatario/i."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Inserisci l'indirizzo e-mail a cui inviare l'e-mail di prova"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nessuno ha ricevuto l'email, il ruolo scelto non ha utenti con un indirizzo email."
           }
         ]
       },

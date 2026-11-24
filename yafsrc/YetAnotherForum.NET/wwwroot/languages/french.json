@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-mails mis en file d'attente."
+            "#text": "Le mail a été envoyé à {0} destinataire(s)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Saisissez l'adresse e-mail à laquelle l'e-mail de test doit être envoyé"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Personne n'a reçu le mail, le rôle choisi n'a aucun utilisateur avec une adresse e-mail."
           }
         ]
       },

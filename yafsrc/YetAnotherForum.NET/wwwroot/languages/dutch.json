@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-mails in de wachtrij geplaatst."
+            "#text": "De e-mail is verzonden naar {0} ontvanger(s)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Voer het e-mailadres in waar de test-e-mail naartoe moet worden gestuurd"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Niemand heeft de e-mail ontvangen, de gekozen rol heeft geen gebruikers met een e-mailadres."
           }
         ]
       },

@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "Sähköpostit lisättiin jonoon."
+            "#text": "Sähköposti lähetettiin {0} vastaanottajalle."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Kirjoita sähköpostiosoite, johon testisähköposti lähetetään."
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Kukaan ei saanut sähköpostia, valitulla roolilla ei ole käyttäjiä, joilla on sähköpostiosoite."
           }
         ]
       },

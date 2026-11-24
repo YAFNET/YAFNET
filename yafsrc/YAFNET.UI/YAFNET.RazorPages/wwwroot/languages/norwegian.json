@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-postene er lagt i kø."
+            "#text": "E-posten ble sendt til {0} mottaker(e)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Skriv inn e-postadressen som test-e-posten skal sendes til"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Ingen mottok e-posten, den valgte rollen har ingen brukere med en e-postadresse."
           }
         ]
       },

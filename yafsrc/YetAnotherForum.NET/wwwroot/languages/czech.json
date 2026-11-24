@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-maily jsou ve frontě."
+            "#text": "E-mail byl odeslán {0} příjemcům."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Zadejte e-mailovou adresu, na kterou má být odeslán zkušební e-mail"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "E-mail nikdo neobdržel, zvolená role nemá žádné uživatele s e-mailovou adresou."
           }
         ]
       },

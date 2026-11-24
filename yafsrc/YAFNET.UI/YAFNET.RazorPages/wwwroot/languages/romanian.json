@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-mailurile au fost puse în coadă."
+            "#text": "E-mailul a fost trimis către {0} destinatar(i)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Introduceți adresa de e-mail la care trebuie trimis e-mailul de test"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nimeni nu a primit e-mailul, rolul ales nu are utilizatori cu o adresă de e-mail."
           }
         ]
       },

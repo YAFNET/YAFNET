@@ -6073,7 +6073,7 @@
                 },
                 {
                     "@tag": "MSG_QUEUED",
-                    "#text": "Mails queued."
+                    "#text": "The mail was sent to {0} recipient(s)."
                 },
                 {
                     "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
                 {
                     "@tag": "TO_MAIL_HELP",
                     "#text": "Enter the Email Address where the test email should be sent"
+                },
+                {
+                    "@tag": "MSG_NO_RECIPIENTS",
+                    "#text": "Nobody received the mail, the selected role has no users with an email address."
                 }
             ]
         },

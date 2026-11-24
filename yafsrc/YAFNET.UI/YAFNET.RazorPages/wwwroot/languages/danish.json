@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "Mails i kø."
+            "#text": "E-mailen blev sendt til {0} modtager(e)."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Indtast den e-mail-adresse, hvortil test-e-mailen skal sendes"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Ingen modtog e-mailen, den valgte rolle har ingen brugere med en e-mailadresse."
           }
         ]
       },

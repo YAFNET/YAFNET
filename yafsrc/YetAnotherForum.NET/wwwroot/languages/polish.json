@@ -6073,7 +6073,7 @@
           },
           {
             "@tag": "MSG_QUEUED",
-            "#text": "E-maile dodano do kolejki."
+            "#text": "Wiadomość została wysłana do {0} odbiorców."
           },
           {
             "@tag": "MSG_SUBJECT",
@@ -6114,6 +6114,10 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Wprowadź adres e-mail, na który ma zostać wysłana testowa wiadomość e-mail"
+          },
+          {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nikt nie otrzymał wiadomości, wybrana rola nie ma użytkowników z adresem e-mail."
           }
         ]
       },
