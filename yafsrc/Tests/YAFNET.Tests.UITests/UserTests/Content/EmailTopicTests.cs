@@ -60,7 +60,7 @@ public class EmailTopicTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     await page.SubmitAndWaitAsync(page.Locator("form:has(#Input_Email) button[type=submit]"));
 
                     Assert.That(
-                        await page.ContentAsync(), Does.Contain("You have entered an illegal e-mail address."),
+                        await page.ContentAsync(), Does.Contain("You have entered an invalid email address."),
                         "A list of addresses was accepted");
 
                     // a text posted with the form is ignored

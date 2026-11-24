@@ -393,7 +393,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
 
                     await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                    Assert.That(await page.ContentAsync(), Does.Not.Contain("illegal e-mail address"), "The e-mail address was refused");
+                    Assert.That(await page.ContentAsync(), Does.Not.Contain("invalid email address"), "The e-mail address was refused");
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
                     await page.GotoAsync(settingsUrl);

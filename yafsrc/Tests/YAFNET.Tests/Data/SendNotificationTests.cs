@@ -472,15 +472,15 @@ public class SendNotificationTests
         var texts = this.mail.Sent.Select(m => m.TextBody).ToList();
 
         texts.Should().HaveCount(5);
-        texts[0].Should().Contain("Hello Bob.").And.Contain("awarded with the Gold on the Test Forum forum");
+        texts[0].Should().Contain("Hello Bob.").And.Contain("awarded the Gold on the Test Forum forum");
         texts[1].Should().Contain("Hello Bob,").And.Contain("include access to the following Group(s)").And.Contain("Editors,Testers");
-        texts[2].Should().Contain("restrict access to the following Groups(s)").And.Contain("Guests");
+        texts[2].Should().Contain("restrict access to the following Group(s)").And.Contain("Guests");
         texts[3].Should().Contain("Your forum account on the Test Forum forum has been temporarily suspended").And.Contain("spam");
         texts[4].Should().Contain("The suspension of your forum account has ended");
 
         this.mail.Sent[0].Subject.Should().Be("Medal on Test Forum");
         this.mail.Recipients.Should().OnlyContain(r => r == "bob@example.com");
-        this.mail.Sent[0].HtmlBody.Should().StartWith("<html>").And.Contain("awarded with the Gold");
+        this.mail.Sent[0].HtmlBody.Should().StartWith("<html>").And.Contain("awarded the Gold");
     }
 
     [Test]

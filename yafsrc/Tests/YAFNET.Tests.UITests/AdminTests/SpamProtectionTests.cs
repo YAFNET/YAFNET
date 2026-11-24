@@ -68,8 +68,8 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     /// A ban can't be changed to the mask of another ban: the dialog shows "already exists"
     /// (the banned names stopped with an error, the banned user agents saved the mask twice).
     /// </summary>
-    [TestCase("BannedNames", "BannedName", "The Banned Name Already exists!")]
-    [TestCase("BannedUserAgents", "BannedUserAgent", "The Banned UserAgent Already exists!")]
+    [TestCase("BannedNames", "BannedName", "The banned name already exists!")]
+    [TestCase("BannedUserAgents", "BannedUserAgent", "The banned user agent already exists!")]
     public async Task EditingABanToAnExistingMaskIsRefusedTest(string listPage, string api, string message)
     {
         await this.Fixture.Context.GotoPageAsync(
