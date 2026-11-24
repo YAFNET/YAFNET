@@ -210,6 +210,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Host Settings > Features: the option "Show Similar Topics" of the new topic page had the label and help of "Use styled Topic Titles", and the card had the heading "Display Settings" of the Display tab; it has its own label and help and the heading "Feature Settings"; all languages
 [FIXED] Host Settings > Search and Log, Admin > Delete Forum: 14 labels were not linked to their field (a click on the label did not switch the option or focus the field, screen readers did not read the label for the field)
 [FIXED] Admin > Event Log: the type names (e.g. "Login Failure", "User Suspended", the type filter and the badges) were shown in english in every language; all languages
+[FIXED] Admin > Edit Language: a page or text missing in the language file stopped the list with an error in the log (the texts after it were not shown), and a missing text could not be added; missing texts are shown as not translated and saving adds them to the file
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

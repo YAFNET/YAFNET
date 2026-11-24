@@ -217,14 +217,29 @@ public class EditLanguageModel : AdminPage
 
         this.Input.Pages = pageName;
 
-        translationResource.Resources.Page.First(x => x.Name == pageName).Resource.ForEach(
-            resource =>
-            {
-                var translation = pageTranslations.Find(x => x.ResourceName == resource.Tag);
+        // a page or text that is missing in the translation file is added (it threw an exception, the texts
+        // could not be translated)
+        var page = translationResource.Resources.Page.Find(
+            p => p.Name.Equals(pageName, StringComparison.OrdinalIgnoreCase));
 
-                if (translation is null)
+        if (page is null)
+        {
+            page = new YAF.Types.Objects.Language.Page { Name = pageName, Resource = [] };
+            translationResource.Resources.Page.Add(page);
+        }
+
+        page.Resource ??= [];
+
+        pageTranslations.Where(translation => translation.ResourceName.IsSet()).ForEach(
+            translation =>
+            {
+                var resource = page.Resource.Find(
+                    r => r.Tag.Equals(translation.ResourceName, StringComparison.OrdinalIgnoreCase));
+
+                if (resource is null)
                 {
-                    return;
+                    resource = new YAF.Types.Objects.Language.Resource { Tag = translation.ResourceName };
+                    page.Resource.Add(resource);
                 }
 
                 // an empty text is not translated, the english text is used (null was written to the file)
@@ -265,14 +280,16 @@ public class EditLanguageModel : AdminPage
                     pageResources.ForEach(
                         resource =>
                         {
-                            var translationResourceText = translationPage.Resource.Find(
+                            // a page or text missing in the translation file is shown empty, as not translated
+                            // (it threw an exception, the rest of the texts was not shown)
+                            var translationResourceText = translationPage?.Resource?.Find(
                                 r => r.Tag.Equals(resource.Tag, StringComparison.OrdinalIgnoreCase));
 
                             this.CreatePageResourceControl(
                                 page.Name,
                                 resource.Tag,
                                 resource.Text,
-                                translationResourceText.Text);
+                                translationResourceText?.Text);
                         });
                 });
         }
