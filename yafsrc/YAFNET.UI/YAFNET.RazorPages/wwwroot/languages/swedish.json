@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Om aktiverat upptäcks spammare under registreringen; du kan välja att blockera användaren eller bara logga det och skicka ett meddelande till administratörerna."
+            "#text": "Vad som händer när spamkontrollen hittar en möjlig spammare vid registrering eller en profiländring: ingenting (användaren registreras som vanligt), användaren loggas och administratörerna får ett e-postmeddelande (ett nytt konto måste godkännas av en admin), eller användaren blockeras."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Godkänn användare, logga användare och skicka e-post till administratören"
+            "#text": "Logga användare & skicka e-post till admin (ett nytt konto väntar på godkännande av en admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Verifiering av registrering för forumet {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Ditt konto har skapats. Det måste godkännas av en administratör innan du kan logga in.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "Väntar på godkännande"
           }
         ]
       },

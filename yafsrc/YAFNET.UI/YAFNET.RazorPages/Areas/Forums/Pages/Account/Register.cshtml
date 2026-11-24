@@ -14,10 +14,10 @@
         <div class="card-body">
             @if (Model.ErrorMessage.IsSet())
             {
-                @* the account is created: the next step is the link in the verification mail *@
+                @* the account is created: the next step is the link in the verification mail, or the approval of an admin *@
                 <div class="account-head" id="RegisterDone">
-                    <span class="account-icon @(Model.MailFailed ? "account-icon-warning" : "account-icon-success")">@Html.Icon(Model.MailFailed ? "exclamation-triangle" : "envelope")</span>
-                    <h1 class="account-title">@Html.LocalizedText("REGISTER", "CHECK_MAIL")</h1>
+                    <span class="account-icon @(Model.MailFailed ? "account-icon-warning" : "account-icon-success")">@Html.Icon(Model.MailFailed ? "exclamation-triangle" : Model.WaitsForApproval ? "user-clock" : "envelope")</span>
+                    <h1 class="account-title">@Html.LocalizedText("REGISTER", Model.WaitsForApproval ? "WAIT_APPROVAL" : "CHECK_MAIL")</h1>
                 </div>
                 <div class="alert @(Model.MailFailed ? "alert-warning" : "alert-success") mb-4" role="alert">
                     @Html.Raw(Model.ErrorMessage)

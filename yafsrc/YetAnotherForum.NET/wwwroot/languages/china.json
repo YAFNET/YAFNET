@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "如果启用，会在注册时检测垃圾信息发送者，你可以设置为阻止该用户，或仅记录下来并向管理员发送消息。"
+            "#text": "当垃圾信息检查在注册或修改资料时发现可能的垃圾信息发送者时的处理方式：不处理（用户照常注册）、记录用户并给管理员发送电子邮件（新帐户须经管理员批准），或阻止用户。"
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "批准用户、记录用户并向管理员发送电子邮件"
+            "#text": "记录用户并给管理员发送电子邮件（新帐户等待管理员批准）"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "{0} 论坛的注册验证"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]您的帐户已创建。需要管理员批准后您才能登录。[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "等待批准"
           }
         ]
       },

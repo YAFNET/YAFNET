@@ -4503,7 +4503,7 @@
                 },
                 {
                     "@tag": "BOT_CHECK_ONREGISTER_HELP",
-                    "#text": "If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins."
+                    "#text": "What happens when the spam check finds a possible spammer during the registration or in a profile change: nothing (the user is registered as usual), the user is logged and the admins get an email (a new account must be approved by an admin), or the user is blocked."
                 },
                 {
                     "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4519,7 +4519,7 @@
                 },
                 {
                     "@tag": "BOT_MESSAGE_1",
-                    "#text": "Approve User & Log User & Send Admin an Email"
+                    "#text": "Log User & Send Admin an Email (a new account waits for the approval of an admin)"
                 },
                 {
                     "@tag": "BOT_MESSAGE_2",
@@ -14426,6 +14426,14 @@
                 {
                     "@tag": "VERIFICATION_EMAIL_SUBJECT",
                     "#text": "Registration Verification for {0} Forum"
+                },
+                {
+                    "@tag": "ACCOUNT_CREATED_APPROVAL",
+                    "#text": "[center]Your account has been created. It has to be approved by an administrator before you can log in.[/center]"
+                },
+                {
+                    "@tag": "WAIT_APPROVAL",
+                    "#text": "Waiting for approval"
                 }
             ]
         },

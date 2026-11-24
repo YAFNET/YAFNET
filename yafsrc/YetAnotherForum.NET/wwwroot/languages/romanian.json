@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Dacă este activat, detectează spammerii la înregistrare; puteți bloca acel utilizator sau doar să înregistrați evenimentul în jurnal și să trimiteți un mesaj administratorilor."
+            "#text": "Ce se întâmplă când verificarea anti-spam găsește un posibil spammer la înregistrare sau la o modificare a profilului: nimic (utilizatorul este înregistrat ca de obicei), utilizatorul este trecut în jurnal și adminii primesc un e-mail (un cont nou trebuie aprobat de un admin), sau utilizatorul este blocat."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Aprobați utilizatorul, înregistrați în jurnal și trimiteți un e-mail administratorului"
+            "#text": "Înregistrează utilizatorul în jurnal & trimite un e-mail adminilor (un cont nou așteaptă aprobarea unui admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Verificarea înregistrării pentru Forumul {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Contul tău a fost creat. Trebuie aprobat de un administrator înainte să te poți autentifica.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "În așteptarea aprobării"
           }
         ]
       },

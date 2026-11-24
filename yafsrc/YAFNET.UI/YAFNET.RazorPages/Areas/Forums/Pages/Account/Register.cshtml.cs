@@ -72,6 +72,12 @@ public class RegisterModel : AccountPage
     public bool MailFailed { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the account waits for the approval of an admin (a possible spam bot,
+    /// no verification mail is sent).
+    /// </summary>
+    public bool WaitsForApproval { get; set; }
+
+    /// <summary>
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
@@ -179,12 +185,15 @@ public class RegisterModel : AccountPage
 
         var verificationText = "ACCOUNT_CREATED_VERIFICATION";
 
-        if (this.IsPossibleSpamBot)
+        if (this.IsPossibleSpamBot && this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
         {
-            if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
-            {
-                await this.Get<ISendNotification>().SendSpamBotNotificationToAdminsAsync(user, userId.Value);
-            }
+            // the account waits for the approval of an admin, no verification mail is sent (the page said that a
+            // verification mail was sent, the user could not get one); with "Do nothing" the user is registered
+            // like everyone else (the user got no verification mail and could never log in)
+            await this.Get<ISendNotification>().SendSpamBotNotificationToAdminsAsync(user, userId.Value);
+
+            verificationText = "ACCOUNT_CREATED_APPROVAL";
+            this.WaitsForApproval = true;
         }
         else
         {

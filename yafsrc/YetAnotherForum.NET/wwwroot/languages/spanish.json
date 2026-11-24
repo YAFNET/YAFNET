@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Si está activado, detecta spammers durante el registro. Puede bloquear a ese usuario o solo registrarlo en el log y enviar un mensaje a los administradores."
+            "#text": "Qué ocurre cuando la comprobación de spam encuentra un posible spammer en el registro o en un cambio de perfil: nada (el usuario se registra con normalidad), el usuario se registra en el log y los admins reciben un correo (una cuenta nueva debe ser aprobada por un admin), o el usuario se bloquea."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Aprobar usuario, registrarlo en el log y enviar un correo electrónico al administrador"
+            "#text": "Registrar el usuario & enviar un correo a los admins (una cuenta nueva espera la aprobación de un admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Verificación del registro en el foro {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Tu cuenta se ha creado. Un administrador tiene que aprobarla antes de que puedas iniciar sesión.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "Pendiente de aprobación"
           }
         ]
       },

@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Nếu bật, hệ thống sẽ phát hiện kẻ gửi spam khi đăng ký; bạn có thể chọn chặn người dùng đó hoặc chỉ ghi nhật ký và gửi tin nhắn cho quản trị viên."
+            "#text": "Điều gì xảy ra khi kiểm tra spam phát hiện một người có thể là spammer khi đăng ký hoặc khi thay đổi hồ sơ: không có gì (người dùng được đăng ký như bình thường), người dùng được ghi nhật ký và quản trị viên nhận email (tài khoản mới phải được quản trị viên phê duyệt), hoặc người dùng bị chặn."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Duyệt người dùng & ghi nhật ký & gửi email cho quản trị viên"
+            "#text": "Ghi nhật ký người dùng & gửi email cho quản trị viên (tài khoản mới chờ quản trị viên phê duyệt)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Xác minh đăng ký cho diễn đàn {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Tài khoản của bạn đã được tạo. Tài khoản phải được quản trị viên phê duyệt trước khi bạn có thể đăng nhập.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "Đang chờ phê duyệt"
           }
         ]
       },

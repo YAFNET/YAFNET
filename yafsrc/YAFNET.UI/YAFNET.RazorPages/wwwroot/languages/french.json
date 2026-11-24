@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Si cette option est activée, les spammeurs sont détectés lors de l'inscription ; vous pouvez bloquer l'utilisateur ou simplement le journaliser et envoyer un message aux administrateurs."
+            "#text": "Ce qui se passe quand la vérification anti-spam trouve un spammeur possible lors de l'inscription ou d'une modification du profil : rien (l'utilisateur est inscrit normalement), l'utilisateur est journalisé et les admins reçoivent un e-mail (un nouveau compte doit être approuvé par un admin), ou l'utilisateur est bloqué."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Approuver l'utilisateur, le journaliser et envoyer un e-mail à l'administrateur"
+            "#text": "Journaliser l'utilisateur & envoyer un e-mail aux admins (un nouveau compte attend l'approbation d'un admin)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Vérification de l'inscription sur le forum {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Votre compte a été créé. Il doit être approuvé par un administrateur avant que vous puissiez vous connecter.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "En attente d'approbation"
           }
         ]
       },

@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Kui see on lubatud, tuvastatakse registreerimisel rämpsposti saatjad; saate määrata, et selline kasutaja blokeeritakse, või see lihtsalt logitakse ja administraatoritele saadetakse teade."
+            "#text": "Mis juhtub, kui rämpspostikontroll leiab registreerimisel või profiili muutmisel võimaliku rämpspostitaja: mitte midagi (kasutaja registreeritakse tavapäraselt), kasutaja logitakse ja adminid saavad e-kirja (uue konto peab kinnitama admin), või kasutaja blokeeritakse."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Kinnita kasutaja, logi ja saada administraatorile e-kiri"
+            "#text": "Logi kasutaja & saada adminitele e-kiri (uus konto ootab admini kinnitust)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Registreerimise kinnitus {0} foorumis"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Sinu konto on loodud. Administraator peab selle kinnitama, enne kui saad sisse logida.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "Ootab kinnitamist"
           }
         ]
       },

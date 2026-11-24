@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER_HELP",
-            "#text": "Ak je povolené, rozpoznáva spamerov počas registrácie; môžete nastaviť, či používateľa zablokovať, alebo ho len zaznamenať do denníka a poslať správu správcom."
+            "#text": "Čo sa stane, keď kontrola spamu nájde možného spammera pri registrácii alebo zmene profilu: nič (používateľ sa zaregistruje ako obvykle), používateľ sa zaznamená a admini dostanú e-mail (nový účet musí schváliť admin), alebo sa používateľ zablokuje."
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Schváliť používateľa, zaznamenať do denníka a poslať správcovi e-mail"
+            "#text": "Zaznamenať používateľa & poslať adminom e-mail (nový účet čaká na schválenie adminom)"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -14434,6 +14434,14 @@
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
             "#text": "Overenie registrácie na fóre {0}"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_APPROVAL",
+            "#text": "[center]Váš účet bol vytvorený. Pred prihlásením ho musí schváliť administrátor.[/center]"
+          },
+          {
+            "@tag": "WAIT_APPROVAL",
+            "#text": "Čaká na schválenie"
           }
         ]
       },
