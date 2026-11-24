@@ -19,7 +19,16 @@
 <ol class="wizard-steps mb-4" id="wizard-steps">
     @for (var index = 0; index < steps.Length; index++)
     {
-        var state = index < Model ? "completed" : index == Model ? "active" : null;
+        string state = null;
+
+        if (index < Model)
+        {
+            state = "completed";
+        }
+        else if (index == Model)
+        {
+            state = "active";
+        }
 
         <li class="@state" data-step="@index" aria-current="@(index == Model ? "step" : null)">
             <span class="wizard-step-label">@steps[index]</span>

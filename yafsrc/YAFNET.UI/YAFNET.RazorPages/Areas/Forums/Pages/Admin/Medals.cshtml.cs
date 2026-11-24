@@ -155,10 +155,10 @@ public class MedalsModel : AdminPage
         this.MedalList = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageBoardContext.PageBoardID)
             .OrderBy(m => m.Category.IsSet() ? 0 : 1).ThenBy(m => m.Category).ThenBy(m => m.Name);
 
-        foreach (var medal in this.MedalList)
+        foreach (var medalId in this.MedalList.Select(medal => medal.ID))
         {
-            this.UserCounts[medal.ID] = (int)this.GetRepository<UserMedal>().Count(m => m.MedalID == medal.ID);
-            this.GroupCounts[medal.ID] = (int)this.GetRepository<GroupMedal>().Count(m => m.MedalID == medal.ID);
+            this.UserCounts[medalId] = (int)this.GetRepository<UserMedal>().Count(m => m.MedalID == medalId);
+            this.GroupCounts[medalId] = (int)this.GetRepository<GroupMedal>().Count(m => m.MedalID == medalId);
         }
     }
 }

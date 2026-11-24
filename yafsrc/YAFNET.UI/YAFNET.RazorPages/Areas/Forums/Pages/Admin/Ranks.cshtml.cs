@@ -146,9 +146,9 @@ public class RanksModel : AdminPage
 
         var users = this.GetRepository<User>();
 
-        foreach (var rank in this.List)
+        foreach (var rankId in this.List.Select(rank => rank.ID))
         {
-            this.UserCounts[rank.ID] = (int)await users.CountAsync(u => u.RankID == rank.ID);
+            this.UserCounts[rankId] = (int)await users.CountAsync(u => u.RankID == rankId);
         }
     }
 }

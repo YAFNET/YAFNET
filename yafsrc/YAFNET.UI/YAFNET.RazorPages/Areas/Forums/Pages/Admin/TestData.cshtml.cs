@@ -163,11 +163,6 @@ public class TestDataModel : AdminPage
     private const string PMessagePrefix = "pmsg-";
 
     /// <summary>
-    ///   The random GUID.
-    /// </summary>
-    private string randomGuid = Guid.NewGuid().ToString();
-
-    /// <summary>
     /// The create test data click.
     /// </summary>
     public async Task<IActionResult> OnPostCreateTestDataAsync()
@@ -510,14 +505,14 @@ public class TestDataModel : AdminPage
 
         for (forums = 0; forums < numForums; forums++)
         {
-            this.randomGuid = Guid.NewGuid().ToString();
+            var randomGuid = Guid.NewGuid().ToString();
 
             var newForumId = this.GetRepository<Forum>().Save(
                 null,
                 categoryId,
                 parentId,
-                this.Input.ForumPrefixTB + this.randomGuid,
-                $"Description of {this.Input.ForumPrefixTB}{this.randomGuid}",
+                this.Input.ForumPrefixTB + randomGuid,
+                $"Description of {this.Input.ForumPrefixTB}{randomGuid}",
                 100,
                 false,
                 true,
@@ -603,7 +598,7 @@ public class TestDataModel : AdminPage
         int i;
         for (i = 0; i < numPMessages; i++)
         {
-            this.randomGuid = Guid.NewGuid().ToString();
+            var randomGuid = Guid.NewGuid().ToString();
 
             _ = await this.GetRepository<PrivateMessage>().InsertAsync(
                 new PrivateMessage
@@ -612,7 +607,7 @@ public class TestDataModel : AdminPage
                     Flags = 0,
                     FromUserId = fromUser.ID,
                     ToUserId = toUser.ID,
-                    Body = $"{PMessagePrefix}{this.randomGuid}   {this.Input.PMessageText}"
+                    Body = $"{PMessagePrefix}{randomGuid}   {this.Input.PMessageText}"
                 });
         }
 
@@ -675,13 +670,13 @@ public class TestDataModel : AdminPage
 
         for (posts = 0; posts < numMessages; posts++)
         {
-            this.randomGuid = Guid.NewGuid().ToString();
+            var randomGuid = Guid.NewGuid().ToString();
 
             await this.GetRepository<Message>().SaveNewAsync(
                 forum,
                 topic,
                 this.PageBoardContext.PageUser,
-                $"msgd-{this.randomGuid}  {this.Input.MyMessage}",
+                $"msgd-{randomGuid}  {this.Input.MyMessage}",
                 null,
                 this.Request.GetUserRealIPAddress(),
                 DateTime.UtcNow,
@@ -728,18 +723,18 @@ public class TestDataModel : AdminPage
 
         for (topics = 0; topics < numTopics; topics++)
         {
-            this.randomGuid = Guid.NewGuid().ToString();
+            var randomGuid = Guid.NewGuid().ToString();
 
             // every topic has its own name (all topics had the same name)
-            var topicName = this.Input.TopicPrefixTB + this.randomGuid;
+            var topicName = this.Input.TopicPrefixTB + randomGuid;
 
             var (topic, _) = await this.GetRepository<Topic>().SaveNewAsync(
                 forum,
                 topicName,
                 string.Empty,
                 string.Empty,
-                $"{this.Input.TopicPrefixTB}{this.randomGuid}descr",
-                $"{this.Input.MessageContentPrefixTB}{this.randomGuid}",
+                $"{this.Input.TopicPrefixTB}{randomGuid}descr",
+                $"{this.Input.MessageContentPrefixTB}{randomGuid}",
                 this.PageBoardContext.PageUser,
                 priority.ToType<short>(),
                 this.PageBoardContext.PageUser.Name,
@@ -752,16 +747,16 @@ public class TestDataModel : AdminPage
             {
                 var pollId = this.GetRepository<Poll>().Create(
                     this.PageBoardContext.PageUserID,
-                    $"quest-{this.randomGuid}",
+                    $"quest-{randomGuid}",
                     null,
                     false,
                     false,
                     true,
                     null);
 
-                this.GetRepository<Choice>().AddChoice(pollId, $"ans1-{this.randomGuid}", null);
-                this.GetRepository<Choice>().AddChoice(pollId, $"ans2-{this.randomGuid}", null);
-                this.GetRepository<Choice>().AddChoice(pollId, $"ans3-{this.randomGuid}", null);
+                this.GetRepository<Choice>().AddChoice(pollId, $"ans1-{randomGuid}", null);
+                this.GetRepository<Choice>().AddChoice(pollId, $"ans2-{randomGuid}", null);
+                this.GetRepository<Choice>().AddChoice(pollId, $"ans3-{randomGuid}", null);
 
                 // Attach Poll to topic
                 this.GetRepository<Topic>().AttachPoll(topic.ID, pollId);
@@ -809,9 +804,9 @@ public class TestDataModel : AdminPage
 
         for (var i = 0; i < countLimit; i++)
         {
-            this.randomGuid = Guid.NewGuid().ToString();
-            var newEmail = $"{this.Input.UserPrefixTB}{this.randomGuid}@test.info";
-            var newUsername = this.Input.UserPrefixTB + this.randomGuid;
+            var randomGuid = Guid.NewGuid().ToString();
+            var newEmail = $"{this.Input.UserPrefixTB}{randomGuid}@test.info";
+            var newUsername = this.Input.UserPrefixTB + randomGuid;
 
             if (this.Get<IAspNetUsersHelper>().UserExists(newUsername, newEmail))
             {

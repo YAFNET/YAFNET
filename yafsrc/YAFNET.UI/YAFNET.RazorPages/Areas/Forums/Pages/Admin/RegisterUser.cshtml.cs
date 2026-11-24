@@ -77,10 +77,24 @@ public class RegisterUserModel : AdminPage
     public async Task<IActionResult> OnPostForumRegisterAsync()
     {
         // the fields are checked in the browser as well (the messages of the model are not localized)
-        var missing = this.Input?.UserName.IsNotSet() != false ? "NEED_USERNAME"
-                      : this.Input.Email.IsNotSet() ? "NEED_EMAIL"
-                      : this.Input.Password.IsNotSet() ? "NEED_PASSWORD"
-                      : this.Input.Password2.IsNotSet() ? "RETYPE_PASSWORD" : null;
+        string missing = null;
+
+        if (this.Input?.UserName.IsNotSet() != false)
+        {
+            missing = "NEED_USERNAME";
+        }
+        else if (this.Input.Email.IsNotSet())
+        {
+            missing = "NEED_EMAIL";
+        }
+        else if (this.Input.Password.IsNotSet())
+        {
+            missing = "NEED_PASSWORD";
+        }
+        else if (this.Input.Password2.IsNotSet())
+        {
+            missing = "RETYPE_PASSWORD";
+        }
 
         if (missing != null)
         {

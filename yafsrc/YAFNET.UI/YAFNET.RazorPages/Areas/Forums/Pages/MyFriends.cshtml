@@ -58,11 +58,18 @@
 
             @if (Model.ListView.NullOrEmpty())
             {
+                var (emptyIcon, emptyHeader) = mode switch
+                {
+                    FriendMode.Friends => ("users", "INFO_NO"),
+                    FriendMode.ReceivedRequests => ("user-plus", "INFO_PENDING"),
+                    _ => ("paper-plane", "EMPTY_SENT")
+                };
+
                 <div class="card mb-3">
                     <div class="card-body text-center">
-                        <empty icon="@(mode == FriendMode.Friends ? "users" : mode == FriendMode.ReceivedRequests ? "user-plus" : "paper-plane")"
+                        <empty icon="@emptyIcon"
                                header-text-page="FRIENDS"
-                               header-text-tag="@(mode == FriendMode.Friends ? "INFO_NO" : mode == FriendMode.ReceivedRequests ? "INFO_PENDING" : "EMPTY_SENT")"
+                               header-text-tag="@emptyHeader"
                                message-text-page="FRIENDS"
                                message-text-tag="@(mode == FriendMode.Friends ? "EMPTY_FRIENDS_MESSAGE" : "EMPTY_REQUESTS_MESSAGE")">
                         </empty>

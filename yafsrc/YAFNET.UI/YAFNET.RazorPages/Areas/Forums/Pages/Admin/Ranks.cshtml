@@ -13,9 +13,16 @@
         var users = Model.GetUserCount(rank);
 
         // the start rank and a rank that users have can't be deleted
-        var deleteInfo = rank.RankFlags.IsStart
-                             ? Model.GetText("ADMIN_RANKS", "MSG_START_RANK")
-                             : users > 0 ? Model.GetText("ADMIN_RANKS", "MSG_NOT_DELETE") : null;
+        string deleteInfo = null;
+
+        if (rank.RankFlags.IsStart)
+        {
+            deleteInfo = Model.GetText("ADMIN_RANKS", "MSG_START_RANK");
+        }
+        else if (users > 0)
+        {
+            deleteInfo = Model.GetText("ADMIN_RANKS", "MSG_NOT_DELETE");
+        }
 
         <li class="list-group-item list-group-item-menu rank-row" data-rank-id="@rank.ID">
             @if (ladder)
