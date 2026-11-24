@@ -2345,7 +2345,7 @@
                 },
                 {
                     "@tag": "MSG_SEND_SUC",
-                    "#text": "Sent via {0} successfully."
+                    "#text": "The test digest was sent to {0}."
                 },
                 {
                     "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
                 {
                     "@tag": "TURN_ON",
                     "#text": "Turn it on in the board settings"
+                },
+                {
+                    "@tag": "MSG_NO_TOPICS",
+                    "#text": "There are no new or active topics, the digest is empty and was not sent."
                 }
             ]
         },

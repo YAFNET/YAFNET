@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Lähetetty palvelun {0} kautta."
+            "#text": "Testikooste lähetettiin osoitteeseen {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Ota se käyttöön foorumin asetuksissa"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Uusia tai aktiivisia aiheita ei ole, kooste on tyhjä eikä sitä lähetetty."
           }
         ]
       },

@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Pomyślnie wysłano przez {0}."
+            "#text": "Testowe podsumowanie zostało wysłane na adres {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Włącz je w ustawieniach forum"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Nie ma nowych ani aktywnych tematów, podsumowanie jest puste i nie zostało wysłane."
           }
         ]
       },

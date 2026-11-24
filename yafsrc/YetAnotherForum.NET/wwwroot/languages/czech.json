@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Úspěšně odesláno prostřednictvím {0}."
+            "#text": "Testovací přehled byl odeslán na {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Zapněte ho v nastavení nástěnky"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Neexistují žádná nová ani aktivní témata, přehled je prázdný a nebyl odeslán."
           }
         ]
       },

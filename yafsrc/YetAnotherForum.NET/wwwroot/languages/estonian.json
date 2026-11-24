@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Saadeti {0} kaudu edukalt."
+            "#text": "Testkokkuvõte saadeti aadressile {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Lülitage see tahvli seadetes sisse"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Uusi ega aktiivseid teemasid pole, kokkuvõte on tühi ja seda ei saadetud."
           }
         ]
       },

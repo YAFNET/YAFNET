@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Succesvol verzonden via {0}."
+            "#text": "De testsamenvatting is verzonden naar {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Schakel het in bij de boardinstellingen"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Er zijn geen nieuwe of actieve topics, de samenvatting is leeg en is niet verzonden."
           }
         ]
       },

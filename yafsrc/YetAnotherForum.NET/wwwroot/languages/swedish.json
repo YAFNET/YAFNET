@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Skickat via {0}."
+            "#text": "Testsammanfattningen skickades till {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Slå på den i forumtavlans inställningar"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Det finns inga nya eller aktiva ämnen, sammanfattningen är tom och skickades inte."
           }
         ]
       },

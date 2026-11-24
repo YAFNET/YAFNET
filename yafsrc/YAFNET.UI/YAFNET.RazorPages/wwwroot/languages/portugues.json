@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Enviado via {0} com sucesso."
+            "#text": "O resumo de teste foi enviado para {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Ative-o nas definições do quadro"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Não existem tópicos novos ou ativos, o resumo está vazio e não foi enviado."
           }
         ]
       },

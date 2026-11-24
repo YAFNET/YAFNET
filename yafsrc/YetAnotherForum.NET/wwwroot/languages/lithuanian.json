@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Sėkmingai išsiųsta per {0}."
+            "#text": "Bandomoji suvestinė išsiųsta adresu {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Įjunkite ją lentos nustatymuose"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Naujų ar aktyvių temų nėra, suvestinė tuščia ir nebuvo išsiųsta."
           }
         ]
       },

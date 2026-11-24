@@ -121,20 +121,27 @@ public class DigestModel : AdminPage
                 this.TextSendEmail.Trim(),
                 string.Empty);
 
+            // without new or active topics there is no digest (nothing was sent, it was reported as sent)
+            if (digestMail is null)
+            {
+                return this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_NO_TOPICS"), MessageTypes.warning);
+            }
+
             await this.Get<IMailService>().SendAllAsync([digestMail]);
 
             return this.PageBoardContext.Notify(
-                this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
+                this.GetTextFormatted("MSG_SEND_SUC", this.HtmlEncode(this.TextSendEmail.Trim())),
                 MessageTypes.success);
         }
         catch (Exception ex)
         {
             this.Get<ILogger<DigestModel>>().Error(
                 ex,
-                string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex));
+                string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex.Message));
 
+            // the message, not the stack trace
             return this.PageBoardContext.Notify(
-                string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
+                string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), this.HtmlEncode(ex.Message)),
                 MessageTypes.danger);
         }
     }
@@ -148,7 +155,8 @@ public class DigestModel : AdminPage
                             && DateTime.TryParse(
                                 this.PageBoardContext.BoardSettings.LastDigestSend,
                                 CultureInfo.InvariantCulture,
-                                DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal,
+                                // the digest task saves the local time of the server (it was shown as utc)
+                                DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeLocal,
                                 out var last)
                                 ? last
                                 : null;

@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Trimis cu succes prin {0}."
+            "#text": "Rezumatul de test a fost trimis la {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Activați-l în setările forumului"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Nu există subiecte noi sau active, rezumatul este gol și nu a fost trimis."
           }
         ]
       },

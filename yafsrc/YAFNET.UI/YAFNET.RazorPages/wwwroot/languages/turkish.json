@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "{0} üzerinden başarıyla gönderildi."
+            "#text": "Test özeti {0} adresine gönderildi."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "Pano ayarlarından açın"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Yeni veya etkin konu yok, özet boş ve gönderilmedi."
           }
         ]
       },

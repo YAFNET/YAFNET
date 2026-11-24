@@ -2345,7 +2345,7 @@
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Erfolgreich über {0} gesendet."
+            "#text": "Die Test-Zusammenfassung wurde an {0} gesendet."
           },
           {
             "@tag": "MSG_VALID_MAIL",
@@ -2370,6 +2370,10 @@
           {
             "@tag": "TURN_ON",
             "#text": "In den Board-Einstellungen einschalten"
+          },
+          {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Es gibt keine neuen oder aktiven Themen, die Zusammenfassung ist leer und wurde nicht gesendet."
           }
         ]
       },
