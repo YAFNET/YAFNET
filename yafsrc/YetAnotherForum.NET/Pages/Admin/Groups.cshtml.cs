@@ -140,12 +140,17 @@ public class GroupsModel : AdminPage
         // save role and get its ID
         var groupFlags = new GroupFlags();
 
+        // the default access mask of new forums (the id 1 was "Admin Access" with moderator rights on the
+        // first board, and a mask of another board on the other boards)
+        var accessMaskId = this.GetRepository<AccessMask>()
+            .GetDefaultForumAccessMaskId(this.PageBoardContext.BoardSettings.ForumDefaultAccessMask);
+
         var groupId = await this.GetRepository<Group>().SaveAsync(
             null,
             this.PageBoardContext.PageBoardID,
             role,
             groupFlags,
-            1,
+            accessMaskId,
             null,
             100,
             null,

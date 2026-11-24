@@ -178,6 +178,10 @@ public static class BoardRepositoryExtensions
             await BoardContext.Current.GetRepository<AccessMask>().InsertAsync(
                 new AccessMask { BoardID = newBoardId, Name = "No Access", Flags = 0, SortOrder = 0 });
 
+            // the default access mask of new forums is the member access of this board (the default of the
+            // setting is the id of the first board)
+            BoardContext.Current.GetRepository<Registry>().Save("ForumDefaultAccessMask", accessMaskIdMember, newBoardId);
+
             // -- Group
             var adminGroupFlag = new GroupFlags
             {

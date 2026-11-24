@@ -22,7 +22,11 @@
  * under the License.
  */
 
+using System.Linq;
 using System.Threading.Tasks;
+
+using YAF.Core.Extensions;
+using YAF.Types.Flags;
 
 namespace YAF.Core.Model;
 
@@ -33,6 +37,34 @@ using YAF.Types.Models;
 /// </summary>
 public static class AccessMaskRepositoryExtensions
 {
+    /// <summary>
+    /// Gets the access mask new forums give to the roles (and a new role gets in the forums): the mask of the
+    /// board setting if it belongs to the board (the default is the id of the "Member Access" of the first board,
+    /// on another board it was a mask of the first board), otherwise the mask of the board with the most rights
+    /// without moderator access ("Member Access" of a new board).
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="defaultMaskId">The access mask of the board setting.</param>
+    /// <param name="boardId">The board id.</param>
+    /// <returns>The access mask id, 0 if the board has no masks.</returns>
+    public static int GetDefaultForumAccessMaskId(
+        this IRepository<AccessMask> repository,
+        int defaultMaskId,
+        int? boardId = null)
+    {
+        var masks = repository.GetByBoardId(boardId);
+
+        if (masks.Any(m => m.ID == defaultMaskId))
+        {
+            return defaultMaskId;
+        }
+
+        return masks.Where(m => !new AccessFlags(m.Flags).ModeratorAccess)
+                   .OrderByDescending(m => System.Numerics.BitOperations.PopCount((uint)m.Flags))
+                   .Select(m => m.ID)
+                   .FirstOrDefault();
+    }
+
     /// <summary>
     /// The save.
     /// </summary>

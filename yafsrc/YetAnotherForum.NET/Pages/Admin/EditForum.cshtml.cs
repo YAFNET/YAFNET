@@ -198,8 +198,12 @@ public class EditForumModel : AdminPage
         }
         else
         {
+            // a mask of this board (the default of the setting belongs to the first board)
+            var defaultMask = this.GetRepository<AccessMask>()
+                .GetDefaultForumAccessMaskId(this.PageBoardContext.BoardSettings.ForumDefaultAccessMask);
+
             this.AccessList = [.. groups.Select(
-                i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = this.PageBoardContext.BoardSettings.ForumDefaultAccessMask })];
+                i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = defaultMask })];
         }
 
         // Load forum's themes

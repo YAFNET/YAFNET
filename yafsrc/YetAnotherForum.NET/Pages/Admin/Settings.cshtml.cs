@@ -284,7 +284,9 @@ public class SettingsModel : AdminPage
         this.Input.Name = board.Name;
         this.Input.Description = board.Description;
 
-        this.Input.ForumDefaultAccessMask = boardSettings.ForumDefaultAccessMask;
+        // a mask of this board (else the list showed the first mask and the next save stored it)
+        this.Input.ForumDefaultAccessMask = this.GetRepository<AccessMask>()
+            .GetDefaultForumAccessMaskId(boardSettings.ForumDefaultAccessMask);
 
         this.Input.Theme = boardSettings.Theme.Contains(".xml") ? "yaf" : boardSettings.Theme;
 

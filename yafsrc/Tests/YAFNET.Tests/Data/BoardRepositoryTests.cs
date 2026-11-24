@@ -148,6 +148,30 @@ public class BoardRepositoryTests
     }
 
     [Test]
+    [Description("New forums of a new board get the member access of that board (the default mask id 3 belonged to the first board), and a mask of another board falls back to the member access of the board")]
+    public async Task Create_Default_Forum_Access_Mask_Test()
+    {
+        var boardId = await this.CreateBoardAsync();
+
+        var masks = this.Repository<AccessMask>().GetByBoardId(boardId);
+        var memberAccess = masks.Single(m => m.Name == "Member Access").ID;
+
+        (await this.Repository<Registry>().GetSingleAsync(r => r.Name == "forumdefaultaccessmask" && r.BoardID == boardId)).Value
+            .Should().Be(memberAccess.ToString());
+
+        // a mask of another board (e.g. the default id of the setting)
+        var otherBoardId = await this.CreateBoardAsync();
+        var otherBoardMask = this.Repository<AccessMask>().GetByBoardId(otherBoardId).First().ID;
+
+        this.Repository<AccessMask>().GetDefaultForumAccessMaskId(otherBoardMask, boardId)
+            .Should().Be(memberAccess, "the mask with the most rights without moderator access");
+
+        var readOnly = masks.Single(m => m.Name == "Read Only Access").ID;
+
+        this.Repository<AccessMask>().GetDefaultForumAccessMaskId(readOnly, boardId).Should().Be(readOnly, "a mask of the board is kept");
+    }
+
+    [Test]
     [Description("The culture and language of a new board belong to that board, not to every board")]
     public async Task Create_Saves_Culture_For_New_Board_Test()
     {
