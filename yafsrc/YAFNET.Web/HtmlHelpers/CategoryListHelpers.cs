@@ -163,6 +163,12 @@ public static class CategoryListHelpers
 
                 link.MergeAttribute("data-bs-toggle", "tooltip");
 
+                // the styles of the forum name (Admin > Edit Forum, they were saved but never used)
+                if (item.Styles.IsSet())
+                {
+                    link.MergeAttribute(HtmlAttribute.Style, BoardContext.Current.Get<IStyleTransform>().Decode(item.Styles));
+                }
+
                 link.InnerHtml.AppendHtml(htmlHelper.HtmlEncode(item.Forum));
 
                 if (item.RemoteURL.IsSet())
@@ -272,6 +278,12 @@ public static class CategoryListHelpers
                 link.AddCssClass("card-link small");
 
                 link.MergeAttribute("data-bs-toggle", "tooltip");
+
+                // the styles of the forum name (Admin > Edit Forum, they were saved but never used)
+                if (item.Styles.IsSet())
+                {
+                    link.MergeAttribute(HtmlAttribute.Style, BoardContext.Current.Get<IStyleTransform>().Decode(item.Styles));
+                }
 
                 link.InnerHtml.AppendHtml(BoardContext.Current.CurrentForumPage.HtmlEncode(item.Forum));
 

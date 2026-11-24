@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Reťazec štýlov na prispôsobenie názvu fóra. Nechajte ho prázdny."
+            "#text": "Štýly CSS názvu fóra v zoznamoch fór, napr. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

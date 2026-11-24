@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stijltekst om de naam van het forum aan te passen. Leeg laten."
+            "#text": "CSS-stijlen van de forumnaam in de forumlijsten, bijv. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

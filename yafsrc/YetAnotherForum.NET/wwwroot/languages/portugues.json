@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Cadeia de estilos para personalizar o nome do fórum. Deixe vazio."
+            "#text": "Estilos CSS do nome do fórum nas listas de fóruns, p. ex. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

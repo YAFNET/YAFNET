@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stilstreng til tilpasning af forumnavnet. Lad det være tomt."
+            "#text": "CSS-typografi for forumnavnet i forumlisterne, f.eks. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Ciąg stylów do dostosowania nazwy forum. Pozostaw puste."
+            "#text": "Style CSS nazwy forum na listach forów, np. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

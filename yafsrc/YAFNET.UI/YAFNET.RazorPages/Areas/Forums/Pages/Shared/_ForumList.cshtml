@@ -113,9 +113,12 @@
                 {
                     var title = forum.Description.IsSet() ? forum.Description : Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
 
+                    // the styles of the forum name (Admin > Edit Forum), no attribute without styles
+                    var forumStyle = forum.Styles.IsSet() ? Current.Get<IStyleTransform>().Decode(forum.Styles) : null;
+
                     @if (forum.RemoteURL.IsSet())
                     {
-                        <a href="@forum.RemoteURL"
+                        <a href="@forum.RemoteURL" style="@forumStyle"
                            title="@Html.Raw(Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"))"
                            target="_blank">
                             @Html.HtmlEncode(forum.Forum)&nbsp;<i class="fas fa-external-link-alt"></i>
@@ -123,7 +126,7 @@
                     }
                     else
                     {
-                        <a href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" data-bs-toggle="tooltip" title="@title">
+                        <a href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" data-bs-toggle="tooltip" title="@title" style="@forumStyle">
                             @Html.HtmlEncode(forum.Forum)
                         </a>
                     }

@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Chaîne de style pour personnaliser le nom du forum. Laissez-la vide."
+            "#text": "Styles CSS du nom du forum dans les listes de forums, par ex. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

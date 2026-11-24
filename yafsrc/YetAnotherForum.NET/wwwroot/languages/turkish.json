@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Forum Adını özelleştirmek için stil dizesi. Boş bırakın."
+            "#text": "Forum listelerinde forum adının CSS stilleri, örn. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

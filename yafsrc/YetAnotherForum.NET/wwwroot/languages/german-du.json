@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stil-String, um den Namen des Forums anzupassen. Leer lassen."
+            "#text": "CSS-Stile des Forennamens in den Forenlisten, z. B. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

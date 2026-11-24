@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Tyylimerkkijono alueen nimen muotoiluun. Jätä tyhjäksi."
+            "#text": "Foorumin nimen CSS-tyylit foorumiluetteloissa, esim. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

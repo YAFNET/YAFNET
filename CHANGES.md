@@ -215,6 +215,7 @@ YetAnotherForum.NET Changelog
 [FIXED] BBCode Extensions: the "Exec Order" of the extensions was not used, they were run in the order of the database; they run in their order now, lowest first
 [FIXED] Admin > Import of BBCode extensions, replace words and spam words: an xml file sent by the browser as "application/xml" (e.g. Firefox on Linux) was rejected as an invalid upload format
 [FIXED] Admin > Forums: a forum with "No posts count" had the badge "Test" (with a flask), which did not say what the option does; it says "Posts not counted" now; all languages
+[FIXED] Admin > Edit Forum: the "Styles" of a forum were saved but never used (the help even said "Leave it empty."); they are applied to the forum name in the forum lists (board index, sub-forums, forum page) now; all languages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

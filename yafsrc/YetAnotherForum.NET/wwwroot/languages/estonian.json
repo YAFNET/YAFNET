@@ -2954,7 +2954,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stiilistring foorumi nime kohandamiseks. Jätke see tühjaks."
+            "#text": "Foorumi nime CSS-stiilid foorumite loendites, nt color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",
