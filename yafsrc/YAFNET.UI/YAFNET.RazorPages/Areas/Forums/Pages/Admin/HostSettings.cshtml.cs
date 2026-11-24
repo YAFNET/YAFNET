@@ -467,6 +467,14 @@ public class HostSettingsModel : AdminPage
                     "BOT_CHECK_2"),
                 "2"),
 
+            // both services must match (still supported, the option was missing: shown as "Disabled",
+            // the next save turned the bot check off)
+            new SelectListItem(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_CHECK_3"),
+                "3"),
+
             new SelectListItem(
                 this.GetText(
                     "ADMIN_HOSTSETTINGS",

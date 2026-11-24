@@ -92,6 +92,16 @@ public class SpamCheckTests
     }
 
     [Test]
+    [Description("The former BlogSpam.NET service is the internal check now (the host settings showed it as \"Disabled\", the next save turned the spam check off)")]
+    public void BlogSpam_Is_The_Internal_Check_Test()
+    {
+        this.board.BoardSettings.SpamServiceType = (int)SpamService.BlogSpam;
+
+        this.board.BoardSettings.SpamServiceType.Should().Be((int)SpamService.Internal);
+        this.board.BoardSettings.SpamService.Should().Be(SpamService.Internal);
+    }
+
+    [Test]
     [Description("Spam words are not checked without a spam service")]
     public void Post_SpamWord_NoService_Test()
     {

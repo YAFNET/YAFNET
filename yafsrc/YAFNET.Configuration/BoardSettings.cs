@@ -519,7 +519,12 @@ public class BoardSettings
     /// </summary>
     public int SpamServiceType
     {
-        get => this.Registry.GetValue("SpamServiceType", SpamService.Internal.ToInt());
+        // the former BlogSpam.NET service (1) is gone, every service is the internal check now: shown as
+        // "Disabled" (no such option), the next save of the host settings turned the spam check off
+        get => this.Registry.GetValue("SpamServiceType", SpamService.Internal.ToInt()) is var type
+               && type == SpamService.BlogSpam.ToInt()
+                   ? SpamService.Internal.ToInt()
+                   : type;
 
         set => this.Registry.SetValue("SpamServiceType", value);
     }
