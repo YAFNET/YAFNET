@@ -1571,24 +1571,24 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.ReturnSearchMax" class="form-label" info-button="true"
 					       localized-tag="MAX_SEARCH_RESULTS"></label>
 					<input type="number" class="form-control" asp-for="Input.ReturnSearchMax"/>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.SearchStringMinLength" class="form-label" info-button="true"
 					       localized-tag="SEARCH_MINLENGTH"></label>
 					<input type="number" class="form-control" asp-for="Input.SearchStringMinLength"/>
 				</div>
 			</div>
 			<div class="mb-3">
-				<label class="form-label" info-button="true"
+				<label asp-for="Input.SearchPermissions" class="form-label" info-button="true"
 				       localized-tag="SEARCH_PERMISS"></label>
 				<select class="form-select" asp-for="Input.SearchPermissions" asp-items="Model.SearchPermissionsList" title="@Model.GetText("SEARCH_PERMISS")">
 				</select>
 			</div>
 			<div class="mb-3">
-				<label class="form-label" info-button="true"
+				<label asp-for="Input.ShowQuickSearch" class="form-label" info-button="true"
 				       localized-tag="QUICK_SEARCH"></label>
 				<div class="form-check form-switch">
 					<input type="checkbox" class="form-check-input" asp-for="Input.ShowQuickSearch"/>
@@ -1625,17 +1625,17 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.EventLogMaxMessages" class="form-label" info-button="true"
 					       localized-tag="EVENTLOG_MAX_MESSAGES"></label>
 					<input type="number" class="form-control" asp-for="Input.EventLogMaxMessages"/>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.EventLogMaxDays" class="form-label" info-button="true"
 					       localized-tag="EVENTLOG_MAX_DAYS"></label>
 					<input type="number" class="form-control" asp-for="Input.EventLogMaxDays"/>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.MessageHistoryDaysToLog" class="form-label" info-button="true"
 					       localized-tag="MESSAGE_CHANGE_HISTORY"></label>
 					<input type="number" class="form-control" asp-for="Input.MessageHistoryDaysToLog"/>
 				</div>
@@ -1645,21 +1645,21 @@
 			</h3>
 			<div class="row">
 				<div class="mb-3 col-md-6">
-									<label class="form-label" info-button="true"
+									<label asp-for="Input.LogError" class="form-label" info-button="true"
 					       localized-tag="LOG_ERROR"></label>
 					<div class="form-check form-switch">
 						<input type="checkbox" class="form-check-input" asp-for="Input.LogError"/>
 					</div>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.LogWarning" class="form-label" info-button="true"
 					       localized-tag="LOG_WARNING"></label>
 					<div class="form-check form-switch">
 						<input type="checkbox" class="form-check-input" asp-for="Input.LogWarning"/>
 					</div>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.LogInformation" class="form-label" info-button="true"
 					       localized-tag="LOG_INFORMATION"></label>
 					<div class="form-check form-switch">
 						<input type="checkbox" class="form-check-input" asp-for="Input.LogInformation"/>
@@ -1668,21 +1668,21 @@
 			</div>
 			<div class="row">
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.LogBannedIP" class="form-label" info-button="true"
 					       localized-tag="LOG_BANNEDIP"></label>
 					<div class="form-check form-switch">
 						<input type="checkbox" class="form-check-input" asp-for="Input.LogBannedIP"/>
 					</div>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.LogUserDeleted" class="form-label" info-button="true"
 					       localized-tag="LOG_USERDELETED"></label>
 					<div class="form-check form-switch">
 						<input type="checkbox" class="form-check-input" asp-for="Input.LogUserDeleted"/>
 					</div>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label class="form-label" info-button="true"
+					<label asp-for="Input.LogUserSuspendedUnsuspended" class="form-label" info-button="true"
 					       localized-tag="LOG_SUSPENDEDANDCONTRA"></label>
 					<div class="form-check form-switch">
 						<input type="checkbox" class="form-check-input" asp-for="Input.LogUserSuspendedUnsuspended"/>
