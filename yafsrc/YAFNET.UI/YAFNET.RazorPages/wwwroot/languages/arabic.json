@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "يحاذي النص إلى اليسار أو الوسط أو اليمين باستخدام <code>[left]</code> و<code>[center]</code> و<code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]نص في الوسط[/center]\r\n[right]نص محاذٍ إلى اليمين[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "المحاذاة"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "يجعل النص غامقًا."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]هذا النص غامق[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "غامق"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "يعرض الشيفرة البرمجية مع فواصل الأسطر والمسافات، ولا تُنسَّق رموز BB داخلها."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "يلوّن شيفرة لغة برمجة، مثل csharp أو javascript أو python أو sql أو css أو markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "شيفرة مع تلوين"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "شيفرة"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "يلوّن النص. استخدم اسم لون أو رمز لون."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]نص أحمر[/color] و[color=#0d6efd]نص أزرق[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "لون النص"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "تُضمِّن رموز BB هذه محتوى (مثل مقاطع الفيديو أو منشورات من مواقع أخرى) أو مرفقات. اكتب العنوان أو الرقم بين الوسوم."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "رابط يكتب رسالة بريد إلكتروني إلى العنوان."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "عنوان بريد إلكتروني"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "تتحول الرموز المختصرة للرموز التعبيرية بين أقواس مربعة والوجوه الضاحكة مثل :) إلى رموز تعبيرية."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "رموز تعبيرية"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "يعرض النص بخط آخر، إذا كان الخط متوفرًا على جهاز القارئ."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]نص بخط Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "الخط"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "رموز BB أخرى في هذا المنتدى"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "يعرض النص للأعضاء فقط، أو باستخدام <code>[group-hide=Role1;Role2]</code> لأعضاء هذه الأدوار فقط."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]لا يرى هذا النص إلا الأعضاء.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "مخفي حسب المجموعات"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "التخطيط"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "الروابط والصور"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "القوائم"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "الاقتباسات والشيفرة"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "الأعضاء وحرق الأحداث والمحتوى المخفي"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "تنسيق النص"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "يخفي النص حتى يتفاعل القارئ مع المشاركة. الكاتب والمديرون يرونه دائمًا."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]نص مخفي.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "يخفي النص عن الأعضاء الذين كتبوا مشاركات أقل من العدد المحدد."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]نص مخفي.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "مخفي عند قلة المشاركات"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "يخفي النص حتى يرد القارئ في الموضوع."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]نص مخفي.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "يخفي النص حتى يرد القارئ في الموضوع أو يتفاعل مع المشاركة."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]نص مخفي.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "مخفي حتى الرد أو التفاعل"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "مخفي حتى الرد"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "يخفي النص عن الأعضاء الذين تلقّوا تفاعلات أقل من العدد المحدد."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]نص مخفي.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "مخفي عند قلة التفاعلات"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "مخفي حتى التفاعل"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "أربع شرطات أو أكثر في سطر مستقل ترسم خطًا أفقيًا."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "نص فوق الخط\r\n----\r\nنص تحت الخط"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "خط أفقي"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "يميّز النص كقلم التحديد."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]هذا النص مميَّز[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "تمييز"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "يعرض صورة من الإنترنت. يجب أن ينتهي العنوان بنوع الصورة (مثل .png أو .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "صورة مع وصف، يظهر عند مرور مؤشر الفأرة فوق الصورة وتقرؤه برامج قراءة الشاشة."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]شعار YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "صورة مع وصف"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "صورة"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "يزيح النص بمسافة بادئة."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]نص بمسافة بادئة[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "مسافة بادئة"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "يجعل النص مائلًا."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]هذا النص مائل[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "مائل"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "قائمة بنقاط. يبدأ كل عنصر بـ <code>[*]</code> في سطر جديد."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]العنصر الأول\r\n[*]العنصر الثاني\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "قائمة مرقمة. استخدم <code>[list=a]</code> أو <code>[list=A]</code> للحروف، و<code>[list=i]</code> أو <code>[list=I]</code> للأرقام الرومانية."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]الخطوة الأولى\r\n[*]الخطوة الثانية\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "قائمة مرقمة"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "قائمة"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "يعرض رموز BB كما هي، دون تنسيقها."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]ليس غامقًا[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "بدون تنسيق"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "يعرض النص في مربع ملوّن. الأنواع هي primary وsecondary وsuccess وdanger وwarning وinfo وlight وdark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]ملاحظة تحتوي على معلومة.[/note]\r\n[note=warning]تحذير.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "ملاحظة"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "يعرض النص كاقتباس. تُدرجه أزرار الاقتباس في المشاركات لك."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]النص المقتبس.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "اقتباس مع اسم كاتبه."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]النص المقتبس.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "اقتباس مع الكاتب"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "اقتباس"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "النتيجة"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "يغيّر حجم النص، من 1 (صغير جدًا) إلى 9 (كبير جدًا). الحجم العادي هو 5."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]صغير[/size] [size=5]عادي[/size] [size=7]كبير[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "حجم النص"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "يخفي النص حتى ينقر القارئ على الزر، مثلًا لنهاية فيلم."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]البستاني هو الفاعل.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "حرق الأحداث"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "يضع خطًا في وسط النص، مثلًا لشيء لم يعد صالحًا."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]هذا النص يتوسطه خط[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "يتوسطه خط"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "ينشئ جدولًا: <code>[tr]</code> صف، و<code>[td]</code> خلية في الصف."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]الاسم[/td][td]المشاركات[/td][/tr][tr][td]سارة[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "جدول"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "تتحول عناوين المواقع إلى روابط تلقائيًا. ويمكنك أيضًا وضعها داخل <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "رابط يعرض نصًا بدلًا من العنوان."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]موقع YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "رابط مع نص"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "رابط"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "رابط إلى الملف الشخصي لعضو. كتابة @ في المحرر تنشئه لك، ويُبلَّغ العضو."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "رابط إلى عضو"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "يضع خطًا تحت النص."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]هذا النص مُسطَّر[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "تسطير"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "ما تكتبه"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "حسابك"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>الاعلانات هي رسائل خاصة مرفقة من قبل المدير والمشرفين . They are a simple one-way communication with the users and you can't reply. اذا اردت مناقشة الاعلانات, يتوجب عليك انشاء موضوع جديد في المنتدى .</p>\r\n        <p>موضوعات الاعلانات ظهرت في أعلى صفحات المنتدى, above regular and sticky threads.</p>"
+            "#text": "<p>بعض المواضيع أهم من غيرها:</p>\r\n<ul>\r\n<li><strong>المواضيع المثبتة</strong> تبقى في أعلى قائمة مواضيع منتداها، مثل قواعد المنتدى أو الأسئلة الشائعة فيه.</li>\r\n<li><strong>الإعلانات</strong> معلومات مهمة، وتظهر هي أيضًا في أعلى قائمة المواضيع مع شارة تميزها.</li>\r\n</ul>\r\n<p>يحدد المدير من يمكنه إنشاؤها (عادةً المشرفون والمديرون). ويختارون ذلك من <strong>[[POSTMESSAGE.PRIORITY]]</strong> عند كتابة الموضوع أو تعديله. يمكنك الرد على المواضيع المثبتة والإعلانات كأي موضوع آخر، ما لم يكن الموضوع مقفلًا.</p>\r\n<h3 class=\"h6 mt-3\">إعلانات المنتدى العامة</h3>\r\n<p>يمكن للمدير أيضًا عرض إعلان في كل صفحة من صفحات المنتدى، مثلًا بشأن صيانة مخطط لها. ويمكنك إغلاقه بالزر الموجود على جانبه.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "اعلانات"
+            "#text": "الإعلانات والمواضيع المثبتة"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">الوضع الفاتح والداكن</h3>\r\n<p>يبدّل زر وضع الألوان في الشريط العلوي بين <strong>[[THEME_MODE.LIGHT]]</strong> و<strong>[[THEME_MODE.DARK]]</strong> و<strong>[[THEME_MODE.AUTO]]</strong> (وضع جهازك). ويتذكر المنتدى اختيارك في هذا المتصفح.</p>\r\n<h3 class=\"h6 mt-3\">السمة واللغة</h3>\r\n<p>إذا سمح المدير بذلك، يمكنك اختيار سمة أخرى ولغة المنتدى في <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. وبحسب المنتدى، يمكن أيضًا تغيير اللغة من الشريط العلوي.</p>\r\n<h3 class=\"h6 mt-3\">المنطقة الزمنية وحجم الصفحة</h3>\r\n<p>تُعرض جميع التواريخ والأوقات حسب منطقتك الزمنية. اضبطها في <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. وتُعرض الأوقات القريبة بصيغة مثل «منذ 5 دقائق».</p>\r\n<p>يحدد <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> في الصفحة نفسها عدد العناصر التي تعرضها قوائم المنتدى في كل صفحة.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "المظهر واللغة"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>إذا كان مسموحًا لك برفع الملفات في منتدى، يمكنك إضافة ملفات وصور إلى مشاركاتك:</p>\r\n<ul>\r\n<li>اسحب الملف إلى المحرر، أو (في المحرر الذي يعرض التنسيق) الصق صورة.</li>\r\n<li>أو انقر على زر المرفقات في شريط الأدوات (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). تتيح لك النافذة إفلات الملفات أو اختيارها باستخدام <strong>[[ATTACHMENTS.ADD_FILES]]</strong>، وتسرد ملفاتك المرفوعة سابقًا في <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>: انقر على أحدها لإدراجه مرة أخرى.</li>\r\n</ul>\r\n<p>تعرض النافذة <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong>، والحد الأقصى لحجم الملف إن وُجد. لا يدعم الرد السريع المرفقات، استخدم المحرر الكامل.</p>\r\n<p>تُعرض الصور كمعاينة في المشاركة، انقر عليها لعرض الصورة كاملة (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). وتُعرض الملفات الأخرى والصور الكبيرة جدًا كرابط مع الحجم وعدد مرات التنزيل. قد يتطلب التنزيل صلاحية لا يمنحها المنتدى إلا للأعضاء.</p>\r\n<h3 class=\"h6 mt-3\">صور من مواقع أخرى</h3>\r\n<p>لعرض صورة من الإنترنت، انقر على <strong>[[COMMON.TT_IMAGE]]</strong> وأدخل عنوانها، أو اكتب <code>[img]عنوان الصورة[/img]</code>.</p>\r\n<p>ملفاتك المرفوعة مدرجة في <a href=\"[[help:myattachments]]\">مرفقاتي</a>، حيث يمكنك أيضًا حذفها.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,119 +11300,199 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>تُنسّق رموز BB مشاركاتك. وهي وسوم قصيرة بين أقواس مربعة تحيط بالنص، مثل <code>[b]غامق[/b]</code>. لست مضطرًا إلى كتابتها: فأزرار المحرر تُدرجها لك. وإذا كان المحرر يعرض التنسيق أثناء الكتابة، تُنشأ رموز BB في الخلفية.</p>\r\n<p>ستجد أدناه كل رموز BB في هذا المنتدى، وما تكتبه، والنتيجة كما تبدو في المشاركة. بعض رموز BB لا تظهر هنا إلا إذا كان المنتدى يستخدمها، وقد تسمح التواقيع برموز BB أقل من المشاركات.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "قائمة أكواد BB"
+            "#text": "رموز BB"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>افتح <strong>[[BLOCK_OPTIONS.TITLE]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - لا يستطيع الأعضاء الآخرون بدء محادثات خاصة معك.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - لا يستطيع أحد إرسال طلبات صداقة إليك.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - لا يستطيع أحد إرسال رسائل بريد إلكتروني إليك عبر المنتدى.</li>\r\n</ul>\r\n<p>يظل بإمكان المديرين والأعضاء في قائمة أصدقائك التواصل معك.</p>\r\n<h3 class=\"h6 mt-3\">تجاهل عضو</h3>\r\n<p>لتجاهل عضو، افتح قائمة المستخدم في إحدى مشاركاته واختر <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. تُخفى مشاركات الأعضاء المتجاهَلين (ويعرض <strong>[[POSTS.TOGGLEPOST]]</strong> مشاركة واحدة)، ولا يستطيعون إرسال رسائل خاصة إليك. تسرد <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> في الصفحة نفسها الأعضاء الذين تتجاهلهم، أزل عضوًا منها لترى مشاركاته مرة أخرى.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "تجاهل المستخدمين وحظرهم"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p> الأصدقاء هم وظيفة صداقة وعلاقة ثنائية الاتجاه بين مستخدمين. "
+            "#text": "<p>الصداقة صلة بين عضوين. لتطلب من عضو أن يصبح صديقك، انقر على <strong>[[BUDDY.ADDBUDDY]]</strong> في ملفه الشخصي أو في قائمة المستخدم في مشاركة. يتلقى العضو طلب صداقة ويمكنه قبوله أو رفضه.</p>\r\n<p>أصدقاؤك موجودون في <strong>[[TOOLBAR.BUDDIES]]</strong> في قائمة المستخدم، ضمن ثلاث علامات تبويب:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - أصدقاؤك. أرسل إليهم رسالة خاصة أو أزلهم من القائمة.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - طلبات الأعضاء الآخرين. يضيف <strong>[[FRIENDS.APPROVE]]</strong> العضو إلى أصدقائك (ويضيفك إلى أصدقائه)، ويزيل الرفض الطلب. ويقبل <strong>[[FRIENDS.APPROVE_ALL]]</strong> جميع الطلبات دفعة واحدة.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - الطلبات التي أرسلتها ولم يُرد عليها بعد.</li>\r\n</ul>\r\n<p>يظهر الأصدقاء في ملفك الشخصي. ويمكنهم التواصل معك حتى لو حظرت الرسائل الخاصة أو البريد الإلكتروني، راجع <a href=\"[[help:blocking]]\">تجاهل المستخدمين وحظرهم</a>. وإذا كنت لا تريد طلبات صداقة، يمكنك حظرها هناك أيضًا.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
-            "#text": "أصدقاء"
+            "#text": "الأصدقاء"
+          },
+          {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>افتح <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). لديك خياران:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - استراحة: لا يمكنك استخدام حسابك لمدة 30 يومًا، ثم يعود للعمل.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - يُغلق حسابك وتُحذف مشاركاتك (تبقى ردود الأعضاء الآخرين). لا يمكنك تسجيل الدخول بعد ذلك، ولا يمكن التراجع عن هذا.</li>\r\n</ul>\r\n<p>أكّد باستخدام <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> وانقر على <strong>[[COMMON.CONTINUE]]</strong>. يُسجَّل خروجك.</p>\r\n<p>إذا أردت إزالة جميع بياناتك، أو كانت لديك أسئلة عن بياناتك، فتواصل مع المدير، راجع <a href=\"[[help:privacy]]\">الخصوصية وملفات تعريف الارتباط والقواعد</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "إيقاف حسابك مؤقتًا أو حذفه"
           },
           {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p> إذا كنت مسجلاً حاليًا وقمت بتسجيل الدخول ، فقد تتمكن من تعديل رسائلك وحذفها (إذا لم يقم المسؤول بإيقاف تشغيل هذا الخيار). "
+            "#text": "<p>يمكنك تعديل مشاركاتك وحذفها إذا سمح المنتدى بذلك. افتح قائمة المشاركة (النقاط الثلاث في أعلاها) واختر <strong>[[BUTTON.BUTTON_EDIT]]</strong> أو <strong>[[BUTTON.BUTTON_DELETE]]</strong>. لا يمكن ذلك في المواضيع المقفلة، ويمكن للمدير أن يقصره على عدد من الأيام بعد النشر.</p>\r\n<h3 class=\"h6 mt-3\">التعديل</h3>\r\n<p>صفحة التعديل مثل صفحة المشاركة الجديدة. إذا كنت قد بدأت الموضوع، يمكنك أيضًا تغيير عنوانه ووصفه ووسومه. أدخل <strong>[[POSTMESSAGE.EDITREASON]]</strong> لتخبر القراء بما غيّرته.</p>\r\n<p>إذا عدّلت مشاركة بعد مرور بعض الوقت على نشرها، تُظهر المشاركة من عدّلها ومتى ولماذا. ويُحتفظ بالنسخ السابقة، راجع <a href=\"[[help:history]]\">سجل المشاركة</a>. يمكن للمشرفين أيضًا تعديل مشاركاتك، وعندها تذكر المشاركة أن مشرفًا عدّلها.</p>\r\n<h3 class=\"h6 mt-3\">الحذف</h3>\r\n<p>أدخل <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> وانقر على <strong>[[DELETEMESSAGE.DELETE]]</strong>. لا تُمحى المشاركة: يُظهر مكانها في الموضوع أنها حُذفت. ويمكنك استعادتها باستخدام <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> في القائمة نفسها، ما لم يكن مشرف قد حذفها.</p>\r\n<p>المشرفون وحدهم يستطيعون حذف مواضيع كاملة، والمديرون وحدهم يستطيعون محو المشاركات نهائيًا.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "تحرير وحذف مشاركاتك"
+            "#text": "تعديل المشاركات وحذفها"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile</strong> Page</p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>\r\n\r\n"
+            "#text": "<p>افتح <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). جميع الحقول اختيارية، املأ فقط ما تريد مشاركته. تُعرض المعلومات في ملفك الشخصي العام.</p>\r\n<ul>\r\n<li><strong>عنك</strong> - اسم العرض (إذا كان المنتدى يستخدم أسماء العرض)، والاسم الحقيقي، وتاريخ الميلاد، والمهنة، والاهتمامات، والجنس.</li>\r\n<li><strong>الموقع</strong> - البلد والولاية والمدينة. إذا كان المنتدى يوفر ذلك، يملؤها <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> نيابةً عنك.</li>\r\n<li><strong>الصفحة الرئيسية</strong> - عناوين موقعك ومدونتك.</li>\r\n<li>حقول إضافية أضافها المدير.</li>\r\n</ul>\r\n<p>انقر على <strong>[[COMMON.SAVE]]</strong> لحفظ تغييراتك. لصورتك الرمزية وتوقيعك صفحات خاصة بهما، راجع <a href=\"[[help:mypics]]\">الصورة الرمزية والتوقيع</a>. أما عنوان البريد الإلكتروني والمنطقة الزمنية واللغة ففي <a href=\"[[help:editsettings]]\">تعديل الإعدادات</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "تحرير ملف تعريف المستخدم وإعدادات المنتدى"
+            "#text": "تعديل ملفك الشخصي"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>افتح <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>أدخل العنوان الجديد و<strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. يرسل المنتدى رابطًا إلى العنوان الجديد، ويتغير العنوان عند النقر عليه. لا يُعرض عنوان بريدك الإلكتروني أبدًا للأعضاء الآخرين.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - لا تظهر في قائمة الأعضاء المتصلين (إذا سمح المنتدى بذلك).</li>\r\n<li>سجل النشاط - إشعاراتك عن الإشارات والاقتباسات والتفاعلات، راجع <a href=\"[[help:popups]]\">الإشعارات</a>.</li>\r\n<li>منطقتك الزمنية، و<strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong>، و(إذا سمح المنتدى بذلك) السمة واللغة، راجع <a href=\"[[help:appearance]]\">المظهر واللغة</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">المصادقة الثنائية</h3>\r\n<p>شغّل المصادقة الثنائية أو أوقفها، راجع <a href=\"[[help:login]]\">تسجيل الدخول وأمان الحساب</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "تعديل الإعدادات"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p> <strong> ما هو YAF؟ </strong> </p>\r\n"
+            "#text": "<p>المنتدى مكان للنقاش مع الآخرين. تُنظَّم النقاشات على النحو التالي:</p>\r\n<ul>\r\n<li><strong>الأقسام</strong> تجمع منتديات موضوع واحد، وهي أجزاء الصفحة الرئيسية.</li>\r\n<li><strong>المنتديات</strong> هي أماكن مخصصة لموضوع محدد. ويمكن أن يحتوي المنتدى على منتديات فرعية.</li>\r\n<li><strong>المواضيع</strong> هي النقاشات داخل المنتدى. يبدأ الموضوع بمشاركة أولى وينمو بردود الأعضاء.</li>\r\n<li><strong>المشاركات</strong> (أو الرسائل) هي الإسهامات المفردة داخل الموضوع.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">الصفحة الرئيسية</h3>\r\n<p>تعرض الصفحة الرئيسية الأقسام مع منتدياتها. ترى لكل منتدى عدد المواضيع والمشاركات وآخر مشاركة. يمكنك طيّ القسم بالسهم المجاور لاسمه، ويتذكر المنتدى اختيارك. وبحسب المنتدى، تعرض الصفحة الرئيسية أيضًا <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (أحدث المشاركات) والإحصائيات والمتصلين الآن.</p>\r\n<h3 class=\"h6 mt-3\">الزوار والأعضاء</h3>\r\n<p>يستطيع الزوار قراءة المنتديات المفتوحة لهم. أما لكتابة المشاركات واستخدام الميزات الشخصية (الرسائل الخاصة، الأصدقاء، الإشعارات) وعرض بعض الصفحات (مثل قائمة الأعضاء أو الملفات الشخصية)، فتحتاج إلى حساب، راجع <a href=\"[[help:registration]]\">التسجيل</a>.</p>\r\n<p>ما يمكنك فعله في المنتدى (القراءة، بدء المواضيع، الرد، التصويت في الاستطلاعات، رفع الملفات، ...) يحدده المدير لكل منتدى ولكل مجموعة من الأعضاء. إذا لم ترَ زرًا موصوفًا في هذه المساعدة، فليس لديك صلاحية استخدامه في هذا المنتدى.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "المنتديات, المواضيع والمشاركات"
+            "#text": "شرح المنتدى"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "الاستخدام العام للمنتدى"
+            "@tag": "GETTINGSTARTED",
+            "#text": "البدء"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>عندما تُعدَّل مشاركة، تُظهر من عدّلها ومتى. انقر على زر السجل في هذا التنبيه لفتح <strong>[[MESSAGEHISTORY.TITLE]]</strong>: يسرد نسخ المشاركة مع التاريخ والشخص الذي عدّلها والسبب.</p>\r\n<ul>\r\n<li>حدّد نسختين وانقر على <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> لترى <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: يُميَّز النص المحذوف والنص المضاف.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> يعيدك إلى المشاركة.</li>\r\n</ul>\r\n<p>يمكن للمشرفين استعادة نسخة سابقة باستخدام <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. ويحتفظ المنتدى بالنسخ لعدد من الأيام يحدده المدير.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "سجل المشاركة"
           },
           {
             "@tag": "INDEX",
             "#text": "فِهرِس"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>انقر على <strong>[[TOOLBAR.LOGIN]]</strong> في الشريط العلوي وأدخل اسم المستخدم أو عنوان بريدك الإلكتروني وكلمة المرور.</p>\r\n<p>إذا فعّلت <strong>[[LOGIN.AUTO]]</strong>، تبقى مسجلًا الدخول لمدة شهر على هذا الحاسوب، حتى بعد إغلاق المتصفح. لا تستخدم هذا الخيار على حاسوب يستخدمه آخرون. وبدونه، يُسجَّل خروجك عند إغلاق المتصفح. لتسجيل الخروج، افتح قائمة المستخدم في الزاوية العلوية وانقر على <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">المصادقة الثنائية</h3>\r\n<p>تحمي المصادقة الثنائية حسابك حتى لو عرف أحد كلمة مرورك: فعند تسجيل الدخول يطلب المنتدى أيضًا رمزًا من تطبيق مصادقة على هاتفك.</p>\r\n<ol>\r\n<li>افتح <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (قائمة المستخدم، <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>انقر على <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>أضف حسابًا جديدًا في تطبيق المصادقة (مثل Microsoft Authenticator أو Google Authenticator) بمسح رمز QR أو بإدخال <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>أدخل الرمز الذي يعرضه التطبيق للتأكيد.</li>\r\n</ol>\r\n<p>من الآن فصاعدًا، يطلب تسجيل الدخول رمز التطبيق بعد كلمة المرور (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). ويمكنك إيقافها من الصفحة نفسها باستخدام <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">الحفاظ على أمان حسابك</h3>\r\n<ul>\r\n<li>استخدم كلمة مرور لا تستخدمها في أي مكان آخر. ويمكنك تغييرها باستخدام <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>لا يطلب المنتدى كلمة مرورك أبدًا عبر البريد الإلكتروني أو الرسائل الخاصة.</li>\r\n<li>إذا نسيت كلمة مرورك، راجع <a href=\"[[help:recover]]\">استعادة كلمة مرور مفقودة</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">بعد إدخال كلمة مرور خاطئة عدة مرات، يُقفل الحساب لبضع دقائق.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "تسجيل الدخول وأمان الحساب"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification' Preferences Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>افتح <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). في <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> تختار رسائل البريد الإلكتروني التي تتلقاها:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - لا رسائل بريد إلكتروني.</li>\r\n<li>إشعار للمواضيع التي شاركت فيها أو تابعتها - كل موضوع تشارك فيه يُتابَع تلقائيًا.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - فقط المواضيع والمنتديات التي تتابعها بنفسك.</li>\r\n</ul>\r\n<p>إذا كان المنتدى يوفر ذلك، يرسل <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> رسالة بريد إلكتروني واحدة يوميًا بالمشاركات الجديدة بدلًا من رسائل منفردة. انقر على <strong>[[COMMON.SAVE]]</strong> للحفظ.</p>\r\n<p>تسرد الصفحة نفسها <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> و<strong>[[SUBSCRIPTIONS.TOPICS]]</strong>، راجع <a href=\"[[help:subscriptions]]\">متابعة المواضيع والمنتديات</a>، والإشعارات الفورية لأجهزتك، راجع <a href=\"[[help:push]]\">الإشعارات الفورية والتطبيق</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "تفضيلات إعلام البريد الإلكتروني"
+            "#text": "تفضيلات الإشعارات"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p> تعرض قائمة الأعضاء الأعضاء المسجلين في مجلس الإدارة. "
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>تعرض قائمة الأعضاء الأعضاء المسجلين مع عدد مشاركاتهم وتاريخ انضمامهم وآخر زيارة لهم. يمكنك:</p>\r\n<ul>\r\n<li>ترتيبها حسب الاسم أو الرتبة أو تاريخ الانضمام أو عدد المشاركات أو آخر زيارة،</li>\r\n<li>عرض الأعضاء الذين تبدأ أسماؤهم بحرف معيّن،</li>\r\n<li>تصفيتها باستخدام <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> حسب الاسم أو الدور أو الرتبة أو عدد المشاركات.</li>\r\n</ul>\r\n<p>انقر على عضو لفتح ملفه الشخصي. وبحسب المنتدى، قد لا تُعرض القائمة إلا للأعضاء.</p>\r\n<h3 class=\"h6 mt-3\">المستخدمون النشطون</h3>\r\n<p>تُظهر الإحصائيات في الصفحة الرئيسية من المتصل الآن. وتعرض قائمة المستخدمين النشطين الأعضاء والزوار المتصلين الآن وأين هم في المنتدى. يمكن للأعضاء إخفاء أنفسهم من هذه القائمة في <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>، إذا سمح المنتدى بذلك.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>تسرد صفحة الفريق مديري المنتدى ومشرفيه مع المنتديات التي يشرفون عليها. تواصل معهم إذا احتجت إلى مساعدة.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "قائمة الأعضاء"
+            "#text": "الأعضاء والمستخدمون النشطون والفريق"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">الإشارة إلى عضو</h3>\r\n<p>اكتب <code>@</code> متبوعًا بالأحرف الأولى من اسم في المحرر واختر العضو من القائمة. يصبح الاسم رابطًا إلى الملف الشخصي، ويُبلَّغ العضو بأنك أشرت إليه (إذا كان يستخدم الإشعارات، راجع <a href=\"[[help:popups]]\">الإشعارات</a>).</p>\r\n<h3 class=\"h6 mt-3\">وسوم المواضيع</h3>\r\n<p>الوسوم كلمات مفتاحية للموضوع، مثل المنتج أو المسألة التي يدور حولها السؤال. أضفها في <strong>[[POSTTOPIC.TAGS]]</strong> عند بدء موضوع. تُعرض الوسوم مع الموضوع، والنقر على وسم يسرد جميع المواضيع التي تحمله. ويمكن للبحث أيضًا البحث عن الوسوم، راجع <a href=\"[[help:searching]]\">البحث</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "الإشارات والوسوم"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "الرسائل والإشعارات"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p> قد يتمكن الأعضاء المسجلون من إرسال رسائل إلى أعضاء آخرين في هذا المنتدى باستخدام نظام المراسلة الخاصة (إذا تم تمكينه بواسطة المسؤول).\r\n        "
+            "#text": "<p>الرسائل الخاصة محادثات بينك وبين عضو آخر، ولا يستطيع أحد غيركما قراءتها. افتح <strong>[[TOOLBAR.INBOX]]</strong> في قائمة المستخدم: ترى على جانب <strong>[[PM.CONVERSATION_TITLE]]</strong>، وعلى الجانب الآخر رسائل المحادثة المحددة.</p>\r\n<h3 class=\"h6 mt-3\">بدء محادثة</h3>\r\n<ul>\r\n<li>انقر على <strong>[[PM.NEW_CONVERSATION]]</strong>، واكتب ثلاثة أحرف على الأقل من الاسم واختر العضو.</li>\r\n<li>أو انقر على <strong>[[POSTS.PM]]</strong> في الملف الشخصي للعضو أو في قائمة المستخدم في مشاركة.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">الكتابة</h3>\r\n<p>اكتب رسالتك واضغط Enter لإرسالها، ويبدأ Shift+Enter سطرًا جديدًا. يمكنك استخدام رموز BB، مثلًا للنص الغامق أو الروابط. إذا كان العضو الآخر يفتح المحادثة في الوقت نفسه، تظهر الرسائل فورًا لدى الطرفين، وتُظهر المحادثة ما إذا كان العضو متصلًا.</p>\r\n<p>تُحتسب الرسائل الجديدة بجانب اسمك و<strong>[[TOOLBAR.INBOX]]</strong>، وعند فتح صفحة من صفحات المنتدى تسألك نافذة ما إذا كنت تريد قراءتها. لا توجد إشعارات بالبريد الإلكتروني للرسائل الخاصة.</p>\r\n<h3 class=\"h6 mt-3\">الحذف</h3>\r\n<p>يزيل <strong>[[PM.DELETE_CONVERSATION]]</strong> المحادثة من قائمتك، وتبقى لدى العضو الآخر.</p>\r\n<p class=\"text-body-secondary small\">لا يمكنك مراسلة الأعضاء الذين يحظرون الرسائل الخاصة أو يتجاهلونك (ما لم تكن صديقهم)، راجع <a href=\"[[help:blocking]]\">تجاهل المستخدمين وحظرهم</a>. ويمكن للمدير إيقاف الرسائل الخاصة.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "الرسائل الخاصة (Messenger)"
+            "#text": "الرسائل الخاصة"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>يرى المشرفون <strong>[[TOOLBAR.MODERATE]]</strong> في الشريط العلوي. تسرد الصفحة المنتديات التي تشرف عليها مع عدد <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> و<strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>في المنتديات الخاضعة للإشراف (وللأعضاء الذين يجب مراجعة مشاركاتهم) لا تظهر المشاركات الجديدة إلا بعد موافقة مشرف عليها. راجع المشاركة وانقر على <strong>[[MODERATE_FORUM.APPROVE]]</strong> أو احذفها.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>تعرض القائمة المشاركات المُبلَّغ عنها مع الأسباب ومن أبلغ عنها. اقرأ المشاركة (وسجلها إذا كانت قد عُدّلت)، واتخذ إجراءً إذا لزم الأمر (عدّل المشاركة أو احذفها، أو تحدّث مع كاتبها) وانقر على <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">إدارة المواضيع</h3>\r\n<ul>\r\n<li>في الموضوع، يوفر <strong>[[POSTS.MANAGE_TOPIC]]</strong> الخيارات <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong> و<strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> و<strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. ويمكن للموضوع المنقول أن يترك رابطًا في المنتدى القديم لبضعة أيام.</li>\r\n<li>يسرد <strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> جميع مواضيع المنتدى: حدّد عدة مواضيع واقفلها أو انقلها أو احذفها دفعة واحدة.</li>\r\n<li>تُعيَّن المواضيع المثبتة والإعلانات من <strong>[[POSTMESSAGE.PRIORITY]]</strong> عند تعديل المشاركة الأولى، والمواضيع الدائمة (التي لا يزيلها التنظيف التلقائي) من <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">إدارة المشاركات</h3>\r\n<ul>\r\n<li>يمكنك تعديل مشاركات الأعضاء الآخرين وحذفها. عند حذف مشاركة، يحذف <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> الردود عليها أيضًا.</li>\r\n<li>ينقل <strong>[[BUTTON.BUTTON_MOVE]]</strong> في قائمة المشاركة المشاركةَ إلى موضوع آخر أو يفصلها في موضوع جديد (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>، <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>في <a href=\"[[help:history]]\">سجل المشاركة</a> يمكنك استعادة نسخة سابقة من المشاركة.</li>\r\n<li>يمكنك الرد والتعديل في المواضيع المقفلة، ولا تُفحص مشاركاتك بحثًا عن الرسائل المزعجة.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">بحسب الإعدادات، يرى المشرفون أيضًا عناوين IP للمشاركات. أما تعديل الأعضاء وإيقافهم وحظرهم فيتولاه المديرون.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "دليل المشرف"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "المشرفون والمديرون"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p> يشرف المشرفون على منتديات معينة. "
+            "#text": "<p><strong>المديرون</strong> يديرون المنتدى: ينشئون المنتديات، ويقررون من يحق له فعل ماذا، ويُعدّون الميزات، ويديرون الأعضاء.</p>\r\n<p><strong>المشرفون</strong> يعتنون بمنتدى أو أكثر: يحافظون على النقاشات ضمن الموضوع وودية، ويراجعون المشاركات المُبلَّغ عنها، ويوافقون على المشاركات في المنتديات الخاضعة للإشراف، ويعدّلون المواضيع والمشاركات أو ينقلونها أو يقفلونها أو يحذفونها عند الحاجة. يظهر مشرفو المنتدى فوق قائمة مواضيعه (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>تسرد صفحة <strong>[[TOOLBAR.TEAM]]</strong> جميع المديرين والمشرفين (إذا كان المنتدى يعرضها). إذا واجهت مشكلة مع مشاركة، <a href=\"[[help:report]]\">أبلغ عنها</a>. ولأسئلة أخرى تواصل مع مشرف أو مدير برسالة خاصة.</p>\r\n<p>طريقة عمل المشرفين مشروحة في <a href=\"[[help:moderating]]\">دليل المشرف</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "المشرفين والإداريين"
+            "#text": "المشرفون والمديرون"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p> إذا قام المسؤول بتمكين ميزة الألبوم وكنت عضوًا لديه حق الوصول لإضافة ألبومات ، فيمكنك إنشاء ألبومات من الصور مرتبطة بملفك الشخصي العام. "
+            "#text": "<p>إذا كان المنتدى يستخدم الألبومات، يمكنك عرض صورك في ألبومات في ملفك الشخصي واستخدامها في مشاركاتك.</p>\r\n<ol>\r\n<li>افتح <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> في قائمة صفحات حسابك (أو <strong>[[TOOLBAR.MYALBUMS]]</strong> في قائمة المستخدم) وانقر على <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>أدخل عنوانًا وارفع الصور الأولى (يمكن رفع عدة صور دفعة واحدة).</li>\r\n</ol>\r\n<p>باستخدام <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> تضيف مزيدًا من الصور أو تحذفها، وتحذف الألبوم. وفي الألبوم يمكنك إضافة تعليقات للصور واختيار صورة الغلاف باستخدام <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>لعرض صورة من ألبوم في مشاركة، انقر على <strong>[[ALBUM.COPY_BBCODE]]</strong> أسفل الصورة والصق الرمز في المحرر.</p>\r\n<p class=\"text-body-secondary small\">عدد الألبومات والصور وحجم الصور محدود، وتعتمد الحدود على مجموعتك أو رتبتك وتُعرض في الصفحات.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "البومات"
+            "#text": "الألبومات"
+          },
+          {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>جميع الملفات التي رفعتها مدرجة في <strong>[[ATTACHMENTS.TITLE]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). ترى لكل ملف عدد المشاركات التي يُستخدم فيها، أو أنه غير مستخدم.</p>\r\n<p>حدّد ملفات واحذفها لتحرير المساحة، مثل الملفات التي رفعتها ولم تستخدمها. الملف المحذوف لا يظهر بعد ذلك في المشاركات التي تستخدمه.</p>\r\n<p>طريقة إضافة الملفات إلى المشاركات مشروحة في <a href=\"[[help:attachments]]\">المرفقات والصور</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "مرفقاتي"
           },
           {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p> <strong> ما هي الصور الرمزية؟ </ strong> </p>\r\n"
+            "#text": "<h3 class=\"h6\">الصورة الرمزية</h3>\r\n<p>الصورة الرمزية صورة صغيرة تظهر بجانب اسمك في مشاركاتك وملفك الشخصي. افتح <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). وبحسب المنتدى يمكنك:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - اختيار إحدى الصور الرمزية الخاصة بالمنتدى.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - رفع صورتك الخاصة (png أو jpg أو gif أو webp أو bmp أو svg). تُصغَّر الصور الكبيرة تلقائيًا، وتعرض الصفحة الحجم المسموح به.</li>\r\n</ul>\r\n<p>يزيل <strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> صورتك الرمزية. وبدون صورة رمزية، يعرض المنتدى صورة افتراضية.</p>\r\n<h3 class=\"h6 mt-3\">التوقيع</h3>\r\n<p>التوقيع نص قصير يظهر أسفل كل مشاركة من مشاركاتك، مثل شعار أو رابط إلى موقعك. افتح <strong>[[ACCOUNT.SIGNATURE]]</strong> في قائمة المستخدم. تعرض الصفحة الحد الأقصى للطول ورموز BB التي يمكنك استخدامها في التوقيع، ولا يُسمح باستخدام HTML. وتُظهر <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> كيف سيبدو.</p>\r\n<p class=\"text-body-secondary small\">يقرر المدير ما إذا كانت الصور الرمزية والتواقيع مستخدمة، وقد تعتمد الحدود على مجموعتك أو رتبتك.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "التواقيع, الصور الشخصية"
+            "#text": "الصورة الرمزية والتوقيع"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p> <strong> لوحة تحكم المستخدم </ strong> هي المكان الذي تتحكم فيه في إعداداتك وخياراتك وتفضيلاتك الشخصية. </ p>\r\n"
+            "#text": "<p>انقر على اسمك في الزاوية العلوية لفتح قائمة المستخدم:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - نظرة عامة على حسابك ونشاطك.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - جميع إعدادات حسابك (انظر أدناه).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - رسائلك الخاصة، راجع <a href=\"[[help:messenger]]\">الرسائل الخاصة</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - راجع <a href=\"[[help:buddies]]\">الأصدقاء</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - راجع <a href=\"[[help:myalbums]]\">الألبومات</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - راجع <a href=\"[[help:newposts]]\">عرض المشاركات الجديدة</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>تحسب الأرقام بجانب اسمك و<strong>[[TOOLBAR.INBOX]]</strong> و<strong>[[TOOLBAR.BUDDIES]]</strong> الرسائل غير المقروءة وطلبات الصداقة المعلّقة.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>تعرض الصفحة اسم المستخدم وعنوان البريد الإلكتروني وعدد المشاركات وتاريخ انضمامك، و<strong>[[ACCOUNT.ACTIVITY]]</strong>: مواضيعك وردودك والتفاعلات والصداقات، مع مرشّحات لكل نوع. ويعرض <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> ملفك الشخصي كما يراه الأعضاء الآخرون.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>الإعدادات مدرجة أيضًا على جانب جميع صفحات الحساب:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - المعلومات المتعلقة بك.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - عنوان البريد الإلكتروني، المنطقة الزمنية، اللغة، المصادقة الثنائية.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - الملفات التي رفعتها.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> و<a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - إشعارات البريد الإلكتروني والإشعارات الفورية، المواضيع والمنتديات المتابَعة.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - أدخل كلمة مرورك الحالية والجديدة مرتين.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">لا تظهر بعض العناصر إلا إذا كان المنتدى يستخدم الميزة (مثل الصور الرمزية أو التواقيع أو الألبومات).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "اعداداتي"
+            "#text": "حسابي"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "التنقل"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>يحتوي الشريط العلوي في كل صفحة على القائمة الرئيسية: <strong>[[TOOLBAR.SEARCH]]</strong> و<strong>[[TOOLBAR.MEMBERS]]</strong> و<strong>[[TOOLBAR.TEAM]]</strong> و<strong>[[TOOLBAR.HELP]]</strong> (لا تظهر جميعها في كل منتدى). يرى الزوار في طرف الشريط <strong>[[TOOLBAR.LOGIN]]</strong> و<strong>[[TOOLBAR.REGISTER]]</strong>. ويرى الأعضاء جرس الإشعارات وقائمة المستخدم باسمهم وصورتهم الرمزية، راجع <a href=\"[[help:mysettings]]\">حسابي</a>. أسفل الشريط العلوي، يعيدك مسار الصفحة الحالية (شريط التنقل) إلى المنتدى أو القسم.</p>\r\n<h3 class=\"h6 mt-3\">قائمة مواضيع المنتدى</h3>\r\n<p>انقر على منتدى لترى مواضيعه. تظهر المواضيع المثبتة والإعلانات أولًا. ويُحمَّل المزيد من المواضيع تلقائيًا عند التمرير إلى الأسفل. يحتوي الشريط فوق القائمة على:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - يعرض فقط المواضيع التي فيها مشاركات خلال الفترة المختارة (مثل اليوم الأخير أو منذ زيارتك الأخيرة).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - يبحث في مواضيع هذا المنتدى.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - ينتقل إلى منتدى آخر.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> و<strong>[[TOPICS.MARKREAD]]</strong> (للأعضاء).</li>\r\n</ul>\r\n<p>تدل الأيقونات أمام المواضيع على المشاركات الجديدة، والمواضيع الرائجة («الساخنة»)، والمواضيع المقفلة والمنقولة. ويشرحها مفتاح الرموز أسفل القائمة.</p>\r\n<h3 class=\"h6 mt-3\">داخل الموضوع</h3>\r\n<p>تُعرض المشاركات على صفحات، وأداة التنقل بين الصفحات أسفل المشاركات. باستخدام <strong>[[POSTS.PREVTOPIC]]</strong> و<strong>[[POSTS.NEXTTOPIC]]</strong> تنتقل إلى المواضيع المجاورة في المنتدى. ويفتح رابط المشاركة الموضوعَ عند تلك المشاركة.</p>\r\n<h3 class=\"h6 mt-3\">المشاركات الجديدة وحالة القراءة</h3>\r\n<p>تُميَّز المنتديات والمواضيع التي تحتوي على مشاركات لم تقرأها بعد. يمكن للأعضاء تعليم كل شيء كمقروء باستخدام <strong>[[DEFAULT.MARKALL]]</strong> في الصفحة الرئيسية، أو منتدى واحد باستخدام <strong>[[TOPICS.MARKREAD]]</strong>. أما مكان العثور على جميع المشاركات الجديدة دفعة واحدة فيشرحه <a href=\"[[help:newposts]]\">عرض المشاركات الجديدة</a>.</p>\r\n<h3 class=\"h6 mt-3\">التحديثات المباشرة</h3>\r\n<p>إذا كان المنتدى يستخدم التحديثات المباشرة، تظهر المواضيع والمشاركات الجديدة دون إعادة تحميل الصفحة. وفي الموضوع ترى التنبيه <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>، انقر عليه لعرض الرد الجديد.</p>\r\n<h3 class=\"h6 mt-3\">معلومات المستخدم</h3>\r\n<p>مرّر مؤشر الفأرة فوق اسم مستخدم لترى بطاقة قصيرة بمعلومات عن العضو، مثل الموقع وحالة الاتصال وتاريخ الانضمام. وبالنقر على الاسم يُفتح الملف الشخصي للعضو.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "التنقل في المنتدى"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>يجد الأعضاء المشاركات الجديدة في جميع المنتديات في <strong>[[TOOLBAR.MYTOPICS]]</strong> ضمن قائمة المستخدم. تحتوي الصفحة على أربع علامات تبويب:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - المواضيع التي فيها مشاركات جديدة منذ زيارتك الأخيرة.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - المواضيع التي لم يُرد عليها بعد.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - المواضيع التي تتابعها.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - المواضيع التي بدأتها.</li>\r\n</ul>\r\n<p>باستخدام مرشّح الوقت تختار الفترة، مثل الساعة الأخيرة أو الأسبوع الأخير أو جميع المواضيع. ويعلّم <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> جميع المواضيع كمقروءة.</p>\r\n<p>تعرض <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> في الصفحة الرئيسية أحدث المشاركات في جميع المنتديات، وللزوار أيضًا.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "عرض المشاركات الجديدة ومشاركات اليوم"
+            "#text": "عرض المشاركات الجديدة"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p> يمكنك الاتصال بآخر عن طريق إرسال بريد إلكتروني تجدهم في قائمة الأعضاء. </ p>\r\n"
+            "#text": "<p>يمكنك إرسال بريد إلكتروني إلى عضو عبر المنتدى: انقر على <strong>[[POSTS.EMAIL]]</strong> في الملف الشخصي للعضو (أو في صفحة الفريق)، وأدخل موضوعًا ورسالتك، ثم انقر على <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>يبقى عنوان البريد الإلكتروني للعضو مخفيًا عنك.</li>\r\n<li>تُرسل الرسالة باسم المستخدم الخاص بك وعنوان بريدك الإلكتروني <strong>الخاص بك</strong> كمرسل، ليتمكن العضو من الرد عليك مباشرة.</li>\r\n<li>لمنع الرسائل المزعجة، لا يمكنك إرسال إلا بضع رسائل بريد إلكتروني في الساعة.</li>\r\n</ul>\r\n<p>لا يمكنك إرسال بريد إلكتروني إلى الأعضاء الذين يحظرون البريد الإلكتروني أو يتجاهلونك (إلا إلى الأصدقاء)، ولا يمكن ذلك إلا إذا سمح المدير بالبريد الإلكتروني بين الأعضاء. وفي أغلب الحالات تكون <a href=\"[[help:messenger]]\">الرسالة الخاصة</a> هي الطريقة الأفضل.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "اتصال الأعضاء الآخرين"
+            "#text": "البريد الإلكتروني إلى الأعضاء"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p> <em> استطلاعات الرأي هي خيار للتصويت على قضية أو سؤال. </ em> </p>\r\n"
+            "#text": "<p>يطرح الاستطلاع على قراء الموضوع سؤالًا له عدة خيارات.</p>\r\n<h3 class=\"h6 mt-3\">إنشاء استطلاع</h3>\r\n<p>فعّل <strong>[[POLLEDIT.POLLADD]]</strong> في الخيارات عند بدء موضوع، فيُفتح محرر الاستطلاع بعد نشر الموضوع. وفي موضوع قائم، يرى صاحب الموضوع والمشرفون <strong>[[POLLEDIT.CREATEPOLL]]</strong> فوق المشاركات. للموضوع استطلاع واحد.</p>\r\n<ul>\r\n<li>أدخل السؤال وخيارين على الأقل، ويضيف <strong>[[POLLEDIT.ADD_CHOICE]]</strong> المزيد (حتى حد أقصى يحدده المدير).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - عدد الأيام التي يبقى فيها الاستطلاع مفتوحًا، اتركه فارغًا لاستطلاع بلا نهاية.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - يمكن للمصوّتين اختيار أكثر من إجابة.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - تُعرض أسماء المصوّتين مع النتائج.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - لا تُعرض النتائج إلا بعد انتهاء الاستطلاع.</li>\r\n<li>إذا سمح المنتدى بذلك، يمكن أن يكون للسؤال وللخيارات صورة (عنوان صورة).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">التصويت</h3>\r\n<p>انقر على زر اختيارك. لا يمكنك تغيير صوتك، فاختر بعناية. لا يستطيع الزوار التصويت ولا يرون النتائج.</p>\r\n<h3 class=\"h6 mt-3\">تغيير الاستطلاع</h3>\r\n<p>يمكن لمنشئ الاستطلاع تغييره باستخدام <strong>[[POLLEDIT.EDITPOLL]]</strong> ما دام لم يصوّت أحد (ما لم يسمح المنتدى بالتغيير لاحقًا)، وحذفه باستخدام <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. ويمكن للمشرفين دائمًا تغيير الاستطلاعات وحذفها.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "إنشاء ومشاركة في الإستطلاعات"
+            "#text": "الاستطلاعات"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p> عند تسجيل الدخول وتحميل الصفحة ، قد تتلقى إشعارًا منبثقًا في منتصف نافذة المتصفح. </ p>\r\n"
+            "#text": "<p>يعرض الجرس في الشريط العلوي إشعاراتك، ويحسب الرقم الأحمر غير المقروء منها. تُبلَّغ عندما:</p>\r\n<ul>\r\n<li>يشير إليك أحد (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) أو يقتبس منك (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>)،</li>\r\n<li>يتفاعل أحد مع إحدى مشاركاتك،</li>\r\n<li>يُضاف رد جديد في موضوع تتابعه أو موضوع جديد في منتدى تتابعه،</li>\r\n<li>يصبح لديك صديق جديد.</li>\r\n</ul>\r\n<p>انقر على إشعار لفتح المشاركة. يفتح <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> قائمة جميع الإشعارات، مع مرشّح حسب النوع و<strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>الإشعارات جزء من سجل النشاط: يمكنك إيقافها في <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">تنبيهات أخرى</h3>\r\n<ul>\r\n<li>تُحتسب الرسائل الخاصة الجديدة وطلبات الصداقة بجانب اسمك. وعند فتح صفحة، تسألك نافذة ما إذا كنت تريد قراءتها.</li>\r\n<li>تظهر رسائل المنتدى (مثل «تم الحفظ») لبضع ثوانٍ في أعلى الصفحة.</li>\r\n<li>يمكن إرسال الإشعارات أيضًا بالبريد الإلكتروني وإلى متصفحك أو هاتفك، راجع <a href=\"[[help:mailsettings]]\">تفضيلات الإشعارات</a> و<a href=\"[[help:push]]\">الإشعارات الفورية والتطبيق</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "إخطارات منبثقة"
+            "#text": "الإشعارات"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p> عند نشر رسائل ، قد ترغب في تضمين بعض التنسيقات مثل النص الغامق والنص المائل والنص الذي تحته خط. </ p>\r\n"
+            "#text": "<p>افتح المنتدى الذي ينتمي إليه الموضوع وانقر على <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. إذا لم ترَ الزر، فغير مسموح لك ببدء مواضيع في هذا المنتدى (أو أنك لم تسجّل الدخول).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - عنوان الموضوع، وهو مطلوب. أثناء الكتابة يعرض المنتدى <strong>[[POSTS.SIMILAR_TOPICS]]</strong>، فربما أُجيب عن سؤالك من قبل.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - وصف قصير اختياري.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - كلمات مفتاحية اختيارية، يستطيع الأعضاء الآخرون العثور على المواضيع من خلال وسومها.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - فقط للأعضاء الذين يملكون هذه الصلاحية، راجع <a href=\"[[help:anounce]]\">الإعلانات والمواضيع المثبتة</a>.</li>\r\n<li>نص الرسالة نفسه، في المحرر.</li>\r\n</ul>\r\n<p>في <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> يمكنك إضافة استطلاع (<strong>[[POLLEDIT.POLLADD]]</strong>، راجع <a href=\"[[help:polls]]\">الاستطلاعات</a>) ومتابعة الموضوع (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). انقر على <strong>[[POSTMESSAGE.PREVIEW]]</strong> لمراجعة مشاركتك، وعلى <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> لنشرها.</p>\r\n<h3 class=\"h6 mt-3\">المحرر</h3>\r\n<p>بحسب المنتدى، يعرض المحرر التنسيق أثناء الكتابة، أو رموز BB (وسوم قصيرة مثل <code>[b]غامق[/b]</code>). تُنسّق أزرار شريط الأدوات النص: حدّد النص وانقر على الزر، مثلًا للنص الغامق أو الرابط أو الاقتباس أو القائمة. جميع رموز BB ونتائجها مدرجة في <a href=\"[[help:bbcodes]]\">رموز BB</a>.</p>\r\n<ul>\r\n<li>اكتب <code>@</code> ثم اسمًا للإشارة إلى عضو، راجع <a href=\"[[help:mentions]]\">الإشارات والوسوم</a>.</li>\r\n<li>تُضاف الملفات والصور بزر المرفقات، راجع <a href=\"[[help:attachments]]\">المرفقات والصور</a>.</li>\r\n<li>في محرر رموز BB، تُنسّق Ctrl+B وCtrl+I وCtrl+U النص المحدد، وترسل Ctrl+Enter المشاركة.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">من المفيد أن تعرف</h3>\r\n<ul>\r\n<li>الزوار (إذا سُمح لهم بالنشر) يُدخلون اسمًا في <strong>[[POSTMESSAGE.FROM]]</strong>، ويجب ألا يكون اسم عضو مسجل.</li>\r\n<li>لمنع الرسائل المزعجة، عليك الانتظار بضع ثوانٍ بين مشاركتين، وللمشاركة حد أقصى للطول.</li>\r\n<li>في بعض المنتديات يراجع المشرف المشاركات أولًا. وتظهر مشاركتك بعد الموافقة عليها.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "نشر المواضيع الجديدة والمشاركات"
+            "#text": "بدء موضوع جديد"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "الاعداد ومميزات الملف الشخصي"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>باستخدامك المنتدى فإنك توافق على قواعده. تحتوي صفحة <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> على القواعد وسياسة الخصوصية: ما البيانات الشخصية التي يخزنها المنتدى، ولأي أغراض، وما حقوقك (مثل الحصول على معلومات عن بياناتك أو طلب حذفها).</p>\r\n<p>تسرد صفحة <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> ملفات تعريف الارتباط في المنتدى، والغرض منها، ومدة الاحتفاظ بها. وعند زيارتك المنتدى لأول مرة، يُعلمك إشعار بملفات تعريف الارتباط.</p>\r\n<p>لا يعرض ملفك الشخصي إلا المعلومات التي تُدخلها، ولا يُعرض عنوان بريدك الإلكتروني أبدًا للأعضاء الآخرين. يمكنك إخفاء نفسك من قائمة المستخدمين النشطين (إذا سمح المنتدى بذلك)، وحظر الرسائل الخاصة والبريد الإلكتروني، وحذف حسابك، راجع <a href=\"[[help:blocking]]\">تجاهل المستخدمين وحظرهم</a> و<a href=\"[[help:deleteaccount]]\">إيقاف حسابك مؤقتًا أو حذفه</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "الخصوصية وملفات تعريف الارتباط والقواعد"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p> كعضو لديك صفحة ملف شخصي قابلة للعرض بشكل عام. "
+            "#text": "<p>انقر على اسم عضو (مثلًا في مشاركة أو في قائمة الأعضاء) لفتح ملفه الشخصي. وبحسب المنتدى، قد لا تُعرض الملفات الشخصية إلا للأعضاء. يُفتح ملفك الشخصي باستخدام <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> في <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>يعرض الملف الشخصي:</p>\r\n<ul>\r\n<li>الصورة الرمزية للعضو واسمه ورتبته وأوسمته، والمعلومات من ملفه الشخصي (مثل الموقع وتاريخ الميلاد والمهنة والاهتمامات)،</li>\r\n<li>عدد المشاركات وعدد التفاعلات المقدَّمة والمتلقاة،</li>\r\n<li>السمعة (إذا كان المنتدى يستخدمها)،</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>، مع <strong>[[PROFILE.SEARCHUSER]]</strong>،</li>\r\n<li>أصدقاء العضو وألبوماته.</li>\r\n</ul>\r\n<p>تتيح لك أزرار الملف الشخصي <strong>[[BUDDY.ADDBUDDY]]</strong>، وإرسال رسالة خاصة (<strong>[[POSTS.PM]]</strong>) أو بريد إلكتروني (<strong>[[POSTS.EMAIL]]</strong>)، وفتح موقع العضو أو مدونته. ولا يُعرض عنوان البريد الإلكتروني للعضو أبدًا.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "ملفي الشخصي العام"
+            "#text": "الملفات الشخصية"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "قراءة وإرسال الرسائل"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>تعرض الإشعارات الفورية الردود الجديدة في المواضيع المتابَعة والإشعارات الأخرى على حاسوبك أو هاتفك، حتى عندما لا يكون المنتدى مفتوحًا.</p>\r\n<ol>\r\n<li>افتح <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> في قائمة المستخدم (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>في <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> انقر على <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> واسمح بالإشعارات عندما يسألك المتصفح.</li>\r\n</ol>\r\n<p>تُضبط الإشعارات الفورية لكل جهاز ومتصفح على حدة. ويوقفها <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> على هذا الجهاز. تُرسل الإشعارات عبر خدمة الإشعارات الفورية في متصفحك (مثل خدمة Google أو Mozilla أو Apple أو Microsoft) وتكون مشفرة.</p>\r\n<h3 class=\"h6 mt-3\">تثبيت المنتدى كتطبيق</h3>\r\n<p>يمكنك تثبيت المنتدى كتطبيق، بأيقونة خاصة به على شاشتك الرئيسية أو سطح المكتب: انقر على <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> في الصفحة نفسها، أو استخدم ميزة التثبيت في متصفحك. على iPhone وiPad لا تعمل الإشعارات الفورية إلا في التطبيق المثبت: اضغط على «مشاركة»، ثم <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>، وافتح المنتدى من الشاشة الرئيسية ثم فعّل الإشعارات.</p>\r\n<p class=\"text-body-secondary small\">لا يظهر هذا القسم إلا إذا كان المدير قد أعدّ الإشعارات الفورية.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "الإشعارات الفورية والتطبيق"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "القراءة"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "اذا نسيت كلمة المرور, you can click on the \"<a href=\"{0}\">Lost Password</a>\"\r\nlink. هذا سوف يظهر في أي صفحة تحتاج منك  تعبئة كلمة المرور. </p>\r\np>هذا الرابط يجلب لك صفحة التي تطلب منك ادخال اسم المستخدم. An email will\r\n  be sent to that address shortly, with instructions for resetting your password.</p>\r\n  <p> منذ أن كانت كلمة المرور مشفرة  , لا يوجد هناك طريقة لاعادة ارسال كلمة المرور الأصلية.\r\n  هذا الخيار يزودك القدرة  على اعادة تغيير كلمة المرور.  </p>\r\n<p>You must be able to receive emails to your registered email address for this to\r\n  work. You may need to check your spam filters and folder if you do not see this\r\n  email in a few minutes. </p>"
+            "#text": "<p>إذا نسيت كلمة مرورك، يمكنك تعيين كلمة مرور جديدة:</p>\r\n<ol>\r\n<li>انقر على <strong>[[LOGIN.LOSTPASSWORD]]</strong> بجانب حقل كلمة المرور في <a href=\"[[page:Account_Login]]\">صفحة تسجيل الدخول</a> أو في نافذة تسجيل الدخول.</li>\r\n<li>أدخل اسم المستخدم أو عنوان بريدك الإلكتروني وانقر على <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>إذا وُجد حساب بهذا الاسم أو العنوان، يرسل إليك المنتدى رسالة بريد إلكتروني تحتوي على رابط. وحفاظًا على خصوصيتك، تعرض الصفحة الرسالة نفسها في كل الأحوال.</li>\r\n<li>يفتح الرابط صفحة تُدخل فيها عنوان بريدك الإلكتروني وكلمة مرورك الجديدة مرتين.</li>\r\n</ol>\r\n<p>الرابط صالح لفترة محدودة فقط. وإذا لم تكن قد أكدت عنوان بريدك الإلكتروني بعد، تصلك بدلًا من ذلك رسالة تأكيد جديدة. ولا يرسل المنتدى أكثر من بضع رسائل من هذا النوع في الساعة.</p>\r\n<p>تُخزَّن كلمات المرور بصيغة لا يمكن استرجاعها، لذا لا يستطيع أحد (ولا حتى المدير) أن يخبرك بكلمة مرورك القديمة.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "استعادة كلمة المرور"
+            "#text": "استعادة كلمة مرور مفقودة"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p> ربما سيطلب منك المسؤول التسجيل من أجل استخدام جميع ميزات المنتدى. "
+            "#text": "<p>كثير من ميزات المنتدى متاحة للأعضاء فقط، مثل كتابة المشاركات والرسائل الخاصة والأصدقاء ومتابعة المواضيع والإشعارات. لتصبح عضوًا، انقر على <strong>[[TOOLBAR.REGISTER]]</strong> في الشريط العلوي (إذا كان المدير يسمح بالتسجيلات الجديدة).</p>\r\n<ol>\r\n<li>إذا طلب المنتدى ذلك، اقرأ <strong>[[RULES.TITLE]]</strong> وانقر على <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>أدخل اسم مستخدم وعنوان بريدك الإلكتروني وكلمة مرور (مرتين). وبحسب المنتدى، تُدخل أيضًا اسمًا للعرض ومعلومات إضافية يطلبها المدير.</li>\r\n<li>انقر على <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>يعرض المنتدى <strong>[[REGISTER.CHECK_MAIL]]</strong> ويرسل إليك رسالة بريد إلكتروني. انقر على الرابط في هذه الرسالة لتأكيد عنوانك. بعدها يصبح حسابك نشطًا ويمكنك تسجيل الدخول.</li>\r\n</ol>\r\n<p>إذا لم تصلك الرسالة، فتحقق من مجلد البريد العشوائي. وإذا حاولت تسجيل الدخول قبل تأكيد عنوانك، تخبرك صفحة تسجيل الدخول بذلك وتعرض <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>في بعض المنتديات يجب أن يوافق المدير على الحسابات الجديدة أولًا، وتُبلَّغ بالبريد الإلكتروني عند الموافقة على حسابك.</p>\r\n<p>بعد التسجيل يمكنك إكمال ملفك الشخصي، راجع <a href=\"[[help:editprofile]]\">تعديل ملفك الشخصي</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p> في بعض المنتديات ، قد تتمكن من النشر والرد كمستخدم ضيف. "
+            "#text": "<p>للرد على موضوع، انقر على <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> فوق المشاركات أو أسفلها، أو على <strong>[[BUTTON.BUTTON_REPLY]]</strong> أسفل مشاركة. تعرض صفحة الرد <strong>[[POSTMESSAGE.LAST10]]</strong> في الموضوع أسفل المحرر، لتتمكن من قراءتها أثناء الكتابة.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>للإجابة القصيرة استخدم مربع الرد السريع أسفل المشاركات، أو زر <strong>[[POSTS.QUICKREPLY]]</strong> في المشاركة. اكتب نصك وانقر على <strong>[[COMMON.POST]]</strong>. وللمحرر الكامل (مثلًا لإرفاق ملفات) انقر على <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">الاقتباس</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> أسفل مشاركة يبدأ ردًا يتضمن نص هذه المشاركة كاقتباس.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> يجمع عدة مشاركات، حتى من صفحات أخرى في الموضوع. ثم انقر على <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> في إحداها، فيقتبس الرد جميع المشاركات المجمّعة.</li>\r\n<li>لاقتباس جزء فقط، حدّد النص في المشاركة، وانقر عليه بزر الفأرة الأيمن واختر <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>اختصر الاقتباسات الطويلة إلى الجزء الذي ترد عليه. ويُبلَّغ العضو الذي اقتبست منه.</p>\r\n<p>لا يمكنك الرد إلا إذا كان مسموحًا لك بذلك في هذا المنتدى، ولا يمكنك الرد في موضوع مقفل. ولا يستطيع الزوار الرد إلا إذا سمح المنتدى بذلك.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "رد على المشاركة"
+            "#text": "الرد والاقتباس"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>إذا خالفت مشاركة قواعد المنتدى (مثل الرسائل المزعجة أو الإهانات أو المحتوى غير القانوني)، فيُرجى إبلاغ المشرفين عنها بدلًا من الرد عليها:</p>\r\n<ol>\r\n<li>افتح قائمة المشاركة (النقاط الثلاث في أعلاها) واختر <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>أدخل سبب إبلاغك عن المشاركة.</li>\r\n<li>انقر على <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>يراجع مشرفو المنتدى المشاركة المُبلَّغ عنها ويقررون ما يجب فعله. لا يرى الكاتب من أبلغ عن المشاركة. وبحسب المنتدى، قد يقتصر الإبلاغ عن المشاركات على الأعضاء.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "الإبلاغ عن مشاركة"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p> يتم توفير الخلاصات حاليًا بتنسيقين ، RSS و Atom. </p>\r\n"
+            "#text": "<p>تتيح لك الخلاصات متابعة المنتدى في تطبيق قارئ خلاصات، دون زيارة المنتدى. يوفر المنتدى خلاصات Atom لما يلي:</p>\r\n<ul>\r\n<li>أحدث المشاركات (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> في الصفحة الرئيسية)،</li>\r\n<li>مواضيع منتدى ما (زر الخلاصة في الشريط فوق قائمة المواضيع)،</li>\r\n<li>مشاركات موضوع ما (<strong>[[POSTS.TOOLS]]</strong>، <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>انسخ عنوان الخلاصة إلى قارئ الخلاصات لديك. يحدد المدير ما إذا كان المنتدى يوفر الخلاصات ومن يمكنه استخدامها (غالبًا الأعضاء فقط). إذا لم ترَ زر الخلاصة، فالخلاصات غير متاحة لك.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "ملخصات "
+            "#text": "الخلاصات"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p> للعثور سريعًا على سلسلة رسائل أو مشاركة مهمة في أي مكان بالمنتديات ، انقر على رابط \"بحث\" في العنوان. "
+            "#text": "<p>انقر على <strong>[[TOOLBAR.SEARCH]]</strong> في الشريط العلوي، وأدخل بضعة أحرف على الأقل، ثم اضغط Enter أو انقر على <strong>[[SEARCH.BTNSEARCH]]</strong>. تتيح لك خيارات البحث:</p>\r\n<ul>\r\n<li>البحث عن مشاركات أو مواضيع أو منتديات،</li>\r\n<li>البحث في مشاركات عضو معيّن فقط،</li>\r\n<li>البحث عن المواضيع التي تحمل وسمًا معيّنًا،</li>\r\n<li>مطابقة العبارة كما هي، أو أي كلمة من الكلمات، أو جميع الكلمات،</li>\r\n<li>البحث في بعض المنتديات فقط،</li>\r\n<li>البحث في نص المشاركات كاملًا أو في العناوين فقط،</li>\r\n<li>اختيار عدد النتائج في كل صفحة.</li>\r\n</ul>\r\n<p>لا يجد البحث إلا ما يُسمح لك بقراءته. طرق أخرى للبحث:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> فوق قائمة المواضيع يبحث في منتدى واحد.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> في قائمة المشاركة أو في الملف الشخصي يسرد مشاركات هذا العضو.</li>\r\n<li>الوسم أسفل عنوان الموضوع يعرض جميع المواضيع التي تحمل هذا الوسم.</li>\r\n<li>حدّد نصًا في مشاركة وانقر عليه بزر الفأرة الأيمن للبحث عن الكلمات المحددة.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "بحث في المنتديات والمواضيع "
+            "#text": "البحث"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>عندما تتابع موضوعًا أو منتدى، تُبلَّغ بالمشاركات الجديدة: في إشعارات المنتدى، و(بحسب <a href=\"[[help:mailsettings]]\">تفضيلات الإشعارات</a> لديك) بالبريد الإلكتروني والإشعارات الفورية.</p>\r\n<ul>\r\n<li><strong>موضوع:</strong> انقر على <strong>[[POSTS.TOOLS]]</strong> أسفل عنوان الموضوع ثم على <strong>[[POSTS.WATCHTOPIC]]</strong>. ويمكنك أيضًا تفعيل <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> عند كتابة مشاركة.</li>\r\n<li><strong>منتدى:</strong> انقر على <strong>[[TOPICS.WATCHFORUM]]</strong> في الشريط فوق قائمة المواضيع. تُبلَّغ بالمواضيع الجديدة في هذا المنتدى.</li>\r\n<li><strong>جميع المنتديات:</strong> انقر على <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> في الصفحة الرئيسية.</li>\r\n</ul>\r\n<p>لإيقاف المتابعة، انقر على <strong>[[POSTS.UNWATCHTOPIC]]</strong> أو <strong>[[TOPICS.UNWATCHFORUM]]</strong>. وفي <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> تجد جميع <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> و<strong>[[SUBSCRIPTIONS.TOPICS]]</strong>، حدّد بعضها وانقر على <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> لإيقاف متابعتها.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "الاشتراكات والإخطارات"
+            "#text": "متابعة المواضيع والمنتديات"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.</p>\r\n<p>How to give a User a Thanks?</p>\r\n<p>If you want to give an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.</p>\r\n<p><strong>View all Thanks</strong></p>\r\n<p>If you want to view all Posts you gave Thank, or show the list of posts you received thanks got to the page  Personal Profile -&gt; 'View Thanks' from within the User Control Panel. There you see Two Tabs...</p>\r\n<ul>\r\n  <li> <strong>Your Name thanked</strong> - Shows the List of Messages where you gave a thank.</li>\r\n  <li><strong>Your Name was thanked -</strong> Shows the List your Messages where you received thanks.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">التفاعلات</h3>\r\n<p>بالتفاعل تُظهر لكاتب المشاركة أنها أعجبتك، دون أن تكتب ردًا. انقر على زر الوجه المبتسم (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) أسفل المشاركة واختر <strong>[[BUTTON.REACTION_LIKE]]</strong> أو <strong>[[BUTTON.REACTION_LOVE]]</strong> أو <strong>[[BUTTON.REACTION_LAUGH]]</strong> أو <strong>[[BUTTON.REACTION_HOORAY]]</strong> أو <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>انقر على تفاعلك مرة أخرى لإزالته، أو على تفاعل آخر لتغييره.</li>\r\n<li>تُعرض تفاعلات المشاركة مع أعدادها، مرّر مؤشر الفأرة فوقها لترى من تفاعل.</li>\r\n<li>لا يمكنك التفاعل مع مشاركاتك أنت، ولا مع المشاركات المحذوفة، ولا في المواضيع المقفلة.</li>\r\n<li>يُبلَّغ الكاتب، وتُحتسب التفاعلات في الملف الشخصي (الشكر المقدَّم والمتلقى).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">السمعة</h3>\r\n<p>إذا كان المنتدى يستخدم نظام السمعة، تُعرض سمعة العضو كشريط في ملفه الشخصي. ويمكن للأعضاء الذين لديهم سمعة كافية أن يزيدوا (+1) أو ينقصوا (-1) سمعة عضو آخر من قائمة المستخدم في المشاركة.</p>\r\n<h3 class=\"h6 mt-3\">الإجابة عن سؤال</h3>\r\n<p>يمكن للعضو الذي بدأ الموضوع أن يعلّم الرد الذي أجاب عن سؤاله باستخدام <strong>[[POSTS.MARK_ANSWER]]</strong>. فتحصل المشاركة على شارة الإجابة، ليجد القراء الآخرون الحل بسرعة.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "شكرا ميزة"
+            "#text": "التفاعلات والسمعة"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p> في أعلى كل موضوع ، يوجد ارتباط \"خيارات\". "
+            "#text": "<p>يحتوي الشريط أسفل عنوان الموضوع على أدوات الموضوع:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - يرسل رابط الموضوع إلى شخص ما بالبريد الإلكتروني (للأعضاء فقط).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - ينسخ عنوان الموضوع، مثلًا لوضع رابط له في موقع آخر.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - تُبلَّغ بالردود الجديدة، راجع <a href=\"[[help:subscriptions]]\">متابعة المواضيع والمنتديات</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - يعرض الموضوع بنسخة مناسبة للطباعة.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - خلاصة الموضوع، إذا كان المنتدى يوفر الخلاصات، راجع <a href=\"[[help:rss]]\">الخلاصات</a>.</li>\r\n</ul>\r\n<p>يرى المشرفون أيضًا <strong>[[POSTS.MANAGE_TOPIC]]</strong> لنقل الموضوع أو قفله أو حذفه، راجع <a href=\"[[help:moderating]]\">دليل المشرف</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "خيارات الموضوع"
+            "#text": "أدوات الموضوع"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "هنا تجد الأجوبة عن الأسئلة حول كيفية عمل المجلس . ستخدم الروابط في اليسار أو صندوق البحث في الأسفل لايجاد ما تبحث عنه. "
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "الكتابة"
           }
         ]
       },

@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Joondab teksti vasakule, keskele või paremale märgenditega <code>[left]</code>, <code>[center]</code> ja <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Keskele joondatud tekst[/center]\r\n[right]Paremale joondatud tekst[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Joondus"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Muudab teksti paksuks."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]See tekst on paks[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Paks kiri"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Näitab programmikoodi koos reavahetuste ja tühikutega, selle sees olevaid BB-koode ei vormindata."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Värvib programmeerimiskeele koodi, nt csharp, javascript, python, sql, css või markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Kood süntaksi esiletõstmisega"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Kood"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Värvib teksti. Kasutage värvi nime või värvikoodi."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Punane tekst[/color] ja [color=#0d6efd]sinine tekst[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Teksti värv"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Need BB-koodid manustavad sisu (nt videoid või teiste veebisaitide postitusi) või manuseid. Kirjutage märgendite vahele aadress või number."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Link, mis alustab sellele aadressile e-kirja kirjutamist."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "E-posti aadress"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Nurksulgudes emoji lühikoodid ja emotikonid nagu :) muutuvad emojideks."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Näitab teksti teise fondiga, kui see font on lugeja seadmes saadaval."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Tekst fondis Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Font"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Selle foorumi muud BB-koodid"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Näitab teksti ainult liikmetele või märgendiga <code>[group-hide=Role1;Role2]</code> ainult nende rollide liikmetele."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Seda teksti näevad ainult liikmed.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Peidetud rühmade eest"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Paigutus"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Lingid ja pildid"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Loendid"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Tsitaadid ja kood"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Liikmed, spoilerid ja peidetud sisu"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Teksti vormindamine"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Peidab teksti, kuni lugeja postitusele reageerib. Autor ja administraatorid näevad seda alati."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Peidetud tekst.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Peidab teksti liikmete eest, kes on kirjutanud vähem postitusi kui antud arv."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Peidetud tekst.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Peidetud vähese postituste arvu korral"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Peidab teksti, kuni lugeja teemas vastab."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Peidetud tekst.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Peidab teksti, kuni lugeja teemas vastab või postitusele reageerib."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Peidetud tekst.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Peidetud kuni vastuse või reaktsioonini"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Peidetud kuni vastuseni"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Peidab teksti liikmete eest, kes on saanud vähem reaktsioone kui antud arv."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Peidetud tekst.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Peidetud vähese reaktsioonide arvu korral"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Peidetud kuni reaktsioonini"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Neli või rohkem kriipsu eraldi real joonistavad horisontaaljoone."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Tekst joone kohal\r\n----\r\nTekst joone all"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Horisontaaljoon"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Tõstab teksti esile nagu markeriga."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]See tekst on esile tõstetud[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Esiletõstmine"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Näitab pilti internetist. Aadress peab lõppema pildi tüübiga (nt .png või .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Pilt kirjeldusega, mida näidatakse, kui hiir on pildi kohal, ja mida ekraanilugejad ette loevad."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]YAF.NET logo[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Pilt kirjeldusega"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Pilt"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Taandab teksti."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Taandatud tekst[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Taane"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Muudab teksti kaldkirjaks."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]See tekst on kaldkirjas[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Kaldkiri"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Täppidega loend. Iga punkt algab uuel real märgendiga <code>[*]</code>."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Esimene punkt\r\n[*]Teine punkt\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Nummerdatud loend. Tähtede jaoks kasutage <code>[list=a]</code> või <code>[list=A]</code>, rooma numbrite jaoks <code>[list=i]</code> või <code>[list=I]</code>."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Esimene samm\r\n[*]Teine samm\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Nummerdatud loend"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Loend"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Näitab BB-koode sellisena, nagu need on, neid vormindamata."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]mitte paks[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Ilma vorminguta"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Näitab teksti värvilises kastis. Tüübid on primary, secondary, success, danger, warning, info, light ja dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Märkus teabega.[/note]\r\n[note=warning]Hoiatus.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Märkus"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Näitab teksti tsitaadina. Postituste tsiteerimisnupud lisavad selle teie eest."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Tsiteeritud tekst.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Tsitaat koos selle autori nimega."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Tsiteeritud tekst.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Tsitaat autoriga"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Tsitaat"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Tulemus"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Muudab teksti suurust vahemikus 1 (väga väike) kuni 9 (väga suur). 5 on tavaline suurus."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Väike[/size] [size=5]Tavaline[/size] [size=7]Suur[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Teksti suurus"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Peidab teksti, kuni lugeja nupul klõpsab, nt filmi lõpu jaoks."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Mõrvar oli aednik.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Kriipsutab teksti läbi, nt millegi puhul, mis enam ei kehti."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]See tekst on läbi kriipsutatud[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Läbikriipsutus"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Loob tabeli: <code>[tr]</code> on rida, <code>[td]</code> rea lahter."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Nimi[/td][td]Postitused[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Tabel"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Veebisaitide aadressid muutuvad automaatselt linkideks. Saate need panna ka märgendisse <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Link, mis näitab aadressi asemel teksti."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]YAF.NET veebisait[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Link tekstiga"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Link"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Link liikme profiilile. Kui sisestate redaktoris @, luuakse see teie eest ja liiget teavitatakse."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Link liikmele"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Kriipsutab teksti alla."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]See tekst on alla kriipsutatud[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Allakriipsutus"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Teie sisestate"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Teie konto"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Teated on administraatori või moderaatorite postitatud eriteated. "
+            "#text": "<p>Mõned teemad on teistest olulisemad:</p>\r\n<ul>\r\n<li><strong>Kleebitud teemad</strong> püsivad oma foorumi teemade loendi alguses, nt foorumi reeglid või korduma kippuvad küsimused.</li>\r\n<li><strong>Teadaanded</strong> on oluline teave, neid näidatakse samuti teemade loendi alguses ja need on märgitud märgiga.</li>\r\n</ul>\r\n<p>Kes neid luua saab, määrab administraator (tavaliselt moderaatorid ja administraatorid). Nad valivad selle teema kirjutamisel või muutmisel valikuga <strong>[[POSTMESSAGE.PRIORITY]]</strong>. Kleebitud teemadele ja teadaannetele saate vastata nagu igale teisele teemale, välja arvatud juhul, kui teema on lukustatud.</p>\r\n<h3 class=\"h6 mt-3\">Foorumi teadaanded</h3>\r\n<p>Administraator saab näidata teadaannet ka foorumi igal lehel, nt plaanitud hoolduse kohta. Saate selle sulgeda paremal oleva nupuga.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Teated"
+            "#text": "Teadaanded ja kleebitud teemad"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Hele ja tume režiim</h3>\r\n<p>Päises olev värvirežiimi nupp lülitab režiimide <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> ja <strong>[[THEME_MODE.AUTO]]</strong> (teie seadme režiim) vahel. Foorum jätab teie valiku selles brauseris meelde.</p>\r\n<h3 class=\"h6 mt-3\">Kujundus ja keel</h3>\r\n<p>Kui administraator seda lubab, saate jaotises <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> valida teise kujunduse ja foorumi keele. Olenevalt foorumist saab keelt muuta ka päises.</p>\r\n<h3 class=\"h6 mt-3\">Ajavöönd ja lehe suurus</h3>\r\n<p>Kõiki kuupäevi ja kellaaegu näidatakse teie ajavööndis. Määrake see jaotises <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Hiljutisi aegu näidatakse nt kujul „5 minutit tagasi“.</p>\r\n<p>Samal lehel olev <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> määrab, mitu kirjet foorumi loendid ühel lehel näitavad.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Välimus ja keel"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Kui teil on foorumis lubatud faile üles laadida, saate oma postitustele faile ja pilte lisada:</p>\r\n<ul>\r\n<li>Lohistage fail redaktorisse või (vormingut näitavas redaktoris) kleepige pilt.</li>\r\n<li>Või klõpsake tööriistariba manuste nupul (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). Dialoogis saate faile sinna lohistada või valida need nupuga <strong>[[ATTACHMENTS.ADD_FILES]]</strong> ning jaotises <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> on loetletud teie varem üles laaditud failid: klõpsake ühel, et see uuesti lisada.</li>\r\n</ul>\r\n<p>Dialoog näitab valikut <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> ja, kui see on määratud, maksimaalset failisuurust. Kiirvastusel pole manuseid, kasutage täielikku redaktorit.</p>\r\n<p>Pilte näidatakse postituses eelvaatena, klõpsake sellel, et näha täissuuruses pilti (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Muid faile ja väga suuri pilte näidatakse lingina koos suuruse ja allalaadimiste arvuga. Allalaadimiseks võib olla vaja õigust, mille foorum annab ainult liikmetele.</p>\r\n<h3 class=\"h6 mt-3\">Pildid teistelt veebisaitidelt</h3>\r\n<p>Pildi näitamiseks internetist klõpsake <strong>[[COMMON.TT_IMAGE]]</strong> ja sisestage selle aadress või kirjutage <code>[img]pildi aadress[/img]</code>.</p>\r\n<p>Teie üles laaditud failid on loetletud jaotises <a href=\"[[help:myattachments]]\">Minu manused</a>, kus saate neid ka kustutada.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,23 +11300,39 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>BB-koodid vormindavad teie postitusi. Need on lühikesed nurksulgudes märgendid teksti ümber, nt <code>[b]paks[/b]</code>. Te ei pea neid ise kirjutama: redaktori nupud lisavad need teie eest. Kui redaktor näitab vormingut kirjutamise ajal, luuakse BB-koodid taustal.</p>\r\n<p>Allpool leiate kõik selle foorumi BB-koodid, selle, mida sisestate, ja tulemuse nii, nagu see postituses välja näeb. Mõnda BB-koodi näidatakse siin ainult siis, kui foorum neid kasutab, ja allkirjades võib olla lubatud vähem BB-koode kui postitustes.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "BB koodide loend"
+            "#text": "BB-koodid"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[BLOCK_OPTIONS.TITLE]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> – teised liikmed ei saa teiega privaatvestlust alustada.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> – keegi ei saa teile sõbrakutseid saata.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> – keegi ei saa teile foorumi kaudu e-kirju saata.</li>\r\n</ul>\r\n<p>Administraatorid ja teie sõbraloendis olevad liikmed saavad teiega endiselt ühendust võtta.</p>\r\n<h3 class=\"h6 mt-3\">Liikme eiramine</h3>\r\n<p>Liikme eiramiseks avage tema mõne postituse kasutajamenüü ja valige <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Eiratud liikmete postitused on peidetud (<strong>[[POSTS.TOGGLEPOST]]</strong> näitab üksikut postitust) ja nad ei saa teile privaatsõnumeid saata. Samal lehel olev <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> loetleb liikmed, keda eirate, eemaldage liige sealt, et tema postitusi taas näha.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Kasutajate eiramine ja blokeerimine"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Sõbrad on sõpruse funktsioon ja kahe kasutaja vaheline kahepoolne suhe. "
+            "#text": "<p>Sõprus on ühendus kahe liikme vahel. Liikme sõbraks kutsumiseks klõpsake tema profiilis või postituse kasutajamenüüs <strong>[[BUDDY.ADDBUDDY]]</strong>. Liige saab sõbrakutse ja võib selle kinnitada või tagasi lükata.</p>\r\n<p>Teie sõbrad on kasutajamenüü kirjes <strong>[[TOOLBAR.BUDDIES]]</strong>, kolmel vahekaardil:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> – teie sõbrad. Saatke neile privaatsõnum või eemaldage nad loendist.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> – teiste liikmete kutsed. <strong>[[FRIENDS.APPROVE]]</strong> lisab liikme teie sõprade hulka (ja teid tema omade hulka), tagasilükkamine eemaldab kutse. <strong>[[FRIENDS.APPROVE_ALL]]</strong> kinnitab kõik kutsed korraga.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> – teie saadetud kutsed, millele pole veel vastatud.</li>\r\n</ul>\r\n<p>Sõpru näidatakse teie profiilis. Nad saavad teiega ühendust võtta ka siis, kui blokeerite privaatsõnumid või e-kirjad, vt <a href=\"[[help:blocking]]\">Kasutajate eiramine ja blokeerimine</a>. Kui te ei soovi sõbrakutseid, saate need seal samuti blokeerida.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Sõbrad"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong>. Teil on kaks võimalust:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> – paus: te ei saa oma kontot 30 päeva kasutada, seejärel töötab see uuesti.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> – teie konto suletakse ja teie postitused kustutatakse (teiste liikmete vastused jäävad alles). Te ei saa enam sisse logida, seda ei saa tagasi võtta.</li>\r\n</ul>\r\n<p>Kinnitage oma väljaga <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> ja klõpsake <strong>[[COMMON.CONTINUE]]</strong>. Teid logitakse välja.</p>\r\n<p>Kui soovite, et kõik teie andmed eemaldataks, või teil on oma andmete kohta küsimusi, võtke ühendust administraatoriga, vt <a href=\"[[help:privacy]]\">Privaatsus, küpsised ja reeglid</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Konto peatamine või kustutamine"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Kui olete praegu registreerunud ja sisse logitud, saate oma sõnumeid muuta ja kustutada (kui administraator seda valikut välja ei lülita). "
+            "#text": "<p>Saate oma postitusi muuta ja kustutada, kui foorum seda lubab. Avage postituse menüü (kolm punkti selle paremas ülanurgas) ja valige <strong>[[BUTTON.BUTTON_EDIT]]</strong> või <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Lukustatud teemades pole see võimalik ja administraator võib seda piirata teatud arvu päevadega pärast postitamist.</p>\r\n<h3 class=\"h6 mt-3\">Muutmine</h3>\r\n<p>Muutmise leht on nagu uue postituse leht. Kui teie alustasite teemat, saate muuta ka selle pealkirja, kirjeldust ja silte. Sisestage <strong>[[POSTMESSAGE.EDITREASON]]</strong>, et lugejad teaksid, mida muutsite.</p>\r\n<p>Kui muudate postitust mõni aeg pärast selle postitamist, näitab postitus, kes seda muutis, millal ja miks. Varasemad versioonid säilitatakse, vt <a href=\"[[help:history]]\">Postituse ajalugu</a>. Teie postitusi saavad muuta ka moderaatorid, siis on postitusel märgitud, et seda muutis moderaator.</p>\r\n<h3 class=\"h6 mt-3\">Kustutamine</h3>\r\n<p>Sisestage <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> ja klõpsake <strong>[[DELETEMESSAGE.DELETE]]</strong>. Postitust ei hävitata: selle kohal teemas näidatakse, et see on kustutatud. Saate selle taastada samas menüüs valikuga <strong>[[BUTTON.BUTTON_UNDELETE]]</strong>, välja arvatud juhul, kui selle kustutas moderaator.</p>\r\n<p>Terveid teemasid saavad kustutada ainult moderaatorid ja postitusi jäädavalt hävitada ainult administraatorid.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
@@ -10859,55 +11340,103 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Saate oma kontoteavet muuta, kasutades <strong>kasutaja juhtpaneeli</strong> valikut Isiklik profiil -> Muuda profiili. "
+            "#text": "<p>Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[ACCOUNT.EDIT_PROFILE]]</strong>. Kõik väljad on valikulised, täitke ainult see, mida soovite jagada. Teavet näidatakse teie avalikus profiilis.</p>\r\n<ul>\r\n<li><strong>Teist</strong> – teie kuvatav nimi (kui foorum kasutab kuvatavaid nimesid), päris nimi, sünnipäev, amet, huvid ja sugu.</li>\r\n<li><strong>Asukoht</strong> – riik, maakond ja linn. Kui foorum seda pakub, täidab <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> need teie eest.</li>\r\n<li><strong>Koduleht</strong> – teie veebisaidi ja ajaveebi aadressid.</li>\r\n<li>Muud administraatori lisatud väljad.</li>\r\n</ul>\r\n<p>Muudatuste salvestamiseks klõpsake <strong>[[COMMON.SAVE]]</strong>. Teie avataril ja allkirjal on oma lehed, vt <a href=\"[[help:mypics]]\">Avatar ja allkiri</a>. E-posti aadress, ajavöönd ja keel on jaotises <a href=\"[[help:editsettings]]\">Seadete muutmine</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Kasutajaprofiili ja foorumi seadete muutmine"
+            "#text": "Profiili muutmine"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Sisestage uus aadress ja oma <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Foorum saadab uuele aadressile lingi, aadress muudetakse, kui sellel klõpsate. Teie e-posti aadressi ei näidata kunagi teistele liikmetele.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> – teid ei näidata võrgus olevate liikmete loendis (kui foorum seda lubab).</li>\r\n<li>Tegevusvoog – teie teavitused mainimiste, tsitaatide ja reaktsioonide kohta, vt <a href=\"[[help:popups]]\">Teavitused</a>.</li>\r\n<li>Teie ajavöönd, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> ja (kui foorum lubab) kujundus ning keel, vt <a href=\"[[help:appearance]]\">Välimus ja keel</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Kaheastmeline autentimine</h3>\r\n<p>Lülitage kaheastmeline autentimine sisse või välja, vt <a href=\"[[help:login]]\">Sisselogimine ja konto turvalisus</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Seadete muutmine"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Mis on YAF?</strong></p>\r\n"
+            "#text": "<p>Foorum on koht, kus teiste inimestega arutleda. Arutelud on korraldatud nii:</p>\r\n<ul>\r\n<li><strong>Kategooriad</strong> koondavad ühe valdkonna foorumid, need on avalehe jaotised.</li>\r\n<li><strong>Foorumid</strong> on kindla teema jaoks mõeldud kohad. Foorumis võib olla alamfoorumeid.</li>\r\n<li><strong>Teemad</strong> on foorumis toimuvad arutelud. Teema algab esimese postitusega ja kasvab liikmete vastustega.</li>\r\n<li><strong>Postitused</strong> (ehk sõnumid) on teema üksikud sissekanded.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Avaleht</h3>\r\n<p>Avalehel on loetletud kategooriad koos nende foorumitega. Iga foorumi juures näete teemade ja postituste arvu ning viimast postitust. Kategooria saab kokku voltida selle nime kõrval oleva noolega, foorum jätab teie valiku meelde. Olenevalt foorumist näitab avaleht ka <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (viimased postitused), statistikat ja seda, kes on võrgus.</p>\r\n<h3 class=\"h6 mt-3\">Külalised ja liikmed</h3>\r\n<p>Külalised saavad lugeda neile avatud foorumeid. Postituste kirjutamiseks, isiklike funktsioonide (privaatsõnumid, sõbrad, teavitused) kasutamiseks ja mõne lehe (nt liikmete nimekirja või profiilide) nägemiseks on teil vaja kontot, vt <a href=\"[[help:registration]]\">Registreerumine</a>.</p>\r\n<p>Mida saate foorumis teha (lugeda, teemasid alustada, vastata, küsitlustes hääletada, faile üles laadida, ...), määrab administraator iga foorumi ja iga liikmerühma jaoks. Kui te ei näe selles abis kirjeldatud nuppu, pole teil selles foorumis selleks õigust.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Foorumid, teemad ja sõnumid"
+            "#text": "Kuidas foorum toimib"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Üldine foorumi kasutamine"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Alustamine"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Kui postitust on muudetud, näitab see, kes seda muutis ja millal. Klõpsake selle märke ajaloonupul, et avada <strong>[[MESSAGEHISTORY.TITLE]]</strong>: see loetleb postituse versioonid koos kuupäeva, muutja ja põhjusega.</p>\r\n<ul>\r\n<li>Valige kaks versiooni ja klõpsake <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong>, et näha valikut <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: eemaldatud ja lisatud tekst on esile tõstetud.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> viib tagasi postituse juurde.</li>\r\n</ul>\r\n<p>Moderaatorid saavad varasema versiooni taastada valikuga <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Foorum säilitab versioone administraatori määratud arvu päevi.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Postituse ajalugu"
           },
           {
             "@tag": "INDEX",
             "#text": "Indeks"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Klõpsake päises nupul <strong>[[TOOLBAR.LOGIN]]</strong> ja sisestage oma kasutajanimi või e-posti aadress ning parool.</p>\r\n<p>Kui märgite valiku <strong>[[LOGIN.AUTO]]</strong>, jääte selles arvutis kuuks ajaks sisse logituks ka pärast brauseri sulgemist. Ärge kasutage seda arvutis, mida kasutavad ka teised inimesed. Ilma selleta logitakse teid brauseri sulgemisel välja. Väljalogimiseks avage paremal üleval kasutajamenüü ja klõpsake <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Kaheastmeline autentimine</h3>\r\n<p>Kaheastmeline autentimine kaitseb teie kontot ka siis, kui keegi teab teie parooli: sisselogimisel küsib foorum lisaks koodi teie telefonis olevast autentimisrakendusest.</p>\r\n<ol>\r\n<li>Avage <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (kasutajamenüü, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Klõpsake <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Lisage oma autentimisrakendusse (nt Microsoft Authenticator, Google Authenticator) uus konto, skannides QR-koodi või sisestades <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Kinnitamiseks sisestage rakenduse näidatud kood.</li>\r\n</ol>\r\n<p>Edaspidi küsitakse sisselogimisel pärast parooli ka rakenduse koodi (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Saate selle samal lehel välja lülitada nupuga <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Konto turvalisena hoidmine</h3>\r\n<ul>\r\n<li>Kasutage parooli, mida te mujal ei kasuta. Saate seda muuta valikuga <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Foorum ei küsi kunagi teie parooli e-posti ega privaatsõnumi teel.</li>\r\n<li>Kui unustasite parooli, vt <a href=\"[[help:recover]]\">Unustatud parooli taastamine</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Pärast mitut valet parooli lukustatakse konto mõneks minutiks.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Sisselogimine ja konto turvalisus"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>. Jaotises <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> valite, milliseid e-kirju saate:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> – e-kirju ei saadeta.</li>\r\n<li>Teavitus teemade kohta, kuhu olete postitanud või mida jälgite – iga teemat, kuhu postitate, jälgitakse automaatselt.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> – ainult teemad ja foorumid, mida ise jälgite.</li>\r\n</ul>\r\n<p>Kui foorum seda pakub, saadab <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> üksikute e-kirjade asemel kord päevas ühe e-kirja uute postitustega. Salvestamiseks klõpsake <strong>[[COMMON.SAVE]]</strong>.</p>\r\n<p>Samal lehel on loetletud teie <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ja <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, vt <a href=\"[[help:subscriptions]]\">Teemade ja foorumite jälgimine</a>, ning teie seadmete tõuketeavitused, vt <a href=\"[[help:push]]\">Tõuketeavitused ja rakendus</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "E-posti teavituse eelistused"
+            "#text": "Teavituste eelistused"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Liikmete nimekiri näitab registreeritud juhatuse liikmeid. "
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Liikmete nimekiri näitab registreeritud liikmeid koos nende postituste arvu, liitumise kuupäeva ja viimase külastusega. Saate:</p>\r\n<ul>\r\n<li>sortida seda nime, auastme, liitumise kuupäeva, postituste arvu või viimase külastuse järgi,</li>\r\n<li>näidata kindla algustähega liikmeid,</li>\r\n<li>filtreerida seda valikuga <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> nime, rolli, auastme või postituste arvu järgi.</li>\r\n</ul>\r\n<p>Klõpsake liikmel, et avada tema profiil. Olenevalt foorumist näidatakse nimekirja ainult liikmetele.</p>\r\n<h3 class=\"h6 mt-3\">Aktiivsed kasutajad</h3>\r\n<p>Avalehe statistika näitab, kes on võrgus. Aktiivsete kasutajate loend näitab praegu võrgus olevaid liikmeid ja külalisi ning seda, kus foorumis nad on. Liikmed saavad end sellest loendist peita jaotises <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, kui foorum seda lubab.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Meeskonna lehel on loetletud foorumi administraatorid ja moderaatorid koos foorumitega, mida nad modereerivad. Kui vajate abi, võtke nendega ühendust.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Liikmete nimekiri"
+            "#text": "Liikmed, aktiivsed kasutajad ja meeskond"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Liikme mainimine</h3>\r\n<p>Sisestage redaktoris <code>@</code> ja selle järel nime esimesed tähed ning valige liige loendist. Nimi muutub profiili lingiks ja liiget teavitatakse, et mainisite teda (kui ta kasutab teavitusi, vt <a href=\"[[help:popups]]\">Teavitused</a>).</p>\r\n<h3 class=\"h6 mt-3\">Teemade sildid</h3>\r\n<p>Sildid on teema märksõnad, nt toode või valdkond, mida küsimus puudutab. Lisage need teema alustamisel väljale <strong>[[POSTTOPIC.TAGS]]</strong>. Silte näidatakse koos teemaga, sildil klõpsamine näitab kõiki selle sildiga teemasid. Otsing oskab otsida ka silte, vt <a href=\"[[help:searching]]\">Otsimine</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Mainimised ja sildid"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Sõnumid ja teavitused"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p>Registreeritud liikmed võivad saata sõnumeid teistele selle foorumi liikmetele, kasutades privaatsõnumisüsteemi (kui administraator on selle lubanud).\r\n        "
+            "#text": "<p>Privaatsõnumid on vestlused teie ja teise liikme vahel, keegi teine ei saa neid lugeda. Avage kasutajamenüüs <strong>[[TOOLBAR.INBOX]]</strong>: vasakul näete jaotist <strong>[[PM.CONVERSATION_TITLE]]</strong>, paremal valitud vestluse sõnumeid.</p>\r\n<h3 class=\"h6 mt-3\">Vestluse alustamine</h3>\r\n<ul>\r\n<li>Klõpsake <strong>[[PM.NEW_CONVERSATION]]</strong>, sisestage vähemalt kolm tähte nimest ja valige liige.</li>\r\n<li>Või klõpsake liikme profiilis või postituse kasutajamenüüs <strong>[[POSTS.PM]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Kirjutamine</h3>\r\n<p>Kirjutage sõnum ja vajutage selle saatmiseks Enter, Shift+Enter alustab uut rida. Saate kasutada BB-koode, nt paksu kirja või linkide jaoks. Kui teisel liikmel on vestlus samal ajal avatud, ilmuvad sõnumid kohe mõlemale poole ja vestlus näitab, kas liige on võrgus.</p>\r\n<p>Uusi sõnumeid loendatakse teie nime ja kirje <strong>[[TOOLBAR.INBOX]]</strong> kõrval ning foorumi lehe avamisel küsib dialoog, kas soovite neid lugeda. Privaatsõnumite kohta e-posti teavitusi ei saadeta.</p>\r\n<h3 class=\"h6 mt-3\">Kustutamine</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> eemaldab vestluse teie loendist, teisel liikmel jääb see alles.</p>\r\n<p class=\"text-body-secondary small\">Te ei saa kirjutada liikmetele, kes blokeerivad privaatsõnumid või eiravad teid (välja arvatud juhul, kui olete nende sõber), vt <a href=\"[[help:blocking]]\">Kasutajate eiramine ja blokeerimine</a>. Administraator saab privaatsõnumid välja lülitada.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Privaatsõnumid (Messenger)"
+            "#text": "Privaatsõnumid"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderaatorid näevad päises kirjet <strong>[[TOOLBAR.MODERATE]]</strong>. Leht loetleb foorumid, mida modereerite, koos arvuga <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> ja <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>Modereeritud foorumites (ja liikmete puhul, kelle postitusi tuleb kontrollida) näidatakse uusi postitusi alles pärast seda, kui moderaator on need kinnitanud. Kontrollige postitust ja klõpsake <strong>[[MODERATE_FORUM.APPROVE]]</strong> või kustutage see.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Loend näitab teatatud postitusi koos põhjuste ja teatajatega. Lugege postitus läbi (ja selle ajalugu, kui seda on muudetud), tegutsege vajadusel (muutke või kustutage postitus, rääkige autoriga) ja klõpsake <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Teemade haldamine</h3>\r\n<ul>\r\n<li>Teemas pakub <strong>[[POSTS.MANAGE_TOPIC]]</strong> valikuid <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> ja <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Teisaldatud teema võib vanasse foorumisse mõneks päevaks lingi jätta.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> loetleb kõik foorumi teemad: valige mitu ja lukustage, teisaldage või kustutage need korraga.</li>\r\n<li>Kleebitud teemad ja teadaanded määratakse esimese postituse muutmisel valikuga <strong>[[POSTMESSAGE.PRIORITY]]</strong>, püsivad teemad (automaatne puhastus neid ei eemalda) valikuga <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Postituste haldamine</h3>\r\n<ul>\r\n<li>Saate muuta ja kustutada teiste liikmete postitusi. Postituse kustutamisel kustutab <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> ka sellele antud vastused.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> postituse menüüs teisaldab selle teise teemasse või eraldab uueks teemaks (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li><a href=\"[[help:history]]\">Postituse ajaloos</a> saate taastada postituse varasema versiooni.</li>\r\n<li>Saate vastata ja muuta ka lukustatud teemades ning teie postitusi ei kontrollita rämpsposti suhtes.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Olenevalt seadetest näevad moderaatorid ka postituste IP-aadresse. Liikmeid muudavad, peatavad ja keelustavad administraatorid.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Moderaatori juhend"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderaatorid ja administraatorid"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderaatorid jälgivad konkreetseid foorumeid. "
+            "#text": "<p><strong>Administraatorid</strong> haldavad foorumit: nad loovad foorumeid, otsustavad, kes mida teha tohib, seadistavad funktsioone ja haldavad liikmeid.</p>\r\n<p><strong>Moderaatorid</strong> hoolitsevad ühe või mitme foorumi eest: nad hoolitsevad, et arutelud püsiksid teemas ja sõbralikud, kontrollivad teatatud postitusi, kinnitavad postitusi modereeritud foorumites ning vajadusel muudavad, teisaldavad, lukustavad või kustutavad teemasid ja postitusi. Foorumi moderaatoreid näidatakse selle teemade loendi kohal (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Leht <strong>[[TOOLBAR.TEAM]]</strong> loetleb kõik administraatorid ja moderaatorid (kui foorum seda näitab). Kui teil on postitusega probleem, <a href=\"[[help:report]]\">teatage sellest</a>. Muude küsimustega pöörduge privaatsõnumi teel moderaatori või administraatori poole.</p>\r\n<p>Moderaatorite tööd selgitab <a href=\"[[help:moderating]]\">Moderaatori juhend</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,35 +11444,51 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Kui administraator on lubanud albumi funktsiooni ja olete liige, kellel on juurdepääs albumite lisamiseks, saate luua albumeid piltidest, mis on lingitud teie avaliku profiiliga. "
+            "#text": "<p>Kui foorum kasutab albumeid, saate oma pilte näidata oma profiilis albumites ja kasutada neid oma postitustes.</p>\r\n<ol>\r\n<li>Avage kontolehtede menüüs <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> (või kasutajamenüüs <strong>[[TOOLBAR.MYALBUMS]]</strong>) ja klõpsake <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Sisestage pealkiri ja laadige üles esimesed pildid (mitu korraga on võimalik).</li>\r\n</ol>\r\n<p>Valikuga <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> lisate pilte juurde või kustutate neid ning kustutate albumi. Albumis saate piltidele pealdisi lisada ja valida kaanepildi valikuga <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Albumipildi näitamiseks postituses klõpsake pildi all <strong>[[ALBUM.COPY_BBCODE]]</strong> ja kleepige kood redaktorisse.</p>\r\n<p class=\"text-body-secondary small\">Albumite ja piltide arv ning piltide suurus on piiratud, piirangud sõltuvad teie rühmast või auastmest ja neid näidatakse lehtedel.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albumid"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Kõik teie üles laaditud failid on loetletud kasutajamenüü (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) jaotises <strong>[[ATTACHMENTS.TITLE]]</strong>. Iga faili juures näete, mitmes postituses seda kasutatakse või et seda ei kasutata.</p>\r\n<p>Valige failid ja kustutage need, et ruumi vabastada, nt failid, mille laadisite üles, kuid jätsite kasutamata. Kustutatud faili ei näidata enam postitustes, mis seda kasutavad.</p>\r\n<p>Kuidas postitustele faile lisada, on selgitatud jaotises <a href=\"[[help:attachments]]\">Manused ja pildid</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Minu manused"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Mis on avatarid?</strong></p>\r\n"
+            "#text": "<h3 class=\"h6\">Avatar</h3>\r\n<p>Avatar on väike pilt, mida näidatakse teie nime kõrval teie postitustes ja profiilis. Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[ACCOUNT.EDIT_AVATAR]]</strong>. Olenevalt foorumist saate:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> – valida ühe foorumi avataridest.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> – laadida üles oma pildi (png, jpg, gif, webp, bmp või svg). Suuri pilte vähendatakse automaatselt, leht näitab lubatud suurust.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> eemaldab teie avatari. Avatari puudumisel näitab foorum vaikepilti.</p>\r\n<h3 class=\"h6 mt-3\">Allkiri</h3>\r\n<p>Allkiri on lühike tekst, mida näidatakse iga teie postituse all, nt moto või link teie veebisaidile. Avage kasutajamenüüs <strong>[[ACCOUNT.SIGNATURE]]</strong>. Leht näitab maksimaalset pikkust ja BB-koode, mida võite allkirjas kasutada, HTML ei ole lubatud. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> näitab, milline see välja näeb.</p>\r\n<p class=\"text-body-secondary small\">Administraator otsustab, kas avatare ja allkirju kasutatakse, ning piirangud võivad sõltuda teie rühmast või auastmest.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Allkirjad, Avatari pildid"
+            "#text": "Avatar ja allkiri"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p><strong>Kasutaja juhtpaneel</strong> on koht, kus saate juhtida oma isiklikke seadeid, valikuid ja eelistusi.</p>\r\n"
+            "#text": "<p>Klõpsake paremal üleval oma nimel, et avada kasutajamenüü:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> – ülevaade teie kontost ja tegevusest.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> – kõik teie konto seaded (vt allpool).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> – teie privaatsõnumid, vt <a href=\"[[help:messenger]]\">Privaatsõnumid</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> – vt <a href=\"[[help:buddies]]\">Sõbrad</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> – vt <a href=\"[[help:myalbums]]\">Albumid</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – vt <a href=\"[[help:newposts]]\">Uute postituste vaatamine</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Numbrid teie nime, kirje <strong>[[TOOLBAR.INBOX]]</strong> ja kirje <strong>[[TOOLBAR.BUDDIES]]</strong> kõrval näitavad lugemata sõnumite ja vastamata sõbrakutsete arvu.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Leht näitab teie kasutajanime, e-posti aadressi, postituste arvu ja liitumise kuupäeva ning jaotist <strong>[[ACCOUNT.ACTIVITY]]</strong>: teie teemad ja vastused, reaktsioonid ja sõprussuhted, iga liigi jaoks oma filtriga. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> näitab teie profiili nii, nagu teised liikmed seda näevad.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Seaded on loetletud ka kõigi kontolehtede vasakus servas:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> – teave teie kohta.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> – e-posti aadress, ajavöönd, keel, kaheastmeline autentimine.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> – teie üles laaditud failid.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> ja <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> – e-posti ja tõuketeavitused, jälgitavad teemad ja foorumid.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> – sisestage oma praegune parool ja kaks korda uus parool.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Mõnda kirjet näidatakse ainult siis, kui foorum vastavat funktsiooni kasutab (nt avatarid, allkirjad või albumid).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Minu seaded (kasutaja juhtpaneel)"
+            "#text": "Minu konto"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigeerimine"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Iga lehe ülaosas olev päis sisaldab peamenüüd: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> ja <strong>[[TOOLBAR.HELP]]</strong> (olenevalt foorumist ei pruugita kõiki näidata). Külalised näevad paremal <strong>[[TOOLBAR.LOGIN]]</strong> ja <strong>[[TOOLBAR.REGISTER]]</strong>. Liikmed näevad teavituste kella ja kasutajamenüüd oma nime ja avatariga, vt <a href=\"[[help:mysettings]]\">Minu konto</a>. Päise all olev praeguse lehe asukoharida viib teid tagasi foorumisse või kategooriasse.</p>\r\n<h3 class=\"h6 mt-3\">Foorumi teemade loend</h3>\r\n<p>Klõpsake foorumil, et näha selle teemasid. Kleebitud teemad ja teadaanded näidatakse esimesena. Allapoole kerimisel laaditakse automaatselt rohkem teemasid. Loendi kohal olev riba sisaldab:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> – näitab ainult teemasid, kuhu on valitud ajavahemikus postitatud (nt viimase päeva jooksul või pärast teie viimast külastust).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> – otsib selle foorumi teemadest.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> – viib teise foorumisse.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> ja <strong>[[TOPICS.MARKREAD]]</strong> (liikmetele).</li>\r\n</ul>\r\n<p>Teemade ees olevad ikoonid näitavad uusi postitusi, populaarseid („kuumi“) teemasid ning lukustatud ja teisaldatud teemasid. Loendi all olev legend selgitab neid.</p>\r\n<h3 class=\"h6 mt-3\">Teema sees</h3>\r\n<p>Postitusi näidatakse lehekülgede kaupa, lehekülgede vahetaja on postituste all. Nuppudega <strong>[[POSTS.PREVTOPIC]]</strong> ja <strong>[[POSTS.NEXTTOPIC]]</strong> liigute foorumi naaberteemadesse. Postituse link avab teema selle postituse kohalt.</p>\r\n<h3 class=\"h6 mt-3\">Uued postitused ja lugemise olek</h3>\r\n<p>Foorumid ja teemad, milles on postitusi, mida te pole veel lugenud, on esile tõstetud. Liikmed saavad kõik loetuks märkida avalehel nupuga <strong>[[DEFAULT.MARKALL]]</strong> või ühe foorumi nupuga <strong>[[TOPICS.MARKREAD]]</strong>. Kust leiate kõik uued postitused korraga, on selgitatud jaotises <a href=\"[[help:newposts]]\">Uute postituste vaatamine</a>.</p>\r\n<h3 class=\"h6 mt-3\">Reaalajas uuendused</h3>\r\n<p>Kui foorum kasutab reaalajas uuendusi, ilmuvad uued teemad ja postitused ilma lehte uuesti laadimata. Teemas näete teadet <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, klõpsake sellel, et uut vastust näha.</p>\r\n<h3 class=\"h6 mt-3\">Kasutaja teave</h3>\r\n<p>Viige hiir kasutajanime kohale, et näha lühikest kaarti liikme andmetega, nt asukoht, võrgusolek ja liitumise kuupäev. Nimel klõpsamine avab liikme profiili.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Foorumis liikumine"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Liikmed leiavad kõigi foorumite uued postitused kasutajamenüü kirjest <strong>[[TOOLBAR.MYTOPICS]]</strong>. Lehel on neli vahekaarti:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> – teemad, kuhu on pärast teie viimast külastust uusi postitusi lisandunud.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> – teemad, millele pole veel vastatud.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> – teemad, mida jälgite.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – teemad, mille olete ise alustanud.</li>\r\n</ul>\r\n<p>Ajafiltriga valite ajavahemiku, nt viimane tund, viimane nädal või kõik teemad. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> märgib kõik teemad loetuks.</p>\r\n<p>Avalehel olevad <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> näitavad kõigi foorumite viimaseid postitusi, ka külalistele.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10955,83 +11500,103 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Saate teistega ühendust võtta, saates e-kirja, mille leiate liikmete loendist.</p>\r\n"
+            "#text": "<p>Saate liikmele foorumi kaudu e-kirja saata: klõpsake liikme profiilis (või meeskonna lehel) <strong>[[POSTS.EMAIL]]</strong>, sisestage teema ja oma sõnum ning klõpsake <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Liikme e-posti aadress jääb teie eest peidetuks.</li>\r\n<li>E-kiri saadetakse teie kasutajanime ja <strong>teie</strong> e-posti aadressiga saatjana, nii et liige saab teile otse vastata.</li>\r\n<li>Rämpsposti vältimiseks saate tunnis saata ainult mõne e-kirja.</li>\r\n</ul>\r\n<p>Te ei saa saata e-kirju liikmetele, kes blokeerivad e-kirjad või eiravad teid (välja arvatud sõpradele), ja ainult siis, kui administraator lubab liikmetevahelisi e-kirju. Enamasti on <a href=\"[[help:messenger]]\">privaatsõnum</a> parem viis.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Teiste liikmetega ühenduse võtmine"
+            "#text": "E-kiri liikmetele"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Küsitlused on võimalus hääletada mõne teema või küsimuse üle.</em></p>\r\n"
+            "#text": "<p>Küsitlus esitab teema lugejatele küsimuse mitme vastusevariandiga.</p>\r\n<h3 class=\"h6 mt-3\">Küsitluse loomine</h3>\r\n<p>Lülitage teema alustamisel valikutes sisse <strong>[[POLLEDIT.POLLADD]]</strong>, küsitluse redaktor avaneb pärast teema postitamist. Olemasoleva teema puhul näevad teema alustaja ja moderaatorid postituste kohal nuppu <strong>[[POLLEDIT.CREATEPOLL]]</strong>. Teemal on üks küsitlus.</p>\r\n<ul>\r\n<li>Sisestage küsimus ja vähemalt kaks vastusevarianti, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> lisab neid juurde (kuni administraatori määratud maksimumini).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> – päevade arv, mille jooksul küsitlus on avatud, jätke tühjaks, kui küsitlus peab olema tähtajatu.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> – hääletajad saavad valida rohkem kui ühe vastuse.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> – hääletajate nimesid näidatakse koos tulemustega.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> – tulemusi näidatakse alles pärast küsitluse lõppemist.</li>\r\n<li>Kui foorum seda lubab, võib küsimusel ja vastusevariantidel olla pilt (pildi aadress).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Hääletamine</h3>\r\n<p>Klõpsake oma valiku nupul. Te ei saa oma häält muuta, seega valige hoolikalt. Külalised ei saa hääletada ega näe tulemusi.</p>\r\n<h3 class=\"h6 mt-3\">Küsitluse muutmine</h3>\r\n<p>Looja saab küsitlust muuta valikuga <strong>[[POLLEDIT.EDITPOLL]]</strong>, kuni keegi pole hääletanud (välja arvatud juhul, kui foorum lubab muudatusi ka hiljem), ja kustutada selle valikuga <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderaatorid saavad küsitlusi alati muuta ja kustutada.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Küsitluste loomine ja neis osalemine"
+            "#text": "Küsitlused"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Kui olete sisse loginud ja lehe laadinud, võite saada oma brauseriakna keskel hüpikakna märguande.</p>\r\n"
+            "#text": "<p>Päises olev kell näitab teie teavitusi, punane number loendab lugemata teavitusi. Teid teavitatakse, kui:</p>\r\n<ul>\r\n<li>keegi mainib teid (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) või tsiteerib teid (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>keegi reageerib mõnele teie postitusele,</li>\r\n<li>teie jälgitavas teemas on uus vastus või teie jälgitavas foorumis uus teema,</li>\r\n<li>teil on uus sõber.</li>\r\n</ul>\r\n<p>Postituse avamiseks klõpsake teavitusel. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> avab kõigi teavituste loendi koos liigi järgi filtriga ja valikuga <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Teavitused on osa tegevusvoost: saate need välja lülitada jaotises <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Muud teated</h3>\r\n<ul>\r\n<li>Uusi privaatsõnumeid ja sõbrakutseid loendatakse teie nime kõrval. Lehe avamisel küsib dialoog, kas soovite neid lugeda.</li>\r\n<li>Foorumi teated (nt „salvestatud“) ilmuvad mõneks sekundiks lehe ülaossa.</li>\r\n<li>Teavitusi saab saata ka e-postiga ning teie brauserisse või telefoni, vt <a href=\"[[help:mailsettings]]\">Teavituste eelistused</a> ja <a href=\"[[help:push]]\">Tõuketeavitused ja rakendus</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Hüpikaknad"
+            "#text": "Teavitused"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Avage foorum, kuhu teema kuulub, ja klõpsake <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Kui te nuppu ei näe, pole teil lubatud selles foorumis teemasid alustada (või te pole sisse logitud).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> – teema pealkiri, see on kohustuslik. Kirjutamise ajal näitab foorum valikut <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, võib-olla on teie küsimusele juba vastatud.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> – valikuline lühikirjeldus.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> – valikulised märksõnad, teised liikmed leiavad teemasid nende siltide järgi.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> – ainult selle õigusega liikmetele, vt <a href=\"[[help:anounce]]\">Teadaanded ja kleebitud teemad</a>.</li>\r\n<li>Sõnum ise, redaktoris.</li>\r\n</ul>\r\n<p>Jaotises <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> saate lisada küsitluse (<strong>[[POLLEDIT.POLLADD]]</strong>, vt <a href=\"[[help:polls]]\">Küsitlused</a>) ja teemat jälgida (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Klõpsake <strong>[[POSTMESSAGE.PREVIEW]]</strong>, et oma postitust kontrollida, ja <strong>[[POSTMESSAGE.NEWTOPIC]]</strong>, et see avaldada.</p>\r\n<h3 class=\"h6 mt-3\">Redaktor</h3>\r\n<p>Olenevalt foorumist näitab redaktor kirjutamise ajal vormingut või BB-koode (lühikesed märgendid nagu <code>[b]paks[/b]</code>). Tööriistariba nupud vormindavad teksti: valige tekst ja klõpsake nupul, nt paksu kirja, lingi, tsitaadi või loendi jaoks. Kõik BB-koodid ja nende tulemus on loetletud jaotises <a href=\"[[help:bbcodes]]\">BB-koodid</a>.</p>\r\n<ul>\r\n<li>Liikme mainimiseks sisestage <code>@</code> ja nimi, vt <a href=\"[[help:mentions]]\">Mainimised ja sildid</a>.</li>\r\n<li>Faile ja pilte lisatakse manuste nupuga, vt <a href=\"[[help:attachments]]\">Manused ja pildid</a>.</li>\r\n<li>BB-koodi redaktoris vormindavad Ctrl+B, Ctrl+I ja Ctrl+U valitud teksti, Ctrl+Enter saadab postituse.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Hea teada</h3>\r\n<ul>\r\n<li>Külalised (kui neil on lubatud postitada) sisestavad nime väljale <strong>[[POSTMESSAGE.FROM]]</strong>, see ei tohi olla mõne liikme nimi.</li>\r\n<li>Rämpsposti vältimiseks peate kahe postituse vahel paar sekundit ootama ja postitusel on maksimaalne pikkus.</li>\r\n<li>Mõnes foorumis kontrollib postitusi esmalt moderaator. Teie postitust näidatakse pärast selle kinnitamist.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Uute teemade ja postituste postitamine"
+            "#text": "Uue teema alustamine"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Seadistused ja profiili funktsioonid"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Foorumit kasutades nõustute selle reeglitega. Leht <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> sisaldab reegleid ja privaatsuspoliitikat: milliseid isikuandmeid foorum salvestab, mis eesmärgil ja millised on teie õigused (nt saada teavet oma andmete kohta või lasta need kustutada).</p>\r\n<p>Lehel <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> on loetletud foorumi küpsised, milleks neid kasutatakse ja kui kaua neid säilitatakse. Kui külastate foorumit esimest korda, teavitab teid küpsistest vastav teade.</p>\r\n<p>Teie profiil näitab ainult teie sisestatud teavet, teie e-posti aadressi ei näidata kunagi teistele liikmetele. Saate end aktiivsete kasutajate loendist peita (kui foorum seda lubab), blokeerida privaatsõnumid ja e-kirjad ning kustutada oma konto, vt <a href=\"[[help:blocking]]\">Kasutajate eiramine ja blokeerimine</a> ja <a href=\"[[help:deleteaccount]]\">Konto peatamine või kustutamine</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Privaatsus, küpsised ja reeglid"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Liikmena on teil avalikult vaadatav profiilileht. "
+            "#text": "<p>Klõpsake liikme nimel (nt postituses või liikmete nimekirjas), et avada tema profiil. Olenevalt foorumist näidatakse profiile ainult liikmetele. Oma profiili avate lehel <strong>[[TOOLBAR.MYPROFILE]]</strong> valikuga <strong>[[ACCOUNT.VIEW_PROFILE]]</strong>.</p>\r\n<p>Profiil näitab:</p>\r\n<ul>\r\n<li>liikme avatari, nime, auastet ja medaleid ning profiili andmeid (nt asukoht, sünnipäev, amet ja huvid),</li>\r\n<li>postituste ning antud ja saadud reaktsioonide arvu,</li>\r\n<li>mainet (kui foorum seda kasutab),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong> koos valikuga <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>liikme sõpru ja albumeid.</li>\r\n</ul>\r\n<p>Profiili nupud võimaldavad teil <strong>[[BUDDY.ADDBUDDY]]</strong>, saata privaatsõnumi (<strong>[[POSTS.PM]]</strong>) või e-kirja (<strong>[[POSTS.EMAIL]]</strong>) ning avada liikme veebisaidi või ajaveebi. Liikme e-posti aadressi ei näidata kunagi.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Minu avalik profiil"
+            "#text": "Profiilid"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Sõnumite lugemine ja postitamine"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Tõuketeavitused näitavad jälgitavate teemade uusi vastuseid ja muid teavitusi teie arvutis või telefonis ka siis, kui foorum pole avatud.</p>\r\n<ol>\r\n<li>Avage kasutajamenüüs (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>.</li>\r\n<li>Klõpsake jaotises <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> nupul <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> ja lubage teavitused, kui brauser seda küsib.</li>\r\n</ol>\r\n<p>Tõuketeavitused seadistatakse iga seadme ja brauseri jaoks eraldi. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> lülitab need selles seadmes välja. Teavitused saadetakse teie brauseri tõuketeenuse kaudu (nt Google'i, Mozilla, Apple'i või Microsofti oma) ja need on krüpteeritud.</p>\r\n<h3 class=\"h6 mt-3\">Foorumi installimine rakendusena</h3>\r\n<p>Saate foorumi installida nagu rakenduse, oma ikooniga avakuval või töölaual: klõpsake samal lehel <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> või kasutage oma brauseri installimisfunktsiooni. iPhone'is ja iPadis töötavad tõuketeavitused ainult installitud rakenduses: puudutage Jaga, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, avage foorum avakuvalt ja lülitage seejärel teavitused sisse.</p>\r\n<p class=\"text-body-secondary small\">Seda jaotist näidatakse ainult siis, kui administraator on tõuketeavitused seadistanud.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Tõuketeavitused ja rakendus"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Lugemine"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Kui unustate oma parooli, võite klõpsata valikul \"<a href=\"{0}\">Kaotatud parool</a>\r\n  "
+            "#text": "<p>Kui unustasite parooli, saate määrata uue:</p>\r\n<ol>\r\n<li>Klõpsake <strong>[[LOGIN.LOSTPASSWORD]]</strong> paroolivälja kõrval <a href=\"[[page:Account_Login]]\">sisselogimislehel</a> või sisselogimisaknas.</li>\r\n<li>Sisestage oma kasutajanimi või e-posti aadress ja klõpsake <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Kui selle nime või aadressiga konto on olemas, saadab foorum teile lingiga e-kirja. Teie privaatsuse huvides näitab leht igal juhul sama teadet.</li>\r\n<li>Link avab lehe, kus sisestate oma e-posti aadressi ja kaks korda uue parooli.</li>\r\n</ol>\r\n<p>Link kehtib ainult piiratud aja. Kui te pole oma e-posti aadressi veel kinnitanud, saate selle asemel uue kinnituskirja. Foorum saadab tunnis kõige rohkem mõne sellise e-kirja.</p>\r\n<p>Paroole hoitakse kujul, mida ei saa tagasi lugeda, nii et keegi (isegi mitte administraator) ei saa teile teie vana parooli öelda.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Taasta kaotatud parool"
+            "#text": "Unustatud parooli taastamine"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Administraator nõuab tõenäoliselt registreerumist, et kasutada kõiki foorumi funktsioone. "
+            "#text": "<p>Paljud foorumi funktsioonid on saadaval ainult liikmetele, nt postituste kirjutamine, privaatsõnumid, sõbrad, teemade jälgimine ja teavitused. Liikmeks saamiseks klõpsake päises nupul <strong>[[TOOLBAR.REGISTER]]</strong> (kui administraator lubab uusi registreerumisi).</p>\r\n<ol>\r\n<li>Kui foorum seda nõuab, lugege läbi <strong>[[RULES.TITLE]]</strong> ja klõpsake <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Sisestage kasutajanimi, oma e-posti aadress ja parool (kaks korda). Olenevalt foorumist sisestate ka kuvatava nime ja muud teavet, mida administraator küsib.</li>\r\n<li>Klõpsake <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Foorum näitab teadet <strong>[[REGISTER.CHECK_MAIL]]</strong> ja saadab teile e-kirja. Klõpsake selles e-kirjas oleval lingil, et oma aadress kinnitada. Seejärel on teie konto aktiivne ja saate sisse logida.</li>\r\n</ol>\r\n<p>Kui e-kiri ei saabu, kontrollige rämpsposti kausta. Kui proovite sisse logida enne aadressi kinnitamist, annab sisselogimisleht sellest teada ja pakub võimalust <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>Mõnes foorumis peab administraator uued kontod esmalt kinnitama, konto kinnitamisest teavitatakse teid e-posti teel.</p>\r\n<p>Pärast registreerumist saate oma profiili täiendada, vt <a href=\"[[help:editprofile]]\">Profiili muutmine</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "Registreerimine"
+            "#text": "Registreerumine"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Mõnel tahvlil saate külaliskasutajana postitada ja vastata. "
+            "#text": "<p>Teemale vastamiseks klõpsake postituste kohal või all nupul <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> või postituse all nupul <strong>[[BUTTON.BUTTON_REPLY]]</strong>. Vastamise lehel näidatakse redaktori all teema <strong>[[POSTMESSAGE.LAST10]]</strong>, nii et saate neid kirjutamise ajal lugeda.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Lühikese vastuse jaoks kasutage postituste all olevat kiirvastuse kasti või postituse nuppu <strong>[[POSTS.QUICKREPLY]]</strong>. Kirjutage oma tekst ja klõpsake <strong>[[COMMON.POST]]</strong>. Täieliku redaktori jaoks (nt failide lisamiseks) klõpsake <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Tsiteerimine</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> postituse all alustab vastust, milles selle postituse tekst on tsitaadina.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> kogub mitu postitust, ka teema teistelt lehtedelt. Seejärel klõpsake ühe neist juures <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, vastus tsiteerib kõiki kogutud postitusi.</li>\r\n<li>Ainult osa tsiteerimiseks valige postituses tekst, paremklõpsake sellel ja valige <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Lühendage pikad tsitaadid osani, millele vastate. Tsiteeritud liiget teavitatakse.</p>\r\n<p>Saate vastata ainult siis, kui teil on selles foorumis selleks luba, ja mitte lukustatud teemas. Külalised saavad vastata ainult siis, kui foorum seda lubab.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Sõnumile vastamine"
+            "#text": "Vastamine ja tsiteerimine"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Kui postitus rikub foorumi reegleid (nt rämpspost, solvangud või ebaseaduslik sisu), teatage sellest palun moderaatoritele, selle asemel et sellele vastata:</p>\r\n<ol>\r\n<li>Avage postituse menüü (kolm punkti selle paremas ülanurgas) ja valige <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Sisestage, miks postitusest teatate.</li>\r\n<li>Klõpsake <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Foorumi moderaatorid kontrollivad teatatud postitust ja otsustavad, mida teha. Autor ei näe, kes postitusest teatas. Olenevalt foorumist saavad postitustest teatada ainult liikmed.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Postitusest teatamine"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Vood on praegu saadaval kahes vormingus, RSS ja Atom.</p>\r\n"
+            "#text": "<p>Vood võimaldavad foorumit jälgida voolugeja rakenduses ilma foorumit külastamata. Foorum pakub Atom-vooge:</p>\r\n<ul>\r\n<li>viimastele postitustele (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> avalehel),</li>\r\n<li>foorumi teemadele (voo nupp teemade loendi kohal olevas ribas),</li>\r\n<li>teema postitustele (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Kopeerige voo aadress oma voolugejasse. Kas foorum pakub vooge ja kes saab neid kasutada (sageli ainult liikmed), määrab administraator. Kui te ei näe voo nuppu, pole vood teile saadaval.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS- ja Atom-kanalid"
+            "#text": "Vood"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Huvitava lõime või postituse kiireks leidmiseks kõikjal foorumis klõpsake päises lingil „Otsi”. "
+            "#text": "<p>Klõpsake päises nupul <strong>[[TOOLBAR.SEARCH]]</strong>, sisestage vähemalt paar tähte ja vajutage Enter või klõpsake <strong>[[SEARCH.BTNSEARCH]]</strong>. Otsinguvalikud võimaldavad:</p>\r\n<ul>\r\n<li>otsida postitusi, teemasid või foorumeid,</li>\r\n<li>otsida ainult ühe liikme postitusi,</li>\r\n<li>otsida sildiga teemasid,</li>\r\n<li>otsida täpset fraasi, ükskõik millist sõna või kõiki sõnu,</li>\r\n<li>otsida ainult mõnest foorumist,</li>\r\n<li>otsida kogu postituse tekstist või ainult pealkirjadest,</li>\r\n<li>valida tulemuste arvu lehel.</li>\r\n</ul>\r\n<p>Otsing leiab ainult selle, mida teil on lubatud lugeda. Muud otsinguvõimalused:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> teemade loendi kohal otsib ühest foorumist.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> postituse menüüs või profiilil näitab selle liikme postitusi.</li>\r\n<li>Teema pealkirja all olev silt näitab kõiki selle sildiga teemasid.</li>\r\n<li>Valige postituses tekst ja paremklõpsake sellel, et valitud sõnu otsida.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Foorumite ja teemade otsimine"
+            "#text": "Otsimine"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Kui jälgite teemat või foorumit, teavitatakse teid uutest postitustest: foorumi teavitustes ja (olenevalt teie <a href=\"[[help:mailsettings]]\">teavituste eelistustest</a>) e-posti ja tõuketeavituse teel.</p>\r\n<ul>\r\n<li><strong>Teema:</strong> klõpsake teema pealkirja all <strong>[[POSTS.TOOLS]]</strong> ja <strong>[[POSTS.WATCHTOPIC]]</strong>. Postituse kirjutamisel saate ka sisse lülitada valiku <strong>[[POSTMESSAGE.TOPICWATCH]]</strong>.</li>\r\n<li><strong>Foorum:</strong> klõpsake teemade loendi kohal olevas ribas <strong>[[TOPICS.WATCHFORUM]]</strong>. Teid teavitatakse selle foorumi uutest teemadest.</li>\r\n<li><strong>Kõik foorumid:</strong> klõpsake avalehel <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong>.</li>\r\n</ul>\r\n<p>Jälgimise lõpetamiseks klõpsake <strong>[[POSTS.UNWATCHTOPIC]]</strong> või <strong>[[TOPICS.UNWATCHFORUM]]</strong>. Jaotisest <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> leiate kõik <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ja <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, valige mõned ja klõpsake <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong>, et nende jälgimine lõpetada.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Tellimused ja teatised"
+            "#text": "Teemade ja foorumite jälgimine"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>Aitäh – süsteem on funktsioon, mis võimaldab teil anda teisele kasutajale positiivset tagasisidet, näiteks on ta postitanud teile kasuliku sõnumi või aitab teil probleemi lahendada.</p>\r\n"
+            "#text": "<h3 class=\"h6\">Reaktsioonid</h3>\r\n<p>Reaktsiooniga näitate postituse autorile, et see teile meeldib, ilma vastust kirjutamata. Klõpsake postituse all naerunäonupul (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) ja valige <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> või <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Klõpsake oma reaktsioonil uuesti, et see eemaldada, või mõnel teisel, et seda muuta.</li>\r\n<li>Postituse reaktsioone näidatakse koos nende arvuga, viige hiir nende kohale, et näha, kes reageeris.</li>\r\n<li>Te ei saa reageerida oma postitustele, kustutatud postitustele ega lukustatud teemades.</li>\r\n<li>Autorit teavitatakse ja reaktsioonid loetakse profiilis kokku (antud ja saadud tänud).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Maine</h3>\r\n<p>Kui foorum kasutab mainesüsteemi, näidatakse liikme mainet profiilis ribana. Liikmed, kellel endal on piisavalt mainet, saavad postituse kasutajamenüüs teise liikme mainet lisada (+1) või vähendada (-1).</p>\r\n<h3 class=\"h6 mt-3\">Vastus küsimusele</h3>\r\n<p>Teema alustanud liige saab küsimusele vastanud postituse märkida valikuga <strong>[[POSTS.MARK_ANSWER]]</strong>. Postitus saab vastuse märgi, nii et teised lugejad leiavad lahenduse kiiresti.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Tänufunktsioon"
+            "#text": "Reaktsioonid ja maine"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>Iga teema ülaosas on link „Valikud”. "
+            "#text": "<p>Teema pealkirja all olev riba sisaldab teema tööriistu:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> – saadab kellelegi e-postiga lingi teemale (ainult liikmetele).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> – kopeerib teema aadressi, nt et sellele teisel veebisaidil viidata.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> – teid teavitatakse uutest vastustest, vt <a href=\"[[help:subscriptions]]\">Teemade ja foorumite jälgimine</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> – näitab teemat printimiseks sobival kujul.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> – teema voog, kui foorum pakub vooge, vt <a href=\"[[help:rss]]\">Vood</a>.</li>\r\n</ul>\r\n<p>Moderaatorid näevad ka valikut <strong>[[POSTS.MANAGE_TOPIC]]</strong> teema teisaldamiseks, lukustamiseks või kustutamiseks, vt <a href=\"[[help:moderating]]\">Moderaatori juhend</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Teema valikud"
+            "#text": "Teema tööriistad"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Siit leiate vastused küsimustele tahvli toimimise kohta. "
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Kirjutamine"
           }
         ]
       },

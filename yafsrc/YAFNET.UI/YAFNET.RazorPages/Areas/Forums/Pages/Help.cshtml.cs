@@ -51,6 +51,37 @@ public class HelpModel : ForumPage
     public List<HelpContent> HelpContents { get; set; }
 
     /// <summary>
+    /// Gets the examples of the BB code help, by group (each one with its live output).
+    /// </summary>
+    public List<BBCodeHelpGroup> BBCodeGroups { get; private set; } = [];
+
+    /// <summary>
+    /// Gets the other custom BB codes of the board (name and usage), they are not shown live (e.g. embedded media).
+    /// </summary>
+    public List<BBCodeHelpExample> CustomBBCodes { get; private set; } = [];
+
+    /// <summary>
+    /// The BB codes of the help with their group, and the custom BB code they need (null for the built-in codes).
+    /// The texts are on the language page HELP_BBCODES: [CODE]_TITLE, [CODE]_DESC and [CODE]_EXAMPLE.
+    /// </summary>
+    private static readonly (string Group, string Code, string CustomCode)[] BBCodeExamples =
+    [
+        ("TEXT", "B", null), ("TEXT", "I", null), ("TEXT", "U", null), ("TEXT", "S", null), ("TEXT", "H", null),
+        ("TEXT", "COLOR", null), ("TEXT", "SIZE", null), ("TEXT", "FONT", null),
+        ("LAYOUT", "ALIGN", null), ("LAYOUT", "INDENT", null), ("LAYOUT", "NOTE", null), ("LAYOUT", "HR", null),
+        ("LAYOUT", "TABLE", null),
+        ("LISTS", "LIST", null), ("LISTS", "LIST_ORDERED", null),
+        ("LINKS", "URL", null), ("LINKS", "URL_TEXT", null), ("LINKS", "EMAIL", null), ("LINKS", "IMG", null),
+        ("LINKS", "IMG_TEXT", null),
+        ("QUOTES", "QUOTE", null), ("QUOTES", "QUOTE_NAME", null), ("QUOTES", "CODE", null),
+        ("QUOTES", "CODE_LANGUAGE", null), ("QUOTES", "NOPARSE", null),
+        ("SPECIAL", "USERLINK", "USERLINK"), ("SPECIAL", "SPOILER", "SPOILER"), ("SPECIAL", "HIDE", "HIDE"),
+        ("SPECIAL", "HIDE_REPLY", "HIDE-REPLY"), ("SPECIAL", "HIDE_REPLY_THANKS", "HIDE-REPLY-THANKS"),
+        ("SPECIAL", "HIDE_THANKS", "HIDE-THANKS"), ("SPECIAL", "HIDE_POSTS", "HIDE-POSTS"),
+        ("SPECIAL", "GROUP_HIDE", "GROUP-HIDE"), ("SPECIAL", "EMOJI", null)
+    ];
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="HelpModel"/> class.
     /// </summary>
     public HelpModel()
@@ -73,7 +104,7 @@ public class HelpModel : ForumPage
     /// </summary>
     /// <param name="faq">The FAQ.</param>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
-    public IActionResult OnGet(string faq = null)
+    public async Task<IActionResult> OnGetAsync(string faq = null)
     {
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
         {
@@ -100,9 +131,12 @@ public class HelpModel : ForumPage
 
         this.PageBoardContext.PageLinks.AddLink(this.GetText("HELP_INDEX", TitleTag(faq)), string.Empty);
 
-        this.HelpContents = [];
-
         this.HelpContents = helpContent;
+
+        if (faq == "bbcodes")
+        {
+            await this.LoadBBCodeExamplesAsync();
+        }
 
         return this.Page();
     }
@@ -179,17 +213,15 @@ public class HelpModel : ForumPage
         helpNavigation.SelectMany(category => category.HelpPages).ForEach(
             helpPage =>
             {
-                var helpContent = helpPage switch
-                {
-                    "RECOVER" => this.GetTextFormatted(
-                        $"{helpPage}CONTENT",
-                        this.Get<ILinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
-                    "BBCODES" => this.GetTextFormatted($"{helpPage}CONTENT", this.Get<BoardInfo>().ForumBaseUrl),
-                    "POSTING" => this.GetTextFormatted(
-                        $"{helpPage}CONTENT",
-                        this.Get<ILinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes")),
-                    _ => this.GetText($"{helpPage}CONTENT")
-                };
+                // the labels of the forum and the links to other help topics and pages are tokens
+                // the help is html, GetText would replace the BB codes of the examples (e.g. [b])
+                var helpContent = HelpTextHelper.ReplaceTokens(
+                    this.Get<ILocalization>().GetRawText("HELP_INDEX", $"{helpPage}CONTENT") ?? this.GetText($"{helpPage}CONTENT"),
+                    (page, tag) => this.GetText(page, tag),
+                    topic => this.Get<ILinkBuilder>().GetLink(ForumPages.Help, new { faq = topic }),
+                    page => Enum.TryParse<ForumPages>(page, out var forumPage)
+                                ? this.Get<ILinkBuilder>().GetLink(forumPage)
+                                : null);
 
                 this.helpContents.Add(
                     new HelpContent
@@ -197,5 +229,107 @@ public class HelpModel : ForumPage
                         HelpPage = helpPage, Title = this.GetText($"{helpPage}TITLE"), Content = helpContent
                     });
             });
+    }
+    /// <summary>
+    /// Renders the examples of the BB code help with the BB codes of the board (the same output as in a post).
+    /// </summary>
+    private async Task LoadBBCodeExamplesAsync()
+    {
+        var customCodes = (await this.Get<IBBCodeService>().GetCustomBBCodesAsync()).ToList();
+
+        var logo = $"{this.Get<BoardInfo>().ForumBaseUrl}/{this.Get<BoardFolders>().Logos}/YAFLogo.svg";
+
+        foreach (var (group, code, customCode) in BBCodeExamples)
+        {
+            // a custom BB code the administrator has deleted is not explained
+            if (customCode != null && !customCodes.Exists(c => c.Name.Equals(customCode, StringComparison.OrdinalIgnoreCase)))
+            {
+                continue;
+            }
+
+            // the example is BB code, GetText would replace [b] and [noparse]
+            var example = (this.Get<ILocalization>().GetRawText("HELP_BBCODES", $"{code}_EXAMPLE") ?? string.Empty)
+                .Replace("{logo}", logo)
+                .Replace("{user}", this.PageBoardContext.PageUser.Name);
+
+            var helpGroup = this.BBCodeGroups.Find(g => g.Group == group);
+
+            if (helpGroup == null)
+            {
+                helpGroup = new BBCodeHelpGroup { Group = group, Title = this.GetText("HELP_BBCODES", $"GROUP_{group}") };
+                this.BBCodeGroups.Add(helpGroup);
+            }
+
+            helpGroup.Examples.Add(
+                new BBCodeHelpExample
+                {
+                    Title = this.GetText("HELP_BBCODES", $"{code}_TITLE"),
+                    Description = this.GetText("HELP_BBCODES", $"{code}_DESC"),
+                    Example = example,
+                    // prepared like the text of a post when it is saved
+                    Output = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+                             HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(example)),
+                             0)
+                });
+        }
+
+        // the other custom BB codes (embedded media, attachments, ...) with their usage
+        this.CustomBBCodes =
+        [
+            .. customCodes
+                .Where(c => !Array.Exists(BBCodeExamples, e => c.Name.Equals(e.CustomCode, StringComparison.OrdinalIgnoreCase)))
+                .Select(c => new BBCodeHelpExample
+                             {
+                                 Title = c.Name,
+                                 Example = this.Get<IBBCodeService>().LocalizeCustomBBCodeElement(c.Description ?? string.Empty)
+                             })
+        ];
+    }
+
+    /// <summary>
+    /// A group of the BB code help.
+    /// </summary>
+    public class BBCodeHelpGroup
+    {
+        /// <summary>
+        /// Gets or sets the group (the language tag GROUP_[group]).
+        /// </summary>
+        public string Group { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Gets the examples.
+        /// </summary>
+        public List<BBCodeHelpExample> Examples { get; } = [];
+    }
+
+    /// <summary>
+    /// A BB code of the help.
+    /// </summary>
+    public class BBCodeHelpExample
+    {
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description (html).
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the example (BB code, text).
+        /// </summary>
+        public string Example { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output of the example (html), null for the BB codes that are not shown live.
+        /// </summary>
+        public string Output { get; set; }
     }
 }

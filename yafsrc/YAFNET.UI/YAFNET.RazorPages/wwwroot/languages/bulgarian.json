@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Подравнява текста вляво, в центъра или вдясно с <code>[left]</code>, <code>[center]</code> и <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Центриран текст[/center]\r\n[right]Текст, подравнен вдясно[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Подравняване"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Прави текста удебелен."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Този текст е удебелен[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Удебелен"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Показва програмен код с неговите нови редове и интервали, BB кодовете в него не се форматират."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Оцветява кода на език за програмиране, напр. csharp, javascript, python, sql, css или markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Код с оцветяване"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Код"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Оцветява текста. Използвайте името на цвят или цветови код."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Червен текст[/color] и [color=#0d6efd]син текст[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Цвят на текста"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Тези BB кодове вграждат съдържание (напр. видеоклипове или публикации от други уебсайтове) или прикачени файлове. Напишете адреса или номера между таговете."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Връзка, която пише имейл до адреса."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "Имейл адрес"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Кратките кодове на емоджи в квадратни скоби и емотиконите като :) стават емоджи."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Емоджи"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Показва текста с друг шрифт, ако шрифтът е наличен на устройството на читателя."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Текст с Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Шрифт"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Още BB кодове на този форум"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Показва текста само на членове или с <code>[group-hide=Role1;Role2]</code> само на членовете с тези роли."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Само членовете виждат този текст.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Скрито за групи"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Оформление"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Връзки и изображения"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Списъци"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Цитати и код"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Членове, спойлери и скрито съдържание"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Форматиране на текст"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Скрива текста, докато читателят не реагира на публикацията. Авторът и администраторите винаги го виждат."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Скрит текст.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Скрива текста от членове, които са написали по-малко публикации от зададения брой."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Скрит текст.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Скрито при малко публикации"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Скрива текста, докато читателят не отговори в темата."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Скрит текст.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Скрива текста, докато читателят не отговори в темата или не реагира на публикацията."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Скрит текст.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Скрито до отговор или реакция"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Скрито до отговор"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Скрива текста от членове, които са получили по-малко реакции от зададения брой."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Скрит текст.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Скрито при малко реакции"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Скрито до реакция"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Четири или повече тирета на отделен ред чертаят хоризонтална линия."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Текст над линията\r\n----\r\nТекст под линията"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Хоризонтална линия"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Откроява текста като с маркер."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Този текст е откроен[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Открояване"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Показва изображение от интернет. Адресът трябва да завършва с типа на изображението (напр. .png или .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Изображение с описание, което се показва, когато мишката е върху изображението, и се прочита от екранните четци."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]Логото на YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Изображение с описание"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Изображение"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Добавя отстъп на текста."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Текст с отстъп[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Отстъп"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Прави текста курсивен."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Този текст е в курсив[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Курсив"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Списък с водещи символи. Всеки елемент започва с <code>[*]</code> на нов ред."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Първи елемент\r\n[*]Втори елемент\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Номериран списък. Използвайте <code>[list=a]</code> или <code>[list=A]</code> за букви, <code>[list=i]</code> или <code>[list=I]</code> за римски цифри."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Първа стъпка\r\n[*]Втора стъпка\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Номериран списък"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Списък"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Показва BB кодовете такива, каквито са, без да ги форматира."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]не е удебелен[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Без форматиране"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Показва текста в цветно поле. Типовете са primary, secondary, success, danger, warning, info, light и dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Бележка с информация.[/note]\r\n[note=warning]Предупреждение.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Бележка"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Показва текст като цитат. Бутоните за цитиране на публикациите го вмъкват вместо вас."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Цитираният текст.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Цитат с името на автора му."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Цитираният текст.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Цитат с автора"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Цитат"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Резултат"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Променя размера на текста от 1 (много малък) до 9 (много голям). 5 е нормалният размер."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Малък[/size] [size=5]Нормален[/size] [size=7]Голям[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Размер на текста"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Скрива текста, докато читателят не щракне върху бутона, напр. за края на филм."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Градинарят го е направил.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Спойлер"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Зачертава текста, напр. за нещо, което вече не е валидно."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Този текст е зачертан[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Зачертан"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Създава таблица: <code>[tr]</code> е ред, <code>[td]</code> – клетка от реда."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Име[/td][td]Публикации[/td][/tr][tr][td]Анна[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Таблица"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Адресите на уебсайтове автоматично стават връзки. Можете също да ги поставите в <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Връзка, която показва текст вместо адреса."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]Уебсайтът на YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Връзка с текст"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Връзка"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Връзка към профила на член. Когато напишете @ в редактора, тя се създава вместо вас, а членът получава известие."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Връзка към член"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Подчертава текста."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Този текст е подчертан[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Подчертан"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Вие пишете"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Вашият акаунт"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Съобщенията са специални съобщения, публикувани от администратора или модераторите. "
+            "#text": "<p>Някои теми са по-важни от други:</p>\r\n<ul>\r\n<li><strong>Закачените теми</strong> остават най-горе в списъка с теми на своя форум, напр. правилата или често задаваните въпроси на форума.</li>\r\n<li><strong>Обявленията</strong> са важна информация, те също се показват най-горе в списъка с теми и са отбелязани със значка.</li>\r\n</ul>\r\n<p>Кой може да ги създава, се определя от администратора (обикновено модераторите и администраторите). Те избират това с <strong>[[POSTMESSAGE.PRIORITY]]</strong>, когато пишат или редактират темата. Можете да отговаряте в закачени теми и обявления като във всяка друга тема, освен ако темата не е заключена.</p>\r\n<h3 class=\"h6 mt-3\">Обявления на форума</h3>\r\n<p>Администраторът може също да показва обявление на всяка страница на форума, напр. за планирана поддръжка. Можете да го затворите с бутона вдясно от него.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Съобщения"
+            "#text": "Обявления и закачени теми"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Светъл и тъмен режим</h3>\r\n<p>Бутонът за цветови режим в заглавната лента превключва между <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> и <strong>[[THEME_MODE.AUTO]]</strong> (режимът на устройството ви). Форумът запомня избора ви в този браузър.</p>\r\n<h3 class=\"h6 mt-3\">Тема на оформлението и език</h3>\r\n<p>Ако администраторът го позволява, можете да изберете друга тема на оформлението и езика на форума в <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. В зависимости от форума езикът може да се смени и в заглавната лента.</p>\r\n<h3 class=\"h6 mt-3\">Часова зона и размер на страницата</h3>\r\n<p>Всички дати и часове се показват във вашата часова зона. Задайте я в <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Скорошните часове се показват напр. като „преди 5 минути“.</p>\r\n<p>Настройката <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> на същата страница определя колко записа показват списъците на форума на една страница.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Външен вид и език"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "<p>За да прикачите файл към публикация, просто копирайте и поставете файла в редактора. "
+            "#text": "<p>Ако имате право да качвате файлове във форум, можете да добавяте файлове и изображения към публикациите си:</p>\r\n<ul>\r\n<li>Плъзнете файла в редактора или (в редактора, който показва форматирането) поставете изображение.</li>\r\n<li>Или щракнете върху бутона за прикачени файлове в лентата с инструменти (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). В прозореца можете да пуснете файлове или да ги изберете с <strong>[[ATTACHMENTS.ADD_FILES]]</strong>, а в <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> са изброени по-рано качените от вас файлове: щракнете върху някой, за да го вмъкнете отново.</li>\r\n</ul>\r\n<p>Прозорецът показва <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> и, ако има такъв, максималния размер на файла. Бързият отговор няма прикачени файлове, използвайте пълния редактор.</p>\r\n<p>Изображенията се показват като миниатюра в публикацията, щракнете върху нея, за да видите цялото изображение (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Другите файлове и много големите изображения се показват като връзка с размера и броя изтегляния. Изтеглянето може да изисква право, което форумът дава само на членове.</p>\r\n<h3 class=\"h6 mt-3\">Изображения от други уебсайтове</h3>\r\n<p>За да покажете изображение от интернет, щракнете върху <strong>[[COMMON.TT_IMAGE]]</strong> и въведете адреса му или напишете <code>[img]адрес на изображението[/img]</code>.</p>\r\n<p>Качените от вас файлове са изброени в <a href=\"[[help:myattachments]]\">Моите прикачени файлове</a>, където можете и да ги изтриете.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,79 +11300,143 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "\r\n\r\n    <h3>\r\n    BB Codes for Text formatting\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">\r\n    Bold Text\r\n    </div>\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-body-secondary\">Description</h6>\r\n\r\n    The [noparse][b] tag allows you to create text that is bold.\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n\r\n    [noparse][b]This text is bold[/b][/noparse]\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n    <strong>This text is bold</strong>\r\n    </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">\r\n    Italic Text\r\n    </div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n\r\n    The [i] tag allows you to create text that italic.\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n\r\n    [i]This text is italic[/i]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <em>This text is italic</em>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Underline Text</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n\r\n    The [u] tag allows you to create text underlined.\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [u]This text is underlined[/u]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <u>This text is underlined</u>\r\n    </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Strike Text</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n\r\n    Wrap these tags to strike through text\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n    [s]This text is Strike through[/s]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <s>This text is Strike through</s>\r\n    </div> </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Text Color</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [color] tag allows you to change the color of your text, by parsing the color you want.\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [color=blue]this text is blue[/color]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <span style=\"color:blue\">this text is blue</span>\r\n    </div></div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Text Size</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n    [size=9]This Text has the font size of 180%[/size]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <span style=\"font-size:180%\">This Text has the font size of 180%</span>\r\n    </div></div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Text Font</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [font] tag allows you to change the font family of your text.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [font=courier]this text is in the courier font[/font]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n    <span style=\"font-family:courier\">this text is in the courier font</span></div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Text Left / Right / Center Direction</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [left], [right] and [center] tags allow you to change the alignment of your text.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n    [right]this text is right aligned[/right]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <div align=\"left\">this text is left aligned</div>\r\n    <div align=\"center\">this text is center aligned</div>\r\n    <div align=\"right\">this text is right aligned</div>\r\n    </div>        </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Highlight</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [h] tag allows you to highlight your text.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [h]this text is highlighted[/h]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n    <mark>this text is highlighted</mark>\r\n    </div>\r\n    </div>\r\n\r\n    <h3>\r\n    BB Codes to create various Links\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Email Links</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [email]someone@mydomain.com[/email]<br />\r\n    [email=someone@mydomain.com]Click Here to Email Me[/email]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n    <a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com&nbsp;<i class=\"fa fa-external-link-alt\"></i></a><br />\r\n    <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>\r\n    </div></div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">URL Hyper Links</div>\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [url]{0}[/url]<br />\r\n    [url={0}]mydomain[/url]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a><br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>\r\n    </div> </div>\r\n\r\n\r\n\r\n        <h3>\r\n    BB Codes to create Lists\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Bullet Lists</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [list]<br />\r\n    [*]list item 1<br />\r\n    [*]list item 2<br />\r\n    [/list]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <ul>\r\n    <li>list item 1</li>\r\n    <li>list item 2</li>\r\n    </ul>\r\n    </div></div>\r\n\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Numbered and Alphabetic Lists</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [list=1]<br />\r\n    [*]list item 1<br />\r\n    [*]list item 2<br />\r\n    [/list]<br />\r\n    <br />\r\n    [list=a]<br />\r\n    [*]list item a<br />\r\n    [*]list item b<br />\r\n    [/list]\r\n    <br /><br />\r\n    [list=A]<br />\r\n    [*]list item A<br />\r\n    [*]list item B<br />\r\n    [/list]\r\n    <br /><br />\r\n    [list=i]<br />\r\n    [*]list item i<br />\r\n    [*]list item ii<br />\r\n    [/list]<br /><br />\r\n    [list=I]<br />\r\n    [*]list item I<br />\r\n    [*]list item II<br />\r\n    [/list]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <ol>\r\n    <li>list item 1</li>\r\n    <li>list item 2</li>\r\n    </ol>\r\n    <ol type=\"a\">\r\n    <li>list item a</li>\r\n    <li>list item b</li>\r\n    </ol>\r\n    <ol type=\"A\">\r\n    <li>list item A</li>\r\n    <li>list item B</li>\r\n    </ol>\r\n    <ol type=\"i\">\r\n    <li>list item i</li>\r\n    <li>list item ii</li>\r\n    </ol>\r\n    <ol type=\"I\">\r\n    <li>list item I</li>\r\n    <li>list item II</li>\r\n    </ol>\r\n    </div>\r\n    </div>\r\n\r\n\r\n    <h3>\r\n    BB Codes to add Media Elements (Images, Videos)\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Images</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n    <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p>\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n    [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">You Tube</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n    [youtube]http://youtu.be/jqxENMKaeCU[/youtube]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n    <!-- BEGIN youtube -->\r\n    <div>\r\n    <iframe width=\"560\" height=\"350\" src=\"//youtube.com/embed/jqxENMKaeCU?hd=1\" frameborder=\"0\" allowfullscreen></iframe>\r\n    </div><!-- END youtube -->\r\n    <br /><br />\r\n    <!-- BEGIN youtube -->\r\n    <div>\r\n    <iframe width=\"560\" height=\"350\" src=\"//youtube.com/embed/jqxENMKaeCU?hd=1\" frameborder=\"0\" allowfullscreen></iframe>\r\n    </div><!-- END youtube -->\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Vimeo</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [vimeo]http://vimeo.com/25451551[/vimeo]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <div>\r\n    <iframe width=\"560\" height=\"350\"\r\n    src=\"http://player.vimeo.com/video/25451551?show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;&amp;fullscreen=1\" frameborder=\"0\"></iframe>\r\n    </div>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Google Maps</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n    <iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></div>\r\n\r\n    </div>\r\n\r\n    <h3>\r\n    BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Quoting</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [quote] tag allows you to quote a text from a posting.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header text-muted\">Quote:</div>\r\n    <div class=\"card-body\">\r\n    <p class=\"card-text\">Quoted Text.</div>\r\n    </div><br /><br />\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header text-muted\">John Doe wrote:</div>\r\n    <div class=\"card-body\">\r\n    <p class=\"card-text\">Quoted Text.</div>\r\n    </div><br /><br />\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header text-muted\">Originally Posted by: John Doe <a href=\"#post123\"><i class=\"fas fa-external-link-alt\"></i></a></div>\r\n    <div class=\"card-body\">\r\n    <p class=\"card-text\">Quoted Text.</div>\r\n    </div>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Code</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [code]<br />\r\n    // Hello1.cs<br />\r\n    public class Hello1<br />\r\n    {{\r\n    <br />\r\n    &nbsp;&nbsp;public static void Main()<br />\r\n    &nbsp;{{<br />\r\n    &nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n    &nbsp;&nbsp;\r\n    }}<br />\r\n    }}<br />\r\n    [/code]<br /><br />\r\n    [code=csharp]<br />\r\n    // Hello1.cs<br />\r\n    public class Hello1<br />\r\n    {{\r\n    <br />\r\n    &nbsp;&nbsp;public static void Main()<br />\r\n    &nbsp;{{<br />\r\n    &nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n    &nbsp;&nbsp;\r\n    }}<br />\r\n    }}<br />\r\n    [/code]\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <div class=\"code\"><pre class=\"line-numbers\"><code class=\"language-markup\">\r\n\r\n    // Hello1.cs<br />\r\n    public class Hello1<br />\r\n    {{\r\n    <br />\r\n    &nbsp;&nbsp;public static void Main()<br />\r\n    &nbsp;{{<br />\r\n    &nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n    &nbsp;&nbsp;\r\n    }}<br />\r\n    }}\r\n    </code></pre>\r\n    </div><br /><br />\r\n    <div class=\"code\"><pre class=\"line-numbers\"><code class=\"language-csharp\">\r\n\r\n    // Hello1.cs\r\n    public class Hello1\r\n    {{\r\n    public static void Main()\r\n    {{\r\n    System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n    }}\r\n    }}</code></pre>\r\n    </div>\r\n    </div>\r\n    </div>\r\n\r\n\r\n    <h3>\r\n    BB Codes to show/Hide its Content only to specific users\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Hide</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n    The [hide] tag hides content from people until they press the thank you button for the post.\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n    [hide]Hidden Content[/hide]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    <h4 class=\"alert-heading\">Hidden Content</h4>\r\n    <hr>\r\n    <p class=\"mb-0\">\r\n    The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\r\n    </p>\r\n    </div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    This board requires you to be registered and logged-in before you can view hidden messages.\r\n    </div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n    </div>    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Group Hide</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [group-hide] tag Hide the Content from Guests, or other Roles if defined.\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [group-hide]Hidden Content[/group-hide]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    You have insufficient rights to see the hidden content.\r\n    </div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    This board requires you to be registered and logged-in before you can view hidden messages.\r\n    </div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Hide-Thanks</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [hide-thanks] tag hides content from people who have below X thanks received.\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [hide-thanks=2]Hidden Content[/hide-thanks]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"alert alert-warning\" role=\"alert\">\r\n    Hidden Content (You must be registered, and have at least 2 thank(s) received.)\r\n    </div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    This board requires you to be registered and logged-in before you can view hidden messages.\r\n    </div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Hide-Posts</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [hide-posts] tag hides content from people who have below X posts.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [hide-posts=10]Hidden Content[/hide-posts]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"alert alert-warning\" role=\"alert\">\r\n    Hidden Content (You must be registered and have 10 post(s) or more.)\r\n    </div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    This board requires you to be registered and logged-in before you can view hidden messages.\r\n    </div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n    </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Hide-Reply</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [hide-reply] tag hides content from people until they replied in the same thread.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [hide-reply]Hidden Content[/hide-reply]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"alert alert-warning\" role=\"alert\">\r\n    Hidden Content (You must be registered and reply to the message to see the hidden Content.)\r\n    </div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    This board requires you to be registered and logged-in before you can view hidden messages.\r\n    </div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Hide-Reply-Thanks</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [hide-reply-thanks]Hidden Content[/hide-reply-thanks]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"alert alert-warning\" role=\"alert\">\r\n    Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)\r\n    </div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"alert alert-danger\" role=\"alert\">\r\n    This board requires you to be registered and logged-in before you can view hidden messages.\r\n    </div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n    </div></div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Spoiler</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [spoiler] tag hides content from people until they click on \"Show Spoiler\".\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [spoiler]Spoiler Content[/spoiler]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n    function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n    </script>\r\n    <div class=\"mb-3\">\r\n    <input type=\"button\" value=\"Show Spoiler\" class=\"btn btn-secondary btn-sm\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\" />\r\n    </div>\r\n    <div class=\"card card-body\" id=\"spoil_c3a3b\" style=\"display: none;\">\r\n    Spoiler Content\r\n    </div>\r\n    <!-- END spoiler -->\r\n    </div>\r\n    </div>\r\n\r\n\r\n    <h3>\r\n    Other\r\n    </h3>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">User Link</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [userlink]Username[/userlink]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n\r\n    <span class=\"userLinkContainer\">\r\n    <a href=\"{0}/UserProfile/1234/Username\"\r\n    rel=\"nofollow\"\r\n    title=\"View profile\"\r\n    target=\"_blank\"\r\n    id=\"UserLinkBBCodeFor12224\"\r\n    class=\"btn btn-outline-primary\">\r\n    <span title=\"User is Offline\"><i class=\"fas fa-user-circle\" style=\"font-size: 1.5em\"></i></span>&nbsp;Username\r\n    </a>\r\n    </span>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"card mb-3\">\r\n    <div class=\"card-header\">Stop BB Code Parsing</div>\r\n\r\n\r\n    <div class=\"card-body\">\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Description</h6>\r\n\r\n    The [noparse] tag allows you to stop the parsing of BB code inside the tag.\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Usage</h6>\r\n\r\n    [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]\r\n\r\n\r\n    <h6 class=\"card-subtitle mt-2 text-muted\">Output</h6>\r\n\r\n    [noparse][b]Sample text.[/b][/noparse]\r\n    </div>\r\n    </div>\r\n    <p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>\r\n  "
+            "#text": "<p>BB кодовете форматират публикациите ви. Те са кратки тагове в квадратни скоби около текста, напр. <code>[b]удебелен[/b]</code>. Не е нужно да ги пишете: бутоните на редактора ги вмъкват вместо вас. Ако редакторът показва форматирането, докато пишете, BB кодовете се създават във фонов режим.</p>\r\n<p>По-долу ще намерите всеки BB код на този форум, какво пишете и резултата, както изглежда в публикация. Някои BB кодове се показват тук само ако форумът ги използва, а в подписите може да са разрешени по-малко BB кодове, отколкото в публикациите.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "Списък на кодовете на BB"
+            "#text": "BB кодове"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Отворете <strong>[[BLOCK_OPTIONS.TITLE]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> – другите членове не могат да започват лични разговори с вас.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> – никой не може да ви изпраща заявки за приятелство.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> – никой не може да ви изпраща имейли чрез форума.</li>\r\n</ul>\r\n<p>Администраторите и членовете от списъка ви с приятели все още могат да се свързват с вас.</p>\r\n<h3 class=\"h6 mt-3\">Игнориране на член</h3>\r\n<p>За да игнорирате член, отворете потребителското меню на някоя от публикациите му и изберете <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Публикациите на игнорираните членове са скрити (<strong>[[POSTS.TOGGLEPOST]]</strong> показва отделна публикация) и те не могат да ви изпращат лични съобщения. <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> на същата страница показва членовете, които игнорирате, премахнете член от него, за да виждате отново публикациите му.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Игнориране и блокиране на потребители"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Приятелите са функция за приятелство и представляват двупосочна връзка между двама потребители. "
+            "#text": "<p>Приятелството е връзка между двама членове. За да поканите член да стане ваш приятел, щракнете върху <strong>[[BUDDY.ADDBUDDY]]</strong> в профила му или в потребителското меню на публикация. Членът получава заявка за приятелство и може да я одобри или откаже.</p>\r\n<p>Приятелите ви са в <strong>[[TOOLBAR.BUDDIES]]</strong> в потребителското меню, в три раздела:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> – вашите приятели. Изпратете им лично съобщение или ги премахнете от списъка.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> – заявките на други членове. <strong>[[FRIENDS.APPROVE]]</strong> добавя члена към приятелите ви (и вас към неговите), отказът премахва заявката. <strong>[[FRIENDS.APPROVE_ALL]]</strong> одобрява всички заявки наведнъж.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> – изпратените от вас заявки, на които все още няма отговор.</li>\r\n</ul>\r\n<p>Приятелите се показват в профила ви. Те могат да се свържат с вас, дори ако блокирате лични съобщения или имейли, вижте <a href=\"[[help:blocking]]\">Игнориране и блокиране на потребители</a>. Ако не искате заявки за приятелство, можете да ги блокирате и там.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Приятели"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Отворете <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Имате две възможности:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> – почивка: не можете да използвате акаунта си 30 дни, след това той отново работи.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> – акаунтът ви се закрива, а публикациите ви се изтриват (отговорите на другите членове остават). Вече не можете да влизате, това не може да бъде отменено.</li>\r\n</ul>\r\n<p>Потвърдете с <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> и щракнете върху <strong>[[COMMON.CONTINUE]]</strong>. Излизате от акаунта.</p>\r\n<p>Ако искате всички ваши данни да бъдат премахнати или имате въпроси за данните си, свържете се с администратора, вижте <a href=\"[[help:privacy]]\">Поверителност, бисквитки и правила</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Спиране или изтриване на акаунта"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Ако в момента сте регистрирани и влезли, може да можете да редактирате и изтривате съобщенията си (ако администраторът не е изключил тази опция). "
+            "#text": "<p>Можете да редактирате и изтривате собствените си публикации, ако форумът го позволява. Отворете менюто на публикацията (трите точки горе вдясно) и изберете <strong>[[BUTTON.BUTTON_EDIT]]</strong> или <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Това не е възможно в заключени теми, а администраторът може да го ограничи до определен брой дни след публикуването.</p>\r\n<h3 class=\"h6 mt-3\">Редактиране</h3>\r\n<p>Страницата за редактиране е като страницата за нова публикация. Ако вие сте започнали темата, можете да промените и заглавието, описанието и етикетите ѝ. Въведете <strong>[[POSTMESSAGE.EDITREASON]]</strong>, за да кажете на читателите какво сте променили.</p>\r\n<p>Ако редактирате публикация известно време след публикуването ѝ, публикацията показва кой я е редактирал, кога и защо. По-ранните версии се запазват, вижте <a href=\"[[help:history]]\">История на публикацията</a>. Модераторите също могат да редактират публикациите ви, тогава публикацията показва, че е редактирана от модератор.</p>\r\n<h3 class=\"h6 mt-3\">Изтриване</h3>\r\n<p>Въведете <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> и щракнете върху <strong>[[DELETEMESSAGE.DELETE]]</strong>. Публикацията не се заличава: мястото ѝ в темата показва, че е изтрита. Можете да я възстановите с <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> в същото меню, освен ако модератор не я е изтрил.</p>\r\n<p>Само модераторите могат да изтриват цели теми и само администраторите могат да заличават публикации окончателно.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Редактиране и изтриване на вашите публикации"
+            "#text": "Редактиране и изтриване на публикации"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Можете да промените информацията за вашия акаунт, като използвате опцията Личен профил -> „Редактиране на профил“ от <strong>Потребителски контролен панел</strong>. "
+            "#text": "<p>Отворете <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Всички полета са незадължителни, попълнете само това, което искате да споделите. Информацията се показва в публичния ви профил.</p>\r\n<ul>\r\n<li><strong>За вас</strong> – показваното ви име (ако форумът използва показвани имена), истинско име, рождена дата, професия, интереси и пол.</li>\r\n<li><strong>Местоположение</strong> – държава, област и град. Ако форумът го предлага, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> ги попълва вместо вас.</li>\r\n<li><strong>Начална страница</strong> – адресите на уебсайта и блога ви.</li>\r\n<li>Допълнителни полета, добавени от администратора.</li>\r\n</ul>\r\n<p>Щракнете върху <strong>[[COMMON.SAVE]]</strong>, за да запазите промените. Аватарът и подписът имат собствени страници, вижте <a href=\"[[help:mypics]]\">Аватар и подпис</a>. Имейл адресът, часовата зона и езикът са в <a href=\"[[help:editsettings]]\">Редактиране на настройките</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Редактиране на потребителски профил"
+            "#text": "Редактиране на профила"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Отворете <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Въведете новия адрес и <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Форумът изпраща връзка на новия адрес, адресът се променя, когато щракнете върху нея. Имейл адресът ви никога не се показва на другите членове.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> – не се показвате в списъка с членове онлайн (ако форумът го позволява).</li>\r\n<li>Потокът от дейности – известията ви за споменавания, цитати и реакции, вижте <a href=\"[[help:popups]]\">Известия</a>.</li>\r\n<li>Часовата ви зона, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> и (ако форумът го позволява) темата на оформлението и езикът, вижте <a href=\"[[help:appearance]]\">Външен вид и език</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Двуфакторно удостоверяване</h3>\r\n<p>Включете или изключете двуфакторното удостоверяване, вижте <a href=\"[[help:login]]\">Вход и сигурност на акаунта</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Редактиране на настройките"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Какво е YAF?</strong></p>\r\n"
+            "#text": "<p>Форумът е място за дискусии с други хора. Дискусиите са организирани така:</p>\r\n<ul>\r\n<li><strong>Категориите</strong> групират форумите по една тематика, те са разделите на началната страница.</li>\r\n<li><strong>Форумите</strong> са местата за определена тематика. Един форум може да съдържа подфоруми.</li>\r\n<li><strong>Темите</strong> са дискусиите във форума. Темата започва с първа публикация и се разраства с отговорите на членовете.</li>\r\n<li><strong>Публикациите</strong> (или съобщенията) са отделните приноси в темата.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Началната страница</h3>\r\n<p>Началната страница показва категориите с техните форуми. За всеки форум виждате броя на темите и публикациите и последната публикация. Категорията може да бъде свита със стрелката до името ѝ, форумът запомня избора ви. В зависимости от форума на началната страница се показват и <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (последните публикации), статистиката и кой е онлайн.</p>\r\n<h3 class=\"h6 mt-3\">Гости и членове</h3>\r\n<p>Гостите могат да четат форумите, които са отворени за тях. За да пишете публикации, да използвате личните функции (лични съобщения, приятели, известия) и да виждате някои страници (напр. списъка с членове или профилите), ви е необходим акаунт, вижте <a href=\"[[help:registration]]\">Регистрация</a>.</p>\r\n<p>Какво можете да правите във форума (да четете, да започвате теми, да отговаряте, да гласувате в анкети, да качвате файлове, ...), се определя от администратора за всеки форум и всяка група членове. Ако не виждате бутон, описан в тази помощ, нямате право за него в този форум.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Форуми, теми и съобщения"
+            "#text": "Как е устроен форумът"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Общо използване на форума"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Първи стъпки"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Когато публикация е редактирана, тя показва кой и кога я е редактирал. Щракнете върху бутона за история в тази бележка, за да отворите <strong>[[MESSAGEHISTORY.TITLE]]</strong>: там са изброени версиите на публикацията с датата, редактора и причината.</p>\r\n<ul>\r\n<li>Изберете две версии и щракнете върху <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong>, за да видите <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: премахнатият и добавеният текст са откроени.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> ви връща към публикацията.</li>\r\n</ul>\r\n<p>Модераторите могат да възстановят по-ранна версия с <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Форумът пази версиите за брой дни, зададен от администратора.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "История на публикацията"
           },
           {
             "@tag": "INDEX",
             "#text": "Индекс"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Щракнете върху <strong>[[TOOLBAR.LOGIN]]</strong> в заглавната лента и въведете потребителското си име или имейл адреса си и паролата си.</p>\r\n<p>Ако отметнете <strong>[[LOGIN.AUTO]]</strong>, оставате влезли на този компютър за един месец, дори след като затворите браузъра. Не използвайте това на компютър, който ползват и други хора. Без тази отметка излизате, когато затворите браузъра. За да излезете, отворете потребителското меню горе вдясно и щракнете върху <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Двуфакторно удостоверяване</h3>\r\n<p>Двуфакторното удостоверяване защитава акаунта ви, дори ако някой знае паролата ви: при вход форумът изисква и код от приложение за удостоверяване на телефона ви.</p>\r\n<ol>\r\n<li>Отворете <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (потребителско меню, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Щракнете върху <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Добавете нов акаунт в приложението си за удостоверяване (напр. Microsoft Authenticator, Google Authenticator), като сканирате QR кода или въведете <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Въведете кода, който показва приложението, за потвърждение.</li>\r\n</ol>\r\n<p>Оттук нататък при вход след паролата се изисква кодът от приложението (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Можете да го изключите на същата страница с <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Как да пазите акаунта си</h3>\r\n<ul>\r\n<li>Използвайте парола, която не използвате никъде другаде. Можете да я смените с <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Форумът никога не иска паролата ви по имейл или с лично съобщение.</li>\r\n<li>Ако сте забравили паролата си, вижте <a href=\"[[help:recover]]\">Възстановяване на забравена парола</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">След няколко грешни пароли акаунтът се заключва за няколко минути.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Вход и сигурност на акаунта"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to or watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>"
+            "#text": "<p>Отворете <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). В <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> избирате кои имейли да получавате:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> – никакви имейли.</li>\r\n<li>Известие за темите, в които сте публикували или които следите – всяка тема, в която публикувате, се следи автоматично.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> – само темите и форумите, които следите сами.</li>\r\n</ul>\r\n<p>Ако форумът го предлага, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> изпраща по един имейл на ден с новите публикации вместо отделни имейли. Щракнете върху <strong>[[COMMON.SAVE]]</strong>, за да запазите.</p>\r\n<p>Същата страница изброява вашите <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> и <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, вижте <a href=\"[[help:subscriptions]]\">Следене на теми и форуми</a>, както и насочените известия на устройствата ви, вижте <a href=\"[[help:push]]\">Насочени известия и приложение</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Предпочитания за известия по имейл"
+            "#text": "Предпочитания за известия"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Списъкът с членове показва регистрираните членове на борда. "
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Списъкът с членове показва регистрираните членове с броя на публикациите им, датата на присъединяване и последното посещение. Можете:</p>\r\n<ul>\r\n<li>да го сортирате по име, ранг, дата на присъединяване, брой публикации или последно посещение,</li>\r\n<li>да покажете членовете с определена първа буква,</li>\r\n<li>да го филтрирате с <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> по име, роля, ранг или брой публикации.</li>\r\n</ul>\r\n<p>Щракнете върху член, за да отворите профила му. В зависимости от форума списъкът се показва само на членове.</p>\r\n<h3 class=\"h6 mt-3\">Активни потребители</h3>\r\n<p>Статистиката на началната страница показва кой е онлайн. Списъкът с активни потребители показва членовете и гостите, които са онлайн в момента, и къде се намират във форума. Членовете могат да се скрият от този списък в <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, ако форумът го позволява.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Страницата на екипа изброява администраторите и модераторите на форума с форумите, които модерират. Свържете се с тях, ако се нуждаете от помощ.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Списък на членовете"
+            "#text": "Членове, активни потребители и екип"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Споменаване на член</h3>\r\n<p>Напишете в редактора <code>@</code> и първите букви на име и изберете члена от списъка. Името става връзка към профила, а членът получава известие, че сте го споменали (ако използва известията, вижте <a href=\"[[help:popups]]\">Известия</a>).</p>\r\n<h3 class=\"h6 mt-3\">Етикети на теми</h3>\r\n<p>Етикетите са ключови думи на темата, напр. продуктът или въпросът, за който става дума. Добавете ги в <strong>[[POSTTOPIC.TAGS]]</strong>, когато започвате тема. Етикетите се показват с темата, щракване върху етикет показва всички теми с този етикет. Търсенето също може да търси по етикети, вижте <a href=\"[[help:searching]]\">Търсене</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Споменавания и етикети"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Съобщения и известия"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p>Регистрираните членове може да могат да изпращат съобщения до други членове на този форум, използвайки системата за лични съобщения (ако е активирана от администратора).<p>Когато получите лично съобщение, ще бъдете уведомени в заглавката на форума за това колко непрочетени съобщения имате, също така ще се появи изскачащо известие. "
+            "#text": "<p>Личните съобщения са разговори между вас и друг член, никой друг не може да ги прочете. Отворете <strong>[[TOOLBAR.INBOX]]</strong> в потребителското меню: вляво виждате <strong>[[PM.CONVERSATION_TITLE]]</strong>, вдясно съобщенията от избрания разговор.</p>\r\n<h3 class=\"h6 mt-3\">Започване на разговор</h3>\r\n<ul>\r\n<li>Щракнете върху <strong>[[PM.NEW_CONVERSATION]]</strong>, напишете поне три букви от името и изберете члена.</li>\r\n<li>Или щракнете върху <strong>[[POSTS.PM]]</strong> в профила на члена или в потребителското меню на публикация.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Писане</h3>\r\n<p>Напишете съобщението си и натиснете Enter, за да го изпратите, Shift+Enter започва нов ред. Можете да използвате BB кодове, напр. за удебелен текст или връзки. Ако другият член има разговора отворен по същото време, съобщенията се появяват веднага и от двете страни, а разговорът показва дали членът е онлайн.</p>\r\n<p>Новите съобщения се отчитат до името ви и <strong>[[TOOLBAR.INBOX]]</strong>, а когато отворите страница на форума, прозорец ви пита дали искате да ги прочетете. За личните съобщения няма известия по имейл.</p>\r\n<h3 class=\"h6 mt-3\">Изтриване</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> премахва разговора от вашия списък, другият член все още го има.</p>\r\n<p class=\"text-body-secondary small\">Не можете да пишете на членове, които блокират лични съобщения или ви игнорират (освен ако не сте техен приятел), вижте <a href=\"[[help:blocking]]\">Игнориране и блокиране на потребители</a>. Администраторът може да изключи личните съобщения.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Частни съобщения (Messenger)"
+            "#text": "Лични съобщения"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Модераторите виждат <strong>[[TOOLBAR.MODERATE]]</strong> в заглавната лента. Страницата изброява форумите, които модерирате, с броя на <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> и <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>В модерираните форуми (и за членове, чиито публикации трябва да се проверяват) новите публикации се показват едва след като модератор ги одобри. Проверете публикацията и щракнете върху <strong>[[MODERATE_FORUM.APPROVE]]</strong> или я изтрийте.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Списъкът показва докладваните публикации с причините и кой ги е докладвал. Прочетете публикацията (и историята ѝ, ако е редактирана), предприемете действия при нужда (редактирайте или изтрийте публикацията, поговорете с автора) и щракнете върху <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Управление на теми</h3>\r\n<ul>\r\n<li>В тема <strong>[[POSTS.MANAGE_TOPIC]]</strong> предлага <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> и <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Преместена тема може да остави връзка в стария форум за няколко дни.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> изброява всички теми на форум: изберете няколко и ги заключете, преместете или изтрийте наведнъж.</li>\r\n<li>Закачените теми и обявленията се задават с <strong>[[POSTMESSAGE.PRIORITY]]</strong>, когато редактирате първата публикация, а постоянните теми (те не се премахват от автоматичното почистване) – с <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Управление на публикации</h3>\r\n<ul>\r\n<li>Можете да редактирате и изтривате публикациите на други членове. Когато изтривате публикация, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> изтрива и отговорите на нея.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> в менюто на публикация я премества в друга тема или я отделя в нова тема (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>В <a href=\"[[help:history]]\">историята на публикацията</a> можете да възстановите по-ранна версия на публикация.</li>\r\n<li>Можете да отговаряте и редактирате в заключени теми, а публикациите ви не се проверяват за спам.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">В зависимост от настройките модераторите виждат и IP адресите на публикациите. Членовете се редактират, спират и блокират от администраторите.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Ръководство за модератори"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Модератори и администратори"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Модераторите наблюдават конкретни форуми. "
+            "#text": "<p><strong>Администраторите</strong> управляват форума: създават форумите, решават кой какво може да прави, настройват функциите и управляват членовете.</p>\r\n<p><strong>Модераторите</strong> се грижат за един или повече форуми: следят дискусиите да са по темата и в приятелски тон, проверяват докладваните публикации, одобряват публикации в модерираните форуми и при нужда редактират, преместват, заключват или изтриват теми и публикации. Модераторите на форума се показват над списъка му с теми (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Страницата <strong>[[TOOLBAR.TEAM]]</strong> изброява всички администратори и модератори (ако форумът я показва). Ако имате проблем с публикация, <a href=\"[[help:report]]\">докладвайте я</a>. С други въпроси се свържете с модератор или администратор чрез лично съобщение.</p>\r\n<p>Как работят модераторите, е обяснено в <a href=\"[[help:moderating]]\">Ръководството за модератори</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,35 +11444,51 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Ако администраторът е активирал функцията за албуми и вие сте член, който има достъп за добавяне на албуми, можете да създавате албуми с изображения, които са свързани към вашия обществен профил. "
+            "#text": "<p>Ако форумът използва албуми, можете да показвате снимките си в албуми в профила си и да ги използвате в публикациите си.</p>\r\n<ol>\r\n<li>Отворете <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> в менюто на страниците на акаунта (или <strong>[[TOOLBAR.MYALBUMS]]</strong> в потребителското меню) и щракнете върху <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Въведете заглавие и качете първите изображения (възможно е и няколко наведнъж).</li>\r\n</ol>\r\n<p>С <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> добавяте още изображения или ги изтривате, както и изтривате албума. В албума можете да дадете надписи на изображенията и да изберете корицата с <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>За да покажете изображение от албум в публикация, щракнете върху <strong>[[ALBUM.COPY_BBCODE]]</strong> под изображението и поставете кода в редактора.</p>\r\n<p class=\"text-body-secondary small\">Броят на албумите и изображенията и размерът на изображенията са ограничени, ограниченията зависят от групата или ранга ви и се показват на страниците.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "Албум"
+            "#text": "Албуми"
+          },
+          {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Всички качени от вас файлове са изброени в <strong>[[ATTACHMENTS.TITLE]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). За всеки файл виждате в колко публикации се използва или че не се използва.</p>\r\n<p>Изберете файлове и ги изтрийте, за да освободите място, напр. файлове, които сте качили, но не сте използвали. Изтритият файл вече не се показва в публикациите, които го използват.</p>\r\n<p>Как се добавят файлове към публикации, е обяснено в <a href=\"[[help:attachments]]\">Прикачени файлове и изображения</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Моите прикачени файлове"
           },
           {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Какво представляват аватарите?</strong></p>\r\n"
+            "#text": "<h3 class=\"h6\">Аватар</h3>\r\n<p>Аватарът е малка картинка, която се показва до името ви в публикациите и профила ви. Отворете <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). В зависимости от форума можете:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> – да изберете един от аватарите на форума.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> – да качите собствено изображение (png, jpg, gif, webp, bmp или svg). Големите изображения се смаляват автоматично, страницата показва разрешения размер.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> премахва аватара ви. Без аватар форумът показва картинка по подразбиране.</p>\r\n<h3 class=\"h6 mt-3\">Подпис</h3>\r\n<p>Подписът е кратък текст, който се показва под всяка ваша публикация, напр. мото или връзка към уебсайта ви. Отворете <strong>[[ACCOUNT.SIGNATURE]]</strong> в потребителското меню. Страницата показва максималната дължина и BB кодовете, които можете да използвате в подписа, HTML не е разрешен. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> показва как ще изглежда.</p>\r\n<p class=\"text-body-secondary small\">Администраторът решава дали се използват аватари и подписи, а ограниченията могат да зависят от групата или ранга ви.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Подписи, снимки на аватари"
+            "#text": "Аватар и подпис"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>The <strong>User Control Panel</strong> is where you control your personal settings, options and preferences.</p><p>The <strong>Control Panel</strong> main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.</p><p>On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..</p><p><strong>Messenger</strong></p><ul>  <li>Inbox</li> </ul><p><strong>Personal Profile</strong></p><ul>  <li>View Profile</li>  <li>Edit Profile</li>  <li>Edit Settings<br /></li> <li>Edit Friends</li> <li>Edit Albums</li>  <li>Modify Avatar</li>  <li>Signature</li>  <li>Email Notification Preferences</li>  <li>Change Password</li></ul>"
+            "#text": "<p>Щракнете върху името си горе вдясно, за да отворите потребителското меню:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> – преглед на акаунта и дейността ви.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> – всички настройки на акаунта ви (вижте по-долу).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> – личните ви съобщения, вижте <a href=\"[[help:messenger]]\">Лични съобщения</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> – вижте <a href=\"[[help:buddies]]\">Приятели</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> – вижте <a href=\"[[help:myalbums]]\">Албуми</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – вижте <a href=\"[[help:newposts]]\">Преглед на нови публикации</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Числата до името ви, <strong>[[TOOLBAR.INBOX]]</strong> и <strong>[[TOOLBAR.BUDDIES]]</strong> показват броя на непрочетените съобщения и отворените заявки за приятелство.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Страницата показва потребителското ви име, имейл адреса, броя на публикациите и датата на присъединяване, както и <strong>[[ACCOUNT.ACTIVITY]]</strong>: вашите теми и отговори, реакциите и приятелствата, с филтри за всеки вид. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> показва профила ви така, както го виждат другите членове.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Настройките са изброени и в лявата част на всички страници на акаунта:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> – информацията за вас.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> – имейл адрес, часова зона, език, двуфакторно удостоверяване.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> – файловете, които сте качили.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> и <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> – известия по имейл и насочени известия, следени теми и форуми.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> – въведете текущата си парола и два пъти новата.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Някои елементи се показват само ако форумът използва съответната функция (напр. аватари, подписи или албуми).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Моите настройки (контролен панел за потребителя)"
+            "#text": "Моят акаунт"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Навигация"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Заглавната лента в горната част на всяка страница съдържа главното меню: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> и <strong>[[TOOLBAR.HELP]]</strong> (в зависимости от форума не всички се показват). Гостите виждат вдясно <strong>[[TOOLBAR.LOGIN]]</strong> и <strong>[[TOOLBAR.REGISTER]]</strong>. Членовете виждат камбанката на известията и потребителското меню със своето име и аватар, вижте <a href=\"[[help:mysettings]]\">Моят акаунт</a>. Под заглавната лента пътят до текущата страница (навигационната пътека) ви връща към форума или категорията.</p>\r\n<h3 class=\"h6 mt-3\">Списъкът с теми на форума</h3>\r\n<p>Щракнете върху форум, за да видите темите му. Закачените теми и съобщенията се показват първи. Още теми се зареждат автоматично, когато превъртате надолу. Лентата над списъка съдържа:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> – показва само темите с публикации за избрания период (напр. последния ден или от последното ви посещение).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> – търси в темите на този форум.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> – отива в друг форум.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> и <strong>[[TOPICS.MARKREAD]]</strong> (за членове).</li>\r\n</ul>\r\n<p>Иконите пред темите показват нови публикации, популярни („горещи“) теми, заключени и преместени теми. Легендата под списъка ги обяснява.</p>\r\n<h3 class=\"h6 mt-3\">В темата</h3>\r\n<p>Публикациите се показват на страници, страницирането е под публикациите. С <strong>[[POSTS.PREVTOPIC]]</strong> и <strong>[[POSTS.NEXTTOPIC]]</strong> преминавате към съседните теми на форума. Връзка към публикация отваря темата на тази публикация.</p>\r\n<h3 class=\"h6 mt-3\">Нови публикации и статус на прочитане</h3>\r\n<p>Форумите и темите с публикации, които още не сте прочели, са откроени. Членовете могат да маркират всичко като прочетено с <strong>[[DEFAULT.MARKALL]]</strong> на началната страница или един форум с <strong>[[TOPICS.MARKREAD]]</strong>. Къде да намерите всички нови публикации наведнъж, е обяснено в <a href=\"[[help:newposts]]\">Преглед на нови публикации</a>.</p>\r\n<h3 class=\"h6 mt-3\">Обновяване на живо</h3>\r\n<p>Ако форумът използва обновяване на живо, новите теми и публикации се появяват без презареждане на страницата. В темата виждате съобщението <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, щракнете върху него, за да се покаже новият отговор.</p>\r\n<h3 class=\"h6 mt-3\">Информация за потребителя</h3>\r\n<p>Задръжте мишката върху потребителско име, за да видите малка карта с информация за члена, напр. местоположението, онлайн статуса и датата на присъединяване. Щракване върху името отваря профила на члена.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Ориентиране във форума"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "<p>Ако сте влезли, страницата „Моите теми“ показва опция за филтриране на форума за...<ul><li><strong>Активни теми</strong> – Показване на списък с всички теми, които са създадени или актуализирани от последното ви посещение.<li><strong>Теми без отговор</strong> – Показва всички теми, които нямат отговори.<li><strong>Теми за гледане</strong> – Показва всички теми, които сте избрали за гледане</ul>"
+            "#text": "<p>Членовете намират новите публикации от всички форуми в <strong>[[TOOLBAR.MYTOPICS]]</strong> в потребителското меню. Страницата има четири раздела:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> – темите с нови публикации от последното ви посещение.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> – темите, на които все още няма отговор.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> – темите, които следите.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – темите, които сте започнали.</li>\r\n</ul>\r\n<p>С филтъра за време избирате периода, напр. последния час, последната седмица или всички теми. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> маркира всички теми като прочетени.</p>\r\n<p><strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> на началната страница показват последните публикации от всички форуми, включително за гости.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Можете да се свържете с друг, като изпратите имейл, ще го намерите в списъка с членове.</p>\r\n"
+            "#text": "<p>Можете да изпратите имейл на член чрез форума: щракнете върху <strong>[[POSTS.EMAIL]]</strong> в профила на члена (или на страницата на екипа), въведете тема и съобщението си и щракнете върху <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Имейл адресът на члена остава скрит от вас.</li>\r\n<li>Имейлът се изпраща с вашето потребителско име и <strong>вашия</strong> имейл адрес като подател, така че членът може да ви отговори директно.</li>\r\n<li>За предотвратяване на спам можете да изпращате само няколко имейла на час.</li>\r\n</ul>\r\n<p>Не можете да изпращате имейли на членове, които блокират имейли или ви игнорират (освен на приятели), и само ако администраторът позволява имейли между членовете. В повечето случаи <a href=\"[[help:messenger]]\">личното съобщение</a> е по-добрият начин.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Контакт с други членове"
+            "#text": "Имейл до членове"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Анкетите са опция за гласуване по проблем или въпрос.</em></p>\r\n"
+            "#text": "<p>Анкетата задава на читателите на темата въпрос с няколко възможни отговора.</p>\r\n<h3 class=\"h6 mt-3\">Създаване на анкета</h3>\r\n<p>Включете <strong>[[POLLEDIT.POLLADD]]</strong> в опциите, когато започвате тема, редакторът на анкетата се отваря след публикуването на темата. За съществуваща тема авторът на темата и модераторите виждат <strong>[[POLLEDIT.CREATEPOLL]]</strong> над публикациите. Една тема има една анкета.</p>\r\n<ul>\r\n<li>Въведете въпроса и поне два отговора, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> добавя още (до максимум, зададен от администратора).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> – броят дни, през които анкетата е отворена, оставете полето празно за анкета без край.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> – гласуващите могат да изберат повече от един отговор.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> – имената на гласувалите се показват с резултатите.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> – резултатите се показват само след края на анкетата.</li>\r\n<li>Ако форумът го позволява, въпросът и отговорите могат да имат изображение (адреса на изображение).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Гласуване</h3>\r\n<p>Щракнете върху бутона на избрания отговор. Не можете да промените гласа си, затова избирайте внимателно. Гостите не могат да гласуват и не виждат резултатите.</p>\r\n<h3 class=\"h6 mt-3\">Промяна на анкета</h3>\r\n<p>Създателят може да промени анкетата с <strong>[[POLLEDIT.EDITPOLL]]</strong>, докато никой не е гласувал (освен ако форумът не позволява промени и по-късно), и да я изтрие с <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Модераторите винаги могат да променят и изтриват анкети.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Създаване и участие в анкети"
+            "#text": "Анкети"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Когато влезете и заредите страницата, може да получите изскачащо известие в центъра на прозореца на вашия браузър.</p>\r\n"
+            "#text": "<p>Камбанката в заглавната лента показва известията ви, червеното число отчита непрочетените. Получавате известие, когато:</p>\r\n<ul>\r\n<li>някой ви спомене (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) или ви цитира (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>някой реагира на ваша публикация,</li>\r\n<li>има нов отговор в тема, която следите, или нова тема във форум, който следите,</li>\r\n<li>имате нов приятел.</li>\r\n</ul>\r\n<p>Щракнете върху известие, за да отворите публикацията. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> отваря списъка с всички известия, с филтър по вид и <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Известията са част от потока от дейности: можете да ги изключите в <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Други съобщения</h3>\r\n<ul>\r\n<li>Новите лични съобщения и заявки за приятелство се отчитат до името ви. Когато отворите страница, прозорец ви пита дали искате да ги прочетете.</li>\r\n<li>Съобщенията на форума (напр. „запазено“) се появяват за няколко секунди в горната част на страницата.</li>\r\n<li>Известията могат да се изпращат и по имейл и до браузъра или телефона ви, вижте <a href=\"[[help:mailsettings]]\">Предпочитания за известия</a> и <a href=\"[[help:push]]\">Насочени известия и приложение</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Изскачащи известия"
+            "#text": "Известия"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>Когато публикувате съобщения, може да искате да включите известно форматиране, като удебелен текст, курсив и подчертан текст.</p>\r\n"
+            "#text": "<p>Отворете форума, към който принадлежи темата, и щракнете върху <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Ако не виждате бутона, нямате право да започвате теми в този форум (или не сте влезли).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> – заглавието на темата, задължително е. Докато пишете, форумът показва <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, може би на въпроса ви вече е отговорено.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> – незадължително кратко описание.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> – незадължителни ключови думи, другите членове могат да намират теми по етикетите им.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> – само за членове с това право, вижте <a href=\"[[help:anounce]]\">Обявления и закачени теми</a>.</li>\r\n<li>Самото съобщение, в редактора.</li>\r\n</ul>\r\n<p>В <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> можете да добавите анкета (<strong>[[POLLEDIT.POLLADD]]</strong>, вижте <a href=\"[[help:polls]]\">Анкети</a>) и да следите темата (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Щракнете върху <strong>[[POSTMESSAGE.PREVIEW]]</strong>, за да проверите публикацията си, и върху <strong>[[POSTMESSAGE.NEWTOPIC]]</strong>, за да я публикувате.</p>\r\n<h3 class=\"h6 mt-3\">Редакторът</h3>\r\n<p>В зависимости от форума редакторът показва форматирането, докато пишете, или BB кодовете (кратки тагове като <code>[b]удебелен[/b]</code>). Бутоните на лентата с инструменти форматират текста: маркирайте текста и щракнете върху бутона, напр. за удебелен текст, връзка, цитат или списък. Всички BB кодове и резултатът от тях са изброени в <a href=\"[[help:bbcodes]]\">BB кодове</a>.</p>\r\n<ul>\r\n<li>Напишете <code>@</code> и име, за да споменете член, вижте <a href=\"[[help:mentions]]\">Споменавания и етикети</a>.</li>\r\n<li>Файлове и изображения се добавят с бутона за прикачени файлове, вижте <a href=\"[[help:attachments]]\">Прикачени файлове и изображения</a>.</li>\r\n<li>В редактора за BB кодове Ctrl+B, Ctrl+I и Ctrl+U форматират маркирания текст, Ctrl+Enter изпраща публикацията.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Добре е да знаете</h3>\r\n<ul>\r\n<li>Гостите (ако имат право да публикуват) въвеждат име в <strong>[[POSTMESSAGE.FROM]]</strong>, то не трябва да е името на член.</li>\r\n<li>За предотвратяване на спам трябва да изчакате няколко секунди между две публикации, а публикацията има максимална дължина.</li>\r\n<li>В някои форуми публикациите първо се проверяват от модератор. Публикацията ви се показва, след като бъде одобрена.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Публикуване на нови теми и публикации"
+            "#text": "Започване на нова тема"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Функции на настройка и профил"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Като използвате форума, вие се съгласявате с правилата му. Страницата <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> съдържа правилата и политиката за поверителност: какви лични данни съхранява форумът, за какви цели и какви са правата ви (напр. да получите информация за данните си или да поискате изтриването им).</p>\r\n<p><a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> изброява бисквитките на форума, за какво се използват и колко дълго се съхраняват. При първото ви посещение на форума известие ви информира за бисквитките.</p>\r\n<p>Профилът ви показва само информацията, която въведете, имейл адресът ви никога не се показва на другите членове. Можете да се скриете от списъка с активни потребители (ако форумът го позволява), да блокирате лични съобщения и имейли и да изтриете акаунта си, вижте <a href=\"[[help:blocking]]\">Игнориране и блокиране на потребители</a> и <a href=\"[[help:deleteaccount]]\">Спиране или изтриване на акаунта</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Поверителност, бисквитки и правила"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Като член вие имате публично видима страница на профила. "
+            "#text": "<p>Щракнете върху името на член (напр. в публикация или в списъка с членове), за да отворите профила му. В зависимости от форума профилите се показват само на членове. Собственият ви профил се отваря с <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> в <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Профилът показва:</p>\r\n<ul>\r\n<li>аватара, името, ранга и медалите на члена и информацията от профила (напр. местоположение, рождена дата, професия и интереси),</li>\r\n<li>броя на публикациите и на дадените и получените реакции,</li>\r\n<li>репутацията (ако форумът я използва),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>, с <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>приятелите и албумите на члена.</li>\r\n</ul>\r\n<p>Бутоните на профила ви позволяват да изберете <strong>[[BUDDY.ADDBUDDY]]</strong>, да изпратите лично съобщение (<strong>[[POSTS.PM]]</strong>) или имейл (<strong>[[POSTS.EMAIL]]</strong>) и да отворите уебсайта или блога на члена. Имейл адресът на член никога не се показва.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Моят публичен профил"
+            "#text": "Профили"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Четене и публикуване на съобщения"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Насочените (push) известия показват нови отговори в следените теми и други известия на компютъра или телефона ви, дори когато форумът не е отворен.</p>\r\n<ol>\r\n<li>Отворете <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> в потребителското меню (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>В <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> щракнете върху <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> и разрешете известията, когато браузърът попита.</li>\r\n</ol>\r\n<p>Насочените известия се настройват поотделно за всяко устройство и браузър. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> ги изключва за това устройство. Известията се изпращат чрез услугата за насочени известия на браузъра ви (напр. на Google, Mozilla, Apple или Microsoft) и са криптирани.</p>\r\n<h3 class=\"h6 mt-3\">Инсталиране на форума като приложение</h3>\r\n<p>Можете да инсталирате форума като приложение, със собствена икона на началния екран или работния плот: щракнете върху <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> на същата страница или използвайте функцията за инсталиране на браузъра си. На iPhone и iPad насочените известия работят само в инсталираното приложение: докоснете „Споделяне“, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, отворете форума от началния екран и след това включете известията.</p>\r\n<p class=\"text-body-secondary small\">Разделът се показва само ако администраторът е настроил насочени известия.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Насочени известия и приложение"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Четене"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Ако забравите паролата си, можете да кликнете върху „<a href=\"{0}\">Загубена парола</a>\"\r\n  "
+            "#text": "<p>Ако сте забравили паролата си, можете да зададете нова:</p>\r\n<ol>\r\n<li>Щракнете върху <strong>[[LOGIN.LOSTPASSWORD]]</strong> до полето за парола на <a href=\"[[page:Account_Login]]\">страницата за вход</a> или в прозореца за вход.</li>\r\n<li>Въведете потребителското си име или имейл адреса си и щракнете върху <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Ако съществува акаунт с това име или адрес, форумът ви изпраща имейл с връзка. С оглед на поверителността ви страницата показва едно и също съобщение във всеки случай.</li>\r\n<li>Връзката отваря страница, на която въвеждате имейл адреса си и два пъти новата си парола.</li>\r\n</ol>\r\n<p>Връзката е валидна само ограничено време. Ако все още не сте потвърдили имейл адреса си, вместо това получавате нов имейл за потвърждение. Форумът изпраща най-много няколко такива имейла на час.</p>\r\n<p>Паролите се съхраняват във вид, който не може да бъде прочетен обратно, затова никой (дори администраторът) не може да ви каже старата ви парола.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Възстановяване на загубена парола"
+            "#text": "Възстановяване на забравена парола"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Администраторът вероятно ще изисква от вас да се регистрирате, за да използвате всички функции на форума. "
+            "#text": "<p>Много функции на форума са достъпни само за членове, напр. писането на публикации, личните съобщения, приятелите, следенето на теми и известията. За да станете член, щракнете върху <strong>[[TOOLBAR.REGISTER]]</strong> в заглавната лента (ако администраторът позволява нови регистрации).</p>\r\n<ol>\r\n<li>Ако форумът го изисква, прочетете <strong>[[RULES.TITLE]]</strong> и щракнете върху <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Въведете потребителско име, имейл адреса си и парола (два пъти). В зависимости от форума въвеждате и показвано име и допълнителна информация, която администраторът изисква.</li>\r\n<li>Щракнете върху <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Форумът показва <strong>[[REGISTER.CHECK_MAIL]]</strong> и ви изпраща имейл. Щракнете върху връзката в този имейл, за да потвърдите адреса си. След това акаунтът ви е активен и можете да влезете.</li>\r\n</ol>\r\n<p>Ако имейлът не пристигне, проверете папката за спам. Ако се опитате да влезете, преди да сте потвърдили адреса, страницата за вход ви уведомява за това и предлага <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>В някои форуми новите акаунти трябва първо да бъдат одобрени от администратор, ще бъдете уведомени по имейл, когато акаунтът ви бъде одобрен.</p>\r\n<p>След регистрацията можете да попълните профила си, вижте <a href=\"[[help:editprofile]]\">Редактиране на профила</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>В някои форуми може да можете да публикувате и отговаряте като гост потребител. "
+            "#text": "<p>За да отговорите в тема, щракнете върху <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> над или под публикациите или върху <strong>[[BUTTON.BUTTON_REPLY]]</strong> под публикация. Страницата за отговор показва <strong>[[POSTMESSAGE.LAST10]]</strong> на темата под редактора, за да можете да ги четете, докато пишете.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>За кратък отговор използвайте полето за бърз отговор под публикациите или бутона <strong>[[POSTS.QUICKREPLY]]</strong> на публикация. Напишете текста си и щракнете върху <strong>[[COMMON.POST]]</strong>. За пълния редактор (напр. за прикачване на файлове) щракнете върху <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Цитиране</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> под публикация започва отговор с текста на тази публикация като цитат.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> събира няколко публикации, също и на други страници на темата. След това щракнете върху <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> на една от тях и отговорът цитира всички събрани публикации.</li>\r\n<li>За да цитирате само част, маркирайте текста в публикацията, щракнете с десния бутон върху него и изберете <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Съкращавайте дългите цитати до частта, на която отговаряте. Цитираният член получава известие.</p>\r\n<p>Можете да отговаряте само ако имате право в този форум, и не в заключена тема. Гостите могат да отговарят само ако форумът го позволява.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Отговор на съобщение"
+            "#text": "Отговаряне и цитиране"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Ако публикация нарушава правилата на форума (напр. спам, обиди или незаконно съдържание), моля, докладвайте я на модераторите, вместо да отговаряте на нея:</p>\r\n<ol>\r\n<li>Отворете менюто на публикацията (трите точки горе вдясно) и изберете <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Въведете защо докладвате публикацията.</li>\r\n<li>Щракнете върху <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Модераторите на форума проверяват докладваната публикация и решават какво да направят. Авторът не вижда кой е докладвал публикацията. В зависимости от форума само членове могат да докладват публикации.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Докладване на публикация"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Понастоящем каналите се предоставят като Atom Feeed.</p>\r\n"
+            "#text": "<p>Емисиите ви позволяват да следите форума в приложение за четене на емисии, без да посещавате форума. Форумът предлага Atom емисии за:</p>\r\n<ul>\r\n<li>последните публикации (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> на началната страница),</li>\r\n<li>темите на форум (бутонът за емисия в лентата над списъка с теми),</li>\r\n<li>публикациите в тема (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Копирайте адреса на емисията в приложението си за четене на емисии. Дали форумът предлага емисии и кой може да ги използва (често само членове), се определя от администратора. Ако не виждате бутон за емисия, емисиите не са достъпни за вас.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS емисии"
+            "#text": "Емисии"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>За бързо намиране на интересна нишка или публикация навсякъде във форумите, щракнете върху връзката „Търсене“ в заглавката. "
+            "#text": "<p>Щракнете върху <strong>[[TOOLBAR.SEARCH]]</strong> в заглавната лента, въведете поне няколко букви и натиснете Enter или щракнете върху <strong>[[SEARCH.BTNSEARCH]]</strong>. Опциите за търсене ви позволяват:</p>\r\n<ul>\r\n<li>да търсите публикации, теми или форуми,</li>\r\n<li>да търсите само публикациите на определен член,</li>\r\n<li>да търсите темите с определен етикет,</li>\r\n<li>да търсите точната фраза, някоя от думите или всички думи,</li>\r\n<li>да търсите само в някои форуми,</li>\r\n<li>да търсите в целия текст на публикациите или само в заглавията,</li>\r\n<li>да изберете броя на резултатите на страница.</li>\r\n</ul>\r\n<p>Търсенето намира само това, което имате право да четете. Други начини за търсене:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> над списъка с теми търси в един форум.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> в менюто на публикация или в профил показва публикациите на този член.</li>\r\n<li>Етикет под заглавието на тема показва всички теми с този етикет.</li>\r\n<li>Маркирайте текст в публикация и щракнете с десния бутон върху него, за да търсите маркираните думи.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Търсене на форуми и теми"
+            "#text": "Търсене"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to or watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Когато следите тема или форум, получавате известия за нови публикации: в известията на форума и (в зависимост от вашите <a href=\"[[help:mailsettings]]\">предпочитания за известия</a>) по имейл и чрез насочени известия.</p>\r\n<ul>\r\n<li><strong>Тема:</strong> щракнете върху <strong>[[POSTS.TOOLS]]</strong> под заглавието на темата и върху <strong>[[POSTS.WATCHTOPIC]]</strong>. Можете също да включите <strong>[[POSTMESSAGE.TOPICWATCH]]</strong>, когато пишете публикация.</li>\r\n<li><strong>Форум:</strong> щракнете върху <strong>[[TOPICS.WATCHFORUM]]</strong> в лентата над списъка с теми. Получавате известия за нови теми в този форум.</li>\r\n<li><strong>Всички форуми:</strong> щракнете върху <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> на началната страница.</li>\r\n</ul>\r\n<p>За да спрете следенето, щракнете върху <strong>[[POSTS.UNWATCHTOPIC]]</strong> или <strong>[[TOPICS.UNWATCHFORUM]]</strong>. В <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> ще намерите всички <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> и <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, изберете някои и щракнете върху <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong>, за да спрете следенето им.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Абонаменти"
+            "#text": "Следене на теми и форуми"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>Системата „Благодарности“ е функция, която ви позволява да върнете на друг потребител положителна обратна връзка, например той или тя е публикувал съобщение, което намирате за полезно или ви помага да разрешите проблем.</p>\r\n"
+            "#text": "<h3 class=\"h6\">Реакции</h3>\r\n<p>С реакция показвате на автора на публикация, че тя ви харесва, без да пишете отговор. Щракнете върху бутона с емотикона (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) под публикацията и изберете <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> или <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Щракнете отново върху реакцията си, за да я премахнете, или върху друга, за да я смените.</li>\r\n<li>Реакциите на публикацията се показват с броя си, задръжте мишката върху тях, за да видите кой е реагирал.</li>\r\n<li>Не можете да реагирате на собствените си публикации, на изтрити публикации и в заключени теми.</li>\r\n<li>Авторът получава известие, а реакциите се отчитат в профила (дадени и получени благодарности).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Репутация</h3>\r\n<p>Ако форумът използва система за репутация, репутацията на члена се показва като лента в профила. Членове, които самите имат достатъчно репутация, могат да добавят (+1) или да отнемат (-1) репутация на друг член от потребителското меню на публикация.</p>\r\n<h3 class=\"h6 mt-3\">Отговорът на въпрос</h3>\r\n<p>Членът, който е започнал темата, може да маркира отговора, който е отговорил на въпроса, с <strong>[[POSTS.MARK_ANSWER]]</strong>. Публикацията получава значка за отговор, така че другите читатели бързо да намерят решението.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Благодаря функция"
+            "#text": "Реакции и репутация"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>В горната част на всяка тема има връзка „Опции“. "
+            "#text": "<p>Лентата под заглавието на темата съдържа инструментите на темата:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> – изпраща връзка към темата на някого по имейл (само за членове).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> – копира адреса на темата, напр. за да поставите връзка към нея на друг уебсайт.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> – получавате известия за нови отговори, вижте <a href=\"[[help:subscriptions]]\">Следене на теми и форуми</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> – показва темата във версия за печат.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> – емисията на темата, ако форумът предлага емисии, вижте <a href=\"[[help:rss]]\">Емисии</a>.</li>\r\n</ul>\r\n<p>Модераторите виждат и <strong>[[POSTS.MANAGE_TOPIC]]</strong>, за да преместят, заключат или изтрият темата, вижте <a href=\"[[help:moderating]]\">Ръководство за модератори</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Опции за теми"
+            "#text": "Инструменти на темата"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Тук можете да намерите отговори на въпроси за това как работи борда. "
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Писане"
           }
         ]
       },

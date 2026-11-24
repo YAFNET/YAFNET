@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "מיישר את הטקסט לשמאל, למרכז או לימין בעזרת <code>[left]</code>, <code>[center]</code> ו־<code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]טקסט ממורכז[/center]\r\n[right]טקסט מיושר לימין[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "יישור"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "הופך את הטקסט למודגש."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]הטקסט הזה מודגש[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "מודגש"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "מציג קוד תוכנה עם מעברי השורות והרווחים שלו, קודי BB בתוכו אינם מעוצבים."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "צובע את הקוד של שפת תכנות, למשל csharp, ‏javascript, ‏python, ‏sql, ‏css או markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "קוד עם הדגשת תחביר"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "קוד"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "צובע את הטקסט. השתמשו בשם של צבע או בקוד צבע."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]טקסט אדום[/color] ו[color=#0d6efd]טקסט כחול[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "צבע טקסט"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "קודי ה־BB האלה מטמיעים תוכן (למשל סרטונים או פוסטים מאתרים אחרים) או קבצים מצורפים. כתבו את הכתובת או את המספר בין התגיות."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "קישור שפותח הודעת דוא״ל חדשה לכתובת."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "כתובת דוא״ל"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "קודים קצרים של אמוג׳י בסוגריים מרובעים וסמיילים כמו :) הופכים לאמוג׳י."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "אמוג׳י"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "מציג את הטקסט בגופן אחר, אם הגופן זמין במכשיר של הקורא."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]טקסט בגופן Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "גופן"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "קודי BB נוספים של הפורום הזה"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "מציג את הטקסט רק לחברים, או בעזרת <code>[group-hide=Role1;Role2]</code> רק לחברים בתפקידים האלה."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]רק חברים רואים את הטקסט הזה.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "מוסתר לפי קבוצות"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "פריסה"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "קישורים ותמונות"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "רשימות"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "ציטוטים וקוד"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "חברים, ספוילרים ותוכן מוסתר"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "עיצוב טקסט"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "מסתיר את הטקסט עד שהקורא מגיב רגשית להודעה. הכותב והמנהלים תמיד רואים אותו."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]טקסט מוסתר.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "מסתיר את הטקסט מחברים שכתבו פחות הודעות מהמספר שצוין."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]טקסט מוסתר.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "מוסתר כשיש מעט הודעות"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "מסתיר את הטקסט עד שהקורא מגיב בדיון."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]טקסט מוסתר.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "מסתיר את הטקסט עד שהקורא מגיב בדיון או מגיב רגשית להודעה."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]טקסט מוסתר.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "מוסתר עד לתגובה או לתגובה רגשית"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "מוסתר עד לתגובה"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "מסתיר את הטקסט מחברים שקיבלו פחות תגובות רגשיות מהמספר שצוין."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]טקסט מוסתר.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "מוסתר כשיש מעט תגובות רגשיות"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "מוסתר עד לתגובה רגשית"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "ארבעה מקפים או יותר בשורה נפרדת משרטטים קו אופקי."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "טקסט מעל הקו\r\n----\r\nטקסט מתחת לקו"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "קו אופקי"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "מדגיש את הטקסט כמו מרקר."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]הטקסט הזה מודגש במרקר[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "הדגשה בצבע"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "מציג תמונה מהאינטרנט. הכתובת חייבת להסתיים בסוג התמונה (למשל ‎.png או ‎.jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "תמונה עם תיאור, שמוצג כשהעכבר נמצא מעל התמונה ומוקרא על ידי קוראי מסך."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]הלוגו של YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "תמונה עם תיאור"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "תמונה"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "מזיח את הטקסט פנימה."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]טקסט מוזח[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "הזחה"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "הופך את הטקסט לנטוי."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]הטקסט הזה נטוי[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "נטוי"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "רשימה עם תבליטים. כל פריט מתחיל ב־<code>[*]</code> בשורה חדשה."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]פריט ראשון\r\n[*]פריט שני\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "רשימה ממוספרת. השתמשו ב־<code>[list=a]</code> או ב־<code>[list=A]</code> לאותיות, וב־<code>[list=i]</code> או ב־<code>[list=I]</code> לספרות רומיות."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]שלב ראשון\r\n[*]שלב שני\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "רשימה ממוספרת"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "רשימה"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "מציג קודי BB כפי שהם, בלי לעצב אותם."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]לא מודגש[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "ללא עיצוב"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "מציג את הטקסט בתיבה צבעונית. הסוגים הם primary, ‏secondary, ‏success, ‏danger, ‏warning, ‏info, ‏light ו־dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]הערה עם מידע.[/note]\r\n[note=warning]אזהרה.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "הערה"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "מציג טקסט כציטוט. כפתורי הציטוט של ההודעות מוסיפים אותו בשבילכם."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]הטקסט המצוטט.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "ציטוט עם שם הכותב שלו."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]הטקסט המצוטט.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "ציטוט עם הכותב"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "ציטוט"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "תוצאה"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "משנה את גודל הטקסט, מ־1 (קטן מאוד) עד 9 (גדול מאוד). 5 הוא הגודל הרגיל."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]קטן[/size] [size=5]רגיל[/size] [size=7]גדול[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "גודל טקסט"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "מסתיר את הטקסט עד שהקורא לוחץ על הכפתור, למשל עבור הסוף של סרט."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]הגנן עשה את זה.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "ספוילר"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "מעביר קו דרך הטקסט, למשל עבור משהו שכבר אינו בתוקף."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]הטקסט הזה מחוק בקו[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "קו חוצה"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "יוצר טבלה: <code>[tr]</code> היא שורה, <code>[td]</code> תא בשורה."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]שם[/td][td]הודעות[/td][/tr][tr][td]נועה[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "טבלה"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "כתובות של אתרים הופכות אוטומטית לקישורים. אפשר גם לשים אותן בתוך <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "קישור שמציג טקסט במקום הכתובת."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]האתר של YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "קישור עם טקסט"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "קישור"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "קישור לפרופיל של חבר. הקלדת @ בעורך יוצרת אותו בשבילכם, והחבר מקבל התראה."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "קישור לחבר"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "מוסיף קו מתחת לטקסט."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]מתחת לטקסט הזה יש קו[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "קו תחתון"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "מה שמקלידים"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "החשבון שלכם"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">הודעות הן הודעות מיוחדות שפורסמו על ידי המנהל או המנחים. הם תקשורת חד-כיוונית פשוטה עם המשתמשים ואי אפשר להשיב. אם ברצונך לדון בהכרזות, תצטרך ליצור שרשור חדש בפורום.</p><p style=\";text-align:right;direction:rtl\"> נושאי הכרזה מוצגים בראש דפי רישום הפורום, מעל לנושאים רגילים ודביקים.</p>"
+            "#text": "<p>יש דיונים חשובים יותר מאחרים:</p>\r\n<ul>\r\n<li><strong>דיונים נעוצים</strong> נשארים בראש רשימת הדיונים של הפורום שלהם, למשל הכללים או השאלות הנפוצות של הפורום.</li>\r\n<li><strong>הכרזות</strong> הן מידע חשוב, וגם הן מוצגות בראש רשימת הדיונים, מסומנות בתג.</li>\r\n</ul>\r\n<p>מי יכול ליצור אותם נקבע על ידי המנהל (בדרך כלל המנחים והמנהלים). הם בוחרים זאת ב<strong>[[POSTMESSAGE.PRIORITY]]</strong> כשהם כותבים או עורכים את הדיון. אפשר להגיב לדיונים נעוצים ולהכרזות כמו לכל דיון אחר, אלא אם הדיון נעול.</p>\r\n<h3 class=\"h6 mt-3\">הכרזות כלליות של הפורום</h3>\r\n<p>המנהל יכול גם להציג הכרזה בכל דף של הפורום, למשל על תחזוקה מתוכננת. אפשר לסגור אותה בעזרת הכפתור שבצידה.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "הכרזות"
+            "#text": "הכרזות ודיונים נעוצים"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">מצב בהיר ומצב כהה</h3>\r\n<p>כפתור מצב הצבעים בסרגל העליון עובר בין <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> ו<strong>[[THEME_MODE.AUTO]]</strong> (המצב של המכשיר שלכם). הפורום זוכר את הבחירה שלכם בדפדפן הזה.</p>\r\n<h3 class=\"h6 mt-3\">ערכת עיצוב ושפה</h3>\r\n<p>אם המנהל מאפשר זאת, תוכלו לבחור ערכת עיצוב אחרת ואת שפת הפורום ב<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. בהתאם לפורום, אפשר לשנות את השפה גם בסרגל העליון.</p>\r\n<h3 class=\"h6 mt-3\">אזור זמן וגודל דף</h3>\r\n<p>כל התאריכים והשעות מוצגים לפי אזור הזמן שלכם. הגדירו אותו ב<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. זמנים קרובים מוצגים למשל כ״לפני 5 דקות״.</p>\r\n<p><strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> באותו דף קובע כמה פריטים מציגות הרשימות של הפורום בכל דף.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "מראה ושפה"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>אם מותר לכם להעלות קבצים בפורום, תוכלו להוסיף קבצים ותמונות להודעות שלכם:</p>\r\n<ul>\r\n<li>גררו את הקובץ אל העורך, או (בעורך שמציג את העיצוב) הדביקו תמונה.</li>\r\n<li>או לחצו על כפתור הקבצים המצורפים בסרגל הכלים (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). החלון מאפשר לשחרר בו קבצים או לבחור אותם בעזרת <strong>[[ATTACHMENTS.ADD_FILES]]</strong>, ומציג את הקבצים שהעליתם בעבר ב<strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>: לחצו על אחד מהם כדי להוסיף אותו שוב.</li>\r\n</ul>\r\n<p>החלון מציג את <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> ואת גודל הקובץ המרבי, אם יש כזה. בתגובה המהירה אין קבצים מצורפים, השתמשו בעורך המלא.</p>\r\n<p>תמונות מוצגות בהודעה כתצוגה מקדימה, לחצו עליה כדי לראות את התמונה המלאה (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). קבצים אחרים ותמונות גדולות מאוד מוצגים כקישור עם הגודל ומספר ההורדות. ייתכן שההורדה דורשת הרשאה שהפורום נותן רק לחברים.</p>\r\n<h3 class=\"h6 mt-3\">תמונות מאתרים אחרים</h3>\r\n<p>כדי להציג תמונה מהאינטרנט, לחצו על <strong>[[COMMON.TT_IMAGE]]</strong> והזינו את הכתובת שלה, או כתבו <code>[img]כתובת התמונה[/img]</code>.</p>\r\n<p>הקבצים שהעליתם מפורטים ב<a href=\"[[help:myattachments]]\">הקבצים המצורפים שלי</a>, ושם אפשר גם למחוק אותם.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,79 +11300,143 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>קודי BB מעצבים את ההודעות שלכם. אלה תגיות קצרות בסוגריים מרובעים סביב הטקסט, למשל <code>[b]מודגש[/b]</code>. אין צורך להקליד אותם: הכפתורים של העורך מוסיפים אותם בשבילכם. אם העורך מציג את העיצוב בזמן ההקלדה, קודי ה־BB נוצרים ברקע.</p>\r\n<p>בהמשך תמצאו את כל קודי ה־BB של הפורום הזה, מה מקלידים ואת התוצאה כפי שהיא נראית בהודעה. חלק מקודי ה־BB מוצגים כאן רק אם הפורום משתמש בהם, וייתכן שבחתימות מותרים פחות קודי BB מאשר בהודעות.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "רשימת קודי BB"
+            "#text": "קודי BB"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>פתחו את <strong>[[BLOCK_OPTIONS.TITLE]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - חברים אחרים לא יכולים לפתוח איתכם שיחות פרטיות.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - אף אחד לא יכול לשלוח לכם בקשות חברות.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - אף אחד לא יכול לשלוח לכם דוא״ל דרך הפורום.</li>\r\n</ul>\r\n<p>מנהלים והחברים ברשימת החברים שלכם עדיין יכולים ליצור איתכם קשר.</p>\r\n<h3 class=\"h6 mt-3\">התעלמות מחבר</h3>\r\n<p>כדי להתעלם מחבר, פתחו את תפריט המשתמש של אחת ההודעות שלו ובחרו <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. ההודעות של חברים שאתם מתעלמים מהם מוסתרות (<strong>[[POSTS.TOGGLEPOST]]</strong> מציג הודעה בודדת), והם לא יכולים לשלוח לכם הודעות פרטיות. <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> באותו דף מפרטת את החברים שאתם מתעלמים מהם, הסירו חבר ממנה כדי לראות שוב את ההודעות שלו.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "התעלמות ממשתמשים וחסימתם"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">חברים הם פונקציית חברות ומהווים קשר דו-כיווני בין שני משתמשים. הוא יוזם על ידי משתמש אחד ומתקבל על ידי האחר.</p><p style=\";text-align:right;direction:rtl\"> <strong>היכן מוצגת רשימת החברים?</strong></p><p style=\";text-align:right;direction:rtl\"> החברים שלך מוצגים ב&#39;החברים שלי&#39;, אתה יכול לגשת לדף זה מקישור הכותרת &#39;החברים שלי&#39;, או <strong>מקישורי לוח הבקרה</strong> של המשתמש &#39;ערוך חברים&#39;.</p><p style=\";text-align:right;direction:rtl\"> <em>הערה: אם אינך רואה את הקישור הזה אין לך חברים, לא שלחת בקשה או שלא היו לך בקשות חברים ממתינות.</em></p><p style=\";text-align:right;direction:rtl\"> החברים שלך מוצגים גם בדף הפרופיל שלך.</p><p style=\";text-align:right;direction:rtl\"> <strong>כיצד אוכל לבקש משתמש בתור חבר או לקבל בקשת חבר?</strong></p><p style=\";text-align:right;direction:rtl\"> כדי לבקש משתמש בתור חבר, הצג את דף הפרופיל של האדם שאיתו אתה רוצה להתיידד ולחץ על הקישור &#39;הוסף כחבר&#39;.</p><p style=\";text-align:right;direction:rtl\"> כדי לקבל חבר בבקשת חברים, עבור לדף &#39;החברים שלי&#39; שלך. בכרטיסייה &#39;בקשות ממתינות&#39; אתה רואה את רשימת המשתמשים עם בקשות ממתינות. יש לך שלוש אפשרויות...</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <strong>אישור</strong> - אתה הופך לחבר של המשתמש שמבקש זאת</li><li style=\";text-align:right;direction:rtl\"> <strong>דחה</strong> - דחה את הבקשה</li><li style=\";text-align:right;direction:rtl\"> <strong>אישור והוספה -</strong> אתה הופך לחבר של המשתמש שמבקש זאת, וגם המשתמש הופך לחבר ברשימה שלך.</li></ul><p style=\";text-align:right;direction:rtl\"> <strong>הסר חבר</strong></p><p style=\";text-align:right;direction:rtl\"> כדי להסיר חבר מהרשימה שלך עבור לדף &#39;החברים שלי&#39; שלך. בכרטיסייה &#39;רשימת חברים&#39; לחץ על הכפתור &#39;הסר חבר&#39; של המשתמש שברצונך להסיר</p><p style=\";text-align:right;direction:rtl\"> <strong>הבקשות שלך</strong></p><p style=\";text-align:right;direction:rtl\"> הכרטיסייה השלישית בדף &#39;החברים שלי&#39; מציגה את הבקשה הממתינה שהגשת.</p>"
+            "#text": "<p>חברות היא קשר בין שני חברי פורום. כדי לבקש מחבר להיות חבר שלכם, לחצו על <strong>[[BUDDY.ADDBUDDY]]</strong> בפרופיל או בתפריט המשתמש של הודעה. החבר מקבל בקשת חברות ויכול לאשר או לדחות אותה.</p>\r\n<p>החברים שלכם נמצאים ב<strong>[[TOOLBAR.BUDDIES]]</strong> בתפריט המשתמש, בשלוש לשוניות:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - החברים שלכם. שלחו להם הודעה פרטית או הסירו אותם מהרשימה.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - הבקשות של חברים אחרים. <strong>[[FRIENDS.APPROVE]]</strong> מוסיף את החבר לחברים שלכם (ואתכם לחברים שלו), ודחייה מסירה את הבקשה. <strong>[[FRIENDS.APPROVE_ALL]]</strong> מאשר את כל הבקשות בבת אחת.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - הבקשות ששלחתם ועדיין לא נענו.</li>\r\n</ul>\r\n<p>החברים מוצגים בפרופיל שלכם. הם יכולים ליצור איתכם קשר גם אם חסמתם הודעות פרטיות או הודעות דוא״ל, ראו <a href=\"[[help:blocking]]\">התעלמות ממשתמשים וחסימתם</a>. אם אינכם רוצים בקשות חברות, תוכלו לחסום גם אותן שם.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "חברים"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>פתחו את <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). יש לכם שתי אפשרויות:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - הפסקה: לא תוכלו להשתמש בחשבון שלכם במשך 30 יום, ואחר כך הוא יפעל שוב.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - החשבון שלכם נסגר וההודעות שלכם נמחקות (התגובות של חברים אחרים נשארות). לא תוכלו להתחבר יותר, ואי אפשר לבטל זאת.</li>\r\n</ul>\r\n<p>אשרו בעזרת <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> ולחצו על <strong>[[COMMON.CONTINUE]]</strong>. אתם מנותקים.</p>\r\n<p>אם אתם רוצים שכל הנתונים שלכם יוסרו, או שיש לכם שאלות על הנתונים שלכם, פנו למנהל, ראו <a href=\"[[help:privacy]]\">פרטיות, עוגיות וכללים</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "השעיה או מחיקה של החשבון"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אם אתה רשום ומחובר כעת, ייתכן שתוכל לערוך ולמחוק את ההודעות שלך (אם מנהל המערכת לא כיבה את האפשרות הזו).</p><p style=\";text-align:right;direction:rtl\"> כדי לערוך או למחוק את הפוסטים שלך, לחץ על הלחצן &#39;ערוך&#39; ליד הפוסט הספציפי. אם הפוסט שלך היה הראשון בשרשור, מחיקתו עשויה להסיר את השרשור כולו.</p><p style=\";text-align:right;direction:rtl\"> לאחר שביצעת את השינויים שלך, מופיעה הערה בתחתית הפוסט כדי להודיע למשתמשים אחרים שערכת את הפוסט שלך.</p><p style=\";text-align:right;direction:rtl\"> אנא הזן גם בשדה &#39;סיבה לעריכה&#39; סיבה מדוע ערכת הודעה זו.</p><p style=\";text-align:right;direction:rtl\"> <strong>האם אחרים יכולים לערוך את הפוסטים שלי?</strong></p><p style=\";text-align:right;direction:rtl\"> מנהלים ומנחים עשויים גם לערוך את ההודעות שלך. אם כן, מופיעה הערה בתחתית המספרת למשתמשים אחרים שהפוסט שונה.</p>"
+            "#text": "<p>אתם יכולים לערוך ולמחוק את ההודעות שלכם אם הפורום מאפשר זאת. פתחו את התפריט של ההודעה (שלוש הנקודות בפינה העליונה שלה) ובחרו <strong>[[BUTTON.BUTTON_EDIT]]</strong> או <strong>[[BUTTON.BUTTON_DELETE]]</strong>. הדבר אינו אפשרי בדיונים נעולים, והמנהל יכול להגביל אותו למספר ימים אחרי הפרסום.</p>\r\n<h3 class=\"h6 mt-3\">עריכה</h3>\r\n<p>דף העריכה דומה לדף של הודעה חדשה. אם פתחתם את הדיון, תוכלו לשנות גם את הנושא, התיאור והתגיות שלו. הזינו <strong>[[POSTMESSAGE.EDITREASON]]</strong> כדי לספר לקוראים מה שיניתם.</p>\r\n<p>אם תערכו הודעה זמן מה אחרי שפרסמתם אותה, ההודעה מציגה מי ערך אותה, מתי ולמה. הגרסאות הקודמות נשמרות, ראו <a href=\"[[help:history]]\">היסטוריית ההודעה</a>. גם מנחים יכולים לערוך את ההודעות שלכם, ואז ההודעה מציינת שהיא נערכה על ידי מנחה.</p>\r\n<h3 class=\"h6 mt-3\">מחיקה</h3>\r\n<p>הזינו <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> ולחצו על <strong>[[DELETEMESSAGE.DELETE]]</strong>. ההודעה אינה נמחקת לגמרי: המקום שלה בדיון מראה שהיא נמחקה. תוכלו לשחזר אותה בעזרת <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> באותו תפריט, אלא אם מנחה מחק אותה.</p>\r\n<p>רק מנחים יכולים למחוק דיונים שלמים, ורק מנהלים יכולים למחוק הודעות לצמיתות.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "עריכה ומחיקה של הפוסטים שלך"
+            "#text": "עריכה ומחיקה של הודעות"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אתה יכול לשנות את פרטי החשבון שלך באמצעות פרופיל אישי -&gt; אפשרות &#39;ערוך פרופיל&#39; מתוך <strong>לוח הבקרה</strong> של המשתמש. אם אתה רוצה לשנות את הסיסמה שלך יש עמוד נוסף (שנה סיסמה) עבור זה <strong>בלוח הבקרה של המשתמש</strong> , שבו תוכל להגדיר סיסמה חדשה.</p><p style=\";text-align:right;direction:rtl\"> <strong>ערוך דף פרופיל</strong></p><p style=\";text-align:right;direction:rtl\"> דף זה מאפשר לך להגדיר מספר פרטים נדרשים ואופציונליים, שחלקם יוצגו בפרופיל הציבורי שלך. למעט כתובת הדואר האלקטרוני שלך, אל תזין מידע שאינך מעוניין שיהיה גלוי לציבור.</p><p style=\";text-align:right;direction:rtl\"> <strong>עליך</strong></p><p style=\";text-align:right;direction:rtl\"> אלה המידע הבסיסי עליך</p><p style=\";text-align:right;direction:rtl\"> <strong>מקום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול להזין באופן אופציונלי את המקום שבו אתה גר</p><p style=\";text-align:right;direction:rtl\"> <strong>דף הבית</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להיכנס לדף הבית ו/או לבלוג באופן אופציונלי.</p><p style=\";text-align:right;direction:rtl\"> <strong>שירותי מסרים מיידיים</strong></p><p style=\";text-align:right;direction:rtl\"> כאן תוכל להזין באופן אופציונלי את מזהי המסנג&#39;ר שלך של שירותים כגון  XMPP, Facebook וטוויטר.</p><p style=\";text-align:right;direction:rtl\"> <strong>אזור זמן</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה יכול לציין את אזור הזמן כדי להתאים את השעה והתאריך של הלוח לזמן המקומי שלך. והגדר את שעון הקיץ אם הוא יותאם אוטומטית.</p><p style=\";text-align:right;direction:rtl\"> <strong>הגדרות הפורום</strong></p><p style=\";text-align:right;direction:rtl\"> כאן אתה משנה את כתובת האימייל שלך.</p><p style=\";text-align:right;direction:rtl\"> ואם המנהל הפעיל את זה אתה יכול לשנות את <strong>שפת</strong> הפורום, <strong>נושא</strong> האתר <strong>ועורך הטקסט</strong> (שמשמש לפרסום הודעות).</p><p style=\";text-align:right;direction:rtl\"> יש גם הגדרה &quot;כניסה יחידה&quot; (אם היא מופעלת). אם אתה מפעיל את זה אתה יכול להיכנס דרך פייסבוק, אתה גם הזן את מזהה הפייסבוק שלך למעלה.</p>"
+            "#text": "<p>פתחו את <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). כל השדות אינם חובה, מלאו רק את מה שאתם רוצים לשתף. המידע מוצג בפרופיל הציבורי שלכם.</p>\r\n<ul>\r\n<li><strong>עליכם</strong> - שם התצוגה שלכם (אם הפורום משתמש בשמות תצוגה), השם האמיתי, תאריך הלידה, העיסוק, תחומי העניין והמגדר.</li>\r\n<li><strong>מיקום</strong> - מדינה, מחוז ועיר. אם הפורום מציע זאת, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> ממלא אותם בשבילכם.</li>\r\n<li><strong>דף בית</strong> - הכתובות של האתר ושל הבלוג שלכם.</li>\r\n<li>שדות נוספים שהמנהל הוסיף.</li>\r\n</ul>\r\n<p>לחצו על <strong>[[COMMON.SAVE]]</strong> כדי לשמור את השינויים. לאווטאר ולחתימה יש דפים משלהם, ראו <a href=\"[[help:mypics]]\">אווטאר וחתימה</a>. כתובת הדוא״ל, אזור הזמן והשפה נמצאים ב<a href=\"[[help:editsettings]]\">עריכת הגדרות</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "עריכת פרופיל משתמש והגדרות פורום"
+            "#text": "עריכת הפרופיל שלכם"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>פתחו את <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>הזינו את הכתובת החדשה ואת <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. הפורום שולח קישור לכתובת החדשה, והכתובת משתנה כשאתם לוחצים עליו. כתובת הדוא״ל שלכם לעולם אינה מוצגת לחברים אחרים.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - לא תוצגו ברשימת החברים המחוברים (אם הפורום מאפשר זאת).</li>\r\n<li>זרם הפעילות - ההתראות שלכם על אזכורים, ציטוטים ותגובות רגשיות, ראו <a href=\"[[help:popups]]\">התראות</a>.</li>\r\n<li>אזור הזמן שלכם, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong>, ו(אם הפורום מאפשר זאת) ערכת העיצוב והשפה, ראו <a href=\"[[help:appearance]]\">מראה ושפה</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">אימות דו־שלבי</h3>\r\n<p>הפעילו או כבו את האימות הדו־שלבי, ראו <a href=\"[[help:login]]\">התחברות ואבטחת החשבון</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "עריכת הגדרות"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\"><strong>מה זה YAF?</strong></p><p style=\";text-align:right;direction:rtl\"> YetAnotherForum.NET (YAF) הוא פורום הדיון בקוד פתוח לאתרים שבהם פועל ASP.NET. 100% כתוב ב-C#, YAF (מבוטא כמו &quot;צחוק&quot;) הוא שילוב ייחודי של קוד פתוח, פלטפורמת ה-.NET של מיקרוסופט ושיתוף פעולה בינלאומי של קהילת המפתחים של NET. פרויקט YAF, הגדל ומשתנה מדי יום, מובל על ידי אינגו הרבוט. YAF פועל על כל שרת אינטרנט התומך ב-ASP.NET Core v9 (ומעלה) וב-SQL Server. YAF מורשה תחת Apache 2.0.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך כל זה בנוי?</strong></p><p style=\";text-align:right;direction:rtl\"> פורום מכיל אזורים שונים, המכילים בעצמם פורומים (תחומי נושא ספציפיים יותר) המכילים נושאים המורכבים מהודעות בודדות (כאשר משתמש כותב משהו).</p><p style=\";text-align:right;direction:rtl\"> בדף הבית של הפורומים יש רשימה של קטגוריות ופורומים, עם סטטיסטיקות בסיסיות לכל אחד, כולל מספר הנושאים וההודעות, ואיזה חבר פרסם את ההודעה האחרונה.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך אני מוצא את דרכי?</strong></p><p style=\";text-align:right;direction:rtl\"> כאשר אתה לוחץ על שם הפורום, אתה מועבר לרשימת הנושאים שהוא מכיל. נושא הוא שיחה בין חברים או אורחים. כל נושא מתחיל כהודעה בודדת וגדל ככל שנוספים עוד הודעות בודדות על ידי משתמשים שונים.</p><p style=\";text-align:right;direction:rtl\"> כדי להתחיל נושא חדש פשוט לחץ על כפתור &#39;נושא חדש&#39; (אם יש לך גישה אליו).</p><p style=\";text-align:right;direction:rtl\"> <strong>דפדוף</strong></p><p style=\";text-align:right;direction:rtl\"> כאשר יש יותר נושאים להציג ממה שיתאימו בעמוד בודד, ייתכן שתראה את ה-Pager, המכיל מספרי עמודים. זה מציין שרשימת הנושאים פוצלה על שני עמודים או יותר.</p><p style=\";text-align:right;direction:rtl\"> שיטה זו של פיצול רשימות של פריטים על פני דפים רבים משמשת בכל הלוח.</p><p style=\";text-align:right;direction:rtl\"> <strong>מהם נושאים דביקים?</strong></p><p style=\";text-align:right;direction:rtl\"> נושאים &#39;דביקים&#39; יכולים להיווצר על ידי מנהלים או מנהלים, ולהישאר &#39;תקועים&#39; בראש הרשימה, גם אם לא היו להם הודעות לאחרונה. מטרתם היא לשמור על מידע חשוב גלוי ונגיש בכל עת.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך אני קורא נושא?</strong></p><p style=\";text-align:right;direction:rtl\"> לקריאת נושא, לחץ על הכותרת שלו. כל הודעה בנושא נוצרת על ידי חבר או אורח. תראה מידע קצר על החבר שיצר את הנושא בצד שמאל של ההודעה.</p><p style=\";text-align:right;direction:rtl\"> כדי לשלוח הודעה לתשובה לנושא קיים, לחץ על כפתור &#39;פרסם תגובה&#39;. אם הלחצן &#39;פרסם תגובה&#39; לא מופיע, זה יכול להיות שאתה לא מחובר כחבר, או שאין לך הרשאה להשיב, או שהנושא נסגר לתשובות חדשות.</p><p style=\";text-align:right;direction:rtl\"> אם מופעל, תהיה גם תיבת &#39;תשובה מהירה&#39; שבה תוכל להזין תשובה במהירות מבלי שתצטרך לעבור לדף &#39;פרסם תגובה&#39;. עליך ללחוץ על כפתור &#39;תשובה מהירה&#39; בהודעה כדי להפעיל את תיבת התשובה המהירה לפני שתוכל להקליד בה.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך אני יכול לברר יותר על חברים?</strong></p><p style=\";text-align:right;direction:rtl\"> כדי להציג מידע על חבר מסוים, לחץ על שם המשתמש. זה יעביר אותך לדף הפרופיל הציבורי שלהם.</p><p style=\";text-align:right;direction:rtl\"> <strong>מהי הכותרת?</strong></p><p style=\";text-align:right;direction:rtl\"> הכותרת העליונה של כל עמוד מכילה קישורים שיעזרו לך להתנייד. בלחיצה אחת תוכל להגיע לאזורים כמו: הפרופיל שלי, עזרה (שאתה קורא עכשיו), חיפוש ותכונות שימושיות אחרות.</p>"
+            "#text": "<p>פורום הוא מקום לדיון עם אנשים אחרים. הדיונים מאורגנים כך:</p>\r\n<ul>\r\n<li><strong>קטגוריות</strong> מקבצות את הפורומים של נושא מסוים, והן החלקים של דף הבית.</li>\r\n<li><strong>פורומים</strong> הם המקומות לנושא מסוים. פורום יכול להכיל תת־פורומים.</li>\r\n<li><strong>דיונים</strong> הם השיחות בתוך פורום. דיון מתחיל בהודעה ראשונה וגדל עם התגובות של החברים.</li>\r\n<li><strong>הודעות</strong> (או פוסטים) הן התרומות הבודדות בתוך דיון.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">דף הבית</h3>\r\n<p>דף הבית מציג את הקטגוריות עם הפורומים שלהן. לכל פורום מוצגים מספר הדיונים וההודעות וההודעה האחרונה. אפשר לכווץ קטגוריה בעזרת החץ שליד שמה, והפורום זוכר את הבחירה שלכם. בהתאם לפורום, דף הבית מציג גם את <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (ההודעות האחרונות), את הסטטיסטיקה ואת מי שמחובר כעת.</p>\r\n<h3 class=\"h6 mt-3\">אורחים וחברים</h3>\r\n<p>אורחים יכולים לקרוא את הפורומים הפתוחים בפניהם. כדי לכתוב הודעות, להשתמש בתכונות האישיות (הודעות פרטיות, חברים, התראות) ולראות דפים מסוימים (למשל רשימת החברים או הפרופילים), צריך חשבון, ראו <a href=\"[[help:registration]]\">הרשמה</a>.</p>\r\n<p>מה שמותר לכם לעשות בפורום (לקרוא, לפתוח דיונים, להגיב, להצביע בסקרים, להעלות קבצים, ...) נקבע על ידי המנהל לכל פורום ולכל קבוצת חברים. אם אינכם רואים כפתור שמתואר בעזרה זו, אין לכם הרשאה אליו בפורום הזה.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "פורומים, נושאים והודעות"
+            "#text": "הסבר על הפורום"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "שימוש כללי בפורום"
+            "@tag": "GETTINGSTARTED",
+            "#text": "צעדים ראשונים"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>כשהודעה נערכה, היא מציגה מי ערך אותה ומתי. לחצו על כפתור ההיסטוריה שבהערה הזו כדי לפתוח את <strong>[[MESSAGEHISTORY.TITLE]]</strong>: היא מפרטת את הגרסאות של ההודעה עם התאריך, העורך והסיבה.</p>\r\n<ul>\r\n<li>בחרו שתי גרסאות ולחצו על <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> כדי לראות את <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: הטקסט שהוסר והטקסט שנוסף מודגשים.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> מחזיר אל ההודעה.</li>\r\n</ul>\r\n<p>מנחים יכולים לשחזר גרסה קודמת בעזרת <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. הפורום שומר את הגרסאות למספר ימים שקובע המנהל.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "היסטוריית ההודעה"
           },
           {
             "@tag": "INDEX",
             "#text": "אינדקס"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>לחצו על <strong>[[TOOLBAR.LOGIN]]</strong> בסרגל העליון והזינו את שם המשתמש או את כתובת הדוא״ל שלכם ואת הסיסמה.</p>\r\n<p>אם תסמנו את <strong>[[LOGIN.AUTO]]</strong>, תישארו מחוברים במחשב הזה למשך חודש, גם אחרי שסגרתם את הדפדפן. אל תשתמשו באפשרות הזו במחשב שאנשים אחרים משתמשים בו. בלעדיה, תנותקו כשתסגרו את הדפדפן. כדי להתנתק, פתחו את תפריט המשתמש בפינה העליונה ולחצו על <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">אימות דו־שלבי</h3>\r\n<p>אימות דו־שלבי מגן על החשבון שלכם גם אם מישהו יודע את הסיסמה שלכם: בעת ההתחברות הפורום מבקש גם קוד מאפליקציית אימות בטלפון שלכם.</p>\r\n<ol>\r\n<li>פתחו את <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (תפריט המשתמש, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>לחצו על <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>הוסיפו חשבון חדש באפליקציית האימות שלכם (למשל Microsoft Authenticator או Google Authenticator) על ידי סריקת קוד ה־QR או הזנת <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>הזינו את הקוד שהאפליקציה מציגה כדי לאשר.</li>\r\n</ol>\r\n<p>מעכשיו ההתחברות מבקשת את הקוד מהאפליקציה אחרי הסיסמה (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). אפשר לכבות אותו באותו דף בעזרת <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">שמירה על אבטחת החשבון</h3>\r\n<ul>\r\n<li>השתמשו בסיסמה שאינכם משתמשים בה בשום מקום אחר. אפשר לשנות אותה בעזרת <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>הפורום לעולם לא מבקש את הסיסמה שלכם בדוא״ל או בהודעה פרטית.</li>\r\n<li>אם שכחתם את הסיסמה, ראו <a href=\"[[help:recover]]\">שחזור סיסמה שאבדה</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">אחרי כמה סיסמאות שגויות, החשבון ננעל לכמה דקות.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "התחברות ואבטחת החשבון"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>פתחו את <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). ב<strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> בוחרים אילו הודעות דוא״ל תקבלו:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - בלי הודעות דוא״ל.</li>\r\n<li>התראה על דיונים שכתבתם בהם או שעקבתם אחריהם - כל דיון שאתם כותבים בו נמצא אוטומטית במעקב.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - רק הדיונים והפורומים שאתם עוקבים אחריהם בעצמכם.</li>\r\n</ul>\r\n<p>אם הפורום מציע זאת, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> שולח הודעת דוא״ל אחת ביום עם ההודעות החדשות במקום הודעות דוא״ל נפרדות. לחצו על <strong>[[COMMON.SAVE]]</strong> כדי לשמור.</p>\r\n<p>אותו דף מפרט את <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ואת <strong>[[SUBSCRIPTIONS.TOPICS]]</strong> שלכם, ראו <a href=\"[[help:subscriptions]]\">מעקב אחר דיונים ופורומים</a>, ואת התראות הדחיפה של המכשירים שלכם, ראו <a href=\"[[help:push]]\">התראות דחיפה ואפליקציה</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "העדפות התראות באימייל"
+            "#text": "העדפות התראות"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">רשימת החברים מציגה את חברי ההנהלה הרשומים. אתה יכול להציג את רשימת החברים בסדר אלפביתי לפי שם משתמש, תאריך הצטרפות או &quot;ביקור אחרון&quot;,</p><p style=\";text-align:right;direction:rtl\"> יש גם תיבת חיפוש שבה אתה יכול לחפש משתמש ספציפי.</p><p style=\";text-align:right;direction:rtl\"> לצפייה ברשימת החברים, לחץ על &#39;חברים&#39; בכותרת הראשית בראש העמוד (אם אינך רואה את הקישור לא הייתה לך גישה לדף זה).</p>"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>רשימת החברים מציגה את החברים הרשומים עם מספר ההודעות שלהם, תאריך ההצטרפות והביקור האחרון. אפשר:</p>\r\n<ul>\r\n<li>למיין אותה לפי שם, דרגה, תאריך הצטרפות, מספר הודעות או ביקור אחרון,</li>\r\n<li>להציג את החברים ששמם מתחיל באות מסוימת,</li>\r\n<li>לסנן אותה בעזרת <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> לפי שם, תפקיד, דרגה או מספר הודעות.</li>\r\n</ul>\r\n<p>לחצו על חבר כדי לפתוח את הפרופיל שלו. בהתאם לפורום, הרשימה מוצגת רק לחברים.</p>\r\n<h3 class=\"h6 mt-3\">משתמשים פעילים</h3>\r\n<p>הסטטיסטיקה בדף הבית מראה מי מחובר. רשימת המשתמשים הפעילים מציגה את החברים והאורחים המחוברים כעת והיכן הם נמצאים בפורום. חברים יכולים להסתיר את עצמם מהרשימה הזו ב<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, אם הפורום מאפשר זאת.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>דף הצוות מפרט את המנהלים והמנחים של הפורום עם הפורומים שהם מנחים. פנו אליהם אם אתם צריכים עזרה.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "רשימת חברים"
+            "#text": "חברים, משתמשים פעילים וצוות"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">אזכור חבר</h3>\r\n<p>הקלידו בעורך <code>@</code> ואחריו האותיות הראשונות של שם, ובחרו את החבר מהרשימה. השם הופך לקישור לפרופיל, והחבר מקבל התראה שאזכרתם אותו (אם הוא משתמש בהתראות, ראו <a href=\"[[help:popups]]\">התראות</a>).</p>\r\n<h3 class=\"h6 mt-3\">תגיות דיון</h3>\r\n<p>תגיות הן מילות מפתח של דיון, למשל המוצר או הנושא שהשאלה עוסקת בו. הוסיפו אותן ב<strong>[[POSTTOPIC.TAGS]]</strong> כשאתם פותחים דיון. התגיות מוצגות עם הדיון, ולחיצה על תגית מציגה את כל הדיונים עם התגית הזו. גם החיפוש יכול לחפש תגיות, ראו <a href=\"[[help:searching]]\">חיפוש</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "אזכורים ותגיות"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "הודעות והתראות"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">חברים רשומים עשויים להיות מסוגלים לשלוח הודעות לחברים אחרים בפורום זה באמצעות מערכת ההודעות הפרטיות (אם מופעלת על ידי המנהל).</p><p style=\";text-align:right;direction:rtl\"> כשתקבל הודעה פרטית תקבל הודעה בכותרת הפורום, על כמה הודעות שלא נקראו, גם הודעה תופיע. אתה יכול גם להפעיל הודעת דואר אלקטרוני</p><p style=\";text-align:right;direction:rtl\"> <strong>איך אני שולח הודעות פרטיות?</strong></p><p style=\";text-align:right;direction:rtl\"> הודעות פרטיות דומות לאימיילים, אך מוגבלות לחברים רשומים בפורום זה. ייתכן שתוכל לכלול קוד BB, סמיילים ותמונות בהודעות פרטיות שאתה שולח.<br /> אתה יכול לשלוח הודעה פרטית למשתמש על ידי לחיצה על כפתור &quot;PM&quot; בפרופיל המשתמש של המשתמש, או שתלחץ על הקישור &quot;הודעה חדשה&quot; בלוח הבקרה של המשתמש שלך. ההודעה שתשלח תישמר בתיקייה &quot;פריטים שנשלחו&quot; לאחר שליחתה.</p><p style=\";text-align:right;direction:rtl\"> <strong>תיקיות הודעות פרטיות</strong></p><p style=\";text-align:right;direction:rtl\"> בדיוק כמו תוכנית דואר אלקטרוני יש לך 3 תיקיות תיבת הדואר הנכנס, הפריטים שנשלחו ותיקיית הארכיון...</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> תיקיית &quot;תיבת הדואר הנכנס&quot; מכילה כל הודעה חדשה שתקבל. היא מאפשרת לך לצפות בכל ההודעות שקיבלת, יחד עם שם מי ששלח אותה, נושא ההודעה והתאריך והשעה שהיא נשלחה.</li><li style=\";text-align:right;direction:rtl\"> &quot;פריטים שנשלחו&quot; עותקים של כל ההודעות הפרטיות ששלחת.</li><li style=\";text-align:right;direction:rtl\"> התיקיה &quot;ארכיון&quot; מכילה רק הודעות שהעברת לתיקיה זו.</li></ul><p style=\";text-align:right;direction:rtl\"> מכל תיקיה יש לך אפשרויות מה אתה רוצה לעשות עם ההודעות שנמצאות בתיקייה אתה יכול פשוט לסמן הודעה ו...<br /></p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> ארכיון נבחר / ארכיון הכל - העבר את ההודעות לתיקיית הארכיון</li><li style=\";text-align:right;direction:rtl\"> ייצוא נבחרים / ייצוא הכל - ייצא את ההודעות כקובץ (תוכל לבחור את פורמט הייצוא למטה -XML-/CSV-/Text-File)</li><li style=\";text-align:right;direction:rtl\"> מחק את ההודעות שנבחרו / מחק הכל - מחק את ההודעות</li></ul><p style=\";text-align:right;direction:rtl\"> בהתאם לכמה הודעות מותר לך לקבל, עליך למחוק חלק מהן מעת לעת (תוכל לייצא אותן לפני שתמחק אותן כדי לשמור אותן במחשב המקומי שלך). אחרת, כאשר תיבת הדואר שלך מלאה, אינך יכול לקבל הודעות חדשות. בחלק התחתון יודיעו לך כמה הודעות יש לך וכמה אתה יכול לקבל למקסימום.</p>"
+            "#text": "<p>הודעות פרטיות הן שיחות ביניכם לבין חבר אחר, ואף אחד אחר לא יכול לקרוא אותן. פתחו את <strong>[[TOOLBAR.INBOX]]</strong> בתפריט המשתמש: בצד אחד מוצגות <strong>[[PM.CONVERSATION_TITLE]]</strong>, ובצד השני ההודעות של השיחה שנבחרה.</p>\r\n<h3 class=\"h6 mt-3\">פתיחת שיחה</h3>\r\n<ul>\r\n<li>לחצו על <strong>[[PM.NEW_CONVERSATION]]</strong>, הקלידו לפחות שלוש אותיות מהשם ובחרו את החבר.</li>\r\n<li>או לחצו על <strong>[[POSTS.PM]]</strong> בפרופיל של החבר או בתפריט המשתמש של הודעה.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">כתיבה</h3>\r\n<p>הקלידו את ההודעה והקישו Enter כדי לשלוח אותה, Shift+Enter מתחיל שורה חדשה. אפשר להשתמש בקודי BB, למשל לטקסט מודגש או לקישורים. אם החבר השני פתח את השיחה באותו זמן, ההודעות מופיעות מיד אצל שני הצדדים, והשיחה מראה אם החבר מחובר.</p>\r\n<p>הודעות חדשות נספרות ליד השם שלכם וליד <strong>[[TOOLBAR.INBOX]]</strong>, וכשאתם פותחים דף בפורום, חלון שואל אם אתם רוצים לקרוא אותן. אין התראות בדוא״ל על הודעות פרטיות.</p>\r\n<h3 class=\"h6 mt-3\">מחיקה</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> מסיר את השיחה מהרשימה שלכם, אצל החבר השני היא נשארת.</p>\r\n<p class=\"text-body-secondary small\">אי אפשר לכתוב לחברים שחוסמים הודעות פרטיות או מתעלמים מכם (אלא אם אתם חברים שלהם), ראו <a href=\"[[help:blocking]]\">התעלמות ממשתמשים וחסימתם</a>. המנהל יכול לכבות את ההודעות הפרטיות.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "הודעות פרטיות (מסנג&#39;ר)"
+            "#text": "הודעות פרטיות"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>מנחים רואים את <strong>[[TOOLBAR.MODERATE]]</strong> בסרגל העליון. הדף מפרט את הפורומים שאתם מנחים עם מספר <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> ו<strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>בפורומים מפוקחים (ולחברים שההודעות שלהם חייבות להיבדק) הודעות חדשות מוצגות רק אחרי שמנחה אישר אותן. בדקו את ההודעה ולחצו על <strong>[[MODERATE_FORUM.APPROVE]]</strong> או מחקו אותה.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>הרשימה מציגה את ההודעות שדווחו עם הסיבות ועם מי שדיווח עליהן. קראו את ההודעה (ואת ההיסטוריה שלה, אם היא נערכה), פעלו אם צריך (ערכו או מחקו את ההודעה, דברו עם הכותב) ולחצו על <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">ניהול דיונים</h3>\r\n<ul>\r\n<li>בתוך דיון, <strong>[[POSTS.MANAGE_TOPIC]]</strong> מציע <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> ו<strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. דיון שהועבר יכול להשאיר קישור בפורום הישן לכמה ימים.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> מפרט את כל הדיונים של פורום: בחרו כמה מהם ונעלו, העבירו או מחקו אותם בבת אחת.</li>\r\n<li>דיונים נעוצים והכרזות נקבעים ב<strong>[[POSTMESSAGE.PRIORITY]]</strong> כשעורכים את ההודעה הראשונה, ודיונים קבועים (שאינם מוסרים בניקוי האוטומטי) ב<strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">ניהול הודעות</h3>\r\n<ul>\r\n<li>אתם יכולים לערוך ולמחוק הודעות של חברים אחרים. כשאתם מוחקים הודעה, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> מוחק גם את התגובות אליה.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> בתפריט של הודעה מעביר אותה לדיון אחר או מפצל אותה לדיון חדש (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>ב<a href=\"[[help:history]]\">היסטוריית ההודעה</a> אפשר לשחזר גרסה קודמת של הודעה.</li>\r\n<li>אתם יכולים להגיב ולערוך בדיונים נעולים, וההודעות שלכם אינן נבדקות לאיתור ספאם.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">בהתאם להגדרות, מנחים רואים גם את כתובות ה־IP של הודעות. עריכה, השעיה וחסימה של חברים נעשות על ידי המנהלים.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "מדריך למנחים"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "מנחים ומנהלים"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">מנחים מפקחים על פורומים ספציפיים. בדרך כלל יש להם את היכולת לערוך ולמחוק פוסטים, להעביר נושאים ולבצע פעולות אחרות. הפיכתו למנהל של פורום ספציפי מתוגמל בדרך כלל למשתמשים מועילים ובקיאים במיוחד בנושא הפורום שהם מנהלים.</p><p style=\";text-align:right;direction:rtl\"> מנהלים הם האנשים שיש להם שליטה כללית על כל מה שקורה בלוח. הם מפקחים על הסגנון של המועצה, אילו פורומים ליצור וכיצד לארגן אותם, איזה מידע לדרוש מחברים ומי למנות למנחים.</p>"
+            "#text": "<p><strong>מנהלים</strong> מפעילים את הפורום: הם יוצרים את הפורומים, מחליטים מי רשאי לעשות מה, מגדירים את התכונות ומנהלים את החברים.</p>\r\n<p><strong>מנחים</strong> אחראים על פורום אחד או יותר: הם שומרים על הדיונים ענייניים וידידותיים, בודקים הודעות שדווחו, מאשרים הודעות בפורומים מפוקחים, ועורכים, מעבירים, נועלים או מוחקים דיונים והודעות כשצריך. המנחים של פורום מוצגים מעל רשימת הדיונים שלו (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>הדף <strong>[[TOOLBAR.TEAM]]</strong> מפרט את כל המנהלים והמנחים (אם הפורום מציג אותו). אם יש לכם בעיה עם הודעה, <a href=\"[[help:report]]\">דווחו עליה</a>. בשאלות אחרות פנו למנחה או למנהל בהודעה פרטית.</p>\r\n<p>איך מנחים עובדים מוסבר ב<a href=\"[[help:moderating]]\">מדריך למנחים</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,39 +11444,55 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אם המנהל הפעיל את תכונת האלבום ואתה חבר שיש לו גישה להוסיף אלבומים, אתה יכול ליצור אלבומים של תמונות המקושרות לפרופיל הציבורי שלך. ניתן ליצור אלבומים על ידי ביקור <strong>בלוח הבקרה של המשתמש</strong> ולחיצה על הקישור &#39;ערוך אלבומים&#39; ולאחר מכן לחיצה על &#39;הוסף אלבום חדש&#39;. המספר של כמה אלבומים וכמה תמונות תלוי בהגדרה של מנהל המערכת עבור קבוצת המשתמשים שלך שבה אתה נמצא.</p><p style=\";text-align:right;direction:rtl\"> לכל אלבום יכול להיות כותרת ואתה יכול להגדיר לו עטיפה (תמונה מהאלבום) או להשתמש באקראי, אתה יכול גם להוסיף כיתוב לכל תמונה.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך אני מעלה תמונות?</strong></p><p style=\";text-align:right;direction:rtl\"> אם אתה נמצא בדף הוסף/ערוך אלבום אתה בוחר תמונה במחשב שלך ולחץ על העלה כדי להוסיף אותה לאלבום.</p><p style=\";text-align:right;direction:rtl\"> תהיה לך אפשרות לתת לכל תמונה כיתוב, ולהגדיר תמונה אחת כעטיפת האלבום, שתוצג בפרופיל הציבורי. כדי למחוק אלבום או לערוך את הכותרת, להוסיף תמונות או למחוק תמונה, לחץ על &#39;ערוך&#39;. כדי לערוך או להוסיף כיתוב של תמונה לחץ על הטקסט מתחת לתמונה. אם ברצונך להגדיר כיסוי או להסיר את הכיסוי לחץ על הכפתור מתחת לכריכה.</p>"
+            "#text": "<p>אם הפורום משתמש באלבומים, תוכלו להציג את התמונות שלכם באלבומים בפרופיל שלכם ולהשתמש בהן בהודעות שלכם.</p>\r\n<ol>\r\n<li>פתחו את <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> בתפריט של דפי החשבון שלכם (או <strong>[[TOOLBAR.MYALBUMS]]</strong> בתפריט המשתמש) ולחצו על <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>הזינו כותרת והעלו את התמונות הראשונות (אפשר כמה בבת אחת).</li>\r\n</ol>\r\n<p>בעזרת <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> מוסיפים תמונות נוספות או מוחקים אותן, ומוחקים את האלבום. באלבום אפשר לתת לתמונות כיתובים ולבחור את תמונת השער בעזרת <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>כדי להציג תמונה מאלבום בהודעה, לחצו על <strong>[[ALBUM.COPY_BBCODE]]</strong> מתחת לתמונה והדביקו את הקוד בעורך.</p>\r\n<p class=\"text-body-secondary small\">מספר האלבומים והתמונות וגודל התמונות מוגבלים, המגבלות תלויות בקבוצה או בדרגה שלכם ומוצגות בדפים.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "אלבומים"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>כל הקבצים שהעליתם מפורטים ב<strong>[[ATTACHMENTS.TITLE]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). לכל קובץ מוצג בכמה הודעות הוא משמש, או שאינו בשימוש.</p>\r\n<p>בחרו קבצים ומחקו אותם כדי לפנות מקום, למשל קבצים שהעליתם ולא השתמשתם בהם. קובץ שנמחק אינו מוצג עוד בהודעות שמשתמשות בו.</p>\r\n<p>איך מוסיפים קבצים להודעות מוסבר ב<a href=\"[[help:attachments]]\">קבצים מצורפים ותמונות</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "הקבצים המצורפים שלי"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\"><strong>מה הם אווטרים?</strong></p><p style=\";text-align:right;direction:rtl\"> אווטרים הם תמונות קטנות שאנשים משתמשים בהן כדי לזהות או להבחין בחברי פורום אחרים. אווטרים אלה יוצגו כחלק ממידע המשתמש בפוסטים, כמו גם בפרופיל הציבורי.</p><p style=\";text-align:right;direction:rtl\"> אתה יכול לשנות את הדמות שלך על ידי לחיצה על &#39;שנה אוואטר&#39; מתחת לאזור &#39;פרופיל אישי&#39; בסרגל הניווט <strong>בלוח הבקרה של המשתמש</strong> .</p><p style=\";text-align:right;direction:rtl\"> ישנן שלוש דרכים להוסיף אווטאר (אולי פחות אם המנהלן מבטל)...</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> אם זמין בפורום אתה יכול לבחור מתוך אוסף קיים של אווטרים</li><li style=\";text-align:right;direction:rtl\"> הזן כתובת URL קיימת לתמונה בשרת מרוחק</li><li style=\";text-align:right;direction:rtl\"> בחר תמונה מהמחשב שלך והעלה אותה</li></ul><p style=\";text-align:right;direction:rtl\"> <em>שים לב שמנהל המערכת יכול להגדיר את סוגי קבצי התמונה המותרים, גודל התמונה וממדי התמונה (רוחב וגובה מקסימליים של תמונה).</em></p><p style=\";text-align:right;direction:rtl\"> <strong>מהן חתימות?</strong></p><p style=\";text-align:right;direction:rtl\"> &#39;חתימות&#39; מכילות מידע שברצונך לכלול בתחתית כל הפוסטים שלך. זה עשוי לכלול תמונות, קישורים לאתרים שלך, ציטוטים וכו&#39;.</p><p style=\";text-align:right;direction:rtl\"> כדי לשנות חתימות, לחץ על &#39;חתימה&#39; מתחת לאזור &#39;פרופיל אישי&#39; בסרגל הניווט ב-CP User. בדף זה תקבל מידע באילו קודי BB ובאילו תגי HTML אתה יכול להשתמש, וכמה זמן החתימה יכולה להיות.</p>"
+            "#text": "<h3 class=\"h6\">אווטאר</h3>\r\n<p>אווטאר הוא תמונה קטנה שמוצגת ליד השם שלכם בהודעות ובפרופיל שלכם. פתחו את <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). בהתאם לפורום תוכלו:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - לבחור אחד מהאווטארים של הפורום.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - להעלות תמונה משלכם (png, jpg, gif, webp, bmp או svg). תמונות גדולות מוקטנות אוטומטית, והדף מציג את הגודל המותר.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> מסיר את האווטאר שלכם. בלי אווטאר, הפורום מציג תמונת ברירת מחדל.</p>\r\n<h3 class=\"h6 mt-3\">חתימה</h3>\r\n<p>החתימה היא טקסט קצר שמוצג מתחת לכל אחת מההודעות שלכם, למשל מוטו או קישור לאתר שלכם. פתחו את <strong>[[ACCOUNT.SIGNATURE]]</strong> בתפריט המשתמש. הדף מציג את האורך המרבי ואת קודי ה־BB שמותר להשתמש בהם בחתימה, HTML אינו מותר. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> מראה איך היא תיראה.</p>\r\n<p class=\"text-body-secondary small\">המנהל מחליט אם משתמשים באווטארים ובחתימות, והמגבלות יכולות להיות תלויות בקבוצה או בדרגה שלכם.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "חתימות, תמונות אווטרים"
+            "#text": "אווטאר וחתימה"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\"><strong>לוח הבקרה</strong> של המשתמש הוא המקום שבו אתה שולט בהגדרות האישיות, האפשרויות וההעדפות שלך.</p><p style=\";text-align:right;direction:rtl\"> הדף הראשי של <strong>לוח הבקרה</strong> יציג את סיכום החשבון שלך כולל שם המשתמש, כתובת הדואר האלקטרוני ומספר הפוסטים שלך, חבר בקבוצות שבהן אתה נמצא ומאז אתה חבר.</p><p style=\";text-align:right;direction:rtl\"> בצד שמאל תמצא קישורים לכל דפי המשנה והטפסים המאפשרים לך לשלוט..</p><p style=\";text-align:right;direction:rtl\"> <strong>שָׁלִיחַ</strong></p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> תיבת הדואר הנכנס</li><li style=\";text-align:right;direction:rtl\"> פריטים שנשלחו</li><li style=\";text-align:right;direction:rtl\"> ארכיון</li><li style=\";text-align:right;direction:rtl\"> הודעה חדשה</li></ul><p style=\";text-align:right;direction:rtl\"> <strong>פרופיל אישי</strong></p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> צפה בפרופיל</li><li style=\";text-align:right;direction:rtl\"> ערוך פרופיל</li><li style=\";text-align:right;direction:rtl\"> צפה תודה<br /></li><li style=\";text-align:right;direction:rtl\"> ערוך אלבומים</li><li style=\";text-align:right;direction:rtl\"> שנה אווטאר</li><li style=\";text-align:right;direction:rtl\"> חֲתִימָה</li><li style=\";text-align:right;direction:rtl\"> העדפות התראות באימייל</li><li style=\";text-align:right;direction:rtl\"> שנה סיסמא</li></ul>"
+            "#text": "<p>לחצו על השם שלכם בפינה העליונה כדי לפתוח את תפריט המשתמש:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - סקירה של החשבון והפעילות שלכם.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - כל ההגדרות של החשבון שלכם (ראו בהמשך).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - ההודעות הפרטיות שלכם, ראו <a href=\"[[help:messenger]]\">הודעות פרטיות</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - ראו <a href=\"[[help:buddies]]\">חברים</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - ראו <a href=\"[[help:myalbums]]\">אלבומים</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - ראו <a href=\"[[help:newposts]]\">צפייה בהודעות חדשות</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>המספרים ליד השם שלכם, ליד <strong>[[TOOLBAR.INBOX]]</strong> וליד <strong>[[TOOLBAR.BUDDIES]]</strong> סופרים את ההודעות שלא נקראו ואת בקשות החברות הפתוחות.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>הדף מציג את שם המשתמש, כתובת הדוא״ל, מספר ההודעות ותאריך ההצטרפות שלכם, וכן את <strong>[[ACCOUNT.ACTIVITY]]</strong>: הדיונים והתגובות שלכם, התגובות הרגשיות והחברויות, עם מסננים לכל סוג. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> מציג את הפרופיל שלכם כפי שחברים אחרים רואים אותו.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>ההגדרות מפורטות גם בצד של כל דפי החשבון:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - המידע עליכם.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - כתובת דוא״ל, אזור זמן, שפה, אימות דו־שלבי.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - הקבצים שהעליתם.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> ו<a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - התראות בדוא״ל והתראות דחיפה, דיונים ופורומים במעקב.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - הזינו את הסיסמה הנוכחית ואת החדשה פעמיים.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">חלק מהפריטים מוצגים רק אם הפורום משתמש בתכונה (למשל אווטארים, חתימות או אלבומים).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "ההגדרות שלי (לוח הבקרה של המשתמש)"
+            "#text": "החשבון שלי"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "ניווט"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>הסרגל העליון בכל דף מכיל את התפריט הראשי: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> ו<strong>[[TOOLBAR.HELP]]</strong> (בהתאם לפורום, לא כולם מוצגים). אורחים רואים בקצה הסרגל את <strong>[[TOOLBAR.LOGIN]]</strong> ו<strong>[[TOOLBAR.REGISTER]]</strong>. חברים רואים את הפעמון של ההתראות ואת תפריט המשתמש עם השם והאווטאר שלהם, ראו <a href=\"[[help:mysettings]]\">החשבון שלי</a>. מתחת לסרגל העליון, הנתיב של הדף הנוכחי (פירורי הלחם) מחזיר אתכם אל הפורום או הקטגוריה.</p>\r\n<h3 class=\"h6 mt-3\">רשימת הדיונים של פורום</h3>\r\n<p>לחצו על פורום כדי לראות את הדיונים שלו. דיונים נעוצים והכרזות מוצגים ראשונים. דיונים נוספים נטענים אוטומטית כשגוללים למטה. הסרגל שמעל הרשימה מכיל:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - מציג רק את הדיונים שיש בהם הודעות בפרק הזמן שנבחר (למשל היום האחרון או מאז הביקור האחרון שלכם).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - מחפש בדיונים של הפורום הזה.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - עובר לפורום אחר.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> ו<strong>[[TOPICS.MARKREAD]]</strong> (לחברים).</li>\r\n</ul>\r\n<p>הסמלים שלפני הדיונים מציינים הודעות חדשות, דיונים פופולריים (״חמים״), דיונים נעולים ודיונים שהועברו. המקרא שמתחת לרשימה מסביר אותם.</p>\r\n<h3 class=\"h6 mt-3\">בתוך דיון</h3>\r\n<p>ההודעות מוצגות בדפים, ובורר הדפים נמצא מתחת להודעות. בעזרת <strong>[[POSTS.PREVTOPIC]]</strong> ו<strong>[[POSTS.NEXTTOPIC]]</strong> עוברים לדיונים הסמוכים בפורום. קישור להודעה פותח את הדיון בהודעה הזו.</p>\r\n<h3 class=\"h6 mt-3\">הודעות חדשות ומצב קריאה</h3>\r\n<p>פורומים ודיונים עם הודעות שעוד לא קראתם מודגשים. חברים יכולים לסמן הכול כנקרא בעזרת <strong>[[DEFAULT.MARKALL]]</strong> בדף הבית, או פורום אחד בעזרת <strong>[[TOPICS.MARKREAD]]</strong>. היכן מוצאים את כל ההודעות החדשות בבת אחת מוסבר ב<a href=\"[[help:newposts]]\">צפייה בהודעות חדשות</a>.</p>\r\n<h3 class=\"h6 mt-3\">עדכונים חיים</h3>\r\n<p>אם הפורום משתמש בעדכונים חיים, דיונים והודעות חדשים מופיעים בלי לטעון מחדש את הדף. בתוך דיון מופיעה ההודעה <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, לחצו עליה כדי להציג את התגובה החדשה.</p>\r\n<h3 class=\"h6 mt-3\">מידע על משתמשים</h3>\r\n<p>העבירו את העכבר מעל שם משתמש כדי לראות כרטיס קצר עם מידע על החבר, למשל המיקום, מצב החיבור ותאריך ההצטרפות. לחיצה על השם פותחת את הפרופיל של החבר.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "התמצאות בפורום"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>חברים מוצאים את ההודעות החדשות מכל הפורומים ב<strong>[[TOOLBAR.MYTOPICS]]</strong> שבתפריט המשתמש. בדף יש ארבע לשוניות:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - הדיונים עם הודעות חדשות מאז הביקור האחרון שלכם.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - הדיונים שעדיין אין בהם תגובה.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - הדיונים שאתם עוקבים אחריהם.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - הדיונים שפתחתם.</li>\r\n</ul>\r\n<p>בעזרת מסנן הזמן בוחרים את פרק הזמן, למשל השעה האחרונה, השבוע האחרון או כל הדיונים. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> מסמן את כל הדיונים כנקראים.</p>\r\n<p><strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> בדף הבית מציגים את ההודעות האחרונות מכל הפורומים, גם לאורחים.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "צפייה בפוסטים חדשים"
+            "#text": "צפייה בהודעות חדשות"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,83 +11500,103 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אתה יכול ליצור קשר עם אחר על ידי שליחת דואר אלקטרוני, אתה מוצא אותם ברשימת החברים.</p><p style=\";text-align:right;direction:rtl\"> בדרך כלל זה יפתח דף המכיל טופס שבו אתה יכול להזין את ההודעה שלך. לאחר שתסיים להקליד את הודעתך, לחץ על כפתור &#39;שלח דואר אלקטרוני&#39; וההודעה שלך תישלח באופן מיידי.</p><p style=\";text-align:right;direction:rtl\"> <strong>האם אני יכול לראות כתובות דואר אלקטרוני?</strong></p><p style=\";text-align:right;direction:rtl\"> מטעמי פרטיות, כתובת הדואר האלקטרוני של הנמען אינה נחשפת בפניך במהלך תהליך זה, או בכל מקום אחר בפורומים.</p><p style=\";text-align:right;direction:rtl\"> <strong>למה אני לא יכול לשלוח דואר אלקטרוני למישהו?</strong></p><p style=\";text-align:right;direction:rtl\"> אם אינך מוצא כפתור דואר אלקטרוני או קישור לחבר, זה אומר שהמנהל השבית את פונקציות הדואר האלקטרוני עבור הפורום הזה, או שהחבר אמר שהוא לא רוצה לקבל דואר אלקטרוני מחברים אחרים .</p><p style=\";text-align:right;direction:rtl\"> <strong>מה זה הודעות פרטיות?</strong></p><p style=\";text-align:right;direction:rtl\"> חברים רשומים עשויים גם להיות מסוגלים לשלוח הודעות לחברים אחרים בפורום זה באמצעות מערכת ההודעות הפרטיות.</p>"
+            "#text": "<p>אפשר לשלוח דוא״ל לחבר דרך הפורום: לחצו על <strong>[[POSTS.EMAIL]]</strong> בפרופיל של החבר (או בדף הצוות), הזינו נושא ואת ההודעה שלכם, ולחצו על <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>כתובת הדוא״ל של החבר נשארת מוסתרת מכם.</li>\r\n<li>הדוא״ל נשלח עם שם המשתמש שלכם ועם כתובת הדוא״ל <strong>שלכם</strong> כשולח, כך שהחבר יכול לענות לכם ישירות.</li>\r\n<li>כדי למנוע ספאם, אפשר לשלוח רק כמה הודעות דוא״ל בשעה.</li>\r\n</ul>\r\n<p>אי אפשר לשלוח דוא״ל לחברים שחוסמים דוא״ל או מתעלמים מכם (למעט לחברים שלכם), וזה אפשרי רק אם המנהל מאפשר דוא״ל בין חברים. ברוב המקרים <a href=\"[[help:messenger]]\">הודעה פרטית</a> היא הדרך הטובה יותר.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "יצירת קשר עם חברים אחרים"
+            "#text": "דוא״ל לחברים"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\"><em>סקרים הם אפשרות להצביע על נושא או שאלה.</em></p><p style=\";text-align:right;direction:rtl\"> <strong>האם ליצור סקר חדש?</strong></p><p style=\";text-align:right;direction:rtl\"> כאשר אתה מפרסם נושא חדש, יש לך את האפשרות &#39;הוסף סקר?&#39; כדי ליצור סקר חדש. אם אינך רואה את האפשרות הזו, ייתכן שאין לך גישה לאפשרות זו.</p><p style=\";text-align:right;direction:rtl\"> אתה יכול גם להוסיף סקרים חדשים לסקרים קיימים. נושא יכול לכלול כמה סקרים שתרצה.</p><p style=\";text-align:right;direction:rtl\"> זה מאפשר לך לשאול שאלה ולציין מספר תגובות אפשריות (מקסימום 10 או שהמנהל הגדיר מספר גבוה יותר) - <em>מנהל יכול לצרף תמונות (כתובות אתרים מרוחקות) כתגובות</em> . לאחר מכן, חברים אחרים יוכלו להצביע עבור התגובה שהם רוצים, ותוצאות ההצבעה יוצגו בשרשור.</p><p style=\";text-align:right;direction:rtl\"> <em>סקר לדוגמה יכול להיות:</em></p><p style=\";text-align:right;direction:rtl\"> <em>מהו הצבע האהוב עליך?</em></p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <em>כָּחוֹל</em></li><li style=\";text-align:right;direction:rtl\"> <em>אָדוֹם</em></li><li style=\";text-align:right;direction:rtl\"> <em>צהוב</em></li><li style=\";text-align:right;direction:rtl\"> <em>ירוק</em></li></ul><p style=\";text-align:right;direction:rtl\"> ייתכן שתרצה גם לציין מגבלת זמן עבור הסקר. לדוגמה: הפעל את הסקר למשך 10 ימים או שאתה יכול גם להגדיר אותו כך שלא יפוג לעולם.</p><p style=\";text-align:right;direction:rtl\"> אתה יכול גם להחליט אם המשתמש צריך להיות מסוגל לראות את התוצאות מבלי לבצע הצבעה או אם תפעיל את תיבת הסימון &#39;עליך להצביע בכל הסקרים כדי לראות תוצאות. <em>אתה</em> צריך להצביע לפני שתראה תוצאות.</p><p style=\";text-align:right;direction:rtl\"> אפשרות &#39;הצבעה כבולה&#39; לא תציג תוצאות, אם הסקר לא פג.</p><p style=\";text-align:right;direction:rtl\"> <strong>קיבוץ סקרים</strong></p><p style=\";text-align:right;direction:rtl\"> כל הסקרים המצורפים לנושא משולבים באופן אוטומטי כקבוצה. אתה יכול להציג את הקבוצה הזו עם סקרים בכל נושא אחר שתרצה.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך להצביע?</strong></p><p style=\";text-align:right;direction:rtl\"> כדי להצביע בסקר, פשוט לחץ על האפשרות לה אתה רוצה להצביע.</p><p style=\";text-align:right;direction:rtl\"> ככלל, לאחר שהצבעת בסקר, לא תוכל לשנות את הצבעתך מאוחר יותר, אז שים את ההצבעה שלך בזהירות!</p>"
+            "#text": "<p>סקר שואל את קוראי הדיון שאלה עם כמה אפשרויות.</p>\r\n<h3 class=\"h6 mt-3\">יצירת סקר</h3>\r\n<p>הפעילו את <strong>[[POLLEDIT.POLLADD]]</strong> באפשרויות כשאתם פותחים דיון, ועורך הסקר ייפתח אחרי פרסום הדיון. בדיון קיים, פותח הדיון והמנחים רואים <strong>[[POLLEDIT.CREATEPOLL]]</strong> מעל ההודעות. לכל דיון יש סקר אחד.</p>\r\n<ul>\r\n<li>הזינו את השאלה ולפחות שתי אפשרויות, ו<strong>[[POLLEDIT.ADD_CHOICE]]</strong> מוסיף עוד (עד למספר מרבי שקובע המנהל).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - מספר הימים שהסקר פתוח, השאירו ריק לסקר ללא סיום.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - המצביעים יכולים לבחור יותר מתשובה אחת.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - שמות המצביעים מוצגים עם התוצאות.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - התוצאות מוצגות רק אחרי שהסקר הסתיים.</li>\r\n<li>אם הפורום מאפשר זאת, לשאלה ולאפשרויות יכולה להיות תמונה (כתובת של תמונה).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">הצבעה</h3>\r\n<p>לחצו על הכפתור של הבחירה שלכם. אי אפשר לשנות את ההצבעה, אז בחרו בזהירות. אורחים אינם יכולים להצביע ואינם רואים את התוצאות.</p>\r\n<h3 class=\"h6 mt-3\">שינוי סקר</h3>\r\n<p>יוצר הסקר יכול לשנות אותו בעזרת <strong>[[POLLEDIT.EDITPOLL]]</strong> כל עוד איש לא הצביע (אלא אם הפורום מאפשר שינויים גם מאוחר יותר) ולמחוק אותו בעזרת <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. מנחים תמיד יכולים לשנות ולמחוק סקרים.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "יצירה והשתתפות בסקרים"
+            "#text": "סקרים"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">לאחר שנכנסת וטוען את הדף, אתה עשוי לקבל הודעה קופצת במרכז חלון הדפדפן שלך.</p><p style=\";text-align:right;direction:rtl\"> זה יודיע לך על מספר פעולות...</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> הודעות פרטיות חדשות</li><li style=\";text-align:right;direction:rtl\"> בקשות חברות חדשות</li><li style=\";text-align:right;direction:rtl\"> בקשות חברות מאושרות</li><li style=\";text-align:right;direction:rtl\"> בקשות חברים נדחו<br /></li></ul><p style=\";text-align:right;direction:rtl\"> <em>אתה עשוי גם לקבל כמה הודעות מידע והודעות שגיאה באותו אופן.</em></p>"
+            "#text": "<p>הפעמון בסרגל העליון מציג את ההתראות שלכם, והמספר האדום סופר את אלה שלא נקראו. תקבלו התראה כאשר:</p>\r\n<ul>\r\n<li>מישהו מאזכר אתכם (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) או מצטט אתכם (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>מישהו מגיב רגשית לאחת ההודעות שלכם,</li>\r\n<li>יש תגובה חדשה בדיון שאתם עוקבים אחריו או דיון חדש בפורום שאתם עוקבים אחריו,</li>\r\n<li>יש לכם חבר חדש.</li>\r\n</ul>\r\n<p>לחצו על התראה כדי לפתוח את ההודעה. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> פותח את רשימת כל ההתראות, עם מסנן לפי סוג ועם <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>ההתראות הן חלק מזרם הפעילות: תוכלו לכבות אותן ב<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">הודעות נוספות</h3>\r\n<ul>\r\n<li>הודעות פרטיות חדשות ובקשות חברות נספרות ליד השם שלכם. כשאתם פותחים דף, חלון שואל אם אתם רוצים לקרוא אותן.</li>\r\n<li>הודעות של הפורום (למשל ״נשמר״) מופיעות לכמה שניות בראש הדף.</li>\r\n<li>אפשר לשלוח התראות גם בדוא״ל ולדפדפן או לטלפון שלכם, ראו <a href=\"[[help:mailsettings]]\">העדפות התראות</a> ו<a href=\"[[help:push]]\">התראות דחיפה ואפליקציה</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "הודעות קופצות"
+            "#text": "התראות"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>פתחו את הפורום שהדיון שייך אליו ולחצו על <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. אם אינכם רואים את הכפתור, אינכם מורשים לפתוח דיונים בפורום הזה (או שאינכם מחוברים).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - הכותרת של הדיון, שדה חובה. בזמן ההקלדה הפורום מציג <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, אולי כבר ענו על השאלה שלכם.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - תיאור קצר, לא חובה.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - מילות מפתח, לא חובה, חברים אחרים יכולים למצוא דיונים לפי התגיות שלהם.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - רק לחברים עם הרשאה לכך, ראו <a href=\"[[help:anounce]]\">הכרזות ודיונים נעוצים</a>.</li>\r\n<li>ההודעה עצמה, בעורך.</li>\r\n</ul>\r\n<p>ב<strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> אפשר להוסיף סקר (<strong>[[POLLEDIT.POLLADD]]</strong>, ראו <a href=\"[[help:polls]]\">סקרים</a>) ולעקוב אחר הדיון (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). לחצו על <strong>[[POSTMESSAGE.PREVIEW]]</strong> כדי לבדוק את ההודעה שלכם, ועל <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> כדי לפרסם אותה.</p>\r\n<h3 class=\"h6 mt-3\">העורך</h3>\r\n<p>בהתאם לפורום, העורך מציג את העיצוב בזמן ההקלדה, או את קודי ה־BB (תגיות קצרות כמו <code>[b]מודגש[/b]</code>). הכפתורים של סרגל הכלים מעצבים את הטקסט: סמנו את הטקסט ולחצו על הכפתור, למשל לטקסט מודגש, לקישור, לציטוט או לרשימה. כל קודי ה־BB והתוצאה שלהם מפורטים ב<a href=\"[[help:bbcodes]]\">קודי BB</a>.</p>\r\n<ul>\r\n<li>הקלידו <code>@</code> ושם כדי לאזכר חבר, ראו <a href=\"[[help:mentions]]\">אזכורים ותגיות</a>.</li>\r\n<li>קבצים ותמונות מוסיפים בעזרת כפתור הקבצים המצורפים, ראו <a href=\"[[help:attachments]]\">קבצים מצורפים ותמונות</a>.</li>\r\n<li>בעורך קודי ה־BB, ‏Ctrl+B, ‏Ctrl+I ו־Ctrl+U מעצבים את הטקסט המסומן, ו־Ctrl+Enter שולח את ההודעה.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">כדאי לדעת</h3>\r\n<ul>\r\n<li>אורחים (אם מותר להם לכתוב) מזינים שם ב<strong>[[POSTMESSAGE.FROM]]</strong>, והוא לא יכול להיות שם של חבר.</li>\r\n<li>כדי למנוע ספאם, צריך להמתין כמה שניות בין שתי הודעות, ולהודעה יש אורך מרבי.</li>\r\n<li>בחלק מהפורומים הודעות נבדקות קודם על ידי מנחה. ההודעה שלכם תוצג אחרי שתאושר.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "פרסום נושאים ופוסטים חדשים"
+            "#text": "פתיחת דיון חדש"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "הגדרות ותכונות פרופיל"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>בשימוש בפורום אתם מסכימים לכללים שלו. הדף <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> מכיל את הכללים ואת מדיניות הפרטיות: אילו נתונים אישיים הפורום שומר, לאילו מטרות, ומהן הזכויות שלכם (למשל לקבל מידע על הנתונים שלכם או לבקש את מחיקתם).</p>\r\n<p>הדף <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> מפרט את העוגיות של הפורום, למה הן משמשות וכמה זמן הן נשמרות. בביקור הראשון שלכם בפורום, הודעה מיידעת אתכם על העוגיות.</p>\r\n<p>הפרופיל שלכם מציג רק את המידע שאתם מזינים, וכתובת הדוא״ל שלכם לעולם אינה מוצגת לחברים אחרים. תוכלו להסתיר את עצמכם מרשימת המשתמשים הפעילים (אם הפורום מאפשר זאת), לחסום הודעות פרטיות והודעות דוא״ל, ולמחוק את החשבון שלכם, ראו <a href=\"[[help:blocking]]\">התעלמות ממשתמשים וחסימתם</a> ו<a href=\"[[help:deleteaccount]]\">השעיה או מחיקה של החשבון</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "פרטיות, עוגיות וכללים"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">כחבר יש לך דף פרופיל הניתן לצפייה ציבורית. דף זה כולל מידע שסופק על ידי החבר, במהלך תהליך ההרשמה או מאוחר יותר דרך לוח הבקרה של המשתמש.</p><p style=\";text-align:right;direction:rtl\"> <em>ישנן מספר דרכים להציג פרופיל חברים...</em></p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> כאשר אתה רואה שם משתמש לחץ על השם ותראה תפריט נפתח המכיל קישור &#39;פרופיל משתמש&#39; לצפייה בפרופיל.</li><li style=\";text-align:right;direction:rtl\"> רשימת החברים מאפשרת לך לעיין בכל החברים הרשומים, וללחוץ במהירות לפרופילים ציבוריים.</li><li style=\";text-align:right;direction:rtl\"> כאשר אתה מחובר, אתה יכול גם להציג את הפרופיל הציבורי שלך על ידי כניסה לפורומים ולחיצה על הקישור &#39;הפרופיל שלי&#39; בכותרת בראש העמוד, כדי לפתוח את לוח הבקרה של המשתמש.</li></ul><p style=\";text-align:right;direction:rtl\"> <strong>איזה מידע מוצג בדף זה?</strong></p><p style=\";text-align:right;direction:rtl\"> דף הפרופיל הציבורי מקובץ ל-5 כרטיסיות.</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <strong>אודות</strong> - מציג את כל המידע שהמשתמש סיפק בדף הפרופיל שלו כגון שם אמיתי, מין, סטטוס אם המשתמש מקוון/לא מקוון, דירוג פורום ועוד.</li><li style=\";text-align:right;direction:rtl\"> <strong>סטטיסטיקה</strong> - מציג מידע סטטיסטי כגון תאריך הצטרפות, ביקור אחרון, מספר תודות, מספר הפעמים שמשתמש זה הודה ומספר הפוסטים שעליהם הודו למשתמש זה.</li><li style=\";text-align:right;direction:rtl\"> <strong>10 פוסטים אחרונים</strong> - מציג אם זמינים את 10 ההודעות האחרונות שהמשתמש כתב</li><li style=\";text-align:right;direction:rtl\"> <strong>חברים -</strong> מציג את החברים שיש למשתמש בפורום.</li><li style=\";text-align:right;direction:rtl\"> <strong>אלבומים -</strong> מציג את האלבומים (אם מופעל) שהמשתמש יצר.</li></ul><p style=\";text-align:right;direction:rtl\"> מידע אישי כגון כתובת דואר אלקטרוני או סיסמאות <strong>אינם</strong> מוצגים.</p>"
+            "#text": "<p>לחצו על שם של חבר (למשל בהודעה או ברשימת החברים) כדי לפתוח את הפרופיל שלו. בהתאם לפורום, פרופילים מוצגים רק לחברים. הפרופיל שלכם נפתח בעזרת <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> ב<strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>הפרופיל מציג:</p>\r\n<ul>\r\n<li>את האווטאר, השם, הדרגה והמדליות של החבר, ואת המידע מהפרופיל (למשל מיקום, תאריך לידה, עיסוק ותחומי עניין),</li>\r\n<li>את מספר ההודעות ואת מספר התגובות הרגשיות שניתנו והתקבלו,</li>\r\n<li>את המוניטין (אם הפורום משתמש בו),</li>\r\n<li>את <strong>[[PROFILE.LAST10]]</strong>, עם <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>את החברים ואת האלבומים של החבר.</li>\r\n</ul>\r\n<p>הכפתורים של הפרופיל מאפשרים לכם <strong>[[BUDDY.ADDBUDDY]]</strong>, לשלוח הודעה פרטית (<strong>[[POSTS.PM]]</strong>) או דוא״ל (<strong>[[POSTS.EMAIL]]</strong>), ולפתוח את האתר או הבלוג של החבר. כתובת הדוא״ל של חבר לעולם אינה מוצגת.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "הפרופיל הציבורי שלי"
+            "#text": "פרופילים"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "קריאה ופרסום הודעות"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>התראות דחיפה מציגות תגובות חדשות בדיונים שבמעקב והתראות אחרות במחשב או בטלפון שלכם, גם כשהפורום אינו פתוח.</p>\r\n<ol>\r\n<li>פתחו את <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> בתפריט המשתמש (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>ב<strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> לחצו על <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> ואשרו את ההתראות כשהדפדפן שואל.</li>\r\n</ol>\r\n<p>התראות דחיפה מוגדרות לכל מכשיר ולכל דפדפן בנפרד. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> מכבה אותן במכשיר הזה. ההתראות נשלחות דרך שירות הדחיפה של הדפדפן שלכם (למשל של Google, ‏Mozilla, ‏Apple או Microsoft) והן מוצפנות.</p>\r\n<h3 class=\"h6 mt-3\">התקנת הפורום כאפליקציה</h3>\r\n<p>אפשר להתקין את הפורום כמו אפליקציה, עם סמל משלו במסך הבית או בשולחן העבודה: לחצו על <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> באותו דף, או השתמשו באפשרות ההתקנה של הדפדפן שלכם. ב־iPhone וב־iPad התראות דחיפה פועלות רק באפליקציה המותקנת: הקישו על ״שיתוף״, על <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, פתחו את הפורום ממסך הבית ואז הפעילו את ההתראות.</p>\r\n<p class=\"text-body-secondary small\">החלק הזה מוצג רק אם המנהל הגדיר התראות דחיפה.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "התראות דחיפה ואפליקציה"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "קריאה"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">אם שכחת את הסיסמה שלך, תוכל ללחוץ על הקישור &quot; <a href=\"{0}\">סיסמה אבודה</a> &quot;. זה יופיע בכל עמוד שדורש ממך למלא את הסיסמה שלך.</p><p style=\";text-align:right;direction:rtl\"> קישור זה מעלה דף שבו עליך להזין את שם המשתמש שלך. דוא&quot;ל יישלח לכתובת זו בקרוב, עם הנחיות לאיפוס הסיסמה שלך.</p><p style=\";text-align:right;direction:rtl\"> מכיוון שסיסמאות מוצפנות, אין דרך לשלוח מחדש את הסיסמה המקורית שלך. אפשרות זו מספקת לך את היכולת לאפס את הסיסמה שלך.</p><p style=\";text-align:right;direction:rtl\"> אתה חייב להיות מסוגל לקבל מיילים לכתובת הדוא&quot;ל הרשומה שלך כדי שזה יעבוד. ייתכן שתצטרך לבדוק את מסנני הספאם ואת התיקיה שלך אם אינך רואה את האימייל הזה תוך מספר דקות.</p>"
+            "#text": "<p>אם שכחתם את הסיסמה, תוכלו להגדיר סיסמה חדשה:</p>\r\n<ol>\r\n<li>לחצו על <strong>[[LOGIN.LOSTPASSWORD]]</strong> ליד שדה הסיסמה ב<a href=\"[[page:Account_Login]]\">דף ההתחברות</a> או בחלון ההתחברות.</li>\r\n<li>הזינו את שם המשתמש או את כתובת הדוא״ל שלכם ולחצו על <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>אם קיים חשבון עם השם או הכתובת האלה, הפורום שולח לכם דוא״ל עם קישור. לשמירה על הפרטיות שלכם, הדף מציג את אותה הודעה בכל מקרה.</li>\r\n<li>הקישור פותח דף שבו מזינים את כתובת הדוא״ל ואת הסיסמה החדשה פעמיים.</li>\r\n</ol>\r\n<p>הקישור תקף לזמן מוגבל בלבד. אם עוד לא אישרתם את כתובת הדוא״ל שלכם, תקבלו במקום זאת דוא״ל אישור חדש. הפורום שולח לכל היותר כמה הודעות דוא״ל כאלה בשעה.</p>\r\n<p>הסיסמאות נשמרות בצורה שאי אפשר לשחזר ממנה את הסיסמה, ולכן אף אחד (גם לא המנהל) לא יכול לומר לכם מה הייתה הסיסמה הישנה שלכם.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "שחזר סיסמה אבודה"
+            "#text": "שחזור סיסמה שאבדה"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">המנהל כנראה ידרוש ממך להירשם כדי להשתמש בכל התכונות של הפורום. להיות רשום נותן לך זהות בלוח, שם משתמש קבוע בכל ההודעות שאתה מפרסם ופרופיל ציבורי מקוון.</p><p style=\";text-align:right;direction:rtl\"> ההרשמה היא בחינם (אלא אם צוין אחרת), ומציעה מגוון מורחב של תכונות, כולל:</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> פרסום נושאים חדשים</li><li style=\";text-align:right;direction:rtl\"> תשובה לנושאים של אנשים אחרים</li><li style=\";text-align:right;direction:rtl\"> עריכת ההודעות שלך</li><li style=\";text-align:right;direction:rtl\"> קבלת הודעות דואר אלקטרוני על תשובות להודעות ונושאים שאתה מציין</li><li style=\";text-align:right;direction:rtl\"> שליחת הודעות פרטיות לחברים אחרים</li></ul><p style=\";text-align:right;direction:rtl\"> <strong>איך אני נרשם?</strong></p><p style=\";text-align:right;direction:rtl\"> אתה נרשם על ידי לחיצה על &#39;הרשמה&#39; בכותרת. ראשית עליך להסכים לכללי הפורום ולמדיניות. לאחר מכן תתבקש לבחור שם משתמש, סיסמה, שאלת אבטחה/תשובה, ולהזין כתובת דוא&quot;ל חוקית. ואם המנהל צריך להזין את קוד Captcha המוצג כדי להמשיך. בעמוד הבא תוכל לספק כמה הגדרות פרופיל בסיסיות באופן אופציונלי.</p>"
+            "#text": "<p>תכונות רבות בפורום זמינות לחברים בלבד, למשל כתיבת הודעות, הודעות פרטיות, חברים, מעקב אחר דיונים וההתראות. כדי להפוך לחברים, לחצו על <strong>[[TOOLBAR.REGISTER]]</strong> בסרגל העליון (אם המנהל מאפשר הרשמות חדשות).</p>\r\n<ol>\r\n<li>אם הפורום מבקש זאת, קראו את <strong>[[RULES.TITLE]]</strong> ולחצו על <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>הזינו שם משתמש, את כתובת הדוא״ל שלכם וסיסמה (פעמיים). בהתאם לפורום תזינו גם שם תצוגה ומידע נוסף שהמנהל מבקש.</li>\r\n<li>לחצו על <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>הפורום מציג <strong>[[REGISTER.CHECK_MAIL]]</strong> ושולח לכם דוא״ל. לחצו על הקישור בדוא״ל הזה כדי לאשר את הכתובת שלכם. אז החשבון שלכם פעיל ותוכלו להתחבר.</li>\r\n</ol>\r\n<p>אם הדוא״ל לא מגיע, בדקו את תיקיית דואר הזבל. אם תנסו להתחבר לפני שאישרתם את הכתובת, דף ההתחברות יודיע לכם על כך ויציע <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>בחלק מהפורומים חשבונות חדשים חייבים לקבל קודם אישור ממנהל, ותקבלו הודעה בדוא״ל כשהחשבון שלכם יאושר.</p>\r\n<p>אחרי ההרשמה תוכלו להשלים את הפרופיל שלכם, ראו <a href=\"[[help:editprofile]]\">עריכת הפרופיל שלכם</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "הַרשָׁמָה"
+            "#text": "הרשמה"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">בחלק מהלוחות אולי תוכל לפרסם ולהשיב כמשתמש אורח. אבל רוב הקהילות דורשות רישום.</p><p style=\";text-align:right;direction:rtl\"> משתמש רשום יכול ללכת לפורום בלוח שבו יש לו הרשאה לצפות בנושאים ולהשאיר תשובות. כדי להשיב יש לך כמה אפשרויות. אתה יכול ללחוץ על כפתור &#39;פרסם תגובה&#39; ולהוסיף הודעה חדשה לסוף הנושא. לחלופין, תוכל להשאיר תשובה מהירה בתיבת תשובה מהירה הרשומה מתחת לפוסטים בנושא.</p><p style=\";text-align:right;direction:rtl\"> אם אתה רוצה להשיב להודעה, לחץ על כפתור &#39;ציטוט&#39; ותוכל להשיב להודעה עם הטקסט המצוטט.</p>"
+            "#text": "<p>כדי להגיב לדיון, לחצו על <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> מעל ההודעות או מתחתן, או על <strong>[[BUTTON.BUTTON_REPLY]]</strong> מתחת להודעה. דף התגובה מציג את <strong>[[POSTMESSAGE.LAST10]]</strong> של הדיון מתחת לעורך, כך שתוכלו לקרוא אותן בזמן הכתיבה.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>לתשובה קצרה השתמשו בתיבת התגובה המהירה שמתחת להודעות, או בכפתור <strong>[[POSTS.QUICKREPLY]]</strong> של הודעה. כתבו את הטקסט ולחצו על <strong>[[COMMON.POST]]</strong>. לעורך המלא (למשל כדי לצרף קבצים) לחצו על <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">ציטוט</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> מתחת להודעה פותח תגובה עם הטקסט של ההודעה הזו כציטוט.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> אוסף כמה הודעות, גם מדפים אחרים של הדיון. אחר כך לחצו על <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> באחת מהן, והתגובה מצטטת את כל ההודעות שנאספו.</li>\r\n<li>כדי לצטט רק חלק, סמנו את הטקסט בהודעה, לחצו עליו בלחצן הימני ובחרו <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>קצרו ציטוטים ארוכים לחלק שאתם עונים עליו. החבר שצוטט מקבל התראה.</p>\r\n<p>אפשר להגיב רק אם מותר לכם בפורום הזה, ולא בדיון נעול. אורחים יכולים להגיב רק אם הפורום מאפשר זאת.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "מענה להודעה"
+            "#text": "תגובה וציטוט"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>אם הודעה מפרה את כללי הפורום (למשל ספאם, עלבונות או תוכן בלתי חוקי), אנא דווחו עליה למנחים במקום להגיב לה:</p>\r\n<ol>\r\n<li>פתחו את התפריט של ההודעה (שלוש הנקודות בפינה העליונה שלה) ובחרו <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>כתבו מדוע אתם מדווחים על ההודעה.</li>\r\n<li>לחצו על <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>המנחים של הפורום בודקים את ההודעה שדווחה ומחליטים מה לעשות. הכותב אינו רואה מי דיווח על ההודעה. בהתאם לפורום, רק חברים יכולים לדווח על הודעות.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "דיווח על הודעה"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">העדכונים מסופקים כעת בשני פורמטים, RSS ו-Atom.</p><p style=\";text-align:right;direction:rtl\"> אם המנהלן הפעיל את הפצת הזנות, אתה יכול לקבל את העדכונים עבור פורומים, נושאים ונושאים פעילים.</p><p style=\";text-align:right;direction:rtl\"> לרוב הדפדפנים המודרניים יש מתקנים לקריאת עדכוני RSS ויזהו אוטומטית את זמינות העדכונים בדפי הפורום של YAF.</p>"
+            "#text": "<p>פידים מאפשרים לכם לעקוב אחר הפורום באפליקציה לקריאת פידים, בלי להיכנס לפורום. הפורום מציע פידי Atom עבור:</p>\r\n<ul>\r\n<li>ההודעות האחרונות (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> בדף הבית),</li>\r\n<li>הדיונים של פורום (כפתור הפיד בסרגל שמעל רשימת הדיונים),</li>\r\n<li>ההודעות של דיון (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>העתיקו את כתובת הפיד אל קורא הפידים שלכם. המנהל קובע אם הפורום מציע פידים ומי יכול להשתמש בהם (לרוב רק חברים). אם אינכם רואים כפתור פיד, פידים אינם זמינים לכם.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "הזנות RSS ואטום"
+            "#text": "פידים"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">כדי למצוא במהירות שרשור או פוסט מעניינים בכל מקום בפורומים, לחץ על הקישור &#39;חפש&#39; בכותרת. לאחר מכן, הקלד את מילת המפתח או הביטוי שברצונך לחפש.</p><p style=\";text-align:right;direction:rtl\"> לשליטה רבה יותר על החיפוש, תוכל להגביל את החיפוש לפורומים בודדים, או למצוא פוסטים או נושאים שנכתבו על ידי משתמש מסוים. אתה יכול גם לבחור כמה תוצאות יוצגו בכל עמוד.</p>"
+            "#text": "<p>לחצו על <strong>[[TOOLBAR.SEARCH]]</strong> בסרגל העליון, הזינו לפחות כמה אותיות והקישו Enter או לחצו על <strong>[[SEARCH.BTNSEARCH]]</strong>. אפשרויות החיפוש מאפשרות לכם:</p>\r\n<ul>\r\n<li>לחפש הודעות, דיונים או פורומים,</li>\r\n<li>לחפש רק בהודעות של חבר מסוים,</li>\r\n<li>לחפש את הדיונים עם תגית מסוימת,</li>\r\n<li>להתאים את הביטוי המדויק, כל אחת מהמילים או את כל המילים,</li>\r\n<li>לחפש רק בחלק מהפורומים,</li>\r\n<li>לחפש בהודעות כולן או רק בכותרות,</li>\r\n<li>לבחור את מספר התוצאות בכל דף.</li>\r\n</ul>\r\n<p>החיפוש מוצא רק את מה שמותר לכם לקרוא. דרכים נוספות לחפש:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> מעל רשימת הדיונים מחפש בפורום אחד.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> בתפריט של הודעה או בפרופיל מציג את ההודעות של החבר הזה.</li>\r\n<li>תגית מתחת לכותרת של דיון מציגה את כל הדיונים עם התגית הזו.</li>\r\n<li>סמנו טקסט בהודעה ולחצו עליו בלחצן הימני של העכבר כדי לחפש את המילים שסימנתם.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "חיפוש פורומים ונושאים"
+            "#text": "חיפוש"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>כשאתם עוקבים אחר דיון או פורום, אתם מקבלים התראה על הודעות חדשות: בהתראות של הפורום, ו(בהתאם ל<a href=\"[[help:mailsettings]]\">העדפות ההתראות</a> שלכם) בדוא״ל ובהתראת דחיפה.</p>\r\n<ul>\r\n<li><strong>דיון:</strong> לחצו על <strong>[[POSTS.TOOLS]]</strong> מתחת לכותרת הדיון ועל <strong>[[POSTS.WATCHTOPIC]]</strong>. אפשר גם להפעיל את <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> כשאתם כותבים הודעה.</li>\r\n<li><strong>פורום:</strong> לחצו על <strong>[[TOPICS.WATCHFORUM]]</strong> בסרגל שמעל רשימת הדיונים. תקבלו התראה על דיונים חדשים בפורום הזה.</li>\r\n<li><strong>כל הפורומים:</strong> לחצו על <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> בדף הבית.</li>\r\n</ul>\r\n<p>כדי להפסיק לעקוב, לחצו על <strong>[[POSTS.UNWATCHTOPIC]]</strong> או על <strong>[[TOPICS.UNWATCHFORUM]]</strong>. ב<strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> תמצאו את כל <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ו<strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, בחרו חלק מהם ולחצו על <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> כדי להפסיק לעקוב אחריהם.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "מנויים והתראות"
+            "#text": "מעקב אחר דיונים ופורומים"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">ה&#39;תודה&#39; - מערכת היא פונקציה המאפשרת לך להחזיר למשתמש אחר משוב חיובי, למשל הוא או היא פרסמו הודעה שנראית לך מועילה או עוזרת לך לפתור בעיה.</p><p style=\";text-align:right;direction:rtl\"> <strong>איך לתת למשתמש תודה?</strong></p><p style=\";text-align:right;direction:rtl\"> אם אתה רוצה לתת למשתמש &#39;תודה&#39; לחץ על כפתור &#39;תודה&#39; בתוך הפוסט שברצונך להוסיף אותו, לאחר מכן אתה מוצא את שמך ברשימת המשתמשים שנתנו תודה בסוף ההודעה. אתה יכול גם להסיר את התודה שלך בכל עת.</p><p style=\";text-align:right;direction:rtl\"> <strong>הצג הכל תודה</strong></p><p style=\";text-align:right;direction:rtl\"> אם אתה רוצה לראות את כל הפוסטים שנתת תודה, או להציג את רשימת הפוסטים שקיבלת, הגעתי לדף פרופיל אישי -&gt; &#39;הצג תודה&#39; מתוך לוח הבקרה של המשתמש. שם אתה רואה שתי כרטיסיות...</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <strong>תודה</strong> - מציג את רשימת ההודעות שבהן נתת תודה.</li><li style=\";text-align:right;direction:rtl\"> <strong>היה תודה -</strong> מציג את רשימת ההודעות שלך שבהן קיבלת תודה.</li></ul>"
+            "#text": "<h3 class=\"h6\">תגובות רגשיות</h3>\r\n<p>בתגובה רגשית אתם מראים לכותב ההודעה שהיא מוצאת חן בעיניכם, בלי לכתוב תגובה. לחצו על כפתור הסמיילי (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) מתחת להודעה ובחרו <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> או <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>לחצו שוב על התגובה הרגשית שלכם כדי להסיר אותה, או על אחרת כדי לשנות אותה.</li>\r\n<li>התגובות הרגשיות של הודעה מוצגות עם המספרים שלהן, העבירו את העכבר מעליהן כדי לראות מי הגיב.</li>\r\n<li>אי אפשר להגיב כך להודעות של עצמכם, להודעות שנמחקו ובדיונים נעולים.</li>\r\n<li>הכותב מקבל התראה, והתגובות הרגשיות נספרות בפרופיל (תודות שניתנו והתקבלו).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">מוניטין</h3>\r\n<p>אם הפורום משתמש במערכת המוניטין, המוניטין של חבר מוצג כפס בפרופיל. חברים שיש להם מספיק מוניטין בעצמם יכולים להוסיף (+1) או להוריד (-1) מוניטין של חבר אחר בתפריט המשתמש של הודעה.</p>\r\n<h3 class=\"h6 mt-3\">התשובה לשאלה</h3>\r\n<p>החבר שפתח את הדיון יכול לסמן את התגובה שענתה על השאלה בעזרת <strong>[[POSTS.MARK_ANSWER]]</strong>. ההודעה מקבלת תג תשובה, כך שקוראים אחרים מוצאים את הפתרון במהירות.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "תכונה תודה"
+            "#text": "תגובות רגשיות ומוניטין"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">בראש כל נושא, יש קישור &#39;אפשרויות&#39;. בלחיצה על קישור זה יופיע תפריט עם מספר אפשרויות:</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <strong>צפו בנושא זה</strong> - על ידי הרשמה לשרשור, תקבלו עדכונים תקופתיים באימייל על הפעילות האחרונה בתוכו.</li><li style=\";text-align:right;direction:rtl\"> <strong>הדפס נושא</strong> זה - זה יראה לך עמוד עם תוכן הפוסטים בפורמט גרפי מופחת שהוא יותר &#39;ידידותי להדפסה&#39;.</li><li style=\";text-align:right;direction:rtl\"> <strong>עדכון Atom</strong> - זה יציג את העדכון של נושא זה עם כל הפוסטים כעדכון.</li><li style=\";text-align:right;direction:rtl\"> <strong>עדכון Rss</strong> - זה יציג את העדכון של נושא זה עם כל הפוסטים כעדכון.</li></ul>"
+            "#text": "<p>הסרגל שמתחת לכותרת הדיון מכיל את הכלים של הדיון:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - שולח למישהו קישור לדיון בדוא״ל (לחברים בלבד).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - מעתיק את הכתובת של הדיון, למשל כדי לקשר אליו מאתר אחר.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - תקבלו התראה על תגובות חדשות, ראו <a href=\"[[help:subscriptions]]\">מעקב אחר דיונים ופורומים</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - מציג את הדיון בגרסה להדפסה.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - הפיד של הדיון, אם הפורום מציע פידים, ראו <a href=\"[[help:rss]]\">פידים</a>.</li>\r\n</ul>\r\n<p>מנחים רואים גם את <strong>[[POSTS.MANAGE_TOPIC]]</strong> כדי להעביר, לנעול או למחוק את הדיון, ראו <a href=\"[[help:moderating]]\">מדריך למנחים</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "אפשרויות נושא"
+            "#text": "כלי הדיון"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "כאן תוכלו למצוא תשובות לשאלות על אופן פעולת הלוח. השתמש בקישורים משמאל או בתיבת החיפוש למטה כדי למצוא את מה שאתה מחפש."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "כתיבה"
           }
         ]
       },

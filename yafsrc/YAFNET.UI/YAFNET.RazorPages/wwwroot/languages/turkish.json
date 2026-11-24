@@ -10815,99 +10815,628 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Metni <code>[left]</code>, <code>[center]</code> ve <code>[right]</code> ile sola, ortaya veya sağa hizalar."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Ortalanmış metin[/center]\r\n[right]Sağa hizalı metin[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Hizalama"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Metni kalın yapar."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Bu metin kalın[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Kalın"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Program kodunu satır sonları ve boşluklarıyla gösterir; içindeki BB kodları biçimlendirilmez."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Bir programlama dilinin kodunu renklendirir, ör. csharp, javascript, python, sql, css veya markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Vurgulanmış kod"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Kod"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Metni renklendirir. Bir rengin adını veya bir renk kodunu kullanın."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Kırmızı metin[/color] ve [color=#0d6efd]mavi metin[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Metin rengi"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Bu BB kodları içerik (ör. videolar veya diğer web sitelerinin gönderileri) ya da ekler yerleştirir. Adresi veya numarayı etiketlerin arasına yazın."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Adrese e-posta yazan bir bağlantı."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "E-posta adresi"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Köşeli parantez içindeki emoji kısa kodları ve :) gibi gülen yüzler emojiye dönüşür."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Okuyucunun cihazında mevcutsa metni başka bir yazı tipinde gösterir."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Courier New ile metin[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Yazı tipi"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Bu forumun diğer BB kodları"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Metni yalnızca üyelere veya <code>[group-hide=Role1;Role2]</code> ile yalnızca bu rollerin üyelerine gösterir."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Bu metni yalnızca üyeler görür.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Gruplar için gizli"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Düzen"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Bağlantılar ve resimler"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Listeler"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Alıntılar ve kod"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Üyeler, spoilerlar ve gizli içerik"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Metin biçimlendirme"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Okuyucu mesaja tepki verene kadar metni gizler. Yazar ve yöneticiler onu her zaman görür."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Gizli bir metin.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Metni, belirtilen sayıdan daha az mesaj yazmış üyelerden gizler."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Gizli bir metin.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Az mesaj için gizli"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Okuyucu konuya cevap verene kadar metni gizler."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Gizli bir metin.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Okuyucu konuya cevap verene veya mesaja tepki verene kadar metni gizler."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Gizli bir metin.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Cevaba veya tepkiye kadar gizli"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Cevaba kadar gizli"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Metni, belirtilen sayıdan daha az tepki almış üyelerden gizler."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Gizli bir metin.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Az tepki için gizli"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Tepkiye kadar gizli"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Kendi satırında dört veya daha fazla tire yatay bir çizgi çizer."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Çizginin üstündeki metin\r\n----\r\nÇizginin altındaki metin"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Yatay çizgi"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Metni bir fosforlu kalem gibi vurgular."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Bu metin vurgulanmış[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Vurgulama"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "İnternetten bir resim gösterir. Adres resmin türüyle bitmelidir (ör. .png veya .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Açıklamalı bir resim; açıklama fare resmin üzerindeyken gösterilir ve ekran okuyucular tarafından okunur."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]YAF.NET logosu[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Açıklamalı resim"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Resim"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Metni içeri girintili yapar."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Girintili metin[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Girinti"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Metni italik yapar."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Bu metin italik[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "İtalik"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Madde işaretli bir liste. Her öğe yeni bir satırda <code>[*]</code> ile başlar."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Birinci öğe\r\n[*]İkinci öğe\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Numaralı bir liste. Harfler için <code>[list=a]</code> veya <code>[list=A]</code>, Roma rakamları için <code>[list=i]</code> veya <code>[list=I]</code> kullanın."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Birinci adım\r\n[*]İkinci adım\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Numaralı liste"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Liste"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "BB kodlarını biçimlendirmeden olduğu gibi gösterir."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]kalın değil[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Biçimlendirme yok"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Metni renkli bir kutu içinde gösterir. Türler primary, secondary, success, danger, warning, info, light ve dark'tır."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Bilgi içeren bir not.[/note]\r\n[note=warning]Bir uyarı.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Not"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Metni alıntı olarak gösterir. Mesajların alıntı düğmeleri onu sizin için ekler."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Alıntılanan metin.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Yazarının adını içeren bir alıntı."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Alıntılanan metin.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Yazarlı alıntı"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Alıntı"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Sonuç"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Metnin boyutunu 1 (çok küçük) ile 9 (çok büyük) arasında değiştirir. 5 normal boyuttur."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Küçük[/size] [size=5]Normal[/size] [size=7]Büyük[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Metin boyutu"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Okuyucu düğmeye tıklayana kadar metni gizler, ör. bir filmin sonu için."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Katil bahçıvandı.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Metnin üstünü çizer, ör. artık geçerli olmayan bir şey için."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Bu metnin üstü çizili[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Üstü çizili"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Bir tablo oluşturur: <code>[tr]</code> bir satır, <code>[td]</code> satırın bir hücresidir."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Ad[/td][td]Mesajlar[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Tablo"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Web sitelerinin adresleri otomatik olarak bağlantıya dönüşür. Bunları <code>[url]</code> içine de koyabilirsiniz."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Adres yerine bir metin gösteren bağlantı."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]YAF.NET web sitesi[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Metinli bağlantı"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Bağlantı"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Bir üyenin profiline bağlantı. Düzenleyicide @ yazmak onu sizin için oluşturur ve üye bilgilendirilir."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Üyeye bağlantı"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Metnin altını çizer."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Bu metnin altı çizili[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Altı çizili"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Yazdığınız"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Hesabınız"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Duyurular, yönetici veya moderatörler tarafından yayınlanan özel mesajlardır. Kullanıcılarla tek yönlü basit bir iletişimdir ve cevap veremezsiniz. Duyuruları tartışmak istiyorsanız, forumda yeni bir konu oluşturmanız gerekecektir.</p>\r\n<p>Duyuru konuları, forum listeleme sayfalarının en üstünde, normal ve yapışkan konuların üzerinde görüntülenir.</p>\r\n        "
+            "#text": "<p>Bazı konular diğerlerinden daha önemlidir:</p>\r\n<ul>\r\n<li><strong>Sabit konular</strong> forumlarının konu listesinin en üstünde kalır, ör. forumun kuralları veya sıkça sorulan sorular.</li>\r\n<li><strong>Duyurular</strong> önemli bilgilerdir; bunlar da konu listesinin en üstünde gösterilir ve bir rozetle işaretlenir.</li>\r\n</ul>\r\n<p>Bunları kimin oluşturabileceğini yönetici belirler (genellikle moderatörler ve yöneticiler). Konuyu yazarken veya düzenlerken bunu <strong>[[POSTMESSAGE.PRIORITY]]</strong> ile seçerler. Konu kilitli olmadığı sürece sabit konulara ve duyurulara diğer konular gibi cevap verebilirsiniz.</p>\r\n<h3 class=\"h6 mt-3\">Forum duyuruları</h3>\r\n<p>Yönetici ayrıca forumun her sayfasında bir duyuru gösterebilir, ör. planlı bir bakım için. Duyuruyu sağındaki düğmeyle kapatabilirsiniz.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Duyurular"
+            "#text": "Duyurular ve Sabit Konular"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Açık ve koyu mod</h3>\r\n<p>Başlıktaki renk modu düğmesi <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> ve <strong>[[THEME_MODE.AUTO]]</strong> (cihazınızın modu) arasında geçiş yapar. Forum seçiminizi bu tarayıcıda hatırlar.</p>\r\n<h3 class=\"h6 mt-3\">Tema ve dil</h3>\r\n<p>Yönetici izin veriyorsa, <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> sayfasında başka bir tema ve forumun dilini seçebilirsiniz. Foruma bağlı olarak dil başlıkta da değiştirilebilir.</p>\r\n<h3 class=\"h6 mt-3\">Saat dilimi ve sayfa boyutu</h3>\r\n<p>Tüm tarih ve saatler sizin saat diliminizde gösterilir. Saat diliminizi <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> sayfasında ayarlayın. Yakın zamanlar ör. “5 dakika önce” şeklinde gösterilir.</p>\r\n<p>Aynı sayfadaki <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> ayarı, forumdaki listelerin sayfa başına kaç kayıt göstereceğini belirler.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Görünüm ve Dil"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Bir forumda dosya yüklemenize izin veriliyorsa, mesajlarınıza dosya ve resim ekleyebilirsiniz:</p>\r\n<ul>\r\n<li>Dosyayı düzenleyiciye sürükleyin veya (biçimlendirmeyi gösteren düzenleyicide) bir resim yapıştırın.</li>\r\n<li>Ya da araç çubuğunun ek düğmesine (<strong>[[COMMON.ATTACH_BBCODE]]</strong>) tıklayın. Pencerede dosyaları bırakabilir veya <strong>[[ATTACHMENTS.ADD_FILES]]</strong> ile seçebilirsiniz; pencere önceki yüklemelerinizi <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> altında listeler: tekrar eklemek için birine tıklayın.</li>\r\n</ul>\r\n<p>Pencere <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> bilgisini ve varsa azami dosya boyutunu gösterir. Hızlı cevapta ek yoktur, tam düzenleyiciyi kullanın.</p>\r\n<p>Resimler mesajda önizleme olarak gösterilir; resmin tamamını görmek için üzerine tıklayın (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Diğer dosyalar ve çok büyük resimler, boyutu ve indirme sayısıyla birlikte bağlantı olarak gösterilir. İndirmek için forumun yalnızca üyelere verdiği bir yetki gerekebilir.</p>\r\n<h3 class=\"h6 mt-3\">Diğer web sitelerinden resimler</h3>\r\n<p>İnternetten bir resim göstermek için <strong>[[COMMON.TT_IMAGE]]</strong> öğesine tıklayın ve adresini girin veya <code>[img]resmin adresi[/img]</code> yazın.</p>\r\n<p>Yüklediğiniz dosyalar <a href=\"[[help:myattachments]]\">Eklerim</a> sayfasında listelenir; orada onları silebilirsiniz de.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
-            "#text": "Ekler ve Görüntüler"
+            "#text": "Ekler ve Resimler"
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>BB kodları mesajlarınızı biçimlendirir. Bunlar metnin etrafındaki köşeli parantez içindeki kısa etiketlerdir, ör. <code>[b]kalın[/b]</code>. Bunları yazmak zorunda değilsiniz: düzenleyicinin düğmeleri onları sizin için ekler. Düzenleyici siz yazarken biçimlendirmeyi gösteriyorsa, BB kodları arka planda oluşturulur.</p>\r\n<p>Aşağıda bu forumun tüm BB kodlarını, yazdığınızı ve bir mesajda göründüğü şekliyle sonucunu bulursunuz. Bazı BB kodları burada yalnızca forum onları kullanıyorsa gösterilir ve imzalar mesajlardan daha az BB koduna izin verebilir.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "BB Kodları Listesi"
+            "#text": "BB Kodları"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Kullanıcı menüsünde <strong>[[BLOCK_OPTIONS.TITLE]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - diğer üyeler sizinle özel konuşma başlatamaz.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - hiç kimse size arkadaşlık isteği gönderemez.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - hiç kimse size forum üzerinden e-posta gönderemez.</li>\r\n</ul>\r\n<p>Yöneticiler ve arkadaş listenizdeki üyeler sizinle yine de iletişime geçebilir.</p>\r\n<h3 class=\"h6 mt-3\">Bir üyeyi yok sayma</h3>\r\n<p>Bir üyeyi yok saymak için mesajlarından birinin kullanıcı menüsünü açın ve <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong> seçin. Yok sayılan üyelerin mesajları gizlenir (<strong>[[POSTS.TOGGLEPOST]]</strong> tek bir mesajı gösterir) ve size özel mesaj gönderemezler. Aynı sayfadaki <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> yok saydığınız üyeleri listeler; mesajlarını yeniden görmek için bir üyeyi bu listeden kaldırın.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Kullanıcıları Yok Sayma ve Engelleme"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Arkadaşlar bir arkadaşlık işlevidir ve iki kullanıcı arasında iki yönlü bir ilişkidir. Bir kullanıcı tarafından başlatılır ve diğeri tarafından kabul edilir.\r\n</p>\r\n<p><strong>Arkadaş listesi nerede görüntülenir? </strong></p>\r\n<p>Arkadaşlarınız 'Arkadaşlarım' sayfasında görüntülenir, bu sayfaya 'Arkadaşlarım' Başlık Bağlantısından veya <strong>Kullanıcı Kontrol Paneli</strong> 'Arkadaşları Düzenle' Bağlantısından erişebilirsiniz. </p>\r\n<p><em>Not: Bu Bağlantıyı Görmüyorsanız, hiç Arkadaşınız yok, herhangi bir İstek göndermediniz veya Bekleyen Arkadaşlık İsteğiniz yok demektir.</em></p>\r\n<p>Arkadaşlarınız profil sayfanızda da görüntülenir.</p>\r\n<p><strong>Bir Kullanıcıyı nasıl Arkadaş olarak isteyebilir veya bir Arkadaşlık İsteğini nasıl kabul edebilirim? </strong></p>\r\n<p>Bir kullanıcıyı Arkadaş olarak talep etmek için, arkadaş olmak istediğiniz kişinin profil sayfasını görüntüleyin ve 'Arkadaş Olarak Ekle' bağlantısını tıklayın.</p>\r\n<p>Bir arkadaşlık isteğini kabul etmek için 'Arkadaşlarım' sayfanıza gidin. 'Bekleyen İstekler' sekmesinde bekleyen istekleri olan Kullanıcıların Listesini görürsünüz. Orada üç seçeneğiniz var...</p>\r\n<ul>\r\n  <li><strong>Onayla</strong> - Talep Eden Kullanıcının Arkadaşı Olursunuz </li>\r\n  <li><strong>Reddet</strong> - Talebi reddet</li>\r\n  <li><strong>Onaylayın ve Ekleyin - </strong>Bunu talep eden Kullanıcının Arkadaşı olursunuz ve Kullanıcı da Listenizde Arkadaşınız olur.</li>\r\n</ul>\r\n<p><strong>Arkadaşı Kaldır</strong></p>\r\n<p>Bir Arkadaşınızı Listenizden çıkarmak için 'Arkadaşlarım' sayfanıza gidin. 'Arkadaş Listesi' sekmesinde kaldırmak istediğiniz Kullanıcının 'Arkadaşını Kaldır' Düğmesine tıklayın</p>\r\n<p><strong>İstekleriniz</strong></p>\r\n<p>'Arkadaşlarım' Sayfasının Üçüncü Sekmesi, yaptığınız Bekleyen Talebi gösterir.</p>"
+            "#text": "<p>Arkadaşlık iki üye arasındaki bir bağlantıdır. Bir üyeden arkadaşınız olmasını istemek için profilde veya bir mesajın kullanıcı menüsünde <strong>[[BUDDY.ADDBUDDY]]</strong> öğesine tıklayın. Üye bir arkadaşlık isteği alır ve onu onaylayabilir veya reddedebilir.</p>\r\n<p>Arkadaşlarınız kullanıcı menüsündeki <strong>[[TOOLBAR.BUDDIES]]</strong> sayfasında üç sekmede yer alır:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - arkadaşlarınız. Onlara özel mesaj gönderin veya onları listeden kaldırın.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - diğer üyelerin istekleri. <strong>[[FRIENDS.APPROVE]]</strong> üyeyi arkadaşlarınıza (ve sizi onun arkadaşlarına) ekler, reddetme isteği kaldırır. <strong>[[FRIENDS.APPROVE_ALL]]</strong> tüm istekleri tek seferde onaylar.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - gönderdiğiniz ve henüz cevaplanmamış istekler.</li>\r\n</ul>\r\n<p>Arkadaşlar profilinizde gösterilir. Özel mesajları veya e-postaları engelleseniz bile sizinle iletişime geçebilirler, bkz. <a href=\"[[help:blocking]]\">Kullanıcıları Yok Sayma ve Engelleme</a>. Arkadaşlık isteği almak istemiyorsanız, bunları da orada engelleyebilirsiniz.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Arkadaşlar"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Kullanıcı menüsünde <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). İki seçeneğiniz vardır:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - bir ara: hesabınızı 30 gün boyunca kullanamazsınız, ardından tekrar çalışır.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - hesabınız kapatılır ve mesajlarınız silinir (diğer üyelerin cevapları kalır). Artık giriş yapamazsınız; bu işlem geri alınamaz.</li>\r\n</ul>\r\n<p><strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> ile onaylayın ve <strong>[[COMMON.CONTINUE]]</strong> düğmesine tıklayın. Oturumunuz kapatılır.</p>\r\n<p>Tüm verilerinizin kaldırılmasını istiyorsanız veya verilerinizle ilgili sorularınız varsa yöneticiyle iletişime geçin, bkz. <a href=\"[[help:privacy]]\">Gizlilik, Çerezler ve Kurallar</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Hesabınızı Askıya Alma veya Silme"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Şu anda kayıtlıysanız ve giriş yaptıysanız, mesajlarınızı düzenleyebilir ve silebilirsiniz (yönetici bu seçeneği kapatmadıysa). </p>\r\n<p>Gönderilerinizi düzenlemek veya silmek için ilgili gönderinin yanındaki 'Düzenle' düğmesine tıklayın. Gönderiniz konu başlığındaki ilk gönderi ise, onu silmek tüm konu başlığını kaldırabilir.</p>\r\n<p>Değişikliklerinizi yaptıktan sonra, diğer kullanıcıları gönderinizi düzenlediğiniz konusunda bilgilendirmek için gönderinin altında bir not görünür.</p>\r\n<p>Lütfen 'Düzenleme Nedeni' alanına bu Mesajı neden düzenlediğinize dair bir neden girin.</p>\r\n<p><strong>Başkaları gönderilerimi düzenleyebilir mi? </strong></p>\r\n<p>Yöneticiler ve moderatörler de mesajlarınızı düzenleyebilir. Bunu yaparlarsa, altta diğer kullanıcılara gönderinin değiştirildiğini bildiren bir not görünür.</p>"
+            "#text": "<p>Forum izin veriyorsa kendi mesajlarınızı düzenleyebilir ve silebilirsiniz. Mesajın menüsünü (sağ üstündeki üç nokta) açın ve <strong>[[BUTTON.BUTTON_EDIT]]</strong> veya <strong>[[BUTTON.BUTTON_DELETE]]</strong> seçin. Bu, kilitli konularda mümkün değildir ve yönetici bunu mesajın yazılmasından sonraki belirli bir gün sayısıyla sınırlayabilir.</p>\r\n<h3 class=\"h6 mt-3\">Düzenleme</h3>\r\n<p>Düzenleme sayfası yeni bir mesajın sayfası gibidir. Konuyu siz açtıysanız, konunun başlığını, açıklamasını ve etiketlerini de değiştirebilirsiniz. Okuyuculara neyi değiştirdiğinizi söylemek için bir <strong>[[POSTMESSAGE.EDITREASON]]</strong> girin.</p>\r\n<p>Bir mesajı yazdıktan bir süre sonra düzenlerseniz, mesaj kimin, ne zaman ve neden düzenlediğini gösterir. Önceki sürümler saklanır, bkz. <a href=\"[[help:history]]\">Mesaj Geçmişi</a>. Moderatörler de mesajlarınızı düzenleyebilir; bu durumda mesaj bir moderatör tarafından düzenlendiğini belirtir.</p>\r\n<h3 class=\"h6 mt-3\">Silme</h3>\r\n<p>Bir <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> girin ve <strong>[[DELETEMESSAGE.DELETE]]</strong> düğmesine tıklayın. Mesaj tamamen kaldırılmaz: konudaki yeri silindiğini gösterir. Bir moderatör silmediyse, aynı menüdeki <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> ile geri yükleyebilirsiniz.</p>\r\n<p>Yalnızca moderatörler konuların tamamını silebilir ve yalnızca yöneticiler mesajları kalıcı olarak kaldırabilir.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Gönderilerinizi Düzenleme ve Silme"
+            "#text": "Mesajları Düzenleme ve Silme"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Hesap bilgilerinizi <strong>Kullanıcı Kontrol Paneli</strong> içerisinden Kişisel Profil -&gt; 'Profili Düzenle' seçeneğini kullanarak değiştirebilirsiniz. Şifrenizi değiştirmek isterseniz, <strong>Kullanıcı Kontrol Paneli</strong>'nde bunun için yeni bir Şifre belirleyebileceğiniz ekstra bir Sayfa (Şifre Değiştir) vardır.</p>\r\n<p><strong>Profil Sayfasını Düzenle</strong></p>\r\n<p>Bu sayfa, bazıları herkese açık profilinizde görüntülenecek olan bir dizi gerekli ve isteğe bağlı ayrıntıyı ayarlamanıza olanak tanır. E-posta adresiniz haricinde, herkese açık olarak görüntülenmesini istemediğiniz bilgileri girmeyin.</p>\r\n<p><strong>Hakkınızda</strong></p>\r\n<p>Bunlar Sizin Hakkınızdaki Temel Bilgilerdir</p>\r\n<p><strong>Lokasyon</strong></p>\r\n<p>Burada isteğe bağlı olarak yaşadığınız yeri girebilirsiniz</p>\r\n<p><strong>Ana Sayfa</strong></p>\r\n<p>Burada isteğe bağlı olarak bir Ana sayfa ve/veya bir Blog girebilirsiniz.</p>\r\n<p><strong>Anlık mesajlaşma hizmetleri</strong></p>\r\n<p>Burada isteğe bağlı olarak  XMPP, Facebook ve Twitter gibi hizmetlerin mesajlaşma kimliklerini girebilirsiniz.</p>\r\n<p><strong>Zaman Dilimi</strong></p>\r\n<p>Burada, pano Saatini ve Tarihini yerel saatinize göre ayarlamak için Saat Dilimini belirleyebilirsiniz. Ve otomatik olarak ayarlanması durumunda Yaz Saati Uygulamasını ayarlayabilirsiniz.</p>\r\n<p><strong>Forum Ayarları</strong></p>\r\n<p>Burada E-posta Adresinizi değiştirirsiniz.</p>\r\n<p>Ve eğer Yönetici etkinleştirdiyse, Forum <strong>Dilini</strong>, Sitenin <strong>Temasını</strong> ve <strong>Metin Editörünü</strong> (Mesaj göndermek için kullanılır) değiştirebilirsiniz.</p>\r\n<p>Ayrıca bir &quot;Single Sign On&quot; Ayarı da vardır (Etkinleştirilmişse). Bunu açarsanız Facebook üzerinden giriş yapabilirsiniz, ayrıca yukarıda Facebook kimliğinizi de girersiniz.</p>\r\n\r\n"
+            "#text": "<p>Kullanıcı menüsünde <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Tüm alanlar isteğe bağlıdır, yalnızca paylaşmak istediklerinizi doldurun. Bilgiler herkese açık profilinizde gösterilir.</p>\r\n<ul>\r\n<li><strong>Hakkınızda</strong> - görünen adınız (forum görünen adlar kullanıyorsa), gerçek adınız, doğum gününüz, mesleğiniz, ilgi alanlarınız ve cinsiyetiniz.</li>\r\n<li><strong>Konum</strong> - ülke, eyalet/il ve şehir. Forum sunuyorsa <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> bunları sizin için doldurur.</li>\r\n<li><strong>Ana sayfa</strong> - web sitenizin ve blogunuzun adresleri.</li>\r\n<li>Yöneticinin eklediği diğer alanlar.</li>\r\n</ul>\r\n<p>Değişikliklerinizi kaydetmek için <strong>[[COMMON.SAVE]]</strong> düğmesine tıklayın. Avatarınızın ve imzanızın kendi sayfaları vardır, bkz. <a href=\"[[help:mypics]]\">Avatar ve İmza</a>. E-posta adresi, saat dilimi ve dil <a href=\"[[help:editsettings]]\">Ayarları Düzenleme</a> bölümündedir.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Kullanıcı Profili ve Forum Ayarlarını Düzenleme"
+            "#text": "Profilinizi Düzenleme"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Kullanıcı menüsünde <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Yeni adresi ve <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> bilgisini girin. Forum yeni adrese bir bağlantı gönderir; bağlantıya tıkladığınızda adres değiştirilir. E-posta adresiniz diğer üyelere asla gösterilmez.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - çevrimiçi üyeler listesinde gösterilmezsiniz (forum izin veriyorsa).</li>\r\n<li>Etkinlik akışı - bahsetmeler, alıntılar ve tepkiler hakkındaki bildirimleriniz, bkz. <a href=\"[[help:popups]]\">Bildirimler</a>.</li>\r\n<li>Saat diliminiz, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> ve (forum izin veriyorsa) tema ve dil, bkz. <a href=\"[[help:appearance]]\">Görünüm ve Dil</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">İki faktörlü kimlik doğrulama</h3>\r\n<p>İki faktörlü kimlik doğrulamayı açın veya kapatın, bkz. <a href=\"[[help:login]]\">Giriş ve Hesap Güvenliği</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Ayarları Düzenleme"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>YAF Nedir? </strong></p>\r\n<p>YetAnotherForum.NET (YAF), ASP.NET çalıştıran siteler için Açık Kaynak Tartışma Forumudur. 100 C# ile yazılmış olan YAF (&quot;laugh&quot; şeklinde telaffuz edilir), Açık Kaynak, Microsoft'un .NET platformu ve .NET geliştirici topluluğunun uluslararası işbirliğinin benzersiz bir birleşimidir. Her gün büyüyen ve değişen YAF projesi Ingo Herbote tarafından yönetilmektedir. YAF, ASP.NET Core v9 (ve üstü) ve SQL Server'ı destekleyen herhangi bir web sunucusunda çalışır. YAF, Apache 2.0.</p> altında lisanslanmıştır.\r\n<p><strong>Tüm bunlar nasıl yapılandırıldı? </strong></p> <p>\r\n<p>Bir Forum, bireysel mesajlardan (bir kullanıcının bir şeyler yazdığı) oluşan konuları içeren forumları (daha spesifik konu alanları) içeren çeşitli alanlar içerir.</p>\r\n<p>Forumlar ana sayfasında, konu ve mesaj sayısı ve en son mesajı hangi üyenin gönderdiği de dahil olmak üzere her biri için temel istatistiklerle birlikte kategorilerin ve forumların bir listesi bulunur.</p>\r\n<p><strong>Yolumu nasıl bulabilirim? </strong></p>\r\n<p>Bir forumun adına tıkladığınızda, içerdiği konuların listesine yönlendirilirsiniz. Bir konu, üyeler veya misafirler arasındaki bir sohbettir. Her konu tek bir mesaj olarak başlar ve farklı kullanıcılar tarafından daha fazla bireysel mesaj eklendikçe büyür. </p>\r\n<p>Yeni bir Konu başlatmak için 'Yeni Konu' düğmesine tıklamanız yeterlidir (Erişiminiz varsa).</p>\r\n<p><strong>Paging</strong></p>\r\n<p>Tek bir sayfaya sığmayacak kadar çok görüntülenecek konu olduğunda, sayfa numaralarını içeren Çağrı Cihazını görebilirsiniz. Bu, konu listesinin iki veya daha fazla sayfaya bölündüğünü gösterir.</p>\r\n<p>Öğe listelerini birçok sayfaya bölen bu yöntem, pano boyunca kullanılmaktadır.</p>\r\n<p><strong>Yapışkan konular nelerdir? </strong></p>\r\n<p>'Yapışkan' Konular moderatörler veya yöneticiler tarafından oluşturulabilir ve son zamanlarda herhangi bir mesaj almamış olsalar bile listenin en üstünde 'takılı' kalırlar. Amaçları, önemli bilgileri her zaman görünür ve erişilebilir tutmaktır.</p>\r\n<p><strong>Bir konuyu nasıl okuyabilirim? </strong></p>\r\n<p>Bir konuyu okumak için başlığına tıklayın. Bir konudaki her mesaj bir üye veya misafir tarafından oluşturulur. Mesajın sol tarafında konuyu oluşturan üye hakkında bazı kısa bilgiler göreceksiniz.</p>\r\n<p>Mevcut bir konuya yanıt mesajı göndermek için 'Yanıt Gönder' düğmesine tıklayın. 'Yanıt Gönder' düğmesi görünmezse, üye olarak oturum açmadığınız veya yanıtlama izniniz olmadığı veya konunun yeni yanıtlara kapatıldığı anlamına gelebilir.</p>\r\n<p>Etkinleştirilirse, 'Yanıt Gönder' sayfasına gitmek zorunda kalmadan hızlı bir şekilde yanıt girebileceğiniz bir 'Hızlı Yanıt' kutusu da olacaktır. Hızlı yanıt kutusunu etkinleştirmek için bir mesajdaki 'Hızlı Yanıt' düğmesine tıklamanız gerekir, ardından kutuya yazabilirsiniz.</p>\r\n<p><strong>Üyeler hakkında nasıl daha fazla bilgi edinebilirim? </strong></p>\r\n<p>Belirli bir üye hakkındaki bilgileri görüntülemek için kullanıcı adına tıklayın. Bu sizi genel profil sayfasına götürecektir.</p>\r\n<p><strong>Başlık Nedir? </strong></p>\r\n<p>Her sayfanın üst kısmındaki Başlık, dolaşmanıza yardımcı olacak bağlantılara sahiptir. Tek bir tıklama ile aşağıdaki gibi alanlara ulaşabilirsiniz: Profilim, Yardım (şu anda okumakta olduğunuz), Arama ve diğer faydalı özellikler...</p>"
+            "#text": "<p>Forum, başka insanlarla tartışabileceğiniz bir yerdir. Tartışmalar şu şekilde düzenlenmiştir:</p>\r\n<ul>\r\n<li><strong>Kategoriler</strong> bir konu alanının forumlarını gruplar, başlangıç sayfasının bölümleridir.</li>\r\n<li><strong>Forumlar</strong> belirli bir konu alanına ayrılmış yerlerdir. Bir forum alt forumlar içerebilir.</li>\r\n<li><strong>Konular</strong> bir forumdaki tartışmalardır. Bir konu ilk mesajla başlar ve üyelerin cevaplarıyla büyür.</li>\r\n<li><strong>Mesajlar</strong> (veya gönderiler) bir konudaki tek tek katkılardır.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Başlangıç sayfası</h3>\r\n<p>Başlangıç sayfası kategorileri forumlarıyla birlikte listeler. Her forum için konu ve mesaj sayısını ve en son mesajı görürsünüz. Bir kategori, adının yanındaki okla daraltılabilir; forum seçiminizi hatırlar. Foruma bağlı olarak başlangıç sayfasında ayrıca <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (en son mesajlar), istatistikler ve çevrimiçi olanlar gösterilir.</p>\r\n<h3 class=\"h6 mt-3\">Ziyaretçiler ve üyeler</h3>\r\n<p>Ziyaretçiler kendilerine açık olan forumları okuyabilir. Mesaj yazmak, kişisel özellikleri (özel mesajlar, arkadaşlar, bildirimler) kullanmak ve bazı sayfaları (ör. üye listesi veya profiller) görmek için bir hesaba ihtiyacınız vardır, bkz. <a href=\"[[help:registration]]\">Kayıt</a>.</p>\r\n<p>Bir forumda neler yapabileceğinizi (okuma, konu açma, cevap verme, anketlerde oy kullanma, dosya yükleme, ...) yönetici her forum ve her üye grubu için ayarlar. Bu yardımda anlatılan bir düğmeyi görmüyorsanız, bu forumda bunun için yetkiniz yoktur.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Forumlar, Konular ve Mesajlar"
+            "#text": "Forumun Tanıtımı"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Genel Forum Kullanımı"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Başlarken"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Bir mesaj düzenlendiğinde, kimin ne zaman düzenlediğini gösterir. <strong>[[MESSAGEHISTORY.TITLE]]</strong> sayfasını açmak için bu notun geçmiş düğmesine tıklayın: sayfa mesajın sürümlerini tarih, düzenleyen kişi ve nedenle birlikte listeler.</p>\r\n<ul>\r\n<li>İki sürüm seçin ve <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> düğmesine tıklayarak <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong> görün: kaldırılan ve eklenen metin vurgulanır.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> sizi mesaja geri götürür.</li>\r\n</ul>\r\n<p>Moderatörler önceki bir sürümü <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong> ile geri yükleyebilir. Forum sürümleri yöneticinin belirlediği gün sayısı kadar saklar.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Mesaj Geçmişi"
           },
           {
             "@tag": "INDEX",
             "#text": "Dizin"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Başlıktaki <strong>[[TOOLBAR.LOGIN]]</strong> öğesine tıklayın ve kullanıcı adınızı veya e-posta adresinizi ve parolanızı girin.</p>\r\n<p><strong>[[LOGIN.AUTO]]</strong> seçeneğini işaretlerseniz, tarayıcıyı kapattıktan sonra bile bu bilgisayarda bir ay boyunca oturumunuz açık kalır. Başka kişilerin kullandığı bir bilgisayarda bunu kullanmayın. Bu seçenek olmadan tarayıcıyı kapattığınızda oturumunuz kapanır. Çıkış yapmak için sağ üstteki kullanıcı menüsünü açın ve <strong>[[TOOLBAR.LOGOUT]]</strong> öğesine tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">İki faktörlü kimlik doğrulama</h3>\r\n<p>İki faktörlü kimlik doğrulama, biri parolanızı bilse bile hesabınızı korur: giriş yaptığınızda forum ayrıca telefonunuzdaki bir doğrulama uygulamasından bir kod ister.</p>\r\n<ol>\r\n<li><strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> sayfasını açın (kullanıcı menüsü, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li><strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong> öğesine tıklayın.</li>\r\n<li>QR kodunu tarayarak veya <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong> girerek doğrulama uygulamanıza (ör. Microsoft Authenticator, Google Authenticator) yeni bir hesap ekleyin.</li>\r\n<li>Onaylamak için uygulamanın gösterdiği kodu girin.</li>\r\n</ol>\r\n<p>Bundan sonra giriş, paroladan sonra uygulamanın kodunu ister (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Aynı sayfada <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong> ile kapatabilirsiniz.</p>\r\n<h3 class=\"h6 mt-3\">Hesabınızı güvende tutma</h3>\r\n<ul>\r\n<li>Başka hiçbir yerde kullanmadığınız bir parola kullanın. Parolanızı <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> ile değiştirebilirsiniz.</li>\r\n<li>Forum parolanızı asla e-postayla veya özel mesajla istemez.</li>\r\n<li>Parolanızı unuttuysanız bkz. <a href=\"[[help:recover]]\">Kayıp Parolayı Kurtarma</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Birkaç yanlış paroladan sonra hesap birkaç dakikalığına kilitlenir.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Giriş ve Hesap Güvenliği"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched or marked as favorite</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Kullanıcı menüsünde <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> bölümünde hangi e-postaları alacağınızı seçersiniz:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - e-posta yok.</li>\r\n<li>Mesaj yazdığınız veya izlediğiniz konular için bildirim - mesaj yazdığınız her konu otomatik olarak izlenir.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - yalnızca kendiniz izlediğiniz konular ve forumlar.</li>\r\n</ul>\r\n<p>Forum sunuyorsa <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong>, tek tek e-postalar yerine yeni mesajları içeren günde bir e-posta gönderir. Kaydetmek için <strong>[[COMMON.SAVE]]</strong> düğmesine tıklayın.</p>\r\n<p>Aynı sayfa <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ve <strong>[[SUBSCRIPTIONS.TOPICS]]</strong> listelerinizi (bkz. <a href=\"[[help:subscriptions]]\">Konuları ve Forumları İzleme</a>) ve cihazlarınızın anlık bildirimlerini listeler, bkz. <a href=\"[[help:push]]\">Anlık Bildirimler ve Uygulama</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "E-posta Bildirim Tercihleri"
+            "#text": "Bildirim Tercihleri"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Üyeler listesi, kurulun kayıtlı üyelerini gösterir. Üye listesini kullanıcı adına, &quot;Katılma\" Tarihine veya \"son ziyarete\" göre alfabetik olarak sıralanmış olarak görüntüleyebilirsiniz,</p>\r\n<p>Belirli bir kullanıcıyı arayabileceğiniz bir Arama Kutusu da vardır.</p>\r\n<p>Üye listesini görüntülemek için sayfanın üst kısmındaki ana başlıkta yer alan 'Üyeler' seçeneğine tıklayın (Bağlantıyı göremiyorsanız o sayfaya erişiminiz yoktur)</p>\r\n"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Üye listesi kayıtlı üyeleri mesaj sayıları, katılma tarihleri ve son ziyaretleriyle birlikte gösterir. Listeyi şöyle kullanabilirsiniz:</p>\r\n<ul>\r\n<li>ada, rütbeye, katılma tarihine, mesaj sayısına veya son ziyarete göre sıralayabilirsiniz,</li>\r\n<li>belirli bir harfle başlayan üyeleri gösterebilirsiniz,</li>\r\n<li><strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> ile ada, role, rütbeye veya mesaj sayısına göre filtreleyebilirsiniz.</li>\r\n</ul>\r\n<p>Profilini açmak için bir üyeye tıklayın. Foruma bağlı olarak liste yalnızca üyelere gösterilir.</p>\r\n<h3 class=\"h6 mt-3\">Aktif kullanıcılar</h3>\r\n<p>Başlangıç sayfasındaki istatistikler kimin çevrimiçi olduğunu gösterir. Aktif kullanıcılar listesi şu anda çevrimiçi olan üyeleri ve ziyaretçileri ve forumda nerede olduklarını gösterir. Forum izin veriyorsa, üyeler <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> sayfasında kendilerini bu listeden gizleyebilir.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Ekip sayfası forumun yöneticilerini ve moderatörlerini, moderatörlük yaptıkları forumlarla birlikte listeler. Yardıma ihtiyacınız olursa onlarla iletişime geçin.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Üye Listesi"
+            "#text": "Üyeler, Aktif Kullanıcılar ve Ekip"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Bir üyeden bahsetme</h3>\r\n<p>Düzenleyicide <code>@</code> ve ardından bir adın ilk harflerini yazın ve listeden üyeyi seçin. Ad profile giden bir bağlantıya dönüşür ve üyeye ondan bahsettiğiniz bildirilir (bildirimleri kullanıyorsa, bkz. <a href=\"[[help:popups]]\">Bildirimler</a>).</p>\r\n<h3 class=\"h6 mt-3\">Konu etiketleri</h3>\r\n<p>Etiketler bir konunun anahtar kelimeleridir, ör. bir sorunun ilgili olduğu ürün veya konu. Bir konu açarken bunları <strong>[[POSTTOPIC.TAGS]]</strong> alanına ekleyin. Etiketler konuyla birlikte gösterilir; bir etikete tıklamak bu etikete sahip tüm konuları listeler. Arama da etiketleri arayabilir, bkz. <a href=\"[[help:searching]]\">Arama</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Bahsetmeler ve Etiketler"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Mesajlar ve Bildirimler"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Kayıtlı üyeler, özel mesajlaşma sistemini kullanarak bu forumun diğer üyelerine mesaj gönderebilirler (Yönetici tarafından etkinleştirilirse).\r\n        </p>\r\n        <p>Bir Özel Mesaj aldığınızda, kaç tane okunmamış mesajınız olduğu hakkında Forum Başlığında bilgilendirileceksiniz, ayrıca bir Bildirim Açılacaktır. E-Mail Bildirimini de etkinleştirebilirsiniz</p>\r\n        <p><strong>Özel Mesajları nasıl gönderebilirim? </strong></p>\r\n        <p>Özel mesajlar e-postalara benzer, ancak bu forumun kayıtlı üyeleriyle sınırlıdır. Gönderdiğiniz özel mesajlara BB kodu, ifadeler ve resimler ekleyebilirsiniz<br />.\r\n        Bir kullanıcıya, kullanıcının Kullanıcı Profilindeki &ldquo;PM&rdquo; Düğmesine tıklayarak veya Kullanıcı Kontrol Panelinizdeki &ldquo;Yeni Mesaj&rdquo; Bağlantısına tıklayarak Özel mesaj gönderebilirsiniz. Gönderdiğiniz mesaj, siz gönderdikten sonra &ldquo;Gönderilmiş Öğeler&rdquo; klasöründe saklanacaktır.</p>\r\n        <p><strong>Özel Mesaj Klasörleri</strong></p>\r\n        <p>Tıpkı bir E-posta Programı gibi 3 Klasörünüz vardır: Gelen Kutusu, Gönderilmiş Öğeler ve Arşiv Klasörü...</p>\r\n        <ul>\r\n        <li>&ldquo;Gelen Kutusu&rdquo; Klasörü aldığınız tüm yeni mesajları içerir. Aldığınız tüm mesajları, gönderen kişinin adı, mesajın konusu ve gönderildiği tarih ve saat ile birlikte görüntülemenizi sağlar.</li>\r\n        <li>Gönderdiğiniz tüm Özel Mesajların &ldquo;Gönderilmiş Öğeler&rdquo; kopyaları.</li>\r\n        <li>&ldquo;Arşiv&rdquo; klasörü yalnızca o klasöre taşıdığınız mesajları içerir.</li>\r\n        </ul>\r\n        <p>Sahip olduğunuz her klasörden, klasördeki mesajlarla ne yapmak istediğinizi seçebilir, sadece bir mesajı işaretleyebilir ve ...<br />\r\n        </p>\r\n        <ul>\r\n        <li>Seçilenleri Arşivle / Tümünü Arşivle - Mesaj(lar)ı arşiv klasörüne taşı</li>\r\n        <li>Seçilenleri Dışa Aktar / Tümünü Dışa Aktar - Mesaj(lar)ı dosya olarak dışa aktarın (Dışa aktarma formatını aşağıdaki gibi seçebilirsiniz -XML-/CSV-/Text-File)</li>\r\n        <li>Seçileni Sil / Tümünü Sil - Mesaj(lar)ı sil</li>\r\n        </ul>\r\n        <p>Sahip olmanıza izin verilen Mesaj sayısına bağlı olarak, zaman zaman bazılarını silmeniz gerekir (Yerel bilgisayarınızda tutmak için silmeden önce dışa aktarabilirsiniz). Aksi takdirde Posta Kutunuz dolduğunda yeni mesajlar alamazsınız. Alt kısımda kaç Mesajınız olduğu ve Maksimum kaç Mesaja sahip olabileceğiniz hakkında bilgilendirileceksiniz.</p>\r\n      "
+            "#text": "<p>Özel mesajlar sizinle başka bir üye arasındaki konuşmalardır, başka hiç kimse onları okuyamaz. Kullanıcı menüsünde <strong>[[TOOLBAR.INBOX]]</strong> sayfasını açın: solda <strong>[[PM.CONVERSATION_TITLE]]</strong>, sağda seçili konuşmanın mesajlarını görürsünüz.</p>\r\n<h3 class=\"h6 mt-3\">Konuşma başlatma</h3>\r\n<ul>\r\n<li><strong>[[PM.NEW_CONVERSATION]]</strong> öğesine tıklayın, adın en az üç harfini yazın ve üyeyi seçin.</li>\r\n<li>Ya da üyenin profilinde veya bir mesajın kullanıcı menüsünde <strong>[[POSTS.PM]]</strong> öğesine tıklayın.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Yazma</h3>\r\n<p>Mesajınızı yazın ve göndermek için Enter tuşuna basın; Shift+Enter yeni bir satır başlatır. BB kodları kullanabilirsiniz, ör. kalın metin veya bağlantılar için. Diğer üye konuşmayı aynı anda açık tutuyorsa, mesajlar her iki tarafta da hemen görünür ve konuşma üyenin çevrimiçi olup olmadığını gösterir.</p>\r\n<p>Yeni mesajlar adınızın ve <strong>[[TOOLBAR.INBOX]]</strong> öğesinin yanında sayılır ve forumun bir sayfasını açtığınızda bir pencere onları okumak isteyip istemediğinizi sorar. Özel mesajlar için e-posta bildirimi yoktur.</p>\r\n<h3 class=\"h6 mt-3\">Silme</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> konuşmayı listenizden kaldırır; diğer üyede konuşma kalmaya devam eder.</p>\r\n<p class=\"text-body-secondary small\">Özel mesajları engelleyen veya sizi yok sayan üyelere (arkadaşları değilseniz) yazamazsınız, bkz. <a href=\"[[help:blocking]]\">Kullanıcıları Yok Sayma ve Engelleme</a>. Yönetici özel mesajları kapatabilir.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Özel Mesajlar (Messenger)"
+            "#text": "Özel Mesajlar"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderatörler başlıkta <strong>[[TOOLBAR.MODERATE]]</strong> öğesini görür. Sayfa, moderatörlüğünü yaptığınız forumları <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> ve <strong>[[MODERATE_DEFAULT.REPORTED]]</strong> sayısıyla birlikte listeler.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>Moderasyonlu forumlarda (ve mesajlarının kontrol edilmesi gereken üyeler için) yeni mesajlar yalnızca bir moderatör onayladıktan sonra gösterilir. Mesajı kontrol edin ve <strong>[[MODERATE_FORUM.APPROVE]]</strong> düğmesine tıklayın veya mesajı silin.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Liste bildirilen mesajları nedenleri ve bildirenlerle birlikte gösterir. Mesajı (ve düzenlendiyse geçmişini) okuyun, gerekirse önlem alın (mesajı düzenleyin veya silin, yazarla konuşun) ve <strong>[[MODERATE_FORUM.RESOLVED]]</strong> düğmesine tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">Konuları yönetme</h3>\r\n<ul>\r\n<li>Bir konuda <strong>[[POSTS.MANAGE_TOPIC]]</strong>, <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> ve <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong> seçeneklerini sunar. Taşınan bir konu, eski forumda birkaç gün boyunca bir bağlantı bırakabilir.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> bir forumun tüm konularını listeler: birkaçını seçin ve tek seferde kilitleyin, taşıyın veya silin.</li>\r\n<li>Sabit konular ve duyurular ilk mesajı düzenlerken <strong>[[POSTMESSAGE.PRIORITY]]</strong> ile, kalıcı konular (otomatik temizlikte kaldırılmazlar) <strong>[[POSTMESSAGE.PERSISTENCY]]</strong> ile ayarlanır.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Mesajları yönetme</h3>\r\n<ul>\r\n<li>Diğer üyelerin mesajlarını düzenleyebilir ve silebilirsiniz. Bir mesajı silerken <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> ona verilen cevapları da siler.</li>\r\n<li>Bir mesajın menüsündeki <strong>[[BUTTON.BUTTON_MOVE]]</strong> mesajı başka bir konuya taşır veya yeni bir konuya ayırır (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li><a href=\"[[help:history]]\">Mesaj geçmişinde</a> bir mesajın önceki bir sürümünü geri yükleyebilirsiniz.</li>\r\n<li>Kilitli konularda cevap verebilir ve düzenleme yapabilirsiniz; mesajlarınız istenmeyen içerik açısından kontrol edilmez.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Ayarlara bağlı olarak moderatörler mesajların IP adreslerini de görür. Üyeler yöneticiler tarafından düzenlenir, askıya alınır ve yasaklanır.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Moderatör Rehberi"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderatörler ve Yöneticiler"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderatörler belirli forumları denetler. Genellikle gönderileri düzenleme ve silme, konuları taşıma ve diğer eylemleri gerçekleştirme yetkisine sahiptirler. Belirli bir forum için moderatör olmak genellikle moderatörlük yaptıkları forumun konusunda özellikle yardımcı ve bilgili olan kullanıcılara verilir.</p>\r\n<p>Yöneticiler, pano üzerinde gerçekleşen her şeyin genel kontrolüne sahip kişilerdir. Panonun nasıl şekillendirileceğini, hangi forumların oluşturulacağını ve bunların nasıl düzenleneceğini, üyelerden hangi bilgilerin isteneceğini ve moderatör olarak kimlerin atanacağını denetlerler.</p>"
+            "#text": "<p><strong>Yöneticiler</strong> forumu işletir: forumları oluşturur, kimin neyi yapabileceğine karar verir, özellikleri ayarlar ve üyeleri yönetir.</p>\r\n<p><strong>Moderatörler</strong> bir veya daha fazla forumla ilgilenir: tartışmaları konu dahilinde ve dostane tutar, bildirilen mesajları inceler, moderasyonlu forumlarda mesajları onaylar ve gerektiğinde konuları ve mesajları düzenler, taşır, kilitler veya siler. Bir forumun moderatörleri konu listesinin üstünde gösterilir (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p><strong>[[TOOLBAR.TEAM]]</strong> sayfası tüm yöneticileri ve moderatörleri listeler (forum gösteriyorsa). Bir mesajla ilgili sorununuz varsa <a href=\"[[help:report]]\">onu bildirin</a>. Diğer sorular için bir moderatöre veya yöneticiye özel mesajla ulaşın.</p>\r\n<p>Moderatörlerin nasıl çalıştığı <a href=\"[[help:moderating]]\">Moderatör Rehberi</a> bölümünde anlatılır.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,39 +11444,55 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Yönetici Albüm Özelliğini etkinleştirdiyse ve Albüm ekleme erişimi olan bir üyeyseniz, herkese açık profilinize bağlı resimlerden oluşan Albümler oluşturabilirsiniz. Albümler <strong>Kullanıcı Kontrol Paneli</strong>'ni ziyaret ederek ve 'Albümleri Düzenle' bağlantısına ve ardından 'Yeni Albüm Ekle'ye tıklayarak oluşturulabilir. Kaç Albüm ve kaç Resim olduğu, Yöneticinin içinde bulunduğunuz Kullanıcı Grubu için ne ayarladığına bağlıdır.</p>\r\n<p>Her albümün bir başlığı olabilir ve bunun için bir Kapak ayarlayabilir (Albümden Görüntü) veya rastgele kullanabilirsiniz, ayrıca her Görüntü için bir başlık ekleyebilirsiniz.</p>\r\n<p><strong>Resimleri nasıl yükleyebilirim? </strong></p>\r\n<p>Eğer Albüm Ekle/Düzenle Sayfasındaysanız, Bilgisayarınızdan bir Resim seçin ve Albüme eklemek için Yükle'ye tıklayın.</p>\r\n<p>Her resme bir başlık verme ve herkese açık profilde görüntülenecek bir resmi Albüm kapağı olarak ayarlama seçeneğiniz olacak. Bir albümü silmek veya başlığını düzenlemek, resim(ler) eklemek veya resimleri silmek için 'Düzenle'ye tıklayın. Bir resmin başlığını düzenlemek veya eklemek için resmin altındaki metne tıklayın. Bir Kapak Ayarlamak veya Kapağı Kaldırmak istiyorsanız Kapağın altındaki Düğmeye tıklayın.</p>"
+            "#text": "<p>Forum albümleri kullanıyorsa, resimlerinizi profilinizdeki albümlerde gösterebilir ve mesajlarınızda kullanabilirsiniz.</p>\r\n<ol>\r\n<li>Hesap sayfalarınızın menüsünde <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> sayfasını (veya kullanıcı menüsünde <strong>[[TOOLBAR.MYALBUMS]]</strong>) açın ve <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong> düğmesine tıklayın.</li>\r\n<li>Bir başlık girin ve ilk resimleri yükleyin (aynı anda birden fazla yüklemek mümkündür).</li>\r\n</ol>\r\n<p><strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> ile daha fazla resim ekler veya resimleri silersiniz ve albümü silersiniz. Albümde resimlere açıklama ekleyebilir ve <strong>[[BUTTON.BUTTON_SETCOVER]]</strong> ile kapağı seçebilirsiniz.</p>\r\n<p>Bir albüm resmini bir mesajda göstermek için resmin altındaki <strong>[[ALBUM.COPY_BBCODE]]</strong> öğesine tıklayın ve kodu düzenleyiciye yapıştırın.</p>\r\n<p class=\"text-body-secondary small\">Albüm ve resim sayısı ve resimlerin boyutu sınırlıdır; sınırlar grubunuza veya rütbenize bağlıdır ve sayfalarda gösterilir.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albümler"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Yüklediğiniz tüm dosyalar kullanıcı menüsündeki <strong>[[ATTACHMENTS.TITLE]]</strong> sayfasında listelenir (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Her dosya için kaç mesajda kullanıldığını veya kullanılmadığını görürsünüz.</p>\r\n<p>Yer açmak için dosyaları seçip silin, ör. yükleyip kullanmadığınız dosyaları. Silinen bir dosya, onu kullanan mesajlarda artık gösterilmez.</p>\r\n<p>Mesajlara nasıl dosya ekleneceği <a href=\"[[help:attachments]]\">Ekler ve Resimler</a> bölümünde anlatılır.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Eklerim"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Avatarlar Nedir? </strong></p>\r\n<p>Avatarlar, insanların kendilerini diğer forum üyelerine tanıtmak veya ayırt etmek için kullandıkları küçük resimlerdir. Bu Avatarlar, genel profilin yanı sıra gönderilerdeki kullanıcı bilgilerinin bir parçası olarak görüntülenecektir.</p>\r\n<p>Avatarınızı <strong>Kullanıcı Kontrol Paneli</strong> içindeki gezinti çubuğunun 'Kişisel Profil' alanı altında yer alan 'Avatarı Değiştir' seçeneğine tıklayarak değiştirebilirsiniz.</p>\r\n<p>Avatar eklemenin üç yolu vardır (Yönetici tarafından devre dışı bırakılırsa daha az olabilir)...</p>\r\n<ul>\r\n  <li>Forumda mevcutsa, mevcut Avatar koleksiyonundan seçim yapabilirsiniz</li>\r\n  <li>Uzak Sunucudaki bir Görüntü için mevcut bir URL girin</li>\r\n  <li>Bilgisayarınızdan Bir Görsel Seçin ve Yükleyin</li>\r\n</ul>\r\n<p><em>Yöneticinin İzin Verilen Görüntü Dosyası türlerini, Görüntü Boyutunu ve Görüntü Boyutlarını (Bir Görüntünün Maksimum Genişliği ve Yüksekliği) ayarlayabileceğini unutmayın.</em></p>\r\n<p><strong>İmzalar nedir? </strong></p>\r\n<p>'İmzalar', tüm gönderilerinizin altına eklemek istediğiniz bilgileri içerir. Bu, resimler, sitelerinize bağlantılar, alıntılar vb. içerebilir.</p>\r\n<p>İmzaları değiştirmek için Kullanıcı CP'sindeki gezinti çubuğunun 'Kişisel Profil' alanının altındaki 'İmza'ya tıklayın. Bu Sayfada hangi BB Kodlarını ve hangi HTML Etiketlerini kullanabileceğiniz ve İmzanın ne kadar uzun olabileceği hakkında bilgilendirileceksiniz.</p>"
+            "#text": "<h3 class=\"h6\">Avatar</h3>\r\n<p>Avatar, mesajlarınızda ve profilinizde adınızın yanında gösterilen küçük bir resimdir. Kullanıcı menüsünde <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Foruma bağlı olarak şunları yapabilirsiniz:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - forumun avatarlarından birini seçin.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - kendi resminizi yükleyin (png, jpg, gif, webp, bmp veya svg). Büyük resimler otomatik olarak küçültülür; sayfa izin verilen boyutu gösterir.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> avatarınızı kaldırır. Avatar yoksa forum varsayılan bir resim gösterir.</p>\r\n<h3 class=\"h6 mt-3\">İmza</h3>\r\n<p>İmza, her mesajınızın altında gösterilen kısa bir metindir, ör. bir slogan veya web sitenize bir bağlantı. Kullanıcı menüsünde <strong>[[ACCOUNT.SIGNATURE]]</strong> sayfasını açın. Sayfa azami uzunluğu ve imzada kullanabileceğiniz BB kodlarını gösterir; HTML'ye izin verilmez. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> imzanın nasıl görüneceğini gösterir.</p>\r\n<p class=\"text-body-secondary small\">Avatarların ve imzaların kullanılıp kullanılmayacağına yönetici karar verir ve sınırlar grubunuza veya rütbenize bağlı olabilir.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "İmzalar, Avatarlar Resimler"
+            "#text": "Avatar ve İmza"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p> <strong>Kullanıcı Kontrol Paneli</strong> kişisel ayarlarınızı, seçeneklerinizi ve tercihlerinizi kontrol ettiğiniz yerdir.</p>\r\n<p> <strong>Kontrol Paneli</strong> ana sayfası, Kullanıcı Adınız, E-posta Adresiniz ve gönderi sayınız, bulunduğunuz Grupların Üyeleri ve ne zamandan beri üye olduğunuz dahil olmak üzere Hesap Özetinizi gösterecektir.</p>\r\n<p>Sol tarafta, kontrol etmenizi sağlayan tüm Alt Sayfalara ve Formlara Bağlantılar bulacaksınız...</p>\r\n<p><strong>Messenger</strong></p>\r\n<ul>\r\n  <li>Gelen Kutusu</li>\r\n  <li>Gönderilen Öğeler</li>\r\n  <li>Arşiv</li>\r\n  <li>Yeni Mesaj</li>\r\n</ul>\r\n<p><strong>Kişisel Profil</strong></p>\r\n<ul>\r\n  <li>Profili Görüntüle</li>\r\n  <li>Profili Düzenle</li>\r\n  <li>Teşekkürleri Görüntüle<br /></li>\r\n  <li>Albümleri Düzenle</li>\r\n  <li>Avatarı Değiştir</li>\r\n  <li>İmza</li>\r\n  <li>E-posta Bildirim Tercihleri</li>\r\n  <li>Şifre Değiştir</li>\r\n</ul>"
+            "#text": "<p>Kullanıcı menüsünü açmak için sağ üstteki adınıza tıklayın:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - hesabınızın ve etkinliğinizin genel görünümü.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - hesabınızın tüm ayarları (aşağıya bakın).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - özel mesajlarınız, bkz. <a href=\"[[help:messenger]]\">Özel Mesajlar</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - bkz. <a href=\"[[help:buddies]]\">Arkadaşlar</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - bkz. <a href=\"[[help:myalbums]]\">Albümler</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - bkz. <a href=\"[[help:newposts]]\">Yeni Mesajları Görüntüleme</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Adınızın, <strong>[[TOOLBAR.INBOX]]</strong> ve <strong>[[TOOLBAR.BUDDIES]]</strong> öğelerinin yanındaki sayılar okunmamış mesajları ve açık arkadaşlık isteklerini sayar.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Sayfa kullanıcı adınızı, e-posta adresinizi, mesaj sayınızı ve katıldığınız tarihi ve <strong>[[ACCOUNT.ACTIVITY]]</strong> bölümünü gösterir: konularınız ve cevaplarınız, tepkiler ve arkadaşlıklar, her tür için filtrelerle. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> profilinizi diğer üyelerin gördüğü şekilde gösterir.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Ayarlar ayrıca tüm hesap sayfalarının sol tarafında listelenir:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - sizinle ilgili bilgiler.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - e-posta adresi, saat dilimi, dil, iki faktörlü kimlik doğrulama.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - yüklediğiniz dosyalar.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> ve <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - e-posta ve anlık bildirimler, izlenen konular ve forumlar.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - mevcut parolanızı ve yeni parolayı iki kez girin.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Bazı öğeler yalnızca forum ilgili özelliği kullanıyorsa gösterilir (ör. avatarlar, imzalar veya albümler).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Ayarlarım (Kullanıcı Kontrol Paneli)"
+            "#text": "Hesabım"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigasyon"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Her sayfanın üstündeki başlık ana menüyü içerir: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> ve <strong>[[TOOLBAR.HELP]]</strong> (foruma bağlı olarak hepsi gösterilmez). Ziyaretçiler sağda <strong>[[TOOLBAR.LOGIN]]</strong> ve <strong>[[TOOLBAR.REGISTER]]</strong> öğelerini görür. Üyeler bildirimlerin zilini ve adları ile avatarlarının bulunduğu kullanıcı menüsünü görür, bkz. <a href=\"[[help:mysettings]]\">Hesabım</a>. Başlığın altındaki geçerli sayfanın yolu (içerik haritası) sizi foruma veya kategoriye geri götürür.</p>\r\n<h3 class=\"h6 mt-3\">Bir forumun konu listesi</h3>\r\n<p>Konularını görmek için bir foruma tıklayın. Sabit konular ve duyurular önce gösterilir. Aşağı kaydırdığınızda daha fazla konu otomatik olarak yüklenir. Listenin üstündeki çubukta şunlar bulunur:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - yalnızca seçilen zaman içinde mesaj yazılmış konuları gösterir (ör. son gün veya son ziyaretinizden beri).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - bu forumun konularında arama yapar.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - başka bir foruma gider.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> ve <strong>[[TOPICS.MARKREAD]]</strong> (üyeler için).</li>\r\n</ul>\r\n<p>Konuların önündeki simgeler yeni mesajları, popüler (“sıcak”) konuları, kilitli ve taşınmış konuları gösterir. Listenin altındaki açıklama bunları anlatır.</p>\r\n<h3 class=\"h6 mt-3\">Bir konunun içinde</h3>\r\n<p>Mesajlar sayfalar halinde gösterilir, sayfalama mesajların altındadır. <strong>[[POSTS.PREVTOPIC]]</strong> ve <strong>[[POSTS.NEXTTOPIC]]</strong> ile forumdaki komşu konulara gidersiniz. Bir mesaja verilen bağlantı, konuyu bu mesajda açar.</p>\r\n<h3 class=\"h6 mt-3\">Yeni mesajlar ve okunma durumu</h3>\r\n<p>Henüz okumadığınız mesajları olan forumlar ve konular vurgulanır. Üyeler başlangıç sayfasındaki <strong>[[DEFAULT.MARKALL]]</strong> ile her şeyi, <strong>[[TOPICS.MARKREAD]]</strong> ile tek bir forumu okundu olarak işaretleyebilir. Tüm yeni mesajları tek seferde nerede bulacağınız <a href=\"[[help:newposts]]\">Yeni Mesajları Görüntüleme</a> bölümünde anlatılır.</p>\r\n<h3 class=\"h6 mt-3\">Canlı güncellemeler</h3>\r\n<p>Forum canlı güncellemeler kullanıyorsa, yeni konular ve mesajlar sayfa yeniden yüklenmeden görünür. Bir konuda <strong>[[COMMON.LIVE_NEW_REPLY]]</strong> notunu görürsünüz; yeni cevabı göstermek için ona tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">Kullanıcı bilgileri</h3>\r\n<p>Üye hakkında bilgi içeren kısa bir kart görmek için fareyi bir kullanıcı adının üzerine getirin, ör. konum, çevrimiçi durumu ve katılma tarihi. Ada tıklamak üyenin profilini açar.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Forumda Gezinme"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Üyeler tüm forumların yeni mesajlarını kullanıcı menüsündeki <strong>[[TOOLBAR.MYTOPICS]]</strong> sayfasında bulur. Sayfanın dört sekmesi vardır:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - son ziyaretinizden beri yeni mesajı olan konular.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - henüz cevap almamış konular.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - izlediğiniz konular.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - açtığınız konular.</li>\r\n</ul>\r\n<p>Zaman filtresiyle dönemi seçersiniz, ör. son saat, son hafta veya tüm konular. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> tüm konuları okundu olarak işaretler.</p>\r\n<p>Başlangıç sayfasındaki <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> tüm forumların en son mesajlarını ziyaretçilere de gösterir.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "Yeni Gönderiler Görüntüleniyor"
+            "#text": "Yeni Mesajları Görüntüleme"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Başka biriyle E-posta göndererek iletişime geçebilirsiniz, onları üye listesinde bulabilirsiniz.</p>\r\n<p>Bu genellikle mesajınızı girebileceğiniz bir form içeren bir sayfa açacaktır. Mesajınızı yazmayı bitirdiğinizde, 'E-posta Gönder' düğmesine basın ve mesajınız anında gönderilecektir.</p>\r\n<p><strong>E-posta adreslerini görebilir miyim? </strong></p>\r\n<p>Gizlilik nedeniyle, alıcının e-posta adresi bu işlem sırasında veya forumların başka herhangi bir yerinde size açıklanmaz.</p>\r\n<p><strong>Neden birine e-posta gönderemiyorum? </strong></p>\r\n<p>Bir üye için e-posta düğmesi veya bağlantısı bulamıyorsanız, bu ya yöneticinin bu forum için e-posta işlevlerini devre dışı bıraktığı ya da üyenin diğer üyelerden e-posta almak istemediğini söylediği anlamına gelir.</p>\r\n<p><strong>Özel mesajlaşma nedir? </strong></p>\r\n<p>Kayıtlı üyeler ayrıca özel mesajlaşma sistemini kullanarak bu forumun diğer üyelerine mesaj gönderebilirler.</p>"
+            "#text": "<p>Bir üyeye forum üzerinden e-posta gönderebilirsiniz: üyenin profilinde (veya ekip sayfasında) <strong>[[POSTS.EMAIL]]</strong> öğesine tıklayın, bir konu ve mesajınızı girin ve <strong>[[IM_EMAIL.SEND]]</strong> düğmesine tıklayın.</p>\r\n<ul>\r\n<li>Üyenin e-posta adresi sizden gizli kalır.</li>\r\n<li>E-posta, gönderen olarak kullanıcı adınız ve <strong>sizin</strong> e-posta adresinizle gönderilir, böylece üye size doğrudan cevap verebilir.</li>\r\n<li>İstenmeyen mesajları önlemek için saatte yalnızca birkaç e-posta gönderebilirsiniz.</li>\r\n</ul>\r\n<p>E-postaları engelleyen veya sizi yok sayan üyelere (arkadaşlar hariç) e-posta gönderemezsiniz; ayrıca bu yalnızca yönetici üyeler arasında e-postaya izin veriyorsa mümkündür. Çoğu durumda bir <a href=\"[[help:messenger]]\">özel mesaj</a> daha iyi bir yoldur.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Diğer Üyelerle İletişim Kurma"
+            "#text": "Üyelere E-posta"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Oylamalar, bir konu veya soru hakkında oy kullanma seçeneğidir</em></p>.\r\n<p><strong>Yeni bir anket oluşturun? </strong></p>\r\n<p>Yeni bir Konu açtığınızda, yeni bir anket oluşturmak için \"Anket Ekle?\" seçeneğine sahipsiniz. Bu seçeneği göremiyorsanız, bu seçeneğe erişiminiz olmayabilir.</p>\r\n<p>Mevcut anketlere yeni anketler de ekleyebilirsiniz. Bir Konu istediğiniz kadar Ankete sahip olabilir.</p>\r\n<p>Bu, bir soru sormanıza ve bir dizi olası yanıt belirlemenize olanak tanır (Maks. 10 veya Yönetici daha yüksek bir sayı ayarlamıştır) - <em>Bir Yönetici Yanıt olarak Görüntüler (Uzak URL'ler) ekleyebilir</em>. Diğer üyeler daha sonra istedikleri yanıt için oy kullanabilecek ve oylama sonuçları konu başlığında görüntülenecektir.</p>\r\n<p><em>Örnek bir anket şöyle olabilir:</em></p>\r\n<p><em>En sevdiğiniz renk nedir? </em></p>\r\n<ul>\r\n  <li><em>Mavi</em></li>\r\n  <li><em>Kırmızı</em></li>\r\n  <li><em>Sarı</em></li>\r\n  <li><em>Yeşil</em></li>\r\n</ul>\r\n<p>Ayrıca anket için bir zaman sınırı belirlemek isteyebilirsiniz. Örneğin: anketi 10 Gün boyunca çalıştırın veya hiçbir zaman sona ermeyecek şekilde de ayarlayabilirsiniz.</p>\r\n<p>Kullanıcının oylama yapmadan sonuçları görüp göremeyeceğine de karar verebilirsiniz veya 'Sonuçları görmek için tüm anketlerde oy kullanmalısınız.<em>'</em> onay kutusunu etkinleştirirseniz, herhangi bir sonucu görmeden önce oy kullanmanız gerekir.</p>\r\n<p>'Bağlı oylama' Seçeneği, anketin süresi dolmadıysa sonuçları göstermez.</p>\r\n<p><strong>Gruplama Anketleri</strong></p>\r\n<p>Bir Konuya eklenen tüm Anketler otomatik olarak bir Grup olarak birleştirilir. Bu Grubu istediğiniz başka bir Konudaki Anketlerle birlikte görüntüleyebilirsiniz.</p>\r\n<p><strong>Nasıl oy kullanılır? </strong></p>\r\n<p>Bir ankette oy kullanmak için, oy vermek istediğiniz seçeneğe tıklamanız yeterlidir.</p>\r\n<p>Genel olarak, bir ankete oy verdikten sonra oyunuzu daha sonra değiştiremezsiniz, bu nedenle oyunuzu dikkatli verin!</p>"
+            "#text": "<p>Bir anket, bir konunun okuyucularına birkaç seçenekli bir soru sorar.</p>\r\n<h3 class=\"h6 mt-3\">Anket oluşturma</h3>\r\n<p>Bir konu açarken seçeneklerde <strong>[[POLLEDIT.POLLADD]]</strong> ayarını açın; anket düzenleyicisi konu gönderildikten sonra açılır. Mevcut bir konu için konuyu açan kişi ve moderatörler mesajların üstünde <strong>[[POLLEDIT.CREATEPOLL]]</strong> öğesini görür. Bir konunun tek bir anketi olur.</p>\r\n<ul>\r\n<li>Soruyu ve en az iki seçenek girin; <strong>[[POLLEDIT.ADD_CHOICE]]</strong> daha fazlasını ekler (yöneticinin belirlediği azami sayıya kadar).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - anketin açık kalacağı gün sayısı; süresiz bir anket için boş bırakın.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - oy verenler birden fazla cevap seçebilir.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - oy verenlerin adları sonuçlarla birlikte gösterilir.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - sonuçlar yalnızca anket sona erdikten sonra gösterilir.</li>\r\n<li>Forum izin veriyorsa soru ve seçenekler bir resim (bir resmin adresi) içerebilir.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Oy verme</h3>\r\n<p>Seçiminizin düğmesine tıklayın. Oyunuzu değiştiremezsiniz, bu yüzden dikkatli seçin. Ziyaretçiler oy veremez ve sonuçları göremez.</p>\r\n<h3 class=\"h6 mt-3\">Anketi değiştirme</h3>\r\n<p>Anketi oluşturan kişi, hiç kimse oy vermediği sürece (forum daha sonraki değişikliklere izin vermiyorsa) anketi <strong>[[POLLEDIT.EDITPOLL]]</strong> ile değiştirebilir ve <strong>[[POLLEDIT.REMOVEPOLL]]</strong> ile silebilir. Moderatörler anketleri her zaman değiştirebilir ve silebilir.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Anket Oluşturma ve Anketlere Katılma"
+            "#text": "Anketler"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Giriş yaptığınızda ve Sayfayı yüklediğinizde, Tarayıcı Pencerenizin ortasında bir Açılır Bildirim alabilirsiniz.</p>\r\n<p>Bu sizi birkaç eylem hakkında bilgilendirecektir...</p>\r\n<ul>\r\n  <li>Yeni Özel Mesaj(lar)</li>\r\n  <li>Yeni Arkadaşlık İstekleri</li>\r\n  <li>Onaylı Arkadaşlık İstekleri</li>\r\n  <li>Reddedilen Arkadaşlık İstekleri<br />\r\n  </li>\r\n</ul>\r\n<p><em>Aynı şekilde birkaç Bilgi ve Hata Mesajı da alabilirsiniz.</em></p>"
+            "#text": "<p>Başlıktaki zil bildirimlerinizi gösterir, kırmızı sayı okunmamış olanları sayar. Şu durumlarda bildirim alırsınız:</p>\r\n<ul>\r\n<li>biri sizden bahsettiğinde (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) veya sizden alıntı yaptığında (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>biri mesajlarınızdan birine tepki verdiğinde,</li>\r\n<li>izlediğiniz bir konuda yeni bir cevap veya izlediğiniz bir forumda yeni bir konu olduğunda,</li>\r\n<li>yeni bir arkadaşınız olduğunda.</li>\r\n</ul>\r\n<p>Mesajı açmak için bir bildirime tıklayın. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> tüm bildirimlerin listesini, türe göre bir filtre ve <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> ile birlikte açar.</p>\r\n<p>Bildirimler etkinlik akışının bir parçasıdır: onları <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> sayfasında kapatabilirsiniz.</p>\r\n<h3 class=\"h6 mt-3\">Diğer uyarılar</h3>\r\n<ul>\r\n<li>Yeni özel mesajlar ve arkadaşlık istekleri adınızın yanında sayılır. Bir sayfa açtığınızda bir pencere onları okumak isteyip istemediğinizi sorar.</li>\r\n<li>Forumun mesajları (ör. “kaydedildi”) sayfanın üstünde birkaç saniye görünür.</li>\r\n<li>Bildirimler ayrıca e-postayla ve tarayıcınıza veya telefonunuza da gönderilebilir, bkz. <a href=\"[[help:mailsettings]]\">Bildirim Tercihleri</a> ve <a href=\"[[help:push]]\">Anlık Bildirimler ve Uygulama</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "PopUp Bildirimleri"
+            "#text": "Bildirimler"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Konunun ait olduğu forumu açın ve <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong> düğmesine tıklayın. Düğmeyi görmüyorsanız, bu forumda konu açmanıza izin verilmiyordur (veya giriş yapmamışsınızdır).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - konunun başlığı, zorunludur. Siz yazarken forum <strong>[[POSTS.SIMILAR_TOPICS]]</strong> gösterir; belki sorunuz zaten cevaplanmıştır.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - isteğe bağlı kısa bir açıklama.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - isteğe bağlı anahtar kelimeler; diğer üyeler konuları etiketleriyle bulabilir.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - yalnızca bu yetkiye sahip üyeler için, bkz. <a href=\"[[help:anounce]]\">Duyurular ve Sabit Konular</a>.</li>\r\n<li>Düzenleyicide mesajın kendisi.</li>\r\n</ul>\r\n<p><strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> bölümünde bir anket ekleyebilir (<strong>[[POLLEDIT.POLLADD]]</strong>, bkz. <a href=\"[[help:polls]]\">Anketler</a>) ve konuyu izleyebilirsiniz (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Mesajınızı kontrol etmek için <strong>[[POSTMESSAGE.PREVIEW]]</strong>, yayınlamak için <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> düğmesine tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">Düzenleyici</h3>\r\n<p>Foruma bağlı olarak düzenleyici, siz yazarken biçimlendirmeyi veya BB kodlarını (<code>[b]kalın[/b]</code> gibi kısa etiketler) gösterir. Araç çubuğunun düğmeleri metni biçimlendirir: metni seçin ve düğmeye tıklayın, ör. kalın metin, bağlantı, alıntı veya liste için. Tüm BB kodları ve sonuçları <a href=\"[[help:bbcodes]]\">BB Kodları</a> bölümünde listelenmiştir.</p>\r\n<ul>\r\n<li>Bir üyeden bahsetmek için <code>@</code> ve bir ad yazın, bkz. <a href=\"[[help:mentions]]\">Bahsetmeler ve Etiketler</a>.</li>\r\n<li>Dosyalar ve resimler ek düğmesiyle eklenir, bkz. <a href=\"[[help:attachments]]\">Ekler ve Resimler</a>.</li>\r\n<li>BB kodu düzenleyicisinde Ctrl+B, Ctrl+I ve Ctrl+U seçili metni biçimlendirir, Ctrl+Enter mesajı gönderir.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Bilmekte fayda var</h3>\r\n<ul>\r\n<li>Ziyaretçiler (mesaj yazmalarına izin veriliyorsa) <strong>[[POSTMESSAGE.FROM]]</strong> alanına bir ad girer; bu ad bir üyenin adı olmamalıdır.</li>\r\n<li>İstenmeyen mesajları önlemek için iki mesaj arasında birkaç saniye beklemeniz gerekir ve bir mesajın azami bir uzunluğu vardır.</li>\r\n<li>Bazı forumlarda mesajlar önce bir moderatör tarafından kontrol edilir. Mesajınız onaylandıktan sonra gösterilir.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Yeni Konular ve Gönderiler Gönderme"
+            "#text": "Yeni Konu Açma"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Ayar ve Profil Özellikleri"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Forumu kullanarak kurallarını kabul etmiş olursunuz. <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> sayfası kuralları ve gizlilik politikasını içerir: forumun hangi kişisel verileri hangi amaçlarla sakladığı ve haklarınız (ör. verileriniz hakkında bilgi alma veya silinmelerini isteme).</p>\r\n<p><a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> forumun çerezlerini, ne için kullanıldıklarını ve ne kadar süre saklandıklarını listeler. Forumu ilk kez ziyaret ettiğinizde bir uyarı sizi çerezler hakkında bilgilendirir.</p>\r\n<p>Profiliniz yalnızca girdiğiniz bilgileri gösterir, e-posta adresiniz diğer üyelere asla gösterilmez. Kendinizi aktif kullanıcılar listesinden gizleyebilir (forum izin veriyorsa), özel mesajları ve e-postaları engelleyebilir ve hesabınızı silebilirsiniz, bkz. <a href=\"[[help:blocking]]\">Kullanıcıları Yok Sayma ve Engelleme</a> ve <a href=\"[[help:deleteaccount]]\">Hesabınızı Askıya Alma veya Silme</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Gizlilik, Çerezler ve Kurallar"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Üye olarak herkese açık görüntülenebilir bir profil sayfanız var. Bu sayfa, üye tarafından kayıt işlemi sırasında veya daha sonra Kullanıcı Kontrol Paneli aracılığıyla sağlanan bilgileri içerir.</p>\r\n<p><em>Bir üyenin profilini görüntülemenin birden fazla yolu vardır...</em></p>\r\n<ul>\r\n  <li>Bir kullanıcı adı gördüğünüzde isme tıklayın ve Profili görüntülemek için 'Kullanıcı Profili' bağlantısını içeren bir açılır menü göreceksiniz...</li>\r\n  <li>Üye listesi, tüm kayıtlı üyelere göz atmanıza ve herkese açık profillere hızlıca tıklamanıza olanak tanır.</li>\r\n  <li>Giriş yaptığınızda, forumlarda oturum açarak ve Kullanıcı Kontrol Panelini açmak için sayfanın üst kısmındaki başlıkta bulunan 'Profilim' Bağlantısına tıklayarak kendi genel profilinizi de görüntüleyebilirsiniz.</li>\r\n</ul>\r\n<p><strong>Bu Sayfada Hangi Bilgiler Gösterilir? </strong></p>\r\n<p>Genel Profil Sayfası 5 Sekme halinde gruplandırılmıştır.</p>\r\n<ul>\r\n  <li><strong>Hakkında</strong> - Kullanıcının Gerçek adı, cinsiyeti, Çevrimiçi/Çevrimdışı ise durumu, Forum Sıralaması ve diğerleri gibi Profil Sayfasında sağladığı tüm Bilgileri gösterir.</li>\r\n  <li><strong>İstatistik</strong> - Katılım tarihi, Son Ziyaret, Teşekkür sayısı, Bu kullanıcıya kaç kez teşekkür edildiği ve Bu kullanıcıya teşekkür edilen gönderi sayısı gibi istatistiksel bilgileri gösterir.</li>\r\n  <li><strong>Son 10 Mesaj</strong> - Varsa Kullanıcının yazdığı Son 10 Mesajı gösterir</li>\r\n  <li><strong>Arkadaşlar - </strong>Kullanıcının Forumda Sahip Olduğu Arkadaşları Gösterir.</li>\r\n  <li><strong>Albümler - </strong>Kullanıcının oluşturduğu Albümleri (etkinleştirilmişse) gösterir.</li>\r\n</ul>\r\n<p>E-posta Adresi veya Şifreler gibi kişisel bilgiler <strong>GÖSTERİLMEMEKTEDİR</strong>.</p>"
+            "#text": "<p>Profilini açmak için bir üyenin adına tıklayın (ör. bir mesajda veya üye listesinde). Foruma bağlı olarak profiller yalnızca üyelere gösterilir. Kendi profiliniz <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> ile <strong>[[TOOLBAR.MYPROFILE]]</strong> sayfasında açılır.</p>\r\n<p>Profil şunları gösterir:</p>\r\n<ul>\r\n<li>üyenin avatarı, adı, rütbesi ve madalyaları ile profildeki bilgiler (ör. konum, doğum günü, meslek ve ilgi alanları),</li>\r\n<li>mesaj sayısı ile verilen ve alınan tepkilerin sayısı,</li>\r\n<li>itibar (forum kullanıyorsa),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>, <strong>[[PROFILE.SEARCHUSER]]</strong> ile birlikte,</li>\r\n<li>üyenin arkadaşları ve albümleri.</li>\r\n</ul>\r\n<p>Profilin düğmeleriyle <strong>[[BUDDY.ADDBUDDY]]</strong> işlemini yapabilir, özel mesaj (<strong>[[POSTS.PM]]</strong>) veya e-posta (<strong>[[POSTS.EMAIL]]</strong>) gönderebilir ve üyenin web sitesini veya blogunu açabilirsiniz. Bir üyenin e-posta adresi asla gösterilmez.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Herkese Açık Profilim"
+            "#text": "Profiller"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Mesajları Okuma ve Gönderme"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Anlık bildirimler, forum açık olmasa bile izlenen konulardaki yeni cevapları ve diğer bildirimleri bilgisayarınızda veya telefonunuzda gösterir.</p>\r\n<ol>\r\n<li>Kullanıcı menüsünde <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> sayfasını açın (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li><strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> bölümünde <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> öğesine tıklayın ve tarayıcı sorduğunda bildirimlere izin verin.</li>\r\n</ol>\r\n<p>Anlık bildirimler her cihaz ve tarayıcı için ayrı ayrı ayarlanır. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> bunları bu cihaz için kapatır. Bildirimler tarayıcınızın anlık bildirim hizmeti (ör. Google, Mozilla, Apple veya Microsoft) üzerinden gönderilir ve şifrelenir.</p>\r\n<h3 class=\"h6 mt-3\">Forumu uygulama olarak yükleme</h3>\r\n<p>Forumu, ana ekranınızda veya masaüstünüzde kendi simgesiyle bir uygulama gibi yükleyebilirsiniz: aynı sayfada <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> öğesine tıklayın veya tarayıcınızın yükleme işlevini kullanın. iPhone ve iPad'de anlık bildirimler yalnızca yüklenmiş uygulamada çalışır: Paylaş'a ve ardından <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> öğesine dokunun, forumu ana ekrandan açın ve ardından bildirimleri etkinleştirin.</p>\r\n<p class=\"text-body-secondary small\">Bu bölüm yalnızca yönetici anlık bildirimleri ayarlamışsa gösterilir.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Anlık Bildirimler ve Uygulama"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Okuma"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Şifrenizi unutursanız, \"<a href=\"{0}\">Şifremi Unuttum</a>\" butonuna tıklayabilirsiniz.\r\n  Bağlantı. Bu, şifrenizi girmenizi gerektiren herhangi bir sayfada görünecektir. </p>\r\n<p>Bu bağlantı, Kullanıcı Adınızı girmeniz gereken bir sayfa açar. Bir e-posta gönderilecek\r\n  şifrenizi sıfırlama talimatlarıyla birlikte kısa süre içinde bu adrese gönderilecektir.</p>\r\n<p> Parolalar şifrelenmiş olduğundan, orijinal parolanızı yeniden göndermenin bir yolu yoktur.\r\n  Bu seçenek size parolanızı sıfırlama olanağı sağlar.  </p>\r\n<p>Bunun yapılabilmesi için kayıtlı e-posta adresinize e-posta alabiliyor olmanız gerekir.\r\n  iş. Bunu göremiyorsanız spam filtrelerinizi ve klasörünüzü kontrol etmeniz gerekebilir\r\n  birkaç dakika içinde e-posta. </p>"
+            "#text": "<p>Parolanızı unuttuysanız yeni bir parola belirleyebilirsiniz:</p>\r\n<ol>\r\n<li><strong>[[LOGIN.LOSTPASSWORD]]</strong> öğesine tıklayın; bunu <a href=\"[[page:Account_Login]]\">giriş sayfasındaki</a> veya giriş penceresindeki parola alanının yanında bulursunuz.</li>\r\n<li>Kullanıcı adınızı veya e-posta adresinizi girin ve <strong>[[LOGIN.RECOVER]]</strong> düğmesine tıklayın.</li>\r\n<li>Bu ada veya adrese sahip bir hesap varsa, forum size bağlantı içeren bir e-posta gönderir. Gizliliğiniz için sayfa her durumda aynı mesajı gösterir.</li>\r\n<li>Bağlantı, e-posta adresinizi ve yeni parolanızı iki kez gireceğiniz bir sayfa açar.</li>\r\n</ol>\r\n<p>Bağlantı yalnızca sınırlı bir süre geçerlidir. E-posta adresinizi henüz onaylamadıysanız, bunun yerine yeni bir onay e-postası alırsınız. Forum bu e-postalardan saatte en fazla birkaç tane gönderir.</p>\r\n<p>Parolalar geri okunamayan bir biçimde saklanır, bu yüzden hiç kimse (yönetici bile) size eski parolanızı söyleyemez.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Kayıp şifreyi kurtarma"
+            "#text": "Kayıp Parolayı Kurtarma"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Yönetici muhtemelen forumun tüm özelliklerini kullanabilmeniz için kayıt olmanızı isteyecektir. Kayıtlı olmak size forumda bir kimlik, gönderdiğiniz tüm mesajlarda sabit bir kullanıcı adı ve çevrimiçi bir genel profil sağlar.</p>\r\n<p>Kayıt ücretsizdir (aksi belirtilmedikçe) ve aşağıdakiler de dahil olmak üzere geniş bir özellik yelpazesi sunar:</p>\r\n<ul>\r\n  <li>Yeni Konular Açmak</li>\r\n  <li>Başkalarının Konularına Yanıt Verme</li>\r\n  <li>Mesajlarınızı düzenleme</li>\r\n  <li>Belirlediğiniz mesajlara ve konulara verilen yanıtlar için e-posta bildirimi alma</li>\r\n  <li>Diğer üyelere özel mesaj gönderme</li>\r\n</ul>\r\n<p><strong>Nasıl kayıt olabilirim? </strong></p>\r\n<p>Başlıktaki 'Kayıt Ol' butonuna tıklayarak kayıt olabilirsiniz. Önce Forum Kurallarını ve Politikalarını kabul etmelisiniz. Daha sonra bir kullanıcı adı, şifre, Güvenlik Sorusu/Cevabı seçmeniz ve geçerli bir e-posta adresi girmeniz istenecektir. Ve eğer Yönetici iseniz, devam etmek için gösterilen Captcha kodunu girmeniz gerekir. Bir sonraki Sayfada isteğe bağlı olarak bazı temel Profil Ayarlarını sağlayabilirsiniz.</p>\r\n"
+            "#text": "<p>Forumun birçok özelliği yalnızca üyeler için kullanılabilir, ör. mesaj yazma, özel mesajlar, arkadaşlar, konuları izleme ve bildirimler. Üye olmak için başlıktaki <strong>[[TOOLBAR.REGISTER]]</strong> öğesine tıklayın (yönetici yeni kayıtlara izin veriyorsa).</p>\r\n<ol>\r\n<li>Forum isterse <strong>[[RULES.TITLE]]</strong> metnini okuyun ve <strong>[[RULES.ACCEPT]]</strong> düğmesine tıklayın.</li>\r\n<li>Bir kullanıcı adı, e-posta adresinizi ve bir parolayı (iki kez) girin. Foruma bağlı olarak bir görünen ad ve yöneticinin istediği diğer bilgileri de girersiniz.</li>\r\n<li><strong>[[REGISTER.REGISTER]]</strong> düğmesine tıklayın.</li>\r\n<li>Forum <strong>[[REGISTER.CHECK_MAIL]]</strong> mesajını gösterir ve size bir e-posta gönderir. Adresinizi onaylamak için bu e-postadaki bağlantıya tıklayın. Ardından hesabınız etkinleşir ve giriş yapabilirsiniz.</li>\r\n</ol>\r\n<p>E-posta gelmezse istenmeyen posta (spam) klasörünüzü kontrol edin. Adresi onaylamadan giriş yapmaya çalışırsanız, giriş sayfası bunu size bildirir ve <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong> seçeneğini sunar.</p>\r\n<p>Bazı forumlarda yeni hesapların önce bir yönetici tarafından onaylanması gerekir; hesabınız onaylandığında e-postayla bilgilendirilirsiniz.</p>\r\n<p>Kayıttan sonra profilinizi tamamlayabilirsiniz, bkz. <a href=\"[[help:editprofile]]\">Profilinizi Düzenleme</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Bazı panolarda misafir kullanıcı olarak gönderi paylaşabilir ve yanıt verebilirsiniz. Ancak çoğu topluluk kayıt gerektirir.</p>\r\n<p>Kayıtlı bir kullanıcı, konuları görüntüleme ve yanıt bırakma iznine sahip olduğu bir panodaki bir foruma gidebilir. Cevap vermek için birkaç seçeneğiniz vardır. 'Yanıt Gönder' düğmesine tıklayabilir ve Konunun sonuna yeni bir Mesaj ekleyebilirsiniz. Alternatif olarak, Konu Başlığındaki mesajların altında listelenen Hızlı Yanıt kutusuna hızlı bir yanıt bırakabilirsiniz.</p>\r\n<p>Bir Mesajı Yanıtlamak istiyorsanız 'Alıntı Yap' düğmesine basın ve Alıntı Metni ile bir Mesajı Yanıtlayabilirsiniz.</p>"
+            "#text": "<p>Bir konuya cevap vermek için mesajların üstündeki veya altındaki <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> düğmesine ya da bir mesajın altındaki <strong>[[BUTTON.BUTTON_REPLY]]</strong> düğmesine tıklayın. Cevap sayfası, yazarken okuyabilmeniz için düzenleyicinin altında konunun <strong>[[POSTMESSAGE.LAST10]]</strong> listesini gösterir.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Kısa bir cevap için mesajların altındaki hızlı cevap kutusunu veya bir mesajın <strong>[[POSTS.QUICKREPLY]]</strong> düğmesini kullanın. Metninizi yazın ve <strong>[[COMMON.POST]]</strong> düğmesine tıklayın. Tam düzenleyici için (ör. dosya eklemek için) <strong>[[COMMON.TT_EDITOR]]</strong> öğesine tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">Alıntı yapma</h3>\r\n<ul>\r\n<li>Bir mesajın altındaki <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, bu mesajın metnini alıntı olarak içeren bir cevap başlatır.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> konunun diğer sayfalarındakiler de dahil olmak üzere birkaç mesajı toplar. Ardından bunlardan birinde <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> öğesine tıklayın; cevap toplanan tüm mesajlardan alıntı yapar.</li>\r\n<li>Yalnızca bir kısmından alıntı yapmak için mesajdaki metni seçin, üzerine sağ tıklayın ve <strong>[[COMMON.SELECTED_QUOTE]]</strong> seçin.</li>\r\n</ul>\r\n<p>Uzun alıntıları cevap verdiğiniz kısma kadar kısaltın. Alıntı yapılan üye bilgilendirilir.</p>\r\n<p>Yalnızca bu forumda izniniz varsa ve kilitli olmayan bir konuda cevap verebilirsiniz. Ziyaretçiler yalnızca forum izin veriyorsa cevap verebilir.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Bir Mesajı Yanıtlama"
+            "#text": "Cevap Verme ve Alıntı Yapma"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Bir mesaj forumun kurallarını ihlal ediyorsa (ör. istenmeyen mesaj, hakaret veya yasa dışı içerik), lütfen ona cevap vermek yerine moderatörlere bildirin:</p>\r\n<ol>\r\n<li>Mesajın menüsünü (sağ üstündeki üç nokta) açın ve <strong>[[POSTS.REPORTPOST]]</strong> seçin.</li>\r\n<li>Mesajı neden bildirdiğinizi girin.</li>\r\n<li><strong>[[REPORTPOST.SEND]]</strong> düğmesine tıklayın.</li>\r\n</ol>\r\n<p>Forumun moderatörleri bildirilen mesajı inceler ve ne yapılacağına karar verir. Yazar, mesajı kimin bildirdiğini görmez. Foruma bağlı olarak mesajları yalnızca üyeler bildirebilir.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Mesajı Bildirme"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Beslemeler şu anda RSS ve Atom olmak üzere iki formatta sağlanmaktadır.</p>\r\n<p>Yönetici Besleme sendikasyonunu etkinleştirdiyse, forumlar, konular ve aktif konular için Beslemeleri alabilirsiniz.</p>\r\n<p>Çoğu modern tarayıcı RSS beslemelerini okumak için olanaklara sahiptir ve YAF forum sayfalarındaki beslemelerin kullanılabilirliğini otomatik olarak algılayacaktır.</p>"
+            "#text": "<p>Beslemeler, forumu ziyaret etmeden bir besleme okuyucu uygulamasında takip etmenizi sağlar. Forum şunlar için Atom beslemeleri sunar:</p>\r\n<ul>\r\n<li>en son mesajlar (başlangıç sayfasındaki <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong>),</li>\r\n<li>bir forumun konuları (konu listesinin üstündeki çubuktaki besleme düğmesi),</li>\r\n<li>bir konunun mesajları (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Beslemenin adresini besleme okuyucunuza kopyalayın. Forumun besleme sunup sunmadığını ve bunları kimin kullanabileceğini (çoğu zaman yalnızca üyeler) yönetici belirler. Bir besleme düğmesi görmüyorsanız, beslemeler sizin için kullanılamıyordur.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS ve Atom Beslemeleri"
+            "#text": "Beslemeler"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Forumların herhangi bir yerinde ilgilendiğiniz bir konuyu veya gönderiyi hızlı bir şekilde bulmak için Başlıktaki 'Ara' bağlantısına tıklayın. Ardından, aramak istediğiniz anahtar kelimeyi veya ifadeyi yazın.</p>\r\n<p>Arama üzerinde daha fazla kontrol için, aramanızı tek tek forumlarla sınırlandırabilir veya belirli bir kullanıcı tarafından yazılan gönderileri veya konuları bulabilirsiniz. Ayrıca sayfa başına kaç Sonuç gösterileceğini de seçebilirsiniz.</p>"
+            "#text": "<p>Başlıktaki <strong>[[TOOLBAR.SEARCH]]</strong> öğesine tıklayın, en az birkaç harf girin ve Enter tuşuna basın veya <strong>[[SEARCH.BTNSEARCH]]</strong> düğmesine tıklayın. Arama seçenekleriyle şunları yapabilirsiniz:</p>\r\n<ul>\r\n<li>mesajlarda, konularda veya forumlarda arama,</li>\r\n<li>yalnızca bir üyenin mesajlarında arama,</li>\r\n<li>bir etikete sahip konularda arama,</li>\r\n<li>tam ifadeyi, kelimelerden herhangi birini veya tüm kelimeleri eşleştirme,</li>\r\n<li>yalnızca bazı forumlarda arama,</li>\r\n<li>mesajların tamamında veya yalnızca başlıklarda arama,</li>\r\n<li>sayfa başına sonuç sayısını seçme.</li>\r\n</ul>\r\n<p>Arama yalnızca okumanıza izin verilen içerikleri bulur. Diğer arama yolları:</p>\r\n<ul>\r\n<li>Konu listesinin üstündeki <strong>[[TOPICS.SEARCH_FORUM]]</strong> tek bir forumda arama yapar.</li>\r\n<li>Bir mesajın menüsündeki veya bir profildeki <strong>[[PROFILE.SEARCHUSER]]</strong> bu üyenin mesajlarını listeler.</li>\r\n<li>Bir konu başlığının altındaki etiket, bu etikete sahip tüm konuları gösterir.</li>\r\n<li>Bir mesajda metin seçin ve seçili kelimeleri aramak için üzerine sağ tıklayın.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Forumları ve Konuları Arama"
+            "#text": "Arama"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Bir konuyu veya forumu izlediğinizde yeni mesajlardan haberdar edilirsiniz: forumun bildirimlerinde ve (<a href=\"[[help:mailsettings]]\">bildirim tercihlerinize</a> bağlı olarak) e-postayla ve anlık bildirimle.</p>\r\n<ul>\r\n<li><strong>Bir konu:</strong> konunun başlığının altındaki <strong>[[POSTS.TOOLS]]</strong> ve ardından <strong>[[POSTS.WATCHTOPIC]]</strong> öğesine tıklayın. Bir mesaj yazarken <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> seçeneğini de açabilirsiniz.</li>\r\n<li><strong>Bir forum:</strong> konu listesinin üstündeki çubukta <strong>[[TOPICS.WATCHFORUM]]</strong> öğesine tıklayın. Bu forumdaki yeni konulardan haberdar edilirsiniz.</li>\r\n<li><strong>Tüm forumlar:</strong> başlangıç sayfasında <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> öğesine tıklayın.</li>\r\n</ul>\r\n<p>İzlemeyi bırakmak için <strong>[[POSTS.UNWATCHTOPIC]]</strong> veya <strong>[[TOPICS.UNWATCHFORUM]]</strong> öğesine tıklayın. <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> sayfasında tüm <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ve <strong>[[SUBSCRIPTIONS.TOPICS]]</strong> listelerini bulursunuz; izlemeyi bırakmak için bazılarını seçin ve <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> düğmesine tıklayın.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Abonelikler & Bildirimler"
+            "#text": "Konuları ve Forumları İzleme"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>'Teşekkürler' - Sistemi, başka bir kullanıcıya olumlu bir geri bildirim vermenizi sağlayan bir işlevdir, örneğin yararlı bulduğunuz bir mesaj göndermiş veya bir sorunu çözmenize yardımcı olmuştur.</p>\r\n<p><strong>Kullanıcıya Nasıl Teşekkür Edilir? </strong></p>\r\n<p>Bir Kullanıcıya 'Teşekkür' etmek istiyorsanız, eklemek istediğiniz Gönderinin içindeki 'Teşekkür' Düğmesine basın, bundan sonra Adınızı Mesajın sonunda Teşekkür Eden Kullanıcı Listesinde bulabilirsiniz. Teşekkürünüzü istediğiniz zaman da kaldırabilirsiniz.</p>\r\n<p><strong>Tüm Teşekkürleri Görüntüle</strong></p>\r\n<p>Teşekkür ettiğiniz tüm Gönderileri görüntülemek veya teşekkür aldığınız gönderilerin listesini göstermek istiyorsanız, Kullanıcı Kontrol Panelinden Kişisel Profil -&gt; 'Teşekkürleri Görüntüle' sayfasına gidin. Orada İki Sekme göreceksiniz...</p>\r\n<ul>\r\n  <li> <strong>thanked</strong> - Teşekkür ettiğiniz Mesajların Listesini gösterir.</li>\r\n  <li><strong>teşekkür edildi -</strong> Teşekkür aldığınız Mesajlarınızın Listesini gösterir.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Tepkiler</h3>\r\n<p>Bir tepkiyle, cevap yazmadan bir mesajın yazarına mesajını beğendiğinizi gösterirsiniz. Bir mesajın altındaki gülen yüz düğmesine (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) tıklayın ve <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> veya <strong>[[BUTTON.REACTION_WOW]]</strong> seçin.</p>\r\n<ul>\r\n<li>Tepkinizi kaldırmak için ona tekrar, değiştirmek için başka birine tıklayın.</li>\r\n<li>Bir mesajın tepkileri sayılarıyla birlikte gösterilir; kimin tepki verdiğini görmek için fareyi üzerlerine getirin.</li>\r\n<li>Kendi mesajlarınıza, silinmiş mesajlara ve kilitli konulardaki mesajlara tepki veremezsiniz.</li>\r\n<li>Yazar bilgilendirilir ve tepkiler profilde sayılır (verilen ve alınan teşekkürler).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">İtibar</h3>\r\n<p>Forum itibar sistemini kullanıyorsa, bir üyenin itibarı profilde bir çubuk olarak gösterilir. Kendileri yeterli itibara sahip üyeler, bir mesajın kullanıcı menüsünden başka bir üyenin itibarını artırabilir (+1) veya azaltabilir (-1).</p>\r\n<h3 class=\"h6 mt-3\">Bir sorunun cevabı</h3>\r\n<p>Bir konuyu açan üye, soruyu cevaplayan mesajı <strong>[[POSTS.MARK_ANSWER]]</strong> ile işaretleyebilir. Mesaj bir cevap rozeti alır, böylece diğer okuyucular çözümü hızla bulur.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Teşekkürler Özellik"
+            "#text": "Tepkiler ve İtibar"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>Her Konunun en üstünde bir 'Seçenekler' bağlantısı vardır. Bu bağlantıya tıkladığınızda, bir dizi seçenek içeren bir menü görünecektir:</p>\r\n<ul>\r\n  <li><strong>Bu konuyu izle</strong> - bir konuya abone olarak, konu içindeki son faaliyetler hakkında periyodik e-posta güncellemeleri alacaksınız.</li>\r\n  <li><strong>Bu konuyu yazdır</strong> - Bu size konu gönderisi içeriğini daha 'yazıcı dostu' olan küçültülmüş bir grafik biçiminde içeren bir sayfa gösterecektir.</li>\r\n  <li><strong>Atom Beslemesi</strong> - Bu, bu Konunun Beslemesini tüm Gönderilerle birlikte Besleme Öğeleri olarak gösterecektir.</li>\r\n  <li><strong>Rss Beslemesi</strong> - Bu, bu Konunun Beslemesini tüm Gönderilerle birlikte Besleme Öğeleri olarak gösterecektir.</li>\r\n</ul>\r\n"
+            "#text": "<p>Bir konunun başlığının altındaki çubuk konunun araçlarını içerir:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - konunun bağlantısını birine e-postayla gönderir (yalnızca üyeler).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - konunun adresini kopyalar, ör. başka bir web sitesinde bağlantı vermek için.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - yeni cevaplardan haberdar edilirsiniz, bkz. <a href=\"[[help:subscriptions]]\">Konuları ve Forumları İzleme</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - konuyu yazdırmaya uygun bir sürümde gösterir.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - forum besleme sunuyorsa konunun beslemesi, bkz. <a href=\"[[help:rss]]\">Beslemeler</a>.</li>\r\n</ul>\r\n<p>Moderatörler ayrıca konuyu taşımak, kilitlemek veya silmek için <strong>[[POSTS.MANAGE_TOPIC]]</strong> öğesini görür, bkz. <a href=\"[[help:moderating]]\">Moderatör Rehberi</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Konu Seçenekleri"
+            "#text": "Konu Araçları"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Burada kurulun nasıl çalıştığına ilişkin soruların yanıtlarını bulabilirsiniz. Aradığınızı bulmak için soldaki bağlantıları veya aşağıdaki arama kutusunu kullanın."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Yazma"
           }
         ]
       },

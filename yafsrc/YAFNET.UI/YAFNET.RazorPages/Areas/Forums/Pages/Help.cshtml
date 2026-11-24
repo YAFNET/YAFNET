@@ -71,6 +71,67 @@
                     </div>
                 </div>
             }
+
+            @if (faq == "bbcodes")
+            {
+                @* the examples are rendered with the BB codes of the board, like in a post *@
+                foreach (var group in Model.BBCodeGroups)
+                {
+                    <div class="card mb-3 help-topic">
+                        <div class="card-header fw-semibold">
+                            @Html.Icon("code", "text-primary")@group.Title
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var example in group.Examples)
+                            {
+                                <li class="list-group-item py-3">
+                                    <div class="fw-semibold">@example.Title</div>
+                                    <div class="text-body-secondary mb-2">@Html.Raw(example.Description)</div>
+                                    <div class="row g-2">
+                                        <div class="col-md-6">
+                                            <div class="small text-body-secondary mb-1">@Html.LocalizedText("HELP_BBCODES", "YOU_TYPE")</div>
+                                            <pre class="bg-body-tertiary border rounded p-2 mb-0 text-break" style="white-space: pre-wrap"><code>@example.Example</code></pre>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="small text-body-secondary mb-1">@Html.LocalizedText("HELP_BBCODES", "RESULT")</div>
+                                            <div class="border rounded p-2 message">@Html.Raw(example.Output)</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                if (Model.CustomBBCodes.Count > 0)
+                {
+                    <div class="card mb-3 help-topic">
+                        <div class="card-header fw-semibold">
+                            @Html.Icon("puzzle-piece", "text-primary")@Html.LocalizedText("HELP_BBCODES", "GROUP_CUSTOM")
+                        </div>
+                        <div class="card-body pb-0">
+                            <p class="text-body-secondary">@Html.LocalizedText("HELP_BBCODES", "CUSTOM_DESC")</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var code in Model.CustomBBCodes)
+                            {
+                                <li class="list-group-item">
+                                    <div class="fw-semibold">@code.Title</div>
+                                    <code class="text-break">@code.Example</code>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @if (faq == "bbcodes")
+    {
+        @* code highlighting, spoilers and images like in a post *@
+        @await Html.PartialAsync("_PostScriptsPartial")
+    }
+}

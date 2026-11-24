@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Zarovná text vľavo, na stred alebo vpravo pomocou <code>[left]</code>, <code>[center]</code> a <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Text na strede[/center]\r\n[right]Text zarovnaný vpravo[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Zarovnanie"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Zobrazí text tučným písmom."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Tento text je tučný[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Tučné"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Zobrazí programový kód so zalomeniami riadkov a medzerami, BB kódy vo vnútri sa neformátujú."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Zafarbí kód programovacieho jazyka, napr. csharp, javascript, python, sql, css alebo markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Kód so zvýraznením"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Kód"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Zafarbí text. Použite názov farby alebo kód farby."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Červený text[/color] a [color=#0d6efd]modrý text[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Farba textu"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Tieto BB kódy vkladajú obsah (napr. videá alebo príspevky z iných webových stránok) alebo prílohy. Medzi značky napíšte adresu alebo číslo."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Odkaz, ktorý napíše e-mail na danú adresu."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "E-mailová adresa"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Skratky emoji v hranatých zátvorkách a smajlíky ako :) sa zmenia na emoji."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Zobrazí text iným písmom, ak je toto písmo dostupné v zariadení čitateľa."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Text písmom Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Písmo"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Ďalšie BB kódy tohto fóra"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Zobrazí text iba členom, alebo pomocou <code>[group-hide=Role1;Role2]</code> iba členom týchto rolí."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Tento text vidia iba členovia.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Skryté pre skupiny"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Rozloženie"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Odkazy a obrázky"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Zoznamy"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Citáty a kód"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Členovia, spoilery a skrytý obsah"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Formátovanie textu"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Skryje text, kým čitateľ nezareaguje na príspevok. Autor a administrátori ho vidia vždy."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Skrytý text.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Skryje text pred členmi, ktorí napísali menej príspevkov, ako je zadaný počet."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Skrytý text.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Skryté pri málo príspevkoch"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Skryje text, kým čitateľ neodpovie v téme."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Skrytý text.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Skryje text, kým čitateľ neodpovie v téme alebo nezareaguje na príspevok."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Skrytý text.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Skryté do odpovede alebo reakcie"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Skryté do odpovede"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Skryje text pred členmi, ktorí dostali menej reakcií, ako je zadaný počet."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Skrytý text.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Skryté pri málo reakciách"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Skryté do reakcie"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Štyri alebo viac pomlčiek na samostatnom riadku nakreslí vodorovnú čiaru."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Text nad čiarou\r\n----\r\nText pod čiarou"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Vodorovná čiara"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Zvýrazní text ako zvýrazňovač."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Tento text je zvýraznený[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Zvýraznenie"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Zobrazí obrázok z internetu. Adresa musí končiť typom obrázka (napr. .png alebo .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Obrázok s popisom, ktorý sa zobrazí, keď je myš nad obrázkom, a ktorý čítajú čítačky obrazovky."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]Logo YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Obrázok s popisom"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Obrázok"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Odsadí text."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Odsadený text[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Odsadenie"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Zobrazí text kurzívou."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Tento text je kurzívou[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Kurzíva"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Zoznam s odrážkami. Každá položka začína na novom riadku značkou <code>[*]</code>."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Prvá položka\r\n[*]Druhá položka\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Číslovaný zoznam. Pre písmená použite <code>[list=a]</code> alebo <code>[list=A]</code>, pre rímske číslice <code>[list=i]</code> alebo <code>[list=I]</code>."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Prvý krok\r\n[*]Druhý krok\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Číslovaný zoznam"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Zoznam"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Zobrazí BB kódy tak, ako sú, bez ich formátovania."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]nie tučné[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Bez formátovania"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Zobrazí text vo farebnom rámčeku. Typy sú primary, secondary, success, danger, warning, info, light a dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Poznámka s informáciou.[/note]\r\n[note=warning]Varovanie.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Poznámka"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Zobrazí text ako citát. Tlačidlá citovania pri príspevkoch ho vložia za vás."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Citovaný text.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Citát s menom jeho autora."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Citovaný text.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Citát s autorom"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Citát"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Výsledok"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Zmení veľkosť textu od 1 (veľmi malý) po 9 (veľmi veľký). 5 je normálna veľkosť."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Malý[/size] [size=5]Normálny[/size] [size=7]Veľký[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Veľkosť textu"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Skryje text, kým čitateľ neklikne na tlačidlo, napr. pre koniec filmu."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Vrahom bol záhradník.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Prečiarkne text, napr. pre niečo, čo už neplatí."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Tento text je prečiarknutý[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Prečiarknuté"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Vytvorí tabuľku: <code>[tr]</code> je riadok, <code>[td]</code> bunka riadku."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Meno[/td][td]Príspevky[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Tabuľka"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Adresy webových stránok sa automaticky stanú odkazmi. Môžete ich vložiť aj do <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Odkaz, ktorý namiesto adresy zobrazuje text."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]Webová stránka YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Odkaz s textom"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Odkaz"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Odkaz na profil člena. Napísaním @ v editore sa vytvorí za vás a člen dostane upozornenie."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Odkaz na člena"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Podčiarkne text."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Tento text je podčiarknutý[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Podčiarknuté"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Napíšete"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Váš účet"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Oznámenia sú špeciálne správy, ktoré zverejňuje správca alebo moderátori. Sú jednoduchou jednosmernou komunikáciou s používateľmi a nemôžete na ne odpovedať. Ak chcete o oznámeniach diskutovať, musíte vytvoriť nové vlákno vo fóre.</p>\r\n<p>Témy oznamov sa zobrazujú v hornej časti stránok s výpisom fóra, nad bežnými a lepiacimi témami.</p>\r\n        "
+            "#text": "<p>Niektoré témy sú dôležitejšie ako iné:</p>\r\n<ul>\r\n<li><strong>Pripnuté témy</strong> zostávajú na začiatku zoznamu tém svojho fóra, napr. pravidlá alebo časté otázky fóra.</li>\r\n<li><strong>Oznámenia</strong> sú dôležité informácie, aj ony sa zobrazujú na začiatku zoznamu tém a sú označené odznakom.</li>\r\n</ul>\r\n<p>Kto ich môže vytvárať, určuje administrátor (zvyčajne moderátori a administrátori). Zvolia to pomocou <strong>[[POSTMESSAGE.PRIORITY]]</strong> pri písaní alebo úprave témy. Na pripnuté témy a oznámenia môžete odpovedať ako na každú inú tému, pokiaľ téma nie je zamknutá.</p>\r\n<h3 class=\"h6 mt-3\">Oznámenia fóra</h3>\r\n<p>Administrátor môže zobraziť oznámenie aj na každej stránke fóra, napr. o plánovanej údržbe. Môžete ho zavrieť tlačidlom vpravo.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Oznámenia"
+            "#text": "Oznámenia a pripnuté témy"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Svetlý a tmavý režim</h3>\r\n<p>Tlačidlo farebného režimu v hlavičke prepína medzi <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> a <strong>[[THEME_MODE.AUTO]]</strong> (režim vášho zariadenia). Fórum si vašu voľbu v tomto prehliadači zapamätá.</p>\r\n<h3 class=\"h6 mt-3\">Motív a jazyk</h3>\r\n<p>Ak to administrátor povoľuje, môžete si v <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> zvoliť iný motív a jazyk fóra. Podľa fóra je možné jazyk zmeniť aj v hlavičke.</p>\r\n<h3 class=\"h6 mt-3\">Časové pásmo a veľkosť stránky</h3>\r\n<p>Všetky dátumy a časy sa zobrazujú vo vašom časovom pásme. Nastavíte ho v <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Nedávne časy sa zobrazujú napr. ako „pred 5 minútami“.</p>\r\n<p>Položka <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> na tej istej stránke určuje, koľko položiek zobrazujú zoznamy fóra na jednej stránke.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Vzhľad a jazyk"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Ak máte vo fóre oprávnenie nahrávať súbory, môžete k príspevkom pridávať súbory a obrázky:</p>\r\n<ul>\r\n<li>Pretiahnite súbor do editora alebo (v editore, ktorý zobrazuje formátovanie) vložte obrázok.</li>\r\n<li>Alebo kliknite na tlačidlo príloh na paneli nástrojov (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). V okne môžete súbory pustiť alebo ich vybrať pomocou <strong>[[ATTACHMENTS.ADD_FILES]]</strong> a v <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> sú uvedené vaše skoršie nahrané súbory: kliknutím na jeden ho vložíte znova.</li>\r\n</ul>\r\n<p>Okno zobrazuje <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> a, ak je stanovená, maximálnu veľkosť súboru. Rýchla odpoveď nemá prílohy, použite úplný editor.</p>\r\n<p>Obrázky sa v príspevku zobrazujú ako náhľad, kliknutím naň zobrazíte celý obrázok (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Ostatné súbory a veľmi veľké obrázky sa zobrazujú ako odkaz s veľkosťou a počtom stiahnutí. Na sťahovanie môže byť potrebné oprávnenie, ktoré fórum dáva iba členom.</p>\r\n<h3 class=\"h6 mt-3\">Obrázky z iných webových stránok</h3>\r\n<p>Ak chcete zobraziť obrázok z internetu, kliknite na <strong>[[COMMON.TT_IMAGE]]</strong> a zadajte jeho adresu, alebo napíšte <code>[img]adresa obrázka[/img]</code>.</p>\r\n<p>Vaše nahrané súbory sú uvedené v časti <a href=\"[[help:myattachments]]\">Moje prílohy</a>, kde ich môžete aj vymazať.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,115 +11300,195 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>BB kódy formátujú vaše príspevky. Sú to krátke značky v hranatých zátvorkách okolo textu, napr. <code>[b]tučné[/b]</code>. Nemusíte ich písať ručne: tlačidlá editora ich vložia za vás. Ak editor zobrazuje formátovanie už počas písania, BB kódy sa vytvárajú na pozadí.</p>\r\n<p>Nižšie nájdete všetky BB kódy tohto fóra, čo napíšete a výsledok tak, ako vyzerá v príspevku. Niektoré BB kódy sa tu zobrazujú iba vtedy, ak ich fórum používa, a podpisy môžu povoľovať menej BB kódov ako príspevky.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "Zoznam kódov BB"
+            "#text": "BB kódy"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Otvorte <strong>[[BLOCK_OPTIONS.TITLE]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> – ostatní členovia s vami nemôžu začať súkromnú konverzáciu.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> – nikto vám nemôže posielať žiadosti o priateľstvo.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> – nikto vám nemôže posielať e-maily cez fórum.</li>\r\n</ul>\r\n<p>Administrátori a členovia vo vašom zozname priateľov vás môžu kontaktovať aj naďalej.</p>\r\n<h3 class=\"h6 mt-3\">Ignorovanie člena</h3>\r\n<p>Ak chcete člena ignorovať, otvorte používateľské menu jedného z jeho príspevkov a zvoľte <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Príspevky ignorovaných členov sú skryté (<strong>[[POSTS.TOGGLEPOST]]</strong> zobrazí jednotlivý príspevok) a nemôžu vám posielať súkromné správy. <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> na tej istej stránke uvádza členov, ktorých ignorujete, odstráňte člena zo zoznamu, ak chcete opäť vidieť jeho príspevky.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Ignorovanie a blokovanie používateľov"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Priatelia sú funkciou priateľstva a predstavujú obojstranný vzťah medzi dvoma používateľmi. Iniciuje ho jeden používateľ a druhý ho akceptuje.\r\n</p>\r\n<p><strong>Kde sa zobrazuje zoznam priateľov?</strong></p>\r\n<p>Vaši Priatelia sa zobrazujú na stránke \"Moji priatelia\", na ktorú sa dostanete z odkazu v záhlaví \"Moji priatelia\" alebo z <strong>Panelu ovládania používateľa</strong> Odkaz \"Upraviť priateľov\". </p>\r\n<p><em>Poznámka: Ak nevidíte tento odkaz, nemáte žiadnych Priateľov, neposlali ste žiadnu Žiadosť alebo nemáte žiadne čakajúce Žiadosti o priateľstvo.</em></p>\r\n<p>Vaši Priatelia sa zobrazujú aj na stránke vášho profilu.</p>\r\n<p><strong>Ako môžem požiadať používateľa o priateľstvo alebo prijať žiadosť o priateľstvo?</strong></p>\r\n<p>Ak chcete požiadať používateľa o priateľstvo, zobrazte si profilovú stránku osoby, s ktorou sa chcete stať priateľom, a kliknite na odkaz \"Pridať ako priateľa\".</p>\r\n<p>Ak chcete prijať žiadosť o priateľstvo, prejdite na stránku 'Moji priatelia'. Na karte 'Čakajúce žiadosti' uvidíte Zoznam používateľov s čakajúcimi žiadosťami. Máte tam tri možnosti...</p>\r\n<ul>\r\n  <li><strong>Schváliť</strong> - stanete sa priateľom Používateľa, ktorý o to žiada </li>\r\n  <li><strong>Zamietnuť</strong> - Odmietnete žiadosť</li>\r\n  <li><strong>Schváliť a pridať - </strong>Stávate sa priateľom používateľa, ktorý o to žiada, a tiež používateľ sa stáva priateľom vo vašom zozname.</li>\r\n</ul>\r\n<p><strong>Odstrániť Priateľa</strong></p>\r\n<p>Ak chcete odstrániť Priateľa zo svojho Zoznamu, prejdite na stránku \"Moji priatelia\". Na karte \"Zoznam priateľov\" kliknite na tlačidlo \"Odstrániť priateľa\" používateľa, ktorého chcete odstrániť</p>\r\n<p><strong>Vaše požiadavky</strong></p>\r\n<p>Tretia karta na stránke 'Moji priatelia' zobrazuje vaše čakajúce žiadosti, ktoré ste podali.</p>"
+            "#text": "<p>Priateľstvo je spojenie medzi dvoma členmi. Ak chcete člena požiadať o priateľstvo, kliknite na <strong>[[BUDDY.ADDBUDDY]]</strong> v jeho profile alebo v používateľskom menu príspevku. Člen dostane žiadosť o priateľstvo a môže ju schváliť alebo zamietnuť.</p>\r\n<p>Svojich priateľov nájdete v <strong>[[TOOLBAR.BUDDIES]]</strong> v používateľskom menu, na troch kartách:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> – vaši priatelia. Pošlite im súkromnú správu alebo ich odstráňte zo zoznamu.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> – žiadosti iných členov. <strong>[[FRIENDS.APPROVE]]</strong> pridá člena k vašim priateľom (a vás k jeho), zamietnutie žiadosť odstráni. <strong>[[FRIENDS.APPROVE_ALL]]</strong> schváli všetky žiadosti naraz.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> – žiadosti, ktoré ste poslali a na ktoré ešte nikto neodpovedal.</li>\r\n</ul>\r\n<p>Priatelia sa zobrazujú vo vašom profile. Môžu vás kontaktovať, aj keď blokujete súkromné správy alebo e-maily, pozrite <a href=\"[[help:blocking]]\">Ignorovanie a blokovanie používateľov</a>. Ak nechcete dostávať žiadosti o priateľstvo, môžete ich tam tiež zablokovať.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Priatelia"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Otvorte <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Máte dve možnosti:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> – prestávka: svoj účet nemôžete používať 30 dní, potom opäť funguje.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> – váš účet sa zruší a vaše príspevky sa vymažú (odpovede ostatných členov zostanú). Už sa nebudete môcť prihlásiť, túto akciu nie je možné vrátiť späť.</li>\r\n</ul>\r\n<p>Potvrďte svojím <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> a kliknite na <strong>[[COMMON.CONTINUE]]</strong>. Budete odhlásení.</p>\r\n<p>Ak chcete, aby boli odstránené všetky vaše údaje, alebo máte otázky o svojich údajoch, kontaktujte administrátora, pozrite <a href=\"[[help:privacy]]\">Súkromie, cookies a pravidlá</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Pozastavenie alebo vymazanie účtu"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Ak ste aktuálne zaregistrovaný a prihlásený, môžete upravovať a vymazávať svoje správy (ak správca túto možnosť nevypol). </p>\r\n<p> Ak chcete upraviť alebo vymazať svoje príspevky, kliknite na tlačidlo 'Upraviť' pri konkrétnom príspevku. Ak bol váš príspevok prvý vo vlákne, jeho vymazanie môže odstrániť celé vlákno.</p>\r\n<p>Po vykonaní úprav sa na konci príspevku zobrazí poznámka, ktorá informuje ostatných používateľov o tom, že ste svoj príspevok upravili.</p>\r\n<p>Prosím, zadajte do poľa \"Dôvod úpravy\" aj dôvod, prečo ste túto správu upravili.</p>\r\n<p><strong>Môžu aj ostatní upravovať moje príspevky?</strong></p>\r\n<p>Administrátori a moderátori môžu tiež upravovať vaše správy. Ak tak urobia, v spodnej časti sa zobrazí poznámka, ktorá informuje ostatných používateľov, že príspevok bol upravený.</p>"
+            "#text": "<p>Svoje príspevky môžete upravovať a mazať, ak to fórum povoľuje. Otvorte menu príspevku (tri bodky vpravo hore) a zvoľte <strong>[[BUTTON.BUTTON_EDIT]]</strong> alebo <strong>[[BUTTON.BUTTON_DELETE]]</strong>. V zamknutých témach to nie je možné a administrátor to môže obmedziť na určitý počet dní po zverejnení.</p>\r\n<h3 class=\"h6 mt-3\">Úprava</h3>\r\n<p>Stránka úpravy je ako stránka nového príspevku. Ak ste tému založili, môžete zmeniť aj jej predmet, popis a štítky. Zadajte <strong>[[POSTMESSAGE.EDITREASON]]</strong>, aby čitatelia vedeli, čo ste zmenili.</p>\r\n<p>Ak príspevok upravíte nejaký čas po jeho zverejnení, príspevok zobrazí, kto ho upravil, kedy a prečo. Predchádzajúce verzie sa uchovávajú, pozrite <a href=\"[[help:history]]\">História príspevku</a>. Vaše príspevky môžu upravovať aj moderátori, príspevok potom uvádza, že ho upravil moderátor.</p>\r\n<h3 class=\"h6 mt-3\">Vymazanie</h3>\r\n<p>Zadajte <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> a kliknite na <strong>[[DELETEMESSAGE.DELETE]]</strong>. Príspevok sa neodstráni úplne: na jeho mieste v téme je uvedené, že bol vymazaný. Obnoviť ho môžete pomocou <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> v tom istom menu, pokiaľ ho nevymazal moderátor.</p>\r\n<p>Celé témy môžu mazať iba moderátori a natrvalo odstrániť príspevky môžu iba administrátori.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Úprava a odstraňovanie príspevkov"
+            "#text": "Úprava a vymazanie príspevkov"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Môžete zmeniť informácie o svojom účte pomocou možnosti Osobný profil -&gt; \"Upraviť profil\" v rámci <strong>Užívateľského ovládacieho panela</strong>. Ak chcete zmeniť svoje heslo, v <strong>Užívateľskom ovládacom paneli</strong> je na to určená ďalšia stránka (Zmena hesla), kde môžete nastaviť nové heslo.</p>\r\n<p><strong>Stránka na úpravu profilu</strong></p>\r\n<p>Táto stránka umožňuje nastaviť množstvo povinných a nepovinných údajov, z ktorých niektoré sa budú zobrazovať vo vašom verejnom profile. S výnimkou vašej e-mailovej adresy nezadávajte údaje, ktoré nechcete, aby boli verejne viditeľné.</p>\r\n<p><strong>O vás</strong></p>\r\n<p>Tieto sú základné informácie o vás</p>\r\n<p><strong>Poloha</strong></p>\r\n<p>Tu môžete voliteľne zadať Miesto, kde žijete</p>\r\n<p><strong>Hlavná stránka</strong></p>\r\n<p>Tu môžete voliteľne zadať Domovskú stránku a/alebo Blog.</p>\r\n<p><strong>Služby okamžitých správ</strong></p>\r\n<p>Tu môžete voliteľne zadať identifikačné čísla správ služieb, ako sú  XMPP, Facebook a Twitter.</p>\r\n<p><strong>Časové pásmo</strong></p>\r\n<p>Tu môžete zadať časové pásmo, aby ste prispôsobili čas a dátum na nástenke svojmu miestnemu času. A nastaviť letný čas, ak sa má automaticky prispôsobiť.</p>\r\n<p><strong>Nastavenia fóra</strong></p>\r\n<p>Tu môžete zmeniť svoju e-mailovú adresu.</p>\r\n<p>A ak to správca povolil, môžete zmeniť <strong>jazyk fóra</strong>, <strong>tému</strong> stránky a <strong>textový editor</strong> (ktorý sa používa na odosielanie správ).</p>\r\n<p>K dispozícii je aj nastavenie &quot;Single Sign On&quot; (Ak je aktivované). Ak ho zapnete, môžete sa prihlásiť cez Facebook, pričom vyššie zadáte aj svoje Facebook ID.</p>\r\n\r\n"
+            "#text": "<p>Otvorte <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Všetky polia sú nepovinné, vyplňte iba to, o čo sa chcete podeliť. Údaje sa zobrazujú vo vašom verejnom profile.</p>\r\n<ul>\r\n<li><strong>O vás</strong> – vaše zobrazované meno (ak fórum používa zobrazované mená), skutočné meno, dátum narodenia, povolanie, záujmy a pohlavie.</li>\r\n<li><strong>Bydlisko</strong> – krajina, kraj a mesto. Ak to fórum ponúka, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> ich vyplní za vás.</li>\r\n<li><strong>Domovská stránka</strong> – adresy vašej webovej stránky a vášho blogu.</li>\r\n<li>Ďalšie polia, ktoré pridal administrátor.</li>\r\n</ul>\r\n<p>Kliknutím na <strong>[[COMMON.SAVE]]</strong> uložíte zmeny. Avatar a podpis majú vlastné stránky, pozrite <a href=\"[[help:mypics]]\">Avatar a podpis</a>. E-mailovú adresu, časové pásmo a jazyk nájdete v časti <a href=\"[[help:editsettings]]\">Úprava nastavení</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Úprava nastavení profilu používateľa a fóra"
+            "#text": "Úprava profilu"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Otvorte <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Zadajte novú adresu a svoje <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Fórum pošle odkaz na novú adresu, adresa sa zmení, keď naň kliknete. Vaša e-mailová adresa sa iným členom nikdy nezobrazuje.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> – nebudete sa zobrazovať v zozname členov online (ak to fórum povoľuje).</li>\r\n<li>Prehľad aktivity – vaše upozornenia na zmienky, citácie a reakcie, pozrite <a href=\"[[help:popups]]\">Upozornenia</a>.</li>\r\n<li>Vaše časové pásmo, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> a (ak to fórum povoľuje) motív a jazyk, pozrite <a href=\"[[help:appearance]]\">Vzhľad a jazyk</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Dvojfaktorové overenie</h3>\r\n<p>Zapnite alebo vypnite dvojfaktorové overenie, pozrite <a href=\"[[help:login]]\">Prihlásenie a bezpečnosť účtu</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Úprava nastavení"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Čo je YAF?</strong></p>\r\n<p>YetAnotherForum.NET (YAF) je diskusné fórum s otvoreným zdrojovým kódom pre stránky s ASP.NET. YAF (vyslovuje sa ako &quot;smiech&quot;) je 100 % napísaný v jazyku C# a predstavuje jedinečnú kombináciu Open Source, platformy .NET spoločnosti Microsoft a medzinárodnej spolupráce komunity vývojárov .NET. Projekt YAF, ktorý denne rastie a mení sa, vedie Ingo Herbote. YAF beží na akomkoľvek webovom serveri, ktorý podporuje ASP.NET Core v9 (a vyššiu verziu) a SQL Server. YAF je licencovaný pod Apache 2.0.</p>\r\n<p><strong>Aká je štruktúra tohto všetkého?</strong></p>\r\n<p>Fórum obsahuje rôzne oblasti, ktoré samy obsahujú fóra (konkrétnejšie tematické oblasti), ktoré obsahujú témy, ktoré sa skladajú z jednotlivých správ (kde používateľ niečo napíše).</p>\r\n<p>Na domovskej stránke fóra sa nachádza zoznam kategórií a fór so základnými štatistikami pre každú z nich, vrátane počtu tém a správ a toho, ktorý člen napísal poslednú správu.</p>\r\n<p><strong>Ako sa tu zorientovať?</strong></p>\r\n<p>Keď kliknete na názov fóra, dostanete sa na zoznam tém, ktoré obsahuje. Téma je konverzácia medzi členmi alebo hosťami. Každá téma začína ako jedna správa a rozrastá sa, keď rôzni používatelia pridávajú ďalšie jednotlivé správy. </p>\r\n<p> Ak chcete začať novú tému, jednoducho kliknite na tlačidlo \"Nová téma\" (ak k nemu máte prístup).</p>\r\n<p><strong>Paging</strong></p>\r\n<p>Keď je tém na zobrazenie viac, ako sa zmestí na jednu stránku, môže sa zobraziť Pager, ktorý obsahuje čísla stránok. To znamená, že zoznam tém bol rozdelený na dve alebo viac strán.</p>\r\n<p>Táto metóda rozdelenia zoznamov položiek na viacero stránok sa používa v celej nástenke.</p>\r\n<p><strong>Čo sú to lepené témy?</strong></p>\r\n<p>\"Lepivé\" témy môžu vytvoriť moderátori alebo správcovia a zostávajú \"prilepené\" na vrchole zoznamu, aj keď v poslednom čase nedostali žiadne správy. Ich účelom je udržiavať dôležité informácie stále viditeľné a dostupné.</p>\r\n<p><strong>Ako si prečítať tému?</strong></p>\r\n<p> Ak si chcete prečítať tému, kliknite na jej názov. Každú správu v téme vytvoril člen alebo hosť. Na ľavej strane správy sa zobrazia stručné informácie o členovi, ktorý tému vytvoril.</p>\r\n<p> Ak chcete napísať odpoveď na existujúcu tému, kliknite na tlačidlo \"Napísať odpoveď\". Ak sa tlačidlo 'Odoslať odpoveď' nezobrazí, môže to znamenať, že nie ste prihlásený ako člen, alebo že nemáte oprávnenie odpovedať, alebo že téma bola uzavretá pre nové odpovede.</p>\r\n<p>Ak je to povolené, zobrazí sa aj pole 'Rýchla odpoveď', do ktorého môžete rýchlo zadať odpoveď bez toho, aby ste museli prejsť na stránku 'Odoslať odpoveď'. Predtým, ako budete môcť do poľa rýchlej odpovede písať, musíte v správe kliknúť na tlačidlo 'Rýchla odpoveď', aby sa pole rýchlej odpovede aktivovalo.</p>\r\n<p><strong>Ako sa dozviem viac o členoch?</strong></p>\r\n<p> Ak chcete zobraziť informácie o konkrétnom členovi, kliknite na jeho meno. Tým sa dostanete na stránku jeho verejného profilu.</p>\r\n<p><strong>Čo je hlavička?</strong></p>\r\n<p>Záhlavie v hornej časti každej stránky obsahuje odkazy, ktoré vám pomôžu pri pohybe. Jedným kliknutím sa dostanete do oblastí, ako sú napr: Môj profil, Pomocník (ktorý práve čítate), Vyhľadávanie a ďalšie užitočné funkcie.</p>"
+            "#text": "<p>Fórum je miesto na diskusiu s inými ľuďmi. Diskusie sú usporiadané takto:</p>\r\n<ul>\r\n<li><strong>Kategórie</strong> zoskupujú fóra jednej oblasti, sú to sekcie úvodnej stránky.</li>\r\n<li><strong>Fóra</strong> sú miesta pre konkrétnu tému. Fórum môže obsahovať podfóra.</li>\r\n<li><strong>Témy</strong> sú diskusie vo fóre. Téma začína prvým príspevkom a rastie odpoveďami členov.</li>\r\n<li><strong>Príspevky</strong> (alebo správy) sú jednotlivé vstupy do témy.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Úvodná stránka</h3>\r\n<p>Úvodná stránka zobrazuje kategórie s ich fórami. Pri každom fóre vidíte počet tém a príspevkov a najnovší príspevok. Kategóriu môžete zbaliť šípkou vedľa jej názvu, fórum si vašu voľbu zapamätá. Podľa nastavenia fóra zobrazuje úvodná stránka aj <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (najnovšie príspevky), štatistiky a kto je online.</p>\r\n<h3 class=\"h6 mt-3\">Hostia a členovia</h3>\r\n<p>Hostia môžu čítať fóra, ktoré sú im prístupné. Na písanie príspevkov, používanie osobných funkcií (súkromné správy, priatelia, upozornenia) a zobrazenie niektorých stránok (napr. zoznamu členov alebo profilov) potrebujete účet, pozrite <a href=\"[[help:registration]]\">Registrácia</a>.</p>\r\n<p>Čo môžete vo fóre robiť (čítať, zakladať témy, odpovedať, hlasovať v anketách, nahrávať súbory, ...), nastavuje administrátor pre každé fórum a každú skupinu členov. Ak nevidíte tlačidlo popísané v tomto pomocníkovi, v tomto fóre na to nemáte oprávnenie.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Fóra, témy a správy"
+            "#text": "Ako funguje fórum"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Všeobecné používanie fóra"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Začíname"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Keď bol príspevok upravený, zobrazuje, kto ho upravil a kedy. Kliknutím na tlačidlo histórie pri tejto poznámke otvoríte <strong>[[MESSAGEHISTORY.TITLE]]</strong>: zobrazuje verzie príspevku s dátumom, autorom úpravy a dôvodom.</p>\r\n<ul>\r\n<li>Označte dve verzie a kliknite na <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong>, ak chcete vidieť <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: odstránený a pridaný text je zvýraznený.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> vás vráti späť k príspevku.</li>\r\n</ul>\r\n<p>Moderátori môžu obnoviť predchádzajúcu verziu pomocou <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Fórum uchováva verzie počas počtu dní, ktorý nastaví administrátor.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "História príspevku"
           },
           {
             "@tag": "INDEX",
             "#text": "Index"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Kliknite v hlavičke na <strong>[[TOOLBAR.LOGIN]]</strong> a zadajte svoje používateľské meno alebo e-mailovú adresu a heslo.</p>\r\n<p>Ak zaškrtnete <strong>[[LOGIN.AUTO]]</strong>, zostanete na tomto počítači prihlásení mesiac, aj keď zatvoríte prehliadač. Nepoužívajte to na počítači, ktorý používajú aj iní ľudia. Bez tejto voľby budete po zatvorení prehliadača odhlásení. Ak sa chcete odhlásiť, otvorte používateľské menu vpravo hore a kliknite na <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Dvojfaktorové overenie</h3>\r\n<p>Dvojfaktorové overenie chráni váš účet, aj keď niekto pozná vaše heslo: pri prihlásení si fórum vyžiada aj kód z overovacej aplikácie vo vašom telefóne.</p>\r\n<ol>\r\n<li>Otvorte <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (používateľské menu, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Kliknite na <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Pridajte nový účet do overovacej aplikácie (napr. Microsoft Authenticator, Google Authenticator) naskenovaním QR kódu alebo zadaním <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Na potvrdenie zadajte kód, ktorý zobrazí aplikácia.</li>\r\n</ol>\r\n<p>Odteraz si prihlásenie po hesle vyžiada aj kód z aplikácie (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Vypnúť ho môžete na tej istej stránke pomocou <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Ochrana účtu</h3>\r\n<ul>\r\n<li>Používajte heslo, ktoré nepoužívate nikde inde. Zmeniť ho môžete pomocou <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Fórum od vás nikdy nežiada heslo e-mailom ani súkromnou správou.</li>\r\n<li>Ak ste zabudli heslo, pozrite <a href=\"[[help:recover]]\">Obnovenie zabudnutého hesla</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Po niekoľkých nesprávnych heslách sa účet na niekoľko minút zablokuje.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Prihlásenie a bezpečnosť účtu"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Otvorte <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). V <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> zvolíte, ktoré e-maily dostávate:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> – žiadne e-maily.</li>\r\n<li>Upozornenia na témy, do ktorých ste prispeli alebo ktoré sledujete – každá téma, do ktorej prispejete, sa automaticky sleduje.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> – iba témy a fóra, ktoré sami sledujete.</li>\r\n</ul>\r\n<p>Ak to fórum ponúka, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> pošle namiesto jednotlivých e-mailov jeden e-mail denne s novými príspevkami. Kliknutím na <strong>[[COMMON.SAVE]]</strong> nastavenia uložíte.</p>\r\n<p>Tá istá stránka uvádza vaše <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> a <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, pozrite <a href=\"[[help:subscriptions]]\">Sledovanie tém a fór</a>, a push upozornenia vašich zariadení, pozrite <a href=\"[[help:push]]\">Push upozornenia a aplikácia</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Predvoľby e-mailových oznámení"
+            "#text": "Nastavenia upozornení"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Zoznam členov zobrazuje registrovaných členov rady. Zoznam členov môžete zobraziť zoradený abecedne podľa mena používateľa, dátumu &quot;pripojenia\" alebo \"poslednej návštevy\",</p>\r\n<p>K dispozícii je aj vyhľadávacie pole, v ktorom môžete vyhľadať konkrétneho používateľa.</p>\r\n<p>Ak chcete zobraziť zoznam členov, kliknite na \"Členovia\" v hlavnom záhlaví v hornej časti stránky (ak sa vám odkaz nezobrazí, nemali ste prístup na túto stránku).</p>\r\n"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Zoznam členov zobrazuje registrovaných členov s počtom príspevkov, dátumom registrácie a poslednou návštevou. Môžete:</p>\r\n<ul>\r\n<li>zoradiť ho podľa mena, hodnosti, dátumu registrácie, počtu príspevkov alebo poslednej návštevy,</li>\r\n<li>zobraziť členov podľa začiatočného písmena,</li>\r\n<li>filtrovať ho pomocou <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> podľa mena, roly, hodnosti alebo počtu príspevkov.</li>\r\n</ul>\r\n<p>Kliknutím na člena otvoríte jeho profil. Podľa fóra sa zoznam zobrazuje iba členom.</p>\r\n<h3 class=\"h6 mt-3\">Aktívni používatelia</h3>\r\n<p>Štatistiky na úvodnej stránke ukazujú, kto je online. Zoznam aktívnych používateľov zobrazuje členov a hostí, ktorí sú práve online, a kde vo fóre sa nachádzajú. Členovia sa môžu z tohto zoznamu skryť v <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, ak to fórum povoľuje.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Stránka tímu uvádza administrátorov a moderátorov fóra spolu s fórami, ktoré moderujú. Ak potrebujete pomoc, kontaktujte ich.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Zoznam členov"
+            "#text": "Členovia, aktívni používatelia a tím"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Zmienka o členovi</h3>\r\n<p>Napíšte v editore <code>@</code> a za ním prvé písmená mena a vyberte člena zo zoznamu. Meno sa stane odkazom na profil a člen dostane upozornenie, že ste ho spomenuli (ak používa upozornenia, pozrite <a href=\"[[help:popups]]\">Upozornenia</a>).</p>\r\n<h3 class=\"h6 mt-3\">Štítky tém</h3>\r\n<p>Štítky sú kľúčové slová témy, napr. produkt alebo oblasť, ktorej sa otázka týka. Pridáte ich do <strong>[[POSTTOPIC.TAGS]]</strong> pri zakladaní témy. Štítky sa zobrazujú pri téme, kliknutím na štítok zobrazíte všetky témy s týmto štítkom. Vyhľadávanie dokáže hľadať aj štítky, pozrite <a href=\"[[help:searching]]\">Vyhľadávanie</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Zmienky a štítky"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Správy a upozornenia"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Registrovaní členovia môžu posielať správy ostatným členom tohto fóra pomocou systému súkromných správ (ak to správca povolí).\r\n        </p>\r\n        <p>Keď dostanete súkromnú správu, v záhlaví fóra sa zobrazí informácia o tom, koľko máte neprečítaných správ, a tiež sa zobrazí upozornenie. Môžete tiež povoliť e-mailové upozornenie</p>\r\n        <p><strong>Ako posielam súkromné správy?</strong></p>\r\n        <p>Súkromné správy sú podobné e-mailom, ale sú určené len pre registrovaných členov tohto fóra. Do odoslaných súkromných správ môžete zahrnúť BB kód, smajlíky a obrázky.<br />\r\n        Súkromnú správu môžete poslať používateľovi kliknutím na tlačidlo &ldquo;PM&rdquo; v profile používateľa alebo kliknete na odkaz &ldquo;Nová správa&rdquo; v ovládacom paneli používateľa. Odoslaná správa sa po odoslaní uloží do priečinka &ldquo;Odoslané položky&rdquo;.</p>\r\n        <p><strong>Súkromné priečinky správ</strong></p>\r\n        <p>Podobne ako v programe elektronickej pošty máte 3 priečinky Doručená pošta, Odoslané položky a Archívny priečinok...</p>\r\n        <ul>\r\n        <li>Zložka &ldquo;Prijaté&rdquo; obsahuje všetky nové prijaté správy. Umožňuje zobraziť všetky prijaté správy spolu s menom osoby, ktorá ich odoslala, predmetom správy a dátumom a časom jej odoslania.</li>\r\n        <li>Záložka &ldquo;Odoslané položky&rdquo; obsahuje kópie všetkých súkromných správ, ktoré ste odoslali.</li>\r\n        <li>Priečinok &ldquo;Archív&rdquo; obsahuje len správy, ktoré ste do tohto priečinka presunuli.</li>\r\n        </ul>\r\n        <p>V každom priečinku máte Možnosti, čo chcete urobiť so správami, ktoré sú v priečinku, môžete jednoducho označiť správu a ...<br />\r\n        </p>\r\n        <ul>\r\n        <li>Archivovať vybrané/archivovať všetky - presuniete správu(-y) do priečinka s archívom</li>\r\n        <li>Export Selected / Export All (Exportovať vybrané / Exportovať všetky) - Exportovať správu(-y) ako súbor (môžete vybrať formát exportu -XML-/CSV-/Text-File)</li>\r\n        <li>Odstrániť vybrané / Odstrániť všetko - Odstrániť správu(-y)</li>\r\n        </ul>\r\n        <p>V závislosti od toho, koľko správ máte povolené mať, by ste mali časom niektoré z nich vymazať (Môžete ich exportovať pred vymazaním, aby ste ich zachovali v lokálnom počítači). V opačnom prípade, keď je vaša poštová schránka plná, nebudete môcť prijímať nové správy. V spodnej časti sa zobrazí informácia o tom, koľko správ máte a koľko ich môžete mať maximálne.</p>\r\n      "
+            "#text": "<p>Súkromné správy sú konverzácie medzi vami a iným členom, nikto iný ich nemôže čítať. Otvorte <strong>[[TOOLBAR.INBOX]]</strong> v používateľskom menu: vľavo vidíte <strong>[[PM.CONVERSATION_TITLE]]</strong>, vpravo správy zvolenej konverzácie.</p>\r\n<h3 class=\"h6 mt-3\">Začatie konverzácie</h3>\r\n<ul>\r\n<li>Kliknite na <strong>[[PM.NEW_CONVERSATION]]</strong>, napíšte aspoň tri písmená mena a vyberte člena.</li>\r\n<li>Alebo kliknite na <strong>[[POSTS.PM]]</strong> v profile člena alebo v používateľskom menu príspevku.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Písanie</h3>\r\n<p>Napíšte správu a stlačením klávesu Enter ju odošlete, Shift+Enter začne nový riadok. Môžete používať BB kódy, napr. pre tučný text alebo odkazy. Ak má druhý člen konverzáciu otvorenú v rovnakom čase, správy sa zobrazia okamžite na oboch stranách a konverzácia ukazuje, či je člen online.</p>\r\n<p>Nové správy sa počítajú vedľa vášho mena a <strong>[[TOOLBAR.INBOX]]</strong> a keď otvoríte stránku fóra, okno sa vás opýta, či si ich chcete prečítať. Pre súkromné správy neexistujú e-mailové upozornenia.</p>\r\n<h3 class=\"h6 mt-3\">Vymazanie</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> odstráni konverzáciu z vášho zoznamu, druhý člen ju má naďalej.</p>\r\n<p class=\"text-body-secondary small\">Nemôžete písať členom, ktorí blokujú súkromné správy alebo vás ignorujú (pokiaľ nie ste ich priateľom), pozrite <a href=\"[[help:blocking]]\">Ignorovanie a blokovanie používateľov</a>. Administrátor môže súkromné správy vypnúť.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Súkromné správy (Messenger)"
+            "#text": "Súkromné správy"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderátori vidia v hlavičke <strong>[[TOOLBAR.MODERATE]]</strong>. Stránka uvádza fóra, ktoré moderujete, s počtom <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> a <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>V moderovaných fórach (a pri členoch, ktorých príspevky sa musia kontrolovať) sa nové príspevky zobrazia až po schválení moderátorom. Skontrolujte príspevok a kliknite na <strong>[[MODERATE_FORUM.APPROVE]]</strong> alebo ho vymažte.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Zoznam zobrazuje nahlásené príspevky s dôvodmi a s tým, kto ich nahlásil. Prečítajte si príspevok (a jeho históriu, ak bol upravený), v prípade potreby zakročte (upravte alebo vymažte príspevok, porozprávajte sa s autorom) a kliknite na <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Správa tém</h3>\r\n<ul>\r\n<li>V téme ponúka <strong>[[POSTS.MANAGE_TOPIC]]</strong> možnosti <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> a <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Presunutá téma môže na niekoľko dní zanechať odkaz v pôvodnom fóre.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> zobrazí všetky témy fóra: označte niekoľko z nich a naraz ich zamknite, presuňte alebo vymažte.</li>\r\n<li>Pripnuté témy a oznámenia sa nastavujú pomocou <strong>[[POSTMESSAGE.PRIORITY]]</strong> pri úprave prvého príspevku, trvalé témy (automatické čistenie ich neodstráni) pomocou <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Správa príspevkov</h3>\r\n<ul>\r\n<li>Môžete upravovať a mazať príspevky iných členov. Keď vymažete príspevok, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> vymaže aj odpovede naň.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> v menu príspevku ho presunie do inej témy alebo ho oddelí do novej témy (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>V <a href=\"[[help:history]]\">histórii príspevku</a> môžete obnoviť predchádzajúcu verziu príspevku.</li>\r\n<li>Môžete odpovedať a upravovať aj v zamknutých témach a vaše príspevky sa nekontrolujú na spam.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Podľa nastavení vidia moderátori aj IP adresy príspevkov. Členov upravujú, pozastavujú a zakazujú administrátori.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Príručka moderátora"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderátori a administrátori"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderátori dohliadajú na konkrétne fóra. Vo všeobecnosti majú možnosť upravovať a mazať príspevky, presúvať témy a vykonávať ďalšie činnosti. Stať sa moderátorom konkrétneho fóra je zvyčajne odmenou pre používateľov, ktorí sú obzvlášť užitoční a majú znalosti v téme fóra, ktoré moderujú.</p>\r\n<p>Administrátori sú ľudia, ktorí majú celkovú kontrolu nad všetkým, čo sa na fóre deje. Dohliadajú na to, ako je fórum štylizované, aké fóra vytvoriť a ako ich usporiadať, aké informácie vyžadovať od členov a koho vymenovať za moderátorov.</p>"
+            "#text": "<p><strong>Administrátori</strong> spravujú fórum: vytvárajú fóra, rozhodujú, kto smie čo robiť, nastavujú funkcie a spravujú členov.</p>\r\n<p><strong>Moderátori</strong> sa starajú o jedno alebo viac fór: dbajú na to, aby diskusie zostali pri téme a priateľské, kontrolujú nahlásené príspevky, schvaľujú príspevky v moderovaných fórach a podľa potreby upravujú, presúvajú, zamykajú alebo mažú témy a príspevky. Moderátori fóra sú uvedení nad jeho zoznamom tém (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Stránka <strong>[[TOOLBAR.TEAM]]</strong> uvádza všetkých administrátorov a moderátorov (ak ju fórum zobrazuje). Ak máte problém s príspevkom, <a href=\"[[help:report]]\">nahláste ho</a>. S inými otázkami sa obráťte na moderátora alebo administrátora súkromnou správou.</p>\r\n<p>Ako pracujú moderátori, vysvetľuje <a href=\"[[help:moderating]]\">Príručka moderátora</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "Moderátori a správcovia"
+            "#text": "Moderátori a administrátori"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Ak správca povolil funkciu Album a vy ste členom, ktorý má prístup k pridávaniu albumov, môžete vytvárať albumy obrázkov, ktoré sú prepojené s vaším verejným profilom. Albumy môžete vytvoriť tak, že navštívite <strong>Užívateľský ovládací panel</strong>, kliknete na odkaz \"Upraviť albumy\" a potom na \"Pridať nový album\". Počet, koľko albumov a koľko obrázkov závisí od toho, čo administrátor nastavil pre vašu skupinu používateľov, v ktorej sa nachádzate.</p>\r\n<p>Každý album môže mať názov a môžete preň nastaviť Obal (Obrázok z Albumu) alebo použiť náhodný, ku každému Obrázku môžete pridať aj popisok.</p>\r\n<p><strong>Ako môžem nahrať obrázky?</strong></p>\r\n<p>Ak ste na stránke Pridať/upraviť album, vyberte obrázok v počítači a kliknutím na tlačidlo Nahrať ho pridajte do albumu.</p>\r\n<p>Budete mať možnosť priradiť každému obrázku titulok a nastaviť jeden obrázok ako obal Albumu, ktorý sa bude zobrazovať na verejnom profile. Ak chcete odstrániť album alebo upraviť názov, pridať obrázok(-y) alebo odstrániť obrázok(-y), kliknite na tlačidlo \"Upraviť\". Ak chcete upraviť alebo pridať titulok obrázka, kliknite na text pod obrázkom. Ak chcete nastaviť obal alebo odstrániť obal, kliknite na tlačidlo pod obalom.</p>"
+            "#text": "<p>Ak fórum používa albumy, môžete svoje obrázky ukázať v albumoch vo svojom profile a používať ich vo svojich príspevkoch.</p>\r\n<ol>\r\n<li>Otvorte <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> v menu stránok účtu (alebo <strong>[[TOOLBAR.MYALBUMS]]</strong> v používateľskom menu) a kliknite na <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Zadajte názov a nahrajte prvé obrázky (je možné nahrať viac naraz).</li>\r\n</ol>\r\n<p>Pomocou <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> pridáte ďalšie obrázky alebo ich vymažete, prípadne vymažete celý album. V albume môžete obrázkom dať popisky a zvoliť titulný obrázok pomocou <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Ak chcete zobraziť obrázok z albumu v príspevku, kliknite pod obrázkom na <strong>[[ALBUM.COPY_BBCODE]]</strong> a vložte kód do editora.</p>\r\n<p class=\"text-body-secondary small\">Počet albumov a obrázkov a veľkosť obrázkov sú obmedzené, obmedzenia závisia od vašej skupiny alebo hodnosti a sú uvedené na stránkach.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albumy"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Všetky súbory, ktoré ste nahrali, sú uvedené v <strong>[[ATTACHMENTS.TITLE]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Pri každom súbore vidíte, v koľkých príspevkoch sa používa, alebo že sa nepoužíva.</p>\r\n<p>Označte súbory a vymažte ich, ak chcete uvoľniť miesto, napr. súbory, ktoré ste nahrali, ale nepoužili. Vymazaný súbor sa už nezobrazuje v príspevkoch, ktoré ho používajú.</p>\r\n<p>Ako pridávať súbory k príspevkom, vysvetľuje časť <a href=\"[[help:attachments]]\">Prílohy a obrázky</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Moje prílohy"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Čo sú to avatary?</strong></p>\r\n<p>Avatary sú malé obrázky, ktoré ľudia používajú na identifikáciu alebo odlíšenie sa od ostatných členov fóra. Tieto avatary sa zobrazujú ako súčasť informácií o používateľovi v príspevkoch, ako aj vo verejnom profile.</p>\r\n<p>Svoj avatar môžete upraviť kliknutím na \"Upraviť avatar\" v oblasti \"Osobný profil\" na navigačnom paneli v rámci <strong>Užívateľského ovládacieho panela</strong>.</p>\r\n<p>Existujú tri spôsoby pridania avatara (možno menej, ak ho správca deaktivuje)...</p>\r\n<ul>\r\n  <li>Ak je k dispozícii na fóre, môžete si vybrať z existujúcej kolekcie avatarov</li>\r\n  <li>Zadať existujúcu adresu URL na obrázok na vzdialenom serveri</li>\r\n  <li>Vyberte obrázok zo svojho počítača a nahrajte ho</li>\r\n</ul>\r\n<p><em>Uvedomte si, že správca môže nastaviť povolené typy súborov obrázkov, veľkosť obrázkov a rozmery obrázkov (maximálnu šírku a výšku obrázka).</em></p>\r\n<p><strong>Čo sú podpisy?</strong></p>\r\n<p>\"Podpisy\" obsahujú informácie, ktoré chcete uviesť na konci všetkých svojich príspevkov. Môže ísť o obrázky, odkazy na vaše stránky, citáty atď.</p>\r\n<p> Ak chcete upraviť podpisy, kliknite na 'Podpis' v oblasti 'Osobný profil' na navigačnom paneli v rámci CP používateľa. Na tejto stránke budete informovaní o tom, ktoré BB kódy a ktoré HTML značky môžete použiť a ako dlhý môže byť podpis.</p>"
+            "#text": "<h3 class=\"h6\">Avatar</h3>\r\n<p>Avatar je malý obrázok zobrazený vedľa vášho mena vo vašich príspevkoch a vo vašom profile. Otvorte <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Podľa fóra môžete:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> – vybrať si jeden z avatarov fóra.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> – nahrať vlastný obrázok (png, jpg, gif, webp, bmp alebo svg). Veľké obrázky sa automaticky zmenšia, stránka zobrazuje povolenú veľkosť.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> odstráni váš avatar. Bez avatara zobrazuje fórum predvolený obrázok.</p>\r\n<h3 class=\"h6 mt-3\">Podpis</h3>\r\n<p>Podpis je krátky text zobrazený pod každým vaším príspevkom, napr. motto alebo odkaz na vašu webovú stránku. Otvorte <strong>[[ACCOUNT.SIGNATURE]]</strong> v používateľskom menu. Stránka zobrazuje maximálnu dĺžku a BB kódy, ktoré môžete v podpise používať, HTML nie je povolené. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> ukazuje, ako bude podpis vyzerať.</p>\r\n<p class=\"text-body-secondary small\">O tom, či sa avatary a podpisy používajú, rozhoduje administrátor a obmedzenia môžu závisieť od vašej skupiny alebo hodnosti.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Podpisy, avatary Obrázky"
+            "#text": "Avatar a podpis"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>V <strong>Užívateľskom ovládacom paneli</strong> môžete ovládať svoje osobné nastavenia, možnosti a preferencie.</p>\r\n<p>Na hlavnej stránke <strong>Ovládací panel</strong> sa zobrazí prehľad vášho účtu vrátane vášho používateľského mena, e-mailovej adresy a počtu príspevkov, členov skupín, v ktorých ste, a odkedy ste členom.</p>\r\n<p>Na ľavej strane nájdete odkazy na všetky podstránky a formuláre, ktoré vám umožňujú ovládať.</p>\r\n<p><strong>Posielateľ</strong></p>\r\n<ul>\r\n  <li>Doručená pošta</li>\r\n  <li>Odoslané položky</li>\r\n  <li>Archív</li>\r\n  <li>Nová správa</li>\r\n</ul>\r\n<p><strong>Osobný profil</strong></p>\r\n<ul>\r\n  <li>Zobraziť profil</li>\r\n  <li>Upraviť profil</li>\r\n  <li>Zobraziť poďakovanie<br /></li>\r\n  <li>Upraviť albumy</li>\r\n  <li>Upraviť avatar</li>\r\n  <li>Podpis</li>\r\n  <li>Predvoľby e-mailových oznámení</li>\r\n  <li>Zmena hesla</li>\r\n</ul>"
+            "#text": "<p>Kliknutím na svoje meno vpravo hore otvoríte používateľské menu:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> – prehľad vášho účtu a vašej aktivity.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> – všetky nastavenia vášho účtu (pozrite nižšie).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> – vaše súkromné správy, pozrite <a href=\"[[help:messenger]]\">Súkromné správy</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> – pozrite <a href=\"[[help:buddies]]\">Priatelia</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> – pozrite <a href=\"[[help:myalbums]]\">Albumy</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – pozrite <a href=\"[[help:newposts]]\">Zobrazenie nových príspevkov</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Čísla vedľa vášho mena, <strong>[[TOOLBAR.INBOX]]</strong> a <strong>[[TOOLBAR.BUDDIES]]</strong> udávajú počet neprečítaných správ a otvorených žiadostí o priateľstvo.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Stránka zobrazuje vaše používateľské meno, e-mailovú adresu, počet príspevkov a dátum registrácie a <strong>[[ACCOUNT.ACTIVITY]]</strong>: vaše témy a odpovede, reakcie a priateľstvá, s filtrami pre každý druh. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> zobrazí váš profil tak, ako ho vidia ostatní členovia.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Nastavenia sú uvedené aj na ľavej strane všetkých stránok účtu:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> – informácie o vás.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> – e-mailová adresa, časové pásmo, jazyk, dvojfaktorové overenie.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> – súbory, ktoré ste nahrali.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> a <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> – e-mailové a push upozornenia, sledované témy a fóra.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> – zadajte svoje súčasné heslo a dvakrát nové heslo.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Niektoré položky sa zobrazujú iba vtedy, ak fórum danú funkciu používa (napr. avatary, podpisy alebo albumy).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Moje nastavenia (Ovládací panel používateľa)"
+            "#text": "Môj účet"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigácia"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Hlavička v hornej časti každej stránky obsahuje hlavné menu: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> a <strong>[[TOOLBAR.HELP]]</strong> (podľa fóra sa nemusia zobrazovať všetky). Hostia vidia vpravo <strong>[[TOOLBAR.LOGIN]]</strong> a <strong>[[TOOLBAR.REGISTER]]</strong>. Členovia vidia zvonček upozornení a používateľské menu so svojím menom a avatarom, pozrite <a href=\"[[help:mysettings]]\">Môj účet</a>. Pod hlavičkou vás cesta k aktuálnej stránke (navigačná lišta) vráti späť do fóra alebo kategórie.</p>\r\n<h3 class=\"h6 mt-3\">Zoznam tém fóra</h3>\r\n<p>Kliknutím na fórum zobrazíte jeho témy. Pripnuté témy a oznámenia sa zobrazujú ako prvé. Ďalšie témy sa načítajú automaticky, keď posúvate stránku nadol. Lišta nad zoznamom obsahuje:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> – zobrazí iba témy s príspevkami vo zvolenom období (napr. za posledný deň alebo od vašej poslednej návštevy).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> – prehľadá témy tohto fóra.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> – prejde do iného fóra.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> a <strong>[[TOPICS.MARKREAD]]</strong> (pre členov).</li>\r\n</ul>\r\n<p>Ikony pred témami označujú nové príspevky, populárne („horúce“) témy, zamknuté a presunuté témy. Legenda pod zoznamom ich vysvetľuje.</p>\r\n<h3 class=\"h6 mt-3\">V téme</h3>\r\n<p>Príspevky sa zobrazujú po stránkach, stránkovanie je pod príspevkami. Pomocou <strong>[[POSTS.PREVTOPIC]]</strong> a <strong>[[POSTS.NEXTTOPIC]]</strong> prejdete na susedné témy fóra. Odkaz na príspevok otvorí tému pri tomto príspevku.</p>\r\n<h3 class=\"h6 mt-3\">Nové príspevky a stav prečítania</h3>\r\n<p>Fóra a témy s príspevkami, ktoré ste ešte nečítali, sú zvýraznené. Členovia môžu označiť všetko ako prečítané pomocou <strong>[[DEFAULT.MARKALL]]</strong> na úvodnej stránke alebo jedno fórum pomocou <strong>[[TOPICS.MARKREAD]]</strong>. Kde nájdete všetky nové príspevky naraz, vysvetľuje <a href=\"[[help:newposts]]\">Zobrazenie nových príspevkov</a>.</p>\r\n<h3 class=\"h6 mt-3\">Aktualizácie naživo</h3>\r\n<p>Ak fórum používa aktualizácie naživo, nové témy a príspevky sa zobrazia bez opätovného načítania stránky. V téme uvidíte upozornenie <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, kliknutím naň zobrazíte novú odpoveď.</p>\r\n<h3 class=\"h6 mt-3\">Informácie o používateľovi</h3>\r\n<p>Keď prejdete myšou nad meno používateľa, zobrazí sa krátka karta s informáciami o členovi, napr. bydlisko, stav online a dátum registrácie. Kliknutím na meno otvoríte profil člena.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Orientácia vo fóre"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Členovia nájdu nové príspevky zo všetkých fór v <strong>[[TOOLBAR.MYTOPICS]]</strong> v používateľskom menu. Stránka má štyri karty:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> – témy s novými príspevkami od vašej poslednej návštevy.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> – témy, na ktoré ešte nikto neodpovedal.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> – témy, ktoré sledujete.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – témy, ktoré ste založili.</li>\r\n</ul>\r\n<p>Časovým filtrom zvolíte obdobie, napr. poslednú hodinu, posledný týždeň alebo všetky témy. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> označí všetky témy ako prečítané.</p>\r\n<p><strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> na úvodnej stránke zobrazujú najnovšie príspevky zo všetkých fór, aj pre hostí.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Môžete kontaktovať ďalšie zaslaním e-mailu, nájdete ich na zozname členov.</p>\r\n<p>Zvyčajne sa otvorí stránka, ktorá obsahuje formulár, do ktorého môžete zadať svoju správu. Po dokončení písania správy stlačte tlačidlo \"Odoslať e-mail\" a vaša správa sa okamžite odošle.</p>\r\n<p><strong>Môžem si pozrieť e-mailové adresy?</strong></p>\r\n<p>Z dôvodu ochrany osobných údajov sa vám e-mailová adresa príjemcu počas tohto procesu ani na žiadnom inom mieste fóra nezobrazí.</p>\r\n<p><strong>Prečo nemôžem niekomu poslať e-mail?</strong></p>\r\n<p>Ak nemôžete nájsť tlačidlo alebo odkaz na e-mail niektorého člena, znamená to, že správca buď zakázal funkcie e-mailu pre toto fórum, alebo že člen uviedol, že si neželá dostávať e-maily od ostatných členov.</p>\r\n<p><strong>Čo je to súkromná správa?</strong></p>\r\n<p>Registrovaní členovia môžu posielať správy ostatným členom tohto fóra aj prostredníctvom systému súkromných správ.</p>"
+            "#text": "<p>Členovi môžete poslať e-mail cez fórum: kliknite na <strong>[[POSTS.EMAIL]]</strong> v profile člena (alebo na stránke tímu), zadajte predmet a svoju správu a kliknite na <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>E-mailová adresa člena zostáva pred vami skrytá.</li>\r\n<li>E-mail sa odošle s vaším používateľským menom a <strong>vašou</strong> e-mailovou adresou ako odosielateľom, takže vám člen môže odpovedať priamo.</li>\r\n<li>Na ochranu pred spamom môžete poslať iba niekoľko e-mailov za hodinu.</li>\r\n</ul>\r\n<p>Nemôžete posielať e-maily členom, ktorí blokujú e-maily alebo vás ignorujú (okrem priateľov), a iba ak administrátor povoľuje e-maily medzi členmi. Vo väčšine prípadov je <a href=\"[[help:messenger]]\">súkromná správa</a> lepšou cestou.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Kontaktovanie ostatných členov"
+            "#text": "E-mail členom"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Voľby sú možnosťou hlasovať o probléme alebo otázke.</em></p>\r\n<p><strong>Vytvoriť novú anketu?</strong></p>\r\n<p>Pri vytváraní novej Témy máte k dispozícii možnosť \"Pridať anketu?\" na vytvorenie novej ankety. Ak túto možnosť nevidíte, možno k nej nemáte prístup.</p>\r\n<p>Nové ankety môžete pridávať aj do existujúcich ankiet. Téma môže mať ľubovoľný počet ankiet.</p>\r\n<p>To vám umožňuje položiť otázku a určiť počet možných odpovedí (max. 10 alebo správca nastavil vyšší počet) - <em>Správca môže ako odpovede pripojiť obrázky (vzdialené url)</em>. Ostatní členovia potom budú môcť hlasovať za požadovanú odpoveď a výsledky hlasovania sa zobrazia vo vlákne.</p>\r\n<p><em>Príkladom hlasovania môže byť:</em></p>\r\n<p><em>Aká je vaša obľúbená farba?</em></p>\r\n<ul>\r\n  <li><em>Modrá</em></li>\r\n  <li><em>Červená</em></li>\r\n  <li><em>Žltá</em></li>\r\n  <li><em>Zelená</em></li>\r\n</ul>\r\n<p>Môžete tiež určiť časový limit pre hlasovanie. Napríklad: spustite anketu na 10 dní alebo ju môžete nastaviť aj tak, aby nikdy nevypršala.</p>\r\n<p>Môžete tiež rozhodnúť, či má mať používateľ možnosť vidieť výsledky bez vykonania hlasovania, alebo ak povolíte začiarkavacie políčko \"Mali by ste hlasovať vo všetkých anketách, aby ste videli výsledky.<em>\"</em>, musíte hlasovať pred zobrazením akýchkoľvek výsledkov.</p>\r\n<p>'Viazané hlasovanie' Možnosť nezobrazí výsledky, ak platnosť ankety nevypršala.</p>\r\n<p><strong>Zoskupenie ankiet</strong></p>\r\n<p>Všetky ankety pripojené k téme sa automaticky spoja do skupiny. Túto Skupinu môžete zobraziť spolu s anketami na ľubovoľnej inej TÉME, ktorú chcete.</p>\r\n<p><strong>Ako hlasovať?</strong></p>\r\n<p>Ak chcete hlasovať v ankete, jednoducho kliknite na možnosť, za ktorú chcete hlasovať.</p>\r\n<p>Všeobecne platí, že po hlasovaní v ankete nebudete môcť svoj hlas neskôr zmeniť, preto hlasujte opatrne!</p>"
+            "#text": "<p>Anketa kladie čitateľom témy otázku s niekoľkými možnosťami.</p>\r\n<h3 class=\"h6 mt-3\">Vytvorenie ankety</h3>\r\n<p>Pri zakladaní témy zapnite v možnostiach <strong>[[POLLEDIT.POLLADD]]</strong>, editor ankety sa otvorí po zverejnení témy. Pri existujúcej téme vidí zakladateľ témy a moderátori nad príspevkami <strong>[[POLLEDIT.CREATEPOLL]]</strong>. Téma má jednu anketu.</p>\r\n<ul>\r\n<li>Zadajte otázku a aspoň dve možnosti, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> pridá ďalšie (až do maxima, ktoré nastaví administrátor).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> – počet dní, počas ktorých je anketa otvorená, nechajte prázdne pre anketu bez konca.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> – hlasujúci môžu zvoliť viac ako jednu odpoveď.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> – mená hlasujúcich sa zobrazia s výsledkami.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> – výsledky sa zobrazia až po skončení ankety.</li>\r\n<li>Ak to fórum povoľuje, otázka a možnosti môžu mať obrázok (adresu obrázka).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Hlasovanie</h3>\r\n<p>Kliknite na tlačidlo zvolenej možnosti. Svoj hlas nemôžete zmeniť, preto voľte starostlivo. Hostia nemôžu hlasovať a nevidia výsledky.</p>\r\n<h3 class=\"h6 mt-3\">Zmena ankety</h3>\r\n<p>Autor môže anketu zmeniť pomocou <strong>[[POLLEDIT.EDITPOLL]]</strong>, kým nikto nehlasoval (pokiaľ fórum nepovoľuje zmeny aj neskôr), a vymazať ju pomocou <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderátori môžu ankety meniť a mazať vždy.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Vytváranie a účasť na prieskumoch verejnej mienky"
+            "#text": "Ankety"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Po prihlásení a načítaní stránky sa môže v strede okna prehliadača zobraziť vyskakovacie upozornenie.</p>\r\n<p>To vás bude informovať o niekoľkých akciách...</p>\r\n<ul>\r\n  <li>Nová súkromná správa (správy)</li>\r\n  <li>Nové žiadosti o priateľstvo</li>\r\n  <li>Schválené žiadosti o priateľstvo</li>\r\n  <li>Zamietnuté žiadosti o priateľstvo<br />\r\n  </li>\r\n</ul>\r\n<p><em>Tým istým spôsobom môžete dostať aj niekoľko informačných a chybových správ.</em></p>"
+            "#text": "<p>Zvonček v hlavičke zobrazuje vaše upozornenia, červené číslo udáva počet neprečítaných. Upozornenie dostanete, keď:</p>\r\n<ul>\r\n<li>vás niekto spomenie (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) alebo cituje (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>niekto zareaguje na jeden z vašich príspevkov,</li>\r\n<li>pribudne nová odpoveď v téme, ktorú sledujete, alebo nová téma vo fóre, ktoré sledujete,</li>\r\n<li>máte nového priateľa.</li>\r\n</ul>\r\n<p>Kliknutím na upozornenie otvoríte príspevok. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> otvorí zoznam všetkých upozornení s filtrom podľa druhu a s možnosťou <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Upozornenia sú súčasťou prehľadu aktivity: vypnúť ich môžete v <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Ďalšie oznámenia</h3>\r\n<ul>\r\n<li>Nové súkromné správy a žiadosti o priateľstvo sa počítajú vedľa vášho mena. Keď otvoríte stránku, okno sa vás opýta, či si ich chcete prečítať.</li>\r\n<li>Správy fóra (napr. „uložené“) sa na niekoľko sekúnd zobrazia v hornej časti stránky.</li>\r\n<li>Upozornenia je možné posielať aj e-mailom a do vášho prehliadača alebo telefónu, pozrite <a href=\"[[help:mailsettings]]\">Nastavenia upozornení</a> a <a href=\"[[help:push]]\">Push upozornenia a aplikácia</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Vyskakovacie oznámenia"
+            "#text": "Upozornenia"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Otvorte fórum, do ktorého téma patrí, a kliknite na <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Ak tlačidlo nevidíte, v tomto fóre nemáte oprávnenie zakladať témy (alebo nie ste prihlásení).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> – názov témy, je povinný. Počas písania fórum zobrazuje <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, možno už niekto na vašu otázku odpovedal.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> – nepovinný krátky popis.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> – nepovinné kľúčové slová, podľa štítkov môžu ostatní členovia témy nájsť.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> – iba pre členov s týmto oprávnením, pozrite <a href=\"[[help:anounce]]\">Oznámenia a pripnuté témy</a>.</li>\r\n<li>Samotná správa v editore.</li>\r\n</ul>\r\n<p>V <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> môžete pridať anketu (<strong>[[POLLEDIT.POLLADD]]</strong>, pozrite <a href=\"[[help:polls]]\">Ankety</a>) a sledovať tému (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Kliknutím na <strong>[[POSTMESSAGE.PREVIEW]]</strong> si príspevok skontrolujete a kliknutím na <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> ho zverejníte.</p>\r\n<h3 class=\"h6 mt-3\">Editor</h3>\r\n<p>Podľa fóra editor zobrazuje formátovanie už počas písania alebo BB kódy (krátke značky ako <code>[b]tučné[/b]</code>). Tlačidlá panela nástrojov formátujú text: označte text a kliknite na tlačidlo, napr. pre tučný text, odkaz, citát alebo zoznam. Všetky BB kódy a ich výsledok nájdete v časti <a href=\"[[help:bbcodes]]\">BB kódy</a>.</p>\r\n<ul>\r\n<li>Napíšte <code>@</code> a meno, ak chcete spomenúť člena, pozrite <a href=\"[[help:mentions]]\">Zmienky a štítky</a>.</li>\r\n<li>Súbory a obrázky pridáte tlačidlom príloh, pozrite <a href=\"[[help:attachments]]\">Prílohy a obrázky</a>.</li>\r\n<li>V editore BB kódov formátujú Ctrl+B, Ctrl+I a Ctrl+U označený text, Ctrl+Enter odošle príspevok.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Dobré vedieť</h3>\r\n<ul>\r\n<li>Hostia (ak môžu prispievať) zadajú meno do <strong>[[POSTMESSAGE.FROM]]</strong>, nesmie to byť meno člena.</li>\r\n<li>Na ochranu pred spamom musíte medzi dvoma príspevkami počkať niekoľko sekúnd a príspevok má maximálnu dĺžku.</li>\r\n<li>V niektorých fórach príspevky najprv kontroluje moderátor. Váš príspevok sa zobrazí po jeho schválení.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Zverejňovanie nových tém a príspevkov"
+            "#text": "Založenie novej témy"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Nastavenie a funkcie profilu"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Používaním fóra súhlasíte s jeho pravidlami. Stránka <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> obsahuje pravidlá a zásady ochrany osobných údajov: aké osobné údaje fórum ukladá, na aké účely a aké máte práva (napr. získať informácie o svojich údajoch alebo dať ich vymazať).</p>\r\n<p>Stránka <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> uvádza súbory cookie fóra, na čo slúžia a ako dlho sa uchovávajú. Pri prvej návšteve fóra vás o súboroch cookie informuje oznámenie.</p>\r\n<p>Váš profil zobrazuje iba údaje, ktoré zadáte, vaša e-mailová adresa sa iným členom nikdy nezobrazuje. Môžete sa skryť zo zoznamu aktívnych používateľov (ak to fórum povoľuje), blokovať súkromné správy a e-maily a vymazať svoj účet, pozrite <a href=\"[[help:blocking]]\">Ignorovanie a blokovanie používateľov</a> a <a href=\"[[help:deleteaccount]]\">Pozastavenie alebo vymazanie účtu</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Súkromie, cookies a pravidlá"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Ako člen máte verejne prístupnú profilovú stránku. Táto stránka obsahuje informácie, ktoré člen poskytol buď počas registrácie, alebo neskôr prostredníctvom ovládacieho panela používateľa.</p>\r\n<p><em>Profil člena si môžete zobraziť viacerými spôsobmi...</em></p>\r\n<ul>\r\n  <li>Pri zobrazení používateľského mena kliknite na jeho meno a zobrazí sa rozbaľovacia ponuka, ktorá obsahuje odkaz \"Profil používateľa\" na zobrazenie profilu.</li>\r\n  <li>Zoznam členov umožňuje prezerať všetkých registrovaných členov a rýchlo sa prekliknúť na verejné profily.</li>\r\n  <li>Po prihlásení môžete zobraziť aj svoj vlastný verejný profil tak, že sa prihlásite do fóra a kliknete na Odkaz 'Môj profil' v záhlaví v hornej časti stránky, čím sa otvorí ovládací panel používateľa.</li>\r\n</ul>\r\n<p><strong>Ktoré informácie sa zobrazujú na tejto stránke?</strong></p>\r\n<p>Stránka Verejný profil je zoskupená do 5 kariet.</p>\r\n<ul>\r\n  <li><strong>O</strong> - Zobrazuje všetky Informácie, ktoré používateľ uviedol na svojej Profilovej stránke, ako napríklad Skutočné meno, pohlavie, Stav, ak je používateľ Online/Offline, Poradie na fóre a iné.</li>\r\n  <li><strong>Statistika</strong> - Zobrazuje štatistické informácie, ako napríklad Dátum pripojenia, Posledná návšteva, Počet poďakovaní, Počet poďakovaní tomuto používateľovi a Počet príspevkov, za ktoré tomuto používateľovi poďakovali.</li>\r\n  <li><strong>Posledných 10 príspevkov</strong> - Zobrazuje, ak je k dispozícii, posledných 10 správ, ktoré tento používateľ napísal</li>.\r\n  <li><strong>Priatelia - </strong>Zobrazuje priateľov, ktorých má používateľ vo fóre.</li>\r\n  <li><strong>Albumy - </strong>Zobrazuje Albumy (ak sú povolené), ktoré Používateľ vytvoril.</li>\r\n</ul>\r\n<p>Osobné informácie, ako napríklad e-mailová adresa alebo heslá, sa <strong>nezobrazujú</strong>.</p>"
+            "#text": "<p>Kliknutím na meno člena (napr. v príspevku alebo v zozname členov) otvoríte jeho profil. Podľa fóra sa profily zobrazujú iba členom. Svoj vlastný profil otvoríte pomocou <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> na stránke <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Profil zobrazuje:</p>\r\n<ul>\r\n<li>avatar, meno, hodnosť a medaily člena a údaje z profilu (napr. bydlisko, dátum narodenia, povolanie a záujmy),</li>\r\n<li>počet príspevkov a udelených a prijatých reakcií,</li>\r\n<li>reputáciu (ak ju fórum používa),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong> s odkazom <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>priateľov a albumy člena.</li>\r\n</ul>\r\n<p>Tlačidlá profilu vám umožňujú <strong>[[BUDDY.ADDBUDDY]]</strong>, poslať súkromnú správu (<strong>[[POSTS.PM]]</strong>) alebo e-mail (<strong>[[POSTS.EMAIL]]</strong>) a otvoriť webovú stránku alebo blog člena. E-mailová adresa člena sa nikdy nezobrazuje.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Môj verejný profil"
+            "#text": "Profily"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Čítanie a odosielanie správ"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Push upozornenia zobrazujú nové odpovede v sledovaných témach a ďalšie upozornenia na vašom počítači alebo telefóne, aj keď fórum nie je otvorené.</p>\r\n<ol>\r\n<li>Otvorte <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> v používateľskom menu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>V časti <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> kliknite na <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> a povoľte upozornenia, keď sa prehliadač opýta.</li>\r\n</ol>\r\n<p>Push upozornenia sa nastavujú pre každé zariadenie a prehliadač zvlášť. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> ich pre toto zariadenie vypne. Upozornenia sa posielajú cez push službu vášho prehliadača (napr. od spoločnosti Google, Mozilla, Apple alebo Microsoft) a sú šifrované.</p>\r\n<h3 class=\"h6 mt-3\">Inštalácia fóra ako aplikácie</h3>\r\n<p>Fórum si môžete nainštalovať ako aplikáciu s vlastnou ikonou na domovskej obrazovke alebo pracovnej ploche: kliknite na <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> na tej istej stránke alebo použite funkciu inštalácie vo vašom prehliadači. Na iPhone a iPade fungujú push upozornenia iba v nainštalovanej aplikácii: ťuknite na Zdieľať, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, otvorte fórum z domovskej obrazovky a potom zapnite upozornenia.</p>\r\n<p class=\"text-body-secondary small\">Táto časť sa zobrazuje iba vtedy, ak administrátor nastavil push upozornenia.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Push upozornenia a aplikácia"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Čítanie"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Ak zabudnete svoje heslo, môžete kliknúť na \"<a href=\"{0}\">Zabudnuté heslo</a>\".\r\n  odkaz. Ten sa zobrazí na každej stránke, ktorá vyžaduje vyplnenie hesla. </p>\r\n<p>Tento odkaz zobrazí stránku, na ktorej by ste mali zadať svoje používateľské meno. Bude vám zaslaný e-mail\r\n  na túto adresu čoskoro odoslaný e-mail s pokynmi na obnovenie hesla.</p>\r\n<p> Keďže heslá sú zašifrované, nie je možné opätovne odoslať vaše pôvodné heslo.\r\n  Táto možnosť vám poskytuje možnosť obnoviť heslo.  </p>\r\n<p> Na to, aby ste mohli túto možnosť využiť, musíte mať možnosť prijímať e-maily na svoju registrovanú e-mailovú adresu.\r\n  fungovali. Ak sa vám táto možnosť nezobrazuje, možno budete musieť skontrolovať svoje filtre a priečinok so spamom\r\n  e-mail v priebehu niekoľkých minút. </p>"
+            "#text": "<p>Ak ste zabudli heslo, môžete si nastaviť nové:</p>\r\n<ol>\r\n<li>Kliknite na <strong>[[LOGIN.LOSTPASSWORD]]</strong> vedľa poľa pre heslo na <a href=\"[[page:Account_Login]]\">prihlasovacej stránke</a> alebo v prihlasovacom okne.</li>\r\n<li>Zadajte svoje používateľské meno alebo e-mailovú adresu a kliknite na <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Ak existuje účet s týmto menom alebo adresou, fórum vám pošle e-mail s odkazom. Kvôli ochrane vášho súkromia stránka v každom prípade zobrazí rovnakú správu.</li>\r\n<li>Odkaz otvorí stránku, na ktorej zadáte svoju e-mailovú adresu a dvakrát nové heslo.</li>\r\n</ol>\r\n<p>Odkaz platí iba obmedzený čas. Ak ste ešte nepotvrdili svoju e-mailovú adresu, dostanete namiesto toho nový potvrdzovací e-mail. Fórum pošle najviac niekoľko takýchto e-mailov za hodinu.</p>\r\n<p>Heslá sú uložené v podobe, ktorú nie je možné spätne prečítať, takže nikto (ani administrátor) vám nemôže povedať vaše staré heslo.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Obnovenie strateného hesla"
+            "#text": "Obnovenie zabudnutého hesla"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Ak chcete využívať všetky funkcie fóra, správca od vás pravdepodobne bude vyžadovať registráciu. Registrácia vám dáva identitu na fóre, pevné používateľské meno vo všetkých správach, ktoré uverejníte, a verejný online profil.</p>\r\n<p>Registrácia je bezplatná (ak nie je uvedené inak) a ponúka rozšírený rozsah funkcií vrátane:</p>\r\n<ul>\r\n  <li>Posielanie nových tém</li>\r\n  <li>Odpovedanie na témy iných ľudí</li>\r\n  <li>Upravovanie svojich správ</li>\r\n  <li>Prijímanie e-mailových oznámení o odpovediach na správy a témy, ktoré zadáte</li>\r\n  <li>Odosielanie súkromných správ ostatným členom</li>\r\n</ul>\r\n<p><strong>Ako sa môžem zaregistrovať?</strong></p>\r\n<p>Zaregistrujete sa kliknutím na \"Registrovať\" v záhlaví. Najprv musíte súhlasiť s pravidlami a zásadami fóra. Potom budete vyzvaní, aby ste si zvolili používateľské meno, heslo, Bezpečnostnú otázku/odpoveď a zadali platnú e-mailovú adresu. A ak ste administrátor, musíte zadať zobrazený kód Captcha, aby ste mohli pokračovať. Na ďalšej stránke môžete voliteľne poskytnúť niektoré základné nastavenia profilu.</p>\r\n"
+            "#text": "<p>Mnohé funkcie fóra sú dostupné iba členom, napr. písanie príspevkov, súkromné správy, priatelia, sledovanie tém a upozornenia. Ak sa chcete stať členom, kliknite v hlavičke na <strong>[[TOOLBAR.REGISTER]]</strong> (ak administrátor povoľuje nové registrácie).</p>\r\n<ol>\r\n<li>Ak to fórum vyžaduje, prečítajte si <strong>[[RULES.TITLE]]</strong> a kliknite na <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Zadajte používateľské meno, svoju e-mailovú adresu a heslo (dvakrát). Podľa fóra zadáte aj zobrazované meno a ďalšie údaje, ktoré administrátor požaduje.</li>\r\n<li>Kliknite na <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Fórum zobrazí <strong>[[REGISTER.CHECK_MAIL]]</strong> a pošle vám e-mail. Kliknutím na odkaz v tomto e-maile potvrdíte svoju adresu. Potom je váš účet aktívny a môžete sa prihlásiť.</li>\r\n</ol>\r\n<p>Ak e-mail nepríde, skontrolujte priečinok so spamom. Ak sa pokúsite prihlásiť pred potvrdením adresy, prihlasovacia stránka vás na to upozorní a ponúkne <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>V niektorých fórach musí nové účty najprv schváliť administrátor, o schválení účtu budete informovaní e-mailom.</p>\r\n<p>Po registrácii môžete doplniť svoj profil, pozrite <a href=\"[[help:editprofile]]\">Úprava profilu</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Na niektorých nástenkách môžete písať a odpovedať ako hosťujúci používateľ. Väčšina komunít však vyžaduje registráciu.</p>\r\n<p>Registrovaný používateľ môže ísť do fóra na nástenke, kde má oprávnenie zobrazovať témy a zanechávať odpovede. Ak chcete odpovedať, máte niekoľko možností. Môžete kliknúť na tlačidlo \"Odoslať odpoveď\" a pridať novú správu na koniec Témy. Prípadne môžete zanechať rýchlu odpoveď v poli Rýchla odpoveď uvedenom pod príspevkami v Téme.</p>\r\n<p>Ak chcete odpovedať na správu, stlačte tlačidlo 'Citovať' a môžete odpovedať na správu s citovaným textom.</p>"
+            "#text": "<p>Ak chcete odpovedať v téme, kliknite na <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> nad alebo pod príspevkami, alebo na <strong>[[BUTTON.BUTTON_REPLY]]</strong> pod príspevkom. Stránka odpovede zobrazuje pod editorom <strong>[[POSTMESSAGE.LAST10]]</strong> témy, takže si ich môžete prečítať počas písania.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Na krátku odpoveď použite pole rýchlej odpovede pod príspevkami alebo tlačidlo <strong>[[POSTS.QUICKREPLY]]</strong> pri príspevku. Napíšte text a kliknite na <strong>[[COMMON.POST]]</strong>. Pre úplný editor (napr. na priloženie súborov) kliknite na <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citovanie</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> pod príspevkom začne odpoveď s textom tohto príspevku ako citátom.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> zhromaždí viac príspevkov, aj na iných stránkach témy. Potom pri jednom z nich kliknite na <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, odpoveď bude citovať všetky zhromaždené príspevky.</li>\r\n<li>Ak chcete citovať iba časť, označte text v príspevku, kliknite naň pravým tlačidlom myši a zvoľte <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Dlhé citáty skráťte na časť, na ktorú odpovedáte. Citovaný člen dostane upozornenie.</p>\r\n<p>Odpovedať môžete iba vtedy, ak na to v tomto fóre máte oprávnenie, a nie v zamknutej téme. Hostia môžu odpovedať iba vtedy, ak to fórum povoľuje.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Odpovedanie na správu"
+            "#text": "Odpovedanie a citovanie"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Ak príspevok porušuje pravidlá fóra (napr. spam, urážky alebo nezákonný obsah), nahláste ho prosím moderátorom namiesto toho, aby ste naň odpovedali:</p>\r\n<ol>\r\n<li>Otvorte menu príspevku (tri bodky vpravo hore) a zvoľte <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Zadajte, prečo príspevok nahlasujete.</li>\r\n<li>Kliknite na <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Moderátori fóra nahlásený príspevok skontrolujú a rozhodnú, čo ďalej. Autor nevidí, kto príspevok nahlásil. Podľa fóra môžu príspevky nahlasovať iba členovia.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Nahlásenie príspevku"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Kanály sa v súčasnosti poskytujú v dvoch formátoch, RSS a Atom.</p>\r\n<p>Ak správca povolil syndikáciu kanálov, môžete získať kanály pre fóra, témy a aktívne témy.</p>\r\n<p>Väčšina moderných prehliadačov má zariadenia na čítanie kanálov RSS a automaticky zistí dostupnosť kanálov na stránkach fóra YAF.</p>"
+            "#text": "<p>Kanály vám umožňujú sledovať fórum v čítačke kanálov bez toho, aby ste fórum navštívili. Fórum ponúka kanály Atom pre:</p>\r\n<ul>\r\n<li>najnovšie príspevky (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> na úvodnej stránke),</li>\r\n<li>témy fóra (tlačidlo kanála v lište nad zoznamom tém),</li>\r\n<li>príspevky témy (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Skopírujte adresu kanála do svojej čítačky. Či fórum ponúka kanály a kto ich môže používať (často iba členovia), určuje administrátor. Ak nevidíte tlačidlo kanála, kanály vám nie sú dostupné.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS a Atom kanály"
+            "#text": "Kanály"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p> Ak chcete rýchlo nájsť vlákno alebo príspevok, ktorý vás zaujíma kdekoľvek na fóre, kliknite na odkaz \"Hľadať\" v záhlaví. Potom zadajte kľúčové slovo alebo frázu, ktorú chcete vyhľadať.</p>\r\n<p>Pre väčšiu kontrolu nad vyhľadávaním môžete obmedziť vyhľadávanie na jednotlivé fóra alebo nájsť príspevky či témy, ktoré napísal určený používateľ. Môžete tiež vybrať, koľko výsledkov sa má zobraziť na jednej stránke.</p>"
+            "#text": "<p>Kliknite v hlavičke na <strong>[[TOOLBAR.SEARCH]]</strong>, zadajte aspoň niekoľko písmen a stlačte Enter alebo kliknite na <strong>[[SEARCH.BTNSEARCH]]</strong>. Možnosti vyhľadávania vám umožňujú:</p>\r\n<ul>\r\n<li>hľadať príspevky, témy alebo fóra,</li>\r\n<li>hľadať iba príspevky jedného člena,</li>\r\n<li>hľadať témy so štítkom,</li>\r\n<li>hľadať presnú frázu, ktorékoľvek zo slov alebo všetky slová,</li>\r\n<li>hľadať iba v niektorých fórach,</li>\r\n<li>hľadať v celých príspevkoch alebo iba v názvoch,</li>\r\n<li>zvoliť počet výsledkov na stránku.</li>\r\n</ul>\r\n<p>Vyhľadávanie nájde iba to, čo máte oprávnenie čítať. Ďalšie možnosti vyhľadávania:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> nad zoznamom tém prehľadá jedno fórum.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> v menu príspevku alebo v profile zobrazí príspevky tohto člena.</li>\r\n<li>Štítok pod názvom témy zobrazí všetky témy s týmto štítkom.</li>\r\n<li>Označte text v príspevku a kliknite naň pravým tlačidlom myši, ak chcete vyhľadať označené slová.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Vyhľadávanie vo fórach a témach"
+            "#text": "Vyhľadávanie"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Keď sledujete tému alebo fórum, dostávate upozornenia na nové príspevky: v upozorneniach fóra a (podľa vašich <a href=\"[[help:mailsettings]]\">nastavení upozornení</a>) e-mailom a push upozornením.</p>\r\n<ul>\r\n<li><strong>Tému:</strong> kliknite pod názvom témy na <strong>[[POSTS.TOOLS]]</strong> a na <strong>[[POSTS.WATCHTOPIC]]</strong>. Pri písaní príspevku môžete tiež zapnúť <strong>[[POSTMESSAGE.TOPICWATCH]]</strong>.</li>\r\n<li><strong>Fórum:</strong> kliknite na <strong>[[TOPICS.WATCHFORUM]]</strong> v lište nad zoznamom tém. Budete dostávať upozornenia na nové témy v tomto fóre.</li>\r\n<li><strong>Všetky fóra:</strong> kliknite na <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> na úvodnej stránke.</li>\r\n</ul>\r\n<p>Ak chcete sledovanie zrušiť, kliknite na <strong>[[POSTS.UNWATCHTOPIC]]</strong> alebo <strong>[[TOPICS.UNWATCHFORUM]]</strong>. V <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> nájdete všetky <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> a <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, označte niektoré a kliknutím na <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> ich prestanete sledovať.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Predplatné a oznámenia"
+            "#text": "Sledovanie tém a fór"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>Systém \"Vďaka\" je funkcia, ktorá vám umožňuje vrátiť inému používateľovi pozitívnu spätnú väzbu, napríklad keď uverejnil správu, ktorú považujete za užitočnú, alebo vám pomohol vyriešiť problém.</p>\r\n<p><strong>Ako poskytnúť používateľovi poďakovanie?</strong></p>\r\n<p>Ak chcete udeliť Používateľovi poďakovanie, stlačte tlačidlo \"Poďakovať\" vo vnútri príspevku, ktorý chcete pridať, potom nájdete svoje meno v zozname Používateľov, ktorí udelili poďakovanie, na konci správy. Svoje Poďakovanie môžete tiež kedykoľvek odstrániť.</p>\r\n<p><strong>Zobraziť všetky Poďakovania</strong></p>\r\n<p>Ak chcete zobraziť všetky príspevky, ktorým ste udelili Poďakovanie, alebo zobraziť zoznam príspevkov, ktorým ste dostali Poďakovanie, dostali ste sa na stránku Osobný profil -&gt; 'Zobraziť poďakovanie' z Ovládacieho panela používateľa. Tam uvidíte dve záložky...</p>\r\n<ul>\r\n  <li> <strong>Podakoval</strong> - Zobrazí zoznam správ, v ktorých ste udelili poďakovanie.</li>\r\n  <li><strong>Bolo poďakované -</strong> Zobrazuje Zoznam vašich správ, v ktorých ste dostali poďakovanie.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Reakcie</h3>\r\n<p>Reakciou ukážete autorovi príspevku, že sa vám páči, bez toho, aby ste písali odpoveď. Kliknite na tlačidlo so smajlíkom (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) pod príspevkom a zvoľte <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> alebo <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Opätovným kliknutím na svoju reakciu ju odstránite, kliknutím na inú ju zmeníte.</li>\r\n<li>Reakcie na príspevok sa zobrazujú s ich počtom, keď nad ne prejdete myšou, uvidíte, kto reagoval.</li>\r\n<li>Nemôžete reagovať na vlastné príspevky, na vymazané príspevky ani v zamknutých témach.</li>\r\n<li>Autor dostane upozornenie a reakcie sa započítavajú do profilu (udelené a prijaté poďakovania).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Reputácia</h3>\r\n<p>Ak fórum používa systém reputácie, reputácia člena sa zobrazuje v profile ako pruh. Členovia, ktorí sami majú dostatočnú reputáciu, môžu inému členovi pridať (+1) alebo ubrať (-1) reputáciu v používateľskom menu príspevku.</p>\r\n<h3 class=\"h6 mt-3\">Odpoveď na otázku</h3>\r\n<p>Člen, ktorý založil tému, môže odpoveď, ktorá zodpovedala otázku, označiť pomocou <strong>[[POSTS.MARK_ANSWER]]</strong>. Príspevok dostane odznak odpovede, aby ostatní čitatelia rýchlo našli riešenie.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Vďaka Funkcia"
+            "#text": "Reakcie a reputácia"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>V hornej časti každej témy sa nachádza odkaz \"Možnosti\". Kliknutím na tento odkaz sa zobrazí ponuka s viacerými možnosťami:</p>\r\n<ul>\r\n  <li><strong>Sledovať túto tému</strong> - prihlásením sa k odberu témy budete dostávať pravidelné e-mailové aktualizácie o nedávnej aktivite v nej.</li>\r\n  <li><strong>Tlačiť túto tému</strong> - zobrazí sa vám stránka s obsahom príspevku vo vlákne v zmenšenom grafickom formáte, ktorý je vhodnejší na \"tlačenie\".</li>\r\n  <li><strong>Kanál témy</strong> - Zobrazí sa kanál tejto témy so všetkými príspevkami ako položkami kanála.</li>\r\n  <li><strong>Rss Feed</strong> - Zobrazí sa Feed tejto témy so všetkými príspevkami ako položkami Feed.</li>\r\n</ul>\r\n"
+            "#text": "<p>Lišta pod názvom témy obsahuje nástroje témy:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> – pošle niekomu e-mailom odkaz na tému (iba pre členov).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> – skopíruje adresu témy, napr. na prepojenie z inej webovej stránky.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> – budete upozornení na nové odpovede, pozrite <a href=\"[[help:subscriptions]]\">Sledovanie tém a fór</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> – zobrazí tému vo verzii na tlač.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> – kanál témy, ak fórum ponúka kanály, pozrite <a href=\"[[help:rss]]\">Kanály</a>.</li>\r\n</ul>\r\n<p>Moderátori vidia aj <strong>[[POSTS.MANAGE_TOPIC]]</strong> na presunutie, zamknutie alebo vymazanie témy, pozrite <a href=\"[[help:moderating]]\">Príručka moderátora</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Možnosti témy"
+            "#text": "Nástroje témy"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Tu nájdete odpovede na otázky o fungovaní tabule. Na nájdenie toho, čo hľadáte, použite odkazy na ľavej strane alebo vyhľadávacie pole nižšie."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Písanie"
           }
         ]
       },

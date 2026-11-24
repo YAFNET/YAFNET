@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Căn văn bản sang trái, giữa hoặc phải bằng <code>[left]</code>, <code>[center]</code> và <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Văn bản căn giữa[/center]\r\n[right]Văn bản căn phải[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Căn lề"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Làm cho văn bản in đậm."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Văn bản này được in đậm[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "In đậm"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Hiển thị mã chương trình với nguyên các dấu xuống dòng và khoảng trắng, mã BB bên trong không được định dạng."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Tô màu mã của một ngôn ngữ lập trình, ví dụ csharp, javascript, python, sql, css hoặc markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Mã có tô màu cú pháp"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Mã"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Tô màu văn bản. Dùng tên của một màu hoặc mã màu."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Chữ màu đỏ[/color] và [color=#0d6efd]chữ màu xanh dương[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Màu chữ"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Các mã BB này nhúng nội dung (ví dụ video hoặc bài đăng của các trang web khác) hoặc tệp đính kèm. Hãy viết địa chỉ hoặc số giữa các thẻ."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Một liên kết để viết email đến địa chỉ đó."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "Địa chỉ email"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Mã ngắn emoji trong dấu ngoặc vuông và các mặt cười như :) sẽ trở thành emoji."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Hiển thị văn bản bằng một phông chữ khác, nếu phông chữ đó có trên thiết bị của người đọc."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Văn bản với phông Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Phông chữ"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Các mã BB khác của diễn đàn này"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Chỉ hiển thị văn bản cho thành viên, hoặc với <code>[group-hide=Role1;Role2]</code> chỉ cho thành viên thuộc các vai trò này."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Chỉ thành viên mới thấy văn bản này.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Ẩn theo nhóm"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Bố cục"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Liên kết và hình ảnh"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Danh sách"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Trích dẫn và mã"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Thành viên, spoiler và nội dung ẩn"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Định dạng văn bản"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Ẩn văn bản cho đến khi người đọc bày tỏ cảm xúc với bài viết. Tác giả và quản trị viên luôn nhìn thấy."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Một đoạn văn bản ẩn.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Ẩn văn bản với những thành viên đã viết ít bài hơn số đã cho."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Một đoạn văn bản ẩn.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Ẩn khi có ít bài viết"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Ẩn văn bản cho đến khi người đọc trả lời trong chủ đề."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Một đoạn văn bản ẩn.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Ẩn văn bản cho đến khi người đọc trả lời trong chủ đề hoặc bày tỏ cảm xúc với bài viết."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Một đoạn văn bản ẩn.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Ẩn cho đến khi trả lời hoặc bày tỏ cảm xúc"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Ẩn cho đến khi trả lời"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Ẩn văn bản với những thành viên nhận được ít cảm xúc hơn số đã cho."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Một đoạn văn bản ẩn.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Ẩn khi có ít cảm xúc"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Ẩn cho đến khi bày tỏ cảm xúc"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Bốn dấu gạch ngang trở lên trên một dòng riêng sẽ tạo thành đường kẻ ngang."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Văn bản phía trên đường kẻ\r\n----\r\nVăn bản phía dưới đường kẻ"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Đường kẻ ngang"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Tô sáng văn bản như bút dạ quang."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Văn bản này được tô sáng[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Tô sáng"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Hiển thị một hình ảnh từ internet. Địa chỉ phải kết thúc bằng định dạng của hình ảnh (ví dụ .png hoặc .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Một hình ảnh có mô tả, mô tả được hiển thị khi di chuột qua hình ảnh và được trình đọc màn hình đọc."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]Logo của YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Hình ảnh có mô tả"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Hình ảnh"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Thụt lề văn bản."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Văn bản thụt lề[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Thụt lề"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Làm cho văn bản in nghiêng."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Văn bản này được in nghiêng[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "In nghiêng"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Một danh sách có dấu đầu dòng. Mỗi mục bắt đầu bằng <code>[*]</code> trên một dòng mới."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Mục thứ nhất\r\n[*]Mục thứ hai\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Một danh sách đánh số. Dùng <code>[list=a]</code> hoặc <code>[list=A]</code> cho chữ cái, <code>[list=i]</code> hoặc <code>[list=I]</code> cho số La Mã."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Bước thứ nhất\r\n[*]Bước thứ hai\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Danh sách đánh số"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Danh sách"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Hiển thị mã BB nguyên dạng, không định dạng chúng."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]không in đậm[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Không định dạng"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Hiển thị văn bản trong một hộp có màu. Các loại là primary, secondary, success, danger, warning, info, light và dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Một ghi chú chứa thông tin.[/note]\r\n[note=warning]Một cảnh báo.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Ghi chú"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Hiển thị văn bản dưới dạng trích dẫn. Các nút trích dẫn của bài viết sẽ chèn nó cho bạn."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Văn bản được trích dẫn.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Một trích dẫn kèm tên tác giả."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Văn bản được trích dẫn.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Trích dẫn kèm tác giả"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Trích dẫn"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Kết quả"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Thay đổi cỡ chữ, từ 1 (rất nhỏ) đến 9 (rất lớn). 5 là cỡ bình thường."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Nhỏ[/size] [size=5]Bình thường[/size] [size=7]Lớn[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Cỡ chữ"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Ẩn văn bản cho đến khi người đọc nhấp vào nút, ví dụ cho đoạn kết của một bộ phim."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Người làm vườn là thủ phạm.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Gạch ngang văn bản, ví dụ cho điều gì đó không còn hiệu lực."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Văn bản này bị gạch ngang[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Gạch ngang"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Tạo một bảng: <code>[tr]</code> là một hàng, <code>[td]</code> là một ô của hàng."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Tên[/td][td]Bài viết[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Bảng"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Địa chỉ trang web tự động trở thành liên kết. Bạn cũng có thể đặt chúng trong <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Một liên kết hiển thị văn bản thay vì địa chỉ."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]Trang web YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Liên kết có văn bản"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Liên kết"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Một liên kết đến hồ sơ của một thành viên. Gõ @ trong trình soạn thảo sẽ tạo nó cho bạn, và thành viên đó được thông báo."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Liên kết đến thành viên"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Gạch chân văn bản."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Văn bản này được gạch chân[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Gạch chân"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Bạn gõ"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Tài khoản của bạn"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Thông báo là những thông báo đặc biệt được đăng bởi quản trị viên hoặc người kiểm duyệt. Họ là một giao tiếp một chiều đơn giản với người dùng và bạn không thể trả lời. Nếu bạn muốn thảo luận về các thông báo, bạn sẽ phải tạo một chủ đề mới trong diễn đàn.</p><p> Các chủ đề thông báo được hiển thị ở đầu các trang danh sách diễn đàn, phía trên các chủ đề thông thường và cố định.</p>"
+            "#text": "<p>Một số chủ đề quan trọng hơn những chủ đề khác:</p>\r\n<ul>\r\n<li><strong>Chủ đề ghim</strong> luôn nằm ở đầu danh sách chủ đề của diễn đàn, ví dụ nội quy hoặc các câu hỏi thường gặp của diễn đàn.</li>\r\n<li><strong>Chủ đề thông báo</strong> là những thông tin quan trọng, chúng cũng được hiển thị ở đầu danh sách chủ đề và được đánh dấu bằng một huy hiệu.</li>\r\n</ul>\r\n<p>Ai có thể tạo chúng là do quản trị viên quy định (thường là người điều hành và quản trị viên). Họ chọn điều này bằng <strong>[[POSTMESSAGE.PRIORITY]]</strong> khi viết hoặc sửa chủ đề. Bạn có thể trả lời chủ đề ghim và chủ đề thông báo như bất kỳ chủ đề nào khác, trừ khi chủ đề bị khóa.</p>\r\n<h3 class=\"h6 mt-3\">Thông báo của diễn đàn</h3>\r\n<p>Quản trị viên cũng có thể hiển thị một thông báo trên mọi trang của diễn đàn, ví dụ về một đợt bảo trì theo kế hoạch. Bạn có thể đóng nó bằng nút ở bên phải.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Thông báo"
+            "#text": "Chủ đề thông báo và chủ đề ghim"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Chế độ sáng và tối</h3>\r\n<p>Nút chế độ màu ở phần đầu trang chuyển đổi giữa <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> và <strong>[[THEME_MODE.AUTO]]</strong> (chế độ của thiết bị). Diễn đàn ghi nhớ lựa chọn của bạn trong trình duyệt này.</p>\r\n<h3 class=\"h6 mt-3\">Giao diện và ngôn ngữ</h3>\r\n<p>Nếu quản trị viên cho phép, bạn có thể chọn một giao diện khác và ngôn ngữ của diễn đàn trong <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Tùy theo diễn đàn, ngôn ngữ cũng có thể được thay đổi ở phần đầu trang.</p>\r\n<h3 class=\"h6 mt-3\">Múi giờ và kích thước trang</h3>\r\n<p>Mọi ngày và giờ đều được hiển thị theo múi giờ của bạn. Hãy đặt múi giờ trong <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Các thời điểm gần đây được hiển thị dạng ví dụ “5 phút trước”.</p>\r\n<p>Mục <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> trên cùng trang quy định số mục mà các danh sách của diễn đàn hiển thị trên mỗi trang.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Giao diện và ngôn ngữ"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Nếu bạn được phép tải tệp lên trong một diễn đàn, bạn có thể thêm tệp và hình ảnh vào bài viết của mình:</p>\r\n<ul>\r\n<li>Kéo tệp vào trình soạn thảo, hoặc (trong trình soạn thảo hiển thị định dạng) dán một hình ảnh.</li>\r\n<li>Hoặc nhấp vào nút đính kèm trên thanh công cụ (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). Hộp thoại cho phép bạn thả tệp vào hoặc chọn tệp bằng <strong>[[ATTACHMENTS.ADD_FILES]]</strong>, và liệt kê các tệp bạn đã tải lên trước đó trong <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>: nhấp vào một tệp để chèn lại.</li>\r\n</ul>\r\n<p>Hộp thoại hiển thị <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> và, nếu có, kích thước tệp tối đa. Trả lời nhanh không hỗ trợ đính kèm, hãy dùng trình soạn thảo đầy đủ.</p>\r\n<p>Hình ảnh được hiển thị dưới dạng xem trước trong bài viết, nhấp vào để xem ảnh đầy đủ (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Các tệp khác và hình ảnh rất lớn được hiển thị dưới dạng liên kết kèm kích thước và số lượt tải xuống. Việc tải xuống có thể cần một quyền mà diễn đàn chỉ cấp cho thành viên.</p>\r\n<h3 class=\"h6 mt-3\">Hình ảnh từ các trang web khác</h3>\r\n<p>Để hiển thị một hình ảnh từ internet, hãy nhấp vào <strong>[[COMMON.TT_IMAGE]]</strong> và nhập địa chỉ của nó, hoặc viết <code>[img]địa chỉ của hình ảnh[/img]</code>.</p>\r\n<p>Các tệp bạn đã tải lên được liệt kê trong <a href=\"[[help:myattachments]]\">Tệp đính kèm của tôi</a>, nơi bạn cũng có thể xóa chúng.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,115 +11300,195 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>Mã BB dùng để định dạng bài viết của bạn. Đó là các thẻ ngắn trong dấu ngoặc vuông bao quanh văn bản, ví dụ <code>[b]đậm[/b]</code>. Bạn không cần phải gõ chúng: các nút của trình soạn thảo sẽ chèn chúng cho bạn. Nếu trình soạn thảo hiển thị định dạng trong khi bạn gõ, mã BB sẽ được tạo ở chế độ nền.</p>\r\n<p>Dưới đây là tất cả mã BB của diễn đàn này, những gì bạn gõ và kết quả hiển thị trong bài viết. Một số mã BB chỉ được hiển thị ở đây nếu diễn đàn sử dụng chúng, và chữ ký có thể cho phép ít mã BB hơn bài viết.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "Danh sách mã BB"
+            "#text": "Mã BB"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Mở <strong>[[BLOCK_OPTIONS.TITLE]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - các thành viên khác không thể bắt đầu cuộc trò chuyện riêng với bạn.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - không ai có thể gửi lời mời kết bạn cho bạn.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - không ai có thể gửi email cho bạn thông qua diễn đàn.</li>\r\n</ul>\r\n<p>Quản trị viên và các thành viên trong danh sách bạn bè của bạn vẫn có thể liên hệ với bạn.</p>\r\n<h3 class=\"h6 mt-3\">Bỏ qua một thành viên</h3>\r\n<p>Để bỏ qua một thành viên, hãy mở menu người dùng của một trong các bài viết của họ và chọn <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Bài viết của các thành viên bị bỏ qua sẽ được ẩn (<strong>[[POSTS.TOGGLEPOST]]</strong> hiển thị một bài viết riêng lẻ), và họ không thể gửi tin nhắn riêng cho bạn. Mục <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> trên cùng trang liệt kê các thành viên bạn đang bỏ qua, hãy xóa một thành viên khỏi đó để xem lại bài viết của họ.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Bỏ qua và chặn người dùng"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Bạn bè là một chức năng của tình bạn và là mối quan hệ hai chiều giữa hai người dùng. Nó được khởi tạo bởi một người dùng và được người kia chấp nhận.</p><p> <strong>Danh sách Bạn bè được hiển thị ở đâu?</strong></p><p> Bạn bè của bạn được hiển thị trên &#39;Bạn bè của tôi&#39;, bạn có thể truy cập trang này từ Liên kết tiêu đề &#39;Bạn bè của tôi&#39; hoặc từ Liên kết <strong>bảng điều khiển người dùng</strong> &#39;Chỉnh sửa bạn bè&#39;.</p><p> <em>Lưu ý: Nếu bạn không thấy Liên kết này, nghĩa là bạn không có bất kỳ Bạn bè nào, đã không gửi bất kỳ Yêu cầu nào hoặc bạn không có bất kỳ Yêu cầu kết bạn nào đang chờ xử lý.</em></p><p> Bạn bè của bạn cũng được hiển thị trong trang hồ sơ của bạn.</p><p> <strong>Làm cách nào để yêu cầu Người dùng làm Bạn hoặc chấp nhận Yêu cầu Kết bạn?</strong></p><p> Để yêu cầu một người dùng làm Bạn, hãy xem trang tiểu sử của người mà bạn muốn kết bạn và nhấp vào liên kết &#39;Thêm làm bạn&#39;.</p><p> Để chấp nhận một người bạn yêu cầu Kết bạn, hãy truy cập trang &#39;Bạn bè của tôi&#39;. Trên tab &#39;Yêu cầu đang chờ xử lý&#39;, bạn thấy Danh sách người dùng có yêu cầu đang chờ xử lý. Ở đó bạn có ba lựa chọn ...</p><ul><li> <strong>Phê duyệt</strong> - Bạn trở thành bạn bè của người dùng yêu cầu điều đó</li><li> <strong>Từ chối</strong> - Từ chối yêu cầu</li><li> <strong>Phê duyệt và Thêm -</strong> Bạn trở thành Bạn của Người dùng yêu cầu, và Người dùng cũng trở thành Bạn trong Danh sách của bạn.</li></ul><p> <strong>Xóa bạn bè</strong></p><p> Để xóa một người bạn khỏi Danh sách của bạn, hãy truy cập trang &#39;Bạn bè của tôi&#39;. Trên tab &#39;Danh sách bạn bè&#39; Nhấp vào nút &#39;Xóa bạn bè&#39; của người dùng bạn muốn xóa</p><p> <strong>Yêu cầu của bạn</strong></p><p> Tab thứ ba của Trang &#39;Bạn bè của tôi&#39; hiển thị Yêu cầu đang chờ xử lý mà bạn đã thực hiện.</p>"
+            "#text": "<p>Bạn bè là mối kết nối giữa hai thành viên. Để mời một thành viên làm bạn, hãy nhấp vào <strong>[[BUDDY.ADDBUDDY]]</strong> trong hồ sơ hoặc trong menu người dùng của một bài viết. Thành viên đó nhận được lời mời kết bạn và có thể chấp nhận hoặc từ chối.</p>\r\n<p>Bạn bè của bạn nằm trong <strong>[[TOOLBAR.BUDDIES]]</strong> ở menu người dùng, trên ba thẻ:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - bạn bè của bạn. Gửi tin nhắn riêng cho họ hoặc xóa họ khỏi danh sách.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - lời mời của các thành viên khác. <strong>[[FRIENDS.APPROVE]]</strong> thêm thành viên vào danh sách bạn bè của bạn (và bạn vào danh sách của họ), từ chối sẽ xóa lời mời. <strong>[[FRIENDS.APPROVE_ALL]]</strong> chấp nhận tất cả lời mời cùng lúc.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - các lời mời bạn đã gửi và chưa được trả lời.</li>\r\n</ul>\r\n<p>Bạn bè được hiển thị trong hồ sơ của bạn. Họ vẫn có thể liên hệ với bạn ngay cả khi bạn chặn tin nhắn riêng hoặc email, xem <a href=\"[[help:blocking]]\">Bỏ qua và chặn người dùng</a>. Nếu bạn không muốn nhận lời mời kết bạn, bạn cũng có thể chặn chúng ở đó.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Bạn bè"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Mở <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Bạn có hai lựa chọn:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - tạm nghỉ: bạn không thể sử dụng tài khoản trong 30 ngày, sau đó tài khoản hoạt động trở lại.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - tài khoản của bạn bị đóng và các bài viết của bạn bị xóa (câu trả lời của các thành viên khác vẫn được giữ lại). Bạn không thể đăng nhập nữa, thao tác này không thể hoàn tác.</li>\r\n</ul>\r\n<p>Xác nhận bằng <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> của bạn và nhấp vào <strong>[[COMMON.CONTINUE]]</strong>. Bạn sẽ bị đăng xuất.</p>\r\n<p>Nếu bạn muốn xóa toàn bộ dữ liệu của mình hoặc có thắc mắc về dữ liệu, hãy liên hệ với quản trị viên, xem <a href=\"[[help:privacy]]\">Quyền riêng tư, cookie và nội quy</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Tạm ngưng hoặc xóa tài khoản"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Nếu bạn hiện đã đăng ký và đăng nhập, bạn có thể chỉnh sửa và xóa tin nhắn của mình (nếu quản trị viên không tắt tùy chọn này).</p><p> Để chỉnh sửa hoặc xóa bài đăng của bạn, hãy nhấp vào nút &#39;Chỉnh sửa&#39; của bài đăng cụ thể. Nếu bài đăng của bạn là bài đầu tiên trong chuỗi, thì việc xóa nó có thể xóa toàn bộ chuỗi.</p><p> Sau khi bạn thực hiện các sửa đổi của mình, một ghi chú, ở cuối bài đăng, sẽ xuất hiện để thông báo cho những người dùng khác rằng bạn đã chỉnh sửa bài đăng của mình.</p><p> Cũng vui lòng nhập vào Trường &#39;Lý do chỉnh sửa&#39; lý do bạn chỉnh sửa Thông báo này.</p><p> <strong>Người khác có thể chỉnh sửa bài viết của tôi không?</strong></p><p> Quản trị viên và người kiểm duyệt cũng có thể chỉnh sửa tin nhắn của bạn. Nếu họ làm vậy, một ghi chú ở dưới cùng sẽ xuất hiện cho những người dùng khác biết rằng bài đăng đã được sửa đổi.</p>"
+            "#text": "<p>Bạn có thể sửa và xóa bài viết của chính mình nếu diễn đàn cho phép. Mở menu của bài viết (ba dấu chấm ở góc trên bên phải) và chọn <strong>[[BUTTON.BUTTON_EDIT]]</strong> hoặc <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Điều này không thể thực hiện trong các chủ đề bị khóa, và quản trị viên có thể giới hạn trong một số ngày sau khi đăng.</p>\r\n<h3 class=\"h6 mt-3\">Sửa bài</h3>\r\n<p>Trang sửa bài giống như trang viết bài mới. Nếu bạn là người tạo chủ đề, bạn cũng có thể thay đổi tiêu đề, mô tả và thẻ của chủ đề. Hãy nhập <strong>[[POSTMESSAGE.EDITREASON]]</strong> để cho người đọc biết bạn đã thay đổi gì.</p>\r\n<p>Nếu bạn sửa một bài viết một thời gian sau khi đăng, bài viết sẽ hiển thị ai đã sửa, khi nào và vì sao. Các phiên bản trước được lưu lại, xem <a href=\"[[help:history]]\">Lịch sử bài viết</a>. Người điều hành cũng có thể sửa bài viết của bạn, khi đó bài viết sẽ ghi rằng nó đã được người điều hành sửa.</p>\r\n<h3 class=\"h6 mt-3\">Xóa bài</h3>\r\n<p>Nhập <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> và nhấp vào <strong>[[DELETEMESSAGE.DELETE]]</strong>. Bài viết không bị xóa hẳn: vị trí của nó trong chủ đề cho biết bài viết đã bị xóa. Bạn có thể khôi phục bằng <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> trong cùng menu, trừ khi người điều hành đã xóa bài viết đó.</p>\r\n<p>Chỉ người điều hành mới có thể xóa toàn bộ chủ đề, và chỉ quản trị viên mới có thể xóa vĩnh viễn bài viết.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Chỉnh sửa và xóa bài đăng của bạn"
+            "#text": "Sửa và xóa bài viết"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Bạn có thể thay đổi thông tin tài khoản của mình bằng cách sử dụng Hồ sơ cá nhân -&gt; tùy chọn &#39;Chỉnh sửa hồ sơ&#39; từ trong <strong>Bảng điều khiển người dùng</strong> . Nếu bạn muốn thay đổi Mật khẩu của mình, có một Trang bổ sung (Thay đổi Mật khẩu) cho Trang đó trong <strong>Bảng Điều khiển Người dùng</strong> , nơi bạn có thể đặt Mật khẩu mới.</p><p> <strong>Chỉnh sửa trang hồ sơ</strong></p><p> Trang này cho phép bạn đặt một số chi tiết bắt buộc và tùy chọn, một số chi tiết trong số đó sẽ được hiển thị trên hồ sơ công khai của bạn. Ngoại trừ địa chỉ e-mail của bạn, không nhập thông tin mà bạn không muốn hiển thị công khai.</p><p> <strong>Về bạn</strong></p><p> Đây là những thông tin cơ bản về bạn</p><p> <strong>Địa điểm</strong></p><p> Tại đây, bạn có thể tùy ý nhập Nơi ở của mình</p><p> <strong>Trang chủ</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Trang chủ và / hoặc Blog.</p><p> <strong>Dịch vụ nhắn tin tức thì</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Id messenger của các dịch vụ như  XMPP, Facebook và Twitter.</p><p> <strong>Múi giờ</strong></p><p> Tại đây bạn có thể chỉ định Múi giờ để điều chỉnh bảng Giờ và Ngày thành giờ địa phương của bạn. Và đặt Giờ tiết kiệm ánh sáng ban ngày nếu nó được tự động điều chỉnh.</p><p> <strong>Cài đặt Diễn đàn</strong></p><p> Tại đây bạn thay đổi Địa chỉ Email của mình.</p><p> Và nếu Quản trị viên đã bật nó, bạn có thể thay đổi <strong>Ngôn ngữ</strong> Diễn đàn, <strong>Chủ đề</strong> của Trang web và <strong>Trình soạn thảo Văn bản</strong> (Được sử dụng để đăng tin).</p><p> Ngoài ra còn có Cài đặt &quot;Đăng nhập một lần&quot; (Nếu nó được kích hoạt). Nếu bạn bật nó lên, bạn có thể đăng nhập thông qua Facebook, bạn cũng nhập ID Facebook của mình ở trên.</p>"
+            "#text": "<p>Mở <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Tất cả các trường đều không bắt buộc, chỉ điền những gì bạn muốn chia sẻ. Thông tin được hiển thị trong hồ sơ công khai của bạn.</p>\r\n<ul>\r\n<li><strong>Về bạn</strong> - tên hiển thị (nếu diễn đàn dùng tên hiển thị), tên thật, ngày sinh, nghề nghiệp, sở thích và giới tính.</li>\r\n<li><strong>Nơi ở</strong> - quốc gia, tỉnh/bang và thành phố. Nếu diễn đàn hỗ trợ, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> sẽ tự điền giúp bạn.</li>\r\n<li><strong>Trang chủ</strong> - địa chỉ trang web và blog của bạn.</li>\r\n<li>Các trường khác do quản trị viên thêm vào.</li>\r\n</ul>\r\n<p>Nhấp vào <strong>[[COMMON.SAVE]]</strong> để lưu các thay đổi. Ảnh đại diện và chữ ký có trang riêng, xem <a href=\"[[help:mypics]]\">Ảnh đại diện và chữ ký</a>. Địa chỉ email, múi giờ và ngôn ngữ nằm trong <a href=\"[[help:editsettings]]\">Chỉnh sửa cài đặt</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Chỉnh sửa Hồ sơ Người dùng &amp; Cài đặt Diễn đàn"
+            "#text": "Chỉnh sửa hồ sơ"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Mở <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Nhập địa chỉ mới và <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> của bạn. Diễn đàn gửi một liên kết đến địa chỉ mới, địa chỉ sẽ được thay đổi khi bạn nhấp vào liên kết đó. Địa chỉ email của bạn không bao giờ được hiển thị cho các thành viên khác.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - bạn không được hiển thị trong danh sách thành viên trực tuyến (nếu diễn đàn cho phép).</li>\r\n<li>Luồng hoạt động - các thông báo của bạn về việc được nhắc đến, được trích dẫn và cảm xúc, xem <a href=\"[[help:popups]]\">Thông báo</a>.</li>\r\n<li>Múi giờ của bạn, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong>, và (nếu diễn đàn cho phép) giao diện và ngôn ngữ, xem <a href=\"[[help:appearance]]\">Giao diện và ngôn ngữ</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Xác thực hai yếu tố</h3>\r\n<p>Bật hoặc tắt xác thực hai yếu tố, xem <a href=\"[[help:login]]\">Đăng nhập và bảo mật tài khoản</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Chỉnh sửa cài đặt"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>YAF là gì?</strong></p><p> YetA AnotherForum.NET (YAF) là Diễn đàn thảo luận mã nguồn mở dành cho các trang chạy ASP.NET. 100% được viết bằng C #, YAF (phát âm giống như &quot;cười&quot;) là sự kết hợp độc đáo giữa Mã nguồn mở, nền tảng .NET của Microsoft và sự hợp tác quốc tế của cộng đồng nhà phát triển .NET. Phát triển và thay đổi hàng ngày, dự án YAF được dẫn dắt bởi Ingo Herbote. YAF chạy trên bất kỳ máy chủ web nào hỗ trợ ASP.NET Core v9 (trở lên) và SQL Server. YAF được cấp phép theo Apache 2.0.</p><p> <strong>Tất cả những thứ này được cấu trúc như thế nào?</strong></p><p> Diễn đàn bao gồm các lĩnh vực khác nhau, bản thân chúng chứa các diễn đàn (các lĩnh vực chủ đề cụ thể hơn) chứa các chủ đề được tạo thành từ các thông điệp riêng lẻ (nơi người dùng viết một cái gì đó).</p><p> Trang chủ Diễn đàn có danh sách các danh mục và diễn đàn, với số liệu thống kê cơ bản cho mỗi danh mục, bao gồm số lượng chủ đề và tin nhắn, và thành viên nào đã đăng bài viết gần đây nhất.</p><p> <strong>Làm cách nào để tìm đường?</strong></p><p> Khi bạn nhấp vào tên của một diễn đàn, bạn sẽ được đưa đến danh sách các chủ đề mà nó có. Chủ đề là một cuộc trò chuyện giữa các thành viên hoặc khách mời. Mỗi chủ đề bắt đầu dưới dạng một tin nhắn và phát triển khi có nhiều tin nhắn riêng lẻ được thêm vào bởi những người dùng khác nhau.</p><p> Để bắt đầu một Chủ đề mới, chỉ cần nhấp vào nút &#39;Chủ đề Mới&#39; (Nếu bạn có quyền truy cập vào chủ đề đó).</p><p> <strong>Phân trang</strong></p><p> Khi có nhiều chủ đề để hiển thị hơn số chủ đề sẽ phù hợp trên một trang, bạn có thể thấy Máy nhắn tin, chứa số trang. Điều này cho thấy rằng danh sách các chủ đề đã được chia thành hai hoặc nhiều trang.</p><p> Phương pháp chia nhỏ danh sách các mục trên nhiều trang được sử dụng trên toàn bộ bảng.</p><p> <strong>Chủ đề dính là gì?</strong></p><p> Các chủ đề &#39;hấp dẫn&#39; có thể được tạo bởi người kiểm duyệt hoặc quản trị viên và vẫn &#39;bị mắc kẹt&#39; ở đầu danh sách, ngay cả khi họ không có bất kỳ tin nhắn nào gần đây. Mục đích của họ là giữ cho thông tin quan trọng luôn hiển thị và có thể truy cập được.</p><p> <strong>Làm thế nào để tôi đọc một chủ đề?</strong></p><p> Để đọc một chủ đề, hãy nhấp vào tiêu đề của nó. Mỗi tin nhắn trong một chủ đề được tạo bởi một thành viên hoặc một khách mời. Bạn sẽ thấy một số thông tin ngắn gọn về thành viên đã tạo chủ đề ở phía bên trái của thư.</p><p> Để nhắn tin trả lời cho một chủ đề hiện có, hãy nhấp vào nút &#39;Đăng trả lời&#39;. Nếu nút &#39;Đăng trả lời&#39; không xuất hiện, điều đó có thể có nghĩa là bạn chưa đăng nhập với tư cách thành viên hoặc bạn không có quyền trả lời, hoặc chủ đề đã bị đóng để trả lời mới.</p><p> Nếu được bật, cũng sẽ có hộp &#39;Trả lời nhanh&#39; nơi bạn có thể nhanh chóng nhập câu trả lời mà không cần phải truy cập trang &#39;Đăng trả lời&#39;. Bạn cần nhấp vào nút &#39;Trả lời nhanh&#39; trong tin nhắn để kích hoạt hộp trả lời nhanh trước khi bạn có thể nhập vào.</p><p> <strong>Làm cách nào để tìm hiểu thêm về các thành viên?</strong></p><p> Để xem thông tin về một thành viên cụ thể, hãy nhấp vào tên người dùng. Điều này sẽ đưa bạn đến trang hồ sơ công khai của họ.</p><p> <strong>Header là gì?</strong></p><p> Tiêu đề trên đầu mỗi trang có các liên kết để giúp bạn di chuyển. Với một cú nhấp chuột, bạn có thể tiếp cận các khu vực như: Hồ sơ của tôi, Trợ giúp (mà bạn đang đọc bây giờ), Tìm kiếm và các tính năng hữu ích khác ..</p>"
+            "#text": "<p>Diễn đàn là nơi để thảo luận với những người khác. Các cuộc thảo luận được sắp xếp như sau:</p>\r\n<ul>\r\n<li><strong>Chuyên mục</strong> nhóm các diễn đàn của một lĩnh vực, chúng là các phần của trang chủ.</li>\r\n<li><strong>Diễn đàn</strong> là nơi dành cho một lĩnh vực cụ thể. Một diễn đàn có thể chứa các diễn đàn con.</li>\r\n<li><strong>Chủ đề</strong> là các cuộc thảo luận trong một diễn đàn. Một chủ đề bắt đầu bằng bài viết đầu tiên và phát triển thêm nhờ các câu trả lời của thành viên.</li>\r\n<li><strong>Bài viết</strong> (hay tin nhắn) là từng đóng góp riêng lẻ trong một chủ đề.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Trang chủ</h3>\r\n<p>Trang chủ liệt kê các chuyên mục cùng với các diễn đàn của chúng. Với mỗi diễn đàn, bạn thấy số chủ đề, số bài viết và bài viết mới nhất. Có thể thu gọn một chuyên mục bằng mũi tên bên cạnh tên của nó, diễn đàn sẽ ghi nhớ lựa chọn của bạn. Tùy theo diễn đàn, trang chủ còn hiển thị <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (các bài viết mới nhất), thống kê và những ai đang trực tuyến.</p>\r\n<h3 class=\"h6 mt-3\">Khách và thành viên</h3>\r\n<p>Khách có thể đọc các diễn đàn được mở cho họ. Để viết bài, sử dụng các tính năng cá nhân (tin nhắn riêng, bạn bè, thông báo) và xem một số trang (ví dụ danh sách thành viên hoặc hồ sơ), bạn cần có tài khoản, xem <a href=\"[[help:registration]]\">Đăng ký</a>.</p>\r\n<p>Những gì bạn có thể làm trong một diễn đàn (đọc, tạo chủ đề, trả lời, bình chọn, tải tệp lên, ...) do quản trị viên thiết lập cho từng diễn đàn và từng nhóm thành viên. Nếu bạn không thấy một nút được mô tả trong phần trợ giúp này, bạn không có quyền sử dụng nó trong diễn đàn này.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Diễn đàn, Chủ đề và Tin nhắn"
+            "#text": "Giới thiệu về diễn đàn"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Cách sử dụng diễn đàn chung"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Bắt đầu"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Khi một bài viết đã được sửa, bài viết sẽ hiển thị ai đã sửa và khi nào. Nhấp vào nút lịch sử của ghi chú này để mở <strong>[[MESSAGEHISTORY.TITLE]]</strong>: trang này liệt kê các phiên bản của bài viết cùng ngày, người sửa và lý do.</p>\r\n<ul>\r\n<li>Chọn hai phiên bản và nhấp vào <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> để xem <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: phần văn bản bị xóa và được thêm sẽ được làm nổi bật.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> đưa bạn quay lại bài viết.</li>\r\n</ul>\r\n<p>Người điều hành có thể khôi phục một phiên bản trước bằng <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Diễn đàn lưu giữ các phiên bản trong số ngày do quản trị viên quy định.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Lịch sử bài viết"
           },
           {
             "@tag": "INDEX",
             "#text": "Mục lục"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Nhấp vào <strong>[[TOOLBAR.LOGIN]]</strong> ở phần đầu trang và nhập tên người dùng hoặc địa chỉ email cùng mật khẩu của bạn.</p>\r\n<p>Nếu bạn chọn <strong>[[LOGIN.AUTO]]</strong>, bạn sẽ được duy trì đăng nhập trong một tháng trên máy tính này, kể cả sau khi đóng trình duyệt. Đừng dùng tùy chọn này trên máy tính mà người khác cũng sử dụng. Nếu không chọn, bạn sẽ bị đăng xuất khi đóng trình duyệt. Để đăng xuất, hãy mở menu người dùng ở góc trên bên phải và nhấp vào <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Xác thực hai yếu tố</h3>\r\n<p>Xác thực hai yếu tố bảo vệ tài khoản của bạn ngay cả khi ai đó biết mật khẩu của bạn: khi bạn đăng nhập, diễn đàn còn yêu cầu một mã từ ứng dụng xác thực trên điện thoại của bạn.</p>\r\n<ol>\r\n<li>Mở <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (menu người dùng, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Nhấp vào <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Thêm một tài khoản mới vào ứng dụng xác thực của bạn (ví dụ Microsoft Authenticator, Google Authenticator) bằng cách quét mã QR hoặc nhập <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Nhập mã mà ứng dụng hiển thị để xác nhận.</li>\r\n</ol>\r\n<p>Từ nay, sau mật khẩu, trang đăng nhập sẽ yêu cầu mã từ ứng dụng (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Bạn có thể tắt tính năng này trên cùng trang bằng <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Giữ an toàn cho tài khoản</h3>\r\n<ul>\r\n<li>Dùng một mật khẩu mà bạn không dùng ở bất kỳ nơi nào khác. Bạn có thể đổi mật khẩu bằng <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Diễn đàn không bao giờ hỏi mật khẩu của bạn qua email hoặc tin nhắn riêng.</li>\r\n<li>Nếu bạn quên mật khẩu, xem <a href=\"[[help:recover]]\">Khôi phục mật khẩu đã quên</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Sau nhiều lần nhập sai mật khẩu, tài khoản sẽ bị khóa trong vài phút.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Đăng nhập và bảo mật tài khoản"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Mở <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Trong <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong>, bạn chọn những email mình sẽ nhận:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - không nhận email.</li>\r\n<li>Thông báo cho các chủ đề bạn đã viết bài hoặc theo dõi - mọi chủ đề bạn viết bài đều được tự động theo dõi.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - chỉ các chủ đề và diễn đàn bạn tự theo dõi.</li>\r\n</ul>\r\n<p>Nếu diễn đàn hỗ trợ, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> gửi mỗi ngày một email chứa các bài viết mới thay vì nhiều email riêng lẻ. Nhấp vào <strong>[[COMMON.SAVE]]</strong> để lưu.</p>\r\n<p>Cùng trang này liệt kê <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> và <strong>[[SUBSCRIPTIONS.TOPICS]]</strong> của bạn, xem <a href=\"[[help:subscriptions]]\">Theo dõi chủ đề và diễn đàn</a>, và thông báo đẩy trên các thiết bị của bạn, xem <a href=\"[[help:push]]\">Thông báo đẩy và ứng dụng</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Tùy chọn thông báo qua email"
+            "#text": "Tùy chọn thông báo"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Danh sách thành viên hiển thị các thành viên đã đăng ký của hội đồng quản trị. Bạn có thể xem danh sách thành viên được sắp xếp theo thứ tự bảng chữ cái theo tên người dùng, &quot;Ngày tham gia&quot;, hoặc &quot;lần ghé thăm cuối cùng&quot;,</p><p> Ngoài ra còn có Hộp tìm kiếm nơi bạn có thể tìm kiếm một người dùng cụ thể.</p><p> Để xem danh sách thành viên, hãy nhấp vào &#39;Thành viên&#39; trên Header chính ở đầu trang (Nếu bạn không thấy liên kết thì bạn không có quyền truy cập vào trang đó).</p>"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Danh sách thành viên hiển thị các thành viên đã đăng ký cùng với số bài viết, ngày tham gia và lần truy cập cuối. Bạn có thể:</p>\r\n<ul>\r\n<li>sắp xếp theo tên, cấp bậc, ngày tham gia, số bài viết hoặc lần truy cập cuối,</li>\r\n<li>hiển thị các thành viên theo chữ cái đầu,</li>\r\n<li>lọc bằng <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> theo tên, vai trò, cấp bậc hoặc số bài viết.</li>\r\n</ul>\r\n<p>Nhấp vào một thành viên để mở hồ sơ. Tùy theo diễn đàn, danh sách chỉ được hiển thị cho thành viên.</p>\r\n<h3 class=\"h6 mt-3\">Người dùng đang hoạt động</h3>\r\n<p>Thống kê trên trang chủ cho biết ai đang trực tuyến. Danh sách người dùng đang hoạt động hiển thị các thành viên và khách đang trực tuyến và vị trí của họ trong diễn đàn. Thành viên có thể ẩn mình khỏi danh sách này trong <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, nếu diễn đàn cho phép.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Trang đội ngũ liệt kê các quản trị viên và người điều hành của diễn đàn cùng với các diễn đàn mà họ điều hành. Hãy liên hệ với họ nếu bạn cần giúp đỡ.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Danh sách thành viên"
+            "#text": "Thành viên, người dùng đang hoạt động và đội ngũ"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Nhắc đến một thành viên</h3>\r\n<p>Gõ <code>@</code> theo sau là vài chữ cái đầu của một tên trong trình soạn thảo và chọn thành viên từ danh sách. Tên sẽ trở thành liên kết đến hồ sơ, và thành viên đó được thông báo rằng bạn đã nhắc đến họ (nếu họ sử dụng thông báo, xem <a href=\"[[help:popups]]\">Thông báo</a>).</p>\r\n<h3 class=\"h6 mt-3\">Thẻ chủ đề</h3>\r\n<p>Thẻ là các từ khóa của một chủ đề, ví dụ sản phẩm hoặc vấn đề mà câu hỏi đề cập. Hãy thêm chúng vào <strong>[[POSTTOPIC.TAGS]]</strong> khi bạn tạo chủ đề. Các thẻ được hiển thị cùng chủ đề, nhấp vào một thẻ sẽ liệt kê tất cả chủ đề có thẻ đó. Tìm kiếm cũng có thể tìm theo thẻ, xem <a href=\"[[help:searching]]\">Tìm kiếm</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Nhắc đến và thẻ"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Tin nhắn và thông báo"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p>Các thành viên đã đăng ký có thể gửi tin nhắn cho các thành viên khác của diễn đàn này bằng cách sử dụng hệ thống nhắn tin riêng tư (Nếu được Quản trị viên cho phép).</p><p> Khi bạn nhận được Tin nhắn riêng tư, bạn sẽ được thông báo trong Tiêu đề diễn đàn, về số lượng tin nhắn bạn chưa đọc, đồng thời một Thông báo sẽ bật lên. Bạn cũng có thể kích hoạt Thông báo qua E-mail</p><p> <strong>Làm cách nào để gửi Tin nhắn Riêng tư?</strong></p><p> Tin nhắn cá nhân tương tự như email, nhưng được giới hạn cho các thành viên đã đăng ký của diễn đàn này. Bạn có thể bao gồm mã BB, mặt cười và hình ảnh trong tin nhắn riêng tư mà bạn gửi.<br /> Bạn có thể gửi tin nhắn Riêng tư cho người dùng bằng cách nhấp vào nút “PM” trên Hồ sơ người dùng của người dùng hoặc bạn nhấp vào liên kết “Tin nhắn mới” trong Bảng điều khiển người dùng của bạn. Tin nhắn bạn gửi sẽ được lưu trữ trong thư mục “Các mục đã gửi” sau khi bạn gửi.</p><p> <strong>Thư mục tin nhắn cá nhân</strong></p><p> Cũng giống như một Chương trình Email, bạn có 3 Thư mục Hộp thư đến, Các mục Đã gửi và Thư mục Lưu trữ ...</p><ul><li> Thư mục “Hộp thư đến” chứa bất kỳ thư mới nào bạn nhận được. Nó cho phép bạn xem tất cả các tin nhắn bạn đã nhận được, cùng với tên của người đã gửi nó, chủ đề của tin nhắn và ngày và giờ nó được gửi.</li><li> “Các mục đã gửi” là bản sao của tất cả các Tin nhắn riêng tư mà bạn đã gửi.</li><li> Thư mục &quot;Lưu trữ&quot; chỉ chứa các thư bạn đã chuyển đến thư mục đó.</li></ul><p> Từ Mỗi thư mục, bạn có Tùy chọn những gì bạn muốn thực hiện với các thư trong thư mục, bạn có thể chỉ cần đánh dấu một thư và…<br /></p><ul><li> Lưu trữ Đã chọn / Lưu trữ Tất cả - Di chuyển (các) Thư vào thư mục lưu trữ</li><li> Xuất đã chọn / Xuất tất cả - Xuất (các) tin nhắn dưới dạng tệp (Bạn có thể chọn định dạng xuất bên dưới –XML- / CSV- / Text-File)</li><li> Xóa đã chọn / Xóa tất cả - Xóa (các) tin nhắn</li></ul><p> Tùy thuộc vào số lượng Tin nhắn bạn được phép có, bạn nên xóa một số trong số chúng theo thời gian (Bạn có thể xuất chúng trước khi xóa để giữ chúng trên máy tính cục bộ của mình). Nếu không, khi Hộp thư của bạn đầy, bạn sẽ không thể nhận được thư mới. Ở Phần dưới cùng, bạn sẽ được thông báo bạn có bao nhiêu Tin nhắn và bạn có thể có bao nhiêu Tin nhắn mà Maximal có.</p>"
+            "#text": "<p>Tin nhắn riêng là các cuộc trò chuyện giữa bạn và một thành viên khác, không ai khác có thể đọc được. Mở <strong>[[TOOLBAR.INBOX]]</strong> trong menu người dùng: bên trái bạn thấy <strong>[[PM.CONVERSATION_TITLE]]</strong>, bên phải là các tin nhắn của cuộc trò chuyện đã chọn.</p>\r\n<h3 class=\"h6 mt-3\">Bắt đầu cuộc trò chuyện</h3>\r\n<ul>\r\n<li>Nhấp vào <strong>[[PM.NEW_CONVERSATION]]</strong>, gõ ít nhất ba chữ cái của tên và chọn thành viên.</li>\r\n<li>Hoặc nhấp vào <strong>[[POSTS.PM]]</strong> trong hồ sơ của thành viên hoặc trong menu người dùng của một bài viết.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Viết tin nhắn</h3>\r\n<p>Gõ tin nhắn và nhấn Enter để gửi, Shift+Enter để xuống dòng. Bạn có thể dùng mã BB, ví dụ để in đậm hoặc chèn liên kết. Nếu thành viên kia đang mở cuộc trò chuyện cùng lúc, tin nhắn sẽ xuất hiện ngay lập tức ở cả hai phía, và cuộc trò chuyện cho biết thành viên đó có đang trực tuyến hay không.</p>\r\n<p>Tin nhắn mới được đếm bên cạnh tên của bạn và <strong>[[TOOLBAR.INBOX]]</strong>, và khi bạn mở một trang của diễn đàn, một hộp thoại sẽ hỏi bạn có muốn đọc chúng không. Không có thông báo qua email cho tin nhắn riêng.</p>\r\n<h3 class=\"h6 mt-3\">Xóa</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> xóa cuộc trò chuyện khỏi danh sách của bạn, thành viên kia vẫn giữ cuộc trò chuyện.</p>\r\n<p class=\"text-body-secondary small\">Bạn không thể nhắn tin cho những thành viên chặn tin nhắn riêng hoặc bỏ qua bạn (trừ khi bạn là bạn bè của họ), xem <a href=\"[[help:blocking]]\">Bỏ qua và chặn người dùng</a>. Quản trị viên có thể tắt tin nhắn riêng.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Tin nhắn riêng tư (Messenger)"
+            "#text": "Tin nhắn riêng"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Người điều hành thấy <strong>[[TOOLBAR.MODERATE]]</strong> ở phần đầu trang. Trang này liệt kê các diễn đàn bạn điều hành cùng với số <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> và <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>Trong các diễn đàn có kiểm duyệt (và với những thành viên có bài viết phải được kiểm tra), bài viết mới chỉ được hiển thị sau khi người điều hành phê duyệt. Hãy kiểm tra bài viết và nhấp vào <strong>[[MODERATE_FORUM.APPROVE]]</strong> hoặc xóa nó.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Danh sách hiển thị các bài viết bị báo cáo kèm lý do và người báo cáo. Hãy đọc bài viết (và lịch sử của nó, nếu đã được sửa), xử lý nếu cần (sửa hoặc xóa bài viết, trao đổi với tác giả) và nhấp vào <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Quản lý chủ đề</h3>\r\n<ul>\r\n<li>Trong một chủ đề, <strong>[[POSTS.MANAGE_TOPIC]]</strong> cung cấp <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> và <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Một chủ đề đã di chuyển có thể để lại liên kết trong diễn đàn cũ trong vài ngày.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> liệt kê tất cả chủ đề của một diễn đàn: chọn nhiều chủ đề và khóa, di chuyển hoặc xóa chúng cùng lúc.</li>\r\n<li>Chủ đề ghim và chủ đề thông báo được thiết lập bằng <strong>[[POSTMESSAGE.PRIORITY]]</strong> khi bạn sửa bài viết đầu tiên, chủ đề lâu dài (không bị xóa bởi tính năng dọn dẹp tự động) bằng <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Quản lý bài viết</h3>\r\n<ul>\r\n<li>Bạn có thể sửa và xóa bài viết của các thành viên khác. Khi bạn xóa một bài viết, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> cũng xóa các câu trả lời cho bài viết đó.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> trong menu của một bài viết di chuyển bài viết sang chủ đề khác hoặc tách nó thành một chủ đề mới (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>Trong <a href=\"[[help:history]]\">lịch sử bài viết</a>, bạn có thể khôi phục một phiên bản trước của bài viết.</li>\r\n<li>Bạn có thể trả lời và sửa bài trong các chủ đề bị khóa, và bài viết của bạn không bị kiểm tra thư rác.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Tùy theo cài đặt, người điều hành cũng thấy địa chỉ IP của các bài viết. Việc chỉnh sửa, tạm ngưng và cấm thành viên do quản trị viên thực hiện.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Hướng dẫn cho người điều hành"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Người điều hành và quản trị viên"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Người điều hành giám sát các diễn đàn cụ thể. Họ thường có khả năng chỉnh sửa và xóa bài đăng, di chuyển chủ đề và thực hiện các hành động khác. Trở thành người kiểm duyệt cho một diễn đàn cụ thể thường được thưởng cho những người dùng đặc biệt hữu ích và hiểu biết về chủ đề của diễn đàn mà họ đang kiểm duyệt.</p><p> Quản trị viên là người có quyền kiểm soát tổng thể mọi thứ diễn ra trên hội đồng quản trị. Họ giám sát cách thức phong cách của hội đồng quản trị, những diễn đàn nào để tạo ra và cách tổ chức chúng, những thông tin cần thiết từ các thành viên và những người được chỉ định làm người kiểm duyệt.</p>"
+            "#text": "<p><strong>Quản trị viên</strong> vận hành diễn đàn: họ tạo các diễn đàn, quyết định ai được làm gì, thiết lập các tính năng và quản lý thành viên.</p>\r\n<p><strong>Người điều hành</strong> phụ trách một hoặc nhiều diễn đàn: họ giữ cho các cuộc thảo luận đúng chủ đề và thân thiện, kiểm tra các bài viết bị báo cáo, phê duyệt bài viết trong các diễn đàn có kiểm duyệt, và sửa, di chuyển, khóa hoặc xóa chủ đề và bài viết khi cần. Người điều hành của một diễn đàn được hiển thị phía trên danh sách chủ đề của diễn đàn đó (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Trang <strong>[[TOOLBAR.TEAM]]</strong> liệt kê tất cả quản trị viên và người điều hành (nếu diễn đàn hiển thị trang này). Nếu bạn gặp vấn đề với một bài viết, hãy <a href=\"[[help:report]]\">báo cáo bài viết đó</a>. Với các câu hỏi khác, hãy liên hệ với người điều hành hoặc quản trị viên qua tin nhắn riêng.</p>\r\n<p>Cách người điều hành làm việc được giải thích trong <a href=\"[[help:moderating]]\">Hướng dẫn cho người điều hành</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "Người điều hành và Quản trị viên"
+            "#text": "Người điều hành và quản trị viên"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Nếu Quản trị viên đã bật Tính năng Album và bạn là thành viên có quyền truy cập để thêm Album, bạn có thể tạo Album gồm các hình ảnh được liên kết với hồ sơ công khai của bạn. Album có thể được tạo bằng cách truy cập <strong>Bảng điều khiển người dùng</strong> và nhấp vào liên kết &#39;Chỉnh sửa Album&#39;, sau đó nhấp vào &#39;Thêm Album mới&#39;. Số lượng Album và bao nhiêu Hình ảnh phụ thuộc vào những gì Quản trị viên đã thiết lập cho Nhóm người dùng của bạn mà bạn đang ở trong đó.</p><p> Mỗi album có thể có một tiêu đề và bạn có thể đặt Bìa cho nó (Hình ảnh từ Album) hoặc sử dụng ngẫu nhiên, bạn cũng có thể thêm chú thích cho mọi Hình ảnh.</p><p> <strong>Làm cách nào để tải ảnh lên?</strong></p><p> Nếu bạn đang ở trên Trang Thêm / Chỉnh sửa Album, bạn chọn một Hình ảnh trên Máy tính của mình và Nhấp vào Tải lên để thêm nó vào Album.</p><p> Bạn sẽ có tùy chọn đặt chú thích cho mỗi ảnh và đặt một ảnh làm bìa Album, ảnh này sẽ được hiển thị trên hồ sơ công khai. Để xóa anbom hoặc chỉnh sửa tiêu đề, thêm (các) hình ảnh hoặc xóa (các) hình ảnh, hãy nhấp vào &#39;Chỉnh sửa&#39;. Để chỉnh sửa hoặc thêm chú thích của hình ảnh, hãy nhấp vào văn bản bên dưới hình ảnh. Nếu bạn muốn Đặt Nắp hoặc Tháo Nắp Bấm vào Nút bên dưới Nắp.</p>"
+            "#text": "<p>Nếu diễn đàn sử dụng album, bạn có thể trưng bày hình ảnh của mình trong các album ở hồ sơ và dùng chúng trong bài viết.</p>\r\n<ol>\r\n<li>Mở <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> trong menu của các trang tài khoản (hoặc <strong>[[TOOLBAR.MYALBUMS]]</strong> trong menu người dùng) và nhấp vào <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Nhập tiêu đề và tải lên những hình ảnh đầu tiên (có thể tải nhiều ảnh cùng lúc).</li>\r\n</ol>\r\n<p>Với <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong>, bạn thêm hoặc xóa hình ảnh và xóa album. Trong album, bạn có thể đặt chú thích cho hình ảnh và chọn ảnh bìa bằng <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Để hiển thị một hình ảnh trong album trong bài viết, hãy nhấp vào <strong>[[ALBUM.COPY_BBCODE]]</strong> bên dưới hình ảnh và dán mã vào trình soạn thảo.</p>\r\n<p class=\"text-body-secondary small\">Số lượng album và hình ảnh cũng như kích thước hình ảnh bị giới hạn, các giới hạn phụ thuộc vào nhóm hoặc cấp bậc của bạn và được hiển thị trên các trang.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "Tập ảnh"
+            "#text": "Album"
+          },
+          {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Tất cả tệp bạn đã tải lên được liệt kê trong <strong>[[ATTACHMENTS.TITLE]]</strong> ở menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Với mỗi tệp, bạn thấy tệp được dùng trong bao nhiêu bài viết, hoặc chưa được dùng.</p>\r\n<p>Chọn các tệp và xóa chúng để giải phóng dung lượng, ví dụ các tệp bạn đã tải lên nhưng không dùng. Tệp đã bị xóa sẽ không còn được hiển thị trong các bài viết sử dụng nó.</p>\r\n<p>Cách thêm tệp vào bài viết được giải thích trong <a href=\"[[help:attachments]]\">Tệp đính kèm và hình ảnh</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Tệp đính kèm của tôi"
           },
           {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Hình đại diện là gì?</strong></p><p> Ảnh đại diện là những hình ảnh nhỏ mà mọi người sử dụng để xác định hoặc phân biệt mình với các thành viên diễn đàn khác. Những Ảnh đại diện này sẽ được hiển thị như một phần của thông tin người dùng trong các bài đăng, cũng như trong hồ sơ công khai.</p><p> Bạn có thể sửa đổi Hình đại diện của mình bằng cách nhấp vào &#39;Sửa đổi Hình đại diện&#39; trong khu vực &#39;Hồ sơ cá nhân&#39; của thanh điều hướng trong <strong>Bảng điều khiển người dùng</strong> .</p><p> Có ba cách để thêm Hình đại diện (Có thể ít hơn nếu Quản trị viên hủy kích hoạt) ...</p><ul><li> Nếu có trong diễn đàn, bạn có thể chọn từ một bộ sưu tập Hình đại diện hiện có</li><li> Nhập URL hiện có vào Hình ảnh trên Máy chủ Từ xa</li><li> Chọn một hình ảnh từ máy tính của bạn và tải lên</li></ul><p> <em>Lưu ý rằng Quản trị viên có thể đặt các loại Tệp Hình ảnh Được phép, Kích thước Hình ảnh và Kích thước Hình ảnh (Chiều rộng và Chiều cao Tối đa của Hình ảnh).</em></p><p> <strong>Chữ ký là gì?</strong></p><p> &#39;Chữ ký&#39; chứa thông tin mà bạn muốn đưa vào cuối bài đăng của mình. Điều này có thể bao gồm hình ảnh, liên kết đến (các) trang web của bạn, trích dẫn, v.v.</p><p> Để sửa đổi chữ ký, hãy nhấp vào &#39;Chữ ký&#39; trong khu vực &#39;Hồ sơ cá nhân&#39; của thanh điều hướng trong CP người dùng. Trên Trang này, bạn sẽ được Thông báo về Mã BB nào và Thẻ HTML nào bạn có thể sử dụng, và Chữ ký có thể tồn tại trong bao lâu.</p>"
+            "#text": "<h3 class=\"h6\">Ảnh đại diện</h3>\r\n<p>Ảnh đại diện là một hình ảnh nhỏ được hiển thị bên cạnh tên của bạn trong các bài viết và hồ sơ của bạn. Mở <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Tùy theo diễn đàn, bạn có thể:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - chọn một trong các ảnh đại diện của diễn đàn.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - tải lên hình ảnh của riêng bạn (png, jpg, gif, webp, bmp hoặc svg). Hình ảnh lớn sẽ tự động được thu nhỏ, trang hiển thị kích thước cho phép.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> gỡ bỏ ảnh đại diện của bạn. Khi không có ảnh đại diện, diễn đàn hiển thị một hình ảnh mặc định.</p>\r\n<h3 class=\"h6 mt-3\">Chữ ký</h3>\r\n<p>Chữ ký là một đoạn văn bản ngắn được hiển thị bên dưới mỗi bài viết của bạn, ví dụ một câu châm ngôn hoặc liên kết đến trang web của bạn. Mở <strong>[[ACCOUNT.SIGNATURE]]</strong> trong menu người dùng. Trang này hiển thị độ dài tối đa và các mã BB bạn được dùng trong chữ ký, không cho phép HTML. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> cho thấy chữ ký sẽ trông như thế nào.</p>\r\n<p class=\"text-body-secondary small\">Quản trị viên quyết định có sử dụng ảnh đại diện và chữ ký hay không, và các giới hạn có thể phụ thuộc vào nhóm hoặc cấp bậc của bạn.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Chữ ký, Hình đại diện"
+            "#text": "Ảnh đại diện và chữ ký"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p><strong>Bảng điều khiển người dùng</strong> là nơi bạn kiểm soát các cài đặt, tùy chọn và sở thích cá nhân của mình.</p><p> Trang chính của <strong>Control Panel</strong> sẽ hiển thị Tóm tắt Tài khoản của bạn bao gồm Tên người dùng, Địa chỉ Email và Số lượng bài đăng, Thành viên của Nhóm bạn đang tham gia và kể từ khi bạn là thành viên.</p><p> Ở phía bên trái, bạn sẽ tìm thấy các Liên kết đến tất cả các Trang con và Biểu mẫu cho phép bạn kiểm soát ..</p><p> <strong>Tin nhắn</strong></p><ul><li> Hộp thư đến</li><li> Các mục đã gửi</li><li> Lưu trữ</li><li> Tin nhắn mới</li></ul><p> <strong>Thông tin cá nhân</strong></p><ul><li> Xem lí lịch</li><li> Chỉnh sửa hồ sơ</li><li> Xem Cảm ơn<br /></li><li> Chỉnh sửa Anbom</li><li> Sửa đổi hình đại diện</li><li> Chữ ký</li><li> Tùy chọn thông báo qua email</li><li> Đổi mật khẩu</li></ul>"
+            "#text": "<p>Nhấp vào tên của bạn ở góc trên bên phải để mở menu người dùng:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - tổng quan về tài khoản và hoạt động của bạn.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - tất cả cài đặt của tài khoản (xem bên dưới).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - tin nhắn riêng của bạn, xem <a href=\"[[help:messenger]]\">Tin nhắn riêng</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - xem <a href=\"[[help:buddies]]\">Bạn bè</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - xem <a href=\"[[help:myalbums]]\">Album</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - xem <a href=\"[[help:newposts]]\">Xem bài viết mới</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Các con số bên cạnh tên của bạn, <strong>[[TOOLBAR.INBOX]]</strong> và <strong>[[TOOLBAR.BUDDIES]]</strong> đếm số tin nhắn chưa đọc và lời mời kết bạn đang chờ.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Trang này hiển thị tên người dùng, địa chỉ email, số bài viết và ngày bạn tham gia, cùng với <strong>[[ACCOUNT.ACTIVITY]]</strong>: các chủ đề và câu trả lời của bạn, cảm xúc và tình bạn, với bộ lọc cho từng loại. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> hiển thị hồ sơ của bạn như các thành viên khác nhìn thấy.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Các cài đặt cũng được liệt kê ở bên trái của tất cả các trang tài khoản:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - thông tin về bạn.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - địa chỉ email, múi giờ, ngôn ngữ, xác thực hai yếu tố.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - các tệp bạn đã tải lên.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> và <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - thông báo qua email và thông báo đẩy, các chủ đề và diễn đàn đang theo dõi.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - nhập mật khẩu hiện tại và mật khẩu mới hai lần.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Một số mục chỉ được hiển thị nếu diễn đàn sử dụng tính năng đó (ví dụ ảnh đại diện, chữ ký hoặc album).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Cài đặt của tôi (Bảng điều khiển người dùng)"
+            "#text": "Tài khoản của tôi"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "dẫn đường"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Phần đầu trang ở trên cùng mỗi trang chứa menu chính: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> và <strong>[[TOOLBAR.HELP]]</strong> (tùy theo diễn đàn, không phải tất cả đều được hiển thị). Khách thấy <strong>[[TOOLBAR.LOGIN]]</strong> và <strong>[[TOOLBAR.REGISTER]]</strong> ở bên phải. Thành viên thấy chuông thông báo và menu người dùng có tên và ảnh đại diện của mình, xem <a href=\"[[help:mysettings]]\">Tài khoản của tôi</a>. Bên dưới phần đầu trang, đường dẫn của trang hiện tại (breadcrumb) đưa bạn quay lại diễn đàn hoặc chuyên mục.</p>\r\n<h3 class=\"h6 mt-3\">Danh sách chủ đề của một diễn đàn</h3>\r\n<p>Nhấp vào một diễn đàn để xem các chủ đề của nó. Các chủ đề ghim và thông báo được hiển thị trước. Khi bạn cuộn xuống, các chủ đề khác sẽ tự động được tải thêm. Thanh phía trên danh sách gồm có:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - chỉ hiển thị các chủ đề có bài viết trong khoảng thời gian đã chọn (ví dụ ngày gần nhất hoặc kể từ lần truy cập trước của bạn).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - tìm kiếm trong các chủ đề của diễn đàn này.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - chuyển đến một diễn đàn khác.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> và <strong>[[TOPICS.MARKREAD]]</strong> (dành cho thành viên).</li>\r\n</ul>\r\n<p>Các biểu tượng phía trước chủ đề cho biết bài viết mới, chủ đề phổ biến (“nóng”), chủ đề bị khóa và chủ đề đã được di chuyển. Phần chú giải bên dưới danh sách giải thích các biểu tượng này.</p>\r\n<h3 class=\"h6 mt-3\">Bên trong một chủ đề</h3>\r\n<p>Các bài viết được hiển thị theo trang, thanh phân trang nằm bên dưới các bài viết. Với <strong>[[POSTS.PREVTOPIC]]</strong> và <strong>[[POSTS.NEXTTOPIC]]</strong>, bạn chuyển đến các chủ đề lân cận trong diễn đàn. Liên kết đến một bài viết sẽ mở chủ đề tại bài viết đó.</p>\r\n<h3 class=\"h6 mt-3\">Bài viết mới và trạng thái đã đọc</h3>\r\n<p>Các diễn đàn và chủ đề có bài viết bạn chưa đọc sẽ được làm nổi bật. Thành viên có thể đánh dấu tất cả là đã đọc bằng <strong>[[DEFAULT.MARKALL]]</strong> trên trang chủ, hoặc một diễn đàn bằng <strong>[[TOPICS.MARKREAD]]</strong>. Nơi bạn tìm thấy tất cả bài viết mới cùng lúc được giải thích trong <a href=\"[[help:newposts]]\">Xem bài viết mới</a>.</p>\r\n<h3 class=\"h6 mt-3\">Cập nhật trực tiếp</h3>\r\n<p>Nếu diễn đàn sử dụng cập nhật trực tiếp, chủ đề và bài viết mới sẽ xuất hiện mà không cần tải lại trang. Trong một chủ đề, bạn sẽ thấy ghi chú <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, hãy nhấp vào đó để hiển thị câu trả lời mới.</p>\r\n<h3 class=\"h6 mt-3\">Thông tin người dùng</h3>\r\n<p>Di chuột qua tên người dùng để xem một thẻ ngắn với thông tin về thành viên, ví dụ nơi ở, trạng thái trực tuyến và ngày tham gia. Nhấp vào tên sẽ mở hồ sơ của thành viên.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Cách di chuyển trong diễn đàn"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Thành viên tìm thấy các bài viết mới của tất cả diễn đàn trong <strong>[[TOOLBAR.MYTOPICS]]</strong> ở menu người dùng. Trang này có bốn thẻ:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - các chủ đề có bài viết mới kể từ lần truy cập trước của bạn.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - các chủ đề chưa có câu trả lời.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - các chủ đề bạn đang theo dõi.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - các chủ đề bạn đã tạo.</li>\r\n</ul>\r\n<p>Với bộ lọc thời gian, bạn chọn khoảng thời gian, ví dụ giờ gần nhất, tuần gần nhất hoặc tất cả chủ đề. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> đánh dấu tất cả chủ đề là đã đọc.</p>\r\n<p>Mục <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> trên trang chủ hiển thị các bài viết mới nhất của tất cả diễn đàn, cả cho khách.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10955,83 +11500,103 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Bạn có thể liên hệ với người khác bằng cách gửi E-Mail, bạn tìm thấy họ trong danh sách thành viên.</p><p> Thao tác này thường sẽ mở ra một trang có chứa biểu mẫu mà bạn có thể nhập tin nhắn của mình. Khi bạn nhập xong tin nhắn của mình, hãy nhấn nút &#39;Gửi E-mail&#39; và tin nhắn của bạn sẽ được gửi ngay lập tức.</p><p> <strong>Tôi có thể xem địa chỉ e-mail không?</strong></p><p> Vì lý do bảo mật, địa chỉ e-mail của người nhận sẽ không được tiết lộ cho bạn trong quá trình này, hoặc tại bất kỳ vị trí nào khác trong diễn đàn.</p><p> <strong>Tại sao tôi không thể gửi e-mail cho ai đó?</strong></p><p> Nếu bạn không thể tìm thấy nút hoặc liên kết e-mail cho một thành viên, điều đó có nghĩa là quản trị viên đã tắt chức năng e-mail cho diễn đàn này hoặc thành viên đã nói rằng họ không muốn nhận e-mail từ các thành viên khác .</p><p> <strong>Nhắn tin riêng là gì?</strong></p><p> Các thành viên đã đăng ký cũng có thể gửi tin nhắn cho các thành viên khác của diễn đàn này bằng cách sử dụng hệ thống nhắn tin riêng tư.</p>"
+            "#text": "<p>Bạn có thể gửi email cho một thành viên thông qua diễn đàn: nhấp vào <strong>[[POSTS.EMAIL]]</strong> trong hồ sơ của thành viên (hoặc trên trang đội ngũ), nhập tiêu đề và nội dung tin nhắn, rồi nhấp vào <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Địa chỉ email của thành viên vẫn được ẩn với bạn.</li>\r\n<li>Email được gửi với tên người dùng và địa chỉ email <strong>của bạn</strong> làm người gửi, để thành viên có thể trả lời trực tiếp cho bạn.</li>\r\n<li>Để ngăn thư rác, bạn chỉ có thể gửi vài email mỗi giờ.</li>\r\n</ul>\r\n<p>Bạn không thể gửi email cho những thành viên chặn email hoặc bỏ qua bạn (trừ bạn bè), và chỉ có thể gửi nếu quản trị viên cho phép email giữa các thành viên. Trong hầu hết trường hợp, <a href=\"[[help:messenger]]\">tin nhắn riêng</a> là cách tốt hơn.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Liên hệ với các thành viên khác"
+            "#text": "Gửi email cho thành viên"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Thăm dò ý kiến là một Lựa chọn để bỏ phiếu về một vấn đề hoặc một câu hỏi.</em></p><p> <strong>Tạo một cuộc thăm dò mới?</strong></p><p> Khi bạn đăng một Chủ đề mới, bạn có tùy chọn &#39;Thêm cuộc thăm dò ý kiến?&#39; để tạo một cuộc thăm dò mới. Nếu bạn không thấy tùy chọn đó, bạn có thể không có quyền truy cập vào tùy chọn đó.</p><p> Bạn cũng có thể thêm các Cuộc thăm dò mới vào những cuộc thăm dò hiện có. Một Chủ đề có thể có bao nhiêu Cuộc thăm dò bạn muốn.</p><p> Điều này cho phép bạn đặt câu hỏi và chỉ định một số câu trả lời có thể có (Tối đa 10 hoặc Quản trị viên đã thiết lập một con số cao hơn) - <em>Quản trị viên có thể đính kèm Hình ảnh (Url từ xa) làm Câu trả lời</em> . Các thành viên khác sau đó sẽ có thể bỏ phiếu cho câu trả lời mà họ muốn và kết quả của cuộc bỏ phiếu sẽ được hiển thị trong chuỗi.</p><p> <em>Một cuộc thăm dò ví dụ có thể là:</em></p><p> <em>Màu sắc ưa thích của bạn là gì?</em></p><ul><li> <em>Màu xanh da trời</em></li><li> <em>Màu đỏ</em></li><li> <em>Màu vàng</em></li><li> <em>màu xanh lá</em></li></ul><p> Bạn cũng có thể muốn chỉ định giới hạn thời gian cho cuộc thăm dò ý kiến. Ví dụ: chạy cuộc thăm dò trong 10 Ngày hoặc bạn cũng có thể đặt nó thành không bao giờ hết hạn.</p><p> Bạn cũng có thể quyết định xem người dùng có thể xem kết quả mà không cần bỏ phiếu hay không hoặc nếu bạn bật Hộp kiểm &#39;Bạn nên bỏ phiếu trong tất cả các cuộc thăm dò để xem kết quả. <em>&#39;</em> bạn cần bỏ phiếu trước khi xem bất kỳ kết quả nào.</p><p> Tùy chọn &#39;Bỏ phiếu ràng buộc&#39; không hiển thị kết quả nếu cuộc thăm dò không hết hạn.</p><p> <strong>Nhóm các cuộc thăm dò</strong></p><p> Tất cả các Cuộc thăm dò được đính kèm với một Chủ đề sẽ được tự động kết hợp thành một Nhóm. Bạn có thể hiển thị Nhóm này với các Cuộc thăm dò trên bất kỳ Chủ đề nào khác mà bạn muốn.</p><p> <strong>Làm thế nào để bình chọn?</strong></p><p> Để bỏ phiếu trong một cuộc thăm dò, chỉ cần nhấp vào tùy chọn bạn muốn bỏ phiếu.</p><p> Nói chung, khi bạn đã bỏ phiếu trong một cuộc thăm dò, bạn sẽ không thể thay đổi phiếu bầu của mình sau đó, vì vậy hãy đặt phiếu bầu của bạn một cách cẩn thận!</p>"
+            "#text": "<p>Một cuộc bình chọn đặt cho người đọc của chủ đề một câu hỏi với nhiều lựa chọn.</p>\r\n<h3 class=\"h6 mt-3\">Tạo cuộc bình chọn</h3>\r\n<p>Bật <strong>[[POLLEDIT.POLLADD]]</strong> trong các tùy chọn khi bạn tạo chủ đề, trình chỉnh sửa bình chọn sẽ mở sau khi chủ đề được đăng. Với một chủ đề đã có, người tạo chủ đề và người điều hành sẽ thấy <strong>[[POLLEDIT.CREATEPOLL]]</strong> phía trên các bài viết. Mỗi chủ đề có một cuộc bình chọn.</p>\r\n<ul>\r\n<li>Nhập câu hỏi và ít nhất hai lựa chọn, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> thêm lựa chọn khác (tối đa theo giới hạn do quản trị viên đặt).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - số ngày cuộc bình chọn được mở, để trống nếu bình chọn không có thời hạn.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - người bình chọn có thể chọn nhiều hơn một câu trả lời.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - tên của người bình chọn được hiển thị cùng kết quả.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - kết quả chỉ được hiển thị sau khi cuộc bình chọn kết thúc.</li>\r\n<li>Nếu diễn đàn cho phép, câu hỏi và các lựa chọn có thể có hình ảnh (địa chỉ của một hình ảnh).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Bình chọn</h3>\r\n<p>Nhấp vào nút của lựa chọn bạn muốn. Bạn không thể thay đổi phiếu bầu của mình, vì vậy hãy chọn cẩn thận. Khách không thể bình chọn và không thấy kết quả.</p>\r\n<h3 class=\"h6 mt-3\">Thay đổi cuộc bình chọn</h3>\r\n<p>Người tạo có thể thay đổi cuộc bình chọn bằng <strong>[[POLLEDIT.EDITPOLL]]</strong> khi chưa có ai bình chọn (trừ khi diễn đàn cho phép thay đổi sau đó) và xóa nó bằng <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Người điều hành luôn có thể thay đổi và xóa các cuộc bình chọn.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Tạo và tham gia vào các cuộc thăm dò"
+            "#text": "Bình chọn"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Khi bạn đã đăng nhập và tải Trang, bạn có thể nhận được Thông báo bật lên ở giữa Cửa sổ trình duyệt của bạn.</p><p> Điều này sẽ thông báo cho bạn về một số hành động ...</p><ul><li> (Các) Tin nhắn Cá nhân Mới</li><li> Yêu cầu kết bạn mới</li><li> Yêu cầu kết bạn được chấp thuận</li><li> Yêu cầu kết bạn bị từ chối<br /></li></ul><p> <em>Bạn cũng có thể nhận được một vài Thông tin và Thông báo Lỗi theo cách tương tự.</em></p>"
+            "#text": "<p>Chuông ở phần đầu trang hiển thị các thông báo của bạn, con số màu đỏ đếm số thông báo chưa đọc. Bạn được thông báo khi:</p>\r\n<ul>\r\n<li>ai đó nhắc đến bạn (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) hoặc trích dẫn bạn (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>ai đó bày tỏ cảm xúc với một bài viết của bạn,</li>\r\n<li>có câu trả lời mới trong một chủ đề bạn theo dõi hoặc chủ đề mới trong một diễn đàn bạn theo dõi,</li>\r\n<li>bạn có một người bạn mới.</li>\r\n</ul>\r\n<p>Nhấp vào một thông báo để mở bài viết. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> mở danh sách tất cả thông báo, với bộ lọc theo loại và <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Thông báo là một phần của luồng hoạt động: bạn có thể tắt chúng trong <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Các thông báo khác</h3>\r\n<ul>\r\n<li>Tin nhắn riêng mới và lời mời kết bạn được đếm bên cạnh tên của bạn. Khi bạn mở một trang, một hộp thoại sẽ hỏi bạn có muốn đọc chúng không.</li>\r\n<li>Các thông điệp của diễn đàn (ví dụ “đã lưu”) xuất hiện trong vài giây ở đầu trang.</li>\r\n<li>Thông báo cũng có thể được gửi qua email và đến trình duyệt hoặc điện thoại của bạn, xem <a href=\"[[help:mailsettings]]\">Tùy chọn thông báo</a> và <a href=\"[[help:push]]\">Thông báo đẩy và ứng dụng</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Thông báo PopUp"
+            "#text": "Thông báo"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Mở diễn đàn mà chủ đề thuộc về và nhấp vào <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Nếu bạn không thấy nút này, bạn không được phép tạo chủ đề trong diễn đàn này (hoặc bạn chưa đăng nhập).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - tiêu đề của chủ đề, bắt buộc phải có. Trong khi bạn gõ, diễn đàn hiển thị <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, có thể câu hỏi của bạn đã được trả lời.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - một mô tả ngắn không bắt buộc.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - từ khóa không bắt buộc, các thành viên khác có thể tìm chủ đề theo thẻ.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - chỉ dành cho thành viên có quyền này, xem <a href=\"[[help:anounce]]\">Chủ đề thông báo và chủ đề ghim</a>.</li>\r\n<li>Nội dung bài viết, trong trình soạn thảo.</li>\r\n</ul>\r\n<p>Trong <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong>, bạn có thể thêm một cuộc bình chọn (<strong>[[POLLEDIT.POLLADD]]</strong>, xem <a href=\"[[help:polls]]\">Bình chọn</a>) và theo dõi chủ đề (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Nhấp vào <strong>[[POSTMESSAGE.PREVIEW]]</strong> để kiểm tra bài viết, và <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> để đăng bài.</p>\r\n<h3 class=\"h6 mt-3\">Trình soạn thảo</h3>\r\n<p>Tùy theo diễn đàn, trình soạn thảo hiển thị định dạng trong khi bạn gõ, hoặc hiển thị mã BB (các thẻ ngắn như <code>[b]đậm[/b]</code>). Các nút trên thanh công cụ dùng để định dạng văn bản: chọn văn bản và nhấp vào nút, ví dụ để in đậm, chèn liên kết, trích dẫn hoặc danh sách. Tất cả mã BB và kết quả của chúng được liệt kê trong <a href=\"[[help:bbcodes]]\">Mã BB</a>.</p>\r\n<ul>\r\n<li>Gõ <code>@</code> và một tên để nhắc đến một thành viên, xem <a href=\"[[help:mentions]]\">Nhắc đến và thẻ</a>.</li>\r\n<li>Tệp và hình ảnh được thêm bằng nút đính kèm, xem <a href=\"[[help:attachments]]\">Tệp đính kèm và hình ảnh</a>.</li>\r\n<li>Trong trình soạn thảo mã BB, Ctrl+B, Ctrl+I và Ctrl+U định dạng văn bản đã chọn, Ctrl+Enter gửi bài viết.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Điều nên biết</h3>\r\n<ul>\r\n<li>Khách (nếu được phép viết bài) nhập tên vào <strong>[[POSTMESSAGE.FROM]]</strong>, tên này không được trùng với tên của một thành viên.</li>\r\n<li>Để ngăn thư rác, bạn phải chờ vài giây giữa hai bài viết, và một bài viết có độ dài tối đa.</li>\r\n<li>Ở một số diễn đàn, bài viết được người điều hành kiểm tra trước. Bài viết của bạn sẽ được hiển thị sau khi được phê duyệt.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Đăng các chủ đề và bài đăng mới"
+            "#text": "Tạo chủ đề mới"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Tính năng cài đặt và cấu hình"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Khi sử dụng diễn đàn, bạn đồng ý với nội quy của diễn đàn. Trang <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> chứa nội quy và chính sách quyền riêng tư: diễn đàn lưu trữ những dữ liệu cá nhân nào, cho mục đích gì, và các quyền của bạn (ví dụ quyền được biết thông tin về dữ liệu của mình hoặc yêu cầu xóa dữ liệu).</p>\r\n<p>Trang <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> liệt kê các cookie của diễn đàn, chúng được dùng để làm gì và được lưu giữ bao lâu. Khi bạn truy cập diễn đàn lần đầu, một thông báo sẽ cho bạn biết về cookie.</p>\r\n<p>Hồ sơ của bạn chỉ hiển thị những thông tin bạn nhập, địa chỉ email của bạn không bao giờ được hiển thị cho các thành viên khác. Bạn có thể ẩn mình khỏi danh sách người dùng đang hoạt động (nếu diễn đàn cho phép), chặn tin nhắn riêng và email, và xóa tài khoản của mình, xem <a href=\"[[help:blocking]]\">Bỏ qua và chặn người dùng</a> và <a href=\"[[help:deleteaccount]]\">Tạm ngưng hoặc xóa tài khoản</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Quyền riêng tư, cookie và nội quy"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Là thành viên, bạn có một trang hồ sơ có thể xem công khai. Trang này bao gồm thông tin do thành viên cung cấp, trong quá trình đăng ký hoặc sau đó thông qua Bảng điều khiển người dùng.</p><p> <em>Có nhiều cách để xem hồ sơ thành viên ...</em></p><ul><li> Khi bạn thấy tên người dùng, hãy nhấp vào tên đó và bạn sẽ thấy menu thả xuống có chứa Liên kết &#39;Hồ sơ người dùng&#39; để xem Hồ sơ ..</li><li> Danh sách thành viên cho phép bạn duyệt qua tất cả các thành viên đã đăng ký và nhanh chóng nhấp qua hồ sơ công khai.</li><li> Khi đăng nhập, bạn cũng có thể xem hồ sơ công khai của riêng mình bằng cách đăng nhập vào diễn đàn và nhấp vào Liên kết &#39;Hồ sơ của tôi&#39; trong tiêu đề ở đầu trang, để mở Bảng điều khiển người dùng.</li></ul><p> <strong>Thông tin nào được hiển thị trên Trang đó?</strong></p><p> Trang Hồ sơ Công cộng được nhóm thành 5 Tab.</p><ul><li> <strong>Giới thiệu</strong> - Hiển thị tất cả Thông tin mà người dùng đã cung cấp trên Trang Tiểu sử của mình như Tên thật, giới tính, Trạng thái nếu Người dùng Trực tuyến / Ngoại tuyến, Xếp hạng Diễn đàn, v.v.</li><li> <strong>Thống kê</strong> - Hiển thị thông tin thống kê như Ngày tham gia, Lượt truy cập cuối cùng, Số lần cảm ơn, Số lần người dùng này được cảm ơn và Số bài đăng mà người dùng này đã được cảm ơn.</li><li> <strong>10 bài đăng cuối cùng</strong> - Hiển thị nếu có 10 bài viết cuối cùng mà người dùng đã viết</li><li> <strong>Bạn bè -</strong> Hiển thị những người bạn mà Người dùng có trong Diễn đàn.</li><li> <strong>Album -</strong> Hiển thị các Album (nếu được bật) mà Người dùng đã tạo.</li></ul><p> Thông tin cá nhân như Địa chỉ E-Mail hoặc Mật khẩu <strong>KHÔNG</strong> được hiển thị.</p>"
+            "#text": "<p>Nhấp vào tên của một thành viên (ví dụ trong một bài viết hoặc trong danh sách thành viên) để mở hồ sơ. Tùy theo diễn đàn, hồ sơ chỉ được hiển thị cho thành viên. Hồ sơ của chính bạn được mở bằng <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> trên <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Hồ sơ hiển thị:</p>\r\n<ul>\r\n<li>ảnh đại diện, tên, cấp bậc và huy chương của thành viên, cùng thông tin trong hồ sơ (ví dụ nơi ở, ngày sinh, nghề nghiệp và sở thích),</li>\r\n<li>số bài viết và số cảm xúc đã gửi và đã nhận,</li>\r\n<li>uy tín (nếu diễn đàn sử dụng),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>, kèm <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>bạn bè và album của thành viên.</li>\r\n</ul>\r\n<p>Các nút của hồ sơ cho phép bạn <strong>[[BUDDY.ADDBUDDY]]</strong>, gửi tin nhắn riêng (<strong>[[POSTS.PM]]</strong>) hoặc email (<strong>[[POSTS.EMAIL]]</strong>), và mở trang web hoặc blog của thành viên. Địa chỉ email của thành viên không bao giờ được hiển thị.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Hồ sơ công khai của tôi"
+            "#text": "Hồ sơ"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Đọc và Đăng tin nhắn"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Thông báo đẩy hiển thị các câu trả lời mới trong chủ đề đang theo dõi và các thông báo khác trên máy tính hoặc điện thoại của bạn, ngay cả khi diễn đàn không được mở.</p>\r\n<ol>\r\n<li>Mở <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> trong menu người dùng (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Trong <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong>, nhấp vào <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> và cho phép thông báo khi trình duyệt hỏi.</li>\r\n</ol>\r\n<p>Thông báo đẩy được thiết lập riêng cho từng thiết bị và trình duyệt. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> tắt chúng trên thiết bị này. Thông báo được gửi qua dịch vụ thông báo đẩy của trình duyệt (ví dụ của Google, Mozilla, Apple hoặc Microsoft) và được mã hóa.</p>\r\n<h3 class=\"h6 mt-3\">Cài đặt diễn đàn như một ứng dụng</h3>\r\n<p>Bạn có thể cài đặt diễn đàn như một ứng dụng, với biểu tượng riêng trên màn hình chính hoặc màn hình máy tính: nhấp vào <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> trên cùng trang, hoặc dùng chức năng cài đặt của trình duyệt. Trên iPhone và iPad, thông báo đẩy chỉ hoạt động trong ứng dụng đã cài đặt: chạm vào Chia sẻ, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, mở diễn đàn từ màn hình chính rồi bật thông báo.</p>\r\n<p class=\"text-body-secondary small\">Phần này chỉ được hiển thị nếu quản trị viên đã thiết lập thông báo đẩy.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Thông báo đẩy và ứng dụng"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Đọc"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Nếu bạn quên mật khẩu của mình, bạn có thể nhấp vào liên kết &quot; <a href=\"{0}\">Mất mật khẩu</a> &quot;. Điều này sẽ xuất hiện trên bất kỳ trang nào yêu cầu bạn điền mật khẩu của mình.</p><p> Liên kết này đưa ra một trang mà bạn nên nhập Tên người dùng của mình. Một email sẽ sớm được gửi đến địa chỉ đó kèm theo hướng dẫn đặt lại mật khẩu của bạn.</p><p> Vì mật khẩu được mã hóa nên không có cách nào để gửi lại mật khẩu ban đầu của bạn. Tùy chọn này cung cấp cho bạn khả năng đặt lại mật khẩu của mình.</p><p> Bạn phải có thể nhận được email đến địa chỉ email đã đăng ký của mình để điều này hoạt động. Bạn có thể cần phải kiểm tra bộ lọc thư rác và thư mục của mình nếu bạn không thấy email này sau vài phút.</p>"
+            "#text": "<p>Nếu bạn quên mật khẩu, bạn có thể đặt một mật khẩu mới:</p>\r\n<ol>\r\n<li>Nhấp vào <strong>[[LOGIN.LOSTPASSWORD]]</strong> bên cạnh ô mật khẩu của <a href=\"[[page:Account_Login]]\">trang đăng nhập</a> hoặc hộp thoại đăng nhập.</li>\r\n<li>Nhập tên người dùng hoặc địa chỉ email của bạn và nhấp vào <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Nếu có tài khoản với tên hoặc địa chỉ này, diễn đàn sẽ gửi cho bạn một email kèm liên kết. Để bảo vệ quyền riêng tư của bạn, trang luôn hiển thị cùng một thông báo trong mọi trường hợp.</li>\r\n<li>Liên kết mở một trang để bạn nhập địa chỉ email và mật khẩu mới hai lần.</li>\r\n</ol>\r\n<p>Liên kết chỉ có hiệu lực trong một thời gian giới hạn. Nếu bạn chưa xác nhận địa chỉ email, thay vào đó bạn sẽ nhận được một email xác nhận mới. Mỗi giờ diễn đàn chỉ gửi tối đa vài email loại này.</p>\r\n<p>Mật khẩu được lưu ở dạng không thể đọc ngược lại, vì vậy không ai (kể cả quản trị viên) có thể cho bạn biết mật khẩu cũ.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Khôi phục mật khẩu bị mất"
+            "#text": "Khôi phục mật khẩu đã quên"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Quản trị viên có thể sẽ yêu cầu bạn đăng ký để sử dụng tất cả các tính năng của diễn đàn. Việc được đăng ký mang lại cho bạn một danh tính trên diễn đàn, một tên người dùng cố định trên tất cả các tin nhắn bạn đăng và một hồ sơ công khai trực tuyến.</p><p> Đăng ký miễn phí (trừ khi có quy định khác) và cung cấp một loạt các tính năng, bao gồm:</p><ul><li> Đăng các chủ đề mới</li><li> Trả lời Chủ đề của những người khác</li><li> Chỉnh sửa tin nhắn của bạn</li><li> Nhận email thông báo về câu trả lời cho các tin nhắn và chủ đề bạn chỉ định</li><li> Gửi tin nhắn riêng tư cho các thành viên khác</li></ul><p> <strong>Làm cách nào để đăng ký?</strong></p><p> Bạn đăng ký bằng cách nhấp vào &#39;Đăng ký&#39; trong Header. Trước tiên, bạn phải đồng ý với các Quy tắc và Chính sách của Diễn đàn. Sau đó, Bạn sẽ được yêu cầu chọn tên người dùng, mật khẩu, Câu hỏi / Câu trả lời bảo mật và nhập địa chỉ email hợp lệ. Và nếu là Quản trị viên, bạn cần nhập mã Captcha đã hiển thị để tiếp tục. Trên Trang tiếp theo, bạn có thể tùy chọn Cung cấp một số Cài đặt Cấu hình cơ bản.</p>"
+            "#text": "<p>Nhiều tính năng của diễn đàn chỉ dành cho thành viên, ví dụ viết bài, tin nhắn riêng, bạn bè, theo dõi chủ đề và thông báo. Để trở thành thành viên, hãy nhấp vào <strong>[[TOOLBAR.REGISTER]]</strong> ở phần đầu trang (nếu quản trị viên cho phép đăng ký mới).</p>\r\n<ol>\r\n<li>Nếu diễn đàn yêu cầu, hãy đọc <strong>[[RULES.TITLE]]</strong> và nhấp vào <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Nhập tên người dùng, địa chỉ email của bạn và mật khẩu (hai lần). Tùy theo diễn đàn, bạn cũng nhập tên hiển thị và các thông tin khác mà quản trị viên yêu cầu.</li>\r\n<li>Nhấp vào <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Diễn đàn hiển thị <strong>[[REGISTER.CHECK_MAIL]]</strong> và gửi cho bạn một email. Nhấp vào liên kết trong email này để xác nhận địa chỉ của bạn. Sau đó tài khoản của bạn được kích hoạt và bạn có thể đăng nhập.</li>\r\n</ol>\r\n<p>Nếu không nhận được email, hãy kiểm tra thư mục thư rác. Nếu bạn cố đăng nhập trước khi xác nhận địa chỉ, trang đăng nhập sẽ cho bạn biết và cung cấp <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>Trên một số diễn đàn, tài khoản mới phải được quản trị viên phê duyệt trước, bạn sẽ được thông báo qua email khi tài khoản của bạn được phê duyệt.</p>\r\n<p>Sau khi đăng ký, bạn có thể hoàn thiện hồ sơ của mình, xem <a href=\"[[help:editprofile]]\">Chỉnh sửa hồ sơ</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "Sự đăng ký"
+            "#text": "Đăng ký"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Trên một số bảng, bạn có thể đăng và trả lời với tư cách là người dùng khách. Nhưng hầu hết các cộng đồng đều yêu cầu đăng ký.</p><p> Người dùng đã đăng ký có thể vào một diễn đàn trên diễn đàn nơi anh ta có quyền xem Chủ đề và để lại câu trả lời. Để trả lời, bạn có một số tùy chọn. Bạn có thể nhấp vào nút &#39;Đăng trả lời&#39; và thêm Thông báo mới vào cuối Chủ đề. Ngoài ra, bạn có thể để lại câu trả lời nhanh trong hộp Trả lời nhanh được liệt kê bên dưới các bài đăng trong Chủ đề.</p><p> Nếu bạn muốn Trả lời Thư, hãy nhấn vào nút &#39;Trích dẫn&#39; và bạn có thể Trả lời Thư bằng Văn bản Trích dẫn.</p>"
+            "#text": "<p>Để trả lời một chủ đề, hãy nhấp vào <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> phía trên hoặc bên dưới các bài viết, hoặc <strong>[[BUTTON.BUTTON_REPLY]]</strong> bên dưới một bài viết. Trang trả lời hiển thị <strong>[[POSTMESSAGE.LAST10]]</strong> của chủ đề bên dưới trình soạn thảo, để bạn có thể đọc trong khi viết.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Với câu trả lời ngắn, hãy dùng ô trả lời nhanh bên dưới các bài viết hoặc nút <strong>[[POSTS.QUICKREPLY]]</strong> của một bài viết. Viết nội dung và nhấp vào <strong>[[COMMON.POST]]</strong>. Để dùng trình soạn thảo đầy đủ (ví dụ để đính kèm tệp), hãy nhấp vào <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Trích dẫn</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> bên dưới một bài viết bắt đầu một câu trả lời có nội dung của bài viết đó dưới dạng trích dẫn.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> thu thập nhiều bài viết, kể cả trên các trang khác của chủ đề. Sau đó nhấp vào <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> ở một trong số đó, câu trả lời sẽ trích dẫn tất cả bài viết đã thu thập.</li>\r\n<li>Để chỉ trích dẫn một phần, hãy chọn văn bản trong bài viết, nhấp chuột phải vào đó và chọn <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Hãy rút gọn các trích dẫn dài, chỉ giữ phần bạn trả lời. Thành viên được trích dẫn sẽ được thông báo.</p>\r\n<p>Bạn chỉ có thể trả lời nếu được phép trong diễn đàn này, và không thể trả lời trong chủ đề bị khóa. Khách chỉ có thể trả lời nếu diễn đàn cho phép.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Trả lời tin nhắn"
+            "#text": "Trả lời và trích dẫn"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Nếu một bài viết vi phạm nội quy của diễn đàn (ví dụ thư rác, lăng mạ hoặc nội dung bất hợp pháp), vui lòng báo cáo cho người điều hành thay vì trả lời bài viết đó:</p>\r\n<ol>\r\n<li>Mở menu của bài viết (ba dấu chấm ở góc trên bên phải) và chọn <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Nhập lý do bạn báo cáo bài viết.</li>\r\n<li>Nhấp vào <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Người điều hành của diễn đàn sẽ kiểm tra bài viết bị báo cáo và quyết định cách xử lý. Tác giả không thấy ai đã báo cáo bài viết. Tùy theo diễn đàn, chỉ thành viên mới có thể báo cáo bài viết.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Báo cáo bài viết"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Các nguồn cấp dữ liệu hiện được cung cấp ở hai định dạng, RSS và Atom.</p><p> Nếu quản trị viên đã bật cung cấp Nguồn cấp dữ liệu, bạn có thể nhận Nguồn cấp dữ liệu cho một diễn đàn, chủ đề và các chủ đề đang hoạt động.</p><p> Hầu hết các trình duyệt hiện đại đều có các phương tiện để đọc nguồn cấp RSS và sẽ tự động phát hiện tính khả dụng của nguồn cấp trên các trang diễn đàn YAF.</p>"
+            "#text": "<p>Nguồn cấp dữ liệu cho phép bạn theo dõi diễn đàn trong một ứng dụng đọc tin mà không cần truy cập diễn đàn. Diễn đàn cung cấp nguồn cấp Atom cho:</p>\r\n<ul>\r\n<li>các bài viết mới nhất (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> trên trang chủ),</li>\r\n<li>các chủ đề của một diễn đàn (nút nguồn cấp trên thanh phía trên danh sách chủ đề),</li>\r\n<li>các bài viết của một chủ đề (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Sao chép địa chỉ của nguồn cấp vào ứng dụng đọc tin của bạn. Việc diễn đàn có cung cấp nguồn cấp hay không và ai có thể sử dụng (thường chỉ thành viên) do quản trị viên quy định. Nếu bạn không thấy nút nguồn cấp, bạn không thể sử dụng nguồn cấp dữ liệu.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "Nguồn cấp dữ liệu RSS &amp; Atom"
+            "#text": "Nguồn cấp dữ liệu"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Để nhanh chóng tìm thấy một chủ đề hoặc bài đăng quan tâm ở bất kỳ đâu trên diễn đàn, hãy nhấp vào liên kết &#39;Tìm kiếm&#39; trong Tiêu đề. Sau đó, nhập từ khóa hoặc cụm từ bạn muốn tìm kiếm.</p><p> Để kiểm soát nhiều hơn việc tìm kiếm, bạn có thể giới hạn tìm kiếm của mình trong các diễn đàn riêng lẻ hoặc tìm các bài đăng hoặc chủ đề được viết bởi một người dùng cụ thể. Bạn cũng có thể chọn số lượng Kết quả sẽ được hiển thị trên mỗi trang.</p>"
+            "#text": "<p>Nhấp vào <strong>[[TOOLBAR.SEARCH]]</strong> ở phần đầu trang, nhập ít nhất vài chữ cái rồi nhấn Enter hoặc nhấp vào <strong>[[SEARCH.BTNSEARCH]]</strong>. Các tùy chọn tìm kiếm cho phép bạn:</p>\r\n<ul>\r\n<li>tìm bài viết, chủ đề hoặc diễn đàn,</li>\r\n<li>chỉ tìm trong các bài viết của một thành viên,</li>\r\n<li>tìm các chủ đề có một thẻ,</li>\r\n<li>khớp chính xác cụm từ, bất kỳ từ nào hoặc tất cả các từ,</li>\r\n<li>chỉ tìm trong một số diễn đàn,</li>\r\n<li>tìm trong toàn bộ bài viết hoặc chỉ trong tiêu đề,</li>\r\n<li>chọn số kết quả trên mỗi trang.</li>\r\n</ul>\r\n<p>Tìm kiếm chỉ tìm thấy những gì bạn được phép đọc. Các cách tìm kiếm khác:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> phía trên danh sách chủ đề tìm kiếm trong một diễn đàn.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> trong menu của một bài viết hoặc trên một hồ sơ liệt kê các bài viết của thành viên đó.</li>\r\n<li>Một thẻ bên dưới tiêu đề chủ đề hiển thị tất cả chủ đề có thẻ đó.</li>\r\n<li>Chọn văn bản trong một bài viết và nhấp chuột phải vào đó để tìm các từ đã chọn.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Tìm kiếm diễn đàn và chủ đề"
+            "#text": "Tìm kiếm"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Khi bạn theo dõi một chủ đề hoặc một diễn đàn, bạn sẽ được thông báo về các bài viết mới: trong thông báo của diễn đàn, và (tùy theo <a href=\"[[help:mailsettings]]\">tùy chọn thông báo</a> của bạn) qua email và thông báo đẩy.</p>\r\n<ul>\r\n<li><strong>Một chủ đề:</strong> nhấp vào <strong>[[POSTS.TOOLS]]</strong> bên dưới tiêu đề của chủ đề rồi <strong>[[POSTS.WATCHTOPIC]]</strong>. Bạn cũng có thể bật <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> khi viết bài.</li>\r\n<li><strong>Một diễn đàn:</strong> nhấp vào <strong>[[TOPICS.WATCHFORUM]]</strong> trên thanh phía trên danh sách chủ đề. Bạn sẽ được thông báo về các chủ đề mới trong diễn đàn này.</li>\r\n<li><strong>Tất cả diễn đàn:</strong> nhấp vào <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> trên trang chủ.</li>\r\n</ul>\r\n<p>Để ngừng theo dõi, hãy nhấp vào <strong>[[POSTS.UNWATCHTOPIC]]</strong> hoặc <strong>[[TOPICS.UNWATCHFORUM]]</strong>. Trong <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>, bạn tìm thấy tất cả <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> và <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, hãy chọn một số mục và nhấp vào <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> để ngừng theo dõi chúng.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Đăng ký &amp; Thông báo"
+            "#text": "Theo dõi chủ đề và diễn đàn"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>&#39;Cảm ơn&#39; - Hệ thống là một chức năng cho phép bạn phản hồi tích cực cho người dùng khác, chẳng hạn như họ đã đăng một tin nhắn mà bạn thấy hữu ích hoặc giúp bạn giải quyết vấn đề.</p><p> <strong>Làm thế nào để gửi lời cảm ơn tới người dùng?</strong></p><p> Nếu bạn muốn &quot;Cảm ơn&quot; cho Người dùng, hãy nhấn nút &quot;Cảm ơn&quot; bên trong Bài đăng mà bạn muốn thêm, sau đó, bạn tìm thấy Tên của mình trong Danh sách Người dùng đã cảm ơn ở cuối Tin nhắn. Bạn cũng có thể xóa Cảm ơn của mình bất kỳ lúc nào.</p><p> <strong>Xem tất cả Cảm ơn</strong></p><p> Nếu bạn muốn xem tất cả các Bài viết mà bạn đã Cảm ơn, hoặc hiển thị danh sách các bài viết bạn đã nhận được Cảm ơn, hãy truy cập trang Hồ sơ cá nhân -&gt; &#39;Xem Cảm ơn&#39; từ trong Bảng điều khiển Người dùng. Ở đó bạn thấy Hai tab ...</p><ul><li> đã <strong>cảm ơn</strong> - Hiển thị Danh sách Thư mà bạn đã gửi lời cảm ơn.</li><li> <strong>đã được cảm ơn -</strong> Hiển thị Danh sách Tin nhắn của bạn nơi bạn nhận được lời cảm ơn.</li></ul>"
+            "#text": "<h3 class=\"h6\">Cảm xúc</h3>\r\n<p>Với một biểu tượng cảm xúc, bạn cho tác giả của bài viết biết rằng bạn thích bài viết đó mà không cần viết câu trả lời. Nhấp vào nút mặt cười (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) bên dưới một bài viết và chọn <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> hoặc <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Nhấp lại vào cảm xúc của bạn để gỡ bỏ, hoặc vào một cảm xúc khác để thay đổi.</li>\r\n<li>Các cảm xúc của một bài viết được hiển thị cùng với số lượng, di chuột qua chúng để xem ai đã bày tỏ cảm xúc.</li>\r\n<li>Bạn không thể bày tỏ cảm xúc với bài viết của chính mình, với bài viết đã bị xóa và trong các chủ đề bị khóa.</li>\r\n<li>Tác giả sẽ được thông báo, và các cảm xúc được tính trong hồ sơ (số lời cảm ơn đã gửi và đã nhận).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Uy tín</h3>\r\n<p>Nếu diễn đàn sử dụng hệ thống uy tín, uy tín của một thành viên được hiển thị dưới dạng thanh trong hồ sơ. Những thành viên có đủ uy tín có thể tăng (+1) hoặc giảm (-1) uy tín của thành viên khác trong menu người dùng của một bài viết.</p>\r\n<h3 class=\"h6 mt-3\">Câu trả lời cho một câu hỏi</h3>\r\n<p>Thành viên đã tạo chủ đề có thể đánh dấu câu trả lời đã giải đáp câu hỏi bằng <strong>[[POSTS.MARK_ANSWER]]</strong>. Bài viết sẽ nhận được huy hiệu câu trả lời, nhờ đó những người đọc khác nhanh chóng tìm thấy lời giải.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Cảm ơn Tính năng"
+            "#text": "Cảm xúc và uy tín"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>Ở đầu mỗi Chủ đề, có một liên kết &#39;Tùy chọn&#39;. Bằng cách nhấp vào liên kết này, một menu sẽ xuất hiện với một số tùy chọn:</p><ul><li> <strong>Xem chủ đề này</strong> - bằng cách đăng ký một chủ đề, bạn sẽ nhận được email cập nhật định kỳ về hoạt động gần đây trong đó.</li><li> <strong>In chủ đề này</strong> - Thao tác này sẽ hiển thị cho bạn một trang có nội dung bài đăng ở định dạng đồ họa giảm bớt &#39;thân thiện với máy in&#39; hơn.</li><li> <strong>Nguồn cấp dữ liệu Atom</strong> - Điều này sẽ hiển thị Nguồn cấp dữ liệu của Chủ đề này với tất cả Bài đăng dưới dạng Mục nguồn cấp dữ liệu.</li><li> <strong>Nguồn cấp dữ liệu Rss</strong> - Điều này sẽ hiển thị Nguồn cấp dữ liệu của Chủ đề này với tất cả Bài đăng dưới dạng Mục nguồn cấp dữ liệu.</li></ul>"
+            "#text": "<p>Thanh bên dưới tiêu đề của một chủ đề chứa các công cụ của chủ đề:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - gửi liên kết đến chủ đề cho ai đó qua email (chỉ dành cho thành viên).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - sao chép địa chỉ của chủ đề, ví dụ để đặt liên kết trên một trang web khác.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - bạn được thông báo về các câu trả lời mới, xem <a href=\"[[help:subscriptions]]\">Theo dõi chủ đề và diễn đàn</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - hiển thị chủ đề ở dạng phù hợp để in.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - nguồn cấp dữ liệu của chủ đề, nếu diễn đàn có cung cấp, xem <a href=\"[[help:rss]]\">Nguồn cấp dữ liệu</a>.</li>\r\n</ul>\r\n<p>Người điều hành còn thấy <strong>[[POSTS.MANAGE_TOPIC]]</strong> để di chuyển, khóa hoặc xóa chủ đề, xem <a href=\"[[help:moderating]]\">Hướng dẫn cho người điều hành</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Tùy chọn chủ đề"
+            "#text": "Công cụ chủ đề"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Tại đây bạn có thể tìm thấy câu trả lời cho các câu hỏi về cách thức hoạt động của hội đồng quản trị. Sử dụng các liên kết ở bên trái hoặc hộp tìm kiếm bên dưới để tìm những gì bạn đang tìm kiếm."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Viết"
           }
         ]
       },

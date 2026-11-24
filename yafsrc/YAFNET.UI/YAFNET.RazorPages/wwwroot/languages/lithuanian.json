@@ -10815,99 +10815,628 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Lygiuoja tekstą kairėje, centre arba dešinėje su <code>[left]</code>, <code>[center]</code> ir <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Centruotas tekstas[/center]\r\n[right]Dešinėje lygiuotas tekstas[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Lygiuotė"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Paryškina tekstą."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Šis tekstas paryškintas[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Paryškintas"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Rodo programos kodą su jo eilučių lūžiais ir tarpais, viduje esantys BB kodai neformatuojami."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Nuspalvina programavimo kalbos kodą, pvz., csharp, javascript, python, sql, css arba markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Kodas su sintaksės paryškinimu"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Kodas"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Nuspalvina tekstą. Naudokite spalvos pavadinimą arba spalvos kodą."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Raudonas tekstas[/color] ir [color=#0d6efd]mėlynas tekstas[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Teksto spalva"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Šie BB kodai įterpia turinį (pvz., vaizdo įrašus ar kitų svetainių įrašus) arba priedus. Tarp žymų įrašykite adresą arba numerį."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Nuoroda, kuri pradeda rašyti el. laišką šiuo adresu."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "El. pašto adresas"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Jaustukų trumpieji kodai laužtiniuose skliaustuose ir šypsenėlės, pvz., :), tampa jaustukais."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Jaustukai"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Rodo tekstą kitu šriftu, jei tas šriftas yra skaitytojo įrenginyje."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Tekstas šriftu Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Šriftas"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Kiti šio forumo BB kodai"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Rodo tekstą tik nariams arba, su <code>[group-hide=Role1;Role2]</code>, tik šių vaidmenų nariams."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Šį tekstą mato tik nariai.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Paslėpta grupėms"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Išdėstymas"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Nuorodos ir paveikslėliai"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Sąrašai"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Citatos ir kodas"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Nariai, atskleidimai ir paslėptas turinys"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Teksto formatavimas"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Slepia tekstą, kol skaitytojas sureaguoja į pranešimą. Autorius ir administratoriai jį mato visada."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Paslėptas tekstas.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Slepia tekstą nuo narių, parašiusių mažiau pranešimų nei nurodytas skaičius."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Paslėptas tekstas.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Paslėpta turintiems mažai pranešimų"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Slepia tekstą, kol skaitytojas atsako temoje."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Paslėptas tekstas.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Slepia tekstą, kol skaitytojas atsako temoje arba sureaguoja į pranešimą."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Paslėptas tekstas.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Paslėpta iki atsakymo ar reakcijos"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Paslėpta iki atsakymo"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Slepia tekstą nuo narių, gavusių mažiau reakcijų nei nurodytas skaičius."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Paslėptas tekstas.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Paslėpta turintiems mažai reakcijų"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Paslėpta iki reakcijos"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Keturi ar daugiau brūkšnelių atskiroje eilutėje nubrėžia horizontalią liniją."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Tekstas virš linijos\r\n----\r\nTekstas po linija"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Horizontali linija"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Pažymi tekstą kaip žymekliu."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Šis tekstas pažymėtas[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Pažymėjimas"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Rodo paveikslėlį iš interneto. Adresas turi baigtis paveikslėlio tipu (pvz., .png arba .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Paveikslėlis su aprašymu, kuris rodomas užvedus pelę ant paveikslėlio ir kurį perskaito ekrano skaitytuvai."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]YAF.NET logotipas[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Paveikslėlis su aprašymu"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Paveikslėlis"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Atitraukia tekstą."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Atitrauktas tekstas[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Įtrauka"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Pasviria tekstą."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Šis tekstas pasvirasis[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Pasvirasis"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Sąrašas su ženkleliais. Kiekvienas punktas prasideda <code>[*]</code> naujoje eilutėje."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Pirmas punktas\r\n[*]Antras punktas\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Numeruotas sąrašas. Raidėms naudokite <code>[list=a]</code> arba <code>[list=A]</code>, romėniškiems skaitmenims – <code>[list=i]</code> arba <code>[list=I]</code>."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Pirmas žingsnis\r\n[*]Antras žingsnis\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Numeruotas sąrašas"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Sąrašas"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Rodo BB kodus tokius, kokie jie yra, jų neformatuodamas."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]ne paryškinta[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Be formatavimo"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Rodo tekstą spalvotame langelyje. Tipai: primary, secondary, success, danger, warning, info, light ir dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Pastaba su informacija.[/note]\r\n[note=warning]Įspėjimas.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Pastaba"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Rodo tekstą kaip citatą. Pranešimų citavimo mygtukai ją įterpia už jus."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Cituojamas tekstas.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Citata su jos autoriaus vardu."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Cituojamas tekstas.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Citata su autoriumi"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Citata"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Rezultatas"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Keičia teksto dydį nuo 1 (labai mažas) iki 9 (labai didelis). 5 yra įprastas dydis."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Mažas[/size] [size=5]Įprastas[/size] [size=7]Didelis[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Teksto dydis"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Slepia tekstą, kol skaitytojas spusteli mygtuką, pvz., filmo pabaigai."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Tai padarė sodininkas.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Atskleidimas"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Perbraukia tekstą, pvz., tam, kas nebegalioja."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Šis tekstas perbrauktas[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Perbrauktas"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Sukuria lentelę: <code>[tr]</code> yra eilutė, <code>[td]</code> – eilutės langelis."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Vardas[/td][td]Pranešimai[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Lentelė"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Svetainių adresai automatiškai tampa nuorodomis. Taip pat galite juos įdėti į <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Nuoroda, kuri vietoj adreso rodo tekstą."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]YAF.NET svetainė[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Nuoroda su tekstu"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Nuoroda"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Nuoroda į nario profilį. Įvedus @ redaktoriuje ji sukuriama už jus, o narys gauna pranešimą."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Nuoroda į narį"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Pabraukia tekstą."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Šis tekstas pabrauktas[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Pabrauktas"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Jūs įvedate"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Jūsų paskyra"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Pranešimai - tai specialūs administratoriaus arba moderatorių skelbiami pranešimai. Jie yra paprastas vienpusis bendravimas su naudotojais ir į juos negalima atsakyti. Jei norite aptarti pranešimus, forume turėsite sukurti naują temą.</p>\r\n<p>Pranešimų temos rodomos forumo sąrašo puslapių viršuje, virš įprastų ir lipnių temų.</p>\r\n        "
+            "#text": "<p>Kai kurios temos svarbesnės už kitas:</p>\r\n<ul>\r\n<li><strong>Prisegtos temos</strong> lieka savo forumo temų sąrašo viršuje, pvz., forumo taisyklės arba dažnai užduodami klausimai.</li>\r\n<li><strong>Skelbimai</strong> – tai svarbi informacija, jie taip pat rodomi temų sąrašo viršuje ir pažymėti ženkliuku.</li>\r\n</ul>\r\n<p>Kas gali juos kurti, nustato administratorius (paprastai moderatoriai ir administratoriai). Jie tai pasirenka su <strong>[[POSTMESSAGE.PRIORITY]]</strong> rašydami arba redaguodami temą. Į prisegtas temas ir skelbimus galite atsakyti kaip į bet kurią kitą temą, nebent tema užrakinta.</p>\r\n<h3 class=\"h6 mt-3\">Forumo skelbimai</h3>\r\n<p>Administratorius taip pat gali rodyti skelbimą kiekviename forumo puslapyje, pvz., apie planuojamus priežiūros darbus. Galite jį uždaryti mygtuku dešinėje.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Skelbimai"
+            "#text": "Skelbimai ir prisegtos temos"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Šviesus ir tamsus režimas</h3>\r\n<p>Spalvų režimo mygtukas antraštėje perjungia tarp <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> ir <strong>[[THEME_MODE.AUTO]]</strong> (jūsų įrenginio režimas). Forumas įsimena jūsų pasirinkimą šioje naršyklėje.</p>\r\n<h3 class=\"h6 mt-3\">Tema ir kalba</h3>\r\n<p>Jei administratorius leidžia, skiltyje <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> galite pasirinkti kitą išvaizdos temą ir forumo kalbą. Priklausomai nuo forumo, kalbą galima pakeisti ir antraštėje.</p>\r\n<h3 class=\"h6 mt-3\">Laiko juosta ir puslapio dydis</h3>\r\n<p>Visos datos ir laikai rodomi jūsų laiko juostoje. Nustatykite ją skiltyje <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Neseni laikai rodomi, pvz., „prieš 5 minutes“.</p>\r\n<p>Tame pačiame puslapyje esantis <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> nustato, kiek įrašų forumo sąrašai rodo viename puslapyje.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Išvaizda ir kalba"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Jei forume jums leidžiama įkelti failus, prie savo pranešimų galite pridėti failų ir paveikslėlių:</p>\r\n<ul>\r\n<li>Nutempkite failą į redaktorių arba (redaktoriuje, kuris rodo formatavimą) įklijuokite paveikslėlį.</li>\r\n<li>Arba spustelėkite įrankių juostos priedų mygtuką (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). Dialogo lange galite numesti failus arba juos pasirinkti su <strong>[[ATTACHMENTS.ADD_FILES]]</strong>, o skiltyje <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> išvardyti anksčiau jūsų įkelti failai: spustelėkite vieną, kad vėl jį įterptumėte.</li>\r\n</ul>\r\n<p>Dialogo lange rodomi <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> ir, jei nustatytas, didžiausias failo dydis. Greitas atsakymas neturi priedų, naudokite visą redaktorių.</p>\r\n<p>Paveikslėliai pranešime rodomi kaip peržiūra, spustelėkite ją, kad pamatytumėte visą paveikslėlį (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Kiti failai ir labai dideli paveikslėliai rodomi kaip nuoroda su dydžiu ir atsisiuntimų skaičiumi. Atsisiuntimui gali reikėti teisės, kurią forumas suteikia tik nariams.</p>\r\n<h3 class=\"h6 mt-3\">Paveikslėliai iš kitų svetainių</h3>\r\n<p>Norėdami parodyti paveikslėlį iš interneto, spustelėkite <strong>[[COMMON.TT_IMAGE]]</strong> ir įveskite jo adresą arba parašykite <code>[img]paveikslėlio adresas[/img]</code>.</p>\r\n<p>Jūsų įkelti failai išvardyti skyriuje <a href=\"[[help:myattachments]]\">Mano priedai</a>, kur juos taip pat galite ištrinti.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
-            "#text": "Priedai ir vaizdai"
+            "#text": "Priedai ir paveikslėliai"
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>BB kodai formatuoja jūsų pranešimus. Tai trumpos žymos laužtiniuose skliaustuose aplink tekstą, pvz., <code>[b]paryškinta[/b]</code>. Jų rašyti nereikia: redaktoriaus mygtukai įterpia juos už jus. Jei redaktorius rašant rodo formatavimą, BB kodai sukuriami fone.</p>\r\n<p>Toliau rasite visus šio forumo BB kodus, ką įvedate ir rezultatą, kaip jis atrodo pranešime. Kai kurie BB kodai čia rodomi tik tada, jei forumas juos naudoja, o parašuose gali būti leidžiama mažiau BB kodų nei pranešimuose.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "BB kodų sąrašas"
+            "#text": "BB kodai"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[BLOCK_OPTIONS.TITLE]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> – kiti nariai negali pradėti su jumis privačių pokalbių.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> – niekas negali jums siųsti draugystės užklausų.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> – niekas negali jums siųsti el. laiškų per forumą.</li>\r\n</ul>\r\n<p>Administratoriai ir jūsų draugų sąraše esantys nariai vis tiek gali su jumis susisiekti.</p>\r\n<h3 class=\"h6 mt-3\">Nario ignoravimas</h3>\r\n<p>Norėdami ignoruoti narį, atidarykite vieno iš jo pranešimų naudotojo meniu ir pasirinkite <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Ignoruojamų narių pranešimai paslepiami (<strong>[[POSTS.TOGGLEPOST]]</strong> parodo atskirą pranešimą), ir jie negali jums siųsti privačių žinučių. Tame pačiame puslapyje esantis <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> išvardija narius, kuriuos ignoruojate, pašalinkite narį iš jo, kad vėl matytumėte jo pranešimus.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Naudotojų ignoravimas ir blokavimas"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Draugai yra draugystės funkcija ir yra abipusis dviejų naudotojų ryšys. Juos inicijuoja vienas naudotojas, o kitas priima.\r\n</p>\r\n<p><strong>Kur rodomas draugų sąrašas?</strong></p>\r\n<p>Jūsų Draugai rodomi puslapyje \"Mano draugai\", kurį galite pasiekti iš antraštės nuorodos \"Mano draugai\" arba iš <strong>Vartotojo valdymo skydelio</strong> nuorodos \"Redaguoti draugus\". </p>\r\n<p><em>Pastaba: jei nematote šios nuorodos, vadinasi, neturite Draugų, nesiuntėte jokių Prašymų arba neturite jokių laukiančių Draugų prašymų.</em></p>\r\n<p>Jūsų Draugai taip pat rodomi jūsų profilio puslapyje.</p>\r\n<p><strong>Kaip galiu paprašyti naudotojo tapti Draugu arba priimti Draugo užklausą?</strong></p>\r\n<p>Jei norite paprašyti naudotojo tapti Draugu, peržiūrėkite asmens, su kuriuo norite draugauti, profilio puslapį ir spustelėkite nuorodą \"Pridėti kaip draugą\".</p>\r\n<p>Jei norite priimti draugo užklausą, eikite į savo puslapį \"Mano draugai\". Skirtuke \"Laukiantys prašymai\" matysite Naudotojų su laukiančiais prašymais sąrašą. Ten turite tris pasirinkimus...</p> </p>\r\n<ul>\r\n  <li><strong>Patvirtinti</strong> - tampate užklausą pateikusio Naudotojo draugu </li>\r\n  <li><strong>Atmesti</strong> - atmetate užklausą</li>\r\n  <li><strong>Patvirtinti ir pridėti - </strong>Jūs tampate to prašančio Naudotojo Draugu, o Naudotojas taip pat tampa Jūsų sąrašo Draugu </li>.\r\n</ul>\r\n<p><strong>Atšaukti Draugą</strong></p>\r\n<p>Jei norite pašalinti Draugą iš savo Sąrašo, eikite į puslapį \"Mano draugai\". Skirtuke \"Draugų sąrašas\" spustelėkite norimo pašalinti Naudotojo mygtuką \"Pašalinti draugą\"</p>\r\n<p><strong>Jūsų prašymai</strong></p>\r\n<p>Trečiajame puslapio \"Mano draugai\" skirtuke \"Mano draugai\" rodomi jūsų pateikti neišspręsti prašymai </p>."
+            "#text": "<p>Draugystė – tai ryšys tarp dviejų narių. Norėdami pakviesti narį tapti jūsų draugu, spustelėkite <strong>[[BUDDY.ADDBUDDY]]</strong> jo profilyje arba pranešimo naudotojo meniu. Narys gauna draugystės užklausą ir gali ją patvirtinti arba atmesti.</p>\r\n<p>Savo draugus rasite naudotojo meniu punkte <strong>[[TOOLBAR.BUDDIES]]</strong>, trijuose skirtukuose:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> – jūsų draugai. Siųskite jiems privačią žinutę arba pašalinkite juos iš sąrašo.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> – kitų narių užklausos. <strong>[[FRIENDS.APPROVE]]</strong> prideda narį prie jūsų draugų (o jus – prie jo), atmetimas pašalina užklausą. <strong>[[FRIENDS.APPROVE_ALL]]</strong> patvirtina visas užklausas iš karto.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> – jūsų išsiųstos užklausos, į kurias dar neatsakyta.</li>\r\n</ul>\r\n<p>Draugai rodomi jūsų profilyje. Jie gali su jumis susisiekti net tada, kai blokuojate privačias žinutes ar el. laiškus, žr. <a href=\"[[help:blocking]]\">Naudotojų ignoravimas ir blokavimas</a>. Jei nenorite gauti draugystės užklausų, ten galite jas taip pat užblokuoti.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Draugai"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong>. Turite dvi galimybes:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> – pertrauka: 30 dienų negalite naudotis savo paskyra, po to ji vėl veikia.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> – jūsų paskyra uždaroma, o jūsų pranešimai ištrinami (kitų narių atsakymai lieka). Daugiau nebegalėsite prisijungti, šio veiksmo atšaukti negalima.</li>\r\n</ul>\r\n<p>Patvirtinkite įvesdami <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> ir spustelėkite <strong>[[COMMON.CONTINUE]]</strong>. Būsite atjungti.</p>\r\n<p>Jei norite, kad būtų pašalinti visi jūsų duomenys, arba turite klausimų apie savo duomenis, susisiekite su administratoriumi, žr. <a href=\"[[help:privacy]]\">Privatumas, slapukai ir taisyklės</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Paskyros sustabdymas arba ištrynimas"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Jei šiuo metu esate užsiregistravęs ir prisijungęs, galite redaguoti ir trinti savo žinutes (jei administratorius šios galimybės neišjungė). </p>\r\n<p>Jei norite redaguoti arba ištrinti savo pranešimus, spustelėkite mygtuką \"Redaguoti\" prie konkretaus pranešimo. Jei jūsų pranešimas buvo pirmasis temoje, jį ištrynus gali būti pašalinta visa tema.</p>\r\n<p>Kai atliksite pakeitimus, pranešimo apačioje atsiras užrašas, informuojantis kitus naudotojus apie tai, kad redagavote savo pranešimą.</p>\r\n<p>Taip pat į laukelį \"Redagavimo priežastis\" įrašykite priežastį, kodėl redagavote šį pranešimą.</p>\r\n<p><strong>Ar kiti gali redaguoti mano pranešimus? </strong></p>\r\n<p>Administratoriai ir moderatoriai taip pat gali redaguoti jūsų pranešimus. Jei jie tai padaro, apačioje pasirodys pastaba, informuojanti kitus naudotojus, kad pranešimas buvo pakeistas.</p>"
+            "#text": "<p>Savo pranešimus galite redaguoti ir ištrinti, jei forumas tai leidžia. Atidarykite pranešimo meniu (trys taškai viršuje dešinėje) ir pasirinkite <strong>[[BUTTON.BUTTON_EDIT]]</strong> arba <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Užrakintose temose to padaryti negalima, o administratorius gali tai apriboti tam tikru dienų skaičiumi po paskelbimo.</p>\r\n<h3 class=\"h6 mt-3\">Redagavimas</h3>\r\n<p>Redagavimo puslapis panašus į naujo pranešimo puslapį. Jei jūs pradėjote temą, galite pakeisti ir jos pavadinimą, aprašymą bei žymas. Įveskite <strong>[[POSTMESSAGE.EDITREASON]]</strong>, kad skaitytojai žinotų, ką pakeitėte.</p>\r\n<p>Jei pranešimą redaguojate praėjus šiek tiek laiko po paskelbimo, pranešime rodoma, kas jį redagavo, kada ir kodėl. Ankstesnės versijos išsaugomos, žr. <a href=\"[[help:history]]\">Pranešimo istorija</a>. Jūsų pranešimus gali redaguoti ir moderatoriai, tada pranešime nurodoma, kad jį redagavo moderatorius.</p>\r\n<h3 class=\"h6 mt-3\">Trynimas</h3>\r\n<p>Įveskite <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> ir spustelėkite <strong>[[DELETEMESSAGE.DELETE]]</strong>. Pranešimas nėra visiškai pašalinamas: jo vietoje temoje rodoma, kad jis ištrintas. Atkurti jį galite su <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> tame pačiame meniu, nebent jį ištrynė moderatorius.</p>\r\n<p>Ištrinti visas temas gali tik moderatoriai, o visam laikui pašalinti pranešimus – tik administratoriai.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Įrašų redagavimas ir šalinimas"
+            "#text": "Pranešimų redagavimas ir trynimas"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Savo paskyros informaciją galite keisti naudodami asmeninio profilio -&gt; \"Redaguoti profilį\" parinktį, esančią <strong>Vartotojo valdymo skydelyje</strong>. Jei norite pakeisti slaptažodį, <strong>Vartotojo valdymo skydelyje</strong> tam yra papildomas puslapis (\"Keisti slaptažodį\"), kuriame galite nustatyti naują slaptažodį.</p>\r\n<p><strong>Profilio redagavimo puslapis</strong></p>\r\n<p>Šiame puslapyje galite nustatyti daug privalomų ir neprivalomų duomenų, iš kurių kai kurie bus rodomi jūsų viešajame profilyje. Išskyrus el. pašto adresą, neįveskite informacijos, kurios nenorite, kad ji būtų matoma viešai.</p> </p>\r\n<p><strong>Apie jus</strong></p>\r\n<p>Tai pagrindinė informacija apie jus</p>\r\n<p><strong>Gyvenamoji vieta</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Vietą, kurioje gyvenate</p>\r\n<p><strong>Pagrindinis puslapis</strong></p>\r\n<p>Tur galite pasirinktinai įvesti Namų puslapį ir (arba) tinklaraštį </p>.\r\n<p><strong>Nuolatinių žinučių siuntimo paslaugos</strong></p>\r\n<p>Tur galite pasirinktinai įvesti savo žinučių siuntimo paslaugų, pavyzdžiui,  XMPP, \"Facebook\" ir \"Twitter\", ID.</p>\r\n<p><strong>Taikos zona</strong></p>\r\n<p>Šioje vietoje galite nurodyti laiko juostą, kad valdybos laiką ir datą pritaikytumėte prie savo vietinio laiko. Taip pat nustatykite vasaros laiką, jei jis turėtų būti pritaikytas automatiškai.</p>\r\n<p><strong>Forumo nustatymai</strong></p>\r\n<p>Tur galite pakeisti savo el. pašto adresą.</p>\r\n<p>Antra, jei administratorius leido, galite pakeisti forumo <strong>kalbą</strong>, <strong>Svetainės temą</strong> ir <strong>Teksto redaktorių</strong> (kuris naudojamas žinutėms rašyti).</p>\r\n<p>Taip pat yra nustatymas &quot;Single Sign On&quot; (Jei jis&rsquo;įjungtas). Jei jį įjungsite, galėsite prisijungti per \"Facebook\", taip pat pirmiau įveskite savo \"Facebook\" ID.</p>\r\n\r\n"
+            "#text": "<p>Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[ACCOUNT.EDIT_PROFILE]]</strong>. Visi laukai neprivalomi, užpildykite tik tai, kuo norite pasidalyti. Informacija rodoma jūsų viešame profilyje.</p>\r\n<ul>\r\n<li><strong>Apie jus</strong> – jūsų rodomas vardas (jei forumas naudoja rodomus vardus), tikrasis vardas, gimimo data, užsiėmimas, pomėgiai ir lytis.</li>\r\n<li><strong>Vietovė</strong> – šalis, regionas ir miestas. Jei forumas tai siūlo, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> juos užpildo už jus.</li>\r\n<li><strong>Pagrindinis puslapis</strong> – jūsų svetainės ir tinklaraščio adresai.</li>\r\n<li>Kiti administratoriaus pridėti laukai.</li>\r\n</ul>\r\n<p>Spustelėkite <strong>[[COMMON.SAVE]]</strong>, kad išsaugotumėte pakeitimus. Avataras ir parašas turi savo puslapius, žr. <a href=\"[[help:mypics]]\">Avataras ir parašas</a>. El. pašto adresas, laiko juosta ir kalba yra skyriuje <a href=\"[[help:editsettings]]\">Nustatymų redagavimas</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Naudotojo profilio ir forumo nustatymų redagavimas"
+            "#text": "Profilio redagavimas"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Įveskite naują adresą ir savo <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Forumas išsiunčia nuorodą naujuoju adresu, adresas pakeičiamas, kai ją spustelite. Jūsų el. pašto adresas niekada nerodomas kitiems nariams.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> – nebūsite rodomi prisijungusių narių sąraše (jei forumas tai leidžia).</li>\r\n<li>Veiklos srautas – jūsų pranešimai apie paminėjimus, citatas ir reakcijas, žr. <a href=\"[[help:popups]]\">Pranešimai apie įvykius</a>.</li>\r\n<li>Jūsų laiko juosta, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> ir (jei forumas leidžia) išvaizdos tema bei kalba, žr. <a href=\"[[help:appearance]]\">Išvaizda ir kalba</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Dviejų veiksnių autentifikavimas</h3>\r\n<p>Įjunkite arba išjunkite dviejų veiksnių autentifikavimą, žr. <a href=\"[[help:login]]\">Prisijungimas ir paskyros saugumas</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Nustatymų redagavimas"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Kas yra YAF?</strong></p>\r\n<p>YetAnotherForum.NET (YAF) - tai atvirojo kodo diskusijų forumas, skirtas ASP.NET svetainėms. 100 % parašytas C# kalba, YAF (tariama kaip &quot;laugh&quot;) yra unikalus atvirojo kodo, \"Microsoft\" .NET platformos ir tarptautinio .NET kūrėjų bendruomenės bendradarbiavimo derinys. Kasdien augančiam ir besikeičiančiam YAF projektui vadovauja Ingo Herbote. YAF veikia bet kuriame žiniatinklio serveryje, palaikančiame ASP.NET Core v9 (ir naujesnės versijos) ir SQL Server. YAF yra licencijuotas pagal Apache 2.0.</p>\r\n<p><strong>Kokia viso to struktūra? </strong></p>\r\n<p>Forumą sudaro įvairios sritys, kuriose yra forumai (konkretesnės teminės sritys), kuriuose yra temos, sudarytos iš atskirų pranešimų (kai naudotojas ką nors rašo).</p>\r\n<p>Forumų pagrindiniame puslapyje pateikiamas kategorijų ir forumų sąrašas su pagrindiniais statistiniais duomenimis apie kiekvieną iš jų, įskaitant temų ir žinučių skaičių bei informaciją apie tai, kuris narys parašė naujausią žinutę.</p>\r\n<p><strong>Kaip čia orientuotis? </strong></p>\r\n<p>Paspaudę forumo pavadinimą, pateksite į jame esančių temų sąrašą. Tema - tai narių arba svečių pokalbis. Kiekviena tema prasideda kaip viena žinutė ir auga, kai skirtingi naudotojai prideda daugiau atskirų žinučių. </p>\r\n<p>Norėdami pradėti naują temą, tiesiog spustelėkite mygtuką \"Nauja tema\" (jei turite prieigą prie jo).</p>\r\n<p><strong>Pagalbinių tekstų talpinimas</strong></p>\r\n<p>Kai norimų rodyti temų yra daugiau, nei telpa viename puslapyje, galite matyti puslapių puslapius, kuriuose pateikiami puslapių numeriai. Tai rodo, kad temų sąrašas padalytas į du ar daugiau puslapių.</p>\r\n<p>Šis temų sąrašų skaidymo per daug puslapių metodas naudojamas visoje lentoje.</p>\r\n<p><strong>Kas yra lipnios temos? </strong></p>\r\n<p>\"Lipnias\" temas gali sukurti moderatoriai arba administratoriai ir jos lieka \"priklijuotos\" sąrašo viršuje, net jei pastaruoju metu į jas nebuvo gauta jokių pranešimų. Jų paskirtis - išlaikyti svarbią informaciją matomą ir visada prieinamą.</p>\r\n<p><strong>Kaip perskaityti temą?</strong></p>\r\n<p>Jei norite skaityti temą, spustelėkite jos pavadinimą. Kiekvieną temos žinutę sukūrė narys arba svečias. Kairėje žinutės pusėje matysite trumpą informaciją apie temą sukūrusį narį.</p>\r\n<p>Jei norite parašyti atsakymą į esamą temą, spustelėkite mygtuką \"Rašyti atsakymą\". Jei mygtukas \"Rašyti atsakymą\" nerodomas, tai gali reikšti, kad nesate prisijungęs kaip narys, neturite teisės atsakyti arba tema uždaryta naujiems atsakymams.</p>\r\n<p>Jeigu ši funkcija įjungta, taip pat bus rodomas \"Greitojo atsakymo\" langelis, kuriame galėsite greitai įvesti atsakymą, nepereidami į puslapį \"Rašyti atsakymą\". Kad suaktyvintumėte greitojo atsakymo langelį, prieš įvesdami į jį tekstą, žinutėje turite spustelėti mygtuką \"Greitasis atsakymas\".</p>\r\n<p><strong>Kaip sužinoti daugiau apie narius? </strong></p>\r\n<p>Jei norite peržiūrėti informaciją apie konkretų narį, spustelėkite naudotojo vardą. Taip pereisite į jo viešą profilio puslapį.</p>\r\n<p><strong>Kas yra antraštė? </strong></p>\r\n<p>Kiekvieno puslapio viršuje esančioje antraštėje yra nuorodos, padedančios judėti. Vienu paspaudimu galite pasiekti tokias sritis kaip: </p> <p>Mano profilis, Pagalba (kurią dabar skaitote), Paieška ir kitos naudingos funkcijos."
+            "#text": "<p>Forumas – tai vieta diskutuoti su kitais žmonėmis. Diskusijos suskirstytos taip:</p>\r\n<ul>\r\n<li><strong>Kategorijos</strong> grupuoja vienos srities forumus, tai pradžios puslapio skyriai.</li>\r\n<li><strong>Forumai</strong> skirti konkrečiai temai. Forume gali būti poforumių.</li>\r\n<li><strong>Temos</strong> – tai diskusijos forume. Tema prasideda pirmuoju pranešimu ir auga narių atsakymais.</li>\r\n<li><strong>Pranešimai</strong> (arba žinutės) – tai atskiri įrašai temoje.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Pradžios puslapis</h3>\r\n<p>Pradžios puslapyje rodomos kategorijos su jų forumais. Prie kiekvieno forumo matote temų ir pranešimų skaičių bei naujausią pranešimą. Kategoriją galite suskleisti rodykle šalia jos pavadinimo, forumas įsimena jūsų pasirinkimą. Priklausomai nuo forumo, pradžios puslapyje taip pat rodomos <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (naujausi pranešimai), statistika ir kas prisijungęs.</p>\r\n<h3 class=\"h6 mt-3\">Svečiai ir nariai</h3>\r\n<p>Svečiai gali skaityti jiems atvirus forumus. Norėdami rašyti pranešimus, naudotis asmeninėmis funkcijomis (privačios žinutės, draugai, pranešimai apie įvykius) ir matyti kai kuriuos puslapius (pvz., narių sąrašą ar profilius), turite turėti paskyrą, žr. <a href=\"[[help:registration]]\">Registracija</a>.</p>\r\n<p>Ką galite daryti forume (skaityti, kurti temas, atsakyti, balsuoti apklausose, įkelti failus, ...), administratorius nustato kiekvienam forumui ir kiekvienai narių grupei. Jei nematote šiame žinyne aprašyto mygtuko, šiame forume neturite tam teisės.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Forumai, temos ir pranešimai"
+            "#text": "Kaip veikia forumas"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Bendras forumo naudojimas"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Pradžia"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Kai pranešimas buvo redaguotas, jame rodoma, kas jį redagavo ir kada. Spustelėkite šios pastabos istorijos mygtuką, kad atidarytumėte <strong>[[MESSAGEHISTORY.TITLE]]</strong>: joje išvardytos pranešimo versijos su data, redaguotoju ir priežastimi.</p>\r\n<ul>\r\n<li>Pažymėkite dvi versijas ir spustelėkite <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong>, kad pamatytumėte <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: pašalintas ir pridėtas tekstas paryškintas.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> grąžina jus prie pranešimo.</li>\r\n</ul>\r\n<p>Moderatoriai gali atkurti ankstesnę versiją su <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Forumas saugo versijas administratoriaus nustatytą dienų skaičių.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Pranešimo istorija"
           },
           {
             "@tag": "INDEX",
             "#text": "Indeksas"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Antraštėje spustelėkite <strong>[[TOOLBAR.LOGIN]]</strong> ir įveskite savo naudotojo vardą arba el. pašto adresą ir slaptažodį.</p>\r\n<p>Jei pažymėsite <strong>[[LOGIN.AUTO]]</strong>, šiame kompiuteryje liksite prisijungę mėnesį, net ir uždarę naršyklę. Nenaudokite to kompiuteryje, kuriuo naudojasi kiti žmonės. Be šios parinkties, uždarius naršyklę būsite atjungti. Norėdami atsijungti, atidarykite naudotojo meniu viršuje dešinėje ir spustelėkite <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Dviejų veiksnių autentifikavimas</h3>\r\n<p>Dviejų veiksnių autentifikavimas apsaugo jūsų paskyrą net tada, kai kas nors žino jūsų slaptažodį: prisijungiant forumas taip pat paprašo kodo iš autentifikavimo programėlės jūsų telefone.</p>\r\n<ol>\r\n<li>Atidarykite <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (naudotojo meniu, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Spustelėkite <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Pridėkite naują paskyrą savo autentifikavimo programėlėje (pvz., Microsoft Authenticator, Google Authenticator) nuskaitydami QR kodą arba įvesdami <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Patvirtinkite įvesdami programėlės rodomą kodą.</li>\r\n</ol>\r\n<p>Nuo šiol prisijungiant po slaptažodžio bus prašoma programėlės kodo (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Išjungti jį galite tame pačiame puslapyje su <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Kaip apsaugoti paskyrą</h3>\r\n<ul>\r\n<li>Naudokite slaptažodį, kurio nenaudojate niekur kitur. Pakeisti jį galite su <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Forumas niekada neprašo jūsų slaptažodžio el. paštu ar privačia žinute.</li>\r\n<li>Jei pamiršote slaptažodį, žr. <a href=\"[[help:recover]]\">Pamiršto slaptažodžio atkūrimas</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Po kelių neteisingų slaptažodžių paskyra kelioms minutėms užrakinama.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Prisijungimas ir paskyros saugumas"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>. Skiltyje <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> pasirenkate, kokius el. laiškus gaunate:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> – jokių el. laiškų.</li>\r\n<li>Pranešimai apie temas, kuriose rašėte arba kurias stebite – kiekviena tema, kurioje parašote, stebima automatiškai.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> – tik temos ir forumai, kuriuos stebite patys.</li>\r\n</ul>\r\n<p>Jei forumas tai siūlo, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> vietoj atskirų laiškų kartą per dieną atsiunčia vieną laišką su naujais pranešimais. Spustelėkite <strong>[[COMMON.SAVE]]</strong>, kad išsaugotumėte.</p>\r\n<p>Tame pačiame puslapyje išvardyti jūsų <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ir <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, žr. <a href=\"[[help:subscriptions]]\">Temų ir forumų stebėjimas</a>, bei jūsų įrenginių tiesioginiai pranešimai, žr. <a href=\"[[help:push]]\">Tiesioginiai pranešimai ir programėlė</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "El. pašto pranešimų nuostatos"
+            "#text": "Pranešimų nustatymai"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Narių sąraše rodomi registruoti valdybos nariai. Narių sąrašą galite peržiūrėti surikiuotą abėcėlės tvarka pagal naudotojo vardą, &quot;Prisijungimo\" datą arba \"paskutinio apsilankymo\" datą,</p>\r\n<p>Taip pat yra paieškos laukelis, kuriame galite ieškoti konkretaus naudotojo.</p>\r\n<p>Jei norite peržiūrėti narių sąrašą, puslapio viršuje esančioje pagrindinėje antraštėje spustelėkite \"Nariai\" (jei nuorodos nematote, neturėjote prieigos prie šio puslapio).</p>\r\n"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Narių sąraše rodomi registruoti nariai su jų pranešimų skaičiumi, užsiregistravimo data ir paskutiniu apsilankymu. Galite:</p>\r\n<ul>\r\n<li>rikiuoti jį pagal vardą, rangą, užsiregistravimo datą, pranešimų skaičių arba paskutinį apsilankymą,</li>\r\n<li>rodyti narius pagal pirmąją raidę,</li>\r\n<li>filtruoti jį su <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> pagal vardą, vaidmenį, rangą arba pranešimų skaičių.</li>\r\n</ul>\r\n<p>Spustelėkite narį, kad atidarytumėte jo profilį. Priklausomai nuo forumo, sąrašas rodomas tik nariams.</p>\r\n<h3 class=\"h6 mt-3\">Aktyvūs naudotojai</h3>\r\n<p>Pradžios puslapio statistika rodo, kas prisijungęs. Aktyvių naudotojų sąraše rodomi šiuo metu prisijungę nariai ir svečiai bei tai, kurioje forumo vietoje jie yra. Nariai gali pasislėpti iš šio sąrašo skiltyje <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, jei forumas tai leidžia.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Komandos puslapyje išvardyti forumo administratoriai ir moderatoriai su forumais, kuriuos jie moderuoja. Jei reikia pagalbos, susisiekite su jais.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Narių sąrašas"
+            "#text": "Nariai, aktyvūs naudotojai ir komanda"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Nario paminėjimas</h3>\r\n<p>Redaktoriuje įveskite <code>@</code> ir pirmąsias vardo raides, tada pasirinkite narį iš sąrašo. Vardas tampa nuoroda į profilį, o narys gauna pranešimą, kad jį paminėjote (jei jis naudojasi pranešimais apie įvykius, žr. <a href=\"[[help:popups]]\">Pranešimai apie įvykius</a>).</p>\r\n<h3 class=\"h6 mt-3\">Temų žymos</h3>\r\n<p>Žymos – tai temos raktažodžiai, pvz., produktas arba sritis, apie kurią klausiama. Pridėkite jas lauke <strong>[[POSTTOPIC.TAGS]]</strong>, kai kuriate temą. Žymos rodomos prie temos, spustelėjus žymą parodomos visos temos su šia žyma. Paieška taip pat gali ieškoti žymų, žr. <a href=\"[[help:searching]]\">Paieška</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Paminėjimai ir žymos"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Žinutės ir pranešimai apie įvykius"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Registruoti nariai gali siųsti žinutes kitiems šio forumo nariams naudodamiesi privačių žinučių sistema (jei administratorius tai leidžia).\r\n        </p>\r\n        <p>Kai gausite privačią žinutę, forumo antraštėje būsite informuoti, kiek turite neperskaitytų žinučių, taip pat pasirodys pranešimas. Taip pat galite įjungti pranešimą el. paštu</p>\r\n        <p><strong>Kaip siųsti privačias žinutes?</strong></p>\r\n        <p>Privatūs pranešimai yra panašūs į el. laiškus, tačiau juos gali siųsti tik registruoti šio forumo nariai. Į siunčiamas privačias žinutes galite įtraukti BB kodą, šypsenėles ir paveikslėlius.<br />\r\n        Privačią žinutę naudotojui galite išsiųsti paspaudę &ldquo;PM&rdquo; mygtuką naudotojo profilyje arba paspaudę &ldquo;Nauja žinutė&rdquo; nuorodą savo naudotojo valdymo skydelyje. Po to, kai išsiųsite žinutę, ji bus išsaugota aplanke &ldquo;Išsiųsti daiktai&rdquo;.</p>\r\n        <p><strong>Privatūs žinučių aplankai</strong></p>\r\n        <p>Taip pat kaip ir el. pašto programoje, turite 3 aplankus: Gautieji laiškai, Išsiųsti elementai ir Archyvo aplankas...</p>\r\n        <ul>\r\n        <li>Į &ldquo;Gautųjų&rdquo; aplanką talpinami visi nauji gauti pranešimai. Jame galite peržiūrėti visus gautus pranešimus, taip pat juos siuntusio asmens vardą ir pavardę, žinutės temą, išsiuntimo datą ir laiką.</li>\r\n        <li>Aplanke &ldquo;Išsiųsti daiktai&rdquo; yra visų jūsų išsiųstų Privačių žinučių kopijos.</li>\r\n        <li>Aplanke &ldquo;Archyvas&rdquo; yra tik tos žinutės, kurias perkėlėte į šį aplanką.</li>\r\n        </ul>\r\n        <p>Kiekviename aplanke turite Parinktys, ką norite daryti su aplanke esančiais pranešimais, galite tiesiog pažymėti pranešimą ir ...<br />\r\n        </p>\r\n        <ul>\r\n        <li>Archyvuoti pasirinktą / Archyvuoti visus - perkelti pranešimą (-us) į archyvinį aplanką</li>\r\n        <li>Eksportuoti pasirinktą / Eksportuoti visus - eksportuoti pranešimą (-us) kaip failą (galite pasirinkti eksporto formatą -XML-/CSV-/Text-File)</li>\r\n        <li>Ištrinti pasirinktą / Ištrinti visus - ištrinti pranešimą (-us) </li>\r\n        </ul>\r\n        <p>Atsižvelgiant į tai, kiek pranešimų jums leidžiama turėti, turėtumėte kartkartėmis ištrinti kai kuriuos iš jų (Prieš ištrindami juos galite eksportuoti, kad išsaugotumėte juos vietiniame kompiuteryje). Priešingu atveju, kai pašto dėžutė bus pilna, negalėsite gauti naujų pranešimų. Apačioje būsite informuoti, kiek pranešimų turite ir kiek jų galite turėti maksimaliai.</p>\r\n      "
+            "#text": "<p>Privačios žinutės – tai pokalbiai tarp jūsų ir kito nario, niekas kitas jų negali skaityti. Naudotojo meniu atidarykite <strong>[[TOOLBAR.INBOX]]</strong>: kairėje matote <strong>[[PM.CONVERSATION_TITLE]]</strong>, dešinėje – pasirinkto pokalbio žinutes.</p>\r\n<h3 class=\"h6 mt-3\">Pokalbio pradėjimas</h3>\r\n<ul>\r\n<li>Spustelėkite <strong>[[PM.NEW_CONVERSATION]]</strong>, įveskite bent tris vardo raides ir pasirinkite narį.</li>\r\n<li>Arba spustelėkite <strong>[[POSTS.PM]]</strong> nario profilyje arba pranešimo naudotojo meniu.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Rašymas</h3>\r\n<p>Parašykite žinutę ir paspauskite Enter, kad ją išsiųstumėte, Shift+Enter pradeda naują eilutę. Galite naudoti BB kodus, pvz., paryškintam tekstui ar nuorodoms. Jei kitas narys tuo pačiu metu turi atidarytą pokalbį, žinutės iš karto atsiranda abiejose pusėse, o pokalbyje rodoma, ar narys prisijungęs.</p>\r\n<p>Naujos žinutės skaičiuojamos šalia jūsų vardo ir <strong>[[TOOLBAR.INBOX]]</strong>, o atidarius forumo puslapį dialogo langas paklausia, ar norite jas perskaityti. Apie privačias žinutes el. paštu nepranešama.</p>\r\n<h3 class=\"h6 mt-3\">Trynimas</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> pašalina pokalbį iš jūsų sąrašo, kitas narys jį vis tiek turi.</p>\r\n<p class=\"text-body-secondary small\">Negalite rašyti nariams, kurie blokuoja privačias žinutes arba jus ignoruoja (nebent esate jų draugas), žr. <a href=\"[[help:blocking]]\">Naudotojų ignoravimas ir blokavimas</a>. Administratorius gali išjungti privačias žinutes.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Privačios žinutės (Messenger)"
+            "#text": "Privačios žinutės"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderatoriai antraštėje mato <strong>[[TOOLBAR.MODERATE]]</strong>. Puslapyje išvardyti jūsų moderuojami forumai su <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> ir <strong>[[MODERATE_DEFAULT.REPORTED]]</strong> skaičiumi.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>Moderuojamuose forumuose (ir narių, kurių pranešimus reikia tikrinti, atveju) nauji pranešimai rodomi tik po to, kai juos patvirtina moderatorius. Patikrinkite pranešimą ir spustelėkite <strong>[[MODERATE_FORUM.APPROVE]]</strong> arba jį ištrinkite.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Sąraše rodomi pranešti įrašai su priežastimis ir tuo, kas apie juos pranešė. Perskaitykite pranešimą (ir jo istoriją, jei jis buvo redaguotas), prireikus imkitės veiksmų (redaguokite ar ištrinkite pranešimą, pasikalbėkite su autoriumi) ir spustelėkite <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Temų tvarkymas</h3>\r\n<ul>\r\n<li>Temoje <strong>[[POSTS.MANAGE_TOPIC]]</strong> siūlo <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> ir <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Perkelta tema senajame forume kelias dienas gali palikti nuorodą.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> išvardija visas forumo temas: pažymėkite kelias ir iš karto jas užrakinkite, perkelkite ar ištrinkite.</li>\r\n<li>Prisegtos temos ir skelbimai nustatomi su <strong>[[POSTMESSAGE.PRIORITY]]</strong> redaguojant pirmąjį pranešimą, nuolatinės temos (automatinis valymas jų nepašalina) – su <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Pranešimų tvarkymas</h3>\r\n<ul>\r\n<li>Galite redaguoti ir trinti kitų narių pranešimus. Kai trinate pranešimą, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> ištrina ir atsakymus į jį.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> pranešimo meniu perkelia jį į kitą temą arba atskiria į naują temą (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li><a href=\"[[help:history]]\">Pranešimo istorijoje</a> galite atkurti ankstesnę pranešimo versiją.</li>\r\n<li>Galite atsakyti ir redaguoti užrakintose temose, o jūsų pranešimai netikrinami dėl šlamšto.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Priklausomai nuo nustatymų, moderatoriai taip pat mato pranešimų IP adresus. Narius redaguoja, sustabdo ir užblokuoja administratoriai.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Moderatoriaus vadovas"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderatoriai ir administratoriai"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderatoriai prižiūri konkrečius forumus. Jie paprastai gali redaguoti ir trinti pranešimus, perkelti temas ir atlikti kitus veiksmus. Tapti konkretaus forumo moderatoriumi paprastai apdovanojami naudotojai, kurie yra ypač naudingi ir išmano moderuojamo forumo temą.</p>\r\n<p>Administratoriai - tai žmonės, kurie apskritai kontroliuoja viską, kas vyksta forume. Jie prižiūri, kaip forumas stilizuojamas, kokius forumus kurti ir kaip juos organizuoti, kokios informacijos reikalauti iš narių ir ką skirti moderatoriais.</p>"
+            "#text": "<p><strong>Administratoriai</strong> valdo forumą: jie kuria forumus, sprendžia, kas ką gali daryti, nustato funkcijas ir tvarko narius.</p>\r\n<p><strong>Moderatoriai</strong> prižiūri vieną ar kelis forumus: jie rūpinasi, kad diskusijos neišeitų iš temos ir būtų draugiškos, tikrina praneštus įrašus, tvirtina pranešimus moderuojamuose forumuose ir prireikus redaguoja, perkelia, užrakina ar ištrina temas ir pranešimus. Forumo moderatoriai rodomi virš jo temų sąrašo (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Puslapyje <strong>[[TOOLBAR.TEAM]]</strong> išvardyti visi administratoriai ir moderatoriai (jei forumas jį rodo). Jei kyla problemų dėl pranešimo, <a href=\"[[help:report]]\">praneškite apie jį</a>. Kitais klausimais kreipkitės į moderatorių ar administratorių privačia žinute.</p>\r\n<p>Kaip dirba moderatoriai, paaiškinta <a href=\"[[help:moderating]]\">Moderatoriaus vadove</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,35 +11444,51 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Jeigu administratorius įjungė albumo funkciją ir esate narys, turintis prieigą prie albumų pridėjimo, galite kurti nuotraukų, susietų su jūsų viešuoju profiliu, albumus. Albumus galima kurti apsilankius <strong>Vartotojo valdymo skydelyje</strong>, spustelėjus nuorodą \"Redaguoti albumus\" ir tada spustelėjus \"Pridėti naują albumą\". Kiek albumų ir kiek vaizdų priklauso nuo to, kiek administratorius nustatė jūsų naudotojų grupei, kuriai priklausote, </p>.\r\n<p>Kiekvienas albumas gali turėti pavadinimą ir jam galite nustatyti viršelį (vaizdą iš albumo) arba naudoti atsitiktinį, taip pat prie kiekvieno vaizdo galite pridėti antraštę.</p>\r\n<p><strong>Kaip įkelti nuotraukas? </strong></p>\r\n<p>Jei esate Albumo pridėjimo / redagavimo puslapyje, pasirinkite kompiuteryje esantį paveikslėlį ir spustelėkite Įkelti, kad pridėtumėte jį į Albumą.</p>\r\n<p>Turėsite galimybę kiekvienam paveikslėliui suteikti antraštę ir vieną paveikslėlį nustatyti kaip Albumo viršelį, kuris bus rodomas viešajame profilyje. Norėdami ištrinti albumą arba redaguoti pavadinimą, pridėti paveikslėlį (-ius) ar ištrinti paveikslėlį (-ius), spustelėkite \"Redaguoti\". Norėdami redaguoti arba pridėti paveikslėlio antraštę, spustelėkite po paveikslėliu esantį tekstą. Jei norite nustatyti viršelį arba pašalinti viršelį, spustelėkite mygtuką po viršeliu.</p>"
+            "#text": "<p>Jei forumas naudoja albumus, savo nuotraukas galite rodyti albumuose savo profilyje ir naudoti jas savo pranešimuose.</p>\r\n<ol>\r\n<li>Paskyros puslapių meniu atidarykite <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> (arba naudotojo meniu <strong>[[TOOLBAR.MYALBUMS]]</strong>) ir spustelėkite <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Įveskite pavadinimą ir įkelkite pirmuosius paveikslėlius (galima kelis iš karto).</li>\r\n</ol>\r\n<p>Su <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> pridedate daugiau paveikslėlių arba juos ištrinate, taip pat ištrinate albumą. Albume galite paveikslėliams suteikti antraštes ir pasirinkti viršelį su <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Norėdami parodyti albumo paveikslėlį pranešime, po paveikslėliu spustelėkite <strong>[[ALBUM.COPY_BBCODE]]</strong> ir įklijuokite kodą į redaktorių.</p>\r\n<p class=\"text-body-secondary small\">Albumų ir paveikslėlių skaičius bei paveikslėlių dydis yra riboti, apribojimai priklauso nuo jūsų grupės ar rango ir rodomi puslapiuose.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albumai"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Visi jūsų įkelti failai išvardyti naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) skiltyje <strong>[[ATTACHMENTS.TITLE]]</strong>. Prie kiekvieno failo matote, keliuose pranešimuose jis naudojamas, arba kad jis nenaudojamas.</p>\r\n<p>Pažymėkite failus ir ištrinkite juos, kad atlaisvintumėte vietos, pvz., failus, kuriuos įkėlėte, bet nepanaudojote. Ištrintas failas nebėra rodomas pranešimuose, kuriuose jis naudojamas.</p>\r\n<p>Kaip pridėti failų prie pranešimų, paaiškinta skyriuje <a href=\"[[help:attachments]]\">Priedai ir paveikslėliai</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Mano priedai"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Kas yra avatarai?</strong></p>\r\n<p>Avatarai - tai maži paveikslėliai, kuriuos žmonės naudoja norėdami save identifikuoti arba atskirti nuo kitų forumo narių. Šie avatarai bus rodomi kaip naudotojo informacijos dalis pranešimuose, taip pat viešame profilyje.</p>\r\n<p>Savo avatarą galite pakeisti spustelėję \"Modify Avatar\" (keisti avatarą) <strong>Vartotojo valdymo skydelio naršymo juostos srityje \"Personal Profile\" (asmeninis profilis) </strong>.</p>\r\n<p>Avatarą galima pridėti trimis būdais (gal mažiau, jei administratorius jį deaktyvavo)...</p> </p>\r\n<ul>\r\n  <li>Jeigu forume yra galimybė, galite pasirinkti iš esamos Avatarų kolekcijos</li>\r\n  <li>Įvesti esamą URL adresą į paveikslėlį nutolusiame serveryje</li>\r\n  <li>Pasirinkti paveikslėlį iš savo kompiuterio ir jį įkelti</li>\r\n</ul>\r\n<p><em>Žinokite, kad administratorius gali nustatyti leidžiamus paveikslėlių failų tipus, paveikslėlio dydį ir paveikslėlio matmenis (maksimalų paveikslėlio plotį ir aukštį)</em></p>.\r\n<p><strong>Kas yra parašai? </strong></p>\r\n<p>\"Parašuose\" pateikiama informacija, kurią norite įtraukti visų savo pranešimų apačioje. Tai gali būti nuotraukos, nuorodos į jūsų svetainę (-es), citatos ir t. t.</p> </p>\r\n<p>Jei norite keisti parašus, Vartotojo CP naršymo juostos srityje \"Asmeninis profilis\" spustelėkite \"Parašas\". Šiame puslapyje būsite informuoti, kokius BB kodus ir kokias HTML žymas galite naudoti ir kokio ilgio gali būti parašas.</p>"
+            "#text": "<h3 class=\"h6\">Avataras</h3>\r\n<p>Avataras – tai mažas paveikslėlis, rodomas šalia jūsų vardo jūsų pranešimuose ir profilyje. Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[ACCOUNT.EDIT_AVATAR]]</strong>. Priklausomai nuo forumo, galite:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> – pasirinkti vieną iš forumo avatarų.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> – įkelti savo paveikslėlį (png, jpg, gif, webp, bmp arba svg). Dideli paveikslėliai automatiškai sumažinami, puslapyje rodomas leidžiamas dydis.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> pašalina jūsų avatarą. Jei avataro nėra, forumas rodo numatytąjį paveikslėlį.</p>\r\n<h3 class=\"h6 mt-3\">Parašas</h3>\r\n<p>Parašas – tai trumpas tekstas, rodomas po kiekvienu jūsų pranešimu, pvz., šūkis arba nuoroda į jūsų svetainę. Naudotojo meniu atidarykite <strong>[[ACCOUNT.SIGNATURE]]</strong>. Puslapyje rodomas didžiausias ilgis ir BB kodai, kuriuos galite naudoti parašui, HTML neleidžiamas. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> parodo, kaip jis atrodys.</p>\r\n<p class=\"text-body-secondary small\">Ar naudojami avatarai ir parašai, sprendžia administratorius, o apribojimai gali priklausyti nuo jūsų grupės ar rango.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Parašai, Avatarai Nuotraukos"
+            "#text": "Avataras ir parašas"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>Vartotojo valdymo skydelis</strong> - tai vieta, kurioje galite valdyti asmeninius nustatymus, parinktis ir pageidavimus.</p>\r\n<p>Pagrindiniame <strong>Kontrolės skydelio</strong> puslapyje matysite savo paskyros santrauką, įskaitant naudotojo vardą, el. pašto adresą ir pranešimų skaičių, grupių, kuriose esate, narius ir nuo kada esate narys.</p>\r\n<p>Kairėje pusėje rasite nuorodas į visus papildomus puslapius ir formas, kuriomis galite valdyti.</p>\r\n<p><strong>Pranešėjas</strong></p>\r\n<ul>\r\n  <li>Spausdintuvas</li>\r\n  <li>Išsiųsti elementai</li>\r\n  <li>Archyvas</li>\r\n  <li>Naujas pranešimas</li>\r\n</ul>\r\n<p><strong>Asmeninis profilis</strong></p>\r\n<ul>\r\n  <li>Peržiūrėti profilį</li>\r\n  <li>Redaguoti profilį</li>\r\n  <li>Peržiūrėti padėkas<br /></li>\r\n  <li>Redaguoti albumus</li>\r\n  <li>Pakeisti avatarą</li>\r\n  <li>Pasirašyti</li>\r\n  <li>Elektroninio pašto pranešimų nuostatos</li>\r\n  <li>Pakeisti slaptažodį</li>\r\n</ul>"
+            "#text": "<p>Spustelėkite savo vardą viršuje dešinėje, kad atidarytumėte naudotojo meniu:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> – jūsų paskyros ir veiklos apžvalga.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> – visi jūsų paskyros nustatymai (žr. toliau).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> – jūsų privačios žinutės, žr. <a href=\"[[help:messenger]]\">Privačios žinutės</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> – žr. <a href=\"[[help:buddies]]\">Draugai</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> – žr. <a href=\"[[help:myalbums]]\">Albumai</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – žr. <a href=\"[[help:newposts]]\">Naujų pranešimų peržiūra</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Skaičiai šalia jūsų vardo, <strong>[[TOOLBAR.INBOX]]</strong> ir <strong>[[TOOLBAR.BUDDIES]]</strong> rodo neskaitytų žinučių ir neatsakytų draugystės užklausų skaičių.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Puslapyje rodomas jūsų naudotojo vardas, el. pašto adresas, pranešimų skaičius ir užsiregistravimo data bei <strong>[[ACCOUNT.ACTIVITY]]</strong>: jūsų temos ir atsakymai, reakcijos ir draugystės, su filtrais kiekvienai rūšiai. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> parodo jūsų profilį taip, kaip jį mato kiti nariai.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Nustatymai taip pat išvardyti kairėje visų paskyros puslapių pusėje:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> – informacija apie jus.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> – el. pašto adresas, laiko juosta, kalba, dviejų veiksnių autentifikavimas.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> – jūsų įkelti failai.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> ir <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> – el. pašto ir tiesioginiai (push) pranešimai, stebimos temos ir forumai.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> – įveskite dabartinį slaptažodį ir du kartus naują.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Kai kurie punktai rodomi tik tada, jei forumas naudoja tą funkciją (pvz., avatarus, parašus ar albumus).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Mano nustatymai (naudotojo valdymo skydelis)"
+            "#text": "Mano paskyra"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigacija"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Kiekvieno puslapio viršuje esančioje antraštėje yra pagrindinis meniu: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> ir <strong>[[TOOLBAR.HELP]]</strong> (priklausomai nuo forumo, rodomi ne visi). Svečiai dešinėje mato <strong>[[TOOLBAR.LOGIN]]</strong> ir <strong>[[TOOLBAR.REGISTER]]</strong>. Nariai mato pranešimų varpelį ir naudotojo meniu su savo vardu ir avataru, žr. <a href=\"[[help:mysettings]]\">Mano paskyra</a>. Po antrašte esantis dabartinio puslapio kelias (naršymo kelias) grąžina jus į forumą ar kategoriją.</p>\r\n<h3 class=\"h6 mt-3\">Forumo temų sąrašas</h3>\r\n<p>Spustelėkite forumą, kad pamatytumėte jo temas. Prisegtos temos ir skelbimai rodomi pirmiausia. Slenkant žemyn, daugiau temų įkeliama automatiškai. Juostoje virš sąrašo yra:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> – rodo tik temas su pranešimais pasirinktu laikotarpiu (pvz., per paskutinę dieną arba nuo paskutinio jūsų apsilankymo).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> – ieško šio forumo temose.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> – pereina į kitą forumą.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> ir <strong>[[TOPICS.MARKREAD]]</strong> (nariams).</li>\r\n</ul>\r\n<p>Piktogramos prieš temas žymi naujus pranešimus, populiarias („karštas“) temas, užrakintas ir perkeltas temas. Jas paaiškina legenda po sąrašu.</p>\r\n<h3 class=\"h6 mt-3\">Temos viduje</h3>\r\n<p>Pranešimai rodomi puslapiais, puslapių juosta yra po pranešimais. Su <strong>[[POSTS.PREVTOPIC]]</strong> ir <strong>[[POSTS.NEXTTOPIC]]</strong> pereisite į gretimas forumo temas. Nuoroda į pranešimą atidaro temą ties tuo pranešimu.</p>\r\n<h3 class=\"h6 mt-3\">Nauji pranešimai ir skaitymo būsena</h3>\r\n<p>Forumai ir temos su dar neskaitytais pranešimais yra paryškinti. Nariai gali pažymėti viską kaip skaitytą pradžios puslapyje su <strong>[[DEFAULT.MARKALL]]</strong> arba vieną forumą su <strong>[[TOPICS.MARKREAD]]</strong>. Kur rasti visus naujus pranešimus vienoje vietoje, paaiškinta skyriuje <a href=\"[[help:newposts]]\">Naujų pranešimų peržiūra</a>.</p>\r\n<h3 class=\"h6 mt-3\">Tiesioginiai atnaujinimai</h3>\r\n<p>Jei forumas naudoja tiesioginius atnaujinimus, naujos temos ir pranešimai atsiranda neperkraunant puslapio. Temoje matysite pranešimą <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, spustelėkite jį, kad būtų parodytas naujas atsakymas.</p>\r\n<h3 class=\"h6 mt-3\">Informacija apie naudotoją</h3>\r\n<p>Užveskite pelę ant naudotojo vardo, kad pamatytumėte trumpą kortelę su informacija apie narį, pvz., vietovę, prisijungimo būseną ir užsiregistravimo datą. Spustelėjus vardą atidaromas nario profilis.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Orientavimasis forume"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Nariai visų forumų naujus pranešimus randa naudotojo meniu punkte <strong>[[TOOLBAR.MYTOPICS]]</strong>. Puslapyje yra keturi skirtukai:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> – temos su naujais pranešimais nuo paskutinio jūsų apsilankymo.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> – temos, į kurias dar niekas neatsakė.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> – temos, kurias stebite.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> – temos, kurias pradėjote jūs.</li>\r\n</ul>\r\n<p>Laiko filtru pasirenkate laikotarpį, pvz., paskutinę valandą, paskutinę savaitę arba visas temas. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> pažymi visas temas kaip skaitytas.</p>\r\n<p>Pradžios puslapyje esančios <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> rodo naujausius visų forumų pranešimus, taip pat ir svečiams.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Susisiekti su kitu galite siųsdami el. laišką, juos rasite narių sąraše.</p>\r\n<p>Paprastai atidaromas puslapis, kuriame yra forma, į kurią galite įvesti savo pranešimą. Baigę rašyti žinutę, paspauskite mygtuką \"Siųsti el. laišką\" ir jūsų žinutė bus iš karto išsiųsta.</p>\r\n<p><strong>Ar galiu matyti el. pašto adresus?</strong></p>\r\n<p>Dėl privatumo sumetimų gavėjo el. pašto adresas jums nerodomas nei šio proceso metu, nei bet kurioje kitoje forumo vietoje.</p>\r\n<p><strong>Kodėl negaliu kam nors išsiųsti el. laiško? </strong></p>\r\n<p>Jeigu nerandate nario el. pašto mygtuko ar nuorodos, tai reiškia, kad administratorius išjungė šio forumo el. pašto funkcijas arba narys nurodė, kad nenori gauti el. laiškų iš kitų narių.</p>\r\n<p><strong>Kas yra privačios žinutės?</strong></p>\r\n<p>Registruoti nariai taip pat gali siųsti žinutes kitiems šio forumo nariams naudodamiesi privačių žinučių sistema.</p>"
+            "#text": "<p>Nariui galite išsiųsti el. laišką per forumą: spustelėkite <strong>[[POSTS.EMAIL]]</strong> nario profilyje (arba komandos puslapyje), įveskite temą ir savo žinutę ir spustelėkite <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Nario el. pašto adresas lieka jums paslėptas.</li>\r\n<li>Laiškas išsiunčiamas nurodant jūsų naudotojo vardą ir <strong>jūsų</strong> el. pašto adresą kaip siuntėją, todėl narys gali jums atsakyti tiesiogiai.</li>\r\n<li>Siekiant išvengti šlamšto, per valandą galite išsiųsti tik kelis laiškus.</li>\r\n</ul>\r\n<p>Negalite siųsti laiškų nariams, kurie blokuoja el. laiškus arba jus ignoruoja (išskyrus draugus), ir tik tada, jei administratorius leidžia narių tarpusavio el. laiškus. Daugeliu atvejų <a href=\"[[help:messenger]]\">privati žinutė</a> yra geresnis būdas.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Susisiekimas su kitais nariais"
+            "#text": "El. laiškai nariams"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Apklausos - tai galimybė balsuoti tam tikru klausimu ar klausimu.</em></p>\r\n<p><strong>Sukurti naują apklausą?</strong></p>\r\n<p>Kai skelbiate naują temą, turite parinktį \"Pridėti apklausą?\", kad sukurtumėte naują apklausą. Jei šios parinkties nematote, galbūt neturite prieigos prie šios parinkties.</p>\r\n<p>Taip pat galite pridėti naujų apklausų prie jau esamų. Į temą galima įtraukti tiek apklausų, kiek norite.</p>\r\n<p>Tai leidžia užduoti klausimą ir nurodyti galimų atsakymų skaičių (daugiausia 10 arba administratorius nustatė didesnį skaičių) - <em>Administratorius kaip atsakymus gali pridėti paveikslėlius (Remote Urls)</em>. Tada kiti nariai galės balsuoti už norimą atsakymą, o balsavimo rezultatai bus rodomi temoje.</p>\r\n<p><em>Apklausos pavyzdys gali būti toks:</em></p>\r\n<p><em>Kokia yra jūsų mėgstamiausia spalva?\"</em></p>\r\n<ul>\r\n  <li><em>Mėlyna</em></li>\r\n  <li><em>Raudona</em></li>\r\n  <li><em>Geltona</em></li>\r\n  <li><em>Žalia</em></li>\r\n</ul>\r\n<p>Taip pat galite nurodyti apklausos terminą. Pavyzdžiui: paleiskite apklausą 10 dienų arba galite nustatyti, kad ji niekada nepasibaigtų.</p>\r\n<p>Taip pat galite nuspręsti, ar naudotojas turėtų matyti rezultatus nebalsuodamas, ar įjungus žymimąjį langelį \"Turėtumėte balsuoti visose apklausose, kad pamatytumėte rezultatus.<em>\"</em>\"</em>, reikės balsuoti prieš pamatant bet kokius rezultatus.</p>\r\n<p>\"Susieto balsavimo\" parinktis nerodo rezultatų, jei apklausa nepasibaigė.</p>\r\n<p><strong>Apklausų grupavimas</strong></p>\r\n<p>Visos prie temos prijungtos apklausos automatiškai sujungiamos į grupę. Šią Grupę galite rodyti kartu su apklausomis prie bet kurios kitos norimos Temos.</p>\r\n<p><strong>Kaip balsuoti?</strong></p>\r\n<p>Jei norite balsuoti apklausoje, tiesiog spustelėkite parinktį, už kurią norite balsuoti.</p>\r\n<p>Apskritai, kartą balsavę apklausoje, vėliau negalėsite pakeisti savo balso, todėl balsuokite atidžiai!</p>"
+            "#text": "<p>Apklausa užduoda temos skaitytojams klausimą su keliais atsakymų variantais.</p>\r\n<h3 class=\"h6 mt-3\">Apklausos kūrimas</h3>\r\n<p>Kurdami temą, parinktyse įjunkite <strong>[[POLLEDIT.POLLADD]]</strong>, apklausos redaktorius atsidarys paskelbus temą. Esamoje temoje temos pradininkas ir moderatoriai virš pranešimų mato <strong>[[POLLEDIT.CREATEPOLL]]</strong>. Temoje gali būti viena apklausa.</p>\r\n<ul>\r\n<li>Įveskite klausimą ir bent du atsakymų variantus, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> prideda daugiau (iki administratoriaus nustatyto didžiausio skaičiaus).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> – kiek dienų apklausa atvira, palikite tuščią, jei apklausa turi būti neribota.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> – balsuojantieji gali pasirinkti daugiau nei vieną atsakymą.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> – balsavusiųjų vardai rodomi kartu su rezultatais.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> – rezultatai rodomi tik pasibaigus apklausai.</li>\r\n<li>Jei forumas leidžia, klausimas ir atsakymų variantai gali turėti paveikslėlį (paveikslėlio adresą).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Balsavimas</h3>\r\n<p>Spustelėkite pasirinkto varianto mygtuką. Savo balso pakeisti negalite, todėl rinkitės atidžiai. Svečiai negali balsuoti ir nemato rezultatų.</p>\r\n<h3 class=\"h6 mt-3\">Apklausos keitimas</h3>\r\n<p>Kūrėjas gali pakeisti apklausą su <strong>[[POLLEDIT.EDITPOLL]]</strong>, kol niekas nebalsavo (nebent forumas leidžia keisti ir vėliau), ir ištrinti ją su <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderatoriai apklausas gali keisti ir trinti visada.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Apklausų kūrimas ir dalyvavimas jose"
+            "#text": "Apklausos"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Prisijungę ir įkėlę puslapį galite gauti iššokantį pranešimą naršyklės lango centre.</p>\r\n<p>Jame bus informuojama apie kelis veiksmus...</p>\r\n<ul>\r\n  <li>Naujos privačios žinutės </li>\r\n  <li>Naujos draugų užklausos</li>\r\n  <li>Patvirtinti draugų prašymai</li>\r\n  <li>Atmesti draugų prašymai<br />\r\n  </li>\r\n</ul>\r\n<p><em>Taip pat galite gauti keletą informacinių ir klaidų pranešimų.</em></p>"
+            "#text": "<p>Varpelis antraštėje rodo jūsų pranešimus, raudonas skaičius rodo neperskaitytų skaičių. Pranešimą gaunate, kai:</p>\r\n<ul>\r\n<li>kas nors jus pamini (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) arba cituoja (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>kas nors sureaguoja į vieną iš jūsų pranešimų,</li>\r\n<li>stebimoje temoje yra naujas atsakymas arba stebimame forume nauja tema,</li>\r\n<li>turite naują draugą.</li>\r\n</ul>\r\n<p>Spustelėkite pranešimą, kad atidarytumėte įrašą. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> atidaro visų pranešimų sąrašą su filtru pagal rūšį ir <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Pranešimai yra veiklos srauto dalis: išjungti juos galite skiltyje <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Kiti pranešimai</h3>\r\n<ul>\r\n<li>Naujos privačios žinutės ir draugystės užklausos skaičiuojamos šalia jūsų vardo. Atidarius puslapį dialogo langas paklausia, ar norite jas perskaityti.</li>\r\n<li>Forumo pranešimai (pvz., „išsaugota“) kelioms sekundėms pasirodo puslapio viršuje.</li>\r\n<li>Pranešimai taip pat gali būti siunčiami el. paštu ir į jūsų naršyklę ar telefoną, žr. <a href=\"[[help:mailsettings]]\">Pranešimų nustatymai</a> ir <a href=\"[[help:push]]\">Tiesioginiai pranešimai ir programėlė</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Iššokantys pranešimai"
+            "#text": "Pranešimai apie įvykius"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Atidarykite forumą, kuriam priklauso tema, ir spustelėkite <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Jei mygtuko nematote, šiame forume jums neleidžiama kurti temų (arba nesate prisijungę).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> – temos pavadinimas, jis privalomas. Kol rašote, forumas rodo <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, galbūt į jūsų klausimą jau atsakyta.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> – neprivalomas trumpas aprašymas.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> – neprivalomi raktažodžiai, pagal žymas kiti nariai gali rasti temas.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> – tik nariams, turintiems šią teisę, žr. <a href=\"[[help:anounce]]\">Skelbimai ir prisegtos temos</a>.</li>\r\n<li>Pati žinutė, redaktoriuje.</li>\r\n</ul>\r\n<p>Skiltyje <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> galite pridėti apklausą (<strong>[[POLLEDIT.POLLADD]]</strong>, žr. <a href=\"[[help:polls]]\">Apklausos</a>) ir stebėti temą (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Spustelėkite <strong>[[POSTMESSAGE.PREVIEW]]</strong>, kad patikrintumėte savo pranešimą, ir <strong>[[POSTMESSAGE.NEWTOPIC]]</strong>, kad jį paskelbtumėte.</p>\r\n<h3 class=\"h6 mt-3\">Redaktorius</h3>\r\n<p>Priklausomai nuo forumo, redaktorius rašant rodo formatavimą arba BB kodus (trumpas žymas, pvz., <code>[b]paryškinta[/b]</code>). Įrankių juostos mygtukai formatuoja tekstą: pažymėkite tekstą ir spustelėkite mygtuką, pvz., paryškintam tekstui, nuorodai, citatai ar sąrašui. Visi BB kodai ir jų rezultatas pateikti skyriuje <a href=\"[[help:bbcodes]]\">BB kodai</a>.</p>\r\n<ul>\r\n<li>Įveskite <code>@</code> ir vardą, kad paminėtumėte narį, žr. <a href=\"[[help:mentions]]\">Paminėjimai ir žymos</a>.</li>\r\n<li>Failai ir paveikslėliai pridedami priedų mygtuku, žr. <a href=\"[[help:attachments]]\">Priedai ir paveikslėliai</a>.</li>\r\n<li>BB kodų redaktoriuje Ctrl+B, Ctrl+I ir Ctrl+U formatuoja pažymėtą tekstą, Ctrl+Enter išsiunčia pranešimą.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Naudinga žinoti</h3>\r\n<ul>\r\n<li>Svečiai (jei jiems leidžiama rašyti) įveda vardą lauke <strong>[[POSTMESSAGE.FROM]]</strong>, tai negali būti nario vardas.</li>\r\n<li>Siekiant išvengti šlamšto, tarp dviejų pranešimų turite palaukti kelias sekundes, o pranešimas turi didžiausią ilgį.</li>\r\n<li>Kai kuriuose forumuose pranešimus pirmiausia patikrina moderatorius. Jūsų pranešimas parodomas, kai jis patvirtinamas.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Naujų temų ir pranešimų skelbimas"
+            "#text": "Naujos temos kūrimas"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Nustatymo ir profilio funkcijos"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Naudodamiesi forumu sutinkate su jo taisyklėmis. Puslapyje <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> pateikiamos taisyklės ir privatumo politika: kokius asmens duomenis forumas saugo, kokiais tikslais ir kokias teises turite (pvz., gauti informacijos apie savo duomenis arba juos ištrinti).</p>\r\n<p>Puslapyje <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> išvardyti forumo slapukai, kam jie naudojami ir kiek laiko saugomi. Kai pirmą kartą apsilankote forume, pranešimas informuoja jus apie slapukus.</p>\r\n<p>Jūsų profilyje rodoma tik jūsų įvesta informacija, jūsų el. pašto adresas niekada nerodomas kitiems nariams. Galite pasislėpti iš aktyvių naudotojų sąrašo (jei forumas tai leidžia), blokuoti privačias žinutes ir el. laiškus bei ištrinti savo paskyrą, žr. <a href=\"[[help:blocking]]\">Naudotojų ignoravimas ir blokavimas</a> ir <a href=\"[[help:deleteaccount]]\">Paskyros sustabdymas arba ištrynimas</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Privatumas, slapukai ir taisyklės"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Kaip narys turite viešai matomą profilio puslapį. Šiame puslapyje pateikiama nario informacija, kurią jis pateikė registracijos metu arba vėliau per naudotojo valdymo skydelį.</p>\r\n<p><em>Peržiūrėti nario profilį galima keliais būdais...</em></p>\r\n<ul>\r\n  <li>Kai pamatysite naudotojo vardą, spustelėkite jo vardą ir pamatysite išskleidžiamąjį meniu, kuriame yra nuoroda \"Vartotojo profilis\", kad galėtumėte peržiūrėti profilį..</li>.\r\n  <li>Dalyvių sąraše galite peržiūrėti visus registruotus narius ir greitai spustelėti viešus profilius.</li>\r\n  <li>Prisijungę taip pat galite peržiūrėti savo viešąjį profilį prisijungę prie forumų ir puslapio viršuje antraštėje spustelėję nuorodą \"Mano profilis\", kad atidarytumėte naudotojo valdymo skydelį.</li>.\r\n</ul>\r\n<p><strong>Kokia informacija rodoma šiame puslapyje? </strong></p>\r\n<p>Viešojo profilio puslapis suskirstytas į 5 skirtukus.</p>\r\n<ul>\r\n  <li><strong>About</strong> - Rodoma visa informacija, kurią naudotojas pateikė savo profilio puslapyje, pavyzdžiui, tikrasis vardas, lytis, būsena, jei naudotojas yra prisijungęs/neprisijungęs, forumo rangas ir kita.</li>\r\n  <li><strong>Statistika</strong> - Rodoma statistinė informacija, pavyzdžiui, Prisijungimo data, Paskutinio apsilankymo data, Padėkos skaičius, Kiek kartų šiam naudotojui buvo padėkota ir Pranešimų, už kuriuos šiam naudotojui buvo padėkota, skaičius.</li>\r\n  <li><strong>Paskutiniai 10 pranešimų</strong> - jei įmanoma, rodoma 10 paskutinių pranešimų, kuriuos parašė šis naudotojas</li>.\r\n  <li><strong>Draugai - </strong>Nurodo draugus, kuriuos naudotojas turi forume.</li>\r\n  <li><strong>Albumai - </strong>Nurodomi Vartotojo sukurti albumai (jei įjungta).</li>\r\n</ul>\r\n<p>Asmeninė informacija, tokia kaip el. pašto adresas ar slaptažodžiai, <strong>NĖRA rodoma</strong>.</p>"
+            "#text": "<p>Spustelėkite nario vardą (pvz., pranešime ar narių sąraše), kad atidarytumėte jo profilį. Priklausomai nuo forumo, profiliai rodomi tik nariams. Savo profilį atidarysite su <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> puslapyje <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Profilyje rodoma:</p>\r\n<ul>\r\n<li>nario avataras, vardas, rangas ir medaliai bei profilio informacija (pvz., vietovė, gimimo data, užsiėmimas ir pomėgiai),</li>\r\n<li>pranešimų bei suteiktų ir gautų reakcijų skaičius,</li>\r\n<li>reputacija (jei forumas ją naudoja),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong> su nuoroda <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>nario draugai ir albumai.</li>\r\n</ul>\r\n<p>Profilio mygtukais galite <strong>[[BUDDY.ADDBUDDY]]</strong>, išsiųsti privačią žinutę (<strong>[[POSTS.PM]]</strong>) arba el. laišką (<strong>[[POSTS.EMAIL]]</strong>) ir atidaryti nario svetainę ar tinklaraštį. Nario el. pašto adresas niekada nerodomas.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Mano viešasis profilis"
+            "#text": "Profiliai"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Žinučių skaitymas ir skelbimas"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Tiesioginiai (push) pranešimai rodo naujus atsakymus stebimose temose ir kitus pranešimus jūsų kompiuteryje ar telefone, net kai forumas neatidarytas.</p>\r\n<ol>\r\n<li>Naudotojo meniu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) atidarykite <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>.</li>\r\n<li>Skiltyje <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> spustelėkite <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> ir leiskite pranešimus, kai naršyklė paklaus.</li>\r\n</ol>\r\n<p>Tiesioginiai pranešimai nustatomi kiekvienam įrenginiui ir naršyklei atskirai. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> juos išjungia šiame įrenginyje. Pranešimai siunčiami per jūsų naršyklės tiesioginių pranešimų paslaugą (pvz., Google, Mozilla, Apple ar Microsoft) ir yra užšifruoti.</p>\r\n<h3 class=\"h6 mt-3\">Forumo įdiegimas kaip programėlės</h3>\r\n<p>Forumą galite įdiegti kaip programėlę su savo piktograma pradžios ekrane ar darbalaukyje: tame pačiame puslapyje spustelėkite <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> arba naudokite savo naršyklės diegimo funkciją. iPhone ir iPad įrenginiuose tiesioginiai pranešimai veikia tik įdiegtoje programėlėje: bakstelėkite Bendrinti, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, atidarykite forumą iš pradžios ekrano ir tada įjunkite pranešimus.</p>\r\n<p class=\"text-body-secondary small\">Ši skiltis rodoma tik tada, jei administratorius nustatė tiesioginius pranešimus.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Tiesioginiai pranešimai ir programėlė"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Skaitymas"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Jei pamiršote slaptažodį, galite spustelėti \"<a href=\"{0}\">Pamiršote slaptažodį</a>\".\r\n  nuorodą. Ji bus rodoma bet kuriame puslapyje, kuriame reikia įvesti slaptažodį. </p>\r\n<p>Ši nuoroda atvers puslapį, kuriame turėtumėte įvesti savo naudotojo vardą. Bus išsiųstas el.\r\n  netrukus bus išsiųstas el. pašto adresas su slaptažodžio atstatymo instrukcijomis.</p>\r\n<p> Kadangi slaptažodžiai yra užšifruoti, nėra galimybės iš naujo išsiųsti pradinį slaptažodį.\r\n  Ši parinktis suteikia galimybę iš naujo nustatyti slaptažodį.  </p>\r\n<p> Kad ši parinktis veiktų, turite turėti galimybę gauti el. laiškus į savo registruotą el. pašto adresą.\r\n  veiktų. Jei to nematote, gali tekti patikrinti nepageidaujamų laiškų filtrus ir aplanką\r\n  laiško per kelias minutes. </p>"
+            "#text": "<p>Jei pamiršote slaptažodį, galite nustatyti naują:</p>\r\n<ol>\r\n<li>Spustelėkite <strong>[[LOGIN.LOSTPASSWORD]]</strong> šalia slaptažodžio laukelio <a href=\"[[page:Account_Login]]\">prisijungimo puslapyje</a> arba prisijungimo lange.</li>\r\n<li>Įveskite savo naudotojo vardą arba el. pašto adresą ir spustelėkite <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Jei paskyra su tokiu vardu ar adresu egzistuoja, forumas atsiunčia jums el. laišką su nuoroda. Dėl jūsų privatumo puslapis bet kuriuo atveju rodo tą patį pranešimą.</li>\r\n<li>Nuoroda atidaro puslapį, kuriame įvedate savo el. pašto adresą ir du kartus naują slaptažodį.</li>\r\n</ol>\r\n<p>Nuoroda galioja tik ribotą laiką. Jei dar nepatvirtinote savo el. pašto adreso, vietoj to gausite naują patvirtinimo laišką. Forumas per valandą išsiunčia daugiausia kelis tokius laiškus.</p>\r\n<p>Slaptažodžiai saugomi tokiu pavidalu, kurio neįmanoma perskaityti atgal, todėl niekas (net administratorius) negali jums pasakyti jūsų senojo slaptažodžio.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Atkurti prarastą slaptažodį"
+            "#text": "Pamiršto slaptažodžio atkūrimas"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Administratorius tikriausiai pareikalaus, kad užsiregistruotumėte, jei norite naudotis visomis forumo funkcijomis. Užsiregistravimas suteikia jums tapatybę forume, fiksuotą vartotojo vardą visuose pranešimuose, kuriuos rašote, ir viešą internetinį profilį.</p>\r\n<p>Registracija yra nemokama (jei nenurodyta kitaip) ir suteikia daugiau galimybių, įskaitant:</p>\r\n<ul>\r\n  <li>Naujų temų skelbimas</li>\r\n  <li>atsakyti į kitų žmonių temas</li>\r\n  <li>Savo žinučių redagavimas</li>\r\n  <li>Pranešimų el. paštu apie atsakymus į jūsų nurodytus pranešimus ir temas gavimą</li>\r\n  <li>Privačių žinučių siuntimas kitiems nariams</li>\r\n</ul>\r\n<p><strong>Kaip užsiregistruoti?</strong></p>\r\n<p>Registruojatės paspaudę antraštėje esantį mygtuką \"Registruotis\". Pirmiausia turite sutikti su forumo taisyklėmis ir politika. Tada Jūsų bus paprašyta pasirinkti naudotojo vardą, slaptažodį, Saugumo klausimą/atsakymą ir įvesti galiojantį el. pašto adresą. O jei esate Administratorius, norėdami tęsti, turite įvesti parodytą Captcha kodą. Kitame puslapyje galite pasirinktinai pateikti kai kuriuos pagrindinius profilio nustatymus.</p>\r\n"
+            "#text": "<p>Daugelis forumo funkcijų prieinamos tik nariams, pvz., pranešimų rašymas, privačios žinutės, draugai, temų stebėjimas ir pranešimai apie įvykius. Norėdami tapti nariu, antraštėje spustelėkite <strong>[[TOOLBAR.REGISTER]]</strong> (jei administratorius leidžia naujas registracijas).</p>\r\n<ol>\r\n<li>Jei forumas to prašo, perskaitykite <strong>[[RULES.TITLE]]</strong> ir spustelėkite <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Įveskite naudotojo vardą, savo el. pašto adresą ir slaptažodį (du kartus). Priklausomai nuo forumo, taip pat įvesite rodomą vardą ir kitą administratoriaus prašomą informaciją.</li>\r\n<li>Spustelėkite <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Forumas parodo <strong>[[REGISTER.CHECK_MAIL]]</strong> ir atsiunčia jums el. laišką. Spustelėkite šiame laiške esančią nuorodą, kad patvirtintumėte savo adresą. Tada jūsų paskyra aktyvi ir galite prisijungti.</li>\r\n</ol>\r\n<p>Jei laiškas neatkeliauja, patikrinkite šlamšto aplanką. Jei bandysite prisijungti nepatvirtinę adreso, prisijungimo puslapis apie tai praneš ir pasiūlys <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>Kai kuriuose forumuose naujas paskyras pirmiausia turi patvirtinti administratorius, apie paskyros patvirtinimą būsite informuoti el. paštu.</p>\r\n<p>Po registracijos galite užpildyti savo profilį, žr. <a href=\"[[help:editprofile]]\">Profilio redagavimas</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Kai kuriose lentose galite rašyti ir atsakinėti kaip svečias. Tačiau daugumoje bendruomenių reikia registruotis.</p>\r\n<p>Registruotas naudotojas gali eiti į forumą lentoje, kurioje jis turi teisę peržiūrėti temas ir palikti atsakymus. Norėdami atsakyti, turite kelias galimybes. Galite spustelėti mygtuką \"Rašyti atsakymą\" ir Temos pabaigoje pridėti naują žinutę. Arba galite palikti greitąjį atsakymą greitojo atsakymo laukelyje, esančiame po Temos pranešimais.</p>\r\n<p>Jei norite atsakyti į žinutę, paspauskite mygtuką \"Cituoti\" ir galėsite atsakyti į žinutę su cituojamu tekstu.</p>"
+            "#text": "<p>Norėdami atsakyti temoje, spustelėkite <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> virš arba po pranešimais, arba <strong>[[BUTTON.BUTTON_REPLY]]</strong> po pranešimu. Atsakymo puslapyje po redaktoriumi rodomi temos <strong>[[POSTMESSAGE.LAST10]]</strong>, todėl galite juos skaityti rašydami.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Trumpam atsakymui naudokite greito atsakymo laukelį po pranešimais arba pranešimo mygtuką <strong>[[POSTS.QUICKREPLY]]</strong>. Parašykite tekstą ir spustelėkite <strong>[[COMMON.POST]]</strong>. Norėdami naudoti visą redaktorių (pvz., pridėti failų), spustelėkite <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citavimas</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> po pranešimu pradeda atsakymą su šio pranešimo tekstu kaip citata.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> surenka kelis pranešimus, taip pat ir kituose temos puslapiuose. Tada spustelėkite <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> prie vieno iš jų, atsakyme bus cituojami visi surinkti pranešimai.</li>\r\n<li>Norėdami cituoti tik dalį, pažymėkite tekstą pranešime, spustelėkite jį dešiniuoju pelės mygtuku ir pasirinkite <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Ilgas citatas sutrumpinkite iki dalies, į kurią atsakote. Cituojamas narys gauna pranešimą.</p>\r\n<p>Atsakyti galite tik tada, jei šiame forume jums tai leidžiama, ir ne užrakintoje temoje. Svečiai gali atsakyti tik tada, jei forumas tai leidžia.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Atsakymas į žinutę"
+            "#text": "Atsakymas ir citavimas"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Jei pranešimas pažeidžia forumo taisykles (pvz., šlamštas, įžeidinėjimai ar neteisėtas turinys), praneškite apie jį moderatoriams, užuot į jį atsakę:</p>\r\n<ol>\r\n<li>Atidarykite pranešimo meniu (trys taškai viršuje dešinėje) ir pasirinkite <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Įveskite, kodėl pranešate apie šį įrašą.</li>\r\n<li>Spustelėkite <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Forumo moderatoriai patikrina pažymėtą pranešimą ir nusprendžia, ką daryti. Autorius nemato, kas apie pranešimą pranešė. Priklausomai nuo forumo, pranešti apie įrašus gali tik nariai.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Pranešimas apie netinkamą įrašą"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Šiuo metu kanalai pateikiami dviem formatais: RSS ir \"Atom\".</p>\r\n<p>Jeigu administratorius įjungė kanalų sindikaciją, galite gauti forumų, temų ir aktyvių temų kanalus.</p>\r\n<p>Dauguma šiuolaikinių naršyklių turi galimybę skaityti RSS kanalus ir automatiškai aptinka kanalus YAF forumo puslapiuose.</p>"
+            "#text": "<p>Sklaidos kanalai leidžia sekti forumą kanalų skaitymo programėlėje, nesilankant forume. Forumas siūlo Atom sklaidos kanalus:</p>\r\n<ul>\r\n<li>naujausiems pranešimams (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> pradžios puslapyje),</li>\r\n<li>forumo temoms (kanalo mygtukas juostoje virš temų sąrašo),</li>\r\n<li>temos pranešimams (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Nukopijuokite kanalo adresą į savo kanalų skaitytuvą. Ar forumas siūlo sklaidos kanalus ir kas gali jais naudotis (dažnai tik nariai), nustato administratorius. Jei nematote kanalo mygtuko, sklaidos kanalai jums neprieinami.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS ir \"Atom\" kanalai"
+            "#text": "Sklaidos kanalai"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Jei norite greitai surasti dominančią temą ar pranešimą bet kur forume, spustelėkite antraštėje esančią nuorodą \"Ieškoti\". Tada įveskite raktinį žodį arba frazę, kurios norite ieškoti.</p>\r\n<p>Jei norite labiau kontroliuoti paiešką, galite apsiriboti paieška tik atskiruose forumuose arba rasti nurodyto naudotojo parašytus pranešimus ar temas. Taip pat galite pasirinkti, kiek rezultatų turi būti rodoma viename puslapyje.</p>"
+            "#text": "<p>Antraštėje spustelėkite <strong>[[TOOLBAR.SEARCH]]</strong>, įveskite bent kelias raides ir paspauskite Enter arba spustelėkite <strong>[[SEARCH.BTNSEARCH]]</strong>. Paieškos parinktys leidžia:</p>\r\n<ul>\r\n<li>ieškoti pranešimų, temų arba forumų,</li>\r\n<li>ieškoti tik vieno nario pranešimų,</li>\r\n<li>ieškoti temų su žyma,</li>\r\n<li>ieškoti tikslios frazės, bet kurio iš žodžių arba visų žodžių,</li>\r\n<li>ieškoti tik kai kuriuose forumuose,</li>\r\n<li>ieškoti visame pranešimų tekste arba tik pavadinimuose,</li>\r\n<li>pasirinkti rezultatų skaičių puslapyje.</li>\r\n</ul>\r\n<p>Paieška randa tik tai, ką jums leidžiama skaityti. Kiti paieškos būdai:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> virš temų sąrašo ieško viename forume.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> pranešimo meniu arba profilyje parodo šio nario pranešimus.</li>\r\n<li>Žyma po temos pavadinimu parodo visas temas su šia žyma.</li>\r\n<li>Pažymėkite tekstą pranešime ir spustelėkite jį dešiniuoju pelės mygtuku, kad ieškotumėte pažymėtų žodžių.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Forumų ir temų paieška"
+            "#text": "Paieška"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Kai stebite temą ar forumą, gaunate pranešimus apie naujus įrašus: forumo pranešimuose ir (priklausomai nuo jūsų <a href=\"[[help:mailsettings]]\">pranešimų nustatymų</a>) el. paštu bei tiesioginiais pranešimais.</p>\r\n<ul>\r\n<li><strong>Temą:</strong> po temos pavadinimu spustelėkite <strong>[[POSTS.TOOLS]]</strong> ir <strong>[[POSTS.WATCHTOPIC]]</strong>. Rašydami pranešimą taip pat galite įjungti <strong>[[POSTMESSAGE.TOPICWATCH]]</strong>.</li>\r\n<li><strong>Forumą:</strong> juostoje virš temų sąrašo spustelėkite <strong>[[TOPICS.WATCHFORUM]]</strong>. Gausite pranešimus apie naujas temas šiame forume.</li>\r\n<li><strong>Visus forumus:</strong> pradžios puslapyje spustelėkite <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong>.</li>\r\n</ul>\r\n<p>Norėdami nebestebėti, spustelėkite <strong>[[POSTS.UNWATCHTOPIC]]</strong> arba <strong>[[TOPICS.UNWATCHFORUM]]</strong>. Skiltyje <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> rasite visus <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ir <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, pažymėkite kai kuriuos ir spustelėkite <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong>, kad nustotumėte juos stebėti.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Prenumeratos ir pranešimai"
+            "#text": "Temų ir forumų stebėjimas"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>\"Padėka\" - tai funkcija, leidžianti atsiliepti kitam naudotojui teigiamai, pavyzdžiui, jis ar ji paskelbė žinutę, kuri jums atrodo naudinga, arba padėjo išspręsti problemą.</p>\r\n<p><strong>Kaip pateikti naudotojui padėką? </strong></p>\r\n<p>Jei norite pateikti Naudotojui Padėką, paspauskite mygtuką \"Padėka\" žinutės, kurią norite pridėti, viduje, po to savo vardą rasite žinutės pabaigoje esančiame Naudotojų, pateikusių Padėką, sąraše. Taip pat galite bet kada pašalinti savo Padėką.</p>\r\n<p><strong>Peržiūrėti visas Padėkas</strong></p>\r\n<p>Jei norite peržiūrėti visas žinutes, kurioms skyrėte Padėką, arba parodyti pranešimų, už kuriuos gavote Padėką, sąrašą, eikite į puslapį Asmeninis profilis -&gt; \"Peržiūrėti Padėkas\" iš Vartotojo valdymo skydelio. Ten pamatysite du skirtukus...</p> </p>\r\n<ul>\r\n  <li> <strong>padėkojo</strong> - rodomas pranešimų, kuriuose skyrėte padėką, sąrašas.</li>\r\n  <li><strong>buvo padėkota -</strong> Rodomas pranešimų, kuriuose gavote padėką, sąrašas.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Reakcijos</h3>\r\n<p>Reakcija parodote pranešimo autoriui, kad jums patinka jo pranešimas, nerašydami atsakymo. Spustelėkite šypsenėlės mygtuką (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) po pranešimu ir pasirinkite <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> arba <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Spustelėkite savo reakciją dar kartą, kad ją pašalintumėte, arba kitą, kad ją pakeistumėte.</li>\r\n<li>Pranešimo reakcijos rodomos su jų skaičiumi, užveskite ant jų pelę, kad pamatytumėte, kas sureagavo.</li>\r\n<li>Negalite reaguoti į savo pranešimus, į ištrintus pranešimus ir užrakintose temose.</li>\r\n<li>Autorius gauna pranešimą, o reakcijos skaičiuojamos profilyje (suteiktos ir gautos padėkos).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Reputacija</h3>\r\n<p>Jei forumas naudoja reputacijos sistemą, nario reputacija rodoma profilyje kaip juosta. Nariai, kurie patys turi pakankamai reputacijos, gali kitam nariui pridėti (+1) arba atimti (-1) reputacijos per pranešimo naudotojo meniu.</p>\r\n<h3 class=\"h6 mt-3\">Atsakymas į klausimą</h3>\r\n<p>Temą pradėjęs narys gali atsakymą, kuris atsakė į klausimą, pažymėti su <strong>[[POSTS.MARK_ANSWER]]</strong>. Pranešimas gauna atsakymo ženkliuką, kad kiti skaitytojai greitai rastų sprendimą.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Ačiū Funkcija"
+            "#text": "Reakcijos ir reputacija"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>Kiekvienos temos viršuje yra nuoroda \"Parinktys\". Spustelėjus šią nuorodą, bus rodomas meniu su keliomis parinktimis:</p>\r\n<ul>\r\n  <li><strong>Stebėti šią temą</strong> - užsiprenumeravę temą, periodiškai el. paštu gausite naujausią informaciją apie naujausią veiklą joje.</li>\r\n  <li><strong>Spausdinti šią temą</strong> - bus rodomas puslapis su temos įrašų turiniu sumažintu grafiniu formatu, kuris yra labiau \"patogus spausdinti\".</li>\r\n  <li><strong>Atomų kanalas</strong> - Tai parodys šios temos kanalą su visais įrašais kaip kanalo elementais.</li>\r\n  <li><strong>Rss kanalas</strong> - bus rodomas šios temos kanalas su visais pranešimais kaip kanalo elementais.</li>\r\n</ul>\r\n"
+            "#text": "<p>Juostoje po temos pavadinimu yra temos įrankiai:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> – išsiunčia kam nors nuorodą į temą el. paštu (tik nariams).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> – nukopijuoja temos adresą, pvz., norint į ją nurodyti kitoje svetainėje.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> – gausite pranešimus apie naujus atsakymus, žr. <a href=\"[[help:subscriptions]]\">Temų ir forumų stebėjimas</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> – parodo temą spausdinimui skirta versija.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> – temos sklaidos kanalas, jei forumas siūlo kanalus, žr. <a href=\"[[help:rss]]\">Sklaidos kanalai</a>.</li>\r\n</ul>\r\n<p>Moderatoriai taip pat mato <strong>[[POSTS.MANAGE_TOPIC]]</strong> temai perkelti, užrakinti ar ištrinti, žr. <a href=\"[[help:moderating]]\">Moderatoriaus vadovas</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Temos parinktys"
+            "#text": "Temos įrankiai"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Čia rasite atsakymus į klausimus apie lentos veikimą. Norėdami rasti tai, ko ieškote, naudokitės kairėje pusėje esančiomis nuorodomis arba toliau esančiu paieškos langeliu."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Rašymas"
           }
         ]
       },

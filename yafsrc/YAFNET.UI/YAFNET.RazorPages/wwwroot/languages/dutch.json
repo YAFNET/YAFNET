@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Lijnt de tekst links, gecentreerd of rechts uit met <code>[left]</code>, <code>[center]</code> en <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Gecentreerde tekst[/center]\r\n[right]Rechts uitgelijnde tekst[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Uitlijning"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Maakt de tekst vet."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Deze tekst is vet[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Vet"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Toont programmacode met de regeleinden en spaties, BB-codes erin worden niet opgemaakt."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Kleurt de code van een programmeertaal, bijv. csharp, javascript, python, sql, css of markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Code met markering"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Code"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Kleurt de tekst. Gebruik de naam van een kleur of een kleurcode."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Rode tekst[/color] en [color=#0d6efd]blauwe tekst[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Tekstkleur"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Deze BB-codes sluiten inhoud in (bijv. video’s of berichten van andere websites) of bijlagen. Schrijf het adres of het nummer tussen de tags."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Een link die een e-mail naar het adres schrijft."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "E-mailadres"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Emoji-shortcodes tussen vierkante haken en smileys zoals :) worden emoji."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Toont de tekst in een ander lettertype, als het lettertype op het apparaat van de lezer beschikbaar is."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Tekst in Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Lettertype"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Meer BB-codes van dit forum"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Toont de tekst alleen aan leden, of met <code>[group-hide=Role1;Role2]</code> alleen aan de leden van deze rollen."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Alleen leden zien deze tekst.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Verborgen voor groepen"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Indeling"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Links en afbeeldingen"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Lijsten"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Citaten en code"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Leden, spoilers en verborgen inhoud"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Tekstopmaak"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Verbergt de tekst tot de lezer op het bericht reageert. De auteur en de beheerders zien hem altijd."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Een verborgen tekst.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Verbergt de tekst voor leden die minder berichten hebben geschreven dan het opgegeven aantal."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Een verborgen tekst.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Verborgen bij weinig berichten"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Verbergt de tekst tot de lezer in het topic antwoordt."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Een verborgen tekst.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Verbergt de tekst tot de lezer in het topic antwoordt of op het bericht reageert."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Een verborgen tekst.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Verborgen tot een antwoord of reactie"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Verborgen tot een antwoord"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Verbergt de tekst voor leden die minder reacties hebben ontvangen dan het opgegeven aantal."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Een verborgen tekst.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Verborgen bij weinig reacties"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Verborgen tot een reactie"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Vier of meer streepjes op een eigen regel vormen een horizontale lijn."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Tekst boven de lijn\r\n----\r\nTekst onder de lijn"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Horizontale lijn"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Markeert de tekst zoals met een markeerstift."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Deze tekst is gemarkeerd[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Markeren"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Toont een afbeelding van internet. Het adres moet eindigen op het type van de afbeelding (bijv. .png of .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Een afbeelding met een beschrijving, die wordt getoond als de muis boven de afbeelding is en wordt voorgelezen door schermlezers."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]Het logo van YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Afbeelding met beschrijving"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Afbeelding"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Laat de tekst inspringen."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Ingesprongen tekst[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Inspringen"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Maakt de tekst cursief."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Deze tekst is cursief[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Cursief"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Een lijst met opsommingstekens. Elk item begint met <code>[*]</code> op een nieuwe regel."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Eerste item\r\n[*]Tweede item\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Een genummerde lijst. Gebruik <code>[list=a]</code> of <code>[list=A]</code> voor letters, <code>[list=i]</code> of <code>[list=I]</code> voor Romeinse cijfers."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Eerste stap\r\n[*]Tweede stap\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Genummerde lijst"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Lijst"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Toont BB-codes zoals ze zijn, zonder ze op te maken."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]niet vet[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Geen opmaak"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Toont de tekst in een gekleurd kader. De types zijn primary, secondary, success, danger, warning, info, light en dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Een opmerking met informatie.[/note]\r\n[note=warning]Een waarschuwing.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Opmerking"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Toont tekst als citaat. De citeerknoppen van de berichten voegen het voor je in."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]De geciteerde tekst.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Een citaat met de naam van de auteur."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]De geciteerde tekst.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Citaat met auteur"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Citaat"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Resultaat"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Wijzigt de grootte van de tekst, van 1 (heel klein) tot 9 (heel groot). 5 is de normale grootte."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Klein[/size] [size=5]Normaal[/size] [size=7]Groot[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Tekstgrootte"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Verbergt de tekst tot de lezer op de knop klikt, bijv. voor het einde van een film."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]De tuinman heeft het gedaan.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Haalt de tekst door, bijv. voor iets dat niet meer geldt."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Deze tekst is doorgehaald[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Doorhalen"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Maakt een tabel: <code>[tr]</code> is een rij, <code>[td]</code> een cel van de rij."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Naam[/td][td]Berichten[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Tabel"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Adressen van websites worden automatisch links. Je kunt ze ook tussen <code>[url]</code> zetten."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Een link die een tekst toont in plaats van het adres."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]De website van YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Link met tekst"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Link"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Een link naar het profiel van een lid. Als je @ typt in de editor, wordt die voor je gemaakt, en het lid krijgt een melding."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Link naar een lid"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Onderstreept de tekst."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Deze tekst is onderstreept[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Onderstrepen"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Je typt"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Je account"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Aankondigingen zijn speciale berichten die geplaatst worden door de beheerder of moderatoren. Het zijn berichten waarop niet gereageerd kan worden. Als je er op wilt reageren, moet je een nieuw topic aanmaken.</p>\r\n<p>Aankondigingen staan altijd bovenaan, ook boven sticky topics.</p>\r\n    "
+            "#text": "<p>Sommige topics zijn belangrijker dan andere:</p>\r\n<ul>\r\n<li><strong>Vastgezette topics</strong> blijven bovenaan de topiclijst van hun forum staan, bijv. de regels of veelgestelde vragen van het forum.</li>\r\n<li><strong>Mededelingen</strong> zijn belangrijke informatie, ze worden ook bovenaan de topiclijst getoond en met een badge gemarkeerd.</li>\r\n</ul>\r\n<p>Wie ze mag aanmaken, stelt de beheerder in (meestal de moderators en beheerders). Zij kiezen dit met <strong>[[POSTMESSAGE.PRIORITY]]</strong> als ze het topic schrijven of bewerken. Je kunt op vastgezette topics en mededelingen antwoorden zoals op elk ander topic, tenzij het topic gesloten is.</p>\r\n<h3 class=\"h6 mt-3\">Forumbrede mededelingen</h3>\r\n<p>De beheerder kan ook op elke pagina van het forum een mededeling tonen, bijv. voor gepland onderhoud. Je kunt die sluiten met de knop rechts ervan.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Aankondigingen"
+            "#text": "Mededelingen en vastgezette topics"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Lichte en donkere modus</h3>\r\n<p>De knop voor de kleurmodus in de kopbalk wisselt tussen <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> en <strong>[[THEME_MODE.AUTO]]</strong> (de modus van je apparaat). Het forum onthoudt je keuze in deze browser.</p>\r\n<h3 class=\"h6 mt-3\">Thema en taal</h3>\r\n<p>Als de beheerder het toestaat, kun je in <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> een ander thema en de taal van het forum kiezen. Afhankelijk van het forum kun je de taal ook in de kopbalk wijzigen.</p>\r\n<h3 class=\"h6 mt-3\">Tijdzone en paginagrootte</h3>\r\n<p>Alle datums en tijden worden in jouw tijdzone getoond. Stel die in bij <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Recente tijden worden getoond als bijv. ‘5 minuten geleden’.</p>\r\n<p>De <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> op dezelfde pagina bepaalt hoeveel items de lijsten van het forum per pagina tonen.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Weergave en taal"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Als je in een forum bestanden mag uploaden, kun je bestanden en afbeeldingen aan je berichten toevoegen:</p>\r\n<ul>\r\n<li>Sleep het bestand naar de editor, of plak (in de editor die de opmaak toont) een afbeelding.</li>\r\n<li>Of klik op de bijlageknop van de werkbalk (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). In het venster kun je bestanden neerzetten of ze kiezen met <strong>[[ATTACHMENTS.ADD_FILES]]</strong>, en het toont je eerdere uploads onder <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>: klik op een upload om die opnieuw in te voegen.</li>\r\n</ul>\r\n<p>Het venster toont de <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> en, als die er is, de maximale bestandsgrootte. Snel antwoorden heeft geen bijlagen, gebruik de volledige editor.</p>\r\n<p>Afbeeldingen worden in het bericht als voorbeeld getoond, klik erop om de volledige afbeelding te bekijken (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Andere bestanden en zeer grote afbeeldingen worden getoond als link met de grootte en het aantal downloads. Voor downloaden kan een recht nodig zijn dat het forum alleen aan leden geeft.</p>\r\n<h3 class=\"h6 mt-3\">Afbeeldingen van andere websites</h3>\r\n<p>Om een afbeelding van internet te tonen, klik je op <strong>[[COMMON.TT_IMAGE]]</strong> en voer je het adres in, of schrijf je <code>[img]adres van de afbeelding[/img]</code>.</p>\r\n<p>Je geüploade bestanden staan in <a href=\"[[help:myattachments]]\">Mijn bijlagen</a>, waar je ze ook kunt verwijderen.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,119 +11300,199 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>Op deze pagina vind je een lijst met de BB-Codes die je kunt gebruiken om je berichten op te maken.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB-Codes voor tekst-opmaak\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Vette tekst\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [noparse][b] tag kun je vette tekst maken.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]Deze tekst is vet gemaakt[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <strong>Deze tekst is vet gemaakt</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Cursieve Tekst</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [i] tag kun je tekst cursief maken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [i]Deze tekst is cursief[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <em>Deze tekst is cursief</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Tekst onderstrepen</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [u] tag kun je tekst onderstrepen.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [u]Deze tekst is onderstreept[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Resultaat</strong></td>\r\n    <td>\r\n      <u>Deze tekst is onderstreept</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Tekst doorhalen</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Tekst tussen deze tags wordt doorgehaald.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [s]Deze tekst is doorgehaald[/s]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <s>Deze tekst is doorgehaald</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [color] tag kun je tekst een bepaalde kleur geven.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]Deze tekst is blauw[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">Deze tekst is blauw</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Tekstgrootte</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [size] tag kun je tekst groter of kleiner maken. Je kunt hiervoor een waarde van 1-9 gebruiken. Elke waarde is een percentage: 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]Deze tekst heeft een grootte van 180%.[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">Deze tekst heeft een grootte van 180%.</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Lettertype</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [font] tag kun je het lettertype wijzigen.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]Deze tekst is gemaakt met het Courier-lettertype[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">Deze tekst is gemaakt met het Courier-lettertype</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Tekst Links/rechts uitlijnen of centreren</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [left], [right] en [center] tags kun je de tekst uitlijnen.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [left]Deze tekst is links uitgelijnd[/left]<br />\r\n    [center]Deze tekst is gecentreerd[/center]<br />\r\n      [right]Deze tekst is rechts uitgelijnd[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><div align=\"left\">Deze tekst is links uitgelijnd</div>\r\n      <div align=\"center\">Deze tekst is gecentreerd</div>\r\n      <div align=\"right\">Deze tekst is rechts uitgelijnd</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Markeren</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [highlight] tag kun je tekst markeren.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]Deze tekst is gemarkeerd[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">Deze tekst is gemarkeerd</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB-Codes om hyperlinks mee te maken\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [email] tag kun je een e-mail adres maken. Je kunt een parameter toevoegen om de link een naam te geven.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [email]iemand@mijndomein.nl[/email]<br />\r\n      [email=iemand@mijndomein.nl]Klik hier om mij te e-mailen.[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><a href=\"mailto:iemand@mijndomein.nl\" title=\"iemand@mijndomein.nl\">iemand@mijndomein.nl</a><br />\r\n      <a href=\"mailto:iemand@mijndomein.nl\" title=\"Klik hier om mij te e-mailen.\">Klik hier om mij te e-mailen.</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyperlinks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [url] tag kun je hyperlinks maken naar andere websites. Je kunt een parameter toevoegen om een beschrijving voor de link te geven. Je kunt ook de [url] met de [img] tags combineren om hyperlinks van plaatjes te maken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mijn website[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mijn website</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Globale URL Hyperlinks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [modalurl] tag kun je naar andere websites linken, alleen worden hier de links geopend in een pop-up venster.  Je kunt een parameter toevoegen om een beschrijving voor de link te geven. Je kunt ook de [url] met de [img] tags combineren om hyperlinks van plaatjes te maken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mijn website[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mijn website</a></td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Links naar topics</td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB-Codes om lijsten te maken.\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Lijsten met bullets</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [list] tag kun je simpele bulletlijsten maken. Als je een bullet wilt laten zien, gebruik je de [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]eerste item<br />\r\n      [*]tweede item<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>eerste item</li>\r\n            <li>tweede item</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Alfanumerieke lijsten</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [list=1], [list=a] (of [list=A]) of [list=i] (of [list=I]) tag kun je genummerde, alfabetisch of Romeins-genummerde lijsten maken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]eerste item<br />\r\n      [*]tweede item<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]eerste item<br />\r\n      [*]tweede item<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]eerste item<br />\r\n      [*]tweede item<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]eerste item<br />\r\n      [*]tweede item<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]eerste item<br />\r\n      [*]tweede item<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>eerste item</li>\r\n        <li>tweede item</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>eerste item</li>\r\n        <li>tweede item</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>eerste item</li>\r\n        <li>tweede item</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>eerste item</li>\r\n        <li>tweede item</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>eerste item</li>\r\n        <li>tweede item</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB-Codes om media (plaatjes, filmpjes) toe te voegen\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Plaatjes</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      <p>met de [img] tag kun je plaatjes aan je bericht toevoegen. Je kunt ook [url] tags met [img] tags combineren om links van plaatjes te maken.</p>\r\n      <p>Er is ook een mogelijkheid om een omschrijving aan het plaatje te geven, die zichtbaar wordt als je met de muis over het plaatje beweegt.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Gelinkt)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [youtube] tag kun je <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video's toevoegen, door de link naar de video te gebruiken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [vimeo] tag kun je een <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video toevoegen, door de link naar de video te gebruiken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [googlemaps] tag kun je een Map van Google Maps toevoegen, door de link naar de map te gebruiken.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.nl/?ll=52.21317,5.27926&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=52.21317,5.27926&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [googlewidget] tag kun je een google gadget toevoegen, deze kun je vinden op de <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Selecteer een Gadget en kopi&eulm;er de Html-code.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB-Codes om andere berichten te Quoten en BB-Codes om andere tekst in te voegen.\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [quote] tag kun je tekst van een ander bericht quoten.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Andere tekst.[/quote]<br /><br />\r\n    [quote=Arie Kanarie]Andere tekst.[/quote]<br /><br />\r\n    [quote=Arie Kanarie;123]Andere tekst.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Citaat:</span><div class=\"innerquote\">Andere tekst</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Arie Kanarie schreef:</span><div class=\"innerquote\">Andere tekst</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Als eerste gepost door: Arie Kanarie <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Ga naar de geciteerde post\" alt=\"Ga naar de geciteerde post\" /></a></span><div class=\"innerquote\">Andere tekst</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [code] tag kun je 'programmeer' code toevoegen, als je de programmeertaal toevoegd als parameter, wordt deze gemarkeerd.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB-Codes om inhoud voor bepaalde gebruikers te verbergen.\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [hide] tag kun je tekst verbergen totdat ze op de 'Bedankt' knop hebben geklikt.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Verborgen inhoud[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <p>Als je geen rechten hebt om deze inhoud te bekijken, zie je een informatiebericht.</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken.\" title=\"De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken.\" />\r\n    <p>Als 'Gast' zie je een informatiebericht:</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</div></div>\r\n    <p>Als je toegang hebt, zie je verborgen tekst.</p><br />\r\n    <p>Verborgen tekst</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [group-hide] tag verberg je inhoud aan 'Gasten', of andere rollen.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Verborgen inhoud[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <p>Als je de inhoud niet mag bekijken, zie je een informatiebericht.</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Je hebt onvoldoende rechten om deze inhoud te bekijken.</div></div>\r\n\r\n    <p>Als 'gast' zie je dit informatiebericht:</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</div></div>\r\n\r\n    <p>Als je toegang hebt, zie je verborgen tekst.</p><br />\r\n    <p>Verborgen inhoud</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Verberg-bedankt</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [hide-thanks] tag kun je inhoud verbergen op basis van het minimum aantal bedankjes.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Verborgen tekst[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <p>Als je de verborgen inhoud niet mag zien, zie je een informatiebericht:</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Verborgen Inhoud (Je moet geregistreerd zijn en minimaal 2 bedankjes hebben ontvangen.)</div></div>\r\n\r\n    <p>Als 'gast' zie je dit informatiebericht:</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</div></div>\r\n\r\n    <p>Als je toegang hebt, zie je verborgen tekst.</p><br />\r\n    <p>Verborgen tekst</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Verberg-Berichten</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [hide-posts] tag kun je inhoud verbergen voor mensen die minder dan X berichten hebben geplaatst.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Verborgen inhoud[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <p>Als je geen rechten hebt om de inhoud te zien, zie je een informatie-bericht:</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Verborgen inhoud (Je moet geregistreerd zijn en minimaal 10 berichten hebben geplaatst.)</div></div>\r\n\r\n    <p>Als 'gast' zie je dit informatiebericht:</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</div></div>\r\n\r\n    <p>Als je toegang hebt, zie je verborgen tekst.</p><br />\r\n    <p>Verborgen inhoud</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Verberg antwoord</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [hide-reply] tag kun je inhoud verbergen voor gebruikers totdat ze in hetzelfde topic geantwoord hebben.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Verborgen inhoud[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <p>Als je geen rechten hebt om de inhoud te zien, zie je een informatie-bericht:</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Verborgen inhoud (Je moet geregistreerd zijn en antwoorden in het topic om de verborgen inhoud te kunnen bekijken.)</div></div>\r\n\r\n    <p>Als 'gast' zie je dit informatiebericht:</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</div></div>\r\n\r\n    <p>Als je toegang hebt, zie je verborgen inhoud.</p><br />\r\n    <p>Verborgen inhoud</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Verberg-Antwoord-Bedankt</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [hide-reply-thanks] tag kun je inhoud verbergen totdat ze de poster hebben bedankt met de 'bedankt'-knop, of geantwoord hebben in hetzelfde topic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Verborgen inhoud[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <p>Als je geen rechten hebt om de inhoud te zien, zie je een informatie-bericht:</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Verborgen inhoud (Je moet geregistreerd zijn en antwoorden in dit topic, of de auteur bedanken om de verborgen inhoud te kunnen bekijken.)</div></div>\r\n\r\n    <p>Als 'gast' zie je dit informatiebericht:</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</div></div>\r\n\r\n    <p>Als je toegang hebt, zie je verborgen inhoud.</p><br />\r\n    <p>Verborgen inhoud</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [spoiler] tag kun je inhoud verbergen totdat er op 'Laat spoiler zien' geklikt wordt.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Inhoud[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Laat Spoiler zien'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Inhoud\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Link naar gebruiker</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [userlink] tag wordt een link gemaakt die naar de profielpagina van een gebruiker linkt, en laat de online status van de gebruiker zien.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Gebruiker[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"Gebruiker is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB-Code Gebruik</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Beschrijving</strong>\r\n    </td>\r\n    <td>\r\n      Met de [noparse] tag kun je voorkomen, dat BB-Codes worden verwerkt binnen in deze tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Gebruik</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Voorbeeldtekst.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Resultaat</strong>\r\n    </td>\r\n    <td>[noparse][b]Voorbeeldtekst.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NB: Vergeet niet om een open BB-Code tag ook te sluiten. Tags die niet zijn afgesloten, worden niet verwerkt.</p>"
+            "#text": "<p>BB-codes maken je berichten op. Het zijn korte tags tussen vierkante haken rond de tekst, bijv. <code>[b]vet[/b]</code>. Je hoeft ze niet te typen: de knoppen van de editor voegen ze voor je in. Als de editor de opmaak toont terwijl je typt, worden de BB-codes op de achtergrond aangemaakt.</p>\r\n<p>Hieronder vind je elke BB-code van dit forum, wat je typt en het resultaat zoals het er in een bericht uitziet. Sommige BB-codes worden hier alleen getoond als het forum ze gebruikt, en in handtekeningen zijn mogelijk minder BB-codes toegestaan dan in berichten.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "BB-Codelijst"
+            "#text": "BB-codes"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Open <strong>[[BLOCK_OPTIONS.TITLE]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - andere leden kunnen geen privégesprekken met je beginnen.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - niemand kan je vriendschapsverzoeken sturen.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - niemand kan je via het forum e-mails sturen.</li>\r\n</ul>\r\n<p>Beheerders en de leden in je vriendenlijst kunnen nog steeds contact met je opnemen.</p>\r\n<h3 class=\"h6 mt-3\">Een lid negeren</h3>\r\n<p>Om een lid te negeren, open je het gebruikersmenu van een van zijn of haar berichten en kies je <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. De berichten van genegeerde leden worden verborgen (<strong>[[POSTS.TOGGLEPOST]]</strong> toont één bericht), en ze kunnen je geen privéberichten sturen. De <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> op dezelfde pagina toont de leden die je negeert, verwijder een lid uit die lijst om de berichten weer te zien.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Gebruikers negeren en blokkeren"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Vriendschappen kunnen worden aangevraagd door &euml;&euml;n gebruiker en goed- of afgekeurd door de tweede gebruiker.</p>\r\n<p><strong>Waar zie ik de lijst met vrienden?</strong></p>\r\n<p>Jouw vrienden kun je vinden onder 'Mijn Vrienden'. Als je bent ingelogd, zie je deze link aan de bovenkant van de pagina. Of je klikt op 'Vrienden Bewerken' in je Profiel.</p>\r\n<p><em>NB: Als je de linkjes niet ziet, heb je geen vrienden, heb je geen vriendverzoeken verzonden of ontvangen, of heeft de beheerder deze functioneliteit uitgeschakeld.</em></p>\r\n<p>Je vrienden worden ook weergegeven in je publieke profielpagina.</p>\r\n<p><strong>Hoe kan ik vrienden uitnodigen, of verzoeken accepteren of weigeren?</strong></p>\r\n<p> een andere gebruiker uit te nodigen als Vriend, kun je de profielpagina van die persoon bekijken, en klikken op de 'Als Vriend Toevoegen' link.</p>\r\n<p>Om een verzoek van een andere gebruiker te accepteren of te weigeren, ga je naar de 'Mijn Vrienden' pagina. Op het Tabblad 'Openstaande verzoeken' zie je de lijst van gebruikers mte te behandelen verzoeken. Je hebt dan drie keuzes:</p>\r\n<ul>\r\n  <li><strong>Goedkeuren</strong> - Je wordt vriend van de gebruiker die jou heeft uitgenodigd</li>\r\n  <li><strong>Afwijzen</strong> - Het verzoek afwijzen</li>\r\n  <li><strong>Goedkeuren en toevoegen - </strong>Je wordt vriend van de gebruiker die jou heeft uitgenodigd, en andersom ook.</li>\r\n</ul>\r\n<p><strong>Vriend verwijderen</strong></p>\r\n<p>Om een vriend van je Vriendenlijst te verwijderen, ga je naar je 'Mijn Vrienden' pagina. Op het tabblad 'Vriendenlijst' klik je op de knop 'Vriend verwijderen' van de Gebruiker die je wilt verwijderen.</p>\r\n<p><strong>Je Verzoek</strong></p>\r\n<p>Het derde tabblad van de 'Mijn Vrienden' pagina laat de verzoeken zien die nog in behandeling zijn bij andere gebruikers.</p>"
+            "#text": "<p>Vrienden zijn een verbinding tussen twee leden. Om een lid te vragen je vriend te worden, klik je op <strong>[[BUDDY.ADDBUDDY]]</strong> in het profiel of in het gebruikersmenu van een bericht. Het lid krijgt een vriendschapsverzoek en kan dit goedkeuren of weigeren.</p>\r\n<p>Je vrienden vind je onder <strong>[[TOOLBAR.BUDDIES]]</strong> in het gebruikersmenu, op drie tabbladen:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - je vrienden. Stuur ze een privébericht of verwijder ze uit de lijst.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - de verzoeken van andere leden. <strong>[[FRIENDS.APPROVE]]</strong> voegt het lid toe aan je vrienden (en jou aan de zijne), weigeren verwijdert het verzoek. <strong>[[FRIENDS.APPROVE_ALL]]</strong> keurt alle verzoeken in één keer goed.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - de verzoeken die je hebt verstuurd en die nog niet zijn beantwoord.</li>\r\n</ul>\r\n<p>Vrienden worden in je profiel getoond. Ze kunnen contact met je opnemen, zelfs als je privéberichten of e-mails blokkeert, zie <a href=\"[[help:blocking]]\">Gebruikers negeren en blokkeren</a>. Als je geen vriendschapsverzoeken wilt, kun je die daar ook blokkeren.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Vrienden"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Open <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Je hebt twee mogelijkheden:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - een pauze: je kunt je account 30 dagen niet gebruiken, daarna werkt het weer.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - je account wordt gesloten en je berichten worden verwijderd (de antwoorden van andere leden blijven staan). Je kunt niet meer inloggen, dit kan niet ongedaan worden gemaakt.</li>\r\n</ul>\r\n<p>Bevestig met je <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> en klik op <strong>[[COMMON.CONTINUE]]</strong>. Je wordt uitgelogd.</p>\r\n<p>Wil je dat al je gegevens worden verwijderd, of heb je vragen over je gegevens, neem dan contact op met de beheerder, zie <a href=\"[[help:privacy]]\">Privacy, cookies en regels</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Je account opschorten of verwijderen"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Als je geregistreerd en ingelogd bent, is het mogelijk, dat je je berichten kunt bewerken en verwijderen (als de Beheerder dit heeft ingesteld). </p>\r\n<p>Om je berichten te bewereken of verwijderen, klik je op 'Bewerk' knop van dat Bericht. Als je bericht het eerste is in een Topic, zal waarschijnlijk het hele Topic verwijderd worden.</p>\r\n<p>Als je je wijzigingen hebt gemaakt, verschijnt er een mededeling onder aan het bericht om andere gebruikers te laten weten, dat je het bericht gewijzigd hebt.</p>\r\n<p>Probeer ook altijd in het 'Reden voor wijzigen'-veld een reden te geven waarom je het bericht gewijzigd hebt.</p>\r\n<p><strong>Kunnen anderen mijn berichten wijzigen?</strong></p>\r\n<p>Beheerders en Moderatoren kunnen ook je berichten aanpassen. Als ze dit doen, wordt er niet altijd een mededeling getoond, dat ze je bericht gewijzigd hebben.</p>"
+            "#text": "<p>Je kunt je eigen berichten bewerken en verwijderen als het forum het toestaat. Open het menu van het bericht (de drie puntjes rechtsboven) en kies <strong>[[BUTTON.BUTTON_EDIT]]</strong> of <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Dit kan niet in gesloten topics, en de beheerder kan het beperken tot een aantal dagen na het plaatsen.</p>\r\n<h3 class=\"h6 mt-3\">Bewerken</h3>\r\n<p>De bewerkpagina is zoals de pagina van een nieuw bericht. Als je het topic hebt gestart, kun je ook het onderwerp, de beschrijving en de tags wijzigen. Voer een <strong>[[POSTMESSAGE.EDITREASON]]</strong> in om de lezers te vertellen wat je hebt gewijzigd.</p>\r\n<p>Als je een bericht enige tijd na het plaatsen bewerkt, toont het bericht wie het heeft bewerkt, wanneer en waarom. De eerdere versies worden bewaard, zie <a href=\"[[help:history]]\">Berichtgeschiedenis</a>. Moderators kunnen je berichten ook bewerken, het bericht vermeldt dan dat het door een moderator is bewerkt.</p>\r\n<h3 class=\"h6 mt-3\">Verwijderen</h3>\r\n<p>Voer een <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> in en klik op <strong>[[DELETEMESSAGE.DELETE]]</strong>. Het bericht wordt niet gewist: op zijn plaats in het topic staat dat het is verwijderd. Je kunt het herstellen met <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> in hetzelfde menu, tenzij een moderator het heeft verwijderd.</p>\r\n<p>Alleen moderators kunnen hele topics verwijderen, en alleen beheerders kunnen berichten definitief wissen.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Je berichten bewerken en verwijderen"
+            "#text": "Berichten bewerken en verwijderen"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Je kunt je Account informatie wijzigen in Persoonlijk Profiel -&gt; 'Profiel Bewerken' in je Profiel. Als je je wachtwoord wilt wijzigen kom je op een aparte pagina terecht, wanneer je op 'Wijzig Wachtwoord' klikt.</p>\r\n<p><strong>Profiel Bewerken</strong> Pagina</p>\r\n<p>Met deze pagina kun je een aantal verplichte en optionele details ingeven, waarvan een aantal op je publieke profielpagina komen te staan. Als bepaalde zaken niet publiek wilt maken, hoef je die niet in te vullen (je e-mailadres is wel verplicht).</p>\r\n<p><strong>Over jezelf</strong></p>\r\n<p>Dit is standaard informatie over jezelf</p>\r\n<p><strong>Locatie</strong></p>\r\n<p>Hier kun je invullen waar je woont (optioneel)</p>\r\n<p><strong>Homepage</strong></p>\r\n<p>Hier kun je een link naar je site en/of Blog plaatsen (optioneel).</p>\r\n<p><strong>Instant messaging diensten</strong></p>\r\n<p>Hier kun je de ID's van messenger diensten zoals  XMPP invullen (optioneel).</p>\r\n<p><strong>Tijdzone</strong></p>\r\n<p>Hier kun je de tijdzone instellen, zodat de op je pc kunt aanpassen aan de tijd op het forum. En je kunt instellen of de zomertijd automatisch moet worden aangepast.</p>\r\n<p><strong>Forum Instellingen</strong></p>\r\n<p>Hier kun je je e-mailadres wijzigen.</p>\r\n<p>En als de beheerder het heeft geactiveerd, kun je de <strong>Taal</strong> en het <strong>Thema</strong> van de site instellen.</p>\r\n\r\n"
+            "#text": "<p>Open <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Alle velden zijn optioneel, vul alleen in wat je wilt delen. De gegevens worden in je openbare profiel getoond.</p>\r\n<ul>\r\n<li><strong>Over jou</strong> - je weergavenaam (als het forum weergavenamen gebruikt), echte naam, verjaardag, beroep, interesses en geslacht.</li>\r\n<li><strong>Locatie</strong> - land, provincie en plaats. Als het forum het aanbiedt, vult <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> ze voor je in.</li>\r\n<li><strong>Homepage</strong> - de adressen van je website en je blog.</li>\r\n<li>Andere velden die de beheerder heeft toegevoegd.</li>\r\n</ul>\r\n<p>Klik op <strong>[[COMMON.SAVE]]</strong> om je wijzigingen op te slaan. Je avatar en handtekening hebben hun eigen pagina’s, zie <a href=\"[[help:mypics]]\">Avatar en handtekening</a>. Het e-mailadres, de tijdzone en de taal vind je bij <a href=\"[[help:editsettings]]\">Instellingen bewerken</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Gebruikersprofiel bewerken & Forum Instellingen"
+            "#text": "Je profiel bewerken"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Open <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Voer het nieuwe adres en je <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> in. Het forum stuurt een link naar het nieuwe adres, het adres wordt gewijzigd als je erop klikt. Je e-mailadres wordt nooit aan andere leden getoond.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - je wordt niet getoond in de lijst van leden die online zijn (als het forum het toestaat).</li>\r\n<li>De activiteitenstroom - je meldingen over vermeldingen, citaten en reacties, zie <a href=\"[[help:popups]]\">Meldingen</a>.</li>\r\n<li>Je tijdzone, de <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> en (als het forum het toestaat) het thema en de taal, zie <a href=\"[[help:appearance]]\">Weergave en taal</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Tweestapsverificatie</h3>\r\n<p>Zet tweestapsverificatie aan of uit, zie <a href=\"[[help:login]]\">Inloggen en accountbeveiliging</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Instellingen bewerken"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Wat is YAF?</strong></p>\r\n<p>YetAnotherForum.Net (YAF) is de Open Source Discussieforum software voor websites die draaien onder ASP.NET. YAF is 100% geschreven in C#, en een unieke combinatie van Open Source, Microsoft's .NET platform en een internationale samenwerking van de .NET Ontwikkel Community. Dagelijks groeiend en evoluerend onder de hoede van Ingo Herbote. YAF draait op elke webserver die ASP.NET 4.0 (en hoger) en SQL Server support. YAF wordt uitgegeven onder de GPL licentie.</p><p><strong>Hoe is het opgebouwd?</strong></p><p>Een forum bevat bepaalde gebieden, die zelf ook weer forums kunnen bevatten (subforums), met daarin Onderwerpen (topics), die weer door gebruikers geschreven berichten bevatten.</p><p>De Indexpagina bevat een lijst met categorie&euml;n en forums, met standaard statistieken, zoals het aantal topics, het aantal berichten en welke gebruiker het laatste bericht heeft geplaatst.</p>\r\n<p><strong>Hoe kan ik navigeren?</strong></p>\r\n<p>Als je op een forumnaam klikt, krijg je een lijst met topics te zien. Een topic is een conversatie tussen leden en/of gasten. Elk topic begint als een enkel bericht en groeit wanneer anderen erop reageren. </p>\r\n<p>Om een nieuw topic te starten kun je eenvoudig op de 'Nieuw Topic' knop klikken. (Als dit is toegestaan).</p>\r\n<p><strong>Paginering</strong></p>\r\n<p>Wanneer er meer Topics zijn dan er op een enkele pagina getoond kunnen worden, zie je onderaan een navigatieblok, waarmee je naar andere pagina's kunt springen.</p>\r\n<p>Deze manier van navigeren vind je overal op het forum terug.</p>\r\n<p><strong>Wat zijn sticky topics?</strong></p>\r\n<p>'Sticky' Topics worden gemaakt door Moderators of Beheerders, en blijven 'plakken' aan de bovenkant van de lijst, ook al is er al een hele tijd geen reactie op gekomen. Hierdoor kan belangrijke informatie altijd beschikbaar blijven.</p>\r\n<p><strong>Hoe lees ik een topic?</strong></p>\r\n<p>Om een topic te openen, klik je op de titel. Elk bericht is gemaakt door een gebruiker of een gast. Je ziet enige informatie over de gebruiker aan de linkerkant van het bericht.</p>\r\n<p>Om een reactie te geven, klik je op de 'Plaats Antwoord' knop. Als de 'Plaats antwoord' knop niet zichtbaar is, kan het betekenen dat je hier geen rechten voor hebt, dat je niet bent ingelogd, of dat het topic is vergrendeld.</p>\r\n<p>Als je reacties mag geven, zal er ook een 'Snel Antwoord' gedeelte zichtbaar zijn, waar je snel een reactie kunt typen.</p>\r\n<p><strong>Waar vind ik meer informatie over de leden?</strong></p>\r\n<p>Om meer te weten te komen van een lid, kun je op de gebruikersnaam klikken. Hierdoor kom je op de profielpagina van die gebruiker terecht.</p>\r\n<p><strong>Wat doet de Bovenkant?</strong></p>\r\n<p>De bovenkant van elke pagina helpt je met de navigatie. Aan de rechterkant kun je snel inloggen. Er zijn ook snelkoppelingen naar oa.: Mijn Profiel, Help (die lees je nu), Zoeken en andere handige opties.</p>"
+            "#text": "<p>Een forum is een plek om met andere mensen te discussiëren. De discussies zijn zo ingedeeld:</p>\r\n<ul>\r\n<li><strong>Categorieën</strong> groeperen de forums over een onderwerp, ze vormen de secties van de startpagina.</li>\r\n<li><strong>Forums</strong> zijn de plekken voor een bepaald onderwerp. Een forum kan subforums bevatten.</li>\r\n<li><strong>Topics</strong> zijn de discussies in een forum. Een topic begint met een eerste bericht en groeit met de antwoorden van de leden.</li>\r\n<li><strong>Berichten</strong> (of posts) zijn de afzonderlijke bijdragen in een topic.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">De startpagina</h3>\r\n<p>De startpagina toont de categorieën met hun forums. Bij elk forum zie je het aantal topics en berichten en het nieuwste bericht. Een categorie kun je inklappen met het pijltje naast de naam, het forum onthoudt je keuze. Afhankelijk van het forum toont de startpagina ook de <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (de nieuwste berichten), de statistieken en wie er online is.</p>\r\n<h3 class=\"h6 mt-3\">Gasten en leden</h3>\r\n<p>Gasten kunnen de forums lezen die voor hen open zijn. Om berichten te schrijven, de persoonlijke functies te gebruiken (privéberichten, vrienden, meldingen) en sommige pagina’s te zien (bijv. de ledenlijst of de profielen), heb je een account nodig, zie <a href=\"[[help:registration]]\">Registreren</a>.</p>\r\n<p>Wat je in een forum mag doen (lezen, topics starten, antwoorden, stemmen in peilingen, bestanden uploaden, ...), stelt de beheerder in voor elk forum en elke groep leden. Zie je een knop die in deze help wordt beschreven niet, dan heb je daar in dit forum geen recht voor.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Forums, Topics en Berichten"
+            "#text": "Het forum uitgelegd"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Algemeen"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Aan de slag"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Als een bericht is bewerkt, toont het wie het heeft bewerkt en wanneer. Klik op de geschiedenisknop van deze melding om de <strong>[[MESSAGEHISTORY.TITLE]]</strong> te openen: die toont de versies van het bericht met de datum, de bewerker en de reden.</p>\r\n<ul>\r\n<li>Selecteer twee versies en klik op <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> om de <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong> te zien: de verwijderde en de toegevoegde tekst zijn gemarkeerd.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> brengt je terug naar het bericht.</li>\r\n</ul>\r\n<p>Moderators kunnen een eerdere versie herstellen met <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Het forum bewaart de versies gedurende een door de beheerder ingesteld aantal dagen.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Berichtgeschiedenis"
           },
           {
             "@tag": "INDEX",
             "#text": "Inhoudsopgave"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Klik op <strong>[[TOOLBAR.LOGIN]]</strong> in de kopbalk en voer je gebruikersnaam of je e-mailadres en je wachtwoord in.</p>\r\n<p>Als je <strong>[[LOGIN.AUTO]]</strong> aanvinkt, blijf je op deze computer een maand ingelogd, ook nadat je de browser hebt gesloten. Gebruik dit niet op een computer die ook door anderen wordt gebruikt. Zonder deze optie word je uitgelogd als je de browser sluit. Om uit te loggen open je rechtsboven het gebruikersmenu en klik je op <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Tweestapsverificatie</h3>\r\n<p>Tweestapsverificatie beschermt je account, zelfs als iemand je wachtwoord kent: bij het inloggen vraagt het forum ook om een code uit een authenticator-app op je telefoon.</p>\r\n<ol>\r\n<li>Open <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (gebruikersmenu, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Klik op <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Voeg in je authenticator-app (bijv. Microsoft Authenticator, Google Authenticator) een nieuw account toe door de QR-code te scannen of de <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong> in te voeren.</li>\r\n<li>Voer ter bevestiging de code in die de app toont.</li>\r\n</ol>\r\n<p>Vanaf nu vraagt het inloggen na het wachtwoord om de code van de app (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Je kunt het op dezelfde pagina uitschakelen met <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Je account veilig houden</h3>\r\n<ul>\r\n<li>Gebruik een wachtwoord dat je nergens anders gebruikt. Je kunt het wijzigen met <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Het forum vraagt nooit per e-mail of privébericht om je wachtwoord.</li>\r\n<li>Ben je je wachtwoord vergeten, zie dan <a href=\"[[help:recover]]\">Een vergeten wachtwoord herstellen</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Na meerdere verkeerde wachtwoorden wordt het account een paar minuten geblokkeerd.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Inloggen en accountbeveiliging"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "berichten aan- of uitzetten.</p>\r\n"
+            "#text": "<p>Open <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Bij <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> kies je welke e-mails je ontvangt:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - geen e-mails.</li>\r\n<li>Melding voor de topics waarin je hebt geschreven of die je volgt - elk topic waarin je schrijft, wordt automatisch gevolgd.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - alleen de topics en forums die je zelf volgt.</li>\r\n</ul>\r\n<p>Als het forum het aanbiedt, stuurt <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> één e-mail per dag met de nieuwe berichten in plaats van losse e-mails. Klik op <strong>[[COMMON.SAVE]]</strong> om op te slaan.</p>\r\n<p>Dezelfde pagina toont je <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> en <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, zie <a href=\"[[help:subscriptions]]\">Topics en forums volgen</a>, en de pushmeldingen van je apparaten, zie <a href=\"[[help:push]]\">Pushmeldingen en app</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "E-mail notificatie voorkeuren"
+            "#text": "Meldingsvoorkeuren"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>De ledenlijst laat de geregistreerde leden van het forum zien. Je kunt de lijst alfabetisch bekijken.</p>\r\n<p>Om de ledenlijst te bekijken, klik je op 'Leden' aan de bovenkant van de pagina.</p>\r\n<p><strong>Zijn alle leden zichtbaar?</strong></p>\r\n<p>Een aantal leden staan misschien niet op de lijst. De beheerder kan instellen wie en wie niet zichtbaar is op de lijst. De beheerder kan, bijvoorbeeld, leden van bepaalde groepen, of leden zonder geplaatste berichten verbergen.</p>"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>De ledenlijst toont de geregistreerde leden met hun aantal berichten, de datum van inschrijving en het laatste bezoek. Je kunt:</p>\r\n<ul>\r\n<li>de lijst sorteren op naam, rang, inschrijvingsdatum, aantal berichten of laatste bezoek,</li>\r\n<li>de leden met een bepaalde beginletter tonen,</li>\r\n<li>de lijst filteren met <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> op naam, rol, rang of aantal berichten.</li>\r\n</ul>\r\n<p>Klik op een lid om het profiel te openen. Afhankelijk van het forum wordt de lijst alleen aan leden getoond.</p>\r\n<h3 class=\"h6 mt-3\">Actieve gebruikers</h3>\r\n<p>De statistieken op de startpagina tonen wie er online is. De lijst van actieve gebruikers toont de leden en gasten die nu online zijn en waar ze zich in het forum bevinden. Leden kunnen zich in <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> verbergen in deze lijst, als het forum het toestaat.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>De teampagina toont de beheerders en de moderators van het forum met de forums die ze modereren. Neem contact met hen op als je hulp nodig hebt.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Ledenlijst"
+            "#text": "Leden, actieve gebruikers en team"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Een lid vermelden</h3>\r\n<p>Typ in de editor <code>@</code> gevolgd door de eerste letters van een naam en kies het lid uit de lijst. De naam wordt een link naar het profiel, en het lid krijgt een melding dat je hem of haar hebt vermeld (als het lid de meldingen gebruikt, zie <a href=\"[[help:popups]]\">Meldingen</a>).</p>\r\n<h3 class=\"h6 mt-3\">Topictags</h3>\r\n<p>Tags zijn trefwoorden van een topic, bijv. het product of het onderwerp waarover een vraag gaat. Voeg ze toe bij <strong>[[POSTTOPIC.TAGS]]</strong> als je een topic start. De tags worden bij het topic getoond, een klik op een tag toont alle topics met deze tag. De zoekfunctie kan ook naar tags zoeken, zie <a href=\"[[help:searching]]\">Zoeken</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Vermeldingen en tags"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Berichten en meldingen"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "        <p>Geregistreerde gebruikers kunnen berichten naar andere gebruikers sturen met het PM-Systeem. (Als dit geactiveerd is door de Beheerder).\r\n        </p>\r\n        <p>Als je een PM ontvangt, wordt in de de bovenbalk van het forum weergegeven hoeveel nieuwe berichten je hebt. Ook wordt een Pop-upvenster zichtbaar. Je kunt ook een e-mail bevestiging aanzetten als je dat wilt.</p>\r\n        <p><strong>Hoe stuur ik PM's?</strong></p>\r\n        <p>PM's lijken veel op e-mails, maar worden alleen binnen het forum verstuurd. Je kunt ook smiley's, plaatjes en andere BB-Codes gebruiken.<br />\r\n        Je kunt PM's sturen aan een andere gebruiker door op de &ldquo;PM&rdquo; knop bij het gebruikersprofiel te klikken. Je kunt ook klikken op de &ldquo;Nieuwe PM&rdquo; link op je profielpagina. Het bericht wordt, nadat je het verstuurd hebt, opgeslagen in je &ldquo;Verzonden items&rdquo; map.</p>\r\n        <p><strong>PM Mappen</strong></p>\r\n        <p>Je hebt net zoals bij een normaal e-mail programma drie mappen: Postvak In, Postvak Uit en een Archiefmap...</p>\r\n        <ul>\r\n        <li>De &ldquo;Postvak In&rdquo;  map bevat nieuwe berichten. Je kunt alle berichten bekijken die je hebt ontvangen, met de afzender, het onderwerp, en de datum van verzending.</li>\r\n        <li>De &ldquo;Postvak Uit&rdquo; map bevat kopie&euml; van alle PM's die je hebt verzonden.</li>\r\n        <li>De &ldquo;Archief&rdquo;  map bevat berichten die je zelf daarin hebt geplaatst.</li>\r\n        </ul>\r\n        <p>In elke map heb je de keuze wat je met de berichten in die map wilt doen. Selecteer de berichten en ...<br />\r\n        </p>\r\n        <ul>\r\n        <li>Archiveer geselecteerde / Alles archiveren – Verplaats bericht(en) naar de archiefmap</li>\r\n        <li>Exporteer  geselecteerde / Exporteer alles – Exporteer bericht(en) als een XML-/CSV-/Textbestand.</li>\r\n        <li>Verwijder  geselecteerde / Verwijder alles – Verwijder bericht(en)</li>\r\n        </ul>\r\n        <p>Houdt rekening met het aantal berichten dat er opgeslagen mag worden door tijdig berichten te verwijderen of te exporteren. Als je Postvak In vol zit, kun je geen nieuwe berichten meer ontvangen. Onderaan wordt je ge&iuml;nformeerd over hoeveer berichten je hebt wat het maximum is.</p>\r\n      "
+            "#text": "<p>Privéberichten zijn gesprekken tussen jou en een ander lid, niemand anders kan ze lezen. Open <strong>[[TOOLBAR.INBOX]]</strong> in het gebruikersmenu: links zie je <strong>[[PM.CONVERSATION_TITLE]]</strong>, rechts de berichten van het geselecteerde gesprek.</p>\r\n<h3 class=\"h6 mt-3\">Een gesprek beginnen</h3>\r\n<ul>\r\n<li>Klik op <strong>[[PM.NEW_CONVERSATION]]</strong>, typ minstens drie letters van de naam en kies het lid.</li>\r\n<li>Of klik op <strong>[[POSTS.PM]]</strong> in het profiel van het lid of in het gebruikersmenu van een bericht.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Schrijven</h3>\r\n<p>Typ je bericht en druk op Enter om het te versturen, Shift+Enter begint een nieuwe regel. Je kunt BB-codes gebruiken, bijv. voor vette tekst of links. Als het andere lid het gesprek tegelijk open heeft, verschijnen de berichten meteen aan beide kanten, en het gesprek toont of het lid online is.</p>\r\n<p>Nieuwe berichten worden geteld naast je naam en <strong>[[TOOLBAR.INBOX]]</strong>, en als je een pagina van het forum opent, vraagt een venster of je ze wilt lezen. Voor privéberichten zijn er geen e-mailmeldingen.</p>\r\n<h3 class=\"h6 mt-3\">Verwijderen</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> verwijdert het gesprek uit jouw lijst, het andere lid heeft het nog steeds.</p>\r\n<p class=\"text-body-secondary small\">Je kunt niet schrijven naar leden die privéberichten blokkeren of jou negeren (tenzij je hun vriend bent), zie <a href=\"[[help:blocking]]\">Gebruikers negeren en blokkeren</a>. De beheerder kan privéberichten uitschakelen.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "berichten (Messenger)"
+            "#text": "Privéberichten"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderators zien <strong>[[TOOLBAR.MODERATE]]</strong> in de kopbalk. De pagina toont de forums die je modereert met het aantal <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> en <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>In gemodereerde forums (en voor leden van wie de berichten moeten worden gecontroleerd) worden nieuwe berichten pas getoond nadat een moderator ze heeft goedgekeurd. Controleer het bericht en klik op <strong>[[MODERATE_FORUM.APPROVE]]</strong> of verwijder het.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>De lijst toont de gemelde berichten met de redenen en wie ze heeft gemeld. Lees het bericht (en de geschiedenis, als het is bewerkt), onderneem zo nodig actie (het bericht bewerken of verwijderen, met de auteur praten) en klik op <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Topics beheren</h3>\r\n<ul>\r\n<li>In een topic biedt <strong>[[POSTS.MANAGE_TOPIC]]</strong> de opties <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> en <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Een verplaatst topic kan enkele dagen een link in het oude forum achterlaten.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> toont alle topics van een forum: selecteer er meerdere en sluit, verplaats of verwijder ze in één keer.</li>\r\n<li>Vastgezette topics en mededelingen stel je in met <strong>[[POSTMESSAGE.PRIORITY]]</strong> als je het eerste bericht bewerkt, permanente topics (ze worden niet verwijderd door de automatische opschoning) met <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Berichten beheren</h3>\r\n<ul>\r\n<li>Je kunt de berichten van andere leden bewerken en verwijderen. Als je een bericht verwijdert, verwijdert <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> ook de antwoorden erop.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> in het menu van een bericht verplaatst het naar een ander topic of splitst het af naar een nieuw topic (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>In de <a href=\"[[help:history]]\">berichtgeschiedenis</a> kun je een eerdere versie van een bericht herstellen.</li>\r\n<li>Je kunt antwoorden en bewerken in gesloten topics, en je berichten worden niet op spam gecontroleerd.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Afhankelijk van de instellingen zien moderators ook de IP-adressen van berichten. Leden worden bewerkt, geschorst en verbannen door de beheerders.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Handleiding voor moderators"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderators en beheerders"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderatoren beheren een aantal (sub)forums. Normaal gesproken kunnen ze berichten bewerken en verwijderen, topics verplaatsen en andere acties uitvoeren. Moderator worden voor een bepaald (sub)forum is normaal gesproken voor leden die erg behulpzaam zijn en ook veel weten van de materie van de onderdelen van het forum die ze modereren.</p>\r\n<p>Beheerders zijn gebruikers die de volledige controle hebben over alles wat er op het forum gebeurt. Ze bepalen hoe het forum eruit ziet, bepalen de indeling van het forum, welke informatie gevraagd wordt van de leden en welke leden als Moderator benoemd worden.</p>"
+            "#text": "<p><strong>Beheerders</strong> runnen het forum: ze maken de forums aan, bepalen wie wat mag, stellen de functies in en beheren de leden.</p>\r\n<p><strong>Moderators</strong> zorgen voor een of meer forums: ze houden de discussies bij het onderwerp en vriendelijk, bekijken gemelde berichten, keuren berichten goed in gemodereerde forums, en bewerken, verplaatsen, sluiten of verwijderen topics en berichten als dat nodig is. De moderators van een forum worden boven de topiclijst getoond (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>De pagina <strong>[[TOOLBAR.TEAM]]</strong> toont alle beheerders en moderators (als het forum die toont). Heb je een probleem met een bericht, <a href=\"[[help:report]]\">meld het dan</a>. Neem voor andere vragen via een privébericht contact op met een moderator of beheerder.</p>\r\n<p>Hoe moderators werken, staat in de <a href=\"[[help:moderating]]\">Handleiding voor moderators</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "Moderatoren en Beheerders"
+            "#text": "Moderators en beheerders"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Als de beheerder de Album-functie heeft aangezet en je bent een gebruiker die Albums mag maken, dan kun je albums maken die aan je profiel worden gelinkt. Je kunt Albums aanmaken in je Persoonlijke Configuratiescherm, door te klikken op de 'Bewerk Albums' link, en vervolgens op 'Nieuw Album'. Hoeveel albums je mag maken en hoeveel afbeeldingen daarin mogen, hangt af van de instellingen die de Beheerder heeft gemaakt voor de Gebruikersgroep(en) waar je lid van bent.</p>\r\n<p>Elk album kan een titel hebben en je kunt er een kaft aan toevoegen (een afbeelding uit het album), of een willekeurige afbeelding voor gebruiken. En je kunt een onderschrift maken voor elke afbeelding van het album.</p>\r\n<p><strong>Hoe kan ik afbeeldingen uploaden?</strong></p>\r\n<p>Als je op de Album Toevoegen/Bewerken pagina bent, kun je een afbeelding op je computer selecteren en vervolgens klikken op 'Uploaden' om het aan het album toe te voegen.</p>\r\n<p>Je hebt de keuze om elke afbeelding een onderschrift te geven en om &eacute;&eacute;n afbeelding als kaft in te stellen, die getoond zal worden in je publieke profiel. Om een Album te verwijderen, de titel te bewerken, afbeeldingen toe te voegen of te bewerken, klik je op 'Bewerken'. Om een onderschrift van een afbeelding te bewerken, klik je op de tekst onder de afbeelding. Als je een kaft wilt bewerken, klik je op de knop onder de kaft.</p>"
+            "#text": "<p>Als het forum albums gebruikt, kun je je afbeeldingen in albums in je profiel tonen en ze in je berichten gebruiken.</p>\r\n<ol>\r\n<li>Open <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> in het menu van je accountpagina’s (of <strong>[[TOOLBAR.MYALBUMS]]</strong> in het gebruikersmenu) en klik op <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Voer een titel in en upload de eerste afbeeldingen (meerdere tegelijk is mogelijk).</li>\r\n</ol>\r\n<p>Met <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> voeg je meer afbeeldingen toe of verwijder je ze, en verwijder je het album. In het album kun je de afbeeldingen een bijschrift geven en met <strong>[[BUTTON.BUTTON_SETCOVER]]</strong> de omslagafbeelding kiezen.</p>\r\n<p>Om een albumafbeelding in een bericht te tonen, klik je onder de afbeelding op <strong>[[ALBUM.COPY_BBCODE]]</strong> en plak je de code in de editor.</p>\r\n<p class=\"text-body-secondary small\">Het aantal albums en afbeeldingen en de grootte van de afbeeldingen zijn beperkt, de limieten hangen af van je groep of rang en worden op de pagina’s getoond.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "Album"
+            "#text": "Albums"
+          },
+          {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Alle bestanden die je hebt geüpload, staan in <strong>[[ATTACHMENTS.TITLE]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Bij elk bestand zie je in hoeveel berichten het wordt gebruikt, of dat het niet wordt gebruikt.</p>\r\n<p>Selecteer bestanden en verwijder ze om ruimte vrij te maken, bijv. bestanden die je hebt geüpload maar niet hebt gebruikt. Een verwijderd bestand wordt niet meer getoond in de berichten die het gebruiken.</p>\r\n<p>Hoe je bestanden aan berichten toevoegt, wordt uitgelegd in <a href=\"[[help:attachments]]\">Bijlagen en afbeeldingen</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Mijn bijlagen"
           },
           {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Wat zijn avatars?</strong></p>\r\n<p>Avatars zijn kleine afbeeldingen die leden kunnen gebruiken om zich te onderscheiden van andere leden. Avatars worden weergegeven als onderdeel van de gebruikersinformatie in berichten, en ook in de gebruikersprofielen.</p>\r\n<p>Je kunt je Avatar aanpassen door op 'Avatar aanpassen' te klikken in je Profiel.</p>\r\n<p>Je kunt op drie manieren een Avatar toevoegen:</p>\r\n<ul>\r\n  <li>Je kunt kiezen uit een lijst van bestaande Avatars (als deze beschikbaar zijn op het forum)</li>\r\n  <li>Je kunt een URL ingeven van een Avatar die op een externe server staat</li>\r\n  <li>je kunt een afbeelding op je eigen computer selecteren en uploaden naar het forum.</li>\r\n</ul>\r\n<p><em>Let op dat de Beheerder eisen kan stellen aan de toegestane bestandstypen, -groottes en -afmetingen  (breedte en grootte).</em></p>\r\n<p><strong>Wat zijn handtekeningen?</strong></p>\r\n<p>'Handtekeningen' bevatten informatie die aan de onderkant van al je berichten komt te staan. Dit kunnen plaatjes, links naar je site, spreuken etc. zijn.</p>\r\n<p>Om je handtekening te bewerken, klik je op 'Handtekening' in het Persoonlijk Profielmenu in je Profiel. Je mag als opmaak alleen zgn. BBCodes gebruiken voor je handtekening.</p>"
+            "#text": "<h3 class=\"h6\">Avatar</h3>\r\n<p>Een avatar is een kleine afbeelding die naast je naam in je berichten en je profiel wordt getoond. Open <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Afhankelijk van het forum kun je:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - een van de avatars van het forum kiezen.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - je eigen afbeelding uploaden (png, jpg, gif, webp, bmp of svg). Grote afbeeldingen worden automatisch verkleind, de pagina toont de toegestane grootte.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> verwijdert je avatar. Zonder avatar toont het forum een standaardafbeelding.</p>\r\n<h3 class=\"h6 mt-3\">Handtekening</h3>\r\n<p>De handtekening is een korte tekst die onder elk van je berichten wordt getoond, bijv. een motto of een link naar je website. Open <strong>[[ACCOUNT.SIGNATURE]]</strong> in het gebruikersmenu. De pagina toont de maximale lengte en de BB-codes die je in de handtekening mag gebruiken, HTML is niet toegestaan. De <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> toont hoe ze eruit zal zien.</p>\r\n<p class=\"text-body-secondary small\">De beheerder beslist of avatars en handtekeningen worden gebruikt, en de limieten kunnen afhangen van je groep of rang.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Handtekeningen, Avatar plaatjes"
+            "#text": "Avatar en handtekening"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>Het <strong>Gebruikersconfiguratiescherm</strong> is de plek waar je je persoonlijke instellingen en voorkeuren kunt instellen.</p>\r\n<p>Standaard zal het <strong>Configuratiescherm</strong> een samenvatting van je Account weergeven, met daarin je gebruikersnaam, e-mailadres, Aantal berichten, Groepslidmaatschappen en sinds wanneer je lid bent van het forum.</p>\r\n<p>Aan de linkerkant vind je Links naar alle subpagina's, waarmee je de volgende zaken kunt instellen:</p>\r\n<p><strong>Messenger</strong></p>\r\n<ul>\r\n  <li>Postvak In</li>\r\n  <li>Verzonden Items</li>\r\n  <li>Archief</li>\r\n  <li>Nieuw Bericht</li>\r\n</ul>\r\n<p><strong>Persoonlijk Profiel</strong></p>\r\n<ul>\r\n  <li>Bekijk Profiel</li>\r\n  <li>Bewerk Profiel</li>\r\n  <li>Bekijk Bedankjes<br /></li>\r\n  <li>Bewerk Albums</li>\r\n  <li>Bewerk Avatar</li>\r\n  <li>Handtekening</li>\r\n  <li>E-mail Notificatie Voorkeuren</li>\r\n  <li>Wijzig Wachtwoord</li>\r\n</ul>"
+            "#text": "<p>Klik rechtsboven op je naam om het gebruikersmenu te openen:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - het overzicht van je account en je activiteit.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - alle instellingen van je account (zie hieronder).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - je privéberichten, zie <a href=\"[[help:messenger]]\">Privéberichten</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - zie <a href=\"[[help:buddies]]\">Vrienden</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - zie <a href=\"[[help:myalbums]]\">Albums</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - zie <a href=\"[[help:newposts]]\">Nieuwe berichten bekijken</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>De getallen naast je naam, <strong>[[TOOLBAR.INBOX]]</strong> en <strong>[[TOOLBAR.BUDDIES]]</strong> tellen de ongelezen berichten en de openstaande vriendschapsverzoeken.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>De pagina toont je gebruikersnaam, e-mailadres, aantal berichten en de datum waarop je lid werd, en <strong>[[ACCOUNT.ACTIVITY]]</strong>: je topics en antwoorden, de reacties en de vriendschappen, met filters voor elk soort. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> toont je profiel zoals andere leden het zien.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>De instellingen staan ook aan de linkerkant van alle accountpagina’s:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - de gegevens over jou.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - e-mailadres, tijdzone, taal, tweestapsverificatie.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - de bestanden die je hebt geüpload.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> en <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - e-mail- en pushmeldingen, gevolgde topics en forums.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - voer je huidige wachtwoord en twee keer het nieuwe in.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Sommige items worden alleen getoond als het forum de functie gebruikt (bijv. avatars, handtekeningen of albums).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Mijn Instellingen (Gebruiker Configuratiescherm)"
+            "#text": "Mijn account"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigatie"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>De kopbalk bovenaan elke pagina bevat het hoofdmenu: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> en <strong>[[TOOLBAR.HELP]]</strong> (afhankelijk van het forum worden ze niet allemaal getoond). Gasten zien rechts <strong>[[TOOLBAR.LOGIN]]</strong> en <strong>[[TOOLBAR.REGISTER]]</strong>. Leden zien de bel van de meldingen en het gebruikersmenu met hun naam en avatar, zie <a href=\"[[help:mysettings]]\">Mijn account</a>. Onder de kopbalk brengt het pad van de huidige pagina (de broodkruimels) je terug naar het forum of de categorie.</p>\r\n<h3 class=\"h6 mt-3\">De topiclijst van een forum</h3>\r\n<p>Klik op een forum om de topics te zien. Vastgezette topics en mededelingen worden als eerste getoond. Meer topics worden automatisch geladen als je naar beneden scrollt. De balk boven de lijst bevat:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - toont alleen de topics met berichten in de gekozen periode (bijv. de laatste dag of sinds je laatste bezoek).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - doorzoekt de topics van dit forum.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - gaat naar een ander forum.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> en <strong>[[TOPICS.MARKREAD]]</strong> (voor leden).</li>\r\n</ul>\r\n<p>De pictogrammen voor de topics tonen nieuwe berichten, populaire (‘hot’) topics en gesloten en verplaatste topics. De legenda onder de lijst legt ze uit.</p>\r\n<h3 class=\"h6 mt-3\">In een topic</h3>\r\n<p>De berichten worden per pagina getoond, de paginanavigatie staat onder de berichten. Met <strong>[[POSTS.PREVTOPIC]]</strong> en <strong>[[POSTS.NEXTTOPIC]]</strong> ga je naar de naburige topics van het forum. Een link naar een bericht opent het topic bij dat bericht.</p>\r\n<h3 class=\"h6 mt-3\">Nieuwe berichten en leesstatus</h3>\r\n<p>Forums en topics met berichten die je nog niet gelezen hebt, worden gemarkeerd. Leden kunnen alles als gelezen markeren met <strong>[[DEFAULT.MARKALL]]</strong> op de startpagina, of één forum met <strong>[[TOPICS.MARKREAD]]</strong>. Waar je alle nieuwe berichten in één keer vindt, staat in <a href=\"[[help:newposts]]\">Nieuwe berichten bekijken</a>.</p>\r\n<h3 class=\"h6 mt-3\">Live-updates</h3>\r\n<p>Als het forum live-updates gebruikt, verschijnen nieuwe topics en berichten zonder dat je de pagina opnieuw hoeft te laden. In een topic zie je de melding <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, klik erop om het nieuwe antwoord te tonen.</p>\r\n<h3 class=\"h6 mt-3\">Gebruikersinformatie</h3>\r\n<p>Beweeg de muis over een gebruikersnaam om een kaartje met informatie over het lid te zien, bijv. de woonplaats, de onlinestatus en de datum van inschrijving. Een klik op de naam opent het profiel van het lid.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Je weg vinden"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>Als je niet ingelogd bent, geeft de 'Aktieve topics' link aan de bovenkant de lijst met topics aan die zijn aangemaakt sinds je laatste bezoek. Op de tweede tab is een lijst met topics waarin je nog niet hebt geantwoord.</p>\r\n      <p>Als je bent ingelogd, verandert 'Aktieve topics' naar 'Mijn topics'. Er zijn nu vijf tabbladen, die het volgende laten zien:</p>\r\n    <ul>\r\n      <li><strong>Actieve Topics</strong> - Een lijst met alle topics die zijn gemaakt of geupdate sinds je laatste bezoek.</li>\r\n      <li><strong>Onbeantwoorde Topics</strong> - Een lijst met topics zonder antwoorden.</li>\r\n      <li><strong>Ongelezen Topics</strong> - Een lijst met topics met ongelezen berichten.</li>\r\n      <li><strong>Topics waar je in gepost hebt</strong> - Een lijst met topics die je gestart hebt, of waarin je hebt gepost.</li>\r\n      <li><strong>Favoriete Topics</strong> - Een lijst met je favoriete topics.</li>\r\n    </ul>\r\n    "
+            "#text": "<p>Leden vinden de nieuwe berichten van alle forums onder <strong>[[TOOLBAR.MYTOPICS]]</strong> in het gebruikersmenu. De pagina heeft vier tabbladen:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - de topics met nieuwe berichten sinds je laatste bezoek.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - de topics waarop nog niemand heeft geantwoord.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - de topics die je volgt.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - de topics die je zelf hebt gestart.</li>\r\n</ul>\r\n<p>Met het tijdfilter kies je de periode, bijv. het laatste uur, de laatste week of alle topics. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> markeert alle topics als gelezen.</p>\r\n<p>De <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> op de startpagina tonen de nieuwste berichten van alle forums, ook voor gasten.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "Bekijken van nieuwe berichten"
+            "#text": "Nieuwe berichten bekijken"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,83 +11500,103 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Je kunt met anderen contact opnemen via e-mail. Je vind deze in de ledenlijst. Er wordt dan een pagina geopend waar je je bericht in kunt vullen. Als je klaar bent met je bericht, druk je op de knop 'Verstuur' en je e-mail wordt direct verzonden.</p>\r\n<p><strong>Kan ik e-mail adressen bekijken?</strong></p>\r\n<p>Om privacyredenen worden e-mailadressen van gebruikers niet zichtbaar gemaakt, ook niet op andere plaatsen op het forum.</p>\r\n<p><strong>Waarom kan ik sommige gebruikers geen e-mail sturen?</strong></p>\r\n<p>Het kan zijn, dat de beheerder e-mail functionaliteit heeft uitgeschakeld, of dat de gebruiker heeft aangegeven geen e-mails via het forum te willen ontvangen.</p>\r\n<p><strong>Wat zijn priv&euml;berichten (PB's)?</strong></p>\r\n<p>Geregistreerde leden kunnen elkaar ook berichten sturen door middel van het berichtensysteem van het forum.</p>"
+            "#text": "<p>Je kunt via het forum een e-mail naar een lid sturen: klik op <strong>[[POSTS.EMAIL]]</strong> in het profiel van het lid (of op de teampagina), voer een onderwerp en je bericht in en klik op <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Het e-mailadres van het lid blijft voor jou verborgen.</li>\r\n<li>De e-mail wordt verstuurd met je gebruikersnaam en <strong>jouw</strong> e-mailadres als afzender, zodat het lid je rechtstreeks kan antwoorden.</li>\r\n<li>Om spam te voorkomen kun je maar een paar e-mails per uur versturen.</li>\r\n</ul>\r\n<p>Je kunt geen e-mails sturen naar leden die e-mails blokkeren of jou negeren (behalve naar vrienden), en alleen als de beheerder e-mails tussen leden toestaat. In de meeste gevallen is een <a href=\"[[help:messenger]]\">privébericht</a> de betere manier.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Contact opnemen met andere leden"
+            "#text": "E-mail aan leden"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Polls zijn een manier om te stemmen op een stelling of een vraag.</em></p>\r\n<p><strong>Nieuwe poll aanmaken?</strong></p>\r\n<p>Als je een nieuw topic aanmaakt, heb je de mogelijkheid om een nieuwe Poll aan te maken met 'Poll toevoegen?'. Als je die optie niet ziet, heb je geen toegang tot die optie.</p>\r\n<p>Je kunt ook nieuwe Polls aan bestaande Topics hangen. Een Topic kan zoveel Polls hebben als je wilt.</p>\r\n<p>Met een Poll kun je een vraag stellen en een aantal antwoorden (maximaal 10, of de Beheerder heeft een hoger nummer ingesteld) opgeven. - <em>Een Beheerder kan afbeeldingen (Externe Url's) als antwoord toevoegen.</em>. Andere leden kunnen dan een antwoord kiezen, en de resultaten van de Poll worden vervolgens in het Topic getoond.</p>\r\n<p><em>Een Poll kan bijvoorbeeld zijn:</em></p>\r\n<p><em>Wat is je favoriete kleur?</em></p>\r\n<ul>\r\n  <li><em>Blauw</em></li>\r\n  <li><em>Rood</em></li>\r\n  <li><em>Geel</em></li>\r\n  <li><em>Groen</em></li>\r\n</ul>\r\n<p>Je kunt ook een looptijd instellen voor de Poll, zodat de poll (bijvoorbeeld) na 10 dagen gesloten wordt. Je kunt ook een onbeperkte duur instellen.</p>\r\n<p>Je kunt ook instellen of gebruikers de resultaten van de Poll kunnen zien, zonder dat ze eerst gestemd moeten hebben. Hiervoor is de optie 'Je kunt geen uitslagen zien als de poll niet is afgelopen.'.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>De 'Gekoppeld' optie laat geen resultaten zien, als de Poll nog geopend is.</p>\r\n<p><strong>Polls groeperen</strong></p>\r\n<p>Alle Polls in een Topic zijn automatisch gegroepeerd. Je kunt deze groep Polls in elk Topic dat je wilt laten zien.</p>\r\n<p><strong>Hoe te stemmen?</strong></p>\r\n<p>Om in een Poll te stemmen, klik je op het antwoord van je voorkeur.</p>\r\n<p>Normaal gesproken kun je je stem niet meer wijzigen als je eenmaal gestemd hebt, dus denk goed na voordat je stemt!</p>\r\n"
+            "#text": "<p>Een peiling stelt de lezers van een topic een vraag met meerdere keuzes.</p>\r\n<h3 class=\"h6 mt-3\">Een peiling maken</h3>\r\n<p>Zet <strong>[[POLLEDIT.POLLADD]]</strong> aan in de opties als je een topic start, de peilingeditor opent nadat het topic is geplaatst. Bij een bestaand topic zien de starter van het topic en de moderators <strong>[[POLLEDIT.CREATEPOLL]]</strong> boven de berichten. Een topic heeft één peiling.</p>\r\n<ul>\r\n<li>Voer de vraag en minstens twee keuzes in, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> voegt er meer toe (tot een door de beheerder ingesteld maximum).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - het aantal dagen dat de peiling open is, laat dit leeg voor een peiling zonder einde.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - de stemmers kunnen meer dan één antwoord kiezen.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - de namen van de stemmers worden bij de resultaten getoond.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - de resultaten worden pas getoond nadat de peiling is afgelopen.</li>\r\n<li>Als het forum het toestaat, kunnen de vraag en de keuzes een afbeelding hebben (het adres van een afbeelding).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Stemmen</h3>\r\n<p>Klik op de knop van je keuze. Je kunt je stem niet wijzigen, kies dus zorgvuldig. Gasten kunnen niet stemmen en zien de resultaten niet.</p>\r\n<h3 class=\"h6 mt-3\">Een peiling wijzigen</h3>\r\n<p>De maker kan de peiling wijzigen met <strong>[[POLLEDIT.EDITPOLL]]</strong> zolang nog niemand heeft gestemd (tenzij het forum latere wijzigingen toestaat) en ze verwijderen met <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderators kunnen peilingen altijd wijzigen en verwijderen.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Polls, aanmaken en stemmen"
+            "#text": "Peilingen"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Als je bent ingelogd, kunt je een Pop-up bericht krijgen in het midden van de pagina.</p>\r\n<p>Het Pop-up bericht kan je een aantal dingen melden:</p>\r\n<ul>\r\n<li>Nieuw(e) Priv&eacute;bericht(en)</li>\r\n  <li>Nieuw(e) Vriendenverzoek(en)</li>\r\n  <li>Goedgekeurde Vriendenverzoeken</li>\r\n  <li>Afgewezen Vriendenverzoeken<br />\r\n  </li>\r\n</ul>\r\n<p><em>Op dezelfde manier worden Informatie- en Foutberichten weergegeven.</em></p>"
+            "#text": "<p>De bel in de kopbalk toont je meldingen, het rode getal telt de ongelezen meldingen. Je krijgt een melding als:</p>\r\n<ul>\r\n<li>iemand je vermeldt (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) of citeert (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>iemand op een van je berichten reageert,</li>\r\n<li>er een nieuw antwoord is in een topic dat je volgt of een nieuw topic in een forum dat je volgt,</li>\r\n<li>je een nieuwe vriend hebt.</li>\r\n</ul>\r\n<p>Klik op een melding om het bericht te openen. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> opent de lijst van alle meldingen, met een filter op soort en <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>De meldingen maken deel uit van de activiteitenstroom: je kunt ze uitschakelen in <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Andere meldingen</h3>\r\n<ul>\r\n<li>Nieuwe privéberichten en vriendschapsverzoeken worden naast je naam geteld. Als je een pagina opent, vraagt een venster of je ze wilt lezen.</li>\r\n<li>Berichten van het forum (bijv. ‘opgeslagen’) verschijnen een paar seconden bovenaan de pagina.</li>\r\n<li>Meldingen kunnen ook per e-mail en naar je browser of telefoon worden gestuurd, zie <a href=\"[[help:mailsettings]]\">Meldingsvoorkeuren</a> en <a href=\"[[help:push]]\">Pushmeldingen en app</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Pop-Up Berichten"
+            "#text": "Meldingen"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>Als je berichten wilt opmaken, bijvoorbeeld met vette tekst, of een groter of kleiner lettertype.</p>\r\n<p>Je kunt op twee manieren de tekst van je bericht opmaken.:</p>\r\n<ol>\r\n  <li>Je kunt gebruik maken van klikbare knoppen, zoals je in de meeste tekstverwerkers kunt vinden.</li>\r\n  <li>Je kunt opmaakcodes typen door middel van BBcode</li>\r\n</ol>\r\n<p>Klikbare knoppen zijn beschikbaar in de standaard en geavanceerde WYSIWYG (What You See Is What You Get) tekstverwerkers. Het verschil is, dat de standaard tekstverwerker de BBcodes laat zien en de geavanceerde geeft de tekst al opgemaakt weer.</p>\r\n<p>Of je de standaard-, of geavanceerde tekstverwerker te zien krijgt, hangt af van wat de Beheerder heeft ingesteld.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Open het forum waar het topic thuishoort en klik op <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Zie je de knop niet, dan mag je in dit forum geen topics starten (of je bent niet ingelogd).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - de titel van het topic, deze is verplicht. Terwijl je typt, toont het forum <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, misschien is je vraag al beantwoord.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - een optionele korte beschrijving.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - optionele trefwoorden, andere leden kunnen topics vinden via hun tags.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - alleen voor leden met dit recht, zie <a href=\"[[help:anounce]]\">Mededelingen en vastgezette topics</a>.</li>\r\n<li>Het bericht zelf, in de editor.</li>\r\n</ul>\r\n<p>Onder <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> kun je een peiling toevoegen (<strong>[[POLLEDIT.POLLADD]]</strong>, zie <a href=\"[[help:polls]]\">Peilingen</a>) en het topic volgen (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Klik op <strong>[[POSTMESSAGE.PREVIEW]]</strong> om je bericht te controleren, en op <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> om het te publiceren.</p>\r\n<h3 class=\"h6 mt-3\">De editor</h3>\r\n<p>Afhankelijk van het forum toont de editor de opmaak terwijl je typt, of de BB-codes (korte tags zoals <code>[b]vet[/b]</code>). De knoppen van de werkbalk maken de tekst op: selecteer de tekst en klik op de knop, bijv. voor vette tekst, een link, een citaat of een lijst. Alle BB-codes en hun resultaat staan in <a href=\"[[help:bbcodes]]\">BB-codes</a>.</p>\r\n<ul>\r\n<li>Typ <code>@</code> en een naam om een lid te vermelden, zie <a href=\"[[help:mentions]]\">Vermeldingen en tags</a>.</li>\r\n<li>Bestanden en afbeeldingen voeg je toe met de bijlageknop, zie <a href=\"[[help:attachments]]\">Bijlagen en afbeeldingen</a>.</li>\r\n<li>In de BB-code-editor maken Ctrl+B, Ctrl+I en Ctrl+U de geselecteerde tekst op, Ctrl+Enter verstuurt het bericht.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Goed om te weten</h3>\r\n<ul>\r\n<li>Gasten (als ze mogen schrijven) voeren een naam in bij <strong>[[POSTMESSAGE.FROM]]</strong>, dit mag niet de naam van een lid zijn.</li>\r\n<li>Om spam te voorkomen moet je tussen twee berichten een paar seconden wachten, en een bericht heeft een maximale lengte.</li>\r\n<li>In sommige forums worden berichten eerst door een moderator gecontroleerd. Je bericht wordt getoond nadat het is goedgekeurd.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Nieuwe Topics en berichten plaatsen"
+            "#text": "Een nieuw topic starten"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Instellingen en Profiel"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Door het forum te gebruiken ga je akkoord met de regels. De pagina <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> bevat de regels en de privacyverklaring: welke persoonsgegevens het forum opslaat, voor welke doelen, en je rechten (bijv. om inzage in je gegevens te krijgen of ze te laten verwijderen).</p>\r\n<p>De pagina <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> toont de cookies van het forum, waarvoor ze worden gebruikt en hoe lang ze worden bewaard. Als je het forum voor het eerst bezoekt, informeert een melding je over de cookies.</p>\r\n<p>Je profiel toont alleen de gegevens die je zelf invult, je e-mailadres wordt nooit aan andere leden getoond. Je kunt jezelf verbergen in de lijst van actieve gebruikers (als het forum het toestaat), privéberichten en e-mails blokkeren en je account verwijderen, zie <a href=\"[[help:blocking]]\">Gebruikers negeren en blokkeren</a> en <a href=\"[[help:deleteaccount]]\">Je account opschorten of verwijderen</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Privacy, cookies en regels"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Als lid van het forum heb je een publiek zichtbare profielpagina. Deze pagina bevat informatie die door de gebruiker is ingevuld, zoals tijdens de registratie, of later in zijn Profiel.</p>\r\n<p><em>Er zijn meerdere manieren om het profiel van een gebruiker te bekijken...</em></p>\r\n<ul>\r\n  <li>Als je een gebruikersnaam ziet, kun je erop klikken. Vervolgens verschijnt er een menu, waar je op 'Profiel' kunt klikken om het profiel van die gebruiker te bekijken. .</li>\r\n  <li>De ledenlijst geeft je de mogelijkheid om alle geregistreerde gebruikers te bekijken en snel naar het profiel van de gebruiker te gaan.</li>\r\n  <li>Als je ingelogd bent, kun je je eigen profiel bekijken door op de 'Mijn Profiel' link te klikken aan de bovenkant van de pagina.</li>\r\n</ul>\r\n<p><strong>Welke Informatie is zichtbaar op die pagina?</strong></p>\r\n<p>De profielpagina is gegroepeerd in 5 tabbladen.</p>\r\n<ul>\r\n  <li><strong>Informatie</strong> - Laat alle informatie zien die de gebruiker heeft gegeven voor zijn Profiel, zoals Echte Naam, Geslacht, of de gebruiker nu Online of Offline is, Rang en andere zaken.</li>\r\n  <li><strong>Statistieken</strong> - Laat statistieken zien, zoals Datum Aangemeld, Laatste Bezoek, Aantal bedankjes en Aantal keer dat deze gebruiker anderen heeft bedankt.</li>\r\n  <li><strong>Laatste 10 Berichten</strong> - Laat de laatste tien berichten van de gebruiker zien (indien beschikbaar).</li>\r\n  <li><strong>Vrienden - </strong>Laat de Vrienden van de gebruiker zien (indien actief).</li>\r\n  <li><strong>Albums - </strong>Laat de Albums zien die de gebruiker heeft aangemaakt.</li>\r\n</ul>\r\n<p>Persoonlijke informatie, zoals e-mail adressen en/of wachtwoorden worden <strong>NIET</strong> getoond.</p>"
+            "#text": "<p>Klik op de naam van een lid (bijv. in een bericht of in de ledenlijst) om het profiel te openen. Afhankelijk van het forum worden profielen alleen aan leden getoond. Je eigen profiel open je met <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> op <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Het profiel toont:</p>\r\n<ul>\r\n<li>de avatar, de naam, de rang en de medailles van het lid, en de gegevens uit het profiel (bijv. locatie, verjaardag, beroep en interesses),</li>\r\n<li>het aantal berichten en het aantal gegeven en ontvangen reacties,</li>\r\n<li>de reputatie (als het forum die gebruikt),</li>\r\n<li>de <strong>[[PROFILE.LAST10]]</strong>, met <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>de vrienden en de albums van het lid.</li>\r\n</ul>\r\n<p>Met de knoppen van het profiel kun je <strong>[[BUDDY.ADDBUDDY]]</strong>, een privébericht (<strong>[[POSTS.PM]]</strong>) of een e-mail (<strong>[[POSTS.EMAIL]]</strong>) sturen en de website of blog van het lid openen. Het e-mailadres van een lid wordt nooit getoond.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Mijn Publieke Profiel"
+            "#text": "Profielen"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Berichten lezen en plaatsen"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Pushmeldingen tonen nieuwe antwoorden in gevolgde topics en andere meldingen op je computer of telefoon, zelfs als het forum niet open is.</p>\r\n<ol>\r\n<li>Open <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> in het gebruikersmenu (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Klik bij <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> op <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> en sta de meldingen toe als de browser erom vraagt.</li>\r\n</ol>\r\n<p>Pushmeldingen worden voor elk apparaat en elke browser afzonderlijk ingesteld. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> schakelt ze uit voor dit apparaat. De meldingen worden verstuurd via de pushdienst van je browser (bijv. van Google, Mozilla, Apple of Microsoft) en zijn versleuteld.</p>\r\n<h3 class=\"h6 mt-3\">Het forum als app installeren</h3>\r\n<p>Je kunt het forum installeren als een app, met een eigen pictogram op je beginscherm of bureaublad: klik op dezelfde pagina op <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, of gebruik de installatiefunctie van je browser. Op iPhone en iPad werken pushmeldingen alleen in de geïnstalleerde app: tik op Deel, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, open het forum vanaf het beginscherm en schakel dan de meldingen in.</p>\r\n<p class=\"text-body-secondary small\">Dit gedeelte wordt alleen getoond als de beheerder pushmeldingen heeft ingesteld.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Pushmeldingen en app"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Lezen"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Als je je wachtwoord vergeten bent, kun je op de \"<a href=\"{0}\">Wachtwoord vergeten</a>\"\r\n  link klikken. Deze is te vinden op pagina's waar je je wachtwoord in moet vullen.</p>\r\n<p>De link verwijst je naar een pagina waar je je gebruikersnaam kunt invullen. Vervolgens wordt er een e-mail gestuurd naar het e-mail adres dat bij de\r\n gebruikersnaam is opgeslagen, met daarin instructies hoe je je wachtwoord kunt resetten.</p>\r\n<p> Wachtwoorden worden versleuteld opgeslagen, daarom kunnen we niet je originele wachtwoord opsturen.\r\n  Met deze optie kun je je wachtwoord resetten.</p>\r\n<p>Je moet op het gekoppelde e-mail adres berichten kunnen ontvangen. Ontvang je niets, houd dan ook je spamfilter in de gaten.\r\n  </p>"
+            "#text": "<p>Ben je je wachtwoord vergeten, dan kun je een nieuw instellen:</p>\r\n<ol>\r\n<li>Klik op <strong>[[LOGIN.LOSTPASSWORD]]</strong> naast het wachtwoordveld van de <a href=\"[[page:Account_Login]]\">inlogpagina</a> of het inlogvenster.</li>\r\n<li>Voer je gebruikersnaam of je e-mailadres in en klik op <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Als er een account met deze naam of dit adres bestaat, stuurt het forum je een e-mail met een link. Voor je privacy toont de pagina in elk geval dezelfde melding.</li>\r\n<li>De link opent een pagina waar je je e-mailadres en twee keer je nieuwe wachtwoord invoert.</li>\r\n</ol>\r\n<p>De link is maar een beperkte tijd geldig. Als je je e-mailadres nog niet hebt bevestigd, krijg je in plaats daarvan een nieuwe bevestigingsmail. Het forum verstuurt hooguit een paar van deze e-mails per uur.</p>\r\n<p>Wachtwoorden worden opgeslagen in een vorm die niet terug te lezen is, dus niemand (ook de beheerder niet) kan je je oude wachtwoord vertellen.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Wachtwoord vergeten"
+            "#text": "Een vergeten wachtwoord herstellen"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "berichten naar andere gebruikers</li>\r\n</ul>\r\n<p><strong>Hoe kan ik mij registreren?</strong></p>\r\n<p>Je kunt je registreren door op de 'Registreer'-knop bovenaan de pagina te klikken. Eerst moet je de forumregels accepteren. Daarna kun je een gebruikersnaam, een wachtwoord en een Veiligheidsvraag/antwoord kiezen. Ook moet je een geldig e-mail adres ingeven en (als de beheerder dat heeft ingesteld) de Captcha Code invullen.</p>\r\n"
+            "#text": "<p>Veel functies van het forum zijn alleen beschikbaar voor leden, bijv. berichten schrijven, privéberichten, vrienden, topics volgen en de meldingen. Om lid te worden, klik je op <strong>[[TOOLBAR.REGISTER]]</strong> in de kopbalk (als de beheerder nieuwe registraties toestaat).</p>\r\n<ol>\r\n<li>Als het forum erom vraagt, lees je de <strong>[[RULES.TITLE]]</strong> en klik je op <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Voer een gebruikersnaam, je e-mailadres en een wachtwoord (twee keer) in. Afhankelijk van het forum voer je ook een weergavenaam en andere gegevens in waar de beheerder om vraagt.</li>\r\n<li>Klik op <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Het forum toont <strong>[[REGISTER.CHECK_MAIL]]</strong> en stuurt je een e-mail. Klik op de link in deze e-mail om je adres te bevestigen. Daarna is je account actief en kun je inloggen.</li>\r\n</ol>\r\n<p>Komt de e-mail niet aan, kijk dan in je spammap. Als je probeert in te loggen voordat je het adres hebt bevestigd, meldt de inlogpagina dat en biedt ze <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong> aan.</p>\r\n<p>Op sommige forums moeten nieuwe accounts eerst door een beheerder worden goedgekeurd, je krijgt een e-mail als je account is goedgekeurd.</p>\r\n<p>Na de registratie kun je je profiel aanvullen, zie <a href=\"[[help:editprofile]]\">Je profiel bewerken</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "Registratie"
+            "#text": "Registreren"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Op sommige fora mag je berichten plaatsen als Gast, maar bij de meeste wordt registratie vereist.</p>\r\n<p>Een geregistreerde gebruiker kan naar een Topic waar hij/zij mag antwoorden. Om een antwoord te plaatsen heb je een aantal mogelijkheden: Je kunt op 'Plaats Antwoord' klikken, en vervolgens een nieuw bericht typen. Je kunt ook een antwoord typen in het 'Snel Antwoord' vak aan het eind van het topic.</p>\r\n<p>Als je op een specifiek bericht wilt reageren, klik je op de 'Quote' knop van het bericht waarop je wilt antwoorden. De tekst van dat bericht wordt dan ook geciteerd in je bericht.</p>"
+            "#text": "<p>Om op een topic te antwoorden, klik je boven of onder de berichten op <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong>, of onder een bericht op <strong>[[BUTTON.BUTTON_REPLY]]</strong>. De antwoordpagina toont onder de editor de <strong>[[POSTMESSAGE.LAST10]]</strong> van het topic, zodat je ze kunt lezen terwijl je schrijft.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Gebruik voor een kort antwoord het vak voor snel antwoorden onder de berichten, of de knop <strong>[[POSTS.QUICKREPLY]]</strong> van een bericht. Schrijf je tekst en klik op <strong>[[COMMON.POST]]</strong>. Voor de volledige editor (bijv. om bestanden toe te voegen) klik je op <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citeren</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> onder een bericht start een antwoord met de tekst van dit bericht als citaat.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> verzamelt meerdere berichten, ook op andere pagina’s van het topic. Klik dan bij een van die berichten op <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, het antwoord citeert alle verzamelde berichten.</li>\r\n<li>Om maar een deel te citeren, selecteer je de tekst in het bericht, klik je er met de rechtermuisknop op en kies je <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Kort lange citaten in tot het deel waarop je antwoordt. Het geciteerde lid krijgt een melding.</p>\r\n<p>Je kunt alleen antwoorden als je dat in dit forum mag, en niet in een gesloten topic. Gasten kunnen alleen antwoorden als het forum het toestaat.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Antwoorden op een bericht"
+            "#text": "Antwoorden en citeren"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Als een bericht de regels van het forum overtreedt (bijv. spam, beledigingen of illegale inhoud), meld het dan aan de moderators in plaats van erop te antwoorden:</p>\r\n<ol>\r\n<li>Open het menu van het bericht (de drie puntjes rechtsboven) en kies <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Geef aan waarom je het bericht meldt.</li>\r\n<li>Klik op <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>De moderators van het forum bekijken het gemelde bericht en beslissen wat er moet gebeuren. De auteur ziet niet wie het bericht heeft gemeld. Afhankelijk van het forum kunnen alleen leden berichten melden.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Een bericht melden"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>De feeds worden momenteel aangeboden in twee formaten: RSS en Atom.</p>\r\n<p>Als de beheerder Feeds heeft ingeschakeld, dan kun je Feeds ontvangen voor het Forum,  Topics en Actieve Topics.</p>\r\n<p>De meeste moderne browsers kunnen RSS feeds lezen en zullen automatisch de beschikbaarheid van de feeds op het forum en de verschillende pagina's herkennen.</p>"
+            "#text": "<p>Met feeds kun je het forum volgen in een feedlezer-app, zonder het forum te bezoeken. Het forum biedt Atom-feeds voor:</p>\r\n<ul>\r\n<li>de nieuwste berichten (de <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> op de startpagina),</li>\r\n<li>de topics van een forum (de feedknop in de balk boven de topiclijst),</li>\r\n<li>de berichten van een topic (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Kopieer het adres van de feed naar je feedlezer. Of het forum feeds aanbiedt en wie ze mag gebruiken (vaak alleen leden), stelt de beheerder in. Zie je geen feedknop, dan zijn feeds voor jou niet beschikbaar.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS- en Atom-feeds"
+            "#text": "Feeds"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Om snel een topic of bericht te kunnen vinden, klik je op 'Zoeken' bovenaan de pagina. Dan kun je een zoekterm intypen.</p>\r\n<p>Om meer gericht te zoeken, kun je bepaalde forums selecteren, of zoeken op een bepaalde gebruiker. Je kunt ook aangeven hoeveel resultaten je terug wilt krijgen per pagina.</p>"
+            "#text": "<p>Klik op <strong>[[TOOLBAR.SEARCH]]</strong> in de kopbalk, voer minstens een paar letters in en druk op Enter of klik op <strong>[[SEARCH.BTNSEARCH]]</strong>. Met de zoekopties kun je:</p>\r\n<ul>\r\n<li>zoeken naar berichten, topics of forums,</li>\r\n<li>alleen de berichten van een lid doorzoeken,</li>\r\n<li>de topics met een tag zoeken,</li>\r\n<li>zoeken op de exacte zin, een van de woorden of alle woorden,</li>\r\n<li>alleen bepaalde forums doorzoeken,</li>\r\n<li>de volledige berichten of alleen de titels doorzoeken,</li>\r\n<li>het aantal resultaten per pagina kiezen.</li>\r\n</ul>\r\n<p>De zoekfunctie vindt alleen wat je mag lezen. Andere manieren om te zoeken:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> boven de topiclijst doorzoekt één forum.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> in het menu van een bericht of in een profiel toont de berichten van dit lid.</li>\r\n<li>Een tag onder de titel van een topic toont alle topics met deze tag.</li>\r\n<li>Selecteer tekst in een bericht en klik er met de rechtermuisknop op om naar de geselecteerde woorden te zoeken.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Aan het zoeken in Forums en Topics"
+            "#text": "Zoeken"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Abonnementen zijn een manier om op de hoogte te blijven van verschillende forums en/of topics. Je kunt kiezen hoe je op de hoogte gehouden wilt worden van wijzigingen - bijvoorbeeld door ze te tonen in je configuratiescherm en voor elk een e-mail te ontvangen.</p>\r\n<p>Of als je je niet handmatig wilt abonneren op een topic, dan kun je de optie 'Notificaties onvangen voor topics <strong>waar je in gepost hebt</strong>, geabonneerd of als favoriet hebt gemarkeerd' in de e-mail Notificatie Voorkeuren Pagina van je configuratiescherm.</p>\r\n<p><strong>Hoe kan ik me abonneren op een topic?</strong></p>\r\n<p>Om je te abonneren op een topic, klik je op de 'Opties' link aan de bovenkant van de berichtenlijst en klik 'Abonneer op topic'.</p>\r\n<p><strong>Hoe kan ik me abonneren op een forum?</strong></p>\r\n<p>Om je te abonneren op een forum, klik je op de 'Abonneer op Forum' link onderaan de lijst van topics.</p>\r\n<p><strong>Hoe kan ik mijn abonnementen op topics en forums beheren?</strong></p>\r\n<p>Je kunt de lijst met topics en forums waarop je geabonneerd bent zien op de 'e-mail Notificatie Voorkeuren' pagina van je configuratiescherm. Daar kun je abonnementen stop zeggen door op de knop te klikken.</p>"
+            "#text": "<p>Als je een topic of een forum volgt, krijg je een melding bij nieuwe berichten: in de meldingen van het forum, en (afhankelijk van je <a href=\"[[help:mailsettings]]\">meldingsvoorkeuren</a>) per e-mail en pushmelding.</p>\r\n<ul>\r\n<li><strong>Een topic:</strong> klik onder de titel van het topic op <strong>[[POSTS.TOOLS]]</strong> en op <strong>[[POSTS.WATCHTOPIC]]</strong>. Je kunt ook <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> aanzetten als je een bericht schrijft.</li>\r\n<li><strong>Een forum:</strong> klik op <strong>[[TOPICS.WATCHFORUM]]</strong> in de balk boven de topiclijst. Je krijgt een melding bij nieuwe topics in dit forum.</li>\r\n<li><strong>Alle forums:</strong> klik op <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> op de startpagina.</li>\r\n</ul>\r\n<p>Om te stoppen met volgen, klik je op <strong>[[POSTS.UNWATCHTOPIC]]</strong> of <strong>[[TOPICS.UNWATCHFORUM]]</strong>. Bij <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> vind je alle <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> en <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, selecteer er een paar en klik op <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> om ze niet meer te volgen.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Abonnementen en Notificaties"
+            "#text": "Topics en forums volgen"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>Het 'Bedank' - Systeem is een functie om andere gebruikers positieve feedback te geven, bijvoorbeeld als je een bericht nuttig vond, of het bericht je geholpen heeft om een probleem op te lossen.</p>\r\n<p>Hoe kun je een bedankje geven?</p>\r\n<p>Als je een andere gebruiker wilt bedanken, druk je op de 'Bedank'-knop. Deze bevindt zich in het bericht waar je voor wilt bedanken. Daarna zie je je gebruikersnaam aan het eind van het bericht, in de lijst met Gebruikers die dit bericht nuttig vonden. Je kunt ook je bedankje altijf weer intrekken.</p>\r\n<p><strong>Bekijk alle Bedankjes</strong></p>\r\n<p>Als je alle berichten wilt bekijken die je een bedankje hebt gegeven, of alle berichten wilt zien waar je door andere gebruikers bent bedankt, dan kun je dat zien in je Profiel. -&gt; 'Bekijk Bedankjes'. Daar bevinden zich twee tabbladen...</p>\r\n<ul>\r\n  <li> <strong>[Je naam] bedankte</strong> - De lijst met berichten waar je hebt bedankt.</li>\r\n  <li><strong>[Je naam] was bedankt -</strong> De lijst met berichten waar je bent bedankt.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Reacties</h3>\r\n<p>Met een reactie laat je de auteur van een bericht zien dat je het goed vindt, zonder een antwoord te schrijven. Klik op de smileyknop (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) onder een bericht en kies <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> of <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Klik nogmaals op je reactie om ze te verwijderen, of op een andere om ze te wijzigen.</li>\r\n<li>De reacties op een bericht worden met hun aantallen getoond, beweeg de muis erover om te zien wie er heeft gereageerd.</li>\r\n<li>Je kunt niet reageren op je eigen berichten, op verwijderde berichten en in gesloten topics.</li>\r\n<li>De auteur krijgt een melding, en de reacties worden in het profiel geteld (gegeven en ontvangen bedankjes).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Reputatie</h3>\r\n<p>Als het forum het reputatiesysteem gebruikt, wordt de reputatie van een lid als balk in het profiel getoond. Leden die zelf genoeg reputatie hebben, kunnen in het gebruikersmenu van een bericht reputatie van een ander lid toevoegen (+1) of afnemen (-1).</p>\r\n<h3 class=\"h6 mt-3\">Het antwoord op een vraag</h3>\r\n<p>Het lid dat een topic heeft gestart, kan het antwoord dat de vraag heeft beantwoord markeren met <strong>[[POSTS.MARK_ANSWER]]</strong>. Het bericht krijgt een antwoordbadge, zodat andere lezers de oplossing snel vinden.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Bedankjes"
+            "#text": "Reacties en reputatie"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>Aan de bovenkant van elk topic, is een link 'Opties'. Als je hierop klikt, verschijnt er een menu met een aantal opties:</p>\r\n<ul>\r\n  <li><strong>Abonneer</strong> - Als je je op het topic abonneert, ontvang je een email als er een reactie geplaatst wordt.</li>\r\n  <li><strong>E-mail dit Topic</strong> - Als je denkt, dat het topic voor iemand interessant is, dan kun je een link naar het topic sturen via e-mail.</li>\r\n  <li><strong>Print dit topic</strong> - Hiermee krijg je het topic te zien in een 'Printer-vriendelijk' formaat, wat makkelijk is af te drukken.</li>\r\n  <li><strong>Rss Feed</strong> - Hiermee kun je de RSS-Feed van het topic bekijken.</li>\r\n</ul>\r\n"
+            "#text": "<p>De balk onder de titel van een topic bevat de hulpmiddelen van het topic:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - stuurt iemand per e-mail een link naar het topic (alleen voor leden).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - kopieert het adres van het topic, bijv. om ernaar te linken op een andere website.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - je krijgt een melding bij nieuwe antwoorden, zie <a href=\"[[help:subscriptions]]\">Topics en forums volgen</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - toont het topic in een afdrukversie.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - de feed van het topic, als het forum feeds aanbiedt, zie <a href=\"[[help:rss]]\">Feeds</a>.</li>\r\n</ul>\r\n<p>Moderators zien ook <strong>[[POSTS.MANAGE_TOPIC]]</strong> om het topic te verplaatsen, te sluiten of te verwijderen, zie <a href=\"[[help:moderating]]\">Handleiding voor moderators</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Topic Opties"
+            "#text": "Topic-hulpmiddelen"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Hier kun je informatie vinden over hoe het forum werkt. Gebruik de links aan de linkerkant, of het zoekvenster om te vinden wat je zoekt."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Schrijven"
           }
         ]
       },

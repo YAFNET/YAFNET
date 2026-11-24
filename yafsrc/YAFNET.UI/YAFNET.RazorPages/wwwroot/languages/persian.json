@@ -10815,139 +10815,684 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "متن را با <code>[left]</code>، <code>[center]</code> و <code>[right]</code> چپ‌چین، وسط‌چین یا راست‌چین می‌کند."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]متن وسط‌چین[/center]\r\n[right]متن راست‌چین[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "تراز"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "متن را پررنگ می‌کند."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]این متن پررنگ است[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "پررنگ"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "کد برنامه را با شکستگی‌های سطر و فاصله‌هایش نشان می‌دهد و کدهای BB درون آن قالب‌بندی نمی‌شوند."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "کد یک زبان برنامه‌نویسی را رنگ‌آمیزی می‌کند، مثلاً csharp، javascript، python، sql، css یا markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "کد با رنگ‌آمیزی"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "کد"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "متن را رنگی می‌کند. از نام یک رنگ یا کد رنگ استفاده کنید."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]متن قرمز[/color] و [color=#0d6efd]متن آبی[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "رنگ متن"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "این کدهای BB محتوا (مثلاً ویدیوها یا پست‌های وب‌سایت‌های دیگر) یا پیوست‌ها را جاسازی می‌کنند. نشانی یا شماره را بین برچسب‌ها بنویسید."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "پیوندی که برای نوشتن ایمیل به آن نشانی است."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "نشانی ایمیل"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "کدهای کوتاه ایموجی در کروشه و شکلک‌هایی مانند :) به ایموجی تبدیل می‌شوند."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "ایموجی"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "متن را با قلم دیگری نشان می‌دهد، اگر آن قلم روی دستگاه خواننده موجود باشد."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]متن با قلم Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "قلم"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "کدهای BB دیگر این انجمن"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "متن را فقط به اعضا نشان می‌دهد، یا با <code>[group-hide=Role1;Role2]</code> فقط به اعضای این نقش‌ها."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]فقط اعضا این متن را می‌بینند.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "پنهان برای گروه‌ها"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "چیدمان"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "پیوندها و تصاویر"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "فهرست‌ها"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "نقل‌قول‌ها و کد"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "اعضا، اسپویلرها و محتوای پنهان"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "قالب‌بندی متن"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "متن را تا زمانی که خواننده به پست واکنش نشان دهد پنهان می‌کند. نویسنده و مدیران همیشه آن را می‌بینند."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]یک متن پنهان.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "متن را از اعضایی که کمتر از عدد تعیین‌شده پست نوشته‌اند پنهان می‌کند."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]یک متن پنهان.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "پنهان برای پست‌های کم"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "متن را تا زمانی که خواننده در موضوع پاسخ دهد پنهان می‌کند."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]یک متن پنهان.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "متن را تا زمانی که خواننده در موضوع پاسخ دهد یا به پست واکنش نشان دهد پنهان می‌کند."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]یک متن پنهان.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "پنهان تا پاسخ یا واکنش"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "پنهان تا پاسخ"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "متن را از اعضایی که کمتر از عدد تعیین‌شده واکنش دریافت کرده‌اند پنهان می‌کند."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]یک متن پنهان.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "پنهان برای واکنش‌های کم"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "پنهان تا واکنش"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "چهار خط تیره یا بیشتر در یک سطر جداگانه، یک خط افقی رسم می‌کنند."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "متن بالای خط\r\n----\r\nمتن زیر خط"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "خط افقی"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "متن را مانند ماژیک علامت‌گذاری برجسته می‌کند."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]این متن برجسته شده است[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "برجسته‌سازی"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "تصویری از اینترنت را نشان می‌دهد. نشانی باید با نوع تصویر پایان یابد (مثلاً .png یا .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "تصویری با توضیح، که وقتی ماوس روی تصویر است نمایش داده می‌شود و صفحه‌خوان‌ها آن را می‌خوانند."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]لوگوی YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "تصویر با توضیح"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "تصویر"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "متن را با تورفتگی نشان می‌دهد."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]متن با تورفتگی[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "تورفتگی"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "متن را مورب می‌کند."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]این متن مورب است[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "مورب"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "یک فهرست نشانه‌دار. هر مورد با <code>[*]</code> در یک سطر جدید شروع می‌شود."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]مورد اول\r\n[*]مورد دوم\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "یک فهرست شماره‌دار. برای حروف از <code>[list=a]</code> یا <code>[list=A]</code> و برای اعداد رومی از <code>[list=i]</code> یا <code>[list=I]</code> استفاده کنید."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]گام اول\r\n[*]گام دوم\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "فهرست شماره‌دار"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "فهرست"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "کدهای BB را همان‌طور که هستند و بدون قالب‌بندی نشان می‌دهد."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]پررنگ نیست[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "بدون قالب‌بندی"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "متن را در یک کادر رنگی نشان می‌دهد. نوع‌ها عبارت‌اند از primary، secondary، success، danger، warning، info، light و dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]یادداشتی همراه با یک اطلاع.[/note]\r\n[note=warning]یک هشدار.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "یادداشت"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "متن را به صورت نقل‌قول نشان می‌دهد. دکمه‌های نقل‌قول پست‌ها آن را برایتان درج می‌کنند."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]متن نقل‌قول‌شده.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "نقل‌قولی همراه با نام نویسنده‌ی آن."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]متن نقل‌قول‌شده.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "نقل‌قول با نام نویسنده"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "نقل‌قول"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "نتیجه"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "اندازه‌ی متن را از 1 (بسیار کوچک) تا 9 (بسیار بزرگ) تغییر می‌دهد. اندازه‌ی عادی 5 است."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]کوچک[/size] [size=5]عادی[/size] [size=7]بزرگ[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "اندازه‌ی متن"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "متن را تا زمانی که خواننده روی دکمه کلیک کند پنهان می‌کند، مثلاً برای پایان یک فیلم."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]کار باغبان بود.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "اسپویلر"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "روی متن خط می‌کشد، مثلاً برای چیزی که دیگر معتبر نیست."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]روی این متن خط کشیده شده است[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "خط‌خورده"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "یک جدول می‌سازد: <code>[tr]</code> یک سطر است و <code>[td]</code> یک خانه از سطر."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]نام[/td][td]پست‌ها[/td][/tr][tr][td]سارا[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "جدول"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "نشانی وب‌سایت‌ها خودکار به پیوند تبدیل می‌شوند. می‌توانید آن‌ها را درون <code>[url]</code> هم بگذارید."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "پیوندی که به جای نشانی، یک متن نشان می‌دهد."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]وب‌سایت YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "پیوند با متن"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "پیوند"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "پیوندی به پروفایل یک عضو. تایپ @ در ویرایشگر آن را برایتان می‌سازد و آن عضو باخبر می‌شود."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "پیوند به یک عضو"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "زیر متن خط می‌کشد."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]زیر این متن خط کشیده شده است[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "زیرخط"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "آنچه تایپ می‌کنید"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "حساب کاربری شما"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>اطلاعیه ها، پیام هایی هستند که توسط مدیران و ناظران ارسال می شوند. آنها وسیله یک طرفه ای برای ارتباط با کاربران هستند که قادر به پاسخگویی آن نیستید. در صورتیکه تمایل به صحبت در مورد اطلاعیه دارید می توانید مبحث جدیدی را برای آن در انجمن باز کنید.</p>\r\n <p>اطلاعیه در بالای صفحات اصلی انجمن نمایش داده می شود، بالاتر از مباحث عادی و مهم.</p>"
+            "#text": "<p>برخی موضوع‌ها از بقیه مهم‌ترند:</p>\r\n<ul>\r\n<li><strong>موضوع‌های سنجاق‌شده</strong> در بالای فهرست موضوع‌های انجمن خود می‌مانند، مثلاً قوانین یا پرسش‌های متداول انجمن.</li>\r\n<li><strong>اطلاعیه‌ها</strong> اطلاعات مهمی هستند و آن‌ها هم در بالای فهرست موضوع‌ها، با یک نشان، نمایش داده می‌شوند.</li>\r\n</ul>\r\n<p>اینکه چه کسی می‌تواند آن‌ها را ایجاد کند را مدیر تعیین می‌کند (معمولاً ناظران و مدیران). آن‌ها این را هنگام نوشتن یا ویرایش موضوع با <strong>[[POSTMESSAGE.PRIORITY]]</strong> انتخاب می‌کنند. به موضوع‌های سنجاق‌شده و اطلاعیه‌ها می‌توانید مانند هر موضوع دیگری پاسخ دهید، مگر اینکه موضوع قفل باشد.</p>\r\n<h3 class=\"h6 mt-3\">اطلاعیه‌های کلی انجمن</h3>\r\n<p>مدیر می‌تواند در همه‌ی صفحه‌های انجمن هم یک اطلاعیه نشان دهد، مثلاً برای یک تعمیر و نگهداری برنامه‌ریزی‌شده. می‌توانید آن را با دکمه‌ی کنارش ببندید.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "اطلاعیه"
+            "#text": "اطلاعیه‌ها و موضوع‌های سنجاق‌شده"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">حالت روشن و تیره</h3>\r\n<p>دکمه‌ی حالت رنگ در نوار بالا بین <strong>[[THEME_MODE.LIGHT]]</strong>، <strong>[[THEME_MODE.DARK]]</strong> و <strong>[[THEME_MODE.AUTO]]</strong> (حالت دستگاه شما) جابه‌جا می‌شود. انجمن انتخاب شما را در این مرورگر به خاطر می‌سپارد.</p>\r\n<h3 class=\"h6 mt-3\">پوسته و زبان</h3>\r\n<p>اگر مدیر اجازه دهد، می‌توانید پوسته‌ی دیگری و زبان انجمن را در <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> انتخاب کنید. بسته به انجمن، زبان را می‌توان در نوار بالا هم تغییر داد.</p>\r\n<h3 class=\"h6 mt-3\">منطقه‌ی زمانی و اندازه‌ی صفحه</h3>\r\n<p>همه‌ی تاریخ‌ها و زمان‌ها به وقت منطقه‌ی زمانی شما نمایش داده می‌شوند. آن را در <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> تنظیم کنید. زمان‌های نزدیک مثلاً به صورت «۵ دقیقه پیش» نمایش داده می‌شوند.</p>\r\n<p><strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> در همان صفحه تعیین می‌کند که فهرست‌های انجمن در هر صفحه چند مورد نشان دهند.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "ظاهر و زبان"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "<p>برای پیوست کردن یک فایل به یک پست، به سادگی فایل را کپی و در ویرایشگر قرار دهید.</p>\r\n<p>از دکمه نوار ابزار پیوست‌ها (نماد گیره کاغذ) در ویرایشگر، همچنین می‌توانید پیوست آپلود شده قبلی را انتخاب کنید یا یک پیوست جدید آپلود کنید.</p>\r\n<p><strong>چه نوع فایل هایی را می توان استفاده کرد؟ پیوست ها چقدر می توانند بزرگ باشند؟</strong></p>\r\n<p>در پنجره پیوست، فهرستی از انواع فایل های مجاز را که می توانید استفاده کنید، پیدا خواهید کرد. همچنین ممکن است یک محدودیت کلی برای تعداد پیوست‌هایی که می‌توانید به تابلو ارسال کنید، وجود داشته باشد.</p>\r\n<p><strong>چگونه یک تصویر به یک پست اضافه کنیم؟</strong></p>\r\n<p>اگر تصویری را به‌عنوان پیوست آپلود کرده‌اید، به‌طور خودکار یک تصویر کوچک ایجاد می‌شود که با پیوندی به تصویر در اندازه کامل در پیام شما نمایش داده می‌شود</p>\r\n<p>برای افزودن تصویری که به‌عنوان پیوست آپلود نشده است و در وب‌سایت دیگری قرار دارد، می‌توانید با کپی کردن URL کامل در تصویر، (نه صفحه‌ای که تصویر در آن قرار دارد) و یا فشار دادن نماد «درج تصویر» یا با تایپ کردن [img] قبل از URL و [/img] بعد از آن، اطمینان حاصل کنید که هیچ فاصله‌ای قبل یا بعد از URL تصویر ندارید.</p>"
+            "#text": "<p>اگر اجازه‌ی بارگذاری فایل در یک انجمن را داشته باشید، می‌توانید فایل‌ها و تصاویری به پست‌های خود اضافه کنید:</p>\r\n<ul>\r\n<li>فایل را به داخل ویرایشگر بکشید، یا (در ویرایشگری که قالب‌بندی را نشان می‌دهد) یک تصویر را جای‌گذاری کنید.</li>\r\n<li>یا روی دکمه‌ی پیوست در نوار ابزار (<strong>[[COMMON.ATTACH_BBCODE]]</strong>) کلیک کنید. این پنجره به شما امکان می‌دهد فایل‌ها را در آن رها کنید یا با <strong>[[ATTACHMENTS.ADD_FILES]]</strong> انتخابشان کنید، و بارگذاری‌های قبلی شما را در <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> فهرست می‌کند: روی یکی کلیک کنید تا دوباره درج شود.</li>\r\n</ul>\r\n<p>پنجره <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> و، در صورت وجود، حداکثر اندازه‌ی فایل را نشان می‌دهد. پاسخ سریع پیوست ندارد، از ویرایشگر کامل استفاده کنید.</p>\r\n<p>تصاویر به صورت پیش‌نمایش در پست نمایش داده می‌شوند، روی آن کلیک کنید تا تصویر کامل را ببینید (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). فایل‌های دیگر و تصاویر بسیار بزرگ به صورت پیوند با اندازه و تعداد دفعات دانلود نمایش داده می‌شوند. ممکن است دانلود به اجازه‌ای نیاز داشته باشد که انجمن فقط به اعضا می‌دهد.</p>\r\n<h3 class=\"h6 mt-3\">تصاویر از وب‌سایت‌های دیگر</h3>\r\n<p>برای نمایش یک تصویر از اینترنت، روی <strong>[[COMMON.TT_IMAGE]]</strong> کلیک کنید و نشانی آن را وارد کنید، یا بنویسید <code>[img]نشانی تصویر[/img]</code>.</p>\r\n<p>فایل‌های بارگذاری‌شده‌ی شما در <a href=\"[[help:myattachments]]\">پیوست‌های من</a> فهرست شده‌اند و در آنجا می‌توانید آن‌ها را حذف هم بکنید.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
-            "#text": "پیوست فایل یا عکس"
+            "#text": "پیوست‌ها و تصاویر"
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>در این صفحه فهرست BB Codes هایی را که در پیامهای خود می توانید استفاده کنید را مشاهده می نمایید.</p>\r\n <div id=\"bbcodesList\">\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      BBCodeهایی قالب گذاری متن ها\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">\r\n      برای ضخیم نوشتن [noparse][b]\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>توضیحات</strong>\r\n      </td>\r\n      <td>\r\n      متن را ضخیم می کند.\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [noparse][b]این متن ضخیم است[/b][/noparse]\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <strong>این متن ضخیم است</strong>\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">\r\n      کج نویسی [i]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>توضیحات</strong>\r\n      </td>\r\n      <td>\r\n      متن را کج می کند.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [i]این متن کج نوشته شده است[/i]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <em>این متن کج نویسی شده است</em></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">زیرخط دار [u]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      متن را زیرخط دار می کند</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [u]این متن زیر خط دار است.[/u]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>خروجی</strong></td>\r\n      <td>\r\n      <u>این متن زیر خط دار است.</u></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">متن خط خورده [s]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      بر روی متن خط می کشد.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [s]این متن خط خورده است[/strike]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <s>این متن خط خورده است</s></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">رنگ نوشته [color]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      رنگ متن را به رنگ تعیین شده، تغییر می دهد</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [color=blue]این متن آبی رنگ است[/color]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <span style=\"color:blue\">این متن آبی رنگ است</span></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">اندازه نوشته [size] </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این کد می توانید اندازه نوشته را تغییر دهید. اندازه می تواند عددی بین 1-9 باشد، این اعداد به این طریق تبدیل به درصد می شوند. 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [size=9]اندازه این نوشته 180 درصد است[/size]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <span style=\"font-size:180%\">اندازه این نوشته 180 درصد است</span></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">قلم نوشته  [font]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      از این تگ برای تغییر قلم نوشته می توانید استفاده کنید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [font=courier]قلم این نوشته courier است[/font]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td><span style=\"font-family:courier\">قلم این نوشته courier است</span></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">چیدمان نوشته (وسط چین، راست چین و چپ چین) [left] [right] [center]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید چیدمان نوشته خود را به چپ، راست و یا وسط تغییر دهید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [left]چیدمان چپ[/left]<br />\r\n      [center]چیدمان وسط[/center]<br />\r\n      [right]چیدمان راست[/right]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><div align=\"left\">چیدمان چپ</div>\r\n      <div align=\"center\">چیدمان وسط</div>\r\n      <div align=\"right\">چیدمان راست</div></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">علامت گذاری (برجسته) کردن نوشته [highlight]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید نوشته را علامت گذاری و متمایز کنید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [highlight]این نوشته علامت گذاری شده است[/highlight]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><span class=\"highlight\">این نوشته علامت گذاری شده است</span></td>\r\n      </tr>\r\n      </table>\r\n      <br />\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      BBCodeهای ایجاد پیوندهای مختلف\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">پیوندهای ایمیل [email]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید پیوندی به نشانی ایمیل ایجاد نمایید. همچنین در صورت تمایل می توانید عنوانی را برای پیوند خود تعیین نمایید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]برای تماس با من کلیک کنید[/email]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"برای تماس با من کلیک کنید\">برای تماس با من کلیک کنید</a></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">پیوند به نشانی های اینترنتی [url]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با استفاده از این تگ می توانید پیوندی به سایت ها و فایلهای دیگر ایجاد نمایید. در صورت تمایل می توانید عنوانی برای پیوند خود اضافه کنید. همچنین می توانید این تگ را با تگ تصویر ترکیب نمایید تا عکس قابل کلیکی ایجاد نمایید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [url]{0}[/url]<br />\r\n      [url={0}]سایت من[/url]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n      <a href=\"{0}\" target=\"_blank\" title=\"{0}\">سایت من</a></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">پیوندهای اینترنتی مودال [modalurl] </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید پیوند های اینترنتی ایجاد نمایید. تفاوت آن با تگ قبلی این است که این پیوند در پنجره ای برروی صفحه اصلی باز می شود. در صورت تمایل می توانید عنوانی برای پیوند خود اضافه کنید. همچنین می توانید این تگ را با تگ تصویر ترکیب نمایید تا عکس قابل کلیکی ایجاد نمایید. </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n      [modalurl={0}]سایت من[/modalurl]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n      <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">سایت من</a></td>\r\n      </tr>\r\n\r\n</table>\r\n      <br />\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      BBCodeهای ایجاد لیست و فهرست\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">لیست های بدون شماره [list]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با استفاده از این تگ می توانید لیست ساده، بدون مشخص کردن گزینه ها ایجاد کنید. در قسمت محتوا هر ردیف با تگ [*] مشخص می شود.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [list]<br />\r\n      [*]ردیف اول<br />\r\n      [*]ردیف دوم<br />\r\n      [/list]\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><ul>\r\n      <li>ردیف اول</li>\r\n      <li>ردیف دوم</li>\r\n      </ul>\r\n      </td>\r\n      </tr>\r\n\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">لیست های عددی و الفبایی [list=1], [list=a] (یا [list=A]) یا [list=i] (یا [list=I])</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با استفاده از این تگ ها می توانید لیست های شماره دار  عددی یا الفبایی ایجاد کنید. </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [list=1]<br />\r\n      [*]ردیف اول<br />\r\n      [*]ردیف دوم<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]ردیف اول<br />\r\n      [*]ردیف دوم<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]ردیف اول<br />\r\n      [*]ردیف دوم<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]ردیف اول<br />\r\n      [*]ردیف دوم<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]ردیف اول<br />\r\n      [*]ردیف دوم<br />\r\n      [/list]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <ol>\r\n      <li>ردیف اول</li>\r\n      <li>ردیف دوم</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n      <li>ردیف اول</li>\r\n      <li>ردیف دوم</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n      <li>ردیف اول</li>\r\n      <li>ردیف دوم</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n      <li>ردیف اول</li>\r\n      <li>ردیف دوم</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n      <li>ردیف اول</li>\r\n      <li>ردیف دوم</li>\r\n      </ol>\r\n      </td>\r\n      </tr>\r\n      </table>\r\n      <br />\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      BBCodeهای افزودن تصویر و فیلم\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">تصویر [img]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      <p>با استفاده از این تگ می توانید عکس مورد نظر خود را به پیامتان اضافه نمایید. ویا با ترکیب کردن این تگ و تگ پیوند اینترنتی [url] می توانید عکس های قابل کلیک ایجاد نمایید.</p>\r\n      <p>همچنین گزینه ای برای افزودن عنوان به عکس وجود دارد که وقتی نشانگر روی آن قرار می گیرد، نمایش داده می شود.</p></td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]لوگو سایت[/img]<br />(عنوان دار)<br />\r\n      [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (پیوند دار)\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n      <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"لوگو سایت\" title=\"لوگو سایت\" />(عنوان دار)<br />\r\n      <br />\r\n      <a href=\"{0}\" target=\"_blank\" title=\"لوگو سایت\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (پیوند دار)\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">You Tube [youtube]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید ویدیو هایی از سایت.  <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> را در ارسال خود نمایش دهید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">Vimeo [vimeo]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید ویدیو هایی از سایت <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> را در ارسال خود نمایش دهید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">نقشه های گوگل [googlemaps]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با  قرار دادن نشانی اینترنتی نقشه مورد نظر گوگل، در بین این تگها می توانید نقشه را در ارسال خود بگنجانید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">Google Gadgets [googlewidget]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با کپی کردن نشانی اینترنتی ابزارهای گوگل از سایت <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a> و جایگذاری آن در بین این تگ ها، می توانید آنها را در ارسال خود بگنجانید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td><!-- BEGIN Google Widget -->\r\n      <script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n      <!-- END Google Widget --></td>\r\n      </tr>\r\n      </table>\r\n      <br />\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      BBCodeهای نقل قول و کدهای برنامه نویسی\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">نقل قول زدن [quote]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      از این تگ برای نقل قول زدن پیام از ارسالهای دیگر، میتوانید استفاده کنید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [quote]متن نقل قول شده[/quote]<br /><br />\r\n      [quote=John Doe]متن نقل قول شده[/quote]<br /><br />\r\n      [quote=John Doe;123]متن نقل قول شده[/quote]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">نقل قول:</span><div class=\"innerquote\">متن نقل قول شده</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">نقل قول از: علیرضا</span><div class=\"innerquote\">متن نقل قول شده</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">نقل قول از: علیرضا <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}themes/GreenGrey/icon_latest_reply.png\" title=\"برو به ارسال نقل قول شده\" alt=\"برو به ارسال نقل قول شده\" /></a></span><div class=\"innerquote\">متن نقل قول شده</div></div><br />\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">کدهای برنامه نویسی [code]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید کدهای برنامه نویسی به پیام خود اضافه کنید. در صورت انتخاب زبان برنامه نویسی، قالب آن زبان برای نوشته شما اعمال می شود.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [code]<br />\r\n      // Hello1.cs<br />\r\n      public class Hello1<br />\r\n      {{<br />\r\n      &nbsp;&nbsp;public static void Main()<br />\r\n      &nbsp;{{<br />\r\n      &nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n      &nbsp;&nbsp;}}<br />\r\n      }}<br />\r\n      [/code]<br /><br />\r\n      [code=csharp]<br />\r\n      // Hello1.cs<br />\r\n      public class Hello1<br />\r\n      {{<br />\r\n      &nbsp;&nbsp;public static void Main()<br />\r\n      &nbsp;{{<br />\r\n      &nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n      &nbsp;&nbsp;}}<br />\r\n      }}<br />\r\n      [/code]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n      // Hello1.cs<br />\r\n      public class Hello1<br />\r\n      {{<br />\r\n      &nbsp;&nbsp;public static void Main()<br />\r\n      &nbsp;{{<br />\r\n      &nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n      &nbsp;&nbsp;}}<br />\r\n      }}</div></div><br /><br />\r\n      <div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n      // Hello1.cs\r\n      public class Hello1\r\n      {{\r\n      public static void Main()\r\n      {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n      }}\r\n      }}</pre>\r\n      </div></div></td>\r\n      </tr>\r\n      </table>\r\n      <br />\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      BBCodeهایی برای نمایش یا مخفی کردن پیام از گروهی از کاربران\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کردن [hide]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ، پیام از دید کاربر، تا هنگامیکه دکمه تشکر ارسال را نزده باشد، مخفی است. </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [hide]متن مخفی[/hide]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <p>اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که چرا این پیام مخفی است.</p>\r\n      <img src=\"{0}resources/images/HiddenWarnDescription.png\" alt=\"این پیام مخفی است. بعد از زدن دکمه تشکر ارسال، صفحه را مجددا بارگذاری نمایید تا نوشته مخفی را ببینید.\" title=\"این پیام مخفی است. بعد از زدن دکمه تشکر ارسال، صفحه را مجددا بارگذاری نمایید تا نوشته مخفی را ببینید.\" />\r\n      <p>برای کاربران مهمان اطلاعات زیر نمایش داده می شود.</p>\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>برای دیدن پیامهای مخفی انجمن باید عضو و وارد شده باشید.</div></div>\r\n      <p>اگر مجاز به دیدن پیام مخفی شده باشید. اصل پیام نمایش داده خواهد شد.</p><br />\r\n      <p>متن مخفی</p>\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کردن گروهی [group-hide] </td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      این تگ نوشته را از مهمانان و نقش های تعیین شده دیگر، مخفی می کند.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [group-hide]متن مخفی[/group-hide]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <p>اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که این پیام مخفی است.</p>\r\n\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>شما مجاز به دیدن این پیام نیستید</div></div>\r\n\r\n      <p>برای کاربران مهمان اطلاعات زیر نمایش داده می شود.</p>\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>برای دیدن پیامهای مخفی انجمن باید عضو و وارد شده باشید.</div></div>\r\n\r\n      <p>اگر مجاز به دیدن نوشته باشید، اصل متن را می بینید.</p><br />\r\n      <p>متن مخفی</p>\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کردن وابسته به تعداد تشکر [hide-thanks]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید متن را از دید کسانی که کمتر از تعداد تعیین شده قدردانی شده باشند،مخفی کنید.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [hide-thanks=2]متن مخفی[/hide-thanks]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <p>اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که چرا این پیام مخفی است.</p>\r\n\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>پیام مخفی (حداقل 2 بار باید از شما تشکر شده باشد تا بتوانید متن را مشاهده کنید)</div></div>\r\n\r\n      <p>برای  مهمانان پیام زیر نمایش داده می شود:</p>\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>برای دیدن پیامهای مخفی انجمن باید عضو و وارد شده باشید.</div></div>\r\n\r\n      <p>اگر مجاز به دیدن متن باشید، اصل متن نمایش داده می شود.</p><br />\r\n      <p>متن مخفی</p>\r\n      </td>\r\n      </tr>\r\n\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کردن وابسته به تعداد ارسال [hide-posts]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      متن را از دید کسانی که کمتر از تعداد تعیین شده ارسال داشته باشند مخفی می کند.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [hide-posts=10]متن مخفی[/hide-posts]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <p>اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که چرا این پیام مخفی است.</p>\r\n\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>پیام مخفی (برای دیدن پیام حداقل باید 10 ارسال داشته باشید)</div></div>\r\n      <p>برای  مهمانان پیام زیر نمایش داده می شود:</p>\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>برای دیدن پیامهای مخفی انجمن باید عضو و وارد شده باشید.</div></div>\r\n\r\n      <p>اگر مجاز به دیدن متن باشید، اصل متن نمایش داده می شود.</p><br />\r\n      <p>متن مخفی</p>\r\n      </td>\r\n      </tr>\r\n\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کردن وابسته به پاسخگویی [hide-reply]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      متن از دید کاربرانی که در این بحث شرکت ندارند (پاسخی به مبحث نداده اند) مخفی می باشد.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [hide-reply]متن مخفی[/hide-reply]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <p>اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که چرا این پیام مخفی است.</p>\r\n\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>پیام مخفی (برای دیدن پیام باید پاسخی، به عنوان کاربر وارد شده، به این مبحث داده باشید) </div></div>\r\n\r\n      <p>برای  مهمانان پیام زیر نمایش داده می شود:</p>\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>برای دیدن پیامهای مخفی انجمن باید عضو و وارد شده باشید.</div></div>\r\n\r\n      <p>اگر مجاز به دیدن متن باشید، اصل متن نمایش داده می شود.</p><br />\r\n      <p>متن مخفی</p>\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کردن وابسته به تشکر یا پاسخگویی [hide-reply-thanks]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      متن تنها برای کسانی که یا پاسخ به مبحث داده اند یا از این ارسال تشکر کرده اند، قابل مشاهده است.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [hide-reply-thanks]متن مخفی[/hide-reply-thanks]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <p>اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که چرا این پیام مخفی است.</p>\r\n\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>پیام مخفی (برای دیدن پیام باید پاسخی، به عنوان کاربر وارد شده، به این مبحث داده باشید یا از ارسال تشکر کرده باشید)</div></div>\r\n\r\n      <p>برای  مهمانان پیام زیر نمایش داده می شود:</p>\r\n      <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>برای دیدن پیامهای مخفی انجمن باید عضو و وارد شده باشید.</div></div>\r\n\r\n      <p>اگر مجاز به دیدن متن باشید، اصل متن نمایش داده می شود.</p><br />\r\n      <p>متن مخفی</p>\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">مخفی کننده [spoiler]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      برای دیدن محتوا مخفی شده، کاربر باید بر روی \"نمايش محتوای مخفی شده\" کلیک نماید</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [spoiler]متن مخفی شونده[/spoiler]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <!-- BEGIN spoiler -->\r\n      <script type=\"text/javascript\">\r\n      function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='نمايش محتوای مخفی شده'}}else{{el.style.display='';btn.value='مخفی کردن'}}}}\r\n      </script>\r\n      <div class=\"spoilertitle\">\r\n      <input type=\"button\" value=\"نمايش محتوای مخفی شده\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n      </div>\r\n      <div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\n      متن مخفی شونده\r\n      </div>\r\n      <!-- END spoiler -->\r\n      </td>\r\n      </tr>\r\n      </table>\r\n      <br />\r\n      <table class=\"content\" width=\"90%\">\r\n      <tr>\r\n      <td class=\"header1\" colspan=\"2\">\r\n      بقیه\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">پیوند به کاربر [userlink]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با این تگ می توانید پیوندی به مشخصات یک کاربر ایجاد نمایید. همچنین در صورت فعال بودن، وضعیت رو خط بودن یا نبودن کاربر را نمایش می دهد.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [userlink]نام کاربر[/userlink]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>\r\n      <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}resources/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n      </style>\r\n      <span class=\"userLinkContainer\">\r\n      <a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">نام کاربر</a>\r\n      <img id=\"OnlineStatusImage\" src=\"{0}themes/OrangeGrey/icon_useronline.png\" alt=\"رو خط\" style=\"vertical-align: bottom\" title=\"کاربر روی خط است\"/>\r\n      </span>\r\n      </td>\r\n      </tr>\r\n      <tr>\r\n      <td class=\"header2\" colspan=\"2\">توقف دنبال کردن BBCodeها [noparse]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>تعریف</strong>\r\n      </td>\r\n      <td>\r\n      با استفاده از این تگ می توانید دنبال کردن BBCodeها را توسط سیستم، متوقف کنید. در مثال زیر، اگرچه BBCode کلفت نویسی بکار گرفته شده ولی نوشته کلفت نشده و BBCodeها به همان شکل نمایش داده می شوند.</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>مثال</strong>\r\n      </td>\r\n      <td>\r\n      [ noparse][noparse][b]نمونه متن.[/b][/noparse][/ noparse]</td>\r\n      </tr>\r\n      <tr>\r\n      <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>خروجی</strong>\r\n      </td>\r\n      <td>[noparse][b]نمونه متن.[/b][/noparse]\r\n      </td>\r\n      </tr>\r\n      </table>\r\n      </div>\r\n      <p>نکته: دقت کنید که همیشه BBCode های باز شده را ببندید، در غیر اینصورت BBCode اعمال نمی شود.</p>\r\n    "
+            "#text": "<p>کدهای BB پست‌های شما را قالب‌بندی می‌کنند. آن‌ها برچسب‌های کوتاهی در کروشه هستند که دور متن قرار می‌گیرند، مثلاً <code>[b]پررنگ[/b]</code>. لازم نیست آن‌ها را تایپ کنید: دکمه‌های ویرایشگر آن‌ها را برایتان درج می‌کنند. اگر ویرایشگر هنگام تایپ قالب‌بندی را نشان دهد، کدهای BB در پس‌زمینه ساخته می‌شوند.</p>\r\n<p>در ادامه همه‌ی کدهای BB این انجمن را می‌بینید، آنچه تایپ می‌کنید و نتیجه، همان‌طور که در یک پست به نظر می‌رسد. برخی کدهای BB فقط در صورتی اینجا نمایش داده می‌شوند که انجمن از آن‌ها استفاده کند، و ممکن است امضاها کدهای BB کمتری از پست‌ها مجاز بدانند.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "فهرست BB Codes"
+            "#text": "کدهای BB"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p><strong>[[BLOCK_OPTIONS.TITLE]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید.</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - اعضای دیگر نمی‌توانند با شما گفت‌وگوی خصوصی آغاز کنند.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - هیچ‌کس نمی‌تواند برایتان درخواست دوستی بفرستد.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - هیچ‌کس نمی‌تواند از طریق انجمن برایتان ایمیل بفرستد.</li>\r\n</ul>\r\n<p>مدیران و اعضای فهرست دوستان شما همچنان می‌توانند با شما تماس بگیرند.</p>\r\n<h3 class=\"h6 mt-3\">نادیده گرفتن یک عضو</h3>\r\n<p>برای نادیده گرفتن یک عضو، منوی کاربری یکی از پست‌های او را باز کنید و <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong> را انتخاب کنید. پست‌های اعضای نادیده‌گرفته‌شده پنهان می‌شوند (<strong>[[POSTS.TOGGLEPOST]]</strong> یک پست را نشان می‌دهد) و آن‌ها نمی‌توانند برایتان پیام خصوصی بفرستند. <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> در همان صفحه اعضایی را که نادیده می‌گیرید فهرست می‌کند، عضوی را از آن حذف کنید تا دوباره پست‌هایش را ببینید.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "نادیده گرفتن و مسدود کردن کاربران"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>دوستی یک رابطه دو طرفه بین دو کاربر می باشد که توسط یک کاربر آغاز شده و توسط دیگری پذیرفته می شود.</p>\r\n<p><strong>لیست دوستان در کجا نمایش داده می شود؟</strong></p>\r\n<p>دوستان شما در \"دوستان من\" نمایش داده می شوند که می توانید از پیوند سرصفحه \"دوستان من\" یا از پیوند <strong>کنترل پنل کاربر</strong> پیوند \"ویرایش دوستان\" به این صفحه دسترسی داشته باشید. </p>\r\n<p><em>توجه: اگر این پیوند را نمی‌بینید، هیچ دوستی ندارید، هیچ درخواستی ارسال نکرده‌اید یا درخواست دوستی معلق ندارید.</em></p>\r\n<p>دوستان شما نیز در صفحه نمایه شما نمایش داده می شوند.</p>\r\n<p><strong>چگونه می توانم از یک کاربر درخواست دوستی کنم یا درخواست دوستی کسی را بپذیرم؟</strong></p>\r\n<p>برای درخواست یک کاربر به عنوان دوست، صفحه نمایه شخصی را که می‌خواهید با او دوست شوید مشاهده کنید و روی پیوند \"افزودن به عنوان دوست\" کلیک کنید.</p>\r\n<p>برای پذیرش درخواست دوستی، به صفحه \"دوستان من\" خود بروید. در برگه «درخواست‌های معلق»، فهرست کاربران با درخواست‌های معلق را مشاهده می‌کنید. در آنجا شما سه انتخاب دارید:</p>\r\n<ul>\r\n  <li><strong>تأیید</strong> - شما با کاربری که آن را درخواست می کند دوست می شوید </li>\r\n  <li><strong>رد کردن</strong> - درخواست را رد کنید</li>\r\n  <li><strong> تأیید و اضافه کردن - </strong>شما دوست کاربری می‌شوید که آن را درخواست می‌کند، و همچنین کاربر در فهرست شما دوست می‌شود.</li>\r\n</ul>\r\n<p><strong>حذف دوست</strong></p>\r\n<p>برای حذف یک دوست از لیست خود به صفحه \"دوستان من\" خود بروید. در برگه \"فهرست دوستان\" روی دکمه \"حذف دوست\" کاربری که می خواهید حذف کنید کلیک کنید</p>\r\n<p><strong>درخواست‌های شما</strong></p>\r\n<p>در برگه سوم صفحه \"دوستان من\" درخواست معلق شما را نشان می دهد.</p>"
+            "#text": "<p>دوستی پیوندی میان دو عضو است. برای اینکه از عضوی بخواهید دوست شما شود، روی <strong>[[BUDDY.ADDBUDDY]]</strong> در پروفایل او یا در منوی کاربری یک پست کلیک کنید. آن عضو یک درخواست دوستی دریافت می‌کند و می‌تواند آن را بپذیرد یا رد کند.</p>\r\n<p>دوستان شما در <strong>[[TOOLBAR.BUDDIES]]</strong> در منوی کاربری هستند، در سه زبانه:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - دوستان شما. برایشان پیام خصوصی بفرستید یا آن‌ها را از فهرست حذف کنید.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - درخواست‌های اعضای دیگر. <strong>[[FRIENDS.APPROVE]]</strong> عضو را به دوستان شما (و شما را به دوستان او) اضافه می‌کند و رد کردن، درخواست را حذف می‌کند. <strong>[[FRIENDS.APPROVE_ALL]]</strong> همه‌ی درخواست‌ها را یک‌جا می‌پذیرد.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - درخواست‌هایی که فرستاده‌اید و هنوز پاسخی نگرفته‌اند.</li>\r\n</ul>\r\n<p>دوستان در پروفایل شما نمایش داده می‌شوند. آن‌ها حتی اگر پیام‌های خصوصی یا ایمیل‌ها را مسدود کرده باشید می‌توانند با شما تماس بگیرند، ببینید <a href=\"[[help:blocking]]\">نادیده گرفتن و مسدود کردن کاربران</a>. اگر درخواست دوستی نمی‌خواهید، می‌توانید آن را هم همان‌جا مسدود کنید.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
-            "#text": "دوستان من"
+            "#text": "دوستان"
+          },
+          {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p><strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید. دو گزینه دارید:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - یک وقفه: ۳۰ روز نمی‌توانید از حساب خود استفاده کنید، سپس دوباره کار می‌کند.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - حساب شما بسته و پست‌هایتان حذف می‌شوند (پاسخ‌های اعضای دیگر می‌مانند). دیگر نمی‌توانید وارد شوید و این کار برگشت‌پذیر نیست.</li>\r\n</ul>\r\n<p>با <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> تأیید کنید و روی <strong>[[COMMON.CONTINUE]]</strong> کلیک کنید. از حساب خارج می‌شوید.</p>\r\n<p>اگر می‌خواهید همه‌ی داده‌هایتان حذف شوند، یا درباره‌ی داده‌هایتان پرسشی دارید، با مدیر تماس بگیرید، ببینید <a href=\"[[help:privacy]]\">حریم خصوصی، کوکی‌ها و قوانین</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "تعلیق یا حذف حساب"
           },
           {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>اگر در حال حاضر عضو اید و وارد سیستم شده اید، ممکن است بتوانید پیام های خود را ویرایش و حذف کنید (اگر مدیر این گزینه را خاموش نکرده باشد). </p>\r\n<p>برای ویرایش یا حذف پست‌های خود، روی دکمه \"ویرایش\" توسط پست خاص کلیک کنید. اگر پست شما اولین پست در رشته بود، حذف آن ممکن است کل موضوع را حذف کند.</p>\r\n<p>وقتی تغییرات خود را انجام دادید، یادداشتی در پایین پست ظاهر می‌شود تا به سایر کاربران اطلاع دهد که پست خود را ویرایش کرده‌اید.</p>\r\n<p>لطفاً دلیل ویرایش این پیام را نیز در قسمت \"دلیل ویرایش\" وارد کنید.</p>\r\n<p><strong>آیا دیگران می‌توانند پست‌های من را ویرایش کنند؟</strong></p>\r\n<p>مدیران و ناظران نیز می‌توانند پیام‌های شما را ویرایش کنند. اگر این کار را انجام دهند، یادداشتی در پایین ظاهر می‌شود که به سایر کاربران می‌گوید پست اصلاح شده است.</p>\r\n      <p>برای ویرایش یا حذف ارسال، برروی دکمه \"ویرایش\" ارسال مورد نظر کلیک نمایید. اگر ارسال شما اولین ارسال در بحث باشد حذف آن کل بحث را ممکن است حذف نماید..</p>\r\n      <p>هنگامی که پیام خود را تغییر دهید، یک نوشته در زیر ارسال شما می آید که به کاربران دیگر نشان می دهد که ارسال شما تغییر یافته است. </p>\r\n      <p>این امکان نیز وجود دارد که دلیل ویرایش خود را قید کنید.</p>\r\n      <p><strong>آیا کس دیگری می تواند پیام من را تغییر دهد؟</strong></p>\r\n      <p>مدیران و ناظران نیز می توانند پیام ارسالی شما را تغییر دهند. اگر چنین کنند یک نوشته در پایین ارسال نشان می دهد که چه کسی پیام شما را ویرایش کرده است.</p>\r\n    "
+            "#text": "<p>اگر انجمن اجازه دهد، می‌توانید پست‌های خود را ویرایش و حذف کنید. منوی پست (سه نقطه در گوشه‌ی بالای آن) را باز کنید و <strong>[[BUTTON.BUTTON_EDIT]]</strong> یا <strong>[[BUTTON.BUTTON_DELETE]]</strong> را انتخاب کنید. این کار در موضوع‌های قفل‌شده ممکن نیست و مدیر می‌تواند آن را به چند روز پس از ارسال محدود کند.</p>\r\n<h3 class=\"h6 mt-3\">ویرایش</h3>\r\n<p>صفحه‌ی ویرایش مانند صفحه‌ی یک پست جدید است. اگر موضوع را خودتان ایجاد کرده‌اید، می‌توانید عنوان، توضیح و برچسب‌های آن را هم تغییر دهید. یک <strong>[[POSTMESSAGE.EDITREASON]]</strong> وارد کنید تا به خوانندگان بگویید چه چیزی را تغییر داده‌اید.</p>\r\n<p>اگر پستی را مدتی پس از ارسال ویرایش کنید، پست نشان می‌دهد چه کسی، کی و چرا آن را ویرایش کرده است. نسخه‌های قبلی نگه داشته می‌شوند، ببینید <a href=\"[[help:history]]\">تاریخچه‌ی پیام</a>. ناظران هم می‌توانند پست‌های شما را ویرایش کنند و در آن صورت پست می‌گوید که توسط یک ناظر ویرایش شده است.</p>\r\n<h3 class=\"h6 mt-3\">حذف</h3>\r\n<p>یک <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> وارد کنید و روی <strong>[[DELETEMESSAGE.DELETE]]</strong> کلیک کنید. پست پاک نمی‌شود: جای آن در موضوع نشان می‌دهد که حذف شده است. می‌توانید آن را با <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> در همان منو بازگردانید، مگر اینکه یک ناظر آن را حذف کرده باشد.</p>\r\n<p>فقط ناظران می‌توانند کل یک موضوع را حذف کنند و فقط مدیران می‌توانند پست‌ها را برای همیشه پاک کنند.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "ویرایش و حذف ارسالها"
+            "#text": "ویرایش و حذف پست‌ها"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>می توانید اطلاعات حساب خود را با استفاده از نمایه شخصی تغییر دهید -&gt; گزینه «ویرایش نمایه» از داخل <strong>کنترل پنل کاربر</strong>. اگر می‌خواهید رمز عبور خود را تغییر دهید، یک صفحه اضافی (تغییر رمز عبور) برای آن در <strong>کنترل پنل کاربر</strong> وجود دارد، که در آن می‌توانید یک رمز عبور جدید تنظیم کنید.</p>\r\n<p><strong>ویرایش صفحه نمایه</strong></p>\r\n<p>این صفحه به شما امکان می دهد تعدادی جزئیات ضروری و اختیاری را تنظیم کنید که برخی از آنها در نمایه عمومی شما نمایش داده می شود. به استثنای آدرس ایمیل خود، اطلاعاتی را وارد نکنید که نمی‌خواهید برای عموم قابل مشاهده باشد.</p>\r\n<p><strong>درباره شما</strong></p>\r\n<p>اینها اطلاعات اولیه درباره شما هستند</p>\r\n<p><strong>مکان</strong></p>\r\n<p>در اینجا می‌توانید به‌صورت اختیاری مکانی را که در آن زندگی می‌کنید وارد کنید</p>\r\n<p><strong>صفحه اصلی</strong></p>\r\n<p>در اینجا می توانید به صورت اختیاری یک صفحه اصلی و/یا یک وبلاگ وارد کنید.</p>\r\n<p><strong>خدمات پیام‌رسانی فوری</strong></p>\r\n<p>در اینجا می‌توانید به‌صورت اختیاری شناسه‌های پیام‌رسان خود مانند XMPP و Facebook Twitter را وارد کنید.</p>\r\n<p><strong>منطقه زمانی</strong></p>\r\n<p>در اینجا می توانید منطقه زمانی را برای تنظیم زمان و تاریخ تابلو با زمان محلی خود تعیین کنید. و در صورتی که به طور خودکار تنظیم شود، ساعت تابستانی را تنظیم کنید.</p>\r\n<p><strong>تنظیمات انجمن</strong></p>\r\n<p>در اینجا آدرس ایمیل خود را تغییر می دهید.</p>\r\n<p>و اگر مدیر آن را فعال کرده باشد، می‌توانید <strong>زبان</strong> انجمن، <strong>موضوع</strong> سایت و <strong>ویرایشگر متن</strong> (که استفاده می‌شود) را تغییر دهید. برای ارسال پیام).</p>\r\n<p>تنظیمات &quot;Single Sign On&quot; (اگر فعال شده باشد). اگر آن را روشن کنید، می توانید از طریق فیس بوک وارد شوید، همچنین شناسه فیس بوک خود را در بالا وارد کنید.</p>"
+            "#text": "<p><strong>[[ACCOUNT.EDIT_PROFILE]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید. همه‌ی فیلدها اختیاری هستند، فقط چیزهایی را پر کنید که می‌خواهید به اشتراک بگذارید. این اطلاعات در پروفایل عمومی شما نمایش داده می‌شوند.</p>\r\n<ul>\r\n<li><strong>درباره‌ی شما</strong> - نام نمایشی شما (اگر انجمن از نام نمایشی استفاده کند)، نام واقعی، تاریخ تولد، شغل، علاقه‌مندی‌ها و جنسیت.</li>\r\n<li><strong>محل</strong> - کشور، استان و شهر. اگر انجمن ارائه دهد، <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> آن‌ها را برایتان پر می‌کند.</li>\r\n<li><strong>صفحه‌ی خانگی</strong> - نشانی وب‌سایت و وبلاگ شما.</li>\r\n<li>فیلدهای دیگری که مدیر اضافه کرده است.</li>\r\n</ul>\r\n<p>برای ذخیره‌ی تغییرات روی <strong>[[COMMON.SAVE]]</strong> کلیک کنید. آواتار و امضای شما صفحه‌های جداگانه‌ی خود را دارند، ببینید <a href=\"[[help:mypics]]\">آواتار و امضا</a>. نشانی ایمیل، منطقه‌ی زمانی و زبان در <a href=\"[[help:editsettings]]\">ویرایش تنظیمات</a> هستند.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "ویرایش مشخصات فردی و تنظیمات انجمن"
+            "#text": "ویرایش پروفایل"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p><strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>نشانی جدید و <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> را وارد کنید. انجمن پیوندی به نشانی جدید می‌فرستد و با کلیک شما روی آن، نشانی تغییر می‌کند. نشانی ایمیل شما هرگز به اعضای دیگر نشان داده نمی‌شود.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - در فهرست اعضای آنلاین نمایش داده نمی‌شوید (اگر انجمن اجازه دهد).</li>\r\n<li>جریان فعالیت - اعلان‌های شما درباره‌ی نام بردن‌ها، نقل‌قول‌ها و واکنش‌ها، ببینید <a href=\"[[help:popups]]\">اعلان‌ها</a>.</li>\r\n<li>منطقه‌ی زمانی شما، <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> و (اگر انجمن اجازه دهد) پوسته و زبان، ببینید <a href=\"[[help:appearance]]\">ظاهر و زبان</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">احراز هویت دومرحله‌ای</h3>\r\n<p>احراز هویت دومرحله‌ای را روشن یا خاموش کنید، ببینید <a href=\"[[help:login]]\">ورود و امنیت حساب</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "ویرایش تنظیمات"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>YAF چیست؟</strong></p>\r\n<p>YetAnotherForum.NET (YAF) تالار گفتگو منبع باز برای سایت هایی است که ASP.NET را اجرا می کنند. 100٪ به زبان C نوشته شده است، YAF (تلفظ می شود مانند \"خنده\") ترکیبی منحصر به فرد از منبع باز، پلت فرم دات نت مایکروسافت و یک همکاری بین المللی از جامعه توسعه دهندگان دات نت است. پروژه YAF که روزانه در حال رشد و تغییر است، توسط Ingo Herbote رهبری می شود. YAF روی هر وب سروری اجرا می شود که از ASP.NET نسخه 4.8 (و بالاتر) و SQL Server پشتیبانی می کند. YAF تحت مجوز Apache 2.0 است.</p>\r\n<p><strong>ساختار همه اینها چگونه است؟</strong></p>\r\n<p>یک تالار گفتمان شامل بخش‌های مختلفی است که خود حاوی تالارهای گفتگو (حوزه‌های موضوعی خاص‌تر) است که حاوی موضوعاتی است که از پیام‌های جداگانه (جایی که کاربر چیزی می‌نویسد) تشکیل شده است.</p>\r\n<p>صفحه اصلی تالار گفتمان دارای فهرستی از دسته ها و تالارهای گفتمان است، با آمارهای اولیه برای هر کدام، از جمله تعداد موضوعات و پیام ها، و اینکه کدام عضو جدیدترین پیام را ارسال کرده است.</p>\r\n<p><strong>چگونه راه خود را پیدا کنم؟</strong></p>\r\n<p>وقتی روی نام انجمن کلیک می‌کنید، به فهرست موضوعاتی که در آن وجود دارد هدایت می‌شوید. موضوع گفتگو بین اعضا یا مهمانان است. هر موضوع به عنوان یک پیام شروع می شود و با اضافه شدن پیام های فردی بیشتر توسط کاربران مختلف، رشد می کند. </p>\r\n<p>برای شروع یک موضوع جدید، کافی است روی دکمه \"موضوع جدید\" کلیک کنید (اگر به آن دسترسی دارید).</p>\r\n<p><strong>صفحه‌بندی</strong></p>\r\n<p>زمانی که موضوعاتی برای نمایش بیشتر از آنچه در یک صفحه وجود دارد وجود دارد، ممکن است \"صفحه شمار\" را ببینید که حاوی شماره صفحه است. این نشان می دهد که لیست موضوعات در دو یا چند صفحه تقسیم شده است.</p>\r\n<p>این روش تقسیم لیست موارد در بسیاری از صفحات در سراسر صفحه مورد استفاده قرار می گیرد.</p>\r\n<p><strong>موضوعات چسبنده چیست؟</strong></p>\r\n<p>موضوعات «چسبنده» را می‌توان توسط مدیران یا مدیران ایجاد کرد و در بالای فهرست «چسب» باقی ماند، حتی اگر اخیراً هیچ پیامی نداشته باشند. هدف آنها این است که اطلاعات مهم را همیشه قابل مشاهده و در دسترس نگه دارند.</p>\r\n<p><strong>چگونه موضوعی را بخوانم؟</strong></p>\r\n<p>برای خواندن یک موضوع، روی عنوان آن کلیک کنید. هر پیام در یک موضوع توسط یک عضو یا یک مهمان ایجاد می شود. اطلاعات مختصری درباره عضوی که موضوع را ایجاد کرده است در سمت چپ پیام مشاهده خواهید کرد.</p>\r\n<p>برای پیام دادن به یک موضوع موجود، روی دکمه \"پست پاسخ\" کلیک کنید. اگر دکمه \"پاسخ پست\" ظاهر نمی شود، می تواند به این معنی باشد که شما به عنوان یک عضو وارد نشده اید، یا اجازه پاسخگویی را ندارید، یا موضوع برای پاسخ های جدید بسته شده است.</p>\r\n<p>در صورت فعال بودن، کادر \"پاسخ سریع\" نیز وجود خواهد داشت که می توانید بدون نیاز به رفتن به صفحه \"پاسخ پست\" به سرعت پاسخ را وارد کنید. قبل از اینکه بتوانید در آن تایپ کنید، باید روی دکمه \"پاسخ سریع\" در پیام کلیک کنید تا کادر پاسخ سریع فعال شود.</p>\r\n<p><strong>چگونه درباره اعضا بیشتر بدانم؟</strong></p>\r\n<p>برای مشاهده اطلاعات مربوط به یک عضو خاص، روی نام کاربری کلیک کنید. این شما را به صفحه نمایه عمومی آنها می برد.</p>\r\n<p><strong>سربرگ چیست؟</strong></p>\r\n<p>سرصفحه بالای هر صفحه دارای پیوندهایی است که به شما کمک می کند در اطراف حرکت کنید. با یک کلیک می توانید به مناطقی مانند: نمایه من، راهنما (که اکنون در حال خواندن آن هستید)، جستجو و سایر ویژگی های مفید دسترسی پیدا کنید.</p>"
+            "#text": "<p>انجمن جایی برای گفت‌وگو با دیگران است. گفت‌وگوها این‌گونه سازمان‌دهی شده‌اند:</p>\r\n<ul>\r\n<li><strong>دسته‌بندی‌ها</strong> انجمن‌های یک زمینه را گروه‌بندی می‌کنند و بخش‌های صفحه‌ی اصلی هستند.</li>\r\n<li><strong>انجمن‌ها</strong> جایی برای یک موضوع مشخص هستند. هر انجمن می‌تواند زیرانجمن داشته باشد.</li>\r\n<li><strong>موضوع‌ها</strong> گفت‌وگوهای درون یک انجمن هستند. هر موضوع با یک پست نخست شروع می‌شود و با پاسخ‌های اعضا گسترش می‌یابد.</li>\r\n<li><strong>پست‌ها</strong> (یا پیام‌ها) مشارکت‌های تکی درون یک موضوع هستند.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">صفحه‌ی اصلی</h3>\r\n<p>صفحه‌ی اصلی دسته‌بندی‌ها را همراه با انجمن‌هایشان نشان می‌دهد. برای هر انجمن تعداد موضوع‌ها و پست‌ها و آخرین پست را می‌بینید. هر دسته‌بندی را می‌توانید با فلش کنار نامش جمع کنید و انجمن انتخاب شما را به خاطر می‌سپارد. بسته به انجمن، صفحه‌ی اصلی <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (آخرین پست‌ها)، آمار و کاربران آنلاین را هم نشان می‌دهد.</p>\r\n<h3 class=\"h6 mt-3\">مهمانان و اعضا</h3>\r\n<p>مهمانان می‌توانند انجمن‌هایی را که برایشان باز است بخوانند. برای نوشتن پست، استفاده از امکانات شخصی (پیام‌های خصوصی، دوستان، اعلان‌ها) و دیدن برخی صفحه‌ها (مثلاً فهرست اعضا یا پروفایل‌ها) به حساب کاربری نیاز دارید، ببینید <a href=\"[[help:registration]]\">ثبت‌نام</a>.</p>\r\n<p>کارهایی که می‌توانید در یک انجمن انجام دهید (خواندن، ایجاد موضوع، پاسخ دادن، رأی دادن در نظرسنجی‌ها، بارگذاری فایل، ...) را مدیر برای هر انجمن و هر گروه از اعضا تعیین می‌کند. اگر دکمه‌ای را که در این راهنما شرح داده شده نمی‌بینید، در این انجمن اجازه‌ی استفاده از آن را ندارید.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "انجمن، مباحث و پیامها"
+            "#text": "آشنایی با انجمن"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "استفاده از انجمن عمومی"
+            "@tag": "GETTINGSTARTED",
+            "#text": "شروع کار"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>وقتی پستی ویرایش شده باشد، نشان می‌دهد چه کسی و کی آن را ویرایش کرده است. روی دکمه‌ی تاریخچه‌ی این یادداشت کلیک کنید تا <strong>[[MESSAGEHISTORY.TITLE]]</strong> باز شود: نسخه‌های پست را با تاریخ، ویرایشگر و دلیل فهرست می‌کند.</p>\r\n<ul>\r\n<li>دو نسخه را انتخاب کنید و روی <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> کلیک کنید تا <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong> را ببینید: متن حذف‌شده و متن افزوده‌شده برجسته می‌شوند.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> شما را به پست بازمی‌گرداند.</li>\r\n</ul>\r\n<p>ناظران می‌توانند با <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong> یک نسخه‌ی قبلی را بازگردانند. انجمن نسخه‌ها را به مدت چند روز که مدیر تعیین می‌کند نگه می‌دارد.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "تاریخچه‌ی پیام"
           },
           {
             "@tag": "INDEX",
             "#text": "عناوین"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>روی <strong>[[TOOLBAR.LOGIN]]</strong> در نوار بالا کلیک کنید و نام کاربری یا نشانی ایمیل و رمز عبور خود را وارد کنید.</p>\r\n<p>اگر <strong>[[LOGIN.AUTO]]</strong> را علامت بزنید، به مدت یک ماه روی این رایانه وارد می‌مانید، حتی پس از بستن مرورگر. از آن روی رایانه‌ای که دیگران هم استفاده می‌کنند استفاده نکنید. بدون آن، با بستن مرورگر از حساب خارج می‌شوید. برای خروج، منوی کاربری را در گوشه‌ی بالای صفحه باز کنید و روی <strong>[[TOOLBAR.LOGOUT]]</strong> کلیک کنید.</p>\r\n<h3 class=\"h6 mt-3\">احراز هویت دومرحله‌ای</h3>\r\n<p>احراز هویت دومرحله‌ای از حساب شما محافظت می‌کند، حتی اگر کسی رمز عبورتان را بداند: هنگام ورود، انجمن یک کد از برنامه‌ی احراز هویت روی تلفن شما هم می‌خواهد.</p>\r\n<ol>\r\n<li><strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> را باز کنید (منوی کاربری، <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>روی <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong> کلیک کنید.</li>\r\n<li>در برنامه‌ی احراز هویت خود (مثلاً Microsoft Authenticator یا Google Authenticator) یک حساب جدید اضافه کنید، با اسکن کد QR یا با وارد کردن <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>کدی را که برنامه نشان می‌دهد برای تأیید وارد کنید.</li>\r\n</ol>\r\n<p>از این پس هنگام ورود، پس از رمز عبور کد برنامه هم خواسته می‌شود (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). می‌توانید آن را در همان صفحه با <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong> خاموش کنید.</p>\r\n<h3 class=\"h6 mt-3\">ایمن نگه داشتن حساب</h3>\r\n<ul>\r\n<li>از رمز عبوری استفاده کنید که جای دیگری از آن استفاده نمی‌کنید. می‌توانید آن را با <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> تغییر دهید.</li>\r\n<li>انجمن هرگز رمز عبور شما را از طریق ایمیل یا پیام خصوصی نمی‌خواهد.</li>\r\n<li>اگر رمز عبور خود را فراموش کرده‌اید، ببینید <a href=\"[[help:recover]]\">بازیابی رمز عبور فراموش‌شده</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">پس از چند بار وارد کردن رمز عبور اشتباه، حساب برای چند دقیقه قفل می‌شود.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "ورود و امنیت حساب"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>در صفحه «اولویت‌های اعلان ایمیل» در داخل کنترل پنل کاربر، می‌توانید نوع اعلان‌های ایمیلی را که می‌خواهید دریافت کنید، تنظیم کنید.</p>\r\n<p><strong>خاموش کردن اعلان‌ها - </strong>این گزینه همه اعلان‌ها را خاموش می‌کند و هیچ ایمیلی دریافت نخواهید کرد.</p>\r\n<p> <strong>اعلان برای همه پست‌ها در مورد همه موضوعات</strong> - زمانی که شخصی پیام جدیدی پست کرد، اعلان‌های ایمیل فوری دریافت خواهید کرد.</p>\r\n<p><strong>اعلان برای موضوعاتی که در آنها پست کرده‌اید یا تماشا کرده‌اید</strong> - زمانی که شخصی پیام جدیدی در موضوعی پست کرده باشد، موضوعی که تماشا می‌کنید، علامت‌گذاری شده است، اعلان‌های ایمیل فوری دریافت می‌کنید. مورد علاقه، یا یک انجمن.</p>\r\n<p><strong>اعلان برای موضوعات یا انجمن‌هایی که به صورت انتخابی تماشا کرده‌اید (فهرست زیر)</strong> - هنگامی که شخصی پیام جدیدی را در موضوع یا انجمنی که برای تماشای انتخاب کرده‌اید پست کرده باشد، اعلان‌های ایمیل فوری دریافت خواهید کرد (نگاه کنید به فهرست زیر).</p>\r\n<p><strong>یک بار خلاصه/خلاصه فعالیت را در روز دریافت می‌کنید؟</strong> - اگر این عملکرد فعال باشد، می‌توانید این گزینه را روشن کنید تا ایمیلی با تمام فعالیت‌های جدید درباره موضوعات و پیام‌های روز جاری به عنوان خلاصه روزانه دریافت کنید. (خلاصه) در یک ایمیل</p>\r\n<p><strong>هنگامی که پیام خصوصی جدیدی دریافت می کنید، اعلان ایمیلی دریافت می کنید؟ </strong> - همچنین می‌توانید هنگام دریافت پیام خصوصی، اعلان‌های ایمیل را روشن/خاموش کنید.</p>"
+            "#text": "<p><strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید. در <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> انتخاب می‌کنید چه ایمیل‌هایی دریافت کنید:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - هیچ ایمیلی.</li>\r\n<li>اعلان برای موضوع‌هایی که در آن‌ها پست گذاشته‌اید یا پیگیری کرده‌اید - هر موضوعی که در آن پست بگذارید خودکار پیگیری می‌شود.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - فقط موضوع‌ها و انجمن‌هایی که خودتان پیگیری می‌کنید.</li>\r\n</ul>\r\n<p>اگر انجمن ارائه دهد، <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> به جای ایمیل‌های جداگانه، روزی یک ایمیل با پست‌های جدید می‌فرستد. برای ذخیره روی <strong>[[COMMON.SAVE]]</strong> کلیک کنید.</p>\r\n<p>همین صفحه <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> و <strong>[[SUBSCRIPTIONS.TOPICS]]</strong> شما را فهرست می‌کند، ببینید <a href=\"[[help:subscriptions]]\">پیگیری موضوع‌ها و انجمن‌ها</a>، و نیز اعلان‌های پوش دستگاه‌هایتان را، ببینید <a href=\"[[help:push]]\">اعلان‌های پوش و برنامه</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "تنظیمات اطلاع رسانی از طریق ایمیل"
+            "#text": "تنظیمات اعلان‌ها"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>فهرست اعضاء انجمن ، کاربران عضو شده در انجمن را نمایش می دهد. این فهرست را می توانید به ترتیب  نام کاربری، تاریخ ثبت نام، و یا آخرین دیدار از انجمن مشاهده کنید</p>\r\n<p>\"جعبه جستجو\" به شما کمک می کند تا کاربر مورد نظر خود را بیابید.</p>\r\n<p> برای مشاهده فهرست اعضاء، برروی پیوند \"اعضاء\" در سربرگ اصلی بالای صفحه کلیک کنید. (اگر پیوند دیده نمی شود شما اجازه دسترسی به آن صفحه را ندارید)</p>\r\n    "
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>فهرست اعضا، اعضای ثبت‌نام‌شده را با تعداد پست‌ها، تاریخ عضویت و آخرین بازدیدشان نشان می‌دهد. می‌توانید:</p>\r\n<ul>\r\n<li>آن را بر اساس نام، رتبه، تاریخ عضویت، تعداد پست‌ها یا آخرین بازدید مرتب کنید،</li>\r\n<li>اعضایی را که نامشان با یک حرف مشخص شروع می‌شود نشان دهید،</li>\r\n<li>آن را با <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> بر اساس نام، نقش، رتبه یا تعداد پست‌ها فیلتر کنید.</li>\r\n</ul>\r\n<p>روی یک عضو کلیک کنید تا پروفایلش باز شود. بسته به انجمن، فهرست فقط به اعضا نشان داده می‌شود.</p>\r\n<h3 class=\"h6 mt-3\">کاربران فعال</h3>\r\n<p>آمار صفحه‌ی اصلی نشان می‌دهد چه کسانی آنلاین هستند. فهرست کاربران فعال، اعضا و مهمانانی را که اکنون آنلاین هستند و جایی از انجمن را که در آن هستند نشان می‌دهد. اعضا می‌توانند خود را در <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> از این فهرست پنهان کنند، اگر انجمن اجازه دهد.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>صفحه‌ی تیم، مدیران و ناظران انجمن را همراه با انجمن‌هایی که نظارت می‌کنند فهرست می‌کند. اگر به کمک نیاز دارید با آن‌ها تماس بگیرید.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "لیست اعضاء"
+            "#text": "اعضا، کاربران فعال و تیم"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">نام بردن از یک عضو</h3>\r\n<p>در ویرایشگر <code>@</code> و سپس حرف‌های اول یک نام را تایپ کنید و عضو را از فهرست انتخاب کنید. نام به پیوندی به پروفایل تبدیل می‌شود و آن عضو باخبر می‌شود که از او نام برده‌اید (اگر از اعلان‌ها استفاده کند، ببینید <a href=\"[[help:popups]]\">اعلان‌ها</a>).</p>\r\n<h3 class=\"h6 mt-3\">برچسب‌های موضوع</h3>\r\n<p>برچسب‌ها کلیدواژه‌های یک موضوع هستند، مثلاً محصول یا مسئله‌ای که پرسش درباره‌ی آن است. هنگام ایجاد موضوع آن‌ها را در <strong>[[POSTTOPIC.TAGS]]</strong> اضافه کنید. برچسب‌ها همراه موضوع نمایش داده می‌شوند و کلیک روی یک برچسب همه‌ی موضوع‌های دارای آن برچسب را فهرست می‌کند. جستجو هم می‌تواند برچسب‌ها را جستجو کند، ببینید <a href=\"[[help:searching]]\">جستجو</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "نام بردن و برچسب‌ها"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "پیام‌ها و اعلان‌ها"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p>کاربران عضو می توانند به دیگر اعضاء از طریق پیام خصوصی (پیام رسان) تماس بگیرند. (اگر این ویژگی فعال شده باشد)\r\n</p>\r\n<p>هنگامیکه یک پیام خصوصی دریافت کنید، در سربرگ بالای انجمن به شما اطلاع داده میشود که چند عدد پیام خوانده نشده در انتظار شماست، همچنین پنجره کوچک اطلاع رسان نمایش داده خواهد شد. همچنین می توانید. در صورت فعال بودن، ایمیل هم دریافت خواهید کرد. </p>\r\n<p><strong>چگونه پیام خصوصی بفرستم؟</strong></p>\r\n<p>پیام خصوصی هم شبیه ایمیل است، با این تفاوت که محدود به اعضاء انجمن است.  شما ممکن است که بتوانید که BBCode و خندانک و تصویر به پیام خصوصی خود اضافه کنید.<br />\r\nشما می توانید با کلیک کردن بر روی دکمه پیام خصوصی در صفحه مشخصات فردی کاربر به او پیام خصوصی بفرستید، یا برروی پیوند پیام جدید در صفحه تنظیمات من، کلیک کنید.  پیام هایی که می فرستید بعد از فرستادن، در پوشه \"ارسال شده ها\" ذخیره می شود.  </p>\r\n<p><strong>پوشه های پیام خصوصی</strong></p>\r\n<p>همانند برنامه های ایمیل، سه پوشه \"دریافت شده ها\"، \"ارسال شده ها\" و پوشه \"آرشیو\" موجود است.</p>\r\n<ul>\r\n<li>پوشه \"دریافت شده ها\" حاوی هر پیام جدیدی است که برای شما فرستاده شده است. به شما اجازه می دهد کلیه پیامهایی را که دریافت کرده اید را به همراه نام فرستنده، موضوع، تاریخ و زمانی که فرستاده شده است، مشاهده کنید.</li>\r\n<li>پوشه \"ارسال شده ها\" حاوی پیامهایی است که شما فرستاده اید.</li>\r\n<li>پوشه \"آرشیو\" تنها حاوی پیامهایی است که شما به آن پوشه منتقل کرده اید.</li>\r\n</ul>\r\n<p>در هر کدام از پوشه ها شما گزینه های مختلفی دارید  که  می توانید با پیام ها بکنید. کافی است که پیامها را انتخاب کنید و ... <br />\r\n</p>\r\n<ul>\r\n<li>انتخاب شده ها یا کلیه پیامها را به پوشه آرشیو منتقل کنید</li>\r\n<li>کلیه یا پیامهای انتخاب شده را بصورت فایل صادر کنید (شما می توانید یکی از فورمت های XML - CSV - TXT را انتخاب کنید)</li>\r\n<li>پیامهای انتخاب شده یا کلیه پیامها را حذف کنید.</li>\r\n</ul>\r\n<p> بسته به تعداد پیامهایی که اجازه داده شده تا در صندوق خود داشته باشید، باید هر چند وقت یکبار صندوق خود را خالی کنید (می توانید آنها را قبل از حذف بصورت فایل ذخیره کنید). در غیر اینصورت هنگامی که صندوق پیامهای شما پر شده باشد، قادر به دریافت پیام جدید نیستید. در پایین صفحه به شما اطلاع داده می شود که چه تعداد پیام دارید و حداکثر تعدادی پیامی که می توانید داشته باشید.</p>\r\n    "
+            "#text": "<p>پیام‌های خصوصی گفت‌وگوهایی میان شما و یک عضو دیگر هستند و هیچ‌کس دیگری نمی‌تواند آن‌ها را بخواند. <strong>[[TOOLBAR.INBOX]]</strong> را در منوی کاربری باز کنید: در یک سو <strong>[[PM.CONVERSATION_TITLE]]</strong> را می‌بینید و در سوی دیگر پیام‌های گفت‌وگوی انتخاب‌شده را.</p>\r\n<h3 class=\"h6 mt-3\">آغاز یک گفت‌وگو</h3>\r\n<ul>\r\n<li>روی <strong>[[PM.NEW_CONVERSATION]]</strong> کلیک کنید، دست‌کم سه حرف از نام را تایپ کنید و عضو را انتخاب کنید.</li>\r\n<li>یا روی <strong>[[POSTS.PM]]</strong> در پروفایل عضو یا در منوی کاربری یک پست کلیک کنید.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">نوشتن</h3>\r\n<p>پیام خود را تایپ کنید و برای فرستادن Enter را بزنید. Shift+Enter یک خط جدید آغاز می‌کند. می‌توانید از کدهای BB استفاده کنید، مثلاً برای متن پررنگ یا پیوندها. اگر عضو دیگر هم‌زمان گفت‌وگو را باز کرده باشد، پیام‌ها فوراً در هر دو طرف ظاهر می‌شوند و گفت‌وگو نشان می‌دهد که آن عضو آنلاین است یا نه.</p>\r\n<p>پیام‌های جدید کنار نام شما و <strong>[[TOOLBAR.INBOX]]</strong> شمرده می‌شوند و وقتی صفحه‌ای از انجمن را باز می‌کنید، پنجره‌ای می‌پرسد که آیا می‌خواهید آن‌ها را بخوانید. برای پیام‌های خصوصی اعلان ایمیلی وجود ندارد.</p>\r\n<h3 class=\"h6 mt-3\">حذف</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> گفت‌وگو را از فهرست شما حذف می‌کند، ولی عضو دیگر همچنان آن را دارد.</p>\r\n<p class=\"text-body-secondary small\">به اعضایی که پیام‌های خصوصی را مسدود کرده‌اند یا شما را نادیده می‌گیرند نمی‌توانید پیام بنویسید (مگر اینکه دوستشان باشید)، ببینید <a href=\"[[help:blocking]]\">نادیده گرفتن و مسدود کردن کاربران</a>. مدیر می‌تواند پیام‌های خصوصی را خاموش کند.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "پیام خصوصی (پیام رسان)"
+            "#text": "پیام‌های خصوصی"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>ناظران <strong>[[TOOLBAR.MODERATE]]</strong> را در نوار بالا می‌بینند. این صفحه انجمن‌هایی را که نظارت می‌کنید با تعداد <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> و <strong>[[MODERATE_DEFAULT.REPORTED]]</strong> فهرست می‌کند.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>در انجمن‌های نظارت‌شده (و برای اعضایی که پست‌هایشان باید بررسی شود) پست‌های جدید فقط پس از تأیید یک ناظر نمایش داده می‌شوند. پست را بررسی کنید و روی <strong>[[MODERATE_FORUM.APPROVE]]</strong> کلیک کنید یا آن را حذف کنید.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>این فهرست پست‌های گزارش‌شده را با دلایل و گزارش‌دهندگان نشان می‌دهد. پست (و اگر ویرایش شده، تاریخچه‌ی آن) را بخوانید، در صورت نیاز اقدام کنید (پست را ویرایش یا حذف کنید، با نویسنده صحبت کنید) و روی <strong>[[MODERATE_FORUM.RESOLVED]]</strong> کلیک کنید.</p>\r\n<h3 class=\"h6 mt-3\">مدیریت موضوع‌ها</h3>\r\n<ul>\r\n<li>درون یک موضوع، <strong>[[POSTS.MANAGE_TOPIC]]</strong> گزینه‌های <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>، <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> و <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong> را ارائه می‌دهد. موضوع منتقل‌شده می‌تواند برای چند روز پیوندی در انجمن قبلی بگذارد.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> همه‌ی موضوع‌های یک انجمن را فهرست می‌کند: چند موضوع را انتخاب کنید و آن‌ها را یک‌جا قفل، منتقل یا حذف کنید.</li>\r\n<li>موضوع‌های سنجاق‌شده و اطلاعیه‌ها هنگام ویرایش پست نخست با <strong>[[POSTMESSAGE.PRIORITY]]</strong> تعیین می‌شوند، و موضوع‌های ماندگار (که پاک‌سازی خودکار حذفشان نمی‌کند) با <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">مدیریت پست‌ها</h3>\r\n<ul>\r\n<li>می‌توانید پست‌های اعضای دیگر را ویرایش و حذف کنید. هنگام حذف یک پست، <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> پاسخ‌های آن را هم حذف می‌کند.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> در منوی یک پست، آن را به موضوع دیگری منتقل می‌کند یا در یک موضوع جدید جدا می‌کند (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>، <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>در <a href=\"[[help:history]]\">تاریخچه‌ی پیام</a> می‌توانید نسخه‌ی قبلی یک پست را بازگردانید.</li>\r\n<li>می‌توانید در موضوع‌های قفل‌شده پاسخ دهید و ویرایش کنید، و پست‌های شما از نظر هرزنامه بررسی نمی‌شوند.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">بسته به تنظیمات، ناظران نشانی‌های IP پست‌ها را هم می‌بینند. ویرایش، تعلیق و مسدود کردن اعضا بر عهده‌ی مدیران است.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "راهنمای ناظران"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "ناظران و مدیران"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>ناظران، وظیفه نظارت بر تالارها را برعهده دارند. آنها می توانند ارسالها را حذف یا ویرایش کنند، مباحث را جا به جا کنند، و اقداماتی مشابه اینها را در تالار تحت نظارتشان انجام دهند. وظیفه نظارت یک تالار معمولا به کاربرانی داده میشود که درباره موضوع مباحث آن تالار اطلاعات دارند یا برای آن تالار مفید بوده اند.</p>\r\n<p>مدیران کسانی هستند که کلیه امور انجمن را تحت کنترل دارند. چگونگی قالب انجمن، ایجاد و تنظیم تالار های مختلف، چه اطلاعاتی از کاربران بخواهند و چه کسی را ناظر چه تالاری نمایند، از جمله وظایف مدیران است. </p>\r\n    "
+            "#text": "<p><strong>مدیران</strong> انجمن را اداره می‌کنند: انجمن‌ها را ایجاد می‌کنند، تعیین می‌کنند چه کسی چه کاری می‌تواند انجام دهد، امکانات را راه‌اندازی می‌کنند و اعضا را مدیریت می‌کنند.</p>\r\n<p><strong>ناظران</strong> مسئول یک یا چند انجمن هستند: گفت‌وگوها را مرتبط با موضوع و دوستانه نگه می‌دارند، پست‌های گزارش‌شده را بررسی می‌کنند، پست‌ها را در انجمن‌های نظارت‌شده تأیید می‌کنند و در صورت نیاز موضوع‌ها و پست‌ها را ویرایش، منتقل، قفل یا حذف می‌کنند. ناظران هر انجمن بالای فهرست موضوع‌های آن نمایش داده می‌شوند (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>صفحه‌ی <strong>[[TOOLBAR.TEAM]]</strong> همه‌ی مدیران و ناظران را فهرست می‌کند (اگر انجمن آن را نشان دهد). اگر با پستی مشکل دارید، <a href=\"[[help:report]]\">آن را گزارش دهید</a>. برای پرسش‌های دیگر با پیام خصوصی با یک ناظر یا مدیر تماس بگیرید.</p>\r\n<p>شیوه‌ی کار ناظران در <a href=\"[[help:moderating]]\">راهنمای ناظران</a> توضیح داده شده است.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "مدیران و ناظران"
+            "#text": "ناظران و مدیران"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>اگر آلبوم برای انجمن و شما فعال باشد، می توانید آلبومی از عکس  ایجاد کنید. آلبومهای شما در مشخصات عمومی شما نمایش داده می شوند. آلبوم ها از طریق صفحه \"تنظیمات من\"،  پیوند \"ویرایش آلبوم\" و کلیک بر روی \"آلبوم جدید\" ایجاد می شوند. حداکثر تعداد آلبوم و تصاویر برای هر گروه کاربری که متعلق به آن هستید، تعیین شده است.</p>\r\n<p>هر آلبوم می تواند دارای عنوان و عکس روی جلد باشد. عکس روی جلد را می توانید از یکی از عکس های داخل آلبوم انتخاب کنید. همچنین می توانید توضیحاتی را برای هر عکس اضافه نمایید.</p>\r\n<p>برای حذف یا ویرایش آلبوم، دکمه \"ویرایش\" زیر آلبوم را بزنید. برای اضافه کردن یا تغییر دادن توضیحات یک عکس برروی توضیحات زیر عکس کلیک نمایید. برای انتخاب یا حذف عکسی از روی جلد آلبوم دکمه مربوطه زیر عکس را بزنید. </p>\r\n<p><strong>چگونه عکسی را آپلود نمایم؟</strong></p>\r\n<p>هنگامی که در صفحه \"ایجاد/ویرایش آلبوم\" هستید، می توانید عکسی را از رایانه خود انتخاب کرده و دکمه \"الصاق فایل\" را بزنید. تصویر به آلبوم شما اضافه می شود.</p>\r\n<p>شما این اختیار را دارید که به هر عکس توضیحی اضافه نمایید و برای روی جلد آلبوم خود، عکسی را انتخاب نمایید که در مشخصات عمومی شما نمایش داده می شود.</p>\r\n    "
+            "#text": "<p>اگر انجمن از آلبوم استفاده کند، می‌توانید تصاویر خود را در آلبوم‌هایی در پروفایلتان نشان دهید و در پست‌هایتان از آن‌ها استفاده کنید.</p>\r\n<ol>\r\n<li><strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> را در منوی صفحه‌های حساب خود (یا <strong>[[TOOLBAR.MYALBUMS]]</strong> را در منوی کاربری) باز کنید و روی <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong> کلیک کنید.</li>\r\n<li>یک عنوان وارد کنید و نخستین تصاویر را بارگذاری کنید (چند تصویر با هم هم ممکن است).</li>\r\n</ol>\r\n<p>با <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> تصاویر بیشتری اضافه یا حذف می‌کنید و آلبوم را حذف می‌کنید. در آلبوم می‌توانید برای تصاویر زیرنویس بنویسید و با <strong>[[BUTTON.BUTTON_SETCOVER]]</strong> تصویر روی جلد را انتخاب کنید.</p>\r\n<p>برای نمایش تصویری از آلبوم در یک پست، روی <strong>[[ALBUM.COPY_BBCODE]]</strong> زیر تصویر کلیک کنید و کد را در ویرایشگر جای‌گذاری کنید.</p>\r\n<p class=\"text-body-secondary small\">تعداد آلبوم‌ها و تصاویر و اندازه‌ی تصاویر محدود است. محدودیت‌ها به گروه یا رتبه‌ی شما بستگی دارند و در صفحه‌ها نمایش داده می‌شوند.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
-            "#text": "آلبوم"
+            "#text": "آلبوم‌ها"
+          },
+          {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>همه‌ی فایل‌هایی که بارگذاری کرده‌اید در <strong>[[ATTACHMENTS.TITLE]]</strong> در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) فهرست شده‌اند. برای هر فایل می‌بینید که در چند پست استفاده شده است، یا اینکه استفاده نشده است.</p>\r\n<p>فایل‌ها را انتخاب و حذف کنید تا فضا آزاد شود، مثلاً فایل‌هایی که بارگذاری کرده‌اید ولی استفاده نکرده‌اید. فایلی که حذف شود دیگر در پست‌هایی که از آن استفاده می‌کنند نمایش داده نمی‌شود.</p>\r\n<p>چگونگی افزودن فایل به پست‌ها در <a href=\"[[help:attachments]]\">پیوست‌ها و تصاویر</a> توضیح داده شده است.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "پیوست‌های من"
           },
           {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>عکس کاربری چیست؟</strong></p>\r\n<p>عکس های کاربری، تصاویر کوچکی هستند که افراد برای متمایز ساختن خود از بقیه اعضاء انجمن از آن استفاده می نمایند. این عکس ها در مشخصات اعضاء در کنار هر ارسال، همچنین در مشخصات عمومی اعضاء نمایش داده میشود.</p>\r\n<p>برای ویرایش عکس کاربری خود، \"ویرایش عکس کاربری\" را تحت \"مشخصات فردی\" در صفحه \"تنظیمات من\" کلیک کنید.</p>\r\n<p>سه شیوه (یا کمتر، بسته به تنظیمات انجمن) برای افزودن عکس کاربری وجود دارد...</p>\r\n<ul>\r\n<li>در صورت موجود بودن می توانید از مجموعه عکس های حاضر انجمن استفاده نمایید.</li>\r\n<li>نشانی url عکس مورد نظر خود را وارد کنید</li>\r\n<li>عکسی را از رایانه خود انتخاب و آپلود نمایید</li>\r\n</ul>\r\n<p><em>توجه: مدیریت نوع مجاز، حداکثر اندازه و ابعاد عکس کاربری را تعیین می کند</em></p>\r\n<p><strong>امضاء چیست؟</strong></p>\r\n<p>\"امضاء\" اطلاعاتی است که می خواهید در انتهای هر پیامهای شما نمایش داده شود. این اطلاعات می تواند شامل عکس، پیوند به سایت شخصی شما، گفتاری از بزرگان و غیره باشد.</p>\r\n<p>برای ویرایش امضاء، برروی پیوند \"امضاء\" تحت \"مشخصات فردی\" در صفحه \"تنظیمات من\" کلیک کنید. در پایین صفحه به شما اطلاع داده می شود که مجاز به استفاده از کدام BBCode یا تگ های HTML هستید. و امضاء شما شامل چند حرف می تواند باشد.</p>\r\n    "
+            "#text": "<h3 class=\"h6\">آواتار</h3>\r\n<p>آواتار تصویر کوچکی است که کنار نام شما در پست‌ها و پروفایلتان نمایش داده می‌شود. <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید. بسته به انجمن می‌توانید:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - یکی از آواتارهای انجمن را انتخاب کنید.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - تصویر خودتان را بارگذاری کنید (png، jpg، gif، webp، bmp یا svg). تصاویر بزرگ خودکار کوچک می‌شوند و صفحه اندازه‌ی مجاز را نشان می‌دهد.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> آواتار شما را برمی‌دارد. بدون آواتار، انجمن یک تصویر پیش‌فرض نشان می‌دهد.</p>\r\n<h3 class=\"h6 mt-3\">امضا</h3>\r\n<p>امضا متن کوتاهی است که زیر هر یک از پست‌های شما نمایش داده می‌شود، مثلاً یک شعار یا پیوندی به وب‌سایتتان. <strong>[[ACCOUNT.SIGNATURE]]</strong> را در منوی کاربری باز کنید. صفحه حداکثر طول و کدهای BB مجاز در امضا را نشان می‌دهد، HTML مجاز نیست. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> نشان می‌دهد امضا چگونه به نظر خواهد رسید.</p>\r\n<p class=\"text-body-secondary small\">مدیر تصمیم می‌گیرد که آواتارها و امضاها استفاده شوند یا نه، و محدودیت‌ها ممکن است به گروه یا رتبه‌ی شما بستگی داشته باشند.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "امضاء ها و عکس کاربری"
+            "#text": "آواتار و امضا"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>صفحه <strong>تنظیمات من</strong> محلی است که می توانید تنظیمات و گزینه های شخصی خود را انتخاب کنید.</p>\r\n<p>قسمت اصلی صفحه <strong>تنظیمات من</strong> خلاصه ای است از حساب کاربری شما؛ از جمله نام کاربری، نشانی ایمیل، تعداد ارسالها، گروه هایی که در آن عضو بوده اید و هستید. </p>\r\n<p>سمت راست صفحه شامل پیوند هایی است که به شما اجازه می دهد تا قسمت های زیر را مدیریت کنید: </p>\r\n<p><strong>پیام رسان</strong></p>\r\n<ul>\r\n<li>دریافت شده</li>\r\n<li>ارسال شده</li>\r\n<li>آرشیو</li>\r\n<li>پیام جدید</li>\r\n</ul>\r\n<p><strong>مشخصات فردی</strong></p>\r\n<ul>\r\n<li>نمایش مشخصات فردی</li>\r\n<li>ویرایش مشخصات فردی</li>\r\n<li>نمایش قدردانی ها<br /></li>\r\n<li>ویرایش آلبوم ها</li>\r\n<li>ویرایش عکس کاربری</li>\r\n<li>امضاء</li>\r\n<li>اشتراک ها</li>\r\n<li>تغییر رمز عبور</li>\r\n</ul>\r\n    "
+            "#text": "<p>روی نام خود در گوشه‌ی بالای صفحه کلیک کنید تا منوی کاربری باز شود:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - نمای کلی حساب و فعالیت شما.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - همه‌ی تنظیمات حساب شما (پایین‌تر را ببینید).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - پیام‌های خصوصی شما، ببینید <a href=\"[[help:messenger]]\">پیام‌های خصوصی</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - ببینید <a href=\"[[help:buddies]]\">دوستان</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - ببینید <a href=\"[[help:myalbums]]\">آلبوم‌ها</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - ببینید <a href=\"[[help:newposts]]\">مشاهده‌ی پست‌های جدید</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>عددهای کنار نام شما، <strong>[[TOOLBAR.INBOX]]</strong> و <strong>[[TOOLBAR.BUDDIES]]</strong> پیام‌های خوانده‌نشده و درخواست‌های دوستی باز را می‌شمارند.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>این صفحه نام کاربری، نشانی ایمیل، تعداد پست‌ها و تاریخ عضویت شما را نشان می‌دهد، و نیز <strong>[[ACCOUNT.ACTIVITY]]</strong> را: موضوع‌ها و پاسخ‌های شما، واکنش‌ها و دوستی‌ها، با فیلتری برای هر نوع. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> پروفایل شما را همان‌طور که اعضای دیگر می‌بینند نشان می‌دهد.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>تنظیمات در کنار همه‌ی صفحه‌های حساب هم فهرست شده‌اند:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - اطلاعات مربوط به شما.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - نشانی ایمیل، منطقه‌ی زمانی، زبان، احراز هویت دومرحله‌ای.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - فایل‌هایی که بارگذاری کرده‌اید.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> و <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - اعلان‌های ایمیلی و اعلان‌های پوش، موضوع‌ها و انجمن‌های پیگیری‌شده.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - رمز عبور فعلی و رمز جدید را دو بار وارد کنید.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">برخی موارد فقط در صورتی نمایش داده می‌شوند که انجمن از آن امکان استفاده کند (مثلاً آواتارها، امضاها یا آلبوم‌ها).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "تنظیمات من"
+            "#text": "حساب من"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "فهرست"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>نوار بالای هر صفحه منوی اصلی را در بر دارد: <strong>[[TOOLBAR.SEARCH]]</strong>، <strong>[[TOOLBAR.MEMBERS]]</strong>، <strong>[[TOOLBAR.TEAM]]</strong> و <strong>[[TOOLBAR.HELP]]</strong> (بسته به انجمن، همه‌ی آن‌ها نمایش داده نمی‌شوند). مهمانان در انتهای نوار <strong>[[TOOLBAR.LOGIN]]</strong> و <strong>[[TOOLBAR.REGISTER]]</strong> را می‌بینند. اعضا زنگ اعلان‌ها و منوی کاربری را با نام و آواتار خود می‌بینند، ببینید <a href=\"[[help:mysettings]]\">حساب من</a>. زیر نوار بالا، مسیر صفحه‌ی فعلی (نوار مسیر) شما را به انجمن یا دسته‌بندی بازمی‌گرداند.</p>\r\n<h3 class=\"h6 mt-3\">فهرست موضوع‌های یک انجمن</h3>\r\n<p>روی یک انجمن کلیک کنید تا موضوع‌هایش را ببینید. موضوع‌های سنجاق‌شده و اطلاعیه‌ها اول نمایش داده می‌شوند. با پایین رفتن در صفحه، موضوع‌های بیشتری خودکار بارگیری می‌شوند. نوار بالای فهرست شامل این موارد است:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - فقط موضوع‌هایی را نشان می‌دهد که در بازه‌ی زمانی انتخاب‌شده پست داشته‌اند (مثلاً روز گذشته یا از آخرین بازدید شما).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - در موضوع‌های این انجمن جستجو می‌کند.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - به انجمن دیگری می‌رود.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> و <strong>[[TOPICS.MARKREAD]]</strong> (برای اعضا).</li>\r\n</ul>\r\n<p>نمادهای کنار موضوع‌ها پست‌های جدید، موضوع‌های پرطرفدار («داغ») و موضوع‌های قفل‌شده و منتقل‌شده را نشان می‌دهند. راهنمای نمادها در زیر فهرست آن‌ها را توضیح می‌دهد.</p>\r\n<h3 class=\"h6 mt-3\">درون یک موضوع</h3>\r\n<p>پست‌ها در چند صفحه نمایش داده می‌شوند و صفحه‌بندی زیر پست‌ها قرار دارد. با <strong>[[POSTS.PREVTOPIC]]</strong> و <strong>[[POSTS.NEXTTOPIC]]</strong> به موضوع‌های مجاور در انجمن می‌روید. پیوند یک پست، موضوع را در همان پست باز می‌کند.</p>\r\n<h3 class=\"h6 mt-3\">پست‌های جدید و وضعیت خوانده‌شدن</h3>\r\n<p>انجمن‌ها و موضوع‌هایی که پست‌های خوانده‌نشده دارند برجسته می‌شوند. اعضا می‌توانند با <strong>[[DEFAULT.MARKALL]]</strong> در صفحه‌ی اصلی همه چیز را خوانده‌شده علامت بزنند، یا با <strong>[[TOPICS.MARKREAD]]</strong> یک انجمن را. اینکه همه‌ی پست‌های جدید را یک‌جا کجا پیدا کنید، در <a href=\"[[help:newposts]]\">مشاهده‌ی پست‌های جدید</a> توضیح داده شده است.</p>\r\n<h3 class=\"h6 mt-3\">به‌روزرسانی زنده</h3>\r\n<p>اگر انجمن از به‌روزرسانی زنده استفاده کند، موضوع‌ها و پست‌های جدید بدون بارگیری دوباره‌ی صفحه ظاهر می‌شوند. درون یک موضوع پیام <strong>[[COMMON.LIVE_NEW_REPLY]]</strong> را می‌بینید، روی آن کلیک کنید تا پاسخ جدید نمایش داده شود.</p>\r\n<h3 class=\"h6 mt-3\">اطلاعات کاربر</h3>\r\n<p>نشانگر ماوس را روی نام یک کاربر ببرید تا کارت کوتاهی با اطلاعات آن عضو ببینید، مثلاً محل، وضعیت آنلاین بودن و تاریخ عضویت. با کلیک روی نام، پروفایل آن عضو باز می‌شود.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "راه‌یابی در انجمن"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "<p>اگر از طریق نام کاربری خود وارد انجمن نشده باشید، پیوند \"مباحث فعال\" در سربرگ انجمن فهرست کلیه مباحثی که بعد از آخرین دیدار شما ایجاد شده یا به روز شده است را نمایش می دهد و در برگه دوم فهرست مباحث بدون پاسخ نمایش داده می شود.</p>\r\n<p>اگر وارد انجمن شده باشید، پیوند \"مباحث فعال\" به \"مباحث من\" تغییر می کند. در صفحه \"مباحث من\"  5 برگه زیر موجود است:</p>\r\n<ul>\r\n<li><strong>بحث های فعال</strong> - کلیه مباحثی که از بعد از آخرین دیدار شما ایجاد شده یا تغییر یافته فهرست شده است.</li>\r\n<li><strong> مباحث پاسخ داده نشده</strong> - کلیه مباحثی که بی پاسخ مانده اند را نمایش می دهد.</li>\r\n<li><strong>مباحث خوانده نشده</strong> - کلیه مباحثی که پیام خوانده نشده ای داشته باشند را نمایش می دهد.</li>\r\n<li><strong>بحث هایی که در آن شرکت داشته اید</strong> - مباحثی را که شما ارسالی در آن داشته باشید را نمایش می دهد.</li>\r\n<li><strong>مباحث مورد علاقه</strong> - کلیه مباحثی را که شما به عنوان مباحث مورد علاقه انتخاب کرده اید را نمایش می دهد.</li></ul>"
+            "#text": "<p>اعضا پست‌های جدید همه‌ی انجمن‌ها را در <strong>[[TOOLBAR.MYTOPICS]]</strong> در منوی کاربری پیدا می‌کنند. این صفحه چهار زبانه دارد:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - موضوع‌هایی که از آخرین بازدید شما پست جدید دارند.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - موضوع‌هایی که هنوز پاسخی ندارند.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - موضوع‌هایی که پیگیری می‌کنید.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - موضوع‌هایی که خودتان ایجاد کرده‌اید.</li>\r\n</ul>\r\n<p>با فیلتر زمانی بازه را انتخاب می‌کنید، مثلاً ساعت گذشته، هفته‌ی گذشته یا همه‌ی موضوع‌ها. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> همه‌ی موضوع‌ها را خوانده‌شده علامت می‌زند.</p>\r\n<p><strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> در صفحه‌ی اصلی آخرین پست‌های همه‌ی انجمن‌ها را نشان می‌دهد، برای مهمانان هم.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "مشاهده ارسالهای جدید"
+            "#text": "مشاهده‌ی پست‌های جدید"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,83 +11500,103 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>شما می توانید با دیگر اعضاء از طریق ایمیل تماس بگیرید. پیوند آن در فهرست اعضاء موجود می باشد. </p>\r\n<p>کلیک بر روی این پیوند، برای شما صفحه ای را باز می کند که می توانید پیام خود را در آن تایپ کنید. پس از اتمام، دکمه فرستادن ایمیل را بفشارید و پیام شما بلافاصله فرستاده خواهد شد.</p>\r\n<p><strong>آیا می توانم نشانی ایمیل ها را ببینم؟</strong></p>\r\n<p>برای رعایت حریم شخصی افراد،نشانی گیرنده ایمیل در طول این فرآیند و نه در هیچ جای دیگر انجمن ، نمایش داده نمیشود.</p>\r\n<p><strong>چرا نمی توانم به برخی اعضاء ایمیل بفرستم؟</strong></p>\r\n<p>اگر پیوند فرستادن ایمیل موجود نیست، بدان معنی است که یا فرستادن ایمیل غیرفعال است و یا عضو مورد نظر دریافت ایمیل از دیگر اعضاء را در تنظیمات خود غیرفعال کرده است.</p>\r\n<p><strong>پیام خصوصی چیست؟</strong></p>\r\n<p>اعضاء انجمن می توانند از طریق فرستادن پیام خصوصی با یکدیگر تماس حاصل کنند.</p>"
+            "#text": "<p>می‌توانید از طریق انجمن به یک عضو ایمیل بفرستید: روی <strong>[[POSTS.EMAIL]]</strong> در پروفایل عضو (یا در صفحه‌ی تیم) کلیک کنید، یک موضوع و پیام خود را وارد کنید و روی <strong>[[IM_EMAIL.SEND]]</strong> کلیک کنید.</p>\r\n<ul>\r\n<li>نشانی ایمیل آن عضو از شما پنهان می‌ماند.</li>\r\n<li>ایمیل با نام کاربری شما و نشانی ایمیل <strong>خودتان</strong> به عنوان فرستنده ارسال می‌شود تا آن عضو بتواند مستقیماً به شما پاسخ دهد.</li>\r\n<li>برای جلوگیری از هرزنامه، در هر ساعت فقط چند ایمیل می‌توانید بفرستید.</li>\r\n</ul>\r\n<p>به اعضایی که ایمیل‌ها را مسدود کرده‌اند یا شما را نادیده می‌گیرند نمی‌توانید ایمیل بفرستید (مگر به دوستان)، و این کار فقط در صورتی ممکن است که مدیر ایمیل میان اعضا را مجاز کرده باشد. در بیشتر موارد یک <a href=\"[[help:messenger]]\">پیام خصوصی</a> راه بهتری است.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "تماس با دیگر اعضاء"
+            "#text": "ایمیل به اعضا"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>رأی گیری، امکانی است برای نظر سنجی درباره یک موضوع یا سوال.</em></p>\r\n<p><strong>چگونه یک نظرسنجی جدید ایجاد کنم؟</strong></p>\r\n<p>وقتی یک مبحث جدید در انجمن باز می کنید، امکان \"اضافه کردن نظرسنجی\" به شما امکان رأی گیری را می دهد. اگر این امکان دیده نمی شود، شما امکان دسترسی به آن را ندارید.</p>\r\n<p>شما همچنان امکان اضافه کردن نظرسنجی به مبحث موجود را دارید. یک مبحث می تواند تعداد محدودی (تعیین شده توسط مدیریت) نظرسنجی داشته باشد.</p>\r\n<p>این به شما اجازه می دهد تا سوالی را بپرسید و چند گزینه  (تعداد آن توسط مدیریت محدود میشود) برای پاسخگویی داشته باشید - <em>در صورت فعال بودن می توانید تصویر به عنوان گزینه الصاق کنید (نشانی اینترنتی عکس را بدهید).</em> بقیه اعضاء انجمن می توانند به گزینه هایی که می خواهند، رأی بدهند. نتیجه نظر سنجی در مبحث نمایش داده میشود.</p>\r\n<p><em>در زیر یک نمونه نظر سنجی را مشاهده می کنید:</em></p>\r\n<p><em>رنگ مورد علاقه شما چیست؟</em></p>\r\n<ul>\r\n<li><em>آبی</em></li>\r\n<li><em>قرمز</em></li>\r\n<li><em>زرد</em></li>\r\n<li><em>سبز</em></li>\r\n</ul>\r\n<p>شما همچنین می توانید برای نظرسنجی زمان را محدود کنید. به عنوان مثال: نظرسنچی برای 10 روز فعال باشد یا اینکه هیچوقت منقضی نشود.</p>\r\n<p>همچنان می توانید انتخاب کنید که کاربران بتوانند نتیجه نظرسنچی را بدون رأی دادن ببینند، یا  با انتخاب گزینه \"شما باید رأی بدهید تا نتیجه نظرسنجی را ببینید\"  کاربران بدون رأی دادن نمی توانند نتیجه را ببینند.</p>\r\n<p>با انتخاب 'عدم نمایش نتیجه، قبل از تاریخ انقضاء' نتیجه نظرسنجی تا قبل از پایان نظر سنجی قابل رؤیت نیست.</p>\r\n<p><strong>گروه بندی نظرسنجی ها</strong></p>\r\n<p>کلیه نظرسنجی که به یک مبحث الصاق می شود در یک گروه قرار می گیرند. این گروه را شما می توانید در هر مبحث دیگری نمایشش دهید.. </p>\r\n<p><strong>چگونه رأی دهم؟</strong></p>\r\n<p>برای رأی دادن به، کافی است که برروی گزینه مورد نظر کلیک کنید.</p>\r\n<p>ممکن است که بعد از رأی دادن دیگر نتوانید رأی خود را عوض کنید، پس هنگام رأی دادن دقت کنید.</p>\r\n    "
+            "#text": "<p>نظرسنجی از خوانندگان یک موضوع پرسشی با چند گزینه می‌پرسد.</p>\r\n<h3 class=\"h6 mt-3\">ایجاد نظرسنجی</h3>\r\n<p>هنگام ایجاد یک موضوع، <strong>[[POLLEDIT.POLLADD]]</strong> را در گزینه‌ها روشن کنید. ویرایشگر نظرسنجی پس از ارسال موضوع باز می‌شود. در یک موضوع موجود، ایجادکننده‌ی موضوع و ناظران <strong>[[POLLEDIT.CREATEPOLL]]</strong> را بالای پست‌ها می‌بینند. هر موضوع یک نظرسنجی دارد.</p>\r\n<ul>\r\n<li>پرسش و دست‌کم دو گزینه را وارد کنید. <strong>[[POLLEDIT.ADD_CHOICE]]</strong> گزینه‌های بیشتری اضافه می‌کند (تا سقفی که مدیر تعیین کرده است).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - تعداد روزهایی که نظرسنجی باز است، برای نظرسنجی بدون پایان آن را خالی بگذارید.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - رأی‌دهندگان می‌توانند بیش از یک پاسخ انتخاب کنند.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - نام رأی‌دهندگان همراه با نتایج نمایش داده می‌شود.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - نتایج فقط پس از پایان نظرسنجی نمایش داده می‌شوند.</li>\r\n<li>اگر انجمن اجازه دهد، پرسش و گزینه‌ها می‌توانند تصویر داشته باشند (نشانی یک تصویر).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">رأی دادن</h3>\r\n<p>روی دکمه‌ی گزینه‌ی مورد نظرتان کلیک کنید. نمی‌توانید رأی خود را تغییر دهید، پس با دقت انتخاب کنید. مهمانان نمی‌توانند رأی دهند و نتایج را نمی‌بینند.</p>\r\n<h3 class=\"h6 mt-3\">تغییر نظرسنجی</h3>\r\n<p>سازنده‌ی نظرسنجی تا زمانی که کسی رأی نداده است (مگر اینکه انجمن تغییرات بعدی را مجاز کند) می‌تواند آن را با <strong>[[POLLEDIT.EDITPOLL]]</strong> تغییر دهد و با <strong>[[POLLEDIT.REMOVEPOLL]]</strong> حذف کند. ناظران همیشه می‌توانند نظرسنجی‌ها را تغییر دهند و حذف کنند.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "ایجاد و شرکت در رأی گیری"
+            "#text": "نظرسنجی‌ها"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>هنگامی که وارد انجمن می شوید، ممکن است یک پنجره کوچک اطلاع رسانی، در وسط صفحه مرورگر شما باز شود.</p>\r\n<p>این پنجره شما را از فعالیت های زیر آگاه می کند:</p>\r\n<ul>\r\n<li>پیام خصوصی جدید</li>\r\n<li>تقاضای دوستی جدید</li>\r\n<li>تقاضای دوستی تایید شده</li>\r\n<li>تقاضای دوستی رد شده<br />\r\n</li>\r\n</ul>\r\n<p><em>همچنین ممکن است اطلاعات دیگر و پیام های خطا را از همین طریق دریافت کنید.</em></p>\r\n    "
+            "#text": "<p>زنگ نوار بالا اعلان‌های شما را نشان می‌دهد و عدد قرمز، اعلان‌های خوانده‌نشده را می‌شمارد. در این موارد باخبر می‌شوید:</p>\r\n<ul>\r\n<li>کسی از شما نام می‌برد (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) یا از شما نقل‌قول می‌کند (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>)،</li>\r\n<li>کسی به یکی از پست‌های شما واکنش نشان می‌دهد،</li>\r\n<li>پاسخ جدیدی در موضوعی که پیگیری می‌کنید یا موضوع جدیدی در انجمنی که پیگیری می‌کنید هست،</li>\r\n<li>دوست جدیدی دارید.</li>\r\n</ul>\r\n<p>روی یک اعلان کلیک کنید تا پست باز شود. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> فهرست همه‌ی اعلان‌ها را باز می‌کند، با فیلتری بر اساس نوع و <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>اعلان‌ها بخشی از جریان فعالیت هستند: می‌توانید آن‌ها را در <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> خاموش کنید.</p>\r\n<h3 class=\"h6 mt-3\">پیام‌های دیگر</h3>\r\n<ul>\r\n<li>پیام‌های خصوصی جدید و درخواست‌های دوستی کنار نام شما شمرده می‌شوند. وقتی صفحه‌ای را باز می‌کنید، پنجره‌ای می‌پرسد که آیا می‌خواهید آن‌ها را بخوانید.</li>\r\n<li>پیام‌های انجمن (مثلاً «ذخیره شد») چند ثانیه در بالای صفحه ظاهر می‌شوند.</li>\r\n<li>اعلان‌ها را می‌توان با ایمیل و به مرورگر یا تلفن شما هم فرستاد، ببینید <a href=\"[[help:mailsettings]]\">تنظیمات اعلان‌ها</a> و <a href=\"[[help:push]]\">اعلان‌های پوش و برنامه</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "اعلان از طریق پنجره کوچک"
+            "#text": "اعلان‌ها"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>هنگامیکه می خواهید پیامی را ارسال کنید، ممکن است بخواهید نوشته خود را بصورت ضخیم، کج ، زیرخط  دار و... مفهوم تر کنید. </p>\r\n<p>افزودن چنین قالب هایی به نوشته از دو طریق انجام می گیرد:</p>\r\n<ul>\r\n<li>کلیک بر روی دکمه ها، مشابه آنچه در اکثر برنامه های واژه پرداز دیده می شود.</li>\r\n<li>تایپ کردن فرامین قالب گذاری BBCode</li>\r\n</ul>\r\n<p>دکمه های قالب گذاری در ویراشگرهای معمولی و پیشرفته (آنچه می بینید همان است که نمایش داده می شود) موجود است. تفاوت این دو ویرایشگر در آن است که در ویرایشگر معمولی، در هنگام ویرایش BBCode نمایش داده میشود و تنها در موقع (پیش)نمایش ارسال قالب ها نشان داده میشوند. ویراشگر پیشرفته در هنگام ویرایش نیز پیام شما را در قالب نهایی آن نمایش می دهد. (BBCode را نشان نمیدهد).</p>\r\n<p>گروه مدیریت تعیین می کنند که کدام ویرایشگر فعال باشد.</p>\r\n<p>برای استفاده از امکانات قالب گذاری، کافیست برروی دکمه مربوطه (به عنوان مثال ضخیم نویسی B( کلیکی کنید.سپس هر چه تاثپ کنید در آن قالب نمایش داده می شود. همچنین می توانید نوشته تایپ شده ای را که می خواهید قالبش را تغییر دهید، علامت گذاری کنید سپس دکمه قالب گذاری مورد نیاز را کلیک کنید.</p>\r\n<p>BBCode، گروهی از کدهای شبیه HTML هستند که می توانید آنها را در پیامهای ارسالی خود در انجمن بکار برید.</p>\r\n    "
+            "#text": "<p>انجمنی را که موضوع به آن مربوط است باز کنید و روی <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong> کلیک کنید. اگر این دکمه را نمی‌بینید، اجازه‌ی ایجاد موضوع در این انجمن را ندارید (یا وارد نشده‌اید).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - عنوان موضوع، که الزامی است. هنگام تایپ، انجمن <strong>[[POSTS.SIMILAR_TOPICS]]</strong> را نشان می‌دهد، شاید به پرسش شما قبلاً پاسخ داده شده باشد.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - یک توضیح کوتاه اختیاری.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - کلیدواژه‌های اختیاری، اعضای دیگر می‌توانند موضوع‌ها را از روی برچسب‌هایشان پیدا کنند.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - فقط برای اعضایی که این اجازه را دارند، ببینید <a href=\"[[help:anounce]]\">اطلاعیه‌ها و موضوع‌های سنجاق‌شده</a>.</li>\r\n<li>خود پیام، در ویرایشگر.</li>\r\n</ul>\r\n<p>در <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> می‌توانید یک نظرسنجی اضافه کنید (<strong>[[POLLEDIT.POLLADD]]</strong>، ببینید <a href=\"[[help:polls]]\">نظرسنجی‌ها</a>) و موضوع را پیگیری کنید (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). روی <strong>[[POSTMESSAGE.PREVIEW]]</strong> کلیک کنید تا پست خود را بررسی کنید و روی <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> تا آن را منتشر کنید.</p>\r\n<h3 class=\"h6 mt-3\">ویرایشگر</h3>\r\n<p>بسته به انجمن، ویرایشگر هنگام تایپ قالب‌بندی را نشان می‌دهد، یا کدهای BB را (برچسب‌های کوتاهی مانند <code>[b]پررنگ[/b]</code>). دکمه‌های نوار ابزار متن را قالب‌بندی می‌کنند: متن را انتخاب کنید و روی دکمه کلیک کنید، مثلاً برای متن پررنگ، پیوند، نقل‌قول یا فهرست. همه‌ی کدهای BB و نتیجه‌ی آن‌ها در <a href=\"[[help:bbcodes]]\">کدهای BB</a> فهرست شده‌اند.</p>\r\n<ul>\r\n<li><code>@</code> و سپس یک نام را تایپ کنید تا از یک عضو نام ببرید، ببینید <a href=\"[[help:mentions]]\">نام بردن و برچسب‌ها</a>.</li>\r\n<li>فایل‌ها و تصاویر با دکمه‌ی پیوست اضافه می‌شوند، ببینید <a href=\"[[help:attachments]]\">پیوست‌ها و تصاویر</a>.</li>\r\n<li>در ویرایشگر کدهای BB، کلیدهای Ctrl+B، Ctrl+I و Ctrl+U متن انتخاب‌شده را قالب‌بندی می‌کنند و Ctrl+Enter پست را می‌فرستد.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">خوب است بدانید</h3>\r\n<ul>\r\n<li>مهمانان (اگر اجازه‌ی ارسال پست داشته باشند) نامی در <strong>[[POSTMESSAGE.FROM]]</strong> وارد می‌کنند که نباید نام یکی از اعضا باشد.</li>\r\n<li>برای جلوگیری از هرزنامه، باید بین دو پست چند ثانیه صبر کنید و هر پست حداکثر طولی دارد.</li>\r\n<li>در برخی انجمن‌ها، پست‌ها ابتدا توسط یک ناظر بررسی می‌شوند. پست شما پس از تأیید نمایش داده می‌شود.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "ارسال مبحث و پیام جدید"
+            "#text": "ایجاد موضوع جدید"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "تنظیمات و ویژگی های نمایه"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>با استفاده از انجمن، قوانین آن را می‌پذیرید. صفحه‌ی <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> قوانین و سیاست حفظ حریم خصوصی را در بر دارد: انجمن چه داده‌های شخصی‌ای را، برای چه هدف‌هایی ذخیره می‌کند و شما چه حقوقی دارید (مثلاً دریافت اطلاعات درباره‌ی داده‌هایتان یا درخواست حذف آن‌ها).</p>\r\n<p>صفحه‌ی <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> کوکی‌های انجمن را فهرست می‌کند، اینکه برای چه استفاده می‌شوند و چه مدت نگه داشته می‌شوند. هنگامی که برای نخستین بار از انجمن بازدید می‌کنید، یک اطلاعیه شما را از کوکی‌ها آگاه می‌کند.</p>\r\n<p>پروفایل شما فقط اطلاعاتی را نشان می‌دهد که خودتان وارد می‌کنید و نشانی ایمیل شما هرگز به اعضای دیگر نشان داده نمی‌شود. می‌توانید خود را از فهرست کاربران فعال پنهان کنید (اگر انجمن اجازه دهد)، پیام‌های خصوصی و ایمیل‌ها را مسدود کنید و حساب خود را حذف کنید، ببینید <a href=\"[[help:blocking]]\">نادیده گرفتن و مسدود کردن کاربران</a> و <a href=\"[[help:deleteaccount]]\">تعلیق یا حذف حساب</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "حریم خصوصی، کوکی‌ها و قوانین"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>به عنوان عضو انجمن، شما یک صفحه مشخصاتی دارید که برای عموم قابل مشاهده است. این  صفحه حاوی اطلاعاتی است که شما یا در هنگام ثبت نام و یا پس از آن از طریق صفحه تنظیمات، وارد کرده اید.</p>\r\n<p><em>راههای گوناگونی برای مشاهده مشخصات فردی اعضاء وجود دارد:</em></p>\r\n<ul>\r\n<li>هنگامی که بر روی نام کاربری افراد کلیک کنید، یک منو کوچک باز می شود که حاوی پیوند \"مشخصات فردی\" است.</li>\r\n<li>کلیک بر روی نام کاربری در فهرست اعضاء انجمن، مشخصات فردی آن عضو را نمایش می دهد.</li>\r\n<li>هنگامیکه وارد انجمن شده باشید، می توانید با کلیک بر روی پیوند  \"تنظیمات من\" در سربرگ بالای صحه و سپس کلیک بر روی \"نمایش مشخصات فردی\" مشخصات فردی خود را مشاهده نمایید.</li>\r\n</ul>\r\n<p><strong>چه اطلاعاتی در آن صفحه نمایش داده می شود؟</strong></p>\r\n<p>صفحه مشخصات فردی حاوی 5  برگه است:</p>\r\n<ul>\r\n<li><strong>درباره</strong> - کلیه اطلاعاتی که کاربر در مورد خودش ارائه داده است را نمایش می دهد. مشخصاتی مانند: اسم واقعی، جنسیت، موقعیت روی خط بودن یا نبودن، رتبه کاربری و امثالهم.</li>\r\n<li><strong>آمار</strong> آمار فعالیت کاربر را نمایش می دهد. مواردی همچون، تاریخ عضویت، آخرین دیدار از انجمن، تعداد قدردانی ها و تعداد ارسالهایی که از آنها تشکر شده. </li>\r\n<li><strong>10 ارسال آخر</strong> - 10 ارسال آخری که کاربر داشته است را نمایش می دهد.</li>\r\n<li><strong>دوستان</strong> - دوستان کاربر در انجمن را نمایش می دهد.</li>\r\n<li><strong>آلبومها</strong> - آلبوم عکس هایی را که کاربر ایجاد کرده است نمایش می دهد.</li>\r\n</ul>\r\n<p>مشخصات شخصی همچون نشانی ایمیل یا رمز عبور نمایش داده  <strong>نمی شود</strong>.</p> "
+            "#text": "<p>روی نام یک عضو (مثلاً در یک پست یا در فهرست اعضا) کلیک کنید تا پروفایلش باز شود. بسته به انجمن، پروفایل‌ها فقط به اعضا نشان داده می‌شوند. پروفایل خودتان با <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> در <strong>[[TOOLBAR.MYPROFILE]]</strong> باز می‌شود.</p>\r\n<p>پروفایل این موارد را نشان می‌دهد:</p>\r\n<ul>\r\n<li>آواتار، نام، رتبه و مدال‌های عضو، و اطلاعات پروفایل (مثلاً محل، تاریخ تولد، شغل و علاقه‌مندی‌ها)،</li>\r\n<li>تعداد پست‌ها و تعداد واکنش‌های داده‌شده و دریافت‌شده،</li>\r\n<li>اعتبار (اگر انجمن از آن استفاده کند)،</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>، همراه با <strong>[[PROFILE.SEARCHUSER]]</strong>،</li>\r\n<li>دوستان و آلبوم‌های عضو.</li>\r\n</ul>\r\n<p>دکمه‌های پروفایل به شما امکان می‌دهند <strong>[[BUDDY.ADDBUDDY]]</strong>، یک پیام خصوصی (<strong>[[POSTS.PM]]</strong>) یا ایمیل (<strong>[[POSTS.EMAIL]]</strong>) بفرستید، و وب‌سایت یا وبلاگ عضو را باز کنید. نشانی ایمیل اعضا هرگز نمایش داده نمی‌شود.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "نمایه عمومی من"
+            "#text": "پروفایل‌ها"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "خواندن و ارسال پیام"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>اعلان‌های پوش پاسخ‌های جدید در موضوع‌های پیگیری‌شده و اعلان‌های دیگر را روی رایانه یا تلفن شما نشان می‌دهند، حتی وقتی انجمن باز نیست.</p>\r\n<ol>\r\n<li><strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> را در منوی کاربری (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) باز کنید.</li>\r\n<li>در <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> روی <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> کلیک کنید و وقتی مرورگر پرسید، اعلان‌ها را مجاز کنید.</li>\r\n</ol>\r\n<p>اعلان‌های پوش برای هر دستگاه و هر مرورگر جداگانه تنظیم می‌شوند. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> آن‌ها را برای این دستگاه خاموش می‌کند. اعلان‌ها از طریق سرویس پوش مرورگر شما (مثلاً سرویس Google، Mozilla، Apple یا Microsoft) فرستاده می‌شوند و رمزگذاری شده‌اند.</p>\r\n<h3 class=\"h6 mt-3\">نصب انجمن به صورت برنامه</h3>\r\n<p>می‌توانید انجمن را مانند یک برنامه نصب کنید، با نماد خودش روی صفحه‌ی اصلی گوشی یا دسکتاپ: روی <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> در همان صفحه کلیک کنید، یا از امکان نصب مرورگر خود استفاده کنید. در iPhone و iPad اعلان‌های پوش فقط در برنامه‌ی نصب‌شده کار می‌کنند: روی «اشتراک‌گذاری» و سپس <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> بزنید، انجمن را از صفحه‌ی اصلی باز کنید و سپس اعلان‌ها را فعال کنید.</p>\r\n<p class=\"text-body-secondary small\">این بخش فقط در صورتی نمایش داده می‌شود که مدیر اعلان‌های پوش را راه‌اندازی کرده باشد.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "اعلان‌های پوش و برنامه"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "خواندن"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>در صورتیکه کلمه عبور خود را فراموش کرده اید بر روی  \"<a href=\"{0}\">کلمه عبور فراموش شده</a>\"\r\nکلیک کنید. این پیوند در هر صفحه که نیاز به کلمه عبور داشته باشد نمایش داده خواهد شد. </p>\r\n<p> این پیوند صفحه ای را باز می کند که باید نشانی ایمیل خود را وارد کنید. ایمیل ای به آن نشانی، با توضحیات مبنی بر چگونگی تعویض کلمه عبور، برای شما فرستاده خواهد شد.</p>\r\n<p> چون کلمه عبور رمز گذاری شده است امکان فرستادن رمز اصلی شما نیست .\r\nاین گزینه به شما امکان تعیین مجدد کلمه عبور را به شما می دهد.  </p>\r\n<p> شما باید امکان دریافت ایمیل به نشانی ثبت شده خود را داشته باشید تا این امکان میسر باشد.\r\nاگر ظرف چند دقیقه ایمیل را دریافت نکردید، ممکن است نیاز باشد که پوشه هرزنامه های خود را بررسی کنید.\r\n</p>"
+            "#text": "<p>اگر رمز عبور خود را فراموش کرده‌اید، می‌توانید رمز جدیدی تعیین کنید:</p>\r\n<ol>\r\n<li>روی <strong>[[LOGIN.LOSTPASSWORD]]</strong> کنار فیلد رمز عبور در <a href=\"[[page:Account_Login]]\">صفحه‌ی ورود</a> یا پنجره‌ی ورود کلیک کنید.</li>\r\n<li>نام کاربری یا نشانی ایمیل خود را وارد کنید و روی <strong>[[LOGIN.RECOVER]]</strong> کلیک کنید.</li>\r\n<li>اگر حسابی با این نام یا نشانی وجود داشته باشد، انجمن ایمیلی حاوی یک پیوند برایتان می‌فرستد. برای حفظ حریم خصوصی شما، صفحه در هر حال همان پیام را نشان می‌دهد.</li>\r\n<li>پیوند صفحه‌ای را باز می‌کند که در آن نشانی ایمیل و رمز عبور جدید خود را دو بار وارد می‌کنید.</li>\r\n</ol>\r\n<p>پیوند فقط برای مدت محدودی معتبر است. اگر هنوز نشانی ایمیل خود را تأیید نکرده‌اید، به جای آن یک ایمیل تأیید جدید دریافت می‌کنید. انجمن در هر ساعت حداکثر چند ایمیل از این نوع می‌فرستد.</p>\r\n<p>رمزهای عبور به شکلی ذخیره می‌شوند که قابل بازخوانی نیستند، بنابراین هیچ‌کس (حتی مدیر) نمی‌تواند رمز عبور قدیمی شما را به شما بگوید.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "بازیابی کلمه عبور فراموش شده"
+            "#text": "بازیابی رمز عبور فراموش‌شده"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>برای استفاده از کلیه امکانات انجمن نیاز است که ثبت نام کنید. ثبت نام کردن به شما در انجمن هویت می دهد، یک نام کاربری ثابت برای همه پیام هایی که شما ارسال می کنید و مشخصات فردی عمومی. </p>\r\n<p>ثبت نام مجانی و برای همگان آزاد است و امکانات زیر را به شما می دهد:</p>\r\n<ul>\r\n<li>ایجاد مبحث جدید</li>\r\n<li>ارسال پاسخ به مباحثی که دیگران ایجاد کرده اند</li>\r\n<li>ویرایش پیام های خودتان</li>\r\n<li>دریافت ایمیل هنگامی که پیام ها و مباحثی که تعیین کرده اید پاسخ جدیدی دارند</li>\r\n<li>ارسال پیام خصوصی به دیگر اعضاء انجمن</li>\r\n</ul>\r\n<p><strong>چگونه ثبت نام کنم؟</strong></p>\r\n<p>برای ثبت نام، برروی دکمه ثبت نام در سربرگ انجمن کلیک کنید. ابتدا باید قوانین و مقررات انجمن را بپذیرید. سپس از شما خواسته می شود تا یک نام کاربری، رمز عبور، سوال و پاسخ امنیتی، و یک ایمیل معتبر وارد کنید. در صفحه بعدی شما می توانید مشخصات شخصی خود را ارائه دهید.</p>\r\n    "
+            "#text": "<p>بسیاری از امکانات انجمن فقط برای اعضا در دسترس است، مثلاً نوشتن پست، پیام‌های خصوصی، دوستان، پیگیری موضوع‌ها و اعلان‌ها. برای عضو شدن، روی <strong>[[TOOLBAR.REGISTER]]</strong> در نوار بالا کلیک کنید (اگر مدیر ثبت‌نام جدید را مجاز کرده باشد).</p>\r\n<ol>\r\n<li>اگر انجمن درخواست کند، <strong>[[RULES.TITLE]]</strong> را بخوانید و روی <strong>[[RULES.ACCEPT]]</strong> کلیک کنید.</li>\r\n<li>یک نام کاربری، نشانی ایمیل خود و یک رمز عبور (دو بار) وارد کنید. بسته به انجمن، یک نام نمایشی و اطلاعات دیگری را که مدیر خواسته است هم وارد می‌کنید.</li>\r\n<li>روی <strong>[[REGISTER.REGISTER]]</strong> کلیک کنید.</li>\r\n<li>انجمن <strong>[[REGISTER.CHECK_MAIL]]</strong> را نشان می‌دهد و برایتان یک ایمیل می‌فرستد. روی پیوند این ایمیل کلیک کنید تا نشانی خود را تأیید کنید. پس از آن حساب شما فعال است و می‌توانید وارد شوید.</li>\r\n</ol>\r\n<p>اگر ایمیل نرسید، پوشه‌ی هرزنامه را بررسی کنید. اگر پیش از تأیید نشانی بخواهید وارد شوید، صفحه‌ی ورود این را به شما می‌گوید و <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong> را پیشنهاد می‌کند.</p>\r\n<p>در برخی انجمن‌ها حساب‌های جدید باید ابتدا توسط مدیر تأیید شوند. پس از تأیید حسابتان با ایمیل باخبر می‌شوید.</p>\r\n<p>پس از ثبت‌نام می‌توانید پروفایل خود را کامل کنید، ببینید <a href=\"[[help:editprofile]]\">ویرایش پروفایل</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "ثبت نام"
+            "#text": "ثبت‌نام"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>در برخی انجمن ها ممکن است که بتوانید به عنوان مهمان هم به مباحث پاسخ دهید ولی در بیشتر انجمن ها نیاز هست که ثبت نام کنید.</p>\r\n<p>کاربر ثبت نام شده می تواند به تالاری از انجمن که اجازه دسترسی به مباحث آن را دارد رفته و پاسخ ارسال نماید. برای پاسخگویی چند گزینه وجود دارد. می توانید بر روی دکمه \"ارسال پاسخ\" کلیک نمایید و پاسخی در انتهای مبحث اضافه کنید. روش دیگر این است که یک پاسخ سریع در محوطه \"پاسخ سریع\" که زیر پیامها موجود است ارسال نمایید.</p>\r\n<p>اگر می خواهید به یک پیام خاص پاسخ دهید، دکمه \"نقل قول\" را کلیک کنید. در این حالت می توانید پیام خود را در زیر پیام نقل قول شده تایپ نمایید.</p>\r\n    "
+            "#text": "<p>برای پاسخ دادن به یک موضوع، روی <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> بالا یا پایین پست‌ها، یا روی <strong>[[BUTTON.BUTTON_REPLY]]</strong> زیر یک پست کلیک کنید. صفحه‌ی پاسخ، <strong>[[POSTMESSAGE.LAST10]]</strong> موضوع را زیر ویرایشگر نشان می‌دهد تا بتوانید هنگام نوشتن آن‌ها را بخوانید.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>برای یک پاسخ کوتاه از کادر پاسخ سریع زیر پست‌ها، یا دکمه‌ی <strong>[[POSTS.QUICKREPLY]]</strong> یک پست استفاده کنید. متن خود را بنویسید و روی <strong>[[COMMON.POST]]</strong> کلیک کنید. برای ویرایشگر کامل (مثلاً برای پیوست کردن فایل) روی <strong>[[COMMON.TT_EDITOR]]</strong> کلیک کنید.</p>\r\n<h3 class=\"h6 mt-3\">نقل‌قول</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> زیر یک پست، پاسخی را با متن آن پست به صورت نقل‌قول آغاز می‌کند.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> چند پست را جمع می‌کند، حتی از صفحه‌های دیگر موضوع. سپس روی <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> یکی از آن‌ها کلیک کنید تا پاسخ از همه‌ی پست‌های جمع‌شده نقل‌قول کند.</li>\r\n<li>برای نقل‌قول فقط بخشی از متن، آن را در پست انتخاب کنید، روی آن راست‌کلیک کنید و <strong>[[COMMON.SELECTED_QUOTE]]</strong> را انتخاب کنید.</li>\r\n</ul>\r\n<p>نقل‌قول‌های طولانی را به بخشی که به آن پاسخ می‌دهید کوتاه کنید. عضوی که از او نقل‌قول شده باخبر می‌شود.</p>\r\n<p>فقط در صورتی می‌توانید پاسخ دهید که در این انجمن اجازه‌اش را داشته باشید، و نه در موضوع قفل‌شده. مهمانان فقط در صورتی می‌توانند پاسخ دهند که انجمن اجازه دهد.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "پاسخگویی به یک پیام"
+            "#text": "پاسخ دادن و نقل‌قول"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>اگر پستی قوانین انجمن را زیر پا بگذارد (مثلاً هرزنامه، توهین یا محتوای غیرقانونی)، لطفاً به جای پاسخ دادن به آن، آن را به ناظران گزارش دهید:</p>\r\n<ol>\r\n<li>منوی پست (سه نقطه در گوشه‌ی بالای آن) را باز کنید و <strong>[[POSTS.REPORTPOST]]</strong> را انتخاب کنید.</li>\r\n<li>بنویسید چرا پست را گزارش می‌کنید.</li>\r\n<li>روی <strong>[[REPORTPOST.SEND]]</strong> کلیک کنید.</li>\r\n</ol>\r\n<p>ناظران انجمن پست گزارش‌شده را بررسی می‌کنند و تصمیم می‌گیرند چه کاری انجام دهند. نویسنده نمی‌بیند چه کسی پست را گزارش کرده است. بسته به انجمن، فقط اعضا می‌توانند پست‌ها را گزارش کنند.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "گزارش یک پست"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>خبررسان در حال حاضر در دو قالب RSS و Atom ارائه می‌شوند.</p>\r\nخبرهای انجمن، موضوعات و موضوعات فعال را دریافت کنید.</p>\r\n<p>بیشتر مرورگرهای مدرن امکاناتی برای خواندن خبرهای RSS دارند و به طور خودکار در دسترس بودن اخبارها را در صفحات انجمن YAF تشخیص می دهند.</p>"
+            "#text": "<p>خوراک‌ها به شما امکان می‌دهند انجمن را بدون بازدید از آن، در یک برنامه‌ی خوراک‌خوان دنبال کنید. انجمن خوراک‌های Atom را برای این موارد ارائه می‌دهد:</p>\r\n<ul>\r\n<li>آخرین پست‌ها (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> در صفحه‌ی اصلی)،</li>\r\n<li>موضوع‌های یک انجمن (دکمه‌ی خوراک در نوار بالای فهرست موضوع‌ها)،</li>\r\n<li>پست‌های یک موضوع (<strong>[[POSTS.TOOLS]]</strong>، <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>نشانی خوراک را در خوراک‌خوان خود کپی کنید. اینکه انجمن خوراک ارائه دهد و چه کسانی بتوانند از آن استفاده کنند (اغلب فقط اعضا) را مدیر تعیین می‌کند. اگر دکمه‌ی خوراک را نمی‌بینید، خوراک‌ها برای شما در دسترس نیستند.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "خبررسان RSS و Atom"
+            "#text": "خوراک‌ها"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>برای یافتن سریع موضوع یا پست مورد علاقه در هر نقطه از انجمن، روی پیوند \"جستجو\" در سربرگ کلیک کنید. سپس، کلمه یا عبارتی را که می‌خواهید جستجو کنید تایپ کنید.</p>\r\n<p>برای کنترل بیشتر بر روی جستجو، می‌توانید جستجوی خود را به تالارهای گفتمان فردی محدود کنید، یا پست‌ها یا موضوعاتی را که توسط یک کاربر مشخص نوشته شده است بیابید. همچنین می توانید انتخاب کنید که چه تعداد نتیجه در هر صفحه نمایش داده شود.</p>"
+            "#text": "<p>روی <strong>[[TOOLBAR.SEARCH]]</strong> در نوار بالا کلیک کنید، دست‌کم چند حرف وارد کنید و Enter را بزنید یا روی <strong>[[SEARCH.BTNSEARCH]]</strong> کلیک کنید. گزینه‌های جستجو به شما امکان می‌دهند:</p>\r\n<ul>\r\n<li>پست‌ها، موضوع‌ها یا انجمن‌ها را جستجو کنید،</li>\r\n<li>فقط در پست‌های یک عضو جستجو کنید،</li>\r\n<li>موضوع‌های دارای یک برچسب را جستجو کنید،</li>\r\n<li>عبارت دقیق، هر یک از واژه‌ها یا همه‌ی واژه‌ها را تطبیق دهید،</li>\r\n<li>فقط در برخی انجمن‌ها جستجو کنید،</li>\r\n<li>در متن کامل پست‌ها یا فقط در عنوان‌ها جستجو کنید،</li>\r\n<li>تعداد نتایج در هر صفحه را انتخاب کنید.</li>\r\n</ul>\r\n<p>جستجو فقط چیزهایی را پیدا می‌کند که اجازه‌ی خواندنشان را دارید. راه‌های دیگر جستجو:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> بالای فهرست موضوع‌ها در یک انجمن جستجو می‌کند.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> در منوی یک پست یا در پروفایل، پست‌های آن عضو را فهرست می‌کند.</li>\r\n<li>یک برچسب زیر عنوان موضوع، همه‌ی موضوع‌های دارای آن برچسب را نشان می‌دهد.</li>\r\n<li>متنی را در یک پست انتخاب کنید و روی آن راست‌کلیک کنید تا واژه‌های انتخاب‌شده را جستجو کنید.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "جستجو در انجمن و مباحث"
+            "#text": "جستجو"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>اشتراک‌ها راهی برای پیگیری موضوعات مختلف و/یا انجمن‌ها است. می‌توانید نحوه اطلاع‌رسانی در مورد تغییرات را انتخاب کنید.</p>\r\n<p>یا اگر نمی‌خواهید به صورت دستی در موضوعی که می‌خواهید دنبال کنید مشترک شوید، می‌توانید گزینه \"اعلان برای موضوعاتی که در آن پست کرده‌اید یا تماشا کرده‌اید\" را در صفحه تنظیمات برگزیده اعلان ایمیل در داخل پانل کاربری فعال کنید.</p>\r\n<p><strong>چگونه یک موضوع را تماشا کنیم؟</strong></p>\r\n<p>برای اشتراک در یک موضوع، روی پیوند \"گزینه‌ها\" در بالای لیست پست‌ها کلیک کنید و سپس روی \"تماشای این موضوع\" کلیک کنید.</p>\r\n<p><strong>چگونه یک انجمن تماشا کنیم؟</strong></p>\r\n<p>برای اشتراک در یک انجمن، روی پیوند \"تماشا به انجمن\" در زیر لیست موضوعات کلیک کنید.</p>\r\n<p><strong>چگونه اشتراک‌های موضوعات و انجمن‌های تماشا شده خود را مدیریت کنم؟</strong></p>\r\n<p>می‌توانید فهرست «تالارهای تماشا شده» و «موضوعات مشاهده‌شده» را از صفحه «اولویت‌های اعلان ایمیل» پنل کنترل کاربر خود مشاهده کنید. در آنجا می‌توانید با کلیک بر روی دکمه \"عدم تماشا\"، اشتراک‌هایی را که می‌خواهید حذف کنید، انتخاب کنید.</p>"
+            "#text": "<p>وقتی یک موضوع یا انجمن را پیگیری می‌کنید، از پست‌های جدید باخبر می‌شوید: در اعلان‌های انجمن و (بسته به <a href=\"[[help:mailsettings]]\">تنظیمات اعلان‌ها</a> که انتخاب کرده‌اید) با ایمیل و اعلان پوش.</p>\r\n<ul>\r\n<li><strong>یک موضوع:</strong> روی <strong>[[POSTS.TOOLS]]</strong> زیر عنوان موضوع و سپس <strong>[[POSTS.WATCHTOPIC]]</strong> کلیک کنید. هنگام نوشتن یک پست هم می‌توانید <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> را روشن کنید.</li>\r\n<li><strong>یک انجمن:</strong> روی <strong>[[TOPICS.WATCHFORUM]]</strong> در نوار بالای فهرست موضوع‌ها کلیک کنید. از موضوع‌های جدید این انجمن باخبر می‌شوید.</li>\r\n<li><strong>همه‌ی انجمن‌ها:</strong> روی <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> در صفحه‌ی اصلی کلیک کنید.</li>\r\n</ul>\r\n<p>برای توقف پیگیری، روی <strong>[[POSTS.UNWATCHTOPIC]]</strong> یا <strong>[[TOPICS.UNWATCHFORUM]]</strong> کلیک کنید. در <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> همه‌ی <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> و <strong>[[SUBSCRIPTIONS.TOPICS]]</strong> را پیدا می‌کنید، چند مورد را انتخاب کنید و روی <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> کلیک کنید تا پیگیری آن‌ها متوقف شود.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "اشتراک و اطلاع رسانی"
+            "#text": "پیگیری موضوع‌ها و انجمن‌ها"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>امکان قدردانی (تشکر) - وسیله ای است که به کاربران این امکان را می دهد که به دیگر کاربران نظر مثبت دهیم، به عنوان مثال وقتی کاربر پیامی را ارسال کرده است که شما آن را مفید یافته اید یا مشکل شما را حل کرده است.</p>\r\n<p><strong>چکونه از کاربری تشکر کنیم؟</strong></p>\r\n<p>اگر می خواهید از کاربری قدردانی کنید، دکمه \"تشکر\" را در بالای ارسال مورد نظر، کلیک کنید، بعد از آن شما نام خود را در لیست کسانی که تشکر کرده اند در پایین پیام مشاهده می کنید. شما همچنان می توانید تشکر خود را حذف کنید.</p>\r\n<p><strong>مشاهده همه تشکرها</strong></p>\r\n<p>چنانچه می خواهید تمام ارسالهایی را که از آنها تشکر کرده اید، یا ارسالهای شما که از آنها تشکر شده است را مشاهده نمایید، به صفحه \"تنظیمات من\" تحت قسمت مشخصات فردی، پیوند \"نمایش قدردانی ها\" را کلیک نمایید. در این صفحه دو برگه وجود دارد: </p>\r\n<ul>\r\n<li> <strong>قدردانی کرده</strong> - لیست پیامهایی را که شما از آنها تشکر کرده اید را نمایش می دهد.</li>\r\n<li><strong>قدردانی شده</strong> - لیست پیامهای شما که از آنها تشکر شده است را نمایش می دهد.</li>\r\n</ul>    "
+            "#text": "<h3 class=\"h6\">واکنش‌ها</h3>\r\n<p>با یک واکنش به نویسنده‌ی پست نشان می‌دهید که آن را می‌پسندید، بی‌آنکه پاسخی بنویسید. روی دکمه‌ی شکلک (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) زیر یک پست کلیک کنید و <strong>[[BUTTON.REACTION_LIKE]]</strong>، <strong>[[BUTTON.REACTION_LOVE]]</strong>، <strong>[[BUTTON.REACTION_LAUGH]]</strong>، <strong>[[BUTTON.REACTION_HOORAY]]</strong> یا <strong>[[BUTTON.REACTION_WOW]]</strong> را انتخاب کنید.</p>\r\n<ul>\r\n<li>برای برداشتن واکنش خود دوباره روی آن کلیک کنید، یا برای تغییر آن روی واکنش دیگری کلیک کنید.</li>\r\n<li>واکنش‌های یک پست با تعدادشان نمایش داده می‌شوند، نشانگر ماوس را روی آن‌ها ببرید تا ببینید چه کسانی واکنش نشان داده‌اند.</li>\r\n<li>به پست‌های خودتان، به پست‌های حذف‌شده و در موضوع‌های قفل‌شده نمی‌توانید واکنش نشان دهید.</li>\r\n<li>نویسنده باخبر می‌شود و واکنش‌ها در پروفایل شمرده می‌شوند (تشکرهای داده‌شده و دریافت‌شده).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">اعتبار</h3>\r\n<p>اگر انجمن از سیستم اعتبار استفاده کند، اعتبار هر عضو به صورت یک نوار در پروفایل نمایش داده می‌شود. اعضایی که خودشان اعتبار کافی دارند، می‌توانند از منوی کاربری یک پست به اعتبار عضو دیگری بیفزایند (+1) یا از آن بکاهند (-1).</p>\r\n<h3 class=\"h6 mt-3\">پاسخ یک پرسش</h3>\r\n<p>عضوی که موضوع را ایجاد کرده می‌تواند پاسخی را که به پرسشش جواب داده با <strong>[[POSTS.MARK_ANSWER]]</strong> علامت بزند. آن پست نشان پاسخ می‌گیرد تا خوانندگان دیگر راه‌حل را سریع پیدا کنند.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "امکان تشکر"
+            "#text": "واکنش‌ها و اعتبار"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>در بالای هر مبحث پیوند \"انتخاب ها\" موجود است. کلیک بر روی این پیوند، گزینه های زیر را نمایش می دهد:</p>\r\n<ul>\r\n<li><strong>پیگیری بحث</strong> -  با انتخاب این گزینه شما با دریافت ایمیل های دوره ای، از آخرین گفتگو های بحث با خبر می شوید.</li>\r\n<li><strong>چاپ بحث</strong> - صفحه ای  قابل چاپ با گرافیک کمتر را از ارسالها و پیامها نمایش می دهد.</li>\r\n<li><strong>خبررسان Atom</strong> - تمام ارسالهای بحث را از طریق خبررسان Atom نمایش می دهد.</li>\r\n<li><strong>خبررسان RSS</strong> - تمام ارسالهای بحث را از طریق خبررسان RSS نمایش می دهد.</li>\r\n</ul>"
+            "#text": "<p>نوار زیر عنوان یک موضوع، ابزارهای موضوع را در بر دارد:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - پیوند موضوع را با ایمیل برای کسی می‌فرستد (فقط برای اعضا).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - نشانی موضوع را کپی می‌کند، مثلاً برای پیوند دادن به آن در وب‌سایتی دیگر.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - از پاسخ‌های جدید باخبر می‌شوید، ببینید <a href=\"[[help:subscriptions]]\">پیگیری موضوع‌ها و انجمن‌ها</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - موضوع را در نسخه‌ای مناسب چاپ نشان می‌دهد.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - خوراک موضوع، اگر انجمن خوراک ارائه دهد، ببینید <a href=\"[[help:rss]]\">خوراک‌ها</a>.</li>\r\n</ul>\r\n<p>ناظران <strong>[[POSTS.MANAGE_TOPIC]]</strong> را هم می‌بینند تا موضوع را منتقل، قفل یا حذف کنند، ببینید <a href=\"[[help:moderating]]\">راهنمای ناظران</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "گزینه های موضوع"
+            "#text": "ابزارهای موضوع"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "در اینجا شما می توانید پاسخ پرسش های خود در مورد چگونگی استفاده از انجمن را پیدا کنید. روی عناوین سمت راست کلیک کنید یا با استفاده از جعبه جستجو در قسمت زیر، آنچه را که به دنبالش هستید، بیابید."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "نوشتن"
           }
         ]
       },

@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Wyrównuje tekst do lewej, do środka lub do prawej za pomocą <code>[left]</code>, <code>[center]</code> i <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Tekst wyśrodkowany[/center]\r\n[right]Tekst wyrównany do prawej[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Wyrównanie"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Pogrubia tekst."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Ten tekst jest pogrubiony[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Pogrubienie"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Pokazuje kod programu z jego podziałami wierszy i spacjami, kody BB wewnątrz nie są formatowane."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Koloruje kod w danym języku programowania, np. csharp, javascript, python, sql, css lub markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Kod z podświetlaniem"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Kod"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Koloruje tekst. Użyj nazwy koloru lub kodu koloru."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Czerwony tekst[/color] i [color=#0d6efd]niebieski tekst[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Kolor tekstu"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Te kody BB osadzają treści (np. filmy lub posty z innych stron) albo załączniki. Wpisz adres lub numer między znacznikami."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Link, który tworzy e-mail na podany adres."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]ktos@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "Adres e-mail"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Krótkie kody emoji w nawiasach kwadratowych i emotikony, takie jak :), zamieniają się w emoji."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Pokazuje tekst inną czcionką, jeśli jest ona dostępna na urządzeniu czytelnika."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Tekst czcionką Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Czcionka"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Więcej kodów BB tego forum"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Pokazuje tekst tylko zarejestrowanym użytkownikom, a z <code>[group-hide=Role1;Role2]</code> tylko użytkownikom tych ról."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Tylko zarejestrowani użytkownicy widzą ten tekst.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Ukryte dla grup"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Układ"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Linki i obrazy"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Listy"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Cytaty i kod"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Użytkownicy, spoilery i ukryte treści"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Formatowanie tekstu"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Ukrywa tekst, dopóki czytelnik nie zareaguje na post. Autor i administratorzy zawsze go widzą."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Ukryty tekst.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Ukrywa tekst przed użytkownikami, którzy napisali mniej postów niż podana liczba."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Ukryty tekst.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Ukryte przy małej liczbie postów"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Ukrywa tekst, dopóki czytelnik nie odpowie w temacie."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Ukryty tekst.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Ukrywa tekst, dopóki czytelnik nie odpowie w temacie lub nie zareaguje na post."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Ukryty tekst.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Ukryte do odpowiedzi lub reakcji"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Ukryte do odpowiedzi"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Ukrywa tekst przed użytkownikami, którzy otrzymali mniej reakcji niż podana liczba."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Ukryty tekst.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Ukryte przy małej liczbie reakcji"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Ukryte do reakcji"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Cztery lub więcej myślników w osobnym wierszu rysują linię poziomą."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Tekst nad linią\r\n----\r\nTekst pod linią"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Linia pozioma"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Wyróżnia tekst jak zakreślacz."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Ten tekst jest wyróżniony[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Wyróżnienie"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Pokazuje obraz z internetu. Adres musi kończyć się typem obrazu (np. .png lub .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Obraz z opisem, który jest pokazywany po najechaniu myszą na obraz i odczytywany przez czytniki ekranu."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]Logo YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Obraz z opisem"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Obraz"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Dodaje wcięcie tekstu."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Tekst z wcięciem[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Wcięcie"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Zapisuje tekst kursywą."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Ten tekst jest pochylony[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Kursywa"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Lista punktowana. Każdy element zaczyna się od <code>[*]</code> w nowym wierszu."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Pierwszy element\r\n[*]Drugi element\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Lista numerowana. Użyj <code>[list=a]</code> lub <code>[list=A]</code> dla liter, <code>[list=i]</code> lub <code>[list=I]</code> dla liczb rzymskich."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Pierwszy krok\r\n[*]Drugi krok\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Lista numerowana"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Lista"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Pokazuje kody BB w niezmienionej postaci, bez formatowania."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]bez pogrubienia[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Bez formatowania"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Pokazuje tekst w kolorowym polu. Dostępne typy to primary, secondary, success, danger, warning, info, light i dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Notatka z informacją.[/note]\r\n[note=warning]Ostrzeżenie.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Notatka"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Pokazuje tekst jako cytat. Przyciski cytowania przy postach wstawiają go za ciebie."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Cytowany tekst.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Cytat z nazwą jego autora."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Cytowany tekst.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Cytat z autorem"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Cytat"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Wynik"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Zmienia rozmiar tekstu, od 1 (bardzo mały) do 9 (bardzo duży). 5 to rozmiar normalny."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Mały[/size] [size=5]Normalny[/size] [size=7]Duży[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Rozmiar tekstu"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Ukrywa tekst, dopóki czytelnik nie kliknie przycisku, np. zakończenie filmu."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]To zrobił ogrodnik.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Przekreśla tekst, np. coś, co już nie obowiązuje."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Ten tekst jest przekreślony[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Przekreślenie"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Tworzy tabelę: <code>[tr]</code> to wiersz, <code>[td]</code> komórka wiersza."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Nazwa[/td][td]Posty[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Tabela"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Adresy stron internetowych automatycznie stają się linkami. Możesz je też umieścić w <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Link, który zamiast adresu pokazuje tekst."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]Strona YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Link z tekstem"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Link"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Link do profilu użytkownika. Wpisanie @ w edytorze tworzy go za ciebie, a użytkownik dostaje powiadomienie."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Link do użytkownika"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Podkreśla tekst."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Ten tekst jest podkreślony[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Podkreślenie"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Wpisujesz"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Twoje konto"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Ogłoszenia to specjalne wiadomości napisane przez administratora lub moderatora. Są prostą jednokierunkową komunikacją z użytkownikami i nie można na  nie odpowiedzieć. Jeśli chcesz dyskutować o ogłoszeniach, trzeba będzie utworzyć nowy wątek na forum. </ P>\r\n<p> Ogłoszenia są wyświetlane w górnej części forum, nad zwykłymi i przyklejonymi tematami. </ p>        "
+            "#text": "<p>Niektóre tematy są ważniejsze od innych:</p>\r\n<ul>\r\n<li><strong>Tematy przyklejone</strong> pozostają na górze listy tematów swojego forum, np. regulamin lub najczęściej zadawane pytania forum.</li>\r\n<li><strong>Ogłoszenia</strong> to ważne informacje, są również pokazywane na górze listy tematów i oznaczone plakietką.</li>\r\n</ul>\r\n<p>Kto może je tworzyć, ustala administrator (zwykle moderatorzy i administratorzy). Wybierają to za pomocą <strong>[[POSTMESSAGE.PRIORITY]]</strong> podczas pisania lub edycji tematu. Na tematy przyklejone i ogłoszenia możesz odpowiadać tak jak na każdy inny temat, chyba że temat jest zamknięty.</p>\r\n<h3 class=\"h6 mt-3\">Ogłoszenia forum</h3>\r\n<p>Administrator może też wyświetlać ogłoszenie na każdej stronie forum, np. o planowanej przerwie technicznej. Możesz je zamknąć przyciskiem po jego prawej stronie.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Ogłoszenia"
+            "#text": "Ogłoszenia i tematy przyklejone"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Tryb jasny i ciemny</h3>\r\n<p>Przycisk trybu kolorów w nagłówku przełącza między <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> i <strong>[[THEME_MODE.AUTO]]</strong> (tryb twojego urządzenia). Forum zapamiętuje twój wybór w tej przeglądarce.</p>\r\n<h3 class=\"h6 mt-3\">Motyw i język</h3>\r\n<p>Jeśli administrator na to pozwala, możesz wybrać inny motyw i język forum w <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. W zależności od forum język można też zmienić w nagłówku.</p>\r\n<h3 class=\"h6 mt-3\">Strefa czasowa i rozmiar strony</h3>\r\n<p>Wszystkie daty i godziny są pokazywane w twojej strefie czasowej. Ustaw ją w <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Niedawne godziny są pokazywane np. jako „5 minut temu”.</p>\r\n<p>Opcja <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> na tej samej stronie określa, ile pozycji listy forum pokazują na jednej stronie.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Wygląd i język"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Jeśli możesz przesyłać pliki na danym forum, możesz dodawać pliki i obrazy do swoich postów:</p>\r\n<ul>\r\n<li>Przeciągnij plik do edytora lub (w edytorze pokazującym formatowanie) wklej obraz.</li>\r\n<li>Albo kliknij przycisk załączników na pasku narzędzi (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). Okno pozwala upuścić pliki lub wybrać je przyciskiem <strong>[[ATTACHMENTS.ADD_FILES]]</strong> i pokazuje twoje wcześniej przesłane pliki w <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>: kliknij jeden z nich, aby wstawić go ponownie.</li>\r\n</ul>\r\n<p>Okno pokazuje <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> oraz, jeśli jest ustawiony, maksymalny rozmiar pliku. Szybka odpowiedź nie ma załączników, użyj pełnego edytora.</p>\r\n<p>Obrazy są pokazywane w poście jako podgląd, kliknij go, aby zobaczyć pełny obraz (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Inne pliki i bardzo duże obrazy są pokazywane jako link z rozmiarem i liczbą pobrań. Pobieranie może wymagać uprawnienia, które forum daje tylko użytkownikom.</p>\r\n<h3 class=\"h6 mt-3\">Obrazy z innych stron</h3>\r\n<p>Aby pokazać obraz z internetu, kliknij <strong>[[COMMON.TT_IMAGE]]</strong> i wpisz jego adres albo napisz <code>[img]adres obrazu[/img]</code>.</p>\r\n<p>Twoje przesłane pliki są wymienione w <a href=\"[[help:myattachments]]\">Moje załączniki</a>, gdzie możesz je też usunąć.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,23 +11300,39 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n          [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n                        <div align=\"center\">this text is center aligned</div>\r\n                        <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n                        [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n                        <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n         [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n         [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n          [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n        </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n                <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n                <br />\r\n                <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n        </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n                [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n                [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n                // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n                [/code]<br /><br />\r\n        [code=csharp]<br />\r\n                // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n                [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n        </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n        </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n        </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n        </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n        </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n        </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n        function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n        </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n        </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n        </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n        </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n        </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>Kody BB formatują twoje posty. To krótkie znaczniki w nawiasach kwadratowych wokół tekstu, np. <code>[b]pogrubienie[/b]</code>. Nie musisz ich wpisywać: przyciski edytora wstawiają je za ciebie. Jeśli edytor pokazuje formatowanie podczas pisania, kody BB są tworzone w tle.</p>\r\n<p>Poniżej znajdziesz wszystkie kody BB tego forum, to, co wpisujesz, i wynik tak, jak wygląda w poście. Niektóre kody BB są tu pokazane tylko wtedy, gdy forum z nich korzysta, a podpisy mogą dopuszczać mniej kodów BB niż posty.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "Lista BBCode"
+            "#text": "Kody BB"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Otwórz <strong>[[BLOCK_OPTIONS.TITLE]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - inni użytkownicy nie mogą rozpoczynać z tobą prywatnych rozmów.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - nikt nie może wysyłać ci zaproszeń do znajomych.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - nikt nie może wysyłać ci e-maili przez forum.</li>\r\n</ul>\r\n<p>Administratorzy i użytkownicy z twojej listy znajomych nadal mogą się z tobą kontaktować.</p>\r\n<h3 class=\"h6 mt-3\">Ignorowanie użytkownika</h3>\r\n<p>Aby ignorować użytkownika, otwórz menu użytkownika przy jednym z jego postów i wybierz <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Posty ignorowanych użytkowników są ukryte (<strong>[[POSTS.TOGGLEPOST]]</strong> pokazuje pojedynczy post), a oni nie mogą wysyłać ci prywatnych wiadomości. <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> na tej samej stronie wymienia użytkowników, których ignorujesz, usuń użytkownika z tej listy, aby znów widzieć jego posty.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Ignorowanie i blokowanie użytkowników"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Przyjaciele to funkcja przyjaźni, która jest dwukierunkową relacją między dwoma użytkownikami. Jest ona inicjowana przez jednego użytkownika i akceptowana przez drugiego.\r\n</p>\r\n<p><strong>Gdzie jest wyświetlana lista znajomych? </strong></p> <p>Miejsce, w którym jest wyświetlana lista znajomych.\r\n<p>Twoi znajomi są wyświetlani na stronie \"Moi znajomi\", do której można przejść z linku nagłówkowego \"Moi znajomi\" lub z linku \"Edytuj znajomych\" w Panelu użytkownika</strong>. </p>\r\n<p><em>Uwaga: Jeśli nie widzisz tego łącza, nie masz żadnych znajomych, nie wysłałeś żadnej prośby lub nie masz żadnych oczekujących próśb o dodanie do znajomych.</em></p> <p>\r\n<p>Twoi znajomi są również wyświetlani na stronie Twojego profilu.</p> <p>\r\n<p><strong>Jak mogę poprosić użytkownika o dodanie do znajomych lub zaakceptować prośbę o dodanie do znajomych?\r\n<p>Aby poprosić użytkownika o przyjęcie do grona znajomych, wyświetl stronę profilu osoby, z którą chcesz się zaprzyjaźnić, i kliknij łącze \"Dodaj jako znajomego\".</p> <p>\r\n<p>Aby zaakceptować prośbę znajomego, przejdź na stronę \"Moi znajomi\". Na karcie 'Oczekujące prośby' zobaczysz listę użytkowników z oczekującymi prośbami. Masz do wyboru trzy opcje...</p> <p>\r\n<ul>\r\n  <li><strong>Zatwierdzam</strong> - zostajesz przyjacielem użytkownika, który o to prosi </li>.\r\n  <li><strong>Odrzuć</strong> - Odrzucasz prośbę</li>.\r\n  <li><strong>Zatwierdź i dodaj - </strong>Stajesz się Przyjacielem Użytkownika, który o to prosi, a także Użytkownik staje się Przyjacielem na Twojej Liście.</li>\r\n</ul> </ul>\r\n<p><strong>Usuń znajomego</strong></p>>\r\n<p>Aby usunąć znajomego z Twojej listy, przejdź na stronę \"Moi znajomi\". Na karcie \"Lista znajomych\" kliknij przycisk \"Usuń znajomego\" użytkownika, którego chcesz usunąć</p> <p>\r\n<p><strong>Twoje prośby</strong></p>>\r\n<p>Trzecia karta na stronie \"Moi znajomi\" pokazuje oczekujące prośby użytkownika</p> <p>."
+            "#text": "<p>Znajomość to powiązanie między dwoma użytkownikami. Aby zaprosić użytkownika do znajomych, kliknij <strong>[[BUDDY.ADDBUDDY]]</strong> w jego profilu lub w menu użytkownika przy poście. Użytkownik otrzymuje zaproszenie do znajomych i może je zaakceptować lub odrzucić.</p>\r\n<p>Twoi znajomi są w <strong>[[TOOLBAR.BUDDIES]]</strong> w menu użytkownika, na trzech kartach:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - twoi znajomi. Wyślij im prywatną wiadomość lub usuń ich z listy.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - zaproszenia od innych użytkowników. <strong>[[FRIENDS.APPROVE]]</strong> dodaje użytkownika do twoich znajomych (a ciebie do jego), odrzucenie usuwa zaproszenie. <strong>[[FRIENDS.APPROVE_ALL]]</strong> akceptuje wszystkie zaproszenia naraz.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - zaproszenia, które wysłałeś i na które nie ma jeszcze odpowiedzi.</li>\r\n</ul>\r\n<p>Znajomi są pokazywani w twoim profilu. Mogą się z tobą kontaktować, nawet jeśli blokujesz prywatne wiadomości lub e-maile, zobacz <a href=\"[[help:blocking]]\">Ignorowanie i blokowanie użytkowników</a>. Jeśli nie chcesz zaproszeń do znajomych, możesz je tam też zablokować.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
-            "#text": "Przyjaciele"
+            "#text": "Znajomi"
+          },
+          {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Otwórz <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Masz dwie możliwości:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - przerwa: nie możesz korzystać z konta przez 30 dni, potem znów działa.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - twoje konto zostaje zamknięte, a twoje posty usunięte (odpowiedzi innych użytkowników pozostają). Nie możesz się już zalogować, tego nie da się cofnąć.</li>\r\n</ul>\r\n<p>Potwierdź, wpisując <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>, i kliknij <strong>[[COMMON.CONTINUE]]</strong>. Zostaniesz wylogowany.</p>\r\n<p>Jeśli chcesz, aby wszystkie twoje dane zostały usunięte, lub masz pytania dotyczące swoich danych, skontaktuj się z administratorem, zobacz <a href=\"[[help:privacy]]\">Prywatność, ciasteczka i regulamin</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Zawieszanie lub usuwanie konta"
           },
           {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Jeśli jesteś obecnie zarejestrowany i zalogowany, możesz mieć możliwość edytowania i usuwania swoich wiadomości (jeśli administrator nie wyłączył tej opcji). </p>\r\n<p>Aby edytować lub usunąć swoje posty, kliknij przycisk 'Edytuj' przy danym poście. Jeśli Twój post był pierwszym w wątku, to usunięcie go może spowodować usunięcie całego wątku.</p> <p>\r\n<p>Po wprowadzeniu zmian, na dole postu pojawi się notatka informująca innych użytkowników, że edytowałeś swój post.</p> <p>\r\n<p>Proszę również wpisać w polu \"Powód edycji\" powód, dla którego edytowałeś tę wiadomość.</p> <p>\r\n<p><strong>Czy inni mogą edytować moje posty?\r\n<p>Administratorzy i moderatorzy mogą również edytować Twoje wiadomości. Jeśli to zrobią, na dole wiadomości pojawi się informacja dla innych użytkowników, że post został zmodyfikowany.</p> <p>"
+            "#text": "<p>Możesz edytować i usuwać własne posty, jeśli forum na to pozwala. Otwórz menu postu (trzy kropki w jego prawym górnym rogu) i wybierz <strong>[[BUTTON.BUTTON_EDIT]]</strong> lub <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Nie jest to możliwe w zamkniętych tematach, a administrator może to ograniczyć do określonej liczby dni od napisania postu.</p>\r\n<h3 class=\"h6 mt-3\">Edytowanie</h3>\r\n<p>Strona edycji wygląda jak strona nowego postu. Jeśli założyłeś temat, możesz też zmienić jego tytuł, opis i tagi. Wpisz <strong>[[POSTMESSAGE.EDITREASON]]</strong>, aby poinformować czytelników, co zmieniłeś.</p>\r\n<p>Jeśli edytujesz post jakiś czas po jego napisaniu, post pokazuje, kto go edytował, kiedy i dlaczego. Wcześniejsze wersje są zachowywane, zobacz <a href=\"[[help:history]]\">Historia postu</a>. Moderatorzy też mogą edytować twoje posty, post informuje wtedy, że edytował go moderator.</p>\r\n<h3 class=\"h6 mt-3\">Usuwanie</h3>\r\n<p>Wpisz <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> i kliknij <strong>[[DELETEMESSAGE.DELETE]]</strong>. Post nie jest wymazywany: jego miejsce w temacie pokazuje, że został usunięty. Możesz go przywrócić przyciskiem <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> w tym samym menu, chyba że usunął go moderator.</p>\r\n<p>Tylko moderatorzy mogą usuwać całe tematy i tylko administratorzy mogą trwale wymazywać posty.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
@@ -10859,95 +11340,159 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Możesz zmienić informacje o swoim koncie, korzystając z opcji Profil osobisty -&gt; 'Edytuj profil' w Panelu użytkownika</strong>. Jeśli chcesz zmienić swoje Hasło, w Panelu użytkownika jest do tego celu dodatkowa strona (Zmień hasło), na której możesz ustawić nowe Hasło.</p> <p><strong>Panel użytkownika</strong>.\r\n<p><strong>Strona Edytuj profil</strong></p>>\r\n<p>Ta strona umożliwia ustawienie szeregu wymaganych i opcjonalnych szczegółów, z których część będzie wyświetlana w Twoim publicznym profilu. Z wyjątkiem adresu e-mail, nie należy wprowadzać informacji, które nie mają być widoczne publicznie.</p> <p><strong>Abidemia\r\n<p><strong>O Tobie</strong></p>>\r\n<p>Podstawowe informacje o Tobie</p> <p><strong>Miejsce zamieszkania\r\n<p><strong>Miejsce zamieszkania</strong></p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p>W tym miejscu możesz opcjonalnie wpisać Miejscowość, w której mieszkasz</p> <p><strong>Miejsce zamieszkania</strong></p>\r\n<p><strong>Strona główna</strong></p> <p>\r\n\r\n<p><strong>Instant messaging services</strong></p> <p>Tutaj możesz opcjonalnie wpisać Strona główna i/lub Blog.\r\n<p>W tym miejscu można opcjonalnie wprowadzić identyfikatory komunikatorów takich usług, jak  XMPP, Facebook i Twitter.</p> <p><strong>Strefa czasowa</strong></p> <p><strong>Wyłączenie z listy.\r\n<p><strong>Strefa czasowa</strong></p>\r\n<p>W tym miejscu można określić Strefę czasową, aby dostosować godzinę i datę na tablicy do czasu lokalnego. Możesz też ustawić czas letni, jeśli ma być ustawiony automatycznie.</p> <p>\r\n<p><strong>Ustawienia forum</strong></p> <p>W tym miejscu możesz zmienić ustawienia forum.\r\n<p>Tutaj możesz zmienić swój Adres e-mail.</p> <p>\r\n<p>A jeśli administrator to umożliwi, możesz zmienić język forum, motyw strony i edytor tekstu (używany do pisania wiadomości).</p> <p>W tym miejscu możesz zmienić swój adres e-mail.\r\n<p>Jest też ustawienie &quot;Single Sign On&quot; (jeśli jest włączone). Jeśli je włączysz, będziesz mógł logować się przez Facebooka, podając również swój identyfikator z Facebooka powyżej.</p> <p>\r\n\r\n"
+            "#text": "<p>Otwórz <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Wszystkie pola są opcjonalne, wypełnij tylko to, czym chcesz się podzielić. Informacje są pokazywane w twoim publicznym profilu.</p>\r\n<ul>\r\n<li><strong>O tobie</strong> - twoja nazwa wyświetlana (jeśli forum korzysta z nazw wyświetlanych), imię i nazwisko, data urodzenia, zawód, zainteresowania i płeć.</li>\r\n<li><strong>Lokalizacja</strong> - kraj, region i miasto. Jeśli forum to oferuje, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> wypełni je za ciebie.</li>\r\n<li><strong>Strona domowa</strong> - adresy twojej strony internetowej i twojego bloga.</li>\r\n<li>Dodatkowe pola dodane przez administratora.</li>\r\n</ul>\r\n<p>Kliknij <strong>[[COMMON.SAVE]]</strong>, aby zapisać zmiany. Twój awatar i podpis mają własne strony, zobacz <a href=\"[[help:mypics]]\">Awatar i podpis</a>. Adres e-mail, strefa czasowa i język znajdują się w <a href=\"[[help:editsettings]]\">Edycja ustawień</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Edytowanie profilu użytkownika i ustawień forum"
+            "#text": "Edycja profilu"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Otwórz <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Wpisz nowy adres i <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Forum wyśle link na nowy adres, adres zostanie zmieniony, gdy go klikniesz. Twój adres e-mail nigdy nie jest pokazywany innym użytkownikom.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - nie jesteś pokazywany na liście użytkowników online (jeśli forum na to pozwala).</li>\r\n<li>Strumień aktywności - twoje powiadomienia o wzmiankach, cytatach i reakcjach, zobacz <a href=\"[[help:popups]]\">Powiadomienia</a>.</li>\r\n<li>Twoja strefa czasowa, opcja <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> oraz (jeśli forum na to pozwala) motyw i język, zobacz <a href=\"[[help:appearance]]\">Wygląd i język</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Uwierzytelnianie dwuskładnikowe</h3>\r\n<p>Włącz lub wyłącz uwierzytelnianie dwuskładnikowe, zobacz <a href=\"[[help:login]]\">Logowanie i bezpieczeństwo konta</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Edycja ustawień"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Czym jest YAF?</strong></p> <p>Jakie jest YAF?\r\n<p>YetAnotherForum.NET (YAF) to forum dyskusyjne o otwartym kodzie źródłowym dla stron działających w środowisku ASP.NET. W 100% napisane w C#, YAF (wymawiane jak &quot;laugh&quot;) jest unikalnym połączeniem Open Source, platformy .NET Microsoftu i międzynarodowej współpracy społeczności programistów .NET. Projekt YAF, który codziennie się rozwija i zmienia, jest prowadzony przez Ingo Herbote. YAF działa na każdym serwerze WWW, który obsługuje ASP.NET Core v9 (i wyżej) oraz SQL Server. YAF jest udostępniany na licencji Apache 2.0.</p> <p><strong>Jak działa YAF?\r\n<p><strong>Jak to wszystko jest skonstruowane? </strong></p> <p>Forum zawiera różne obszary.\r\n<p>Forum zawiera różne obszary, które same zawierają fora (bardziej szczegółowe obszary tematyczne), które zawierają tematy składające się z pojedynczych wiadomości (w których użytkownik coś pisze).</p> <p>Strona główna Fora zawiera różne tematy, które zawierają fora (bardziej szczegółowe obszary tematyczne).\r\n<p>Strona główna Forum zawiera listę kategorii i forów oraz podstawowe statystyki dla każdego z nich, w tym liczbę tematów i wiadomości oraz informację o tym, który użytkownik wysłał ostatnią wiadomość.</p> <p><strong>Więcej informacji na ten temat można znaleźć na stronie głównej Forum.\r\n<p><strong>Jak się po tym poruszać? </strong></p> <p>Jak się po tym poruszać?\r\n<p>Kiedy klikniesz na nazwę forum, zostaniesz przeniesiony do listy tematów, które ono zawiera. Temat to rozmowa między użytkownikami lub gośćmi. Każdy temat zaczyna się od pojedynczej wiadomości i rozrasta się w miarę dodawania kolejnych wiadomości przez różnych użytkowników. </p>\r\n<p>Aby rozpocząć nowy wątek, wystarczy kliknąć przycisk \"Nowy wątek\" (jeśli masz do niego dostęp).</p> <p><strong>Stronicowanie\r\n<p><strong>Stronicowanie</strong></p>>\r\n<p>Gdy do wyświetlenia jest więcej tematów niż zmieści się na jednej stronie, może zostać wyświetlony przycisk Stronicowanie, zawierający numery stron. Oznacza to, że lista tematów została podzielona na dwie lub więcej stron.</p> <p>\r\n<p>Ta metoda dzielenia list tematów na wiele stron jest używana w całym forum.</p> <p>\r\n<p><strong>Co to są tematy przyklejone?\r\n<p>Tematy \"przyklejone\" mogą być tworzone przez moderatorów lub administratorów i pozostają \"przyklejone\" na górze listy, nawet jeśli nie było w nich ostatnio żadnych wiadomości. Ich celem jest, aby ważne informacje były zawsze widoczne i dostępne.</p> <p>\r\n<p><strong>Jak przeczytać temat? </strong></p> <p>Jak przeczytać temat?\r\n<p>Aby przeczytać temat, kliknij na jego tytuł. Każda wiadomość w temacie jest tworzona przez członka lub gościa. Po lewej stronie wiadomości zobaczysz krótką informację o członku, który utworzył temat.</p> <p>\r\n<p>Aby wysłać odpowiedź do istniejącego tematu, kliknij przycisk \"Wyślij odpowiedź\". Jeśli przycisk \"Odpowiedz\" nie pojawia się, może to oznaczać, że nie jesteś zalogowany jako członek, nie masz uprawnień do odpowiadania lub że temat został zamknięty dla nowych odpowiedzi.</p> <p>\r\n<p>Jeśli funkcja ta jest włączona, pojawi się również pole \"Szybka odpowiedź\", w którym możesz szybko wpisać odpowiedź bez konieczności przechodzenia do strony \"Napisz odpowiedź\". Aby aktywować pole szybkiej odpowiedzi, należy kliknąć przycisk \"Szybka odpowiedź\" w wiadomości, zanim będzie można w nim pisać.</p> <p>\r\n<p><strong>Jak mogę dowiedzieć się więcej o członkach?\r\n<p>Aby zobaczyć informacje o konkretnym członku, kliknij na jego nazwę użytkownika. Spowoduje to przejście do strony z jego profilem publicznym.</p> <p>\r\n<p><strong>Co to jest nagłówek?\r\n<p>Nagłówek na górze każdej strony zawiera linki ułatwiające poruszanie się po niej. Za pomocą jednego kliknięcia można dotrzeć do takich obszarów, jak: Mój profil, Pomoc (którą teraz czytasz), Szukaj i inne przydatne funkcje..</p>"
+            "#text": "<p>Forum to miejsce do rozmów z innymi ludźmi. Dyskusje są uporządkowane w ten sposób:</p>\r\n<ul>\r\n<li><strong>Kategorie</strong> grupują fora o jednej tematyce, są to sekcje strony głównej.</li>\r\n<li><strong>Fora</strong> to miejsca na określoną tematykę. Forum może zawierać podfora.</li>\r\n<li><strong>Tematy</strong> to dyskusje na forum. Temat zaczyna się od pierwszego postu i rozrasta się o odpowiedzi użytkowników.</li>\r\n<li><strong>Posty</strong> (lub wiadomości) to pojedyncze wypowiedzi w temacie.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Strona główna</h3>\r\n<p>Strona główna pokazuje kategorie z ich forami. Przy każdym forum widzisz liczbę tematów i postów oraz najnowszy post. Kategorię można zwinąć strzałką obok jej nazwy, forum zapamiętuje twój wybór. W zależności od forum strona główna pokazuje też <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (najnowsze posty), statystyki i kto jest online.</p>\r\n<h3 class=\"h6 mt-3\">Goście i użytkownicy</h3>\r\n<p>Goście mogą czytać fora, które są dla nich otwarte. Aby pisać posty, korzystać z funkcji osobistych (prywatne wiadomości, znajomi, powiadomienia) i oglądać niektóre strony (np. listę użytkowników lub profile), potrzebujesz konta, zobacz <a href=\"[[help:registration]]\">Rejestracja</a>.</p>\r\n<p>Co możesz robić na danym forum (czytać, zakładać tematy, odpowiadać, głosować w ankietach, przesyłać pliki, ...), ustala administrator dla każdego forum i każdej grupy użytkowników. Jeśli nie widzisz przycisku opisanego w tej pomocy, nie masz do niego uprawnień na tym forum.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Fora, tematy i wiadomości"
+            "#text": "Jak działa forum"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Ogólne korzystanie z forum"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Pierwsze kroki"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Gdy post został edytowany, pokazuje, kto go edytował i kiedy. Kliknij przycisk historii przy tej informacji, aby otworzyć <strong>[[MESSAGEHISTORY.TITLE]]</strong>: wymienia ona wersje postu z datą, osobą edytującą i powodem.</p>\r\n<ul>\r\n<li>Zaznacz dwie wersje i kliknij <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong>, aby zobaczyć <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: usunięty i dodany tekst są wyróżnione.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> prowadzi z powrotem do postu.</li>\r\n</ul>\r\n<p>Moderatorzy mogą przywrócić wcześniejszą wersję przyciskiem <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Forum przechowuje wersje przez liczbę dni ustaloną przez administratora.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Historia postu"
           },
           {
             "@tag": "INDEX",
             "#text": "Indeks"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Kliknij <strong>[[TOOLBAR.LOGIN]]</strong> w nagłówku i wpisz swoją nazwę użytkownika lub adres e-mail oraz hasło.</p>\r\n<p>Jeśli zaznaczysz <strong>[[LOGIN.AUTO]]</strong>, pozostaniesz zalogowany na tym komputerze przez miesiąc, nawet po zamknięciu przeglądarki. Nie używaj tej opcji na komputerze, z którego korzystają inne osoby. Bez niej zostaniesz wylogowany po zamknięciu przeglądarki. Aby się wylogować, otwórz menu użytkownika w prawym górnym rogu i kliknij <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Uwierzytelnianie dwuskładnikowe</h3>\r\n<p>Uwierzytelnianie dwuskładnikowe chroni twoje konto, nawet jeśli ktoś zna twoje hasło: przy logowaniu forum prosi dodatkowo o kod z aplikacji uwierzytelniającej na twoim telefonie.</p>\r\n<ol>\r\n<li>Otwórz <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (menu użytkownika, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Kliknij <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Dodaj nowe konto w swojej aplikacji uwierzytelniającej (np. Microsoft Authenticator, Google Authenticator), skanując kod QR lub wpisując <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Wpisz kod wyświetlony przez aplikację, aby potwierdzić.</li>\r\n</ol>\r\n<p>Od tej pory logowanie prosi po haśle o kod z aplikacji (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Możesz je wyłączyć na tej samej stronie przyciskiem <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Bezpieczeństwo konta</h3>\r\n<ul>\r\n<li>Używaj hasła, którego nie używasz nigdzie indziej. Możesz je zmienić w <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Forum nigdy nie prosi o twoje hasło e-mailem ani prywatną wiadomością.</li>\r\n<li>Jeśli nie pamiętasz hasła, zobacz <a href=\"[[help:recover]]\">Odzyskiwanie zapomnianego hasła</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Po kilku błędnych hasłach konto zostaje zablokowane na kilka minut.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Logowanie i bezpieczeństwo konta"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Otwórz <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). W <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> wybierasz, jakie e-maile otrzymujesz:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - żadnych e-maili.</li>\r\n<li>Powiadomienia o tematach, w których pisałeś lub które obserwujesz - każdy temat, w którym piszesz, jest obserwowany automatycznie.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - tylko tematy i fora, które sam obserwujesz.</li>\r\n</ul>\r\n<p>Jeśli forum to oferuje, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> wysyła jeden e-mail dziennie z nowymi postami zamiast pojedynczych e-maili. Kliknij <strong>[[COMMON.SAVE]]</strong>, aby zapisać.</p>\r\n<p>Ta sama strona wymienia twoje <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> i <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, zobacz <a href=\"[[help:subscriptions]]\">Obserwowanie tematów i forów</a>, oraz powiadomienia push twoich urządzeń, zobacz <a href=\"[[help:push]]\">Powiadomienia push i aplikacja</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Preferencje dotyczące powiadomień e-mail"
+            "#text": "Ustawienia powiadomień"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Lista członków pokazuje zarejestrowanych członków forum. Możesz przeglądać listę członków uporządkowaną alfabetycznie według nazwy użytkownika, daty &quot;Dołączenia\" lub \"ostatniej wizyty\"</p> <p>.\r\n<p>Dostępne jest również pole wyszukiwania, w którym można wyszukać konkretnego użytkownika.</p> <p>\r\n<p>Aby zobaczyć listę członków, kliknij na 'Członkowie' w głównym nagłówku na górze strony (jeśli nie widzisz linku, nie masz dostępu do tej strony).</p> <p>\r\n"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Lista użytkowników pokazuje zarejestrowanych użytkowników z liczbą postów, datą dołączenia i ostatnią wizytą. Możesz:</p>\r\n<ul>\r\n<li>sortować ją według nazwy, rangi, daty dołączenia, liczby postów lub ostatniej wizyty,</li>\r\n<li>pokazać użytkowników na wybraną literę,</li>\r\n<li>filtrować ją za pomocą <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> według nazwy, roli, rangi lub liczby postów.</li>\r\n</ul>\r\n<p>Kliknij użytkownika, aby otworzyć jego profil. W zależności od forum lista jest widoczna tylko dla użytkowników.</p>\r\n<h3 class=\"h6 mt-3\">Aktywni użytkownicy</h3>\r\n<p>Statystyki na stronie głównej pokazują, kto jest online. Lista aktywnych użytkowników pokazuje użytkowników i gości, którzy są teraz online, oraz gdzie na forum się znajdują. Użytkownicy mogą ukryć się na tej liście w <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, jeśli forum na to pozwala.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Strona ekipy wymienia administratorów i moderatorów forum wraz z forami, które moderują. Skontaktuj się z nimi, jeśli potrzebujesz pomocy.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Lista członków"
+            "#text": "Użytkownicy, aktywni użytkownicy i ekipa"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Wspominanie użytkownika</h3>\r\n<p>Wpisz w edytorze <code>@</code>, a po nim pierwsze litery nazwy, i wybierz użytkownika z listy. Nazwa staje się linkiem do profilu, a użytkownik dostaje powiadomienie, że go wspomniałeś (jeśli korzysta z powiadomień, zobacz <a href=\"[[help:popups]]\">Powiadomienia</a>).</p>\r\n<h3 class=\"h6 mt-3\">Tagi tematów</h3>\r\n<p>Tagi to słowa kluczowe tematu, np. produkt lub zagadnienie, którego dotyczy pytanie. Dodaj je w <strong>[[POSTTOPIC.TAGS]]</strong> podczas zakładania tematu. Tagi są pokazywane przy temacie, kliknięcie tagu pokazuje wszystkie tematy z tym tagiem. Wyszukiwarka też może szukać tagów, zobacz <a href=\"[[help:searching]]\">Wyszukiwanie</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Wzmianki i tagi"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Wiadomości i powiadomienia"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Zarejestrowani użytkownicy mogą wysyłać wiadomości do innych użytkowników tego forum za pomocą systemu prywatnych wiadomości (jeśli Administrator go włączy).\r\n        </p>\r\n        <p>Gdy otrzymasz Prywatną Wiadomość, zostaniesz powiadomiony w Nagłówku Forum, ile masz nieprzeczytanych wiadomości, pojawi się również Powiadomienie. Możesz również włączyć Powiadomienie e-mail</p> <p>.\r\n        <p><strong>Jak mogę wysyłać Prywatne Wiadomości? </strong></p> <p>Prywatne Wiadomości?\r\n        <p>Prywatne wiadomości są podobne do e-maili, ale są ograniczone do zarejestrowanych członków tego forum. W prywatnych wiadomościach możesz umieszczać kod BB, emotikony i obrazki.<br />\r\n        Możesz wysłać prywatną wiadomość do użytkownika klikając na przycisk &ldquo;PM&rdquo; w profilu użytkownika lub klikając na link &ldquo;Nowa wiadomość&rdquo; w Panelu Użytkownika. Po wysłaniu wiadomość zostanie zapisana w folderze &ldquo;Elementy wysłane&rdquo;.\r\n        <p><strong>Prywatne foldery wiadomości</strong></p>>\r\n        <p>Tak jak w programie pocztowym masz 3 foldery: Skrzynka odbiorcza, Elementy wysłane i Folder archiwum...</p> <p>\r\n        <ul>\r\n        <li>Folder &ldquo;Skrzynka odbiorcza&rdquo; zawiera wszystkie nowe wiadomości, które otrzymujesz. Można w nim przeglądać wszystkie otrzymane wiadomości, wraz z nazwą osoby, która je wysłała, tematem wiadomości oraz datą i godziną wysłania.</li> <li> <p>Skrzynka odbiorcza\r\n        <li>Kopia &ldquo;Elementy wysłane&rdquo; zawiera wszystkie prywatne wiadomości, które zostały wysłane.</li>\r\n        <li>Folder &ldquo;Archiwum&rdquo; zawiera tylko wiadomości, które przeniosłeś do tego folderu.</li>\r\n        </ul>.\r\n        <p>Z każdego folderu masz Opcje, co chcesz zrobić z wiadomościami, które są w folderze, możesz po prostu zaznaczyć wiadomość i ...<br />.\r\n        </p>\r\n        <ul>\r\n        <li>Archiwizuj wybrane / Archiwizuj wszystkie - Przenieś wiadomość(i) do folderu archiwum</li>.\r\n        <li>Eksportuj wybrane / Eksportuj wszystkie - Eksportuj wiadomości do pliku (możesz wybrać format eksportu -XML-/CSV-/Text-File) </li> <li>Deleportuj wybrane / Eksportuj wszystkie\r\n        <li>Delete Selected / Delete All - usuń wiadomość(i)</li>.\r\n        </ul>.\r\n        <p>W zależności od tego, ile wiadomości możesz mieć, powinieneś od czasu do czasu usuwać niektóre z nich (możesz je wyeksportować przed usunięciem, aby zachować je na lokalnym komputerze). W przeciwnym razie, gdy Twoja skrzynka pocztowa jest pełna, nie będziesz mógł otrzymywać nowych wiadomości. Na dole strony znajduje się informacja, ile masz wiadomości i ile maksymalnie możesz ich mieć.</p> <p>\r\n      "
+            "#text": "<p>Prywatne wiadomości to rozmowy między tobą a innym użytkownikiem, nikt inny nie może ich czytać. Otwórz <strong>[[TOOLBAR.INBOX]]</strong> w menu użytkownika: po lewej widzisz <strong>[[PM.CONVERSATION_TITLE]]</strong>, po prawej wiadomości wybranej rozmowy.</p>\r\n<h3 class=\"h6 mt-3\">Rozpoczynanie rozmowy</h3>\r\n<ul>\r\n<li>Kliknij <strong>[[PM.NEW_CONVERSATION]]</strong>, wpisz co najmniej trzy litery nazwy i wybierz użytkownika.</li>\r\n<li>Albo kliknij <strong>[[POSTS.PM]]</strong> w profilu użytkownika lub w menu użytkownika przy poście.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Pisanie</h3>\r\n<p>Napisz wiadomość i naciśnij Enter, aby ją wysłać, Shift+Enter zaczyna nowy wiersz. Możesz używać kodów BB, np. do pogrubienia lub linków. Jeśli drugi użytkownik ma w tym samym czasie otwartą rozmowę, wiadomości pojawiają się natychmiast po obu stronach, a rozmowa pokazuje, czy użytkownik jest online.</p>\r\n<p>Nowe wiadomości są liczone obok twojej nazwy i przy <strong>[[TOOLBAR.INBOX]]</strong>, a gdy otworzysz stronę forum, okno zapyta, czy chcesz je przeczytać. Nie ma powiadomień e-mail o prywatnych wiadomościach.</p>\r\n<h3 class=\"h6 mt-3\">Usuwanie</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> usuwa rozmowę z twojej listy, drugi użytkownik nadal ją ma.</p>\r\n<p class=\"text-body-secondary small\">Nie możesz pisać do użytkowników, którzy blokują prywatne wiadomości lub cię ignorują (chyba że jesteś ich znajomym), zobacz <a href=\"[[help:blocking]]\">Ignorowanie i blokowanie użytkowników</a>. Administrator może wyłączyć prywatne wiadomości.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Wiadomości prywatne (Messenger)"
+            "#text": "Prywatne wiadomości"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderatorzy widzą <strong>[[TOOLBAR.MODERATE]]</strong> w nagłówku. Strona wymienia fora, które moderujesz, z liczbą <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> i <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>Na forach moderowanych (oraz w przypadku użytkowników, których posty muszą być sprawdzane) nowe posty są pokazywane dopiero po zatwierdzeniu przez moderatora. Sprawdź post i kliknij <strong>[[MODERATE_FORUM.APPROVE]]</strong> albo go usuń.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Lista pokazuje zgłoszone posty z powodami i tym, kto je zgłosił. Przeczytaj post (i jego historię, jeśli był edytowany), podejmij działania w razie potrzeby (edytuj lub usuń post, porozmawiaj z autorem) i kliknij <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Zarządzanie tematami</h3>\r\n<ul>\r\n<li>W temacie <strong>[[POSTS.MANAGE_TOPIC]]</strong> oferuje <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> i <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Przeniesiony temat może zostawić link w starym forum na kilka dni.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> wymienia wszystkie tematy forum: zaznacz kilka i zamknij, przenieś lub usuń je naraz.</li>\r\n<li>Tematy przyklejone i ogłoszenia ustawiasz za pomocą <strong>[[POSTMESSAGE.PRIORITY]]</strong> podczas edycji pierwszego postu, tematy trwałe (nie są usuwane przez automatyczne czyszczenie) za pomocą <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Zarządzanie postami</h3>\r\n<ul>\r\n<li>Możesz edytować i usuwać posty innych użytkowników. Przy usuwaniu postu <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> usuwa też odpowiedzi na niego.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> w menu postu przenosi go do innego tematu lub wydziela do nowego tematu (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>W <a href=\"[[help:history]]\">historii postu</a> możesz przywrócić wcześniejszą wersję postu.</li>\r\n<li>Możesz odpowiadać i edytować w zamkniętych tematach, a twoje posty nie są sprawdzane pod kątem spamu.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">W zależności od ustawień moderatorzy widzą też adresy IP postów. Użytkowników edytują, zawieszają i banują administratorzy.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Poradnik moderatora"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderatorzy i administratorzy"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderatorzy nadzorują określone fora. Zazwyczaj mają oni możliwość edytowania i usuwania postów, przenoszenia tematów i wykonywania innych czynności. Zostanie moderatorem konkretnego forum jest zazwyczaj nagradzane dla użytkowników, którzy są szczególnie pomocni i znają się na temacie forum, które moderują.</p> <p>\r\n<p>Administratorzy to osoby, które mają ogólną kontrolę nad wszystkim, co dzieje się na forum. To oni nadzorują, w jaki sposób forum jest stylizowane, jakie fora tworzyć i jak je organizować, jakich informacji wymagać od użytkowników i kogo mianować moderatorami.</p> <p>"
+            "#text": "<p><strong>Administratorzy</strong> prowadzą forum: tworzą fora, decydują, kto co może robić, konfigurują funkcje i zarządzają użytkownikami.</p>\r\n<p><strong>Moderatorzy</strong> opiekują się jednym lub kilkoma forami: dbają, aby dyskusje trzymały się tematu i były przyjazne, sprawdzają zgłoszone posty, zatwierdzają posty na forach moderowanych oraz w razie potrzeby edytują, przenoszą, zamykają lub usuwają tematy i posty. Moderatorzy forum są pokazani nad jego listą tematów (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Strona <strong>[[TOOLBAR.TEAM]]</strong> wymienia wszystkich administratorów i moderatorów (jeśli forum ją pokazuje). Jeśli masz problem z jakimś postem, <a href=\"[[help:report]]\">zgłoś go</a>. W innych sprawach skontaktuj się z moderatorem lub administratorem przez prywatną wiadomość.</p>\r\n<p>Jak pracują moderatorzy, wyjaśnia <a href=\"[[help:moderating]]\">Poradnik moderatora</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "Moderatorzy i Administratorzy"
+            "#text": "Moderatorzy i administratorzy"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Jeśli administrator włączył funkcję Albumy, a Ty jesteś użytkownikiem, który ma dostęp do dodawania Albumów, możesz tworzyć Albumy ze zdjęciami, które są powiązane z Twoim profilem publicznym. Albumy można tworzyć odwiedzając <strong>Panel użytkownika</strong> i klikając na link \"Edytuj albumy\", a następnie klikając na \"Dodaj nowy album\". Liczba albumów i zdjęć zależy od ustawień administratora dla grupy użytkowników, w której się znajdujesz.</p> <p>\r\n<p>Każdy album może mieć tytuł i możesz ustawić dla niego okładkę (obraz z albumu) lub użyć losowej, możesz także dodać podpis do każdego obrazu.</p> <p>Do każdego obrazu możesz dodać podpis.\r\n<p><strong>Jak przesyłać zdjęcia? </strong></p>>\r\n<p>Jeśli jesteś na stronie Dodaj/Edytuj album, wybierz obraz z komputera i kliknij Prześlij, aby dodać go do albumu.</p> <p>\r\n<p>Masz możliwość nadania każdemu obrazowi podpisu oraz ustawienia jednego obrazu jako okładki albumu, która będzie wyświetlana na publicznym profilu. Aby usunąć album lub edytować tytuł, dodać zdjęcie(a) lub usunąć zdjęcie(a), kliknij przycisk \"Edytuj\". Aby edytować lub dodać podpis do zdjęcia, kliknij na tekst pod zdjęciem. Jeśli chcesz ustawić okładkę lub usunąć okładkę, kliknij na przycisk pod okładką.</p>"
+            "#text": "<p>Jeśli forum korzysta z albumów, możesz pokazywać swoje zdjęcia w albumach w profilu i używać ich w postach.</p>\r\n<ol>\r\n<li>Otwórz <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> w menu stron konta (lub <strong>[[TOOLBAR.MYALBUMS]]</strong> w menu użytkownika) i kliknij <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Wpisz tytuł i prześlij pierwsze obrazy (można kilka naraz).</li>\r\n</ol>\r\n<p>Przyciskiem <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> dodajesz kolejne obrazy lub je usuwasz, a także usuwasz album. W albumie możesz nadać obrazom podpisy i wybrać okładkę przyciskiem <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Aby pokazać obraz z albumu w poście, kliknij <strong>[[ALBUM.COPY_BBCODE]]</strong> pod obrazem i wklej kod do edytora.</p>\r\n<p class=\"text-body-secondary small\">Liczba albumów i obrazów oraz rozmiar obrazów są ograniczone, limity zależą od twojej grupy lub rangi i są pokazywane na stronach.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albumy"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Wszystkie przesłane przez ciebie pliki są wymienione w <strong>[[ATTACHMENTS.TITLE]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Przy każdym pliku widzisz, w ilu postach jest użyty, albo że nie jest używany.</p>\r\n<p>Zaznacz pliki i usuń je, aby zwolnić miejsce, np. pliki, które przesłałeś, ale nie wykorzystałeś. Usunięty plik nie jest już pokazywany w postach, które go używają.</p>\r\n<p>Jak dodawać pliki do postów, wyjaśnia <a href=\"[[help:attachments]]\">Załączniki i obrazy</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Moje załączniki"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Co to są awatary? </strong></p>>\r\n<p>Awatary to małe obrazki, których użytkownicy używają do identyfikacji lub odróżnienia się od innych członków forum. Awatary te będą wyświetlane jako część informacji o użytkowniku w postach, a także w profilu publicznym.</p> <p>Możesz modyfikować swoje awatary.\r\n<p>Możesz zmodyfikować swój awatar, klikając na 'Modyfikuj awatar' w obszarze 'Profil osobisty' na pasku nawigacyjnym w Panelu użytkownika</strong>.</p> <p>Możesz zmodyfikować swój awatar na trzy sposoby.\r\n<p>Istnieją trzy sposoby dodania awatara (może być ich mniej, jeśli Administrator wyłączył konto)...</p> <p>\r\n<ul>\r\n  <li>Jeśli jest dostępny na forum, możesz wybrać z istniejącej kolekcji awatarów</li>.\r\n  <li>Wprowadź istniejący adres URL do obrazu na zdalnym serwerze</li>.\r\n  <li>Wybierz obraz z komputera i prześlij go</li>.\r\n</ul>.\r\n<p><em>Należy pamiętać, że administrator może ustawić Dozwolone typy plików obrazu, Rozmiar obrazu i Wymiary obrazu (maksymalna szerokość i wysokość obrazu).</em></p> <p><strong>Jakie są dozwolone typy plików obrazu?\r\n<p><strong>Co to są podpisy?\r\n<p>\"Podpisy\" zawierają informacje, które chcesz umieścić na dole wszystkich swoich postów. Mogą to być zdjęcia, linki do stron, cytaty itp.</p> <p>.\r\n<p>Aby zmienić podpisy, kliknij na 'Podpis' w obszarze 'Profil osobisty' na pasku nawigacji w CP użytkownika. Na tej stronie dowiesz się, jakich kodów BB i znaczników HTML możesz użyć oraz jak długi może być podpis."
+            "#text": "<h3 class=\"h6\">Awatar</h3>\r\n<p>Awatar to mały obrazek pokazywany obok twojej nazwy w twoich postach i w profilu. Otwórz <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). W zależności od forum możesz:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - wybrać jeden z awatarów forum.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - przesłać własny obraz (png, jpg, gif, webp, bmp lub svg). Duże obrazy są automatycznie zmniejszane, strona pokazuje dozwolony rozmiar.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> usuwa twój awatar. Bez awatara forum pokazuje domyślny obrazek.</p>\r\n<h3 class=\"h6 mt-3\">Podpis</h3>\r\n<p>Podpis to krótki tekst pokazywany pod każdym twoim postem, np. motto lub link do twojej strony. Otwórz <strong>[[ACCOUNT.SIGNATURE]]</strong> w menu użytkownika. Strona pokazuje maksymalną długość i kody BB, których możesz używać w podpisie, HTML jest niedozwolony. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> pokazuje, jak będzie wyglądał.</p>\r\n<p class=\"text-body-secondary small\">Administrator decyduje, czy awatary i podpisy są używane, a limity mogą zależeć od twojej grupy lub rangi.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Podpisy, awatary Zdjęcia"
+            "#text": "Awatar i podpis"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "\r\n<p>Strona główna <strong>Panelu sterowania</strong> pokaże podsumowanie Twojego konta, włączając w to Twoją nazwę użytkownika, adres e-mail, liczbę postów, członków grup, w których jesteś i od kiedy jesteś członkiem.</p> <p>Po lewej stronie znajdziesz linki do wszystkich podstron i formularzy, które pomogą Ci kontrolować ustawienia osobiste.\r\n<p>Po lewej stronie znajdziesz linki do wszystkich podstron i formularzy, które pozwalają ci kontrolować twoje konto.\r\n<p><strong>Posłaniec</strong></p>>\r\n<ul>\r\n  <li>Skrzynka odbiorcza</li>\r\n  <li>Wysłane elementy</li>\r\n  <li>Archiwum</li>\r\n  <li>Nowa wiadomość</li>\r\n</ul>.\r\n<p><strong>Personalny profil</strong></p>>\r\n<ul>\r\n  <li>Wyświetl profil</li>\r\n  <li>Edytuj profil</li>\r\n  <li>Wyświetl podziękowania<br /></li>\r\n  <li>Edytuj albumy</li>\r\n  <li>Modyfikuj awatara</li>\r\n  <li>Podpis</li>\r\n  <li>Preferencje powiadomień e-mail</li>\r\n  <li>Zmień hasło</li>\r\n</ul>."
+            "#text": "<p>Kliknij swoją nazwę w prawym górnym rogu, aby otworzyć menu użytkownika:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - przegląd twojego konta i twojej aktywności.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - wszystkie ustawienia twojego konta (patrz niżej).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - twoje prywatne wiadomości, zobacz <a href=\"[[help:messenger]]\">Prywatne wiadomości</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - zobacz <a href=\"[[help:buddies]]\">Znajomi</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - zobacz <a href=\"[[help:myalbums]]\">Albumy</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - zobacz <a href=\"[[help:newposts]]\">Przeglądanie nowych postów</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Liczby obok twojej nazwy, <strong>[[TOOLBAR.INBOX]]</strong> i <strong>[[TOOLBAR.BUDDIES]]</strong> pokazują nieprzeczytane wiadomości i oczekujące zaproszenia do znajomych.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Strona pokazuje twoją nazwę użytkownika, adres e-mail, liczbę postów i datę dołączenia oraz <strong>[[ACCOUNT.ACTIVITY]]</strong>: twoje tematy i odpowiedzi, reakcje i znajomości, z filtrami dla każdego rodzaju. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> pokazuje twój profil tak, jak widzą go inni użytkownicy.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Ustawienia są też wymienione po lewej stronie wszystkich stron konta:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - informacje o tobie.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - adres e-mail, strefa czasowa, język, uwierzytelnianie dwuskładnikowe.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - przesłane przez ciebie pliki.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> i <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - powiadomienia e-mail i push, obserwowane tematy i fora.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - wpisz obecne hasło i dwukrotnie nowe.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Niektóre pozycje są widoczne tylko wtedy, gdy forum korzysta z danej funkcji (np. awatary, podpisy lub albumy).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Moje ustawienia (Panel sterowania użytkownika)"
+            "#text": "Moje konto"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Nawigacja"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Nagłówek u góry każdej strony zawiera menu główne: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> i <strong>[[TOOLBAR.HELP]]</strong> (w zależności od forum nie wszystkie są widoczne). Goście widzą po prawej <strong>[[TOOLBAR.LOGIN]]</strong> i <strong>[[TOOLBAR.REGISTER]]</strong>. Użytkownicy widzą dzwonek powiadomień i menu użytkownika ze swoją nazwą i awatarem, zobacz <a href=\"[[help:mysettings]]\">Moje konto</a>. Pod nagłówkiem ścieżka bieżącej strony (okruszki) prowadzi cię z powrotem do forum lub kategorii.</p>\r\n<h3 class=\"h6 mt-3\">Lista tematów forum</h3>\r\n<p>Kliknij forum, aby zobaczyć jego tematy. Tematy przyklejone i ogłoszenia są pokazywane na początku. Kolejne tematy wczytują się automatycznie, gdy przewijasz w dół. Pasek nad listą zawiera:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - pokazuje tylko tematy z postami z wybranego okresu (np. z ostatniego dnia lub od twojej ostatniej wizyty).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - przeszukuje tematy tego forum.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - przechodzi do innego forum.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> i <strong>[[TOPICS.MARKREAD]]</strong> (dla użytkowników).</li>\r\n</ul>\r\n<p>Ikony przed tematami oznaczają nowe posty, popularne („gorące”) tematy oraz tematy zamknięte i przeniesione. Legenda pod listą je objaśnia.</p>\r\n<h3 class=\"h6 mt-3\">Wewnątrz tematu</h3>\r\n<p>Posty są wyświetlane na stronach, stronicowanie znajduje się pod postami. Przyciskami <strong>[[POSTS.PREVTOPIC]]</strong> i <strong>[[POSTS.NEXTTOPIC]]</strong> przechodzisz do sąsiednich tematów forum. Link do postu otwiera temat w miejscu tego postu.</p>\r\n<h3 class=\"h6 mt-3\">Nowe posty i stan przeczytania</h3>\r\n<p>Fora i tematy z postami, których jeszcze nie przeczytałeś, są wyróżnione. Użytkownicy mogą oznaczyć wszystko jako przeczytane przyciskiem <strong>[[DEFAULT.MARKALL]]</strong> na stronie głównej, a jedno forum przyciskiem <strong>[[TOPICS.MARKREAD]]</strong>. Gdzie znajdziesz wszystkie nowe posty naraz, wyjaśnia <a href=\"[[help:newposts]]\">Przeglądanie nowych postów</a>.</p>\r\n<h3 class=\"h6 mt-3\">Aktualizacje na żywo</h3>\r\n<p>Jeśli forum korzysta z aktualizacji na żywo, nowe tematy i posty pojawiają się bez przeładowania strony. W temacie widzisz wtedy komunikat <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, kliknij go, aby wyświetlić nową odpowiedź.</p>\r\n<h3 class=\"h6 mt-3\">Informacje o użytkowniku</h3>\r\n<p>Najedź myszą na nazwę użytkownika, aby zobaczyć krótką kartę z informacjami o nim, np. miejscowość, status online i datę dołączenia. Kliknięcie nazwy otwiera profil użytkownika.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Poruszanie się po forum"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Użytkownicy znajdą nowe posty ze wszystkich forów w <strong>[[TOOLBAR.MYTOPICS]]</strong> w menu użytkownika. Strona ma cztery karty:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - tematy z nowymi postami od twojej ostatniej wizyty.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - tematy, które nie mają jeszcze odpowiedzi.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - tematy, które obserwujesz.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - tematy, które założyłeś.</li>\r\n</ul>\r\n<p>Filtrem czasu wybierasz okres, np. ostatnią godzinę, ostatni tydzień lub wszystkie tematy. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> oznacza wszystkie tematy jako przeczytane.</p>\r\n<p><strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> na stronie głównej pokazują najnowsze posty ze wszystkich forów, także gościom.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "Wyświetlanie nowych postów"
+            "#text": "Przeglądanie nowych postów"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Możesz skontaktować się z inną osobą wysyłając e-mail, znajdziesz ją na liście członków.</p> <p>To zazwyczaj otworzy stronę zawierającą formularz, w którym wpiszesz swoją wiadomość.\r\n<p>Zazwyczaj otworzy się strona zawierająca formularz, w którym możesz wpisać swoją wiadomość. Kiedy skończysz wpisywać wiadomość, naciśnij przycisk \"Wyślij e-mail\", a wiadomość zostanie natychmiast wysłana.</p> <p>\r\n<p><strong>Czy mogę zobaczyć adresy e-mail?\r\n<p>Z uwagi na ochronę prywatności, adres e-mail odbiorcy nie jest ujawniany ani podczas tego procesu, ani w żadnym innym miejscu na forum.</p> <p><strong>Czy mogę zobaczyć adresy e-mail?\r\n<p><strong>Dlaczego nie mogę wysłać do kogoś wiadomości e-mail? </strong></p> <p>Dlaczego nie mogę wysłać do kogoś wiadomości e-mail?\r\n<p>Jeśli nie możesz znaleźć przycisku lub linku do wysłania wiadomości e-mail do danego użytkownika, oznacza to, że albo administrator wyłączył funkcje wysyłania wiadomości e-mail na tym forum, albo użytkownik oświadczył, że nie życzy sobie otrzymywać wiadomości e-mail od innych użytkowników.</p> <p>Dlaczego nie możesz wysłać wiadomości e-mail do kogoś?\r\n<p><strong>Co to są prywatne wiadomości?\r\n<p>Zarejestrowani użytkownicy mogą również wysyłać wiadomości do innych użytkowników tego forum, korzystając z systemu prywatnych wiadomości.</p> </p> <p>Wiadomości prywatne?"
+            "#text": "<p>Możesz wysłać e-mail do użytkownika przez forum: kliknij <strong>[[POSTS.EMAIL]]</strong> w profilu użytkownika (lub na stronie ekipy), wpisz temat i swoją wiadomość, a następnie kliknij <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Adres e-mail użytkownika pozostaje przed tobą ukryty.</li>\r\n<li>E-mail jest wysyłany z twoją nazwą użytkownika i <strong>twoim</strong> adresem e-mail jako nadawcą, więc użytkownik może ci odpowiedzieć bezpośrednio.</li>\r\n<li>Aby zapobiec spamowi, możesz wysłać tylko kilka e-maili na godzinę.</li>\r\n</ul>\r\n<p>Nie możesz wysyłać e-maili do użytkowników, którzy blokują e-maile lub cię ignorują (z wyjątkiem znajomych), i tylko wtedy, gdy administrator zezwala na e-maile między użytkownikami. W większości przypadków lepszym sposobem jest <a href=\"[[help:messenger]]\">prywatna wiadomość</a>.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Kontaktowanie się z innymi Członkami"
+            "#text": "E-mail do użytkowników"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "\r\n<p><strong>Twórz nową ankietę?</strong></p> <p><strong></p>\r\n<p>Gdy tworzysz nowy Wątek, masz opcję 'Dodaj ankietę?', aby utworzyć nową ankietę. Jeśli nie widzisz tej opcji, być może nie masz do niej dostępu.\r\n<p>Możesz również dodawać nowe ankiety do już istniejących. Jeden temat może mieć dowolną liczbę ankiet.</p> <p>\r\n<p>Pozwala to zadać pytanie i określić liczbę możliwych odpowiedzi (maks. 10 lub administrator może ustawić wyższą liczbę) - <em>Administrator może dołączać obrazy (zdalne adresy URL) jako odpowiedzi</em>. Inni użytkownicy będą mogli zagłosować na wybraną odpowiedź, a wyniki głosowania zostaną wyświetlone w wątku.</p> <p><em>Przykładowa odpowiedź na pytanie może być wyświetlona w wątku.\r\n<p><em>Przykładowa ankieta może być następująca:</em></p> <p><em>Przykładowa ankieta może być następująca\r\n<p><em>Jaki jest Twój ulubiony kolor?</em></p> <p><em>Przykładowa ankieta może być następująca\r\n<ul>\r\n  <li><em>Niebieski</em></li>\r\n  <li><em>Czerwony</em></li>\r\n  <li><em>Żółty</em></li>\r\n  <li><em>Zielony</em></li>.\r\n</ul>.\r\n<p>Możesz również określić limit czasowy dla ankiety. Na przykład: uruchom ankietę na 10 dni lub możesz ustawić, aby nigdy nie wygasła.</p> <p>Możesz także zdecydować, czy ankieta ma być aktywna czy nie.\r\n<p>Możesz także zdecydować, czy użytkownik powinien móc zobaczyć wyniki bez głosowania, czy też jeśli włączysz opcję 'You should vote in all polls to see results.<em>'</em> użytkownik musi zagłosować zanim zobaczy jakiekolwiek wyniki.</p> <p>\r\n<p>Opcja 'Bound voting' nie pokazuje wyników, jeśli ankieta nie wygasła.</p> <p>\r\n<p><strong>Grupowanie ankiet</strong></p> <p>Wszystkie ankiety dołączone do systemu\r\n<p>Wszystkie ankiety dołączone do tematu są automatycznie łączone w grupę. Grupę tę można wyświetlać z ankietami dotyczącymi dowolnego innego tematu.</p> <p>\r\n<p><strong>Jak głosować? </strong></p> <p>Jak głosować?\r\n<p>Aby zagłosować w ankiecie, po prostu kliknij na opcję, na którą chcesz zagłosować.</p> <p>\r\n<p>Generalnie, po oddaniu głosu w ankiecie, nie będziesz mógł go później zmienić, więc głosuj ostrożnie!"
+            "#text": "<p>Ankieta zadaje czytelnikom tematu pytanie z kilkoma odpowiedziami do wyboru.</p>\r\n<h3 class=\"h6 mt-3\">Tworzenie ankiety</h3>\r\n<p>Włącz <strong>[[POLLEDIT.POLLADD]]</strong> w opcjach podczas zakładania tematu, edytor ankiety otworzy się po opublikowaniu tematu. W istniejącym temacie autor tematu i moderatorzy widzą <strong>[[POLLEDIT.CREATEPOLL]]</strong> nad postami. Temat może mieć jedną ankietę.</p>\r\n<ul>\r\n<li>Wpisz pytanie i co najmniej dwie odpowiedzi, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> dodaje kolejne (do limitu ustalonego przez administratora).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - liczba dni, przez które ankieta jest otwarta, zostaw puste dla ankiety bez końca.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - głosujący mogą wybrać więcej niż jedną odpowiedź.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - nazwy głosujących są pokazywane przy wynikach.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - wyniki są pokazywane dopiero po zakończeniu ankiety.</li>\r\n<li>Jeśli forum na to pozwala, pytanie i odpowiedzi mogą mieć obraz (adres obrazu).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Głosowanie</h3>\r\n<p>Kliknij przycisk wybranej odpowiedzi. Nie możesz zmienić swojego głosu, więc wybieraj uważnie. Goście nie mogą głosować i nie widzą wyników.</p>\r\n<h3 class=\"h6 mt-3\">Zmiana ankiety</h3>\r\n<p>Autor może zmienić ankietę przyciskiem <strong>[[POLLEDIT.EDITPOLL]]</strong>, dopóki nikt nie zagłosował (chyba że forum pozwala na późniejsze zmiany), i usunąć ją przyciskiem <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderatorzy mogą zawsze zmieniać i usuwać ankiety.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Tworzenie i udział w ankietach"
+            "#text": "Ankiety"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Po zalogowaniu się i załadowaniu strony możesz otrzymać powiadomienie Pop Up na środku okna przeglądarki.</p>.\r\n<p>Powiadomienie to poinformuje Cię o kilku czynnościach...</p>\r\n<ul>\r\n  <li>Nowe prywatne wiadomości </li>.\r\n  <li>Nowe prośby o dodanie znajomych</li>\r\n  <li>Zatwierdzone prośby o dodanie do znajomych</li>\r\n  <li>Odrzucone prośby o dodanie do znajomych<br />\r\n  </li> </li>\r\n</ul>.\r\n<p><em>Możesz również otrzymać kilka komunikatów informacyjnych i komunikatów o błędach w ten sam sposób.</em></p>."
+            "#text": "<p>Dzwonek w nagłówku pokazuje twoje powiadomienia, czerwona liczba to liczba nieprzeczytanych. Dostajesz powiadomienie, gdy:</p>\r\n<ul>\r\n<li>ktoś cię wspomni (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) lub zacytuje (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>ktoś zareaguje na jeden z twoich postów,</li>\r\n<li>pojawi się nowa odpowiedź w obserwowanym temacie lub nowy temat w obserwowanym forum,</li>\r\n<li>masz nowego znajomego.</li>\r\n</ul>\r\n<p>Kliknij powiadomienie, aby otworzyć post. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> otwiera listę wszystkich powiadomień, z filtrem według rodzaju i przyciskiem <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Powiadomienia są częścią strumienia aktywności: możesz je wyłączyć w <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Inne komunikaty</h3>\r\n<ul>\r\n<li>Nowe prywatne wiadomości i zaproszenia do znajomych są liczone obok twojej nazwy. Gdy otworzysz stronę, okno zapyta, czy chcesz je przeczytać.</li>\r\n<li>Komunikaty forum (np. „zapisano”) pojawiają się na kilka sekund u góry strony.</li>\r\n<li>Powiadomienia mogą być też wysyłane e-mailem oraz do przeglądarki lub na telefon, zobacz <a href=\"[[help:mailsettings]]\">Ustawienia powiadomień</a> i <a href=\"[[help:push]]\">Powiadomienia push i aplikacja</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Powiadomienia PopUp"
+            "#text": "Powiadomienia"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Otwórz forum, do którego należy temat, i kliknij <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Jeśli nie widzisz przycisku, nie możesz zakładać tematów na tym forum (lub nie jesteś zalogowany).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - tytuł tematu, jest wymagany. Podczas pisania forum pokazuje <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, być może ktoś już odpowiedział na twoje pytanie.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - opcjonalny krótki opis.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - opcjonalne słowa kluczowe, inni użytkownicy mogą znajdować tematy po ich tagach.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - tylko dla użytkowników z tym uprawnieniem, zobacz <a href=\"[[help:anounce]]\">Ogłoszenia i tematy przyklejone</a>.</li>\r\n<li>Sama wiadomość, w edytorze.</li>\r\n</ul>\r\n<p>W <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> możesz dodać ankietę (<strong>[[POLLEDIT.POLLADD]]</strong>, zobacz <a href=\"[[help:polls]]\">Ankiety</a>) i obserwować temat (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Kliknij <strong>[[POSTMESSAGE.PREVIEW]]</strong>, aby sprawdzić swój post, i <strong>[[POSTMESSAGE.NEWTOPIC]]</strong>, aby go opublikować.</p>\r\n<h3 class=\"h6 mt-3\">Edytor</h3>\r\n<p>W zależności od forum edytor pokazuje formatowanie podczas pisania albo kody BB (krótkie znaczniki, np. <code>[b]pogrubienie[/b]</code>). Przyciski paska narzędzi formatują tekst: zaznacz tekst i kliknij przycisk, np. dla pogrubienia, linku, cytatu lub listy. Wszystkie kody BB i ich wynik są wymienione w <a href=\"[[help:bbcodes]]\">Kody BB</a>.</p>\r\n<ul>\r\n<li>Wpisz <code>@</code> i nazwę, aby wspomnieć użytkownika, zobacz <a href=\"[[help:mentions]]\">Wzmianki i tagi</a>.</li>\r\n<li>Pliki i obrazy dodajesz przyciskiem załączników, zobacz <a href=\"[[help:attachments]]\">Załączniki i obrazy</a>.</li>\r\n<li>W edytorze kodów BB Ctrl+B, Ctrl+I i Ctrl+U formatują zaznaczony tekst, Ctrl+Enter wysyła post.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Dobrze wiedzieć</h3>\r\n<ul>\r\n<li>Goście (jeśli mogą pisać) wpisują nazwę w <strong>[[POSTMESSAGE.FROM]]</strong>, nie może to być nazwa zarejestrowanego użytkownika.</li>\r\n<li>Aby zapobiec spamowi, między dwoma postami musisz odczekać kilka sekund, a post ma maksymalną długość.</li>\r\n<li>Na niektórych forach posty są najpierw sprawdzane przez moderatora. Twój post pojawi się po zatwierdzeniu.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Publikowanie nowych tematów i postów"
+            "#text": "Zakładanie nowego tematu"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Ustawienia i cechy profilu"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Korzystając z forum, akceptujesz jego regulamin. Strona <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> zawiera regulamin i politykę prywatności: jakie dane osobowe forum przechowuje, w jakich celach, oraz twoje prawa (np. do uzyskania informacji o swoich danych lub do ich usunięcia).</p>\r\n<p>Strona <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> wymienia ciasteczka forum, do czego służą i jak długo są przechowywane. Gdy odwiedzasz forum po raz pierwszy, komunikat informuje cię o ciasteczkach.</p>\r\n<p>Twój profil pokazuje tylko informacje, które wpiszesz, twój adres e-mail nigdy nie jest pokazywany innym użytkownikom. Możesz ukryć się na liście aktywnych użytkowników (jeśli forum na to pozwala), zablokować prywatne wiadomości i e-maile oraz usunąć swoje konto, zobacz <a href=\"[[help:blocking]]\">Ignorowanie i blokowanie użytkowników</a> oraz <a href=\"[[help:deleteaccount]]\">Zawieszanie lub usuwanie konta</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Prywatność, ciasteczka i regulamin"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Jako członek posiadasz publicznie widoczną stronę profilu. Strona ta zawiera informacje dostarczone przez członka podczas procesu rejestracji lub później za pośrednictwem Panelu użytkownika.</p> <p><em>Wygląd profilu członka jest możliwy na wiele sposobów.\r\n<p><em>Istnieje wiele sposobów na wyświetlenie profilu członka...</em></p>\r\n<ul>\r\n  <li>Kiedy zobaczysz nazwę użytkownika, kliknij na jego nazwę, a zobaczysz rozwijane menu, które zawiera link 'Profil użytkownika', aby zobaczyć profil..</li>\r\n  <li>Lista członków pozwala przeglądać wszystkich zarejestrowanych członków i szybko przechodzić do profili publicznych.</li>\r\n  <li>Po zalogowaniu możesz także zobaczyć swój własny profil publiczny, logując się na forum i klikając na link 'Mój profil' w nagłówku na górze strony, aby otworzyć Panel użytkownika.</li>\r\n</ul>.\r\n<p><strong>Jakie informacje są wyświetlane na tej stronie? </strong></p>>\r\n<p>Strona profilu publicznego jest podzielona na 5 zakładek.</p> <p>\r\n<ul>\r\n  <li><strong>O sobie</strong> - Pokazuje wszystkie informacje, które użytkownik podał na swojej stronie profilu, takie jak prawdziwe imię i nazwisko, płeć, status, czy użytkownik jest online/offline, rangę na forum i inne.</li>\r\n  <li><strong>Statystyki</strong> - Pokazuje informacje statystyczne takie jak: Data dołączenia, Ostatnia wizyta, Liczba podziękowań, Liczba razy, kiedy podziękowano temu użytkownikowi i Liczba postów, za które podziękowano temu użytkownikowi.</li>.\r\n  <li><strong>Ostatnie 10 postów</strong> - Pokazuje, jeśli jest to możliwe, 10 ostatnich wiadomości napisanych przez użytkownika</li>.\r\n  <li><strong>Przyjaciele - </strong>Pokazuje znajomych, których Użytkownik ma na Forum.</li>\r\n  <li><strong>Albumy - </strong>Pokazuje albumy (jeśli są włączone), które utworzył Użytkownik.</li>\r\n</ul>.\r\n<p>Informacje osobiste, takie jak adres e-mail lub hasło, nie są wyświetlane<strong>NIE</strong>.</p> <p>"
+            "#text": "<p>Kliknij nazwę użytkownika (np. w poście lub na liście użytkowników), aby otworzyć jego profil. W zależności od forum profile są widoczne tylko dla użytkowników. Swój własny profil otworzysz przyciskiem <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> na stronie <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Profil pokazuje:</p>\r\n<ul>\r\n<li>awatar, nazwę, rangę i medale użytkownika oraz informacje z profilu (np. miejscowość, data urodzenia, zawód i zainteresowania),</li>\r\n<li>liczbę postów oraz reakcji danych i otrzymanych,</li>\r\n<li>reputację (jeśli forum z niej korzysta),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>, z <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>znajomych i albumy użytkownika.</li>\r\n</ul>\r\n<p>Przyciski profilu pozwalają <strong>[[BUDDY.ADDBUDDY]]</strong>, wysłać prywatną wiadomość (<strong>[[POSTS.PM]]</strong>) lub e-mail (<strong>[[POSTS.EMAIL]]</strong>) oraz otworzyć stronę lub bloga użytkownika. Adres e-mail użytkownika nigdy nie jest pokazywany.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Mój profil publiczny"
+            "#text": "Profile"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Czytanie i wysyłanie wiadomości"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Powiadomienia push pokazują nowe odpowiedzi w obserwowanych tematach i inne powiadomienia na twoim komputerze lub telefonie, nawet gdy forum nie jest otwarte.</p>\r\n<ol>\r\n<li>Otwórz <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> w menu użytkownika (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>W sekcji <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> kliknij <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> i zezwól na powiadomienia, gdy przeglądarka zapyta.</li>\r\n</ol>\r\n<p>Powiadomienia push konfiguruje się osobno dla każdego urządzenia i przeglądarki. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> wyłącza je na tym urządzeniu. Powiadomienia są wysyłane przez usługę push twojej przeglądarki (np. Google, Mozilla, Apple lub Microsoft) i są szyfrowane.</p>\r\n<h3 class=\"h6 mt-3\">Instalowanie forum jako aplikacji</h3>\r\n<p>Możesz zainstalować forum jak aplikację, z własną ikoną na ekranie głównym lub pulpicie: kliknij <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> na tej samej stronie albo użyj funkcji instalacji swojej przeglądarki. Na iPhonie i iPadzie powiadomienia push działają tylko w zainstalowanej aplikacji: stuknij Udostępnij, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, otwórz forum z ekranu głównego, a następnie włącz powiadomienia.</p>\r\n<p class=\"text-body-secondary small\">Ta sekcja jest widoczna tylko wtedy, gdy administrator skonfigurował powiadomienia push.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Powiadomienia push i aplikacja"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Czytanie"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Jeśli zapomnisz hasła, możesz kliknąć łącze \"<a href=\"{0}\">Zgubione hasło</a>\".\r\n  link. Pojawi się ono na każdej stronie, która wymaga podania hasła. </p>\r\n<p>To łącze powoduje wyświetlenie strony, na której należy wprowadzić swoją Nazwę użytkownika. Wkrótce\r\n  Wkrótce na ten adres zostanie wysłana wiadomość e-mail z instrukcjami dotyczącymi resetowania hasła.</p> <p>\r\n<p>Ponieważ hasła są zaszyfrowane, nie ma możliwości ponownego wysłania oryginalnego hasła.\r\n  Ta opcja zapewnia możliwość zresetowania hasła.  </p>\r\n<p>Aby ta opcja zadziałała, musisz mieć możliwość otrzymywania wiadomości e-mail na zarejestrowany adres e-mail.\r\n  działać. Jeśli nie zobaczysz tej wiadomości w ciągu kilku minut, możesz sprawdzić filtry i folder spamu.\r\n  tego e-maila w ciągu kilku minut. </p>"
+            "#text": "<p>Jeśli nie pamiętasz hasła, możesz ustawić nowe:</p>\r\n<ol>\r\n<li>Kliknij <strong>[[LOGIN.LOSTPASSWORD]]</strong> obok pola hasła na <a href=\"[[page:Account_Login]]\">stronie logowania</a> lub w oknie logowania.</li>\r\n<li>Wpisz swoją nazwę użytkownika lub adres e-mail i kliknij <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Jeśli istnieje konto o tej nazwie lub tym adresie, forum wyśle ci e-mail z linkiem. Ze względu na twoją prywatność strona w każdym przypadku pokazuje ten sam komunikat.</li>\r\n<li>Link otwiera stronę, na której wpisujesz swój adres e-mail i dwukrotnie nowe hasło.</li>\r\n</ol>\r\n<p>Link jest ważny tylko przez ograniczony czas. Jeśli nie potwierdziłeś jeszcze adresu e-mail, otrzymasz zamiast tego nowy e-mail z potwierdzeniem. Forum wysyła najwyżej kilka takich e-maili na godzinę.</p>\r\n<p>Hasła są przechowywane w postaci, której nie da się odczytać, więc nikt (nawet administrator) nie może ci podać twojego starego hasła.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Odzyskaj utracone hasło"
+            "#text": "Odzyskiwanie zapomnianego hasła"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Administrator prawdopodobnie będzie wymagał od Ciebie rejestracji, abyś mógł korzystać ze wszystkich funkcji forum. Rejestracja daje ci tożsamość na forum, stałą nazwę użytkownika we wszystkich wiadomościach, które piszesz oraz publiczny profil online.</p> <p>\r\n<p>Rejestracja jest bezpłatna (chyba że zaznaczono inaczej) i oferuje szeroki zakres funkcji, w tym:</p> <p>\r\n<ul>\r\n  <li>Podawanie nowych tematów</li>.\r\n  <li>Odpowiadanie na Tematy innych osób</li>.\r\n  <li>Edytowanie swoich wiadomości</li>.\r\n  <li>Otrzymywanie powiadomień e-mail o odpowiedziach na wiadomości i tematy określone przez użytkownika</li>.\r\n  <li>Wysyłanie prywatnych wiadomości do innych użytkowników</li>.\r\n</ul>.\r\n<p><strong>Jak się zarejestrować? </strong></p> <p>Jak się zarejestrować?\r\n<p>Zarejestrujesz się klikając na 'Zarejestruj się' w Nagłówku. Najpierw musisz zaakceptować Regulamin i Zasady Forum. Następnie zostaniesz poproszony o wybranie nazwy użytkownika, hasła, pytania/odpowiedzi bezpieczeństwa oraz podanie poprawnego adresu e-mail. A jeśli jesteś administratorem, musisz wpisać pokazany kod Captcha, aby kontynuować. Na następnej stronie można opcjonalnie podać podstawowe ustawienia profilu.</p>\r\n"
+            "#text": "<p>Wiele funkcji forum jest dostępnych tylko dla użytkowników, np. pisanie postów, prywatne wiadomości, znajomi, obserwowanie tematów i powiadomienia. Aby zostać użytkownikiem, kliknij <strong>[[TOOLBAR.REGISTER]]</strong> w nagłówku (jeśli administrator zezwala na nowe rejestracje).</p>\r\n<ol>\r\n<li>Jeśli forum tego wymaga, przeczytaj <strong>[[RULES.TITLE]]</strong> i kliknij <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Wpisz nazwę użytkownika, swój adres e-mail i hasło (dwukrotnie). W zależności od forum podajesz też nazwę wyświetlaną i inne informacje, o które prosi administrator.</li>\r\n<li>Kliknij <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Forum pokazuje <strong>[[REGISTER.CHECK_MAIL]]</strong> i wysyła ci e-mail. Kliknij link w tym e-mailu, aby potwierdzić swój adres. Wtedy twoje konto jest aktywne i możesz się zalogować.</li>\r\n</ol>\r\n<p>Jeśli e-mail nie dotrze, sprawdź folder ze spamem. Jeśli spróbujesz się zalogować przed potwierdzeniem adresu, strona logowania poinformuje cię o tym i zaproponuje <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>Na niektórych forach nowe konta muszą najpierw zostać zatwierdzone przez administratora, o zatwierdzeniu konta dowiesz się z e-maila.</p>\r\n<p>Po rejestracji możesz uzupełnić swój profil, zobacz <a href=\"[[help:editprofile]]\">Edycja profilu</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Na niektórych forach możesz pisać i odpowiadać jako gość. Ale większość społeczności wymaga rejestracji.</p> <p>\r\n<p>Zarejestrowany użytkownik może wejść na forum na forum, na którym ma uprawnienia do przeglądania tematów i udzielania odpowiedzi. Aby odpowiedzieć, masz do wyboru kilka opcji. Możesz kliknąć przycisk \"Odpowiedz\" i dodać nową wiadomość na końcu wątku. Możesz też zostawić szybką odpowiedź w polu szybkiej odpowiedzi znajdującym się pod postami w temacie.</p> <p>Jeśli chcesz odpowiedzieć, kliknij przycisk \"Odpowiedz\" i dodaj nową wiadomość na końcu tematu.\r\n<p>Jeśli chcesz odpowiedzieć na wiadomość, kliknij przycisk \"Cytuj\" i możesz odpowiedzieć na wiadomość, używając zacytowanego tekstu.</p> </p>"
+            "#text": "<p>Aby odpowiedzieć w temacie, kliknij <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> nad lub pod postami albo <strong>[[BUTTON.BUTTON_REPLY]]</strong> pod postem. Strona odpowiedzi pokazuje pod edytorem <strong>[[POSTMESSAGE.LAST10]]</strong> tematu, dzięki czemu możesz je czytać podczas pisania.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Do krótkiej odpowiedzi użyj pola szybkiej odpowiedzi pod postami lub przycisku <strong>[[POSTS.QUICKREPLY]]</strong> przy poście. Napisz tekst i kliknij <strong>[[COMMON.POST]]</strong>. Aby otworzyć pełny edytor (np. aby załączyć pliki), kliknij <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Cytowanie</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> pod postem rozpoczyna odpowiedź z tekstem tego postu jako cytatem.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> zbiera kilka postów, także z innych stron tematu. Następnie kliknij <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> przy jednym z nich, a odpowiedź zacytuje wszystkie zebrane posty.</li>\r\n<li>Aby zacytować tylko fragment, zaznacz tekst w poście, kliknij go prawym przyciskiem myszy i wybierz <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Skracaj długie cytaty do fragmentu, na który odpowiadasz. Cytowany użytkownik dostaje powiadomienie.</p>\r\n<p>Możesz odpowiadać tylko wtedy, gdy masz do tego uprawnienia na tym forum, i nie w zamkniętym temacie. Goście mogą odpowiadać tylko wtedy, gdy forum na to pozwala.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Odpowiadanie na wiadomość"
+            "#text": "Odpowiadanie i cytowanie"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Jeśli post narusza regulamin forum (np. spam, obelgi lub nielegalne treści), zgłoś go moderatorom, zamiast na niego odpowiadać:</p>\r\n<ol>\r\n<li>Otwórz menu postu (trzy kropki w jego prawym górnym rogu) i wybierz <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Wpisz, dlaczego zgłaszasz post.</li>\r\n<li>Kliknij <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Moderatorzy forum sprawdzają zgłoszony post i decydują, co zrobić. Autor nie widzi, kto zgłosił post. W zależności od forum tylko użytkownicy mogą zgłaszać posty.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Zgłaszanie postu"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "\r\n<p>Jeśli administrator włączył syndykację kanałów, możesz uzyskać kanały dla forum, tematów i aktywnych tematów.</p> <p>Większość nowoczesnych przeglądarek posiada funkcje odczytu kanałów RSS i automatycznie wykryje dostępność kanałów na stronach forum.\r\n<p>Większość nowoczesnych przeglądarek posiada funkcję odczytu kanałów RSS i automatycznie wykrywa dostępność kanałów na stronach forum YAF.</p> <p>"
+            "#text": "<p>Kanały pozwalają śledzić forum w czytniku kanałów, bez odwiedzania forum. Forum udostępnia kanały Atom dla:</p>\r\n<ul>\r\n<li>najnowszych postów (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> na stronie głównej),</li>\r\n<li>tematów forum (przycisk kanału na pasku nad listą tematów),</li>\r\n<li>postów tematu (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Skopiuj adres kanału do swojego czytnika. Czy forum udostępnia kanały i kto może z nich korzystać (często tylko użytkownicy), ustala administrator. Jeśli nie widzisz przycisku kanału, kanały nie są dla ciebie dostępne.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "Kanały RSS i Atom"
+            "#text": "Kanały"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Aby szybko znaleźć interesujący Cię wątek lub post w dowolnym miejscu na forum, kliknij łącze \"Szukaj\" w nagłówku. Następnie wpisz słowo kluczowe lub frazę, którą chcesz wyszukać.</p> <p>Aby uzyskać większą kontrolę nad wyszukiwaniem, możesz zawęzić je do poszczególnych forów lub ograniczyć do pojedynczych wątków.\r\n<p>Aby uzyskać większą kontrolę nad wyszukiwaniem, możesz ograniczyć wyszukiwanie do poszczególnych forów lub znaleźć posty lub tematy napisane przez określonego użytkownika. Możesz także wybrać, ile wyników ma być wyświetlanych na stronie.</p> <p>"
+            "#text": "<p>Kliknij <strong>[[TOOLBAR.SEARCH]]</strong> w nagłówku, wpisz co najmniej kilka liter i naciśnij Enter lub kliknij <strong>[[SEARCH.BTNSEARCH]]</strong>. Opcje wyszukiwania pozwalają:</p>\r\n<ul>\r\n<li>szukać postów, tematów lub forów,</li>\r\n<li>szukać tylko postów jednego użytkownika,</li>\r\n<li>szukać tematów z określonym tagiem,</li>\r\n<li>dopasować dokładną frazę, dowolne ze słów lub wszystkie słowa,</li>\r\n<li>przeszukiwać tylko niektóre fora,</li>\r\n<li>przeszukiwać całe posty lub tylko tytuły,</li>\r\n<li>wybrać liczbę wyników na stronę.</li>\r\n</ul>\r\n<p>Wyszukiwanie znajduje tylko to, co możesz czytać. Inne sposoby wyszukiwania:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> nad listą tematów przeszukuje jedno forum.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> w menu postu lub w profilu pokazuje posty tego użytkownika.</li>\r\n<li>Tag pod tytułem tematu pokazuje wszystkie tematy z tym tagiem.</li>\r\n<li>Zaznacz tekst w poście i kliknij go prawym przyciskiem myszy, aby wyszukać zaznaczone słowa.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Przeszukiwanie forów i tematów"
+            "#text": "Wyszukiwanie"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Gdy obserwujesz temat lub forum, dostajesz powiadomienia o nowych postach: w powiadomieniach forum oraz (w zależności od twoich <a href=\"[[help:mailsettings]]\">ustawień powiadomień</a>) e-mailem i jako powiadomienie push.</p>\r\n<ul>\r\n<li><strong>Temat:</strong> kliknij <strong>[[POSTS.TOOLS]]</strong> pod tytułem tematu, a następnie <strong>[[POSTS.WATCHTOPIC]]</strong>. Możesz też włączyć <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> podczas pisania postu.</li>\r\n<li><strong>Forum:</strong> kliknij <strong>[[TOPICS.WATCHFORUM]]</strong> na pasku nad listą tematów. Dostajesz powiadomienia o nowych tematach na tym forum.</li>\r\n<li><strong>Wszystkie fora:</strong> kliknij <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> na stronie głównej.</li>\r\n</ul>\r\n<p>Aby przestać obserwować, kliknij <strong>[[POSTS.UNWATCHTOPIC]]</strong> lub <strong>[[TOPICS.UNWATCHFORUM]]</strong>. W <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> znajdziesz wszystkie <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> i <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, zaznacz wybrane i kliknij <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong>, aby przestać je obserwować.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Subskrypcje i powiadomienia"
+            "#text": "Obserwowanie tematów i forów"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>System 'Podziękowania' to funkcja, która pozwala na przekazanie pozytywnej informacji zwrotnej innemu użytkownikowi, który na przykład zamieścił wiadomość, którą uważasz za przydatną lub pomógł Ci rozwiązać problem.</p> <p>\r\n<p><strong>Jak podziękować użytkownikowi?\r\n<p>Jeśli chcesz podziękować Użytkownikowi, naciśnij przycisk \"Dziękuję\" w poście, który chcesz dodać, po czym znajdziesz swoje imię na liście Użytkowników, którzy podziękowali na końcu wiadomości. Możesz również usunąć swoje Podziękowania w dowolnym momencie.</p> <p>\r\n<p><strong>Wyświetl wszystkie Podziękowania</strong></p> <p>Jeśli chcesz zobaczyć wszystkie Podziękowania</strong></p>\r\n<p>Jeśli chcesz zobaczyć wszystkie posty, za które podziękowałeś, lub wyświetlić listę postów, za które otrzymałeś podziękowania, przejdź do strony Profil osobisty -&gt; 'Zobacz podziękowania' w Panelu użytkownika. Tam zobaczysz dwie zakładki...</p> <p>\r\n<ul>\r\n  <li> <strong>thanked</strong> - Pokazuje listę wiadomości, w których otrzymałeś podziękowanie.</li>.\r\n  <li><strong>was thanked -</strong> Pokazuje listę wiadomości, w których otrzymałeś podziękowanie.</li>.\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Reakcje</h3>\r\n<p>Reakcją pokazujesz autorowi postu, że ci się podoba, bez pisania odpowiedzi. Kliknij przycisk z buźką (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) pod postem i wybierz <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> lub <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Kliknij swoją reakcję ponownie, aby ją usunąć, lub inną, aby ją zmienić.</li>\r\n<li>Reakcje na post są pokazywane wraz z ich liczbą, najedź na nie myszą, aby zobaczyć, kto zareagował.</li>\r\n<li>Nie możesz reagować na własne posty, na usunięte posty ani w zamkniętych tematach.</li>\r\n<li>Autor dostaje powiadomienie, a reakcje są liczone w profilu (podziękowania dane i otrzymane).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Reputacja</h3>\r\n<p>Jeśli forum korzysta z systemu reputacji, reputacja użytkownika jest pokazywana w profilu jako pasek. Użytkownicy, którzy sami mają wystarczającą reputację, mogą dodać (+1) lub odjąć (-1) reputację innemu użytkownikowi w menu użytkownika przy poście.</p>\r\n<h3 class=\"h6 mt-3\">Odpowiedź na pytanie</h3>\r\n<p>Użytkownik, który założył temat, może oznaczyć odpowiedź, która rozwiązała jego pytanie, przyciskiem <strong>[[POSTS.MARK_ANSWER]]</strong>. Post otrzymuje plakietkę odpowiedzi, dzięki czemu inni czytelnicy szybko znajdą rozwiązanie.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Podziękowania Funkcja"
+            "#text": "Reakcje i reputacja"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>W górnej części każdego tematu znajduje się łącze \"Opcje\". Po kliknięciu tego łącza pojawi się menu z kilkoma opcjami:</p> <p>\r\n<ul>\r\n  <li><strong>Obserwuj ten wątek</strong> - subskrybując wątek, będziesz otrzymywać pocztą elektroniczną okresowe aktualizacje dotyczące ostatnich działań w nim podejmowanych.</li>\r\n  <li><strong>Wydrukuj ten wątek</strong> - spowoduje to wyświetlenie strony z treścią postu w wątku w zmniejszonym formacie graficznym, który jest bardziej przyjazny dla drukarki.</li>\r\n  <li><strong>Atom Feed</strong> - Zostanie wyświetlony Feed tego wątku z wszystkimi postami jako elementami Feeda.</li>\r\n  <li><strong>Rss Feed</strong> - Zostanie wyświetlony Feed tego tematu z wszystkimi postami jako elementami Feed.</li>\r\n</ul>\r\n"
+            "#text": "<p>Pasek pod tytułem tematu zawiera narzędzia tematu:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - wysyła komuś e-mailem link do tematu (tylko użytkownicy).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - kopiuje adres tematu, np. aby umieścić link do niego na innej stronie.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - otrzymujesz powiadomienia o nowych odpowiedziach, zobacz <a href=\"[[help:subscriptions]]\">Obserwowanie tematów i forów</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - pokazuje temat w wersji do druku.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - kanał tematu, jeśli forum udostępnia kanały, zobacz <a href=\"[[help:rss]]\">Kanały</a>.</li>\r\n</ul>\r\n<p>Moderatorzy widzą też <strong>[[POSTS.MANAGE_TOPIC]]</strong>, aby przenieść, zamknąć lub usunąć temat, zobacz <a href=\"[[help:moderating]]\">Poradnik moderatora</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Opcje tematyczne"
+            "#text": "Narzędzia tematu"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Tutaj można znaleźć odpowiedzi na pytania dotyczące funkcjonowania forum. Aby znaleźć to, czego szukasz, skorzystaj z łączy po lewej stronie lub z poniższego pola wyszukiwania."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Pisanie"
           }
         ]
       },

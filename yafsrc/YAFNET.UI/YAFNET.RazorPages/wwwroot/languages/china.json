@@ -10815,135 +10815,680 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "使用 <code>[left]</code>、<code>[center]</code> 和 <code>[right]</code> 将文本左对齐、居中或右对齐。"
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]居中的文字[/center]\r\n[right]右对齐的文字[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "对齐"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "将文本设为粗体。"
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]这段文字是粗体[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "粗体"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "显示程序代码，保留其换行和空格，其中的 BB 代码不会被解析。"
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "为某种编程语言的代码着色，例如 csharp、javascript、python、sql、css 或 markup（HTML）。"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "语法高亮代码"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "代码"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "为文本设置颜色。可以使用颜色名称或颜色代码。"
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]红色文字[/color]和[color=#0d6efd]蓝色文字[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "文字颜色"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "这些 BB 代码用于嵌入内容（例如视频或其他网站的帖子）或附件。请在标签之间写入地址或编号。"
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "点击后可向该地址写邮件的链接。"
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "电子邮件地址"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "方括号中的表情短代码以及 :) 之类的笑脸会变成表情符号。"
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "表情符号"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "以另一种字体显示文本（前提是读者的设备上有该字体）。"
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]使用 Courier New 字体的文字[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "字体"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "本论坛的其他 BB 代码"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "只向会员显示文本，或者使用 <code>[group-hide=Role1;Role2]</code> 只向这些角色的会员显示。"
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]只有会员才能看到这段文字。[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "按用户组隐藏"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "版式"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "链接与图片"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "列表"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "引用与代码"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "会员、剧透与隐藏内容"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "文本格式"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "隐藏文本，直到读者对该帖子做出表情回应。作者和管理员始终可以看到。"
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]一段隐藏的文字。[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "对发帖数少于指定数量的会员隐藏文本。"
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]一段隐藏的文字。[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "帖子数不足时隐藏"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "隐藏文本，直到读者在该主题中回复。"
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]一段隐藏的文字。[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "隐藏文本，直到读者在该主题中回复或对该帖子做出表情回应。"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]一段隐藏的文字。[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "回复或回应后可见"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "回复后可见"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "对收到的表情回应少于指定数量的会员隐藏文本。"
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]一段隐藏的文字。[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "回应数不足时隐藏"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "回应后可见"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "在单独一行中输入四个或更多短横线，即可绘制一条水平线。"
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "水平线上方的文字\r\n----\r\n水平线下方的文字"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "水平线"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "像荧光笔一样高亮显示文本。"
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]这段文字被高亮显示[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "高亮"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "显示来自互联网的图片。地址必须以图片的格式结尾（例如 .png 或 .jpg）。"
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "带描述的图片，当鼠标悬停在图片上时会显示描述，屏幕阅读器也会朗读它。"
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]YAF.NET 的标志[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "带描述的图片"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "图片"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "缩进文本。"
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]缩进的文字[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "缩进"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "将文本设为斜体。"
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]这段文字是斜体[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "斜体"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "带项目符号的列表。每一项都在新的一行以 <code>[*]</code> 开头。"
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]第一项\r\n[*]第二项\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "带编号的列表。使用 <code>[list=a]</code> 或 <code>[list=A]</code> 表示字母编号，使用 <code>[list=i]</code> 或 <code>[list=I]</code> 表示罗马数字编号。"
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]第一步\r\n[*]第二步\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "编号列表"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "列表"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "按原样显示 BB 代码，不对其进行格式化。"
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]不是粗体[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "不解析格式"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "在一个彩色方框中显示文本。类型有 primary、secondary、success、danger、warning、info、light 和 dark。"
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]一条信息提示。[/note]\r\n[note=warning]一条警告。[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "提示框"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "将文本显示为引用。帖子上的引用按钮会为你插入它。"
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]被引用的文字。[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "带有原作者名字的引用。"
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]被引用的文字。[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "带作者的引用"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "引用"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "效果"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "更改文字大小，从 1（非常小）到 9（非常大）。5 为正常大小。"
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]小[/size] [size=5]正常[/size] [size=7]大[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "文字大小"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "隐藏文本，直到读者点击按钮，例如用于电影的结局。"
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]凶手是园丁。[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "剧透"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "为文本添加删除线，例如用于已不再有效的内容。"
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]这段文字带有删除线[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "删除线"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "创建表格：<code>[tr]</code> 表示一行，<code>[td]</code> 表示该行中的一个单元格。"
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]名字[/td][td]帖子[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "表格"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "网站地址会自动变成链接。你也可以将其放在 <code>[url]</code> 中。"
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "显示文字而不是地址的链接。"
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]YAF.NET 网站[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "带文字的链接"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "链接"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "指向会员个人资料的链接。在编辑器中输入 @ 会自动为你创建，并且该会员会收到通知。"
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "会员链接"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "为文本添加下划线。"
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]这段文字带有下划线[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "下划线"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "你输入的内容"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "你的账户"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>公告是管理员或版主发布的特殊消息。"
+            "#text": "<p>有些主题比其他主题更重要：</p>\r\n<ul>\r\n<li><strong>置顶主题</strong>始终位于所在论坛主题列表的顶部，例如论坛规则或常见问题。</li>\r\n<li><strong>公告</strong>是重要信息，它们同样显示在主题列表的顶部，并带有一个标记。</li>\r\n</ul>\r\n<p>谁可以创建它们由管理员设定（通常是版主和管理员）。他们在撰写或编辑主题时通过<strong>[[POSTMESSAGE.PRIORITY]]</strong>进行选择。你可以像回复其他主题一样回复置顶主题和公告，除非该主题已被锁定。</p>\r\n<h3 class=\"h6 mt-3\">论坛公告</h3>\r\n<p>管理员还可以在论坛的每个页面上显示一条公告，例如计划中的维护通知。你可以点击其右侧的按钮将其关闭。</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "公告"
+            "#text": "公告与置顶主题"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">浅色与深色模式</h3>\r\n<p>页头中的颜色模式按钮可以在<strong>[[THEME_MODE.LIGHT]]</strong>、<strong>[[THEME_MODE.DARK]]</strong>和<strong>[[THEME_MODE.AUTO]]</strong>（跟随你的设备）之间切换。论坛会在此浏览器中记住你的选择。</p>\r\n<h3 class=\"h6 mt-3\">主题样式与语言</h3>\r\n<p>如果管理员允许，你可以在<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>中选择其他主题样式和论坛语言。根据论坛的设置，也可以在页头中切换语言。</p>\r\n<h3 class=\"h6 mt-3\">时区与每页条数</h3>\r\n<p>所有日期和时间都按你的时区显示。请在<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>中设置时区。最近的时间会显示为例如“5 分钟前”。</p>\r\n<p>同一页面中的<strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong>决定论坛的列表每页显示多少条记录。</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "外观与语言"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>如果你有权在某个论坛上传文件，就可以在帖子中添加文件和图片：</p>\r\n<ul>\r\n<li>将文件拖入编辑器，或者（在显示格式效果的编辑器中）粘贴图片。</li>\r\n<li>或者点击工具栏上的附件按钮（<strong>[[COMMON.ATTACH_BBCODE]]</strong>）。在对话框中，你可以拖放文件或通过<strong>[[ATTACHMENTS.ADD_FILES]]</strong>选择文件；对话框还会在<strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>中列出你以前上传的文件：点击其中一个即可再次插入。</li>\r\n</ul>\r\n<p>对话框会显示<strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong>，以及最大文件大小（如果有限制）。快速回复不支持附件，请使用完整编辑器。</p>\r\n<p>图片在帖子中以预览图显示，点击即可查看完整图片（<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>）。其他文件和非常大的图片会以链接形式显示，并附有文件大小和下载次数。下载可能需要论坛只授予会员的权限。</p>\r\n<h3 class=\"h6 mt-3\">来自其他网站的图片</h3>\r\n<p>要显示互联网上的图片，请点击<strong>[[COMMON.TT_IMAGE]]</strong>并输入图片地址，或者写成 <code>[img]图片的地址[/img]</code>。</p>\r\n<p>你上传的文件列在<a href=\"[[help:myattachments]]\">我的附件</a>中，你也可以在那里删除它们。</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
-            "#text": "附件和图片"
+            "#text": "附件与图片"
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>BB 代码用于设置帖子的格式。它们是用方括号括起来、包围在文本两侧的简短标签，例如 <code>[b]粗体[/b]</code>。你不必手动输入它们：编辑器的按钮会为你插入。如果编辑器在你输入时直接显示格式效果，BB 代码会在后台自动生成。</p>\r\n<p>下面列出了本论坛的所有 BB 代码、你需要输入的内容以及它在帖子中显示的效果。有些 BB 代码只有在论坛使用时才会在此显示，并且签名中允许使用的 BB 代码可能比帖子中少。</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "BB 代码列表"
+            "#text": "BB 代码"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>在用户菜单中打开<strong>[[BLOCK_OPTIONS.TITLE]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong>：其他会员无法与你开始私信对话。</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong>：任何人都无法向你发送好友请求。</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong>：任何人都无法通过论坛向你发送电子邮件。</li>\r\n</ul>\r\n<p>管理员和你好友列表中的会员仍然可以联系你。</p>\r\n<h3 class=\"h6 mt-3\">忽略会员</h3>\r\n<p>要忽略某位会员，请打开其任意一个帖子的用户菜单，然后选择<strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>。被忽略会员的帖子会被隐藏（<strong>[[POSTS.TOGGLEPOST]]</strong>可显示单个帖子），并且他们无法给你发送私信。同一页面上的<strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong>列出了你忽略的会员，将某位会员从中移除即可重新看到其帖子。</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "忽略和屏蔽用户"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>好友是一种好友功能，是两个用户之间的双向关系。"
+            "#text": "<p>好友是两位会员之间的一种联系。要邀请某位会员成为你的好友，请在其个人资料中或帖子的用户菜单中点击<strong>[[BUDDY.ADDBUDDY]]</strong>。对方会收到好友请求，并可以批准或拒绝。</p>\r\n<p>你的好友位于用户菜单的<strong>[[TOOLBAR.BUDDIES]]</strong>中，分为三个选项卡：</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong>：你的好友。可以给他们发送私信，或将他们从列表中移除。</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong>：其他会员发来的请求。<strong>[[FRIENDS.APPROVE]]</strong>会将对方加为你的好友（同时你也成为对方的好友），拒绝则会删除该请求。<strong>[[FRIENDS.APPROVE_ALL]]</strong>会一次性批准所有请求。</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong>：你发出但尚未得到回应的请求。</li>\r\n</ul>\r\n<p>好友会显示在你的个人资料中。即使你屏蔽了私信或电子邮件，好友仍然可以联系你，请参阅<a href=\"[[help:blocking]]\">忽略和屏蔽用户</a>。如果你不想接收好友请求，也可以在那里将其屏蔽。</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
-            "#text": "朋友们"
+            "#text": "好友"
+          },
+          {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>在用户菜单中打开<strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。你有两个选项：</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong>：暂时休息：你在 30 天内无法使用你的账户，之后账户会恢复正常。</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong>：你的账户将被关闭，你的帖子会被删除（其他会员的回复会保留）。你将无法再登录，此操作无法撤销。</li>\r\n</ul>\r\n<p>输入你的<strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>进行确认，然后点击<strong>[[COMMON.CONTINUE]]</strong>。你将被退出登录。</p>\r\n<p>如果你希望删除你的全部数据，或对你的数据有疑问，请联系管理员，请参阅<a href=\"[[help:privacy]]\">隐私、Cookie 与规则</a>。</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "暂停或删除账户"
           },
           {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>如果您当前已注册并登录，则可以编辑和删除您的消息（如果管理员没有关闭此选项）。 "
+            "#text": "<p>如果论坛允许，你可以编辑和删除自己的帖子。打开帖子的菜单（帖子右上角的三个点），然后选择<strong>[[BUTTON.BUTTON_EDIT]]</strong>或<strong>[[BUTTON.BUTTON_DELETE]]</strong>。在已锁定的主题中无法进行这些操作，管理员还可以将其限制在发帖后的若干天内。</p>\r\n<h3 class=\"h6 mt-3\">编辑</h3>\r\n<p>编辑页面与发表新帖子的页面类似。如果主题是你发起的，你还可以修改它的标题、描述和标签。请填写<strong>[[POSTMESSAGE.EDITREASON]]</strong>，告诉读者你修改了什么。</p>\r\n<p>如果你在发帖一段时间后编辑帖子，帖子会显示是谁、在什么时间以及为什么编辑了它。以前的版本会被保留，请参阅<a href=\"[[help:history]]\">帖子历史</a>。版主也可以编辑你的帖子，此时帖子会注明它是由版主编辑的。</p>\r\n<h3 class=\"h6 mt-3\">删除</h3>\r\n<p>填写<strong>[[DELETEMESSAGE.DELETE_REASON]]</strong>，然后点击<strong>[[DELETEMESSAGE.DELETE]]</strong>。帖子并不会被彻底清除：它在主题中的位置会显示该帖子已被删除。你可以通过同一菜单中的<strong>[[BUTTON.BUTTON_UNDELETE]]</strong>将其恢复，除非它是被版主删除的。</p>\r\n<p>只有版主可以删除整个主题，只有管理员可以永久清除帖子。</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "编辑和删除您的帖子"
+            "#text": "编辑和删除帖子"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong>, <strong>Theme</strong> of the Site and the <strong>Text Editor</strong> (That is used for posting messages).</p>\r\n<p>There is also a Setting &quot;Single Sign On&quot; (If it&rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.</p>\r\n\r\n"
+            "#text": "<p>在用户菜单中打开<strong>[[ACCOUNT.EDIT_PROFILE]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。所有字段都是可选的，只需填写你想分享的内容。这些信息会显示在你的公开个人资料中。</p>\r\n<ul>\r\n<li><strong>关于你</strong>：你的显示名称（如果论坛使用显示名称）、真实姓名、生日、职业、兴趣和性别。</li>\r\n<li><strong>所在地</strong>：国家、省/州和城市。如果论坛提供此功能，<strong>[[EDIT_PROFILE.GET_LOCATION]]</strong>可以为你自动填写。</li>\r\n<li><strong>主页</strong>：你的网站和博客的地址。</li>\r\n<li>管理员添加的其他字段。</li>\r\n</ul>\r\n<p>点击<strong>[[COMMON.SAVE]]</strong>保存你的更改。头像和签名有各自的页面，请参阅<a href=\"[[help:mypics]]\">头像与签名</a>。电子邮件地址、时区和语言位于<a href=\"[[help:editsettings]]\">编辑设置</a>中。</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "编辑用户资料和论坛设置"
+            "#text": "编辑个人资料"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>在用户菜单中打开<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>输入新地址和你的<strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>。论坛会向新地址发送一个链接，点击该链接后地址即被更改。你的电子邮件地址绝不会向其他会员显示。</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong>：你不会出现在在线会员列表中（如果论坛允许）。</li>\r\n<li>动态流：你收到的关于提及、引用和表情回应的通知，请参阅<a href=\"[[help:popups]]\">通知</a>。</li>\r\n<li>你的时区、<strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong>，以及（如果论坛允许）主题样式和语言，请参阅<a href=\"[[help:appearance]]\">外观与语言</a>。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">双重身份验证</h3>\r\n<p>开启或关闭双重身份验证，请参阅<a href=\"[[help:login]]\">登录与账户安全</a>。</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "编辑设置"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>什么是 YAF？</strong></p>\r\n"
+            "#text": "<p>论坛是与他人进行讨论的地方。讨论的组织方式如下：</p>\r\n<ul>\r\n<li><strong>分类</strong>把同一领域的论坛归为一组，它们是首页的各个部分。</li>\r\n<li><strong>论坛</strong>是针对某个特定领域的地方。一个论坛可以包含子论坛。</li>\r\n<li><strong>主题</strong>是论坛中的讨论。一个主题从第一个帖子开始，随着会员的回复而不断增长。</li>\r\n<li><strong>帖子</strong>（或消息）是主题中的单条发言。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">首页</h3>\r\n<p>首页列出各个分类及其论坛。每个论坛都会显示主题数、帖子数和最新帖子。点击分类名称旁边的箭头可以折叠该分类，论坛会记住你的选择。根据论坛的设置，首页还会显示<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong>（最新的帖子）、统计信息以及当前在线的用户。</p>\r\n<h3 class=\"h6 mt-3\">游客与会员</h3>\r\n<p>游客可以阅读对其开放的论坛。要发表帖子、使用个人功能（私信、好友、通知）以及查看某些页面（例如会员列表或个人资料），你需要一个账户，请参阅<a href=\"[[help:registration]]\">注册</a>。</p>\r\n<p>你在一个论坛中可以做什么（阅读、发表主题、回复、参与投票、上传文件……）由管理员针对每个论坛和每个会员组进行设置。如果你看不到本帮助中描述的某个按钮，说明你在这个论坛中没有相应的权限。</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "论坛、主题和消息"
+            "#text": "论坛简介"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "一般论坛使用"
+            "@tag": "GETTINGSTARTED",
+            "#text": "入门"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>帖子被编辑后，会显示是谁在什么时间编辑了它。点击这条说明中的历史按钮即可打开<strong>[[MESSAGEHISTORY.TITLE]]</strong>：它列出帖子的各个版本，以及日期、编辑者和编辑原因。</p>\r\n<ul>\r\n<li>选择两个版本并点击<strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong>，即可查看<strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>：删除和添加的文本会突出显示。</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong>可返回到帖子。</li>\r\n</ul>\r\n<p>版主可以通过<strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>恢复以前的版本。论坛会将这些版本保留管理员设定的天数。</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "帖子历史"
           },
           {
             "@tag": "INDEX",
             "#text": "指数"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>点击页头中的<strong>[[TOOLBAR.LOGIN]]</strong>，然后输入你的用户名或电子邮件地址以及密码。</p>\r\n<p>如果你勾选<strong>[[LOGIN.AUTO]]</strong>，即使关闭浏览器，你在这台电脑上也会保持登录一个月。请不要在其他人也使用的电脑上使用此选项。不勾选时，关闭浏览器后你就会退出登录。要退出登录，请打开右上角的用户菜单并点击<strong>[[TOOLBAR.LOGOUT]]</strong>。</p>\r\n<h3 class=\"h6 mt-3\">双重身份验证</h3>\r\n<p>即使有人知道你的密码，双重身份验证也能保护你的账户：登录时，论坛还会要求输入你手机上身份验证器应用生成的验证码。</p>\r\n<ol>\r\n<li>打开<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>（用户菜单，<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。</li>\r\n<li>点击<strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>。</li>\r\n<li>在你的身份验证器应用（例如 Microsoft Authenticator、Google Authenticator）中添加一个新账户：扫描二维码或输入<strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>。</li>\r\n<li>输入应用显示的验证码以确认。</li>\r\n</ol>\r\n<p>从此以后，登录时在输入密码后还会要求输入应用中的验证码（<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>）。你可以在同一页面上通过<strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>将其关闭。</p>\r\n<h3 class=\"h6 mt-3\">保护你的账户安全</h3>\r\n<ul>\r\n<li>请使用一个在其他任何地方都没有用过的密码。你可以通过<strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>修改密码。</li>\r\n<li>论坛绝不会通过电子邮件或私信索要你的密码。</li>\r\n<li>如果你忘记了密码，请参阅<a href=\"[[help:recover]]\">找回丢失的密码</a>。</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">多次输入错误密码后，账户会被锁定几分钟。</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "登录与账户安全"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>在用户菜单中打开<strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。在<strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong>中选择你要接收哪些电子邮件：</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong>：不接收电子邮件。</li>\r\n<li>你发过帖子或订阅的主题的通知：你发帖的每个主题都会被自动订阅。</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong>：仅限你自己订阅的主题和论坛。</li>\r\n</ul>\r\n<p>如果论坛提供此功能，<strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong>会每天发送一封包含新帖子的电子邮件，而不是逐条发送。点击<strong>[[COMMON.SAVE]]</strong>保存。</p>\r\n<p>同一页面还列出了你的<strong>[[SUBSCRIPTIONS.FORUMS]]</strong>和<strong>[[SUBSCRIPTIONS.TOPICS]]</strong>（请参阅<a href=\"[[help:subscriptions]]\">订阅主题和论坛</a>），以及你各设备的推送通知（请参阅<a href=\"[[help:push]]\">推送通知与应用</a>）。</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "电子邮件通知首选项"
+            "#text": "通知偏好"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>成员列表显示董事会的注册成员。"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>会员列表显示已注册的会员及其帖子数、注册日期和最后访问时间。你可以：</p>\r\n<ul>\r\n<li>按名称、等级、注册日期、帖子数或最后访问时间排序，</li>\r\n<li>显示以某个字母开头的会员，</li>\r\n<li>通过<strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong>按名称、角色、等级或帖子数进行筛选。</li>\r\n</ul>\r\n<p>点击某个会员即可打开其个人资料。根据论坛的设置，该列表可能只对会员显示。</p>\r\n<h3 class=\"h6 mt-3\">活跃用户</h3>\r\n<p>首页上的统计信息显示谁在线。活跃用户列表显示当前在线的会员和游客，以及他们正在论坛的哪个位置。如果论坛允许，会员可以在<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>中将自己从该列表中隐藏。</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>团队页面列出论坛的管理员和版主，以及他们所管理的论坛。如果你需要帮助，可以联系他们。</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "成员名单"
+            "#text": "会员、活跃用户与团队"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">提及会员</h3>\r\n<p>在编辑器中输入 <code>@</code>，再输入名字的前几个字符，然后从列表中选择会员。该名字会变成指向其个人资料的链接，并且该会员会收到你提及了他的通知（如果他使用通知功能，请参阅<a href=\"[[help:popups]]\">通知</a>）。</p>\r\n<h3 class=\"h6 mt-3\">主题标签</h3>\r\n<p>标签是主题的关键词，例如问题所涉及的产品或话题。发表主题时，请在<strong>[[POSTTOPIC.TAGS]]</strong>中添加标签。标签会与主题一起显示，点击某个标签会列出带有该标签的所有主题。搜索也可以查找标签，请参阅<a href=\"[[help:searching]]\">搜索</a>。</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "提及与标签"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "消息与通知"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "<p>注册成员可以使用私人消息系统（如果管理员启用）向该论坛的其他成员发送消息。\r\n        "
+            "#text": "<p>私信是你与另一位会员之间的对话，其他任何人都无法阅读。在用户菜单中打开<strong>[[TOOLBAR.INBOX]]</strong>：左侧显示<strong>[[PM.CONVERSATION_TITLE]]</strong>，右侧显示所选对话中的消息。</p>\r\n<h3 class=\"h6 mt-3\">开始对话</h3>\r\n<ul>\r\n<li>点击<strong>[[PM.NEW_CONVERSATION]]</strong>，输入名字的至少三个字符，然后选择会员。</li>\r\n<li>或者在会员的个人资料中或帖子的用户菜单中点击<strong>[[POSTS.PM]]</strong>。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">撰写消息</h3>\r\n<p>输入消息后按 Enter 键发送，按 Shift+Enter 换行。你可以使用 BB 代码，例如设置粗体或插入链接。如果对方同时打开了这个对话，消息会立即出现在双方的窗口中，并且对话会显示对方是否在线。</p>\r\n<p>新消息的数量会显示在你的名字和<strong>[[TOOLBAR.INBOX]]</strong>旁边，当你打开论坛的某个页面时，会弹出对话框询问你是否要阅读它们。私信没有电子邮件通知。</p>\r\n<h3 class=\"h6 mt-3\">删除</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong>会将对话从你的列表中移除，对方仍然保留该对话。</p>\r\n<p class=\"text-body-secondary small\">你无法给屏蔽了私信或忽略了你的会员发送消息（除非你是他们的好友），请参阅<a href=\"[[help:blocking]]\">忽略和屏蔽用户</a>。管理员可以关闭私信功能。</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "私人消息（信使）"
+            "#text": "私信"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>版主会在页头中看到<strong>[[TOOLBAR.MODERATE]]</strong>。该页面列出你所管理的论坛，以及<strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong>和<strong>[[MODERATE_DEFAULT.REPORTED]]</strong>的数量。</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>在需要审核的论坛中（以及对于帖子必须经过检查的会员），新帖子只有在版主批准后才会显示。检查帖子后，点击<strong>[[MODERATE_FORUM.APPROVE]]</strong>或将其删除。</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>该列表显示被举报的帖子，以及举报原因和举报人。阅读帖子（如果帖子被编辑过，也请查看其历史），必要时采取措施（编辑或删除帖子、与作者沟通），然后点击<strong>[[MODERATE_FORUM.RESOLVED]]</strong>。</p>\r\n<h3 class=\"h6 mt-3\">管理主题</h3>\r\n<ul>\r\n<li>在主题中，<strong>[[POSTS.MANAGE_TOPIC]]</strong>提供<strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>、<strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong>和<strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>。被移动的主题可以在原论坛中保留一个链接若干天。</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong>列出论坛的所有主题：选中多个主题，即可一次性锁定、移动或删除它们。</li>\r\n<li>置顶主题和公告在编辑第一个帖子时通过<strong>[[POSTMESSAGE.PRIORITY]]</strong>设置，永久主题（不会被自动清理删除）则通过<strong>[[POSTMESSAGE.PERSISTENCY]]</strong>设置。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">管理帖子</h3>\r\n<ul>\r\n<li>你可以编辑和删除其他会员的帖子。删除帖子时，<strong>[[DELETEMESSAGE.DELETE_ALL]]</strong>会同时删除对该帖子的回复。</li>\r\n<li>帖子菜单中的<strong>[[BUTTON.BUTTON_MOVE]]</strong>可以将帖子移动到另一个主题，或将其拆分为一个新主题（<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>、<strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>）。</li>\r\n<li>在<a href=\"[[help:history]]\">帖子历史</a>中，你可以恢复帖子以前的版本。</li>\r\n<li>你可以在已锁定的主题中回复和编辑，并且你的帖子不会接受垃圾信息检查。</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">根据设置，版主还可以看到帖子的 IP 地址。会员的编辑、暂停和封禁由管理员负责。</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "版主指南"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "版主与管理员"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>版主负责监督特定论坛。"
+            "#text": "<p><strong>管理员</strong>负责运营论坛：他们创建论坛、决定谁可以做什么、设置各项功能并管理会员。</p>\r\n<p><strong>版主</strong>负责一个或多个论坛：他们让讨论不偏离主题并保持友好，检查被举报的帖子，在需要审核的论坛中批准帖子，并在必要时编辑、移动、锁定或删除主题和帖子。论坛的版主显示在其主题列表上方（<strong>[[DEFAULT.MODERATORS]]</strong>）。</p>\r\n<p><strong>[[TOOLBAR.TEAM]]</strong>页面列出所有管理员和版主（如果论坛显示该页面）。如果你对某个帖子有疑问，请<a href=\"[[help:report]]\">举报它</a>。如有其他问题，请通过私信联系版主或管理员。</p>\r\n<p>版主的工作方式在<a href=\"[[help:moderating]]\">版主指南</a>中有说明。</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
-            "#text": "版主和管理员"
+            "#text": "版主与管理员"
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>如果管理员启用了相册功能并且您是有权添加相册的成员，您可以创建链接到您的公开个人资料的图像相册。"
+            "#text": "<p>如果论坛使用相册功能，你可以在个人资料的相册中展示你的图片，并在帖子中使用它们。</p>\r\n<ol>\r\n<li>在账户页面的菜单中打开<strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong>（或在用户菜单中打开<strong>[[TOOLBAR.MYALBUMS]]</strong>），然后点击<strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>。</li>\r\n<li>输入标题并上传第一批图片（可以一次上传多张）。</li>\r\n</ol>\r\n<p>通过<strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong>，你可以添加更多图片或删除图片，以及删除相册。在相册中，你可以为图片添加说明，并通过<strong>[[BUTTON.BUTTON_SETCOVER]]</strong>选择封面。</p>\r\n<p>要在帖子中显示相册中的图片，请点击图片下方的<strong>[[ALBUM.COPY_BBCODE]]</strong>，然后将代码粘贴到编辑器中。</p>\r\n<p class=\"text-body-secondary small\">相册和图片的数量以及图片的大小都有限制，这些限制取决于你的用户组或等级，并会显示在相应页面上。</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "相册"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>你上传的所有文件都列在用户菜单的<strong>[[ATTACHMENTS.TITLE]]</strong>中（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。对于每个文件，你可以看到它在多少个帖子中被使用，或者它未被使用。</p>\r\n<p>选择文件并将其删除以释放空间，例如那些你上传了但没有使用的文件。被删除的文件将不再显示在使用它的帖子中。</p>\r\n<p>如何在帖子中添加文件，请参阅<a href=\"[[help:attachments]]\">附件与图片</a>。</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "我的附件"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>什么是头像？</strong></p>\r\n"
+            "#text": "<h3 class=\"h6\">头像</h3>\r\n<p>头像是显示在你的帖子和个人资料中、位于你名字旁边的一张小图片。在用户菜单中打开<strong>[[ACCOUNT.EDIT_AVATAR]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。根据论坛的设置，你可以：</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong>：从论坛提供的头像中选择一个。</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong>：上传你自己的图片（png、jpg、gif、webp、bmp 或 svg）。较大的图片会自动缩小，页面会显示允许的尺寸。</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong>会移除你的头像。没有头像时，论坛会显示一张默认图片。</p>\r\n<h3 class=\"h6 mt-3\">签名</h3>\r\n<p>签名是显示在你每个帖子下方的一小段文字，例如一句座右铭或指向你网站的链接。在用户菜单中打开<strong>[[ACCOUNT.SIGNATURE]]</strong>。该页面会显示签名的最大长度以及签名中可以使用的 BB 代码，不允许使用 HTML。<strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong>会显示签名的实际效果。</p>\r\n<p class=\"text-body-secondary small\">是否使用头像和签名由管理员决定，相关限制可能取决于你的用户组或等级。</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "签名，头像图片"
+            "#text": "头像与签名"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p><strong>用户控制面板</strong>是您控制个人设置、选项和偏好的地方。</p>\r\n"
+            "#text": "<p>点击右上角你的名字即可打开用户菜单：</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong>：你的账户和动态概览。</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong>：你的账户的所有设置（见下文）。</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong>：你的私信，请参阅<a href=\"[[help:messenger]]\">私信</a>。</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong>：请参阅<a href=\"[[help:buddies]]\">好友</a>。</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong>：请参阅<a href=\"[[help:myalbums]]\">相册</a>。</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong>：请参阅<a href=\"[[help:newposts]]\">查看新帖子</a>。</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>你的名字、<strong>[[TOOLBAR.INBOX]]</strong>和<strong>[[TOOLBAR.BUDDIES]]</strong>旁边的数字分别统计未读消息和待处理的好友请求。</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>该页面显示你的用户名、电子邮件地址、帖子数和注册日期，以及<strong>[[ACCOUNT.ACTIVITY]]</strong>：你的主题和回复、表情回应和好友关系，并可按类别筛选。<strong>[[ACCOUNT.VIEW_PROFILE]]</strong>会以其他会员看到的样子显示你的个人资料。</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>这些设置也列在所有账户页面的左侧：</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a>：关于你的信息。</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a>：电子邮件地址、时区、语言、双重身份验证。</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a>：你上传的文件。</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a>和<a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>。</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a>：电子邮件和推送通知、已订阅的主题和论坛。</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>：输入当前密码，并输入两次新密码。</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">有些项目只有在论坛使用相应功能时才会显示（例如头像、签名或相册）。</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "我的设置（用户控制面板）"
+            "#text": "我的账户"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "导航"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>每个页面顶部的页头包含主菜单：<strong>[[TOOLBAR.SEARCH]]</strong>、<strong>[[TOOLBAR.MEMBERS]]</strong>、<strong>[[TOOLBAR.TEAM]]</strong>和<strong>[[TOOLBAR.HELP]]</strong>（根据论坛的设置，不一定全部显示）。游客会在右侧看到<strong>[[TOOLBAR.LOGIN]]</strong>和<strong>[[TOOLBAR.REGISTER]]</strong>。会员会看到通知铃铛以及带有自己名字和头像的用户菜单，请参阅<a href=\"[[help:mysettings]]\">我的账户</a>。页头下方是当前页面的路径（导航路径），可以带你返回所在的论坛或分类。</p>\r\n<h3 class=\"h6 mt-3\">论坛的主题列表</h3>\r\n<p>点击一个论坛即可查看它的主题。置顶主题和公告会排在最前面。向下滚动时会自动加载更多主题。列表上方的工具栏包含：</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong>：只显示在所选时间内有帖子的主题（例如最近一天或自你上次访问以来）。</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong>：在本论坛的主题中搜索。</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong>：转到另一个论坛。</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong>和<strong>[[TOPICS.MARKREAD]]</strong>（仅限会员）。</li>\r\n</ul>\r\n<p>主题前面的图标表示新帖子、热门（“火热”）主题、已锁定和已移动的主题。列表下方的图例对这些图标作了说明。</p>\r\n<h3 class=\"h6 mt-3\">主题内部</h3>\r\n<p>帖子分页显示，分页导航位于帖子下方。使用<strong>[[POSTS.PREVTOPIC]]</strong>和<strong>[[POSTS.NEXTTOPIC]]</strong>可以前往本论坛中相邻的主题。指向某个帖子的链接会在该帖子的位置打开主题。</p>\r\n<h3 class=\"h6 mt-3\">新帖子与已读状态</h3>\r\n<p>含有你尚未阅读的帖子的论坛和主题会突出显示。会员可以在首页用<strong>[[DEFAULT.MARKALL]]</strong>将所有内容标记为已读，或用<strong>[[TOPICS.MARKREAD]]</strong>标记单个论坛。在哪里可以一次找到所有新帖子，请参阅<a href=\"[[help:newposts]]\">查看新帖子</a>。</p>\r\n<h3 class=\"h6 mt-3\">实时更新</h3>\r\n<p>如果论坛使用实时更新，新的主题和帖子无需刷新页面就会出现。在主题中你会看到提示<strong>[[COMMON.LIVE_NEW_REPLY]]</strong>，点击它即可显示新回复。</p>\r\n<h3 class=\"h6 mt-3\">用户信息</h3>\r\n<p>将鼠标移到用户名上，会显示一张包含该会员信息的小卡片，例如所在地、在线状态和注册日期。点击用户名会打开该会员的个人资料。</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "浏览论坛"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>会员可以在用户菜单的<strong>[[TOOLBAR.MYTOPICS]]</strong>中找到所有论坛的新帖子。该页面有四个选项卡：</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong>：自你上次访问以来有新帖子的主题。</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong>：还没有回复的主题。</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong>：你订阅的主题。</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong>：你发起的主题。</li>\r\n</ul>\r\n<p>通过时间筛选可以选择时间范围，例如最近一小时、最近一周或全部主题。<strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>会将所有主题标记为已读。</p>\r\n<p>首页上的<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong>显示所有论坛的最新帖子，游客也可以看到。</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10955,55 +11500,67 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>您可以通过发送电子邮件联系其他人，您可以在成员列表中找到他们。</p>\r\n"
+            "#text": "<p>你可以通过论坛向会员发送电子邮件：在该会员的个人资料中（或在团队页面上）点击<strong>[[POSTS.EMAIL]]</strong>，输入主题和内容，然后点击<strong>[[IM_EMAIL.SEND]]</strong>。</p>\r\n<ul>\r\n<li>对方的电子邮件地址对你保持隐藏。</li>\r\n<li>邮件会以你的用户名和<strong>你的</strong>电子邮件地址作为发件人发送，因此对方可以直接回复你。</li>\r\n<li>为防止垃圾邮件，你每小时只能发送几封电子邮件。</li>\r\n</ul>\r\n<p>你无法向屏蔽了电子邮件或忽略了你的会员发送邮件（好友除外），并且只有在管理员允许会员之间互发邮件时才能发送。在大多数情况下，<a href=\"[[help:messenger]]\">私信</a>是更好的方式。</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "联系其他会员"
+            "#text": "给会员发送电子邮件"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>投票是对某个议题或问题进行投票的一种选择。</em></p>\r\n"
+            "#text": "<p>投票是向主题的读者提出一个带有多个选项的问题。</p>\r\n<h3 class=\"h6 mt-3\">创建投票</h3>\r\n<p>发表主题时在选项中开启<strong>[[POLLEDIT.POLLADD]]</strong>，主题发布后会打开投票编辑器。对于已有的主题，主题发起人和版主会在帖子上方看到<strong>[[POLLEDIT.CREATEPOLL]]</strong>。每个主题只能有一个投票。</p>\r\n<ul>\r\n<li>输入问题和至少两个选项，<strong>[[POLLEDIT.ADD_CHOICE]]</strong>可以添加更多选项（最多不超过管理员设定的数量）。</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong>：投票开放的天数，留空则投票没有截止时间。</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong>：投票者可以选择多个答案。</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong>：投票者的名字会与结果一起显示。</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong>：只有在投票结束后才显示结果。</li>\r\n<li>如果论坛允许，问题和选项可以带有图片（图片的地址）。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">参与投票</h3>\r\n<p>点击你所选选项的按钮。投票后无法更改，所以请慎重选择。游客不能投票，也看不到结果。</p>\r\n<h3 class=\"h6 mt-3\">修改投票</h3>\r\n<p>只要还没有人投票（除非论坛允许之后修改），创建者就可以通过<strong>[[POLLEDIT.EDITPOLL]]</strong>修改投票，并可以通过<strong>[[POLLEDIT.REMOVEPOLL]]</strong>将其删除。版主随时可以修改和删除投票。</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "创建和参与投票"
+            "#text": "投票"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>当您登录并加载页面后，您可能会在浏览器窗口的中心收到弹出通知。</p>\r\n"
+            "#text": "<p>页头中的铃铛显示你的通知，红色数字表示未读通知的数量。在以下情况下你会收到通知：</p>\r\n<ul>\r\n<li>有人提及你（<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>）或引用你（<strong>[[ACCOUNT.WAS_QUOTED]]</strong>），</li>\r\n<li>有人对你的帖子做出表情回应，</li>\r\n<li>你订阅的主题中有新回复，或你订阅的论坛中有新主题，</li>\r\n<li>你有了新好友。</li>\r\n</ul>\r\n<p>点击通知即可打开相应的帖子。<strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong>会打开所有通知的列表，其中可以按类型筛选，并提供<strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>。</p>\r\n<p>通知是动态流的一部分：你可以在<strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>中将其关闭。</p>\r\n<h3 class=\"h6 mt-3\">其他提示</h3>\r\n<ul>\r\n<li>新私信和好友请求的数量会显示在你的名字旁边。当你打开某个页面时，会弹出对话框询问你是否要阅读它们。</li>\r\n<li>论坛的提示消息（例如“已保存”）会在页面顶部显示几秒钟。</li>\r\n<li>通知也可以通过电子邮件发送，或者发送到你的浏览器或手机，请参阅<a href=\"[[help:mailsettings]]\">通知偏好</a>和<a href=\"[[help:push]]\">推送通知与应用</a>。</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "弹出通知"
+            "#text": "通知"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>打开主题所属的论坛，然后点击<strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>。如果你看不到这个按钮，说明你无权在此论坛发表主题（或者你尚未登录）。</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong>：主题的标题，必须填写。在你输入时，论坛会显示<strong>[[POSTS.SIMILAR_TOPICS]]</strong>，也许你的问题已经有人回答过了。</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong>：可选的简短描述。</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong>：可选的关键词，其他会员可以通过标签找到主题。</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong>：仅限拥有此权限的会员，请参阅<a href=\"[[help:anounce]]\">公告与置顶主题</a>。</li>\r\n<li>编辑器中的帖子正文。</li>\r\n</ul>\r\n<p>在<strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong>中，你可以添加投票（<strong>[[POLLEDIT.POLLADD]]</strong>，请参阅<a href=\"[[help:polls]]\">投票</a>）并订阅该主题（<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>）。点击<strong>[[POSTMESSAGE.PREVIEW]]</strong>检查你的帖子，点击<strong>[[POSTMESSAGE.NEWTOPIC]]</strong>将其发布。</p>\r\n<h3 class=\"h6 mt-3\">编辑器</h3>\r\n<p>根据论坛的设置，编辑器会在你输入时直接显示格式效果，或者显示 BB 代码（类似 <code>[b]粗体[/b]</code> 这样的简短标签）。工具栏上的按钮用于设置文本格式：选中文本后点击按钮，例如设置粗体、插入链接、引用或列表。所有 BB 代码及其效果都列在<a href=\"[[help:bbcodes]]\">BB 代码</a>中。</p>\r\n<ul>\r\n<li>输入 <code>@</code> 和名字即可提及某位会员，请参阅<a href=\"[[help:mentions]]\">提及与标签</a>。</li>\r\n<li>文件和图片通过附件按钮添加，请参阅<a href=\"[[help:attachments]]\">附件与图片</a>。</li>\r\n<li>在 BB 代码编辑器中，Ctrl+B、Ctrl+I 和 Ctrl+U 可设置所选文本的格式，Ctrl+Enter 可发送帖子。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">须知</h3>\r\n<ul>\r\n<li>游客（如果允许发帖）需要在<strong>[[POSTMESSAGE.FROM]]</strong>中输入一个名字，该名字不能是某位会员的名字。</li>\r\n<li>为防止垃圾信息，两次发帖之间需要等待几秒钟，并且帖子有最大长度限制。</li>\r\n<li>在某些论坛中，帖子需要先经过版主审核。你的帖子在获得批准后才会显示。</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "发布新主题和帖子"
+            "#text": "发表新主题"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "设置和配置文件功能"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>使用本论坛即表示你同意其规则。<a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a>页面包含规则和隐私政策：论坛存储哪些个人数据、用于什么目的，以及你的权利（例如获取有关你的数据的信息或要求删除这些数据）。</p>\r\n<p><a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a>列出了论坛使用的 Cookie、它们的用途以及保存多长时间。你第一次访问论坛时，会有一条提示告知你有关 Cookie 的信息。</p>\r\n<p>你的个人资料只显示你填写的信息，你的电子邮件地址绝不会向其他会员显示。你可以将自己从活跃用户列表中隐藏（如果论坛允许）、屏蔽私信和电子邮件，以及删除你的账户，请参阅<a href=\"[[help:blocking]]\">忽略和屏蔽用户</a>和<a href=\"[[help:deleteaccount]]\">暂停或删除账户</a>。</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "隐私、Cookie 与规则"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>作为会员，您拥有可公开查看的个人资料页面。"
+            "#text": "<p>点击会员的名字（例如在帖子中或会员列表中）即可打开其个人资料。根据论坛的设置，个人资料可能只对会员显示。你自己的个人资料可以通过<strong>[[ACCOUNT.VIEW_PROFILE]]</strong>在<strong>[[TOOLBAR.MYPROFILE]]</strong>页面上打开。</p>\r\n<p>个人资料显示：</p>\r\n<ul>\r\n<li>会员的头像、名字、等级和勋章，以及个人资料中的信息（例如所在地、生日、职业和兴趣），</li>\r\n<li>帖子数以及给出和收到的表情回应数，</li>\r\n<li>声望（如果论坛使用），</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>，以及<strong>[[PROFILE.SEARCHUSER]]</strong>，</li>\r\n<li>该会员的好友和相册。</li>\r\n</ul>\r\n<p>通过个人资料上的按钮，你可以<strong>[[BUDDY.ADDBUDDY]]</strong>、发送私信（<strong>[[POSTS.PM]]</strong>）或电子邮件（<strong>[[POSTS.EMAIL]]</strong>），以及打开该会员的网站或博客。会员的电子邮件地址绝不会显示。</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "我的公开资料"
+            "#text": "个人资料"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "阅读和发布消息"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>推送通知会在你的电脑或手机上显示已订阅主题中的新回复以及其他通知，即使论坛没有打开也可以收到。</p>\r\n<ol>\r\n<li>在用户菜单中打开<strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>（<strong>[[TOOLBAR.MYSETTINGS]]</strong>）。</li>\r\n<li>在<strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong>中点击<strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong>，并在浏览器询问时允许通知。</li>\r\n</ol>\r\n<p>推送通知需要为每个设备和浏览器分别设置。<strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong>会在此设备上关闭推送通知。通知通过你的浏览器的推送服务（例如 Google、Mozilla、Apple 或 Microsoft 的服务）发送，并经过加密。</p>\r\n<h3 class=\"h6 mt-3\">将论坛安装为应用</h3>\r\n<p>你可以像安装应用一样安装论坛，在主屏幕或桌面上拥有它自己的图标：在同一页面上点击<strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>，或使用浏览器的安装功能。在 iPhone 和 iPad 上，推送通知只在已安装的应用中有效：轻点“共享”，再轻点<strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>，从主屏幕打开论坛，然后启用通知。</p>\r\n<p class=\"text-body-secondary small\">只有当管理员设置了推送通知时，才会显示此部分。</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "推送通知与应用"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "阅读"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>如果您忘记了密码，可以点击“<a href=\"{0}\">忘记密码</a>”\r\n  "
+            "#text": "<p>如果你忘记了密码，可以设置一个新密码：</p>\r\n<ol>\r\n<li>点击<strong>[[LOGIN.LOSTPASSWORD]]</strong>，它位于<a href=\"[[page:Account_Login]]\">登录页面</a>或登录对话框的密码框旁边。</li>\r\n<li>输入你的用户名或电子邮件地址，然后点击<strong>[[LOGIN.RECOVER]]</strong>。</li>\r\n<li>如果存在使用该名称或地址的账户，论坛会向你发送一封带有链接的电子邮件。为了保护你的隐私，页面在任何情况下都会显示相同的消息。</li>\r\n<li>该链接会打开一个页面，你在其中输入你的电子邮件地址并输入两次新密码。</li>\r\n</ol>\r\n<p>该链接只在有限的时间内有效。如果你尚未确认电子邮件地址，你将改为收到一封新的确认邮件。论坛每小时最多只发送几封此类邮件。</p>\r\n<p>密码以无法还原的形式存储，因此任何人（包括管理员）都无法告诉你原来的密码。</p>"
           },
           {
             "@tag": "RECOVERTITLE",
@@ -11011,27 +11568,35 @@
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>管理员可能会要求您注册才能使用论坛的所有功能。"
+            "#text": "<p>论坛的许多功能只对会员开放，例如发帖、私信、好友、订阅主题和通知。要成为会员，请点击页头中的<strong>[[TOOLBAR.REGISTER]]</strong>（前提是管理员允许新用户注册）。</p>\r\n<ol>\r\n<li>如果论坛要求，请阅读<strong>[[RULES.TITLE]]</strong>并点击<strong>[[RULES.ACCEPT]]</strong>。</li>\r\n<li>输入用户名、你的电子邮件地址和密码（输入两次）。根据论坛的设置，你还需要输入显示名称以及管理员要求的其他信息。</li>\r\n<li>点击<strong>[[REGISTER.REGISTER]]</strong>。</li>\r\n<li>论坛会显示<strong>[[REGISTER.CHECK_MAIL]]</strong>，并向你发送一封电子邮件。点击邮件中的链接以确认你的地址。之后你的账户即被激活，你就可以登录了。</li>\r\n</ol>\r\n<p>如果没有收到邮件，请检查你的垃圾邮件文件夹。如果你在确认地址之前尝试登录，登录页面会提示你，并提供<strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>。</p>\r\n<p>在某些论坛中，新账户必须先经过管理员批准，账户获批后你会收到电子邮件通知。</p>\r\n<p>注册后你可以完善你的个人资料，请参阅<a href=\"[[help:editprofile]]\">编辑个人资料</a>。</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "登记"
+            "#text": "注册"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>在某些版块上，您可能能够以访客用户的身份发帖和回复。"
+            "#text": "<p>要回复一个主题，请点击帖子上方或下方的<strong>[[BUTTON.BUTTON_POSTREPLY]]</strong>，或点击某个帖子下方的<strong>[[BUTTON.BUTTON_REPLY]]</strong>。回复页面会在编辑器下方显示该主题的<strong>[[POSTMESSAGE.LAST10]]</strong>，方便你边写边看。</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>如果只是简短回答，可以使用帖子下方的快速回复框，或者帖子上的<strong>[[POSTS.QUICKREPLY]]</strong>按钮。写好内容后点击<strong>[[COMMON.POST]]</strong>。如需使用完整编辑器（例如要添加附件），请点击<strong>[[COMMON.TT_EDITOR]]</strong>。</p>\r\n<h3 class=\"h6 mt-3\">引用</h3>\r\n<ul>\r\n<li>帖子下方的<strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>会开始一条回复，并将该帖子的内容作为引用。</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong>可以收集多个帖子，包括主题其他页面上的帖子。然后在其中一个帖子上点击<strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>，回复就会引用所有已收集的帖子。</li>\r\n<li>如果只想引用一部分，请在帖子中选中文本，右键单击并选择<strong>[[COMMON.SELECTED_QUOTE]]</strong>。</li>\r\n</ul>\r\n<p>请将较长的引用缩减为你所回复的部分。被引用的会员会收到通知。</p>\r\n<p>只有在你有权在此论坛回复时才能回复，并且不能在已锁定的主题中回复。游客只有在论坛允许时才能回复。</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "回复消息"
+            "#text": "回复与引用"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>如果某个帖子违反了论坛规则（例如垃圾信息、侮辱性言论或违法内容），请向版主举报，而不要回复它：</p>\r\n<ol>\r\n<li>打开帖子的菜单（帖子右上角的三个点），然后选择<strong>[[POSTS.REPORTPOST]]</strong>。</li>\r\n<li>填写你举报该帖子的原因。</li>\r\n<li>点击<strong>[[REPORTPOST.SEND]]</strong>。</li>\r\n</ol>\r\n<p>该论坛的版主会检查被举报的帖子并决定如何处理。作者看不到是谁举报了帖子。根据论坛的设置，可能只有会员才能举报帖子。</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "举报帖子"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>提要目前以两种格式提供，RSS 和 Atom。</p>\r\n"
+            "#text": "<p>通过 Feed 源，你无需访问论坛即可在 Feed 阅读器应用中关注论坛动态。论坛为以下内容提供 Atom Feed：</p>\r\n<ul>\r\n<li>最新帖子（首页上的<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong>），</li>\r\n<li>论坛的主题（主题列表上方工具栏中的 Feed 按钮），</li>\r\n<li>主题的帖子（<strong>[[POSTS.TOOLS]]</strong>、<strong>[[POSTS.ATOMTOPIC]]</strong>）。</li>\r\n</ul>\r\n<p>将 Feed 的地址复制到你的 Feed 阅读器中。论坛是否提供 Feed 以及谁可以使用（通常仅限会员）由管理员设定。如果你看不到 Feed 按钮，说明 Feed 对你不可用。</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS 和 Atom 提要"
+            "#text": "Feed 源"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>要在论坛的任何地方快速找到感兴趣的话题或帖子，请单击标题中的“搜索”链接。"
+            "#text": "<p>点击页头中的<strong>[[TOOLBAR.SEARCH]]</strong>，至少输入几个字符，然后按 Enter 键或点击<strong>[[SEARCH.BTNSEARCH]]</strong>。通过搜索选项，你可以：</p>\r\n<ul>\r\n<li>搜索帖子、主题或论坛，</li>\r\n<li>只搜索某个会员的帖子，</li>\r\n<li>搜索带有某个标签的主题，</li>\r\n<li>匹配完整短语、任意一个词或所有词，</li>\r\n<li>只在部分论坛中搜索，</li>\r\n<li>搜索帖子全文或只搜索标题，</li>\r\n<li>选择每页显示的结果数。</li>\r\n</ul>\r\n<p>搜索只会找到你有权阅读的内容。其他搜索方式：</p>\r\n<ul>\r\n<li>主题列表上方的<strong>[[TOPICS.SEARCH_FORUM]]</strong>在单个论坛中搜索。</li>\r\n<li>帖子菜单中或个人资料上的<strong>[[PROFILE.SEARCHUSER]]</strong>会列出该会员的帖子。</li>\r\n<li>点击主题标题下方的标签会显示带有该标签的所有主题。</li>\r\n<li>在帖子中选中文本并右键单击，即可搜索所选的词语。</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "搜索论坛和主题"
+            "#text": "搜索"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>订阅主题或论坛后，有新帖子时你会收到通知：在论坛的通知中，以及（取决于你的<a href=\"[[help:mailsettings]]\">通知偏好</a>）通过电子邮件和推送通知。</p>\r\n<ul>\r\n<li><strong>主题：</strong>点击主题标题下方的<strong>[[POSTS.TOOLS]]</strong>，然后点击<strong>[[POSTS.WATCHTOPIC]]</strong>。你也可以在撰写帖子时开启<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>。</li>\r\n<li><strong>论坛：</strong>点击主题列表上方工具栏中的<strong>[[TOPICS.WATCHFORUM]]</strong>。该论坛有新主题时你会收到通知。</li>\r\n<li><strong>所有论坛：</strong>点击首页上的<strong>[[DEFAULT.WATCHFORUM_ALL]]</strong>。</li>\r\n</ul>\r\n<p>要取消订阅，请点击<strong>[[POSTS.UNWATCHTOPIC]]</strong>或<strong>[[TOPICS.UNWATCHFORUM]]</strong>。在<strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>中可以找到所有<strong>[[SUBSCRIPTIONS.FORUMS]]</strong>和<strong>[[SUBSCRIPTIONS.TOPICS]]</strong>，选中其中一些并点击<strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong>即可取消订阅。</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "订阅和通知"
+            "#text": "订阅主题和论坛"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>“谢谢” - 系统是一项功能，可让您回馈其他用户积极的反馈，例如他或她发布了您认为有用的消息或帮助您解决问题。</p>\r\n"
+            "#text": "<h3 class=\"h6\">表情回应</h3>\r\n<p>通过表情回应，你无需撰写回复就能让帖子的作者知道你喜欢这个帖子。点击帖子下方的笑脸按钮（<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>），然后选择<strong>[[BUTTON.REACTION_LIKE]]</strong>、<strong>[[BUTTON.REACTION_LOVE]]</strong>、<strong>[[BUTTON.REACTION_LAUGH]]</strong>、<strong>[[BUTTON.REACTION_HOORAY]]</strong>或<strong>[[BUTTON.REACTION_WOW]]</strong>。</p>\r\n<ul>\r\n<li>再次点击你的表情回应可将其取消，点击其他表情则可更改。</li>\r\n<li>帖子的表情回应会连同数量一起显示，将鼠标移到上面可以查看谁做出了回应。</li>\r\n<li>你不能对自己的帖子、已删除的帖子以及已锁定主题中的帖子做出回应。</li>\r\n<li>作者会收到通知，表情回应会计入个人资料（给出和收到的感谢）。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">声望</h3>\r\n<p>如果论坛使用声望系统，会员的声望会以进度条的形式显示在个人资料中。自身声望足够的会员可以在帖子的用户菜单中为其他会员增加（+1）或减少（-1）声望。</p>\r\n<h3 class=\"h6 mt-3\">问题的答案</h3>\r\n<p>发起主题的会员可以通过<strong>[[POSTS.MARK_ANSWER]]</strong>标记解答了问题的回复。该帖子会获得一个答案标记，其他读者就能快速找到解决办法。</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "感谢功能"
+            "#text": "表情回应与声望"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>在每个主题的顶部，都有一个链接“选项”。"
+            "#text": "<p>主题标题下方的工具栏包含该主题的工具：</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong>：通过电子邮件将主题链接发送给他人（仅限会员）。</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong>：复制主题的地址，例如用于在其他网站上添加链接。</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong>：有新回复时你会收到通知，请参阅<a href=\"[[help:subscriptions]]\">订阅主题和论坛</a>。</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong>：以适合打印的版式显示主题。</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong>：主题的 Feed 源（如果论坛提供），请参阅<a href=\"[[help:rss]]\">Feed 源</a>。</li>\r\n</ul>\r\n<p>版主还会看到<strong>[[POSTS.MANAGE_TOPIC]]</strong>，用于移动、锁定或删除主题，请参阅<a href=\"[[help:moderating]]\">版主指南</a>。</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "主题选项"
+            "#text": "主题工具"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "在这里，您可以找到有关董事会如何运作的问题的答案。"
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "发帖"
           }
         ]
       },

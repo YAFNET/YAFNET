@@ -125,6 +125,11 @@ public class FakeLocalization : ILocalization
         return this.resources.ContainsKey(Key(page, tag));
     }
 
+    public string GetRawText(string page, string tag)
+    {
+        return this.resources.GetValueOrDefault(Key(page, tag));
+    }
+
     public string GetTextFormatted(string text, params object[] args)
     {
         return this.FormatString(this.GetText(text), args);

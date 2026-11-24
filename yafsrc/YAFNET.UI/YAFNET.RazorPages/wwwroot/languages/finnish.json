@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Tasaa tekstin vasemmalle, keskelle tai oikealle koodeilla <code>[left]</code>, <code>[center]</code> ja <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Keskitetty teksti[/center]\r\n[right]Oikealle tasattu teksti[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Tasaus"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Lihavoi tekstin."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Tämä teksti on lihavoitu[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Lihavointi"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Näyttää ohjelmakoodin rivinvaihtoineen ja välilyönteineen, sen sisällä olevia BB-koodeja ei muotoilla."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Värittää ohjelmointikielen koodin, esim. csharp, javascript, python, sql, css tai markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Koodi korostuksella"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Koodi"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Värittää tekstin. Käytä värin nimeä tai värikoodia."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Punainen teksti[/color] ja [color=#0d6efd]sininen teksti[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Tekstin väri"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Nämä BB-koodit upottavat sisältöä (esim. videoita tai muiden verkkosivustojen julkaisuja) tai liitteitä. Kirjoita osoite tai numero tunnisteiden väliin."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Linkki, joka kirjoittaa sähköpostia osoitteeseen."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]someone@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "Sähköpostiosoite"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Hakasulkeissa olevat emojien lyhytkoodit ja hymiöt, kuten :), muuttuvat emojeiksi."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Näyttää tekstin toisella fontilla, jos fontti on saatavilla lukijan laitteessa."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Tekstiä Courier New -fontilla[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Fontti"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Tämän foorumin muut BB-koodit"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Näyttää tekstin vain jäsenille tai merkinnällä <code>[group-hide=Role1;Role2]</code> vain näiden roolien jäsenille."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Vain jäsenet näkevät tämän tekstin.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Piilossa ryhmiltä"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Asettelu"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Linkit ja kuvat"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Luettelot"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Lainaukset ja koodi"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Jäsenet, spoilerit ja piilotettu sisältö"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Tekstin muotoilu"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Piilottaa tekstin, kunnes lukija reagoi viestiin. Kirjoittaja ja ylläpitäjät näkevät sen aina."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Piilotettu teksti.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Piilottaa tekstin jäseniltä, jotka ovat kirjoittaneet vähemmän viestejä kuin annettu määrä."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Piilotettu teksti.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Piilossa, jos viestejä on vähän"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Piilottaa tekstin, kunnes lukija vastaa aiheeseen."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Piilotettu teksti.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Piilottaa tekstin, kunnes lukija vastaa aiheeseen tai reagoi viestiin."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Piilotettu teksti.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Piilossa vastaukseen tai reaktioon asti"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Piilossa vastaukseen asti"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Piilottaa tekstin jäseniltä, jotka ovat saaneet vähemmän reaktioita kuin annettu määrä."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Piilotettu teksti.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Piilossa, jos reaktioita on vähän"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Piilossa reaktioon asti"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Neljä tai useampi tavuviiva omalla rivillään piirtää vaakaviivan."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Teksti viivan yläpuolella\r\n----\r\nTeksti viivan alapuolella"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Vaakaviiva"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Korostaa tekstin kuin korostuskynällä."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Tämä teksti on korostettu[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Korostus"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Näyttää kuvan internetistä. Osoitteen on päätyttävä kuvan tyyppiin (esim. .png tai .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "Kuva, jolla on kuvaus. Kuvaus näytetään, kun hiiri on kuvan päällä, ja ruudunlukijat lukevat sen."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]YAF.NETin logo[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Kuva kuvauksella"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Kuva"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Sisentää tekstin."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Sisennetty teksti[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Sisennys"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Kursivoi tekstin."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Tämä teksti on kursivoitu[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Kursiivi"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "Luettelo luettelomerkein. Jokainen kohta alkaa omalta riviltään merkinnällä <code>[*]</code>."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Ensimmäinen kohta\r\n[*]Toinen kohta\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "Numeroitu luettelo. Käytä kirjaimille merkintää <code>[list=a]</code> tai <code>[list=A]</code> ja roomalaisille numeroille <code>[list=i]</code> tai <code>[list=I]</code>."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Ensimmäinen vaihe\r\n[*]Toinen vaihe\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Numeroitu luettelo"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Luettelo"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Näyttää BB-koodit sellaisinaan muotoilematta niitä."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]ei lihavoitu[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Ei muotoilua"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Näyttää tekstin värillisessä laatikossa. Tyypit ovat primary, secondary, success, danger, warning, info, light ja dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]Huomautus, jossa on tietoa.[/note]\r\n[note=warning]Varoitus.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Huomautus"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Näyttää tekstin lainauksena. Viestien lainauspainikkeet lisäävät sen puolestasi."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Lainattu teksti.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Lainaus, jossa on sen kirjoittajan nimi."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Lainattu teksti.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Lainaus kirjoittajan kanssa"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Lainaus"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Tulos"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Muuttaa tekstin kokoa välillä 1 (hyvin pieni) – 9 (hyvin suuri). 5 on normaali koko."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Pieni[/size] [size=5]Normaali[/size] [size=7]Suuri[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Tekstin koko"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Piilottaa tekstin, kunnes lukija napsauttaa painiketta, esim. elokuvan lopun."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Puutarhuri sen teki.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoileri"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Yliviivaa tekstin, esim. jotakin, mikä ei enää päde."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Tämä teksti on yliviivattu[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Yliviivaus"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Luo taulukon: <code>[tr]</code> on rivi, <code>[td]</code> rivin solu."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Nimi[/td][td]Viestit[/td][/tr][tr][td]Anna[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Taulukko"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Verkkosivujen osoitteista tulee automaattisesti linkkejä. Voit myös kirjoittaa ne <code>[url]</code>-koodin sisään."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Linkki, joka näyttää osoitteen sijaan tekstin."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]YAF.NETin verkkosivusto[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Linkki tekstillä"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Linkki"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Linkki jäsenen profiiliin. Kun kirjoitat editoriin @, linkki luodaan puolestasi, ja jäsen saa ilmoituksen."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Linkki jäseneen"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Alleviivaa tekstin."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Tämä teksti on alleviivattu[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Alleviivaus"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Kirjoitat"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Oma tilisi"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Kuulutukset ovat ylläpitäjän tai moderaattoreiden lähettämiä erikoisviestejä. Ne ovat yksinkertaista yksisuuntaista viestintää käyttäjien kanssa, eikä niihin voi vastata. Jos haluat keskustella ilmoituksista, sinun on luotava uusi viestiketju foorumille.</p>\r\n<p>Kuulutusaiheet näkyvät foorumin listaussivujen yläosassa, tavallisten ja tahmeiden aiheiden yläpuolella.</p>\r\n        "
+            "#text": "<p>Jotkin aiheet ovat muita tärkeämpiä:</p>\r\n<ul>\r\n<li><strong>Kiinnitetyt aiheet</strong> pysyvät alueensa aiheluettelon kärjessä, esim. alueen säännöt tai usein kysytyt kysymykset.</li>\r\n<li><strong>Tiedotteet</strong> ovat tärkeää tietoa, ja nekin näytetään aiheluettelon kärjessä merkillä varustettuina.</li>\r\n</ul>\r\n<p>Ylläpitäjä määrää, kuka voi luoda niitä (yleensä moderaattorit ja ylläpitäjät). He valitsevat sen kohdasta <strong>[[POSTMESSAGE.PRIORITY]]</strong>, kun he kirjoittavat tai muokkaavat aihetta. Kiinnitettyihin aiheisiin ja tiedotteisiin voi vastata kuten mihin tahansa muuhun aiheeseen, ellei aihe ole lukittu.</p>\r\n<h3 class=\"h6 mt-3\">Foorumin tiedotteet</h3>\r\n<p>Ylläpitäjä voi myös näyttää tiedotteen foorumin jokaisella sivulla, esim. suunnitellusta huoltokatkosta. Voit sulkea sen sen oikealla puolella olevalla painikkeella.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Ilmoitukset"
+            "#text": "Tiedotteet ja kiinnitetyt aiheet"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Vaalea ja tumma tila</h3>\r\n<p>Otsakkeen väritilapainike vaihtaa tilojen <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> ja <strong>[[THEME_MODE.AUTO]]</strong> (laitteesi tila) välillä. Foorumi muistaa valintasi tässä selaimessa.</p>\r\n<h3 class=\"h6 mt-3\">Teema ja kieli</h3>\r\n<p>Jos ylläpitäjä sallii sen, voit valita toisen teeman ja foorumin kielen sivulla <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Foorumista riippuen kielen voi vaihtaa myös otsakkeessa.</p>\r\n<h3 class=\"h6 mt-3\">Aikavyöhyke ja sivukoko</h3>\r\n<p>Kaikki päivämäärät ja kellonajat näytetään omalla aikavyöhykkeelläsi. Aseta se sivulla <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Viimeaikaiset ajat näytetään esim. muodossa ”5 minuuttia sitten”.</p>\r\n<p>Samalla sivulla oleva <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> määrää, montako riviä foorumin luettelot näyttävät sivua kohden.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Ulkoasu ja kieli"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Jos sinulla on oikeus ladata tiedostoja alueelle, voit lisätä viesteihisi tiedostoja ja kuvia:</p>\r\n<ul>\r\n<li>Vedä tiedosto editoriin tai (muotoilut näyttävässä editorissa) liitä kuva.</li>\r\n<li>Tai napsauta työkalupalkin liitepainiketta (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). Ikkunassa voit pudottaa tiedostoja tai valita niitä painikkeella <strong>[[ATTACHMENTS.ADD_FILES]]</strong>, ja kohdassa <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong> luetellaan aiemmin lataamasi tiedostot: napsauta jotakin niistä lisätäksesi sen uudelleen.</li>\r\n</ul>\r\n<p>Ikkunassa näkyvät <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> ja mahdollinen tiedoston enimmäiskoko. Pikavastauksessa ei ole liitteitä, käytä koko editoria.</p>\r\n<p>Kuvat näytetään viestissä esikatselukuvana, napsauta sitä nähdäksesi koko kuvan (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Muut tiedostot ja hyvin suuret kuvat näytetään linkkinä, jossa on koko ja latauskertojen määrä. Lataaminen voi vaatia oikeuden, jonka foorumi antaa vain jäsenille.</p>\r\n<h3 class=\"h6 mt-3\">Kuvat muilta verkkosivustoilta</h3>\r\n<p>Näyttääksesi kuvan internetistä napsauta <strong>[[COMMON.TT_IMAGE]]</strong> ja anna sen osoite tai kirjoita <code>[img]kuvan osoite[/img]</code>.</p>\r\n<p>Lataamasi tiedostot luetellaan sivulla <a href=\"[[help:myattachments]]\">Omat liitteet</a>, jossa voit myös poistaa niitä.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,23 +11300,39 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>BB-koodit muotoilevat viestejäsi. Ne ovat lyhyitä hakasulkeissa olevia tunnisteita tekstin ympärillä, esim. <code>[b]lihavoitu[/b]</code>. Sinun ei tarvitse kirjoittaa niitä itse: editorin painikkeet lisäävät ne puolestasi. Jos editori näyttää muotoilut jo kirjoittaessasi, BB-koodit luodaan taustalla.</p>\r\n<p>Alta löydät tämän foorumin kaikki BB-koodit, mitä kirjoitat ja tuloksen sellaisena kuin se näkyy viestissä. Jotkin BB-koodit näytetään täällä vain, jos foorumi käyttää niitä, ja allekirjoituksissa voi olla sallittu vähemmän BB-koodeja kuin viesteissä.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "BB-koodien luettelo"
+            "#text": "BB-koodit"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[BLOCK_OPTIONS.TITLE]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - muut jäsenet eivät voi aloittaa yksityisiä keskusteluja kanssasi.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - kukaan ei voi lähettää sinulle ystäväpyyntöjä.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - kukaan ei voi lähettää sinulle sähköposteja foorumin kautta.</li>\r\n</ul>\r\n<p>Ylläpitäjät ja ystäväluettelossasi olevat jäsenet voivat silti ottaa sinuun yhteyttä.</p>\r\n<h3 class=\"h6 mt-3\">Jäsenen sivuuttaminen</h3>\r\n<p>Sivuuttaaksesi jäsenen avaa jonkin hänen viestinsä käyttäjävalikko ja valitse <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Sivuutettujen jäsenten viestit piilotetaan (<strong>[[POSTS.TOGGLEPOST]]</strong> näyttää yksittäisen viestin), eivätkä he voi lähettää sinulle yksityisviestejä. Samalla sivulla oleva <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> luettelee jäsenet, jotka olet sivuuttanut, poista jäsen luettelosta nähdäksesi hänen viestinsä taas.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Käyttäjien sivuuttaminen ja estäminen"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Friends on ystävyystoiminto, ja se on kahden käyttäjän välinen kaksisuuntainen suhde. Sen aloittaa toinen käyttäjä ja toinen hyväksyy sen.\r\n</p>\r\n<p><strong>Missä ystävien luettelo näkyy?</strong></p>\r\n<p>Kaverisi näkyvät 'Omat ystävät' -sivulla, jonne pääset otsikon linkistä 'Omat ystävät' tai <strong>Käyttäjän ohjauspaneelin</strong> linkistä 'Muokkaa ystäviä'. </p>\r\n<p><em>Huomautus: Jos et näe tätä linkkiä, sinulla ei ole yhtään ystävää, et ole lähettänyt yhtään pyyntöä tai sinulla ei ole vireillä olevia ystäväpyyntöjä.</em></p>\r\n<p>Kaverisi näkyvät myös profiilisivullasi.</p>Kaverisi näkyvät myös profiilisivullasi.</p>\r\n<p><strong>Miten voin pyytää käyttäjää ystäväksi tai hyväksyä ystäväpyynnön?</strong></p>\r\n<p>Pyytääksesi käyttäjää Ystäväksi, katso sen henkilön profiilisivua, jonka kanssa haluat ystävystyä, ja napsauta 'Lisää ystäväksi' -linkkiä.</p>\r\n<p>Hyväksyäksesi Ystävyyspyynnön ystäväsi, siirry 'Omat ystävät' -sivulle. Välilehdellä 'Vireillä olevat pyynnöt' näet Luettelon käyttäjistä, joilla on vireillä olevia pyyntöjä. Siellä sinulla on kolme vaihtoehtoa...</p>\r\n<ul>\r\n  <li><strong>Hyväksy</strong> - Sinusta tulee pyynnön esittäneen käyttäjän ystävä </li>\r\n  <li><strong>Kieltää</strong> - Hylkäät pyynnön</li>.\r\n  <li><strong>Hyväksy ja lisää - </strong>Sinusta tulee pyynnön esittäneen Käyttäjän Ystävä, ja myös Käyttäjästä tulee Listasi Ystävä.</li>\r\n</ul>\r\n<p><strong>Poista ystävä</strong></p>\r\n<p>Poistaaksesi Ystävän luettelostasi mene 'Ystäväni' -sivulle. Napsauta välilehdellä 'Ystävälista' sen Käyttäjän, jonka haluat poistaa, painiketta 'Poista ystävä'</p>\r\n<p><strong>Pyyntösi</strong></p>\r\n<p>Sivun 'Omat ystävät' kolmannella välilehdellä näytetään tekemäsi Pyynnöt, jotka ovat vireillä.</p>"
+            "#text": "<p>Ystävyys on kahden jäsenen välinen yhteys. Pyytääksesi jäsentä ystäväksesi napsauta profiilissa tai viestin käyttäjävalikossa <strong>[[BUDDY.ADDBUDDY]]</strong>. Jäsen saa ystäväpyynnön ja voi hyväksyä tai hylätä sen.</p>\r\n<p>Ystäväsi löytyvät käyttäjävalikon kohdasta <strong>[[TOOLBAR.BUDDIES]]</strong> kolmelta välilehdeltä:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - ystäväsi. Lähetä heille yksityisviesti tai poista heidät luettelosta.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - muiden jäsenten pyynnöt. <strong>[[FRIENDS.APPROVE]]</strong> lisää jäsenen ystäviisi (ja sinut hänen ystäviinsä), hylkääminen poistaa pyynnön. <strong>[[FRIENDS.APPROVE_ALL]]</strong> hyväksyy kaikki pyynnöt kerralla.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - lähettämäsi pyynnöt, joihin ei ole vielä vastattu.</li>\r\n</ul>\r\n<p>Ystävät näytetään profiilissasi. He voivat ottaa sinuun yhteyttä, vaikka estäisit yksityisviestit tai sähköpostit, katso <a href=\"[[help:blocking]]\">Käyttäjien sivuuttaminen ja estäminen</a>. Jos et halua ystäväpyyntöjä, voit estää myös ne samassa paikassa.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Ystävät"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong>. Sinulla on kaksi vaihtoehtoa:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - tauko: et voi käyttää tiliäsi 30 päivään, sen jälkeen se toimii taas.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - tilisi suljetaan ja viestisi poistetaan (muiden jäsenten vastaukset säilyvät). Et voi enää kirjautua sisään, eikä tätä voi perua.</li>\r\n</ul>\r\n<p>Vahvista antamalla <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> ja napsauta <strong>[[COMMON.CONTINUE]]</strong>. Sinut kirjataan ulos.</p>\r\n<p>Jos haluat, että kaikki tietosi poistetaan, tai sinulla on kysyttävää tiedoistasi, ota yhteyttä ylläpitäjään, katso <a href=\"[[help:privacy]]\">Tietosuoja, evästeet ja säännöt</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Tilin keskeyttäminen tai poistaminen"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Jos olet rekisteröitynyt ja kirjautunut sisään, voit ehkä muokata ja poistaa viestejäsi (jos ylläpitäjä ei ole poistanut tätä vaihtoehtoa käytöstä). </p>\r\n<p>Muokataksesi tai poistaaksesi viestejäsi, klikkaa kyseisen viestin vieressä olevaa 'Muokkaa'-painiketta. Jos viestisi oli viestiketjun ensimmäinen, sen poistaminen voi poistaa koko viestiketjun.</p>\r\n<p>Kun olet tehnyt muutokset, viestin alareunaan ilmestyy huomautus, joka ilmoittaa muille käyttäjille, että olet muokannut viestiäsi.</p>\r\n<p>Kirjoita myös kenttään 'Muokkauksen syy' syy, miksi olet muokannut tätä viestiä.</p>\r\n<p><strong>Voivatko muut muokata viestejäni?</strong></p>\r\n<p>Administraattorit ja moderaattorit voivat myös muokata viestejäsi. Jos he tekevät niin, alareunaan ilmestyy huomautus, joka kertoo muille käyttäjille, että viestiä on muokattu.</p>"
+            "#text": "<p>Voit muokata ja poistaa omia viestejäsi, jos foorumi sallii sen. Avaa viestin valikko (kolme pistettä sen oikeassa yläkulmassa) ja valitse <strong>[[BUTTON.BUTTON_EDIT]]</strong> tai <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Se ei ole mahdollista lukituissa aiheissa, ja ylläpitäjä voi rajoittaa sen tiettyyn määrään päiviä kirjoittamisen jälkeen.</p>\r\n<h3 class=\"h6 mt-3\">Muokkaaminen</h3>\r\n<p>Muokkaussivu on kuin uuden viestin sivu. Jos aloitit aiheen, voit muuttaa myös sen otsikkoa, kuvausta ja tunnisteita. Kerro lukijoille kentässä <strong>[[POSTMESSAGE.EDITREASON]]</strong>, mitä muutit.</p>\r\n<p>Jos muokkaat viestiä jonkin aikaa sen kirjoittamisen jälkeen, viestissä näkyy, kuka sitä muokkasi, milloin ja miksi. Aiemmat versiot säilytetään, katso <a href=\"[[help:history]]\">Viestihistoria</a>. Myös moderaattorit voivat muokata viestejäsi, jolloin viestissä kerrotaan moderaattorin muokanneen sitä.</p>\r\n<h3 class=\"h6 mt-3\">Poistaminen</h3>\r\n<p>Kirjoita <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> ja napsauta <strong>[[DELETEMESSAGE.DELETE]]</strong>. Viestiä ei hävitetä: sen paikalla aiheessa näkyy, että se on poistettu. Voit palauttaa sen samasta valikosta valinnalla <strong>[[BUTTON.BUTTON_UNDELETE]]</strong>, ellei moderaattori poistanut sitä.</p>\r\n<p>Vain moderaattorit voivat poistaa kokonaisia aiheita, ja vain ylläpitäjät voivat hävittää viestejä pysyvästi.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
@@ -10859,55 +11340,103 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Voit muuttaa tilisi tietoja käyttämällä Henkilökohtainen profiili -&gt; \"Muokkaa profiilia\" -vaihtoehtoa <strong>Käyttäjän ohjauspaneelissa</strong>. Jos haluat vaihtaa salasanasi, sitä varten on <strong>Käyttäjän ohjauspaneelissa</strong> ylimääräinen sivu (Vaihda salasana), jossa voit asettaa uuden salasanan.</p>\r\n<p><strong>Muokkaa profiilia -sivu</strong></p>\r\n<p>Tällä sivulla voit asettaa useita pakollisia ja valinnaisia tietoja, joista osa näkyy julkisessa profiilissasi. Sähköpostiosoitettasi lukuun ottamatta älä anna tietoja, joiden et halua olevan julkisesti nähtävissä.</p>\r\n<p><strong>Tietoja sinusta</strong></p>\r\n<p>Nämä ovat sinua koskevat perustiedot</p>\r\n<p><strong>Sijainti</strong></p>\r\n<p>Tässä voit valinnaisesti syöttää asuinpaikkasi</p>\r\n<p><strong>Kotisivu</strong></p>\r\n<p>Tässä voit valinnaisesti syöttää kotisivun ja/tai blogin.</p>\r\n<p><strong>Pikaviestipalvelut</strong></p>\r\n<p>Täällä voit valinnaisesti syöttää viestipalveluiden, kuten MSN:n, XMPP:n:n, Facebookin ja Twitterin, viestipalvelutunnukset.</p>\r\n<p><strong>Aikavyöhyke</strong></p>\r\n<p>Tässä voit määrittää aikavyöhykkeen, jotta voit säätää taulun kellonajan ja päivämäärän paikalliseen aikaasi. Ja asettaa kesäajan, jos se säädetään automaattisesti.</p>\r\n<p><strong>Foorumin asetukset</strong></p>\r\n<p>Tässä voit muuttaa sähköpostiosoitteen.</p>\r\n<p>Ja jos ylläpitäjä on ottanut sen käyttöön, voit vaihtaa foorumin <strong>kielen</strong>, sivuston <strong>teeman</strong> ja <strong>tekstieditorin</strong> (jota käytetään viestien lähettämiseen).</p>\r\n<p>On myös asetus &quot;Single Sign On&quot; (Jos se&rsquo;on aktivoitu). Jos otat sen käyttöön, voit kirjautua sisään Facebookin kautta, syötät myös Facebook-tunnuksesi edellä.</p>\r\n\r\n"
+            "#text": "<p>Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[ACCOUNT.EDIT_PROFILE]]</strong>. Kaikki kentät ovat vapaaehtoisia, täytä vain se, minkä haluat jakaa. Tiedot näytetään julkisessa profiilissasi.</p>\r\n<ul>\r\n<li><strong>Tietoja sinusta</strong> - näyttönimesi (jos foorumi käyttää näyttönimiä), oikea nimi, syntymäpäivä, ammatti, kiinnostuksen kohteet ja sukupuoli.</li>\r\n<li><strong>Sijainti</strong> - maa, osavaltio tai alue ja kaupunki. Jos foorumi tarjoaa sen, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> täyttää ne puolestasi.</li>\r\n<li><strong>Kotisivu</strong> - verkkosivustosi ja blogisi osoitteet.</li>\r\n<li>Muut kentät, jotka ylläpitäjä on lisännyt.</li>\r\n</ul>\r\n<p>Tallenna muutoksesi napsauttamalla <strong>[[COMMON.SAVE]]</strong>. Avatarillasi ja allekirjoituksellasi on omat sivunsa, katso <a href=\"[[help:mypics]]\">Avatar ja allekirjoitus</a>. Sähköpostiosoite, aikavyöhyke ja kieli ovat sivulla <a href=\"[[help:editsettings]]\">Asetusten muokkaaminen</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Käyttäjäprofiilin ja foorumin asetusten muokkaaminen"
+            "#text": "Profiilin muokkaaminen"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Anna uusi osoite ja <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Foorumi lähettää linkin uuteen osoitteeseen, ja osoite vaihtuu, kun napsautat linkkiä. Sähköpostiosoitettasi ei koskaan näytetä muille jäsenille.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - sinua ei näytetä paikalla olevien jäsenten luettelossa (jos foorumi sallii sen).</li>\r\n<li>Toimintavirta - ilmoituksesi maininnoista, lainauksista ja reaktioista, katso <a href=\"[[help:popups]]\">Ilmoitukset</a>.</li>\r\n<li>Aikavyöhykkeesi, <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> sekä (jos foorumi sallii sen) teema ja kieli, katso <a href=\"[[help:appearance]]\">Ulkoasu ja kieli</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Kaksivaiheinen tunnistautuminen</h3>\r\n<p>Ota kaksivaiheinen tunnistautuminen käyttöön tai poista se käytöstä, katso <a href=\"[[help:login]]\">Kirjautuminen ja tilin turvallisuus</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Asetusten muokkaaminen"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Mikä on YAF?</strong></p>\r\n<p>YetAnotherForum.NET (YAF) on avoimen lähdekoodin keskustelufoorumi ASP.NET:ää käyttäville sivustoille. 100-prosenttisesti C#-kielellä kirjoitettu YAF (lausutaan kuten &quot;laugh&quot;) on ainutlaatuinen yhdistelmä avointa lähdekoodia, Microsoftin .NET-alustaa ja .NET-kehittäjäyhteisön kansainvälistä yhteistyötä. Päivittäin kasvavaa ja muuttuvaa YAF-projektia johtaa Ingo Herbote. YAF toimii millä tahansa verkkopalvelimella, joka tukee ASP.NET Core v9:aa (tai uudempaa) ja SQL Serveriä. YAF on lisensoitu Apache 2.0.</p> -lisenssillä.\r\n<p><strong>Miten tämä kaikki on jäsennelty?</strong></p>\r\n<p>Foorumi sisältää erilaisia alueita, jotka puolestaan sisältävät foorumeita (tarkempia aihealueita), jotka sisältävät aiheita, jotka koostuvat yksittäisistä viesteistä (joissa käyttäjä kirjoittaa jotain).</p>\r\n<p>Foorumien etusivulla on luettelo kategorioista ja foorumeista sekä perustilastoja kustakin, kuten aiheiden ja viestien määrä sekä se, kuka jäsen on lähettänyt viimeisimmän viestin.</p>\r\n<p><strong>Miten löydän tieni?</strong></p>\r\n<p>Kun klikkaat foorumin nimeä, pääset sen sisältämien aiheiden luetteloon. Aihe on jäsenten tai vieraiden välinen keskustelu. Jokainen aihe alkaa yksittäisenä viestinä ja kasvaa, kun eri käyttäjät lisäävät siihen lisää yksittäisiä viestejä. </p>\r\n<p>Aloittaaksesi uuden aiheen klikkaa yksinkertaisesti 'Uusi aihe' -painiketta (jos sinulla on pääsy siihen).</p>\r\n<p><strong>Paging</strong></p>\r\n<p>Kun näytettäviä aiheita on enemmän kuin yhdelle sivulle mahtuu, saatat nähdä sivunumeroita sisältävän sivunumeron (Pager). Tämä osoittaa, että aihealueluettelo on jaettu kahdelle tai useammalle sivulle.</p>\r\n<p>Tätä tapaa jakaa asialuettelot usealle sivulle käytetään koko foorumilla.</p>\r\n<p><strong>Mitä ovat tahmeat aiheet?</strong></p>\r\n<p>\"Sticky\"-aiheita voivat luoda moderaattorit tai ylläpitäjät, ja ne pysyvät \"kiinni\" listan yläosassa, vaikka niihin ei olisi tullut viime aikoina yhtään viestiä. Niiden tarkoituksena on pitää tärkeät tiedot näkyvillä ja saatavilla aina.</p>\r\n<p><strong>Miten luen aiheen?</strong></p>\r\n<p>Klikkaa aiheen otsikkoa lukeaksesi sitä. Jokaisen viestin aiheessa on luonut jäsen tai vieras. Näet lyhyet tiedot aiheen luoneesta jäsenestä viestin vasemmalla puolella.</p>\r\n<p>Vastauksen lähettämiseksi olemassa olevaan aiheeseen napsauta 'Lähetä vastaus' -painiketta. Jos 'Lähetä vastaus' -painiketta ei näy, se voi tarkoittaa, että et ole kirjautunut jäsenenä, sinulla ei ole oikeutta vastata tai että aihe on suljettu uusilta vastauksilta.</p>\r\n<p>Jos se on käytössä, näkyviin tulee myös 'Pikavastaukset'-laatikko, johon voit kirjoittaa nopeasti vastauksen ilman, että sinun tarvitsee siirtyä 'Lähetä vastaus'-sivulle. Sinun on napsautettava viestin 'Pikavastaukset'-painiketta aktivoidaksesi pikavastauksen laatikon, ennen kuin voit kirjoittaa siihen.</p>\r\n<p><strong>Miten saan lisätietoja jäsenistä?</strong></p>\r\n<p>Katsoaksesi tietoja tietystä jäsenestä, klikkaa käyttäjän nimeä. Tämä vie sinut hänen julkiselle profiilisivulleen.</p>\r\n<p><strong>Mikä on Header?</strong></p>\r\n<p>Kaiken sivun yläosassa olevassa otsikossa on linkkejä, joiden avulla voit liikkua sivulla. Yhdellä napsautuksella pääset esimerkiksi seuraaville alueille: Oma profiili, Ohje (jota luet nyt), Haku ja muita hyödyllisiä ominaisuuksia..</p>"
+            "#text": "<p>Foorumi on paikka, jossa keskustellaan muiden ihmisten kanssa. Keskustelut on järjestetty näin:</p>\r\n<ul>\r\n<li><strong>Kategoriat</strong> kokoavat saman aihepiirin alueet yhteen, ne ovat etusivun osiot.</li>\r\n<li><strong>Alueet</strong> ovat tietyn aihepiirin keskustelupaikkoja. Alueella voi olla alialueita.</li>\r\n<li><strong>Aiheet</strong> ovat alueen keskusteluja. Aihe alkaa ensimmäisestä viestistä ja kasvaa jäsenten vastauksilla.</li>\r\n<li><strong>Viestit</strong> (eli kirjoitukset) ovat aiheen yksittäisiä puheenvuoroja.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Etusivu</h3>\r\n<p>Etusivulla luetellaan kategoriat ja niiden alueet. Jokaisesta alueesta näet aiheiden ja viestien määrän sekä uusimman viestin. Kategorian voi pienentää sen nimen vieressä olevasta nuolesta, ja foorumi muistaa valintasi. Foorumista riippuen etusivulla näkyvät myös <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (uusimmat viestit), tilastot ja paikalla olevat käyttäjät.</p>\r\n<h3 class=\"h6 mt-3\">Vieraat ja jäsenet</h3>\r\n<p>Vieraat voivat lukea niitä alueita, jotka ovat heille avoinna. Viestien kirjoittamiseen, henkilökohtaisiin toimintoihin (yksityisviestit, ystävät, ilmoitukset) ja joidenkin sivujen (esim. jäsenluettelon tai profiilien) katseluun tarvitset käyttäjätilin, katso <a href=\"[[help:registration]]\">Rekisteröityminen</a>.</p>\r\n<p>Sen, mitä voit alueella tehdä (lukea, aloittaa aiheita, vastata, äänestää kyselyissä, ladata tiedostoja, ...), ylläpitäjä määrittää jokaiselle alueelle ja jokaiselle jäsenryhmälle erikseen. Jos et näe jotakin tässä ohjeessa kuvattua painiketta, sinulla ei ole siihen oikeutta tällä alueella.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Foorumit, aiheet ja viestit"
+            "#text": "Foorumi lyhyesti"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Yleinen foorumin käyttö"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Aloittaminen"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Kun viestiä on muokattu, siinä näkyy, kuka sitä muokkasi ja milloin. Napsauta tämän merkinnän historiapainiketta avataksesi sivun <strong>[[MESSAGEHISTORY.TITLE]]</strong>: siinä luetellaan viestin versiot päivämäärineen, muokkaajineen ja syineen.</p>\r\n<ul>\r\n<li>Valitse kaksi versiota ja napsauta <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> nähdäksesi kohdan <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: poistettu ja lisätty teksti on korostettu.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> vie takaisin viestiin.</li>\r\n</ul>\r\n<p>Moderaattorit voivat palauttaa aiemman version valinnalla <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Foorumi säilyttää versioita ylläpitäjän määräämän määrän päiviä.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Viestihistoria"
           },
           {
             "@tag": "INDEX",
             "#text": "Indeksi"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Napsauta otsakkeessa kohtaa <strong>[[TOOLBAR.LOGIN]]</strong> ja anna käyttäjänimesi tai sähköpostiosoitteesi sekä salasanasi.</p>\r\n<p>Jos valitset kohdan <strong>[[LOGIN.AUTO]]</strong>, pysyt kirjautuneena tällä tietokoneella kuukauden ajan, myös selaimen sulkemisen jälkeen. Älä käytä sitä tietokoneella, jota muutkin käyttävät. Ilman sitä sinut kirjataan ulos, kun suljet selaimen. Kirjautuaksesi ulos avaa käyttäjävalikko oikeasta yläkulmasta ja napsauta <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Kaksivaiheinen tunnistautuminen</h3>\r\n<p>Kaksivaiheinen tunnistautuminen suojaa tiliäsi, vaikka joku tietäisi salasanasi: kirjautuessasi foorumi kysyy lisäksi koodia puhelimesi todennussovelluksesta.</p>\r\n<ol>\r\n<li>Avaa sivu <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (käyttäjävalikko, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Napsauta <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Lisää todennussovellukseesi (esim. Microsoft Authenticator, Google Authenticator) uusi tili skannaamalla QR-koodi tai syöttämällä <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Vahvista antamalla sovelluksen näyttämä koodi.</li>\r\n</ol>\r\n<p>Tästä lähtien kirjautuminen kysyy salasanan jälkeen sovelluksen koodia (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). Voit poistaa sen käytöstä samalla sivulla valinnalla <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Tilin pitäminen turvassa</h3>\r\n<ul>\r\n<li>Käytä salasanaa, jota et käytä missään muualla. Voit vaihtaa sen kohdassa <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Foorumi ei koskaan kysy salasanaasi sähköpostilla tai yksityisviestillä.</li>\r\n<li>Jos olet unohtanut salasanasi, katso <a href=\"[[help:recover]]\">Unohtuneen salasanan palauttaminen</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Useiden väärien salasanayritysten jälkeen tili lukitaan muutamaksi minuutiksi.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Kirjautuminen ja tilin turvallisuus"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>. Kohdassa <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> valitset, mitä sähköposteja saat:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - ei sähköposteja.</li>\r\n<li>Ilmoitus aiheista, joihin olet kirjoittanut tai joita seuraat - jokaista aihetta, johon kirjoitat, seurataan automaattisesti.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - vain aiheet ja alueet, joita itse seuraat.</li>\r\n</ul>\r\n<p>Jos foorumi tarjoaa sen, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> lähettää yksittäisten sähköpostien sijaan yhden sähköpostin päivässä uusista viesteistä. Tallenna napsauttamalla <strong>[[COMMON.SAVE]]</strong>.</p>\r\n<p>Samalla sivulla luetellaan <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ja <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, katso <a href=\"[[help:subscriptions]]\">Aiheiden ja alueiden seuraaminen</a>, sekä laitteidesi push-ilmoitukset, katso <a href=\"[[help:push]]\">Push-ilmoitukset ja sovellus</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Sähköposti-ilmoitusasetukset"
+            "#text": "Ilmoitusasetukset"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Jäsenluettelossa näkyvät hallituksen rekisteröidyt jäsenet. Voit tarkastella jäsenluetteloa aakkosjärjestyksessä käyttäjän nimen, liittymispäivän tai viimeisimmän käynnin mukaan,</p>\r\n<p>Täällä on myös hakukenttä, josta voit etsiä tiettyä käyttäjää.</p>\r\n<p>Katsoaksesi jäsenluetteloa, klikkaa 'Jäsenet' pääotsikossa sivun yläreunassa (Jos et näe linkkiä, sinulla ei ole pääsyä kyseiselle sivulle).</p>\r\n"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Jäsenluettelo näyttää rekisteröityneet jäsenet sekä heidän viestiensä määrän, liittymispäivän ja viimeisimmän käynnin. Voit:</p>\r\n<ul>\r\n<li>lajitella sen nimen, arvon, liittymispäivän, viestimäärän tai viimeisimmän käynnin mukaan,</li>\r\n<li>näyttää jäsenet, joiden nimi alkaa tietyllä kirjaimella,</li>\r\n<li>suodattaa sitä kohdassa <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> nimen, roolin, arvon tai viestimäärän mukaan.</li>\r\n</ul>\r\n<p>Napsauta jäsentä avataksesi profiilin. Foorumista riippuen luettelo näytetään vain jäsenille.</p>\r\n<h3 class=\"h6 mt-3\">Aktiiviset käyttäjät</h3>\r\n<p>Etusivun tilastoissa näkyy, kuka on paikalla. Aktiivisten käyttäjien luettelo näyttää tällä hetkellä paikalla olevat jäsenet ja vieraat sekä sen, missä päin foorumia he ovat. Jäsenet voivat piilottaa itsensä tästä luettelosta sivulla <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, jos foorumi sallii sen.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Tiimisivulla luetellaan foorumin ylläpitäjät ja moderaattorit sekä alueet, joita he moderoivat. Ota heihin yhteyttä, jos tarvitset apua.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Jäsenluettelo"
+            "#text": "Jäsenet, aktiiviset käyttäjät ja tiimi"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Jäsenen mainitseminen</h3>\r\n<p>Kirjoita editoriin <code>@</code> ja sen perään nimen ensimmäiset kirjaimet ja valitse jäsen luettelosta. Nimestä tulee linkki profiiliin, ja jäsen saa ilmoituksen, että mainitsit hänet (jos hän käyttää ilmoituksia, katso <a href=\"[[help:popups]]\">Ilmoitukset</a>).</p>\r\n<h3 class=\"h6 mt-3\">Aiheiden tunnisteet</h3>\r\n<p>Tunnisteet ovat aiheen avainsanoja, esim. tuote tai asia, jota kysymys koskee. Lisää ne kohtaan <strong>[[POSTTOPIC.TAGS]]</strong>, kun aloitat aiheen. Tunnisteet näytetään aiheen yhteydessä, ja tunnisteen napsauttaminen luettelee kaikki aiheet, joilla on sama tunniste. Haulla voi myös etsiä tunnisteita, katso <a href=\"[[help:searching]]\">Haku</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Maininnat ja tunnisteet"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Viestit ja ilmoitukset"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Rekisteröityneet jäsenet voivat lähettää viestejä muille tämän foorumin jäsenille yksityisviestijärjestelmän avulla (jos ylläpitäjä on ottanut sen käyttöön).\r\n        </p>\r\n        <p>Kun saat yksityisviestin, sinulle ilmoitetaan foorumin otsikossa, kuinka monta lukematonta viestiä sinulla on, myös ilmoitus tulee näkyviin. Voit myös ottaa käyttöön sähköposti-ilmoituksen</p>\r\n        <p><strong>Miten lähetän yksityisviestejä?</strong></p>\r\n        <p>Privaattiviestit ovat samanlaisia kuin sähköpostiviestit, mutta ne on rajattu tämän foorumin rekisteröityneille jäsenille. Voit ehkä sisällyttää BB-koodia, hymiöitä ja kuvia lähettämiisi yksityisviesteihin.<br />\r\n        Voit lähettää yksityisviestin käyttäjälle klikkaamalla &ldquo;PM&rdquo; -painiketta käyttäjän käyttäjäprofiilissa tai klikkaamalla &ldquo;Uusi viesti&rdquo; -linkkiä käyttäjän ohjauspaneelissa. Lähettämäsi viesti tallennetaan &ldquo;Lähetetyt kohteet&rdquo; -kansioon lähettämisen jälkeen.</p>\r\n        <p><strong>yksityiset viestikansiot</strong></p>\r\n        <p>Aivan kuten sähköpostiohjelmassa sinulla on 3 kansiota Saapuneet-kansio, Lähetetyt-kansio ja Arkistokansio...</p>\r\n        <ul>\r\n        <li>Kansio &ldquo;Saapuneet&rdquo; sisältää kaikki saamasi uudet viestit. Sen avulla voit tarkastella kaikkia vastaanottamiasi viestejä sekä viestin lähettäjän nimeä, viestin aihetta sekä lähetyspäivämäärää ja -aikaa.</li>\r\n        <li>Kansio &ldquo;Lähetetyt kohteet&rdquo; sisältää kaikki lähettämäsi yksityisviestit.</li>\r\n        <li>Kansio &ldquo;Arkisto&rdquo; sisältää vain viestit, jotka olet siirtänyt kyseiseen kansioon.</li>\r\n        </ul>\r\n        <p>Kustakin kansiosta sinulla on Vaihtoehdot, mitä haluat tehdä kansiossa oleville viesteille, voit yksinkertaisesti merkitä viestin ja ...<br />\r\n        </p>\r\n        <ul>\r\n        <li>Arkistoi valitut / Arkistoi kaikki - Siirrä viesti(t) arkistokansioon</li>.\r\n        <li>Vie valitut / Vie kaikki - Vie viesti(t) tiedostona (Voit valita vientiformaatin alla -XML-/CSV-/Text-tiedosto)</li>\r\n        <li>Poista valittu / Poista kaikki - Poista viesti(t)</li>\r\n        </ul>\r\n        <p>Riippuen siitä, kuinka monta viestiä sinulla saa olla, sinun pitäisi poistaa osa niistä ajoittain (Voit viedä ne ennen niiden poistamista säilyttääksesi ne paikallisella tietokoneellasi). Muuten, kun postilaatikkosi on täynnä, et voi vastaanottaa uusia viestejä. Alareunassa ilmoitetaan, kuinka monta viestiä sinulla on ja kuinka monta sinulla voi olla maksimissaan.</p>\r\n      "
+            "#text": "<p>Yksityisviestit ovat keskusteluja sinun ja toisen jäsenen välillä, eikä kukaan muu voi lukea niitä. Avaa käyttäjävalikosta <strong>[[TOOLBAR.INBOX]]</strong>: vasemmalla näet kohdan <strong>[[PM.CONVERSATION_TITLE]]</strong>, oikealla valitun keskustelun viestit.</p>\r\n<h3 class=\"h6 mt-3\">Keskustelun aloittaminen</h3>\r\n<ul>\r\n<li>Napsauta <strong>[[PM.NEW_CONVERSATION]]</strong>, kirjoita vähintään kolme kirjainta nimestä ja valitse jäsen.</li>\r\n<li>Tai napsauta jäsenen profiilissa tai viestin käyttäjävalikossa <strong>[[POSTS.PM]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Kirjoittaminen</h3>\r\n<p>Kirjoita viestisi ja lähetä se painamalla Enter, Shift+Enter aloittaa uuden rivin. Voit käyttää BB-koodeja, esim. lihavointiin tai linkkeihin. Jos toisella jäsenellä on keskustelu auki samaan aikaan, viestit ilmestyvät heti molemmille, ja keskustelussa näkyy, onko jäsen paikalla.</p>\r\n<p>Uudet viestit lasketaan nimesi ja kohdan <strong>[[TOOLBAR.INBOX]]</strong> viereen, ja kun avaat foorumin sivun, ikkuna kysyy, haluatko lukea ne. Yksityisviesteistä ei lähetetä sähköposti-ilmoituksia.</p>\r\n<h3 class=\"h6 mt-3\">Poistaminen</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> poistaa keskustelun omasta luettelostasi, toisella jäsenellä se säilyy.</p>\r\n<p class=\"text-body-secondary small\">Et voi kirjoittaa jäsenille, jotka estävät yksityisviestit tai ovat sivuuttaneet sinut (ellet ole heidän ystävänsä), katso <a href=\"[[help:blocking]]\">Käyttäjien sivuuttaminen ja estäminen</a>. Ylläpitäjä voi poistaa yksityisviestit käytöstä.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Yksityisviestit (Messenger)"
+            "#text": "Yksityisviestit"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderaattorit näkevät otsakkeessa kohdan <strong>[[TOOLBAR.MODERATE]]</strong>. Sivulla luetellaan alueet, joita moderoit, sekä kohtien <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> ja <strong>[[MODERATE_DEFAULT.REPORTED]]</strong> määrät.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>Moderoiduilla alueilla (ja jäsenillä, joiden viestit on tarkistettava) uudet viestit näytetään vasta, kun moderaattori on hyväksynyt ne. Tarkista viesti ja napsauta <strong>[[MODERATE_FORUM.APPROVE]]</strong> tai poista se.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Luettelossa näkyvät raportoidut viestit syineen ja raportoijineen. Lue viesti (ja sen historia, jos sitä on muokattu), ryhdy tarvittaessa toimiin (muokkaa tai poista viesti, keskustele kirjoittajan kanssa) ja napsauta <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Aiheiden hallinta</h3>\r\n<ul>\r\n<li>Aiheessa valikko <strong>[[POSTS.MANAGE_TOPIC]]</strong> tarjoaa valinnat <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> ja <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Siirretty aihe voi jättää vanhalle alueelle linkin muutamaksi päiväksi.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> luettelee alueen kaikki aiheet: valitse useita ja lukitse, siirrä tai poista ne kerralla.</li>\r\n<li>Kiinnitetyt aiheet ja tiedotteet asetetaan kohdassa <strong>[[POSTMESSAGE.PRIORITY]]</strong>, kun muokkaat ensimmäistä viestiä, pysyvät aiheet (automaattinen siivous ei poista niitä) kohdassa <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Viestien hallinta</h3>\r\n<ul>\r\n<li>Voit muokata ja poistaa muiden jäsenten viestejä. Kun poistat viestin, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> poistaa myös siihen kirjoitetut vastaukset.</li>\r\n<li>Viestin valikon <strong>[[BUTTON.BUTTON_MOVE]]</strong> siirtää viestin toiseen aiheeseen tai erottaa sen uudeksi aiheeksi (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li><a href=\"[[help:history]]\">Viestihistoriassa</a> voit palauttaa viestin aiemman version.</li>\r\n<li>Voit vastata ja muokata lukituissa aiheissa, eikä viesteistäsi tarkisteta roskapostia.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Asetuksista riippuen moderaattorit näkevät myös viestien IP-osoitteet. Jäsenten tietojen muokkaamisesta, jäsenten jäädyttämisestä ja porttikielloista huolehtivat ylläpitäjät.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Moderaattorin opas"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderaattorit ja ylläpitäjät"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderaattorit valvovat tiettyjä foorumeita. Heillä on yleensä mahdollisuus muokata ja poistaa viestejä, siirtää aiheita ja suorittaa muita toimia. Tietyn foorumin moderaattoriksi pääseminen palkitaan yleensä käyttäjille, jotka ovat erityisen avuliaita ja asiantuntevia moderoinnin kohteena olevan foorumin aihepiirissä.</p>\r\n<p>Administraattorit ovat henkilöitä, joilla on yleinen määräysvalta kaikesta, mitä foorumilla tapahtuu. He valvovat, miten foorumi on muotoiltu, mitä foorumeita luodaan ja miten ne järjestetään, mitä tietoja jäseniltä vaaditaan ja ketkä nimetään moderaattoreiksi.</p>"
+            "#text": "<p><strong>Ylläpitäjät</strong> pyörittävät foorumia: he luovat alueet, päättävät kuka saa tehdä mitä, ottavat toimintoja käyttöön ja hallinnoivat jäseniä.</p>\r\n<p><strong>Moderaattorit</strong> huolehtivat yhdestä tai useammasta alueesta: he pitävät keskustelut aiheessa ja ystävällisinä, tarkistavat raportoidut viestit, hyväksyvät viestit moderoiduilla alueilla sekä muokkaavat, siirtävät, lukitsevat tai poistavat aiheita ja viestejä tarvittaessa. Alueen moderaattorit näytetään sen aiheluettelon yläpuolella (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Sivulla <strong>[[TOOLBAR.TEAM]]</strong> luetellaan kaikki ylläpitäjät ja moderaattorit (jos foorumi näyttää sen). Jos sinulla on ongelma jonkin viestin kanssa, <a href=\"[[help:report]]\">raportoi se</a>. Muissa kysymyksissä ota yhteyttä moderaattoriin tai ylläpitäjään yksityisviestillä.</p>\r\n<p>Moderaattorien työstä kerrotaan <a href=\"[[help:moderating]]\">Moderaattorin oppaassa</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,39 +11444,55 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Jos ylläpitäjä on ottanut Albumi-ominaisuuden käyttöön ja olet jäsen, jolla on oikeus lisätä albumeita, voit luoda albumeita kuvista, jotka on linkitetty julkiseen profiiliisi. Albumit voidaan luoda käymällä <strong>Käyttäjän ohjauspaneelissa</strong> ja napsauttamalla 'Muokkaa albumeita' -linkkiä ja napsauttamalla sitten 'Lisää uusi albumi'. Se, kuinka monta albumia ja kuinka monta kuvaa, riippuu siitä, mitä ylläpitäjä on määrittänyt käyttäjäryhmällesi, jossa olet.</p>\r\n<p>Jokaisella albumilla voi olla otsikko, ja voit asettaa sille kannen (kuva albumista) tai käyttää satunnaista, voit myös lisätä kuvatekstin jokaiselle kuvalle.</p>\r\n<p><strong>Miten voin ladata kuvia?</strong></p>\r\n<p>Jos olet Lisää/muokkaa albumia -sivulla, valitset kuvan tietokoneeltasi ja napsautat Lataa lisätäksesi sen albumiin.</p>\r\n<p>Sinulla on mahdollisuus antaa jokaiselle kuvalle kuvateksti ja asettaa yksi kuva Albumin kanneksi, joka näytetään julkisessa profiilissa. Voit poistaa albumin tai muokata albumin otsikkoa, lisätä kuvan (kuvia) tai poistaa kuvan (kuvia) napsauttamalla 'Muokkaa'. Voit muokata tai lisätä kuvan kuvatekstin klikkaamalla kuvan alla olevaa tekstiä. Jos haluat asettaa kansikuvan tai poistaa kansikuvan, klikkaa kansikuvan alapuolella olevaa painiketta.</p>"
+            "#text": "<p>Jos foorumi käyttää albumeja, voit esitellä kuviasi albumeissa profiilissasi ja käyttää niitä viesteissäsi.</p>\r\n<ol>\r\n<li>Avaa tilisivujesi valikosta <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> (tai käyttäjävalikosta <strong>[[TOOLBAR.MYALBUMS]]</strong>) ja napsauta <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Anna otsikko ja lataa ensimmäiset kuvat (useita kerralla on mahdollista).</li>\r\n</ol>\r\n<p>Painikkeella <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> lisäät kuvia tai poistat niitä ja poistat albumin. Albumissa voit antaa kuville kuvatekstit ja valita kansikuvan painikkeella <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Näyttääksesi albumin kuvan viestissä napsauta kuvan alla olevaa painiketta <strong>[[ALBUM.COPY_BBCODE]]</strong> ja liitä koodi editoriin.</p>\r\n<p class=\"text-body-secondary small\">Albumien ja kuvien määrä sekä kuvien koko ovat rajoitettuja, rajat riippuvat ryhmästäsi tai arvostasi ja näytetään sivuilla.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albumit"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Kaikki lataamasi tiedostot luetellaan käyttäjävalikon (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivulla <strong>[[ATTACHMENTS.TITLE]]</strong>. Jokaisesta tiedostosta näet, monessako viestissä sitä käytetään, tai että sitä ei käytetä.</p>\r\n<p>Valitse tiedostoja ja poista ne vapauttaaksesi tilaa, esim. tiedostot, jotka latasit mutta jätit käyttämättä. Poistettua tiedostoa ei enää näytetä viesteissä, joissa sitä käytetään.</p>\r\n<p>Tiedostojen lisäämisestä viesteihin kerrotaan ohjeessa <a href=\"[[help:attachments]]\">Liitteet ja kuvat</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Omat liitteet"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Mitä ovat avatarit?</strong></p>\r\n<p>Avatarit ovat pieniä kuvia, joita ihmiset käyttävät tunnistaakseen tai erottaakseen itsensä muista foorumin jäsenistä. Nämä avatarit näkyvät osana käyttäjätietoja viesteissä sekä julkisessa profiilissa.</p>\r\n<p>Voit muokata avatariasi klikkaamalla <strong>Käyttäjän ohjauspaneelin</strong> navigointipalkin \"Henkilökohtainen profiili\" -alueen alla olevaa \"Muokkaa avataria\".</p>Käyttäjän ohjauspaneeli</strong>.\r\n<p>Avatarin lisäämiseen on kolme tapaa (Ehkä vähemmän, jos ylläpitäjä on poistanut sen käytöstä)...</p>\r\n<ul>\r\n  <li>Jos foorumilla on käytettävissä, voit valita olemassa olevasta Avatar-kokoelmasta</li>\r\n  <li>Syötä olemassa oleva URL-osoite kuvaan etäpalvelimella</li>\r\n  <li>Valitse kuva tietokoneeltasi ja lataa se</li>\r\n</ul>\r\n<p><em>Tiedä, että järjestelmänvalvoja voi asettaa Sallitut kuvatiedostotyypit, kuvan koon ja kuvan mitat (kuvan enimmäisleveys ja -korkeus).</em></p>\r\n<p><strong>Mitä ovat allekirjoitukset?</strong></p>\r\n<p>\"Allekirjoitukset\" sisältävät tietoja, jotka haluat sisällyttää kaikkien viestiesi alareunaan. Näitä voivat olla esimerkiksi kuvat, linkit sivustosi(iin), lainaukset jne.</p>\r\n<p>Muuttaaksesi allekirjoituksia napsauta 'Signature' (Allekirjoitus) 'Personal Profile' (Henkilökohtainen profiili) -alueen navigointipalkin alla User CP:ssä. Tällä sivulla sinulle kerrotaan, mitä BB-koodeja ja HTML-tageja voit käyttää ja kuinka pitkä allekirjoitus voi olla.</p>"
+            "#text": "<h3 class=\"h6\">Avatar</h3>\r\n<p>Avatar on pieni kuva, joka näytetään nimesi vieressä viesteissäsi ja profiilissasi. Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[ACCOUNT.EDIT_AVATAR]]</strong>. Foorumista riippuen voit:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - valita jonkin foorumin avatareista.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - ladata oman kuvasi (png, jpg, gif, webp, bmp tai svg). Suuria kuvia pienennetään automaattisesti, ja sivu näyttää sallitun koon.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> poistaa avatarisi. Ilman avataria foorumi näyttää oletuskuvan.</p>\r\n<h3 class=\"h6 mt-3\">Allekirjoitus</h3>\r\n<p>Allekirjoitus on lyhyt teksti, joka näytetään jokaisen viestisi alla, esim. motto tai linkki verkkosivustollesi. Avaa käyttäjävalikosta sivu <strong>[[ACCOUNT.SIGNATURE]]</strong>. Sivulla näkyvät enimmäispituus ja BB-koodit, joita saat käyttää allekirjoituksessa, HTML ei ole sallittu. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> näyttää, miltä se tulee näyttämään.</p>\r\n<p class=\"text-body-secondary small\">Ylläpitäjä päättää, käytetäänkö avatareja ja allekirjoituksia, ja rajoitukset voivat riippua ryhmästäsi tai arvostasi.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Allekirjoitukset, avatarit Kuvat"
+            "#text": "Avatar ja allekirjoitus"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>Käyttäjän ohjauspaneelissa</strong> voit hallita henkilökohtaisia asetuksiasi, vaihtoehtoja ja mieltymyksiäsi.</p>\r\n<p>Pääsivulla <strong>Hallintapaneeli</strong> näet tilisi yhteenvedon, mukaan lukien käyttäjänimesi, sähköpostiosoitteesi ja viestien lukumäärän, ryhmien jäsenet, joissa olet jäsenenä ja siitä lähtien, kun olet ollut jäsen.</p>\r\n<p>Vasemmalla puolella löydät linkit kaikille alasivuille ja lomakkeille, joiden avulla voit hallita..</p>\r\n<p><strong>Messenger</strong></p>\r\n<ul>\r\n  <li>Tulostelaatikko</li>\r\n  <li>Lähetetyt kohteet</li>\r\n  <li>arkisto</li>\r\n  <li>Uusi viesti</li>\r\n</ul>\r\n<p><strong>Henkilökohtainen profiili</strong></p>\r\n<ul>\r\n  <li>Katsele profiilia</li>\r\n  <li>Muokkaa profiilia</li>\r\n  <li>Katsele kiitokset<br /></li>\r\n  <li>Muokkaa albumeita</li>\r\n  <li>Muuta avataria</li>\r\n  <li>Allekirjoitus</li>\r\n  <li>Sähköposti-ilmoitusasetukset</li>\r\n  <li>Vaihda salasana</li>\r\n</ul>"
+            "#text": "<p>Napsauta nimeäsi oikeassa yläkulmassa avataksesi käyttäjävalikon:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - yleiskatsaus tiliisi ja toimintaasi.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - kaikki tilisi asetukset (katso alla).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - yksityisviestisi, katso <a href=\"[[help:messenger]]\">Yksityisviestit</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - katso <a href=\"[[help:buddies]]\">Ystävät</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - katso <a href=\"[[help:myalbums]]\">Albumit</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - katso <a href=\"[[help:newposts]]\">Uusien viestien katselu</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Nimesi ja kohtien <strong>[[TOOLBAR.INBOX]]</strong> ja <strong>[[TOOLBAR.BUDDIES]]</strong> vieressä olevat luvut kertovat lukemattomien viestien ja avoimien ystäväpyyntöjen määrän.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Sivulla näkyvät käyttäjänimesi, sähköpostiosoitteesi, viestiesi määrä ja liittymispäiväsi sekä <strong>[[ACCOUNT.ACTIVITY]]</strong>: aiheesi ja vastauksesi, reaktiot ja ystävyydet, ja jokaiselle lajille oma suodatin. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> näyttää profiilisi sellaisena kuin muut jäsenet sen näkevät.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Asetukset luetellaan myös kaikkien tilisivujen vasemmassa reunassa:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - tiedot sinusta.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - sähköpostiosoite, aikavyöhyke, kieli, kaksivaiheinen tunnistautuminen.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - lataamasi tiedostot.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> ja <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - sähköposti- ja push-ilmoitukset, seuratut aiheet ja alueet.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - anna nykyinen salasanasi ja uusi salasana kahdesti.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Jotkin kohdat näytetään vain, jos foorumi käyttää kyseistä toimintoa (esim. avatareja, allekirjoituksia tai albumeja).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Omat asetukset (Käyttäjän ohjauspaneeli)"
+            "#text": "Oma tili"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigointi"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Jokaisen sivun yläreunassa olevassa otsakkeessa on päävalikko: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> ja <strong>[[TOOLBAR.HELP]]</strong> (foorumista riippuen kaikkia ei näytetä). Vieraat näkevät oikealla kohdat <strong>[[TOOLBAR.LOGIN]]</strong> ja <strong>[[TOOLBAR.REGISTER]]</strong>. Jäsenet näkevät ilmoitusten kellon sekä käyttäjävalikon, jossa on heidän nimensä ja avatarinsa, katso <a href=\"[[help:mysettings]]\">Oma tili</a>. Otsakkeen alla oleva nykyisen sivun polku (murupolku) vie sinut takaisin alueelle tai kategoriaan.</p>\r\n<h3 class=\"h6 mt-3\">Alueen aiheluettelo</h3>\r\n<p>Napsauta aluetta nähdäksesi sen aiheet. Kiinnitetyt aiheet ja tiedotteet näytetään ensimmäisinä. Lisää aiheita ladataan automaattisesti, kun vierität alaspäin. Luettelon yläpuolella olevassa palkissa on:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - näyttää vain aiheet, joihin on kirjoitettu valittuna aikana (esim. viimeisen päivän aikana tai edellisen käyntisi jälkeen).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - hakee tämän alueen aiheista.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - siirtyy toiselle alueelle.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> ja <strong>[[TOPICS.MARKREAD]]</strong> (jäsenille).</li>\r\n</ul>\r\n<p>Aiheiden edessä olevat kuvakkeet kertovat uusista viesteistä, suosituista (”kuumista”) aiheista sekä lukituista ja siirretyistä aiheista. Luettelon alla oleva selite kertoo niiden merkityksen.</p>\r\n<h3 class=\"h6 mt-3\">Aiheen sisällä</h3>\r\n<p>Viestit näytetään sivuittain, sivunvaihto on viestien alapuolella. Painikkeilla <strong>[[POSTS.PREVTOPIC]]</strong> ja <strong>[[POSTS.NEXTTOPIC]]</strong> siirryt alueen viereisiin aiheisiin. Viestiin osoittava linkki avaa aiheen juuri sen viestin kohdalta.</p>\r\n<h3 class=\"h6 mt-3\">Uudet viestit ja lukutila</h3>\r\n<p>Alueet ja aiheet, joissa on viestejä, joita et ole vielä lukenut, korostetaan. Jäsenet voivat merkitä kaiken luetuksi etusivun valinnalla <strong>[[DEFAULT.MARKALL]]</strong> tai yksittäisen alueen valinnalla <strong>[[TOPICS.MARKREAD]]</strong>. Mistä löydät kaikki uudet viestit kerralla, kerrotaan ohjeessa <a href=\"[[help:newposts]]\">Uusien viestien katselu</a>.</p>\r\n<h3 class=\"h6 mt-3\">Reaaliaikaiset päivitykset</h3>\r\n<p>Jos foorumi käyttää reaaliaikaisia päivityksiä, uudet aiheet ja viestit ilmestyvät näkyviin ilman sivun uudelleenlatausta. Aiheessa näet ilmoituksen <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, napsauta sitä nähdäksesi uuden vastauksen.</p>\r\n<h3 class=\"h6 mt-3\">Käyttäjätiedot</h3>\r\n<p>Vie hiiri käyttäjänimen päälle, niin näet lyhyen kortin jäsenen tiedoista, esim. paikkakunnan, paikallaolotilan ja liittymispäivän. Nimen napsauttaminen avaa jäsenen profiilin.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Liikkuminen foorumilla"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Jäsenet löytävät kaikkien alueiden uudet viestit käyttäjävalikon kohdasta <strong>[[TOOLBAR.MYTOPICS]]</strong>. Sivulla on neljä välilehteä:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - aiheet, joissa on uusia viestejä edellisen käyntisi jälkeen.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - aiheet, joihin ei ole vielä vastattu.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - aiheet, joita seuraat.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - aiheet, jotka olet aloittanut.</li>\r\n</ul>\r\n<p>Aikasuodattimella valitset ajanjakson, esim. viimeisen tunnin, viimeisen viikon tai kaikki aiheet. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> merkitsee kaikki aiheet luetuiksi.</p>\r\n<p>Etusivun <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> näyttävät kaikkien alueiden uusimmat viestit, myös vieraille.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "Uusien viestien tarkastelu"
+            "#text": "Uusien viestien katselu"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,83 +11500,103 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Voit ottaa yhteyttä toiseen lähettämällä sähköpostia, löydät heidät jäsenluettelosta.</p>\r\n<p>Tällöin avautuu yleensä sivu, jossa on lomake, johon voit kirjoittaa viestisi. Kun olet kirjoittanut viestisi valmiiksi, paina 'Lähetä sähköposti' -painiketta, ja viestisi lähetetään välittömästi.</p>\r\n<p><strong>Voinko nähdä sähköpostiosoitteet?</strong></p>\r\n<p>Suojattomuussyistä vastaanottajan sähköpostiosoitetta ei paljasteta sinulle tämän prosessin aikana eikä missään muussakaan vaiheessa foorumeilla.</p>\r\n<p><strong>Miksi en voi lähettää sähköpostia jollekulle?</strong></p>\r\n<p>Jos et löydä jäsenen sähköpostipainiketta tai -linkkiä, se tarkoittaa joko sitä, että ylläpitäjä on poistanut sähköpostitoiminnot tältä foorumilta käytöstä, tai että jäsen on ilmoittanut, ettei hän halua vastaanottaa sähköpostia muilta jäseniltä.</p>\r\n<p><strong>Mikä on yksityisviestit?</strong></p>\r\n<p>Rekisteröityneet jäsenet voivat myös lähettää viestejä muille tämän foorumin jäsenille yksityisviestijärjestelmän avulla.</p>"
+            "#text": "<p>Voit lähettää jäsenelle sähköpostia foorumin kautta: napsauta jäsenen profiilissa (tai tiimisivulla) <strong>[[POSTS.EMAIL]]</strong>, kirjoita aihe ja viestisi ja napsauta <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Jäsenen sähköpostiosoite pysyy sinulta piilossa.</li>\r\n<li>Sähköposti lähetetään käyttäjänimelläsi ja <strong>sinun</strong> sähköpostiosoitteellasi lähettäjänä, joten jäsen voi vastata sinulle suoraan.</li>\r\n<li>Roskapostin estämiseksi voit lähettää vain muutaman sähköpostin tunnissa.</li>\r\n</ul>\r\n<p>Et voi lähettää sähköpostia jäsenille, jotka estävät sähköpostit tai ovat sivuuttaneet sinut (paitsi ystäville), ja vain jos ylläpitäjä sallii jäsenten väliset sähköpostit. Useimmiten <a href=\"[[help:messenger]]\">yksityisviesti</a> on parempi tapa.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Yhteydenpito muihin jäseniin"
+            "#text": "Sähköposti jäsenille"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Osallistuminen on mahdollisuus äänestää jostakin asiasta tai kysymyksestä.</em></p>\r\n<p><strong>Luo uusi kysely?</strong></p>\r\n<p>Kun kirjoitat uuden Aiheen, sinulla on mahdollisuus 'Lisää kysely?' luoda uusi kysely. Jos et näe tätä vaihtoehtoa, sinulla ei ehkä ole pääsyä tähän vaihtoehtoon.</p>\r\n<p>Voit myös lisätä uusia kyselyitä olemassa oleviin. Aihealueella voi olla niin monta kyselyä kuin haluat.</p>\r\n<p>Tässä voit esittää kysymyksen ja määrittää mahdollisten vastausten määrän (Max 10 tai ylläpitäjä on määrittänyt suuremman määrän) - <em>Ylläpitäjä voi liittää vastauksiksi kuvia (Remote Urls)</em>. Muut jäsenet voivat sitten äänestää haluamaansa vastausta, ja äänestyksen tulokset näkyvät viestiketjussa.</p>\r\n<p><em>Esimerkki äänestyksestä voisi olla:</em></p>\r\n<p><em>Mikä on lempivärisi?</em></p>\r\n<ul>\r\n  <li><em>Sininen</em></li>\r\n  <li><em>Punainen</em></li>\r\n  <li><em>Keltainen</em></li>\r\n  <li><em>vihreä</em></li>\r\n</ul>\r\n<p>Voit myös määrittää kyselylle aikarajan. Esimerkiksi: Suorita kysely 10 päivän ajan tai voit myös määrittää, ettei se vanhene koskaan.</p>\r\n<p>Voit myös päättää, pitääkö käyttäjän nähdä tulokset ilman äänestystä vai jos otat käyttöön valintaruudun 'Sinun pitää äänestää kaikissa kyselyissä nähdäksesi tulokset.<em>'</em> sinun pitää äänestää ennen kuin näet tulokset.</p>Kyselyssä on äänestettävä ennen kuin näet tulokset.</p>Kyselyssä on äänestettävä.\r\n<p>'Sidottu äänestys' -vaihtoehto ei näytä tuloksia, jos kysely ei ole päättynyt.</p>\r\n<p><strong>Kyselyjen ryhmittely</strong></p>\r\n<p>Kaikki aiheeseen liitetyt kyselyt yhdistetään automaattisesti ryhmäksi. Voit näyttää tämän ryhmän minkä tahansa muun aiheen gallupien kanssa.</p>\r\n<p><strong>Miten äänestetään?</strong></p>\r\n<p> Äänestääksesi gallupissa napsauta vain sitä vaihtoehtoa, jota haluat äänestää.</p>\r\n<p>Yleisesti, kun olet äänestänyt gallupissa, et voi myöhemmin muuttaa ääntäsi, joten anna äänesi huolellisesti!</p>"
+            "#text": "<p>Kysely esittää aiheen lukijoille kysymyksen, jossa on useita vastausvaihtoehtoja.</p>\r\n<h3 class=\"h6 mt-3\">Kyselyn luominen</h3>\r\n<p>Ota aihetta aloittaessasi asetuksista käyttöön <strong>[[POLLEDIT.POLLADD]]</strong>, niin kyselyeditori avautuu, kun aihe on julkaistu. Olemassa olevassa aiheessa aiheen aloittaja ja moderaattorit näkevät viestien yläpuolella painikkeen <strong>[[POLLEDIT.CREATEPOLL]]</strong>. Aiheessa on yksi kysely.</p>\r\n<ul>\r\n<li>Kirjoita kysymys ja vähintään kaksi vaihtoehtoa, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> lisää vaihtoehtoja (ylläpitäjän määräämään enimmäismäärään asti).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - montako päivää kysely on avoinna, jätä tyhjäksi, jos kyselyllä ei ole päättymisaikaa.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - äänestäjät voivat valita useamman kuin yhden vastauksen.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - äänestäjien nimet näytetään tulosten yhteydessä.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - tulokset näytetään vasta kyselyn päätyttyä.</li>\r\n<li>Jos foorumi sallii sen, kysymykseen ja vaihtoehtoihin voi liittää kuvan (kuvan osoite).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Äänestäminen</h3>\r\n<p>Napsauta valitsemasi vaihtoehdon painiketta. Et voi muuttaa ääntäsi, joten valitse huolellisesti. Vieraat eivät voi äänestää eivätkä näe tuloksia.</p>\r\n<h3 class=\"h6 mt-3\">Kyselyn muuttaminen</h3>\r\n<p>Kyselyn luoja voi muuttaa kyselyä valinnalla <strong>[[POLLEDIT.EDITPOLL]]</strong> niin kauan kuin kukaan ei ole äänestänyt (ellei foorumi salli muutoksia myöhemminkin) ja poistaa sen valinnalla <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderaattorit voivat aina muuttaa ja poistaa kyselyjä.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Kyselyjen luominen ja niihin osallistuminen"
+            "#text": "Kyselyt"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Kun olet kirjautunut sisään ja lataat sivun, saatat saada ponnahdusilmoituksen selainikkunan keskelle.</p>\r\n<p>Tässä ilmoitetaan sinulle useista toimista...</p>\r\n<ul>\r\n  <li>Uusi yksityisviesti(t)</li>\r\n  <li>Uudet ystäväpyynnöt</li>\r\n  <li>Hyväksytyt ystäväpyynnöt</li>\r\n  <li>Hylätyt kaveripyynnöt<br />\r\n  </li>\r\n</ul>\r\n<p><em>Voit saada myös pari Tieto- ja virheilmoitusta samalla tavalla.</em></p>Kerrotaan myös, että voit saada pari Tieto- ja virheilmoitusta samalla tavalla.</em></p>"
+            "#text": "<p>Otsakkeen kello näyttää ilmoituksesi, ja punainen luku kertoo lukemattomien määrän. Saat ilmoituksen, kun:</p>\r\n<ul>\r\n<li>joku mainitsee sinut (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) tai lainaa sinua (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>joku reagoi johonkin viestiisi,</li>\r\n<li>seuraamassasi aiheessa on uusi vastaus tai seuraamallasi alueella uusi aihe,</li>\r\n<li>saat uuden ystävän.</li>\r\n</ul>\r\n<p>Napsauta ilmoitusta avataksesi viestin. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> avaa kaikkien ilmoitusten luettelon, jossa on suodatin lajin mukaan sekä <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Ilmoitukset ovat osa toimintavirtaa: voit poistaa ne käytöstä sivulla <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Muut ilmoitukset</h3>\r\n<ul>\r\n<li>Uudet yksityisviestit ja ystäväpyynnöt lasketaan nimesi viereen. Kun avaat sivun, ikkuna kysyy, haluatko lukea ne.</li>\r\n<li>Foorumin viestit (esim. ”tallennettu”) näkyvät muutaman sekunnin ajan sivun yläreunassa.</li>\r\n<li>Ilmoituksia voidaan lähettää myös sähköpostilla sekä selaimeesi tai puhelimeesi, katso <a href=\"[[help:mailsettings]]\">Ilmoitusasetukset</a> ja <a href=\"[[help:push]]\">Push-ilmoitukset ja sovellus</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "PopUp-ilmoitukset"
+            "#text": "Ilmoitukset"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Avaa alue, johon aihe kuuluu, ja napsauta <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Jos et näe painiketta, sinulla ei ole oikeutta aloittaa aiheita tällä alueella (tai et ole kirjautunut sisään).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - aiheen otsikko, se on pakollinen. Kirjoittaessasi foorumi näyttää kohdan <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, ehkä kysymykseesi on jo vastattu.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - vapaaehtoinen lyhyt kuvaus.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - vapaaehtoiset avainsanat, joiden avulla muut jäsenet löytävät aiheita.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - vain jäsenille, joilla on tämä oikeus, katso <a href=\"[[help:anounce]]\">Tiedotteet ja kiinnitetyt aiheet</a>.</li>\r\n<li>Itse viesti editorissa.</li>\r\n</ul>\r\n<p>Kohdassa <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> voit lisätä kyselyn (<strong>[[POLLEDIT.POLLADD]]</strong>, katso <a href=\"[[help:polls]]\">Kyselyt</a>) ja ryhtyä seuraamaan aihetta (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Napsauta <strong>[[POSTMESSAGE.PREVIEW]]</strong> tarkistaaksesi viestisi ja <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> julkaistaksesi sen.</p>\r\n<h3 class=\"h6 mt-3\">Editori</h3>\r\n<p>Foorumista riippuen editori näyttää muotoilut jo kirjoittaessasi tai BB-koodit (lyhyet tunnisteet, kuten <code>[b]lihavoitu[/b]</code>). Työkalupalkin painikkeet muotoilevat tekstin: valitse teksti ja napsauta painiketta, esim. lihavointia, linkkiä, lainausta tai luetteloa varten. Kaikki BB-koodit ja niiden tulos on lueteltu ohjeessa <a href=\"[[help:bbcodes]]\">BB-koodit</a>.</p>\r\n<ul>\r\n<li>Kirjoita <code>@</code> ja nimi mainitaksesi jäsenen, katso <a href=\"[[help:mentions]]\">Maininnat ja tunnisteet</a>.</li>\r\n<li>Tiedostot ja kuvat lisätään liitepainikkeella, katso <a href=\"[[help:attachments]]\">Liitteet ja kuvat</a>.</li>\r\n<li>BB-koodieditorissa Ctrl+B, Ctrl+I ja Ctrl+U muotoilevat valitun tekstin, Ctrl+Enter lähettää viestin.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Hyvä tietää</h3>\r\n<ul>\r\n<li>Vieraat (jos he saavat kirjoittaa) antavat nimen kenttään <strong>[[POSTMESSAGE.FROM]]</strong>, eikä se saa olla jonkin jäsenen nimi.</li>\r\n<li>Roskapostin estämiseksi kahden viestin välillä on odotettava muutama sekunti, ja viestillä on enimmäispituus.</li>\r\n<li>Joillakin alueilla moderaattori tarkistaa viestit ensin. Viestisi näytetään, kun se on hyväksytty.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Uusien aiheiden ja viestien lähettäminen"
+            "#text": "Uuden aiheen aloittaminen"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Asetukset ja profiilin ominaisuudet"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Käyttämällä foorumia hyväksyt sen säännöt. Sivu <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> sisältää säännöt ja tietosuojaselosteen: mitä henkilötietoja foorumi tallentaa, mihin tarkoituksiin ja mitkä ovat oikeutesi (esim. saada tietoa tiedoistasi tai saada ne poistetuksi).</p>\r\n<p>Sivulla <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> luetellaan foorumin evästeet, mihin niitä käytetään ja kuinka kauan niitä säilytetään. Kun vierailet foorumilla ensimmäistä kertaa, ilmoitus kertoo sinulle evästeistä.</p>\r\n<p>Profiilissasi näytetään vain antamasi tiedot, eikä sähköpostiosoitettasi koskaan näytetä muille jäsenille. Voit piilottaa itsesi aktiivisten käyttäjien luettelosta (jos foorumi sallii sen), estää yksityisviestit ja sähköpostit sekä poistaa tilisi, katso <a href=\"[[help:blocking]]\">Käyttäjien sivuuttaminen ja estäminen</a> ja <a href=\"[[help:deleteaccount]]\">Tilin keskeyttäminen tai poistaminen</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Tietosuoja, evästeet ja säännöt"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>Jäsenenä sinulla on julkisesti nähtävissä oleva profiilisivu. Tämä sivu sisältää tiedot, jotka jäsen on antanut joko rekisteröitymisen yhteydessä tai myöhemmin käyttäjän ohjauspaneelin kautta.</p>\r\n<p><em>Jäsenen profiilia voi tarkastella usealla eri tavalla...</em></p>\r\n<ul>\r\n  <li>Kun näet käyttäjätunnuksen, klikkaa nimeä ja näet pudotusvalikon, joka sisältää linkin 'Käyttäjäprofiili' profiilin katsomista varten..</li>\r\n  <li>Jäsenten luettelon avulla voit selata kaikkia rekisteröityjä jäseniä ja klikata nopeasti julkisia profiileja.</li>\r\n  <li>Kun olet kirjautunut sisään, voit myös tarkastella omaa julkista profiiliasi kirjautumalla foorumeille ja klikkaamalla 'Oma profiili' -linkkiä sivun yläreunan otsikossa, jolloin avautuu Käyttäjän ohjauspaneeli.</li>\r\n</ul>\r\n<p><strong>Mitkä tiedot näkyvät kyseisellä sivulla?</strong></p>\r\n<p>Julkisen profiilin sivu on ryhmitelty viiteen välilehteen.</p>\r\n<ul>\r\n  <li><strong>Tietoja</strong> - Näyttää kaikki tiedot, jotka käyttäjä on antanut Profiili-sivullaan, kuten Oikea nimi, sukupuoli, Tila, jos käyttäjä on Online/Offline, Foorumi-sijoitus ja muut.</li>\r\n  <li><strong>Tilastot</strong> - Näyttää tilastotietoja, kuten liittymispäivämäärä, Viimeisin vierailu, Kiitosten määrä, Kuinka monta kertaa tätä käyttäjää on kiitetty ja Kuinka monta viestiä, joista tätä käyttäjää on kiitetty.</li>\r\n  <li><strong>Viimeiset 10 viestiä</strong> - Näyttää, jos saatavilla, 10 viimeisintä viestiä, jotka käyttäjä on kirjoittanut</li>.\r\n  <li><strong>Kaverit - </strong>Näyttää ystävät, joita käyttäjällä on foorumilla.</li>\r\n  <li><strong>Albumit - </strong>Näyttää Käyttäjän luomat albumit (jos käytössä).</li>\r\n</ul>\r\n<p>Henkilökohtaisia tietoja, kuten sähköpostiosoitetta tai salasanoja, ei <strong>NÄYTETÄ</strong>.</p>"
+            "#text": "<p>Napsauta jäsenen nimeä (esim. viestissä tai jäsenluettelossa) avataksesi profiilin. Foorumista riippuen profiilit näytetään vain jäsenille. Oman profiilisi avaat sivun <strong>[[TOOLBAR.MYPROFILE]]</strong> painikkeella <strong>[[ACCOUNT.VIEW_PROFILE]]</strong>.</p>\r\n<p>Profiilissa näkyvät:</p>\r\n<ul>\r\n<li>jäsenen avatar, nimi, arvo ja mitalit sekä profiilin tiedot (esim. sijainti, syntymäpäivä, ammatti ja kiinnostuksen kohteet),</li>\r\n<li>viestien sekä annettujen ja saatujen reaktioiden määrä,</li>\r\n<li>maine (jos foorumi käyttää sitä),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong> ja <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>jäsenen ystävät ja albumit.</li>\r\n</ul>\r\n<p>Profiilin painikkeilla voit valita <strong>[[BUDDY.ADDBUDDY]]</strong>, lähettää yksityisviestin (<strong>[[POSTS.PM]]</strong>) tai sähköpostin (<strong>[[POSTS.EMAIL]]</strong>) ja avata jäsenen verkkosivuston tai blogin. Jäsenen sähköpostiosoitetta ei koskaan näytetä.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Julkinen profiilini"
+            "#text": "Profiilit"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Viestien lukeminen ja lähettäminen"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Push-ilmoitukset näyttävät seuraamiesi aiheiden uudet vastaukset ja muut ilmoitukset tietokoneellasi tai puhelimessasi, vaikka foorumi ei olisi auki.</p>\r\n<ol>\r\n<li>Avaa käyttäjävalikosta (<strong>[[TOOLBAR.MYSETTINGS]]</strong>) sivu <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong>.</li>\r\n<li>Napsauta kohdassa <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> painiketta <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> ja salli ilmoitukset, kun selain kysyy.</li>\r\n</ol>\r\n<p>Push-ilmoitukset otetaan käyttöön jokaiselle laitteelle ja selaimelle erikseen. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> poistaa ne käytöstä tällä laitteella. Ilmoitukset lähetetään selaimesi push-palvelun kautta (esim. Googlen, Mozillan, Applen tai Microsoftin) ja ne on salattu.</p>\r\n<h3 class=\"h6 mt-3\">Foorumin asentaminen sovellukseksi</h3>\r\n<p>Voit asentaa foorumin sovelluksen tavoin, omalla kuvakkeellaan aloitusnäytölle tai työpöydälle: napsauta samalla sivulla <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> tai käytä selaimesi asennustoimintoa. iPhonessa ja iPadissa push-ilmoitukset toimivat vain asennetussa sovelluksessa: napauta Jaa, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, avaa foorumi aloitusnäytöltä ja ota sitten ilmoitukset käyttöön.</p>\r\n<p class=\"text-body-secondary small\">Osio näytetään vain, jos ylläpitäjä on ottanut push-ilmoitukset käyttöön.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Push-ilmoitukset ja sovellus"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Lukeminen"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Jos unohdat salasanasi, voit klikata \"<a href=\"{0}\">Hukassa oleva salasana</a>\"\r\n  linkkiä. Tämä tulee näkyviin kaikilla sivuilla, joilla sinun on täytettävä salasanasi. </p>\r\n<p>Tämä linkki avaa sivun, johon sinun tulee syöttää käyttäjätunnuksesi. Sähköposti\r\n  osoitteeseen lähetetään pian sähköpostiviesti, jossa on ohjeet salasanasi palauttamista varten.</p>\r\n<p> Koska salasanat on salattu, alkuperäistä salasanaasi ei voi lähettää uudelleen.\r\n  Tämä vaihtoehto tarjoaa sinulle mahdollisuuden palauttaa salasanasi.  </p>\r\n<p>Sinun on voitava vastaanottaa sähköpostiviestejä rekisteröityyn sähköpostiosoitteeseesi, jotta tämä voi\r\n  toimia. Sinun on ehkä tarkistettava roskapostisuodattimesi ja -kansiosi, jos et näe tätä.\r\n  sähköpostia muutamassa minuutissa. </p>"
+            "#text": "<p>Jos olet unohtanut salasanasi, voit asettaa uuden:</p>\r\n<ol>\r\n<li>Napsauta <strong>[[LOGIN.LOSTPASSWORD]]</strong> <a href=\"[[page:Account_Login]]\">kirjautumissivun</a> tai kirjautumisikkunan salasanakentän vieressä.</li>\r\n<li>Anna käyttäjänimesi tai sähköpostiosoitteesi ja napsauta <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Jos tällä nimellä tai osoitteella on tili, foorumi lähettää sinulle sähköpostin, jossa on linkki. Yksityisyytesi vuoksi sivu näyttää joka tapauksessa saman ilmoituksen.</li>\r\n<li>Linkki avaa sivun, jolla annat sähköpostiosoitteesi ja uuden salasanasi kahdesti.</li>\r\n</ol>\r\n<p>Linkki on voimassa vain rajoitetun ajan. Jos et ole vielä vahvistanut sähköpostiosoitettasi, saat sen sijaan uuden vahvistussähköpostin. Foorumi lähettää näitä sähköposteja enintään muutaman tunnissa.</p>\r\n<p>Salasanat tallennetaan muodossa, josta niitä ei voi lukea takaisin, joten kukaan (ei edes ylläpitäjä) ei voi kertoa sinulle vanhaa salasanaasi.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Palauta kadonnut salasana"
+            "#text": "Unohtuneen salasanan palauttaminen"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Ylläpitäjä todennäköisesti vaatii sinua rekisteröitymään, jotta voit käyttää kaikkia foorumin ominaisuuksia. Rekisteröityminen antaa sinulle identiteetin foorumilla, kiinteän käyttäjätunnuksen kaikkiin viesteihisi ja julkisen verkkoprofiilin.</p>\r\n<p>Rekisteröityminen on ilmaista (ellei toisin mainita), ja se tarjoaa laajan valikoiman ominaisuuksia, kuten:</p>\r\n<ul>\r\n  <li>Uusien aiheiden julkaiseminen</li>\r\n  <li>Vastaaminen muiden aiheisiin</li>\r\n  <li>Viestien muokkaaminen</li>\r\n  <li>Vastaanottaa sähköposti-ilmoituksia vastauksista määrittämiisi viesteihin ja aiheisiin</li>\r\n  <li>Perheviestien lähettäminen muille jäsenille</li>\r\n</ul>\r\n<p><strong>Miten rekisteröidyn?</strong></p>\r\n<p>Rekisteröidyt klikkaamalla 'Rekisteröidy' otsikossa. Ensin Sinun on hyväksyttävä foorumin säännöt ja käytännöt. Sitten sinua pyydetään valitsemaan käyttäjätunnus, salasana, turvakysymys/vastaus ja antamaan voimassa oleva sähköpostiosoite. Jos olet ylläpitäjä, sinun on syötettävä näytetty Captcha-koodi, jotta voit jatkaa. Seuraavalla sivulla voit valinnaisesti antaa joitakin perusprofiiliasetuksia.</p>\r\n"
+            "#text": "<p>Monet foorumin toiminnot ovat vain jäsenten käytettävissä, esim. viestien kirjoittaminen, yksityisviestit, ystävät, aiheiden seuraaminen ja ilmoitukset. Liittyäksesi jäseneksi napsauta otsakkeessa kohtaa <strong>[[TOOLBAR.REGISTER]]</strong> (jos ylläpitäjä sallii uudet rekisteröitymiset).</p>\r\n<ol>\r\n<li>Jos foorumi sitä pyytää, lue <strong>[[RULES.TITLE]]</strong> ja napsauta <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Anna käyttäjänimi, sähköpostiosoitteesi ja salasana (kahdesti). Foorumista riippuen annat myös näyttönimen ja muita tietoja, joita ylläpitäjä pyytää.</li>\r\n<li>Napsauta <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Foorumi näyttää viestin <strong>[[REGISTER.CHECK_MAIL]]</strong> ja lähettää sinulle sähköpostin. Vahvista osoitteesi napsauttamalla sähköpostissa olevaa linkkiä. Sen jälkeen tilisi on aktiivinen ja voit kirjautua sisään.</li>\r\n</ol>\r\n<p>Jos sähköpostia ei kuulu, tarkista roskapostikansiosi. Jos yrität kirjautua ennen kuin olet vahvistanut osoitteen, kirjautumissivu kertoo siitä ja tarjoaa valinnan <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>Joillakin foorumeilla ylläpitäjän on ensin hyväksyttävä uudet tilit, ja saat sähköpostilla tiedon, kun tilisi on hyväksytty.</p>\r\n<p>Rekisteröitymisen jälkeen voit täydentää profiiliasi, katso <a href=\"[[help:editprofile]]\">Profiilin muokkaaminen</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
-            "#text": "Rekisteröinti"
+            "#text": "Rekisteröityminen"
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Joillakin foorumeilla voit ehkä lähettää viestejä ja vastata vieraskäyttäjänä. Useimmat yhteisöt vaativat kuitenkin rekisteröitymisen.</p>\r\n<p>Rekisteröitynyt käyttäjä voi mennä foorumille sellaisella foorumilla, jossa hänellä on oikeus tarkastella aiheita ja jättää vastauksia. Vastataksesi sinulla on muutama vaihtoehto. Voit napsauttaa \"Lähetä vastaus\" -painiketta ja lisätä uuden viestin aiheen loppuun. Vaihtoehtoisesti voit jättää pikavastauksen aiheen viestien alapuolella olevaan Pikavastaukset-kenttään.</p>\r\n<p>Jos haluat vastata viestiin, paina 'Lainaus' -painiketta ja voit vastata viestiin lainatulla tekstillä.</p>"
+            "#text": "<p>Vastataksesi aiheeseen napsauta viestien ylä- tai alapuolella olevaa painiketta <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> tai viestin alla olevaa painiketta <strong>[[BUTTON.BUTTON_REPLY]]</strong>. Vastaussivulla näkyvät editorin alla aiheen <strong>[[POSTMESSAGE.LAST10]]</strong>, joten voit lukea niitä kirjoittaessasi.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Lyhyeen vastaukseen käytä viestien alla olevaa pikavastausruutua tai viestin painiketta <strong>[[POSTS.QUICKREPLY]]</strong>. Kirjoita tekstisi ja napsauta <strong>[[COMMON.POST]]</strong>. Saat koko editorin (esim. tiedostojen liittämistä varten) napsauttamalla <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Lainaaminen</h3>\r\n<ul>\r\n<li>Viestin alla oleva <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> aloittaa vastauksen, jossa tämän viestin teksti on lainauksena.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> kerää useita viestejä, myös aiheen muilta sivuilta. Napsauta sitten jonkin niistä painiketta <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, niin vastaus lainaa kaikkia kerättyjä viestejä.</li>\r\n<li>Lainataksesi vain osan valitse teksti viestistä, napsauta sitä hiiren oikealla painikkeella ja valitse <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Lyhennä pitkät lainaukset siihen osaan, johon vastaat. Lainattu jäsen saa ilmoituksen.</p>\r\n<p>Voit vastata vain, jos sinulla on siihen oikeus tällä alueella, etkä lukitussa aiheessa. Vieraat voivat vastata vain, jos alue sallii sen.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Viestiin vastaaminen"
+            "#text": "Vastaaminen ja lainaaminen"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Jos viesti rikkoo foorumin sääntöjä (esim. roskaposti, loukkaukset tai laiton sisältö), raportoi se moderaattoreille sen sijaan, että vastaisit siihen:</p>\r\n<ol>\r\n<li>Avaa viestin valikko (kolme pistettä sen oikeassa yläkulmassa) ja valitse <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Kirjoita, miksi raportoit viestin.</li>\r\n<li>Napsauta <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Alueen moderaattorit tarkistavat raportoidun viestin ja päättävät, mitä tehdä. Kirjoittaja ei näe, kuka viestin raportoi. Foorumista riippuen vain jäsenet voivat raportoida viestejä.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Viestin raportointi"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Syötteet tarjotaan tällä hetkellä kahdessa muodossa, RSS ja Atom.</p>\r\n<p>Jos ylläpitäjä on ottanut Feed-syndikaation käyttöön, voit saada syötteet foorumeille, aiheille ja aktiivisille aiheille.</p>\r\n<p>Nykyaikaisimmissa selaimissa on toiminnot RSS-syötteiden lukemiseen ja ne havaitsevat automaattisesti syötteiden saatavuuden YAF-foorumin sivuilla.</p>"
+            "#text": "<p>Syötteiden avulla voit seurata foorumia syötteenlukijasovelluksessa käymättä foorumilla. Foorumi tarjoaa Atom-syötteitä seuraaville:</p>\r\n<ul>\r\n<li>uusimmat viestit (etusivun <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong>),</li>\r\n<li>alueen aiheet (syötepainike aiheluettelon yläpuolella olevassa palkissa),</li>\r\n<li>aiheen viestit (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Kopioi syötteen osoite syötteenlukijaasi. Ylläpitäjä määrää, tarjoaako foorumi syötteitä ja kuka voi käyttää niitä (usein vain jäsenet). Jos et näe syötepainiketta, syötteet eivät ole käytettävissäsi.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS & Atom-syötteet"
+            "#text": "Syötteet"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Voidaksesi löytää nopeasti kiinnostavan viestiketjun tai viestin mistä tahansa foorumilta, klikkaa otsikon 'Haku' -linkkiä. Kirjoita sitten avainsana tai lause, jota haluat etsiä.</p>\r\n<p>Jos haluat hallita hakua paremmin, voit rajoittaa haun yksittäisiin foorumeihin tai etsiä tietyn käyttäjän kirjoittamia viestejä tai aiheita. Voit myös valita, kuinka monta tulosta näytetään sivulla.</p>"
+            "#text": "<p>Napsauta otsakkeessa kohtaa <strong>[[TOOLBAR.SEARCH]]</strong>, kirjoita vähintään muutama kirjain ja paina Enter tai napsauta <strong>[[SEARCH.BTNSEARCH]]</strong>. Hakuasetuksilla voit:</p>\r\n<ul>\r\n<li>hakea viestejä, aiheita tai alueita,</li>\r\n<li>hakea vain tietyn jäsenen viesteistä,</li>\r\n<li>hakea aiheita, joilla on tietty tunniste,</li>\r\n<li>hakea tarkkaa ilmausta, mitä tahansa sanoista tai kaikkia sanoja,</li>\r\n<li>hakea vain joiltakin alueilta,</li>\r\n<li>hakea koko viesteistä tai vain otsikoista,</li>\r\n<li>valita tulosten määrän sivua kohden.</li>\r\n</ul>\r\n<p>Haku löytää vain sen, mitä sinulla on oikeus lukea. Muita tapoja hakea:</p>\r\n<ul>\r\n<li>Aiheluettelon yläpuolella oleva <strong>[[TOPICS.SEARCH_FORUM]]</strong> hakee yhdeltä alueelta.</li>\r\n<li>Viestin valikon tai profiilin kohta <strong>[[PROFILE.SEARCHUSER]]</strong> luettelee tämän jäsenen viestit.</li>\r\n<li>Aiheen otsikon alla oleva tunniste näyttää kaikki aiheet, joilla on sama tunniste.</li>\r\n<li>Valitse tekstiä viestistä ja napsauta sitä hiiren oikealla painikkeella hakeaksesi valittuja sanoja.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Foorumien ja aiheiden etsiminen"
+            "#text": "Haku"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Kun seuraat aihetta tai aluetta, saat ilmoituksen uusista viesteistä: foorumin ilmoituksissa ja (<a href=\"[[help:mailsettings]]\">ilmoitusasetuksistasi</a> riippuen) sähköpostilla ja push-ilmoituksena.</p>\r\n<ul>\r\n<li><strong>Aihe:</strong> napsauta aiheen otsikon alla <strong>[[POSTS.TOOLS]]</strong> ja sitten <strong>[[POSTS.WATCHTOPIC]]</strong>. Voit myös ottaa käyttöön valinnan <strong>[[POSTMESSAGE.TOPICWATCH]]</strong>, kun kirjoitat viestiä.</li>\r\n<li><strong>Alue:</strong> napsauta aiheluettelon yläpuolella olevassa palkissa <strong>[[TOPICS.WATCHFORUM]]</strong>. Saat ilmoituksen tämän alueen uusista aiheista.</li>\r\n<li><strong>Kaikki alueet:</strong> napsauta etusivulla <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong>.</li>\r\n</ul>\r\n<p>Lopettaaksesi seuraamisen napsauta <strong>[[POSTS.UNWATCHTOPIC]]</strong> tai <strong>[[TOPICS.UNWATCHFORUM]]</strong>. Sivulla <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> löydät kaikki kohdat <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> ja <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, valitse niistä haluamasi ja napsauta <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> lopettaaksesi niiden seuraamisen.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Tilaukset & ilmoitukset"
+            "#text": "Aiheiden ja alueiden seuraaminen"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>Kiitos-järjestelmä on toiminto, jonka avulla voit antaa toiselle käyttäjälle positiivista palautetta, esimerkiksi kun hän on lähettänyt viestin, joka on mielestäsi hyödyllinen tai auttaa sinua ratkaisemaan ongelman.</p>\r\n<p><strong>Miten käyttäjälle annetaan kiitos?</strong></p>\r\n<p>Jos haluat antaa Käyttäjälle kiitoksen, paina \"Kiitos\"-painiketta haluamasi viestin sisällä, jonka jälkeen löydät nimesi viestin lopussa olevasta Kiitoksen antaneiden Käyttäjien luettelosta. Voit myös poistaa kiitoksesi milloin tahansa.</p>\r\n<p><strong>Katsele kaikki kiitokset</strong></p>\r\n<p>Jos haluat tarkastella kaikkia viestejä, joissa annoit Kiitos, tai näyttää luettelon viesteistä, joissa sait kiitokset, pääset sivulle Henkilökohtainen profiili -&gt; 'Näytä kiitokset' Käyttäjän ohjauspaneelista. Siellä näet kaksi välilehteä...</p>\r\n<ul>\r\n  <li> <strong>kiitokset</strong> - Näyttää luettelon viesteistä, joissa annoit kiitoksen.</li>\r\n  <li><strong>kiitettiin -</strong> Näyttää Luettelon viesteistäsi, joissa sait kiitoksen.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Reaktiot</h3>\r\n<p>Reaktiolla näytät viestin kirjoittajalle, että pidät viestistä, kirjoittamatta vastausta. Napsauta viestin alla olevaa hymiöpainiketta (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) ja valitse <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> tai <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Napsauta reaktiotasi uudelleen poistaaksesi sen tai toista reaktiota vaihtaaksesi sen.</li>\r\n<li>Viestin reaktiot näytetään lukumäärineen, vie hiiri niiden päälle nähdäksesi, kuka on reagoinut.</li>\r\n<li>Et voi reagoida omiin viesteihisi, poistettuihin viesteihin etkä lukituissa aiheissa.</li>\r\n<li>Kirjoittaja saa ilmoituksen, ja reaktiot lasketaan profiiliin (annetut ja saadut kiitokset).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Maine</h3>\r\n<p>Jos foorumi käyttää mainejärjestelmää, jäsenen maine näytetään profiilissa palkkina. Jäsenet, joilla itsellään on riittävästi mainetta, voivat lisätä (+1) tai vähentää (-1) toisen jäsenen mainetta viestin käyttäjävalikosta.</p>\r\n<h3 class=\"h6 mt-3\">Vastaus kysymykseen</h3>\r\n<p>Aiheen aloittanut jäsen voi merkitä kysymykseen vastanneen viestin valinnalla <strong>[[POSTS.MARK_ANSWER]]</strong>. Viesti saa vastausmerkin, joten muut lukijat löytävät ratkaisun nopeasti.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Kiitos ominaisuus"
+            "#text": "Reaktiot ja maine"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>Kunkin aiheen yläreunassa on linkki \"Valinnat\". Klikkaamalla tätä linkkiä avautuu valikko, jossa on useita vaihtoehtoja:</p>\r\n<ul>\r\n  <li><strong>Katsele tätä aihetta</strong> - tilaamalla viestiketjun saat säännöllisesti sähköpostipäivityksiä sen viimeaikaisesta toiminnasta.</li>\r\n  <li><strong>Tulosta tämä aihe</strong> - Tämä näyttää sinulle sivun, jossa säikeen viestin sisältö on pienennetyssä graafisessa muodossa, joka on \"tulostinystävällisempi\".</li>\r\n  <li><strong>Atomasyöte</strong> - Tämä näyttää tämän aiheen syötteen, jossa kaikki viestit ovat syötteen kohteita.</li>\r\n  <li><strong>Rss-syöte</strong> - Tämä näyttää tämän aiheen syötteen, jossa kaikki viestit ovat syötekohteina.</li>\r\n</ul>\r\n"
+            "#text": "<p>Aiheen otsikon alla olevassa palkissa ovat aiheen työkalut:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - lähettää linkin aiheeseen jollekulle sähköpostilla (vain jäsenille).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - kopioi aiheen osoitteen, esim. linkittämistä varten toisella verkkosivustolla.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - saat ilmoituksen uusista vastauksista, katso <a href=\"[[help:subscriptions]]\">Aiheiden ja alueiden seuraaminen</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - näyttää aiheen tulostettavana versiona.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - aiheen syöte, jos foorumi tarjoaa syötteitä, katso <a href=\"[[help:rss]]\">Syötteet</a>.</li>\r\n</ul>\r\n<p>Moderaattorit näkevät lisäksi valikon <strong>[[POSTS.MANAGE_TOPIC]]</strong>, josta aiheen voi siirtää, lukita tai poistaa, katso <a href=\"[[help:moderating]]\">Moderaattorin opas</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Aiheen vaihtoehdot"
+            "#text": "Aiheen työkalut"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Täältä löydät vastauksia kysymyksiin, jotka koskevat hallituksen toimintaa. Käytä vasemmalla olevia linkkejä tai alla olevaa hakukenttää löytääksesi etsimäsi."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Kirjoittaminen"
           }
         ]
       },

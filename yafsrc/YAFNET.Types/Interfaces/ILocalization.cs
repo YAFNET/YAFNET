@@ -190,6 +190,21 @@ public interface ILocalization
     bool GetTextExists(string page, string tag);
 
     /// <summary>
+    /// Gets the text as it is in the language file: [b], [br] and [noparse] are not replaced
+    /// (e.g. for the BB code examples of the help), or null if there is no such text.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The text.
+    /// </returns>
+    string GetRawText(string page, string tag);
+
+    /// <summary>
     /// Formats a localized string -- but verifies the parameter count matches
     /// </summary>
     /// <param name="text">

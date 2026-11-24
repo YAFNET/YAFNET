@@ -401,6 +401,35 @@ public class Localization : ILocalization
     }
 
     /// <summary>
+    /// Gets the text as it is in the language file: [b], [br] and [noparse] are not replaced.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The text, or null if there is no such text.
+    /// </returns>
+    public string GetRawText(string page, string tag)
+    {
+        this.LoadTranslation();
+
+        this.localizer.SetPage(page);
+        this.localizer.GetText(tag, out var localizedText);
+
+        // the english text if it is not translated (without the brackets GetText adds to it)
+        if (localizedText == null && this.defaultLocale != null)
+        {
+            this.defaultLocale.SetPage(page);
+            this.defaultLocale.GetText(tag, out localizedText);
+        }
+
+        return localizedText;
+    }
+
+    /// <summary>
     /// Formats a localized string -- but verifies the parameter count matches
     /// </summary>
     /// <param name="text">

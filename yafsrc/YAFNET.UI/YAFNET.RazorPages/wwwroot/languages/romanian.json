@@ -10815,19 +10815,484 @@
         ]
       },
       {
+        "@name": "HELP_BBCODES",
+        "Resource": [
+          {
+            "@tag": "ALIGN_DESC",
+            "#text": "Aliniază textul la stânga, centrat sau la dreapta cu <code>[left]</code>, <code>[center]</code> și <code>[right]</code>."
+          },
+          {
+            "@tag": "ALIGN_EXAMPLE",
+            "#text": "[center]Text centrat[/center]\r\n[right]Text aliniat la dreapta[/right]"
+          },
+          {
+            "@tag": "ALIGN_TITLE",
+            "#text": "Aliniere"
+          },
+          {
+            "@tag": "B_DESC",
+            "#text": "Face textul aldin."
+          },
+          {
+            "@tag": "B_EXAMPLE",
+            "#text": "[b]Acest text este aldin[/b]"
+          },
+          {
+            "@tag": "B_TITLE",
+            "#text": "Aldin"
+          },
+          {
+            "@tag": "CODE_DESC",
+            "#text": "Afișează cod de program cu rupturile de rând și spațiile lui, codurile BB din interior nu sunt formatate."
+          },
+          {
+            "@tag": "CODE_EXAMPLE",
+            "#text": "[code]if (a > b)\r\n{\r\n    return a;\r\n}[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_DESC",
+            "#text": "Colorează codul unui limbaj de programare, de ex. csharp, javascript, python, sql, css sau markup (HTML)."
+          },
+          {
+            "@tag": "CODE_LANGUAGE_EXAMPLE",
+            "#text": "[code=csharp]var answer = 42;[/code]"
+          },
+          {
+            "@tag": "CODE_LANGUAGE_TITLE",
+            "#text": "Cod cu evidențiere"
+          },
+          {
+            "@tag": "CODE_TITLE",
+            "#text": "Cod"
+          },
+          {
+            "@tag": "COLOR_DESC",
+            "#text": "Colorează textul. Folosiți numele unei culori sau un cod de culoare."
+          },
+          {
+            "@tag": "COLOR_EXAMPLE",
+            "#text": "[color=red]Text roșu[/color] și [color=#0d6efd]text albastru[/color]"
+          },
+          {
+            "@tag": "COLOR_TITLE",
+            "#text": "Culoarea textului"
+          },
+          {
+            "@tag": "CUSTOM_DESC",
+            "#text": "Aceste coduri BB încorporează conținut (de ex. videoclipuri sau postări de pe alte site-uri) sau atașamente. Scrieți adresa sau numărul între etichete."
+          },
+          {
+            "@tag": "EMAIL_DESC",
+            "#text": "Un link care deschide un e-mail către adresa respectivă."
+          },
+          {
+            "@tag": "EMAIL_EXAMPLE",
+            "#text": "[email]cineva@example.com[/email]"
+          },
+          {
+            "@tag": "EMAIL_TITLE",
+            "#text": "Adresă de e-mail"
+          },
+          {
+            "@tag": "EMOJI_DESC",
+            "#text": "Codurile scurte de emoji între paranteze drepte și emoticoanele precum :) devin emoji."
+          },
+          {
+            "@tag": "EMOJI_EXAMPLE",
+            "#text": "[smile] [wink] [thumbsup] :)"
+          },
+          {
+            "@tag": "EMOJI_TITLE",
+            "#text": "Emoji"
+          },
+          {
+            "@tag": "FONT_DESC",
+            "#text": "Afișează textul cu alt font, dacă fontul este disponibil pe dispozitivul cititorului."
+          },
+          {
+            "@tag": "FONT_EXAMPLE",
+            "#text": "[font=Courier New]Text în Courier New[/font]"
+          },
+          {
+            "@tag": "FONT_TITLE",
+            "#text": "Font"
+          },
+          {
+            "@tag": "GROUP_CUSTOM",
+            "#text": "Alte coduri BB ale acestui forum"
+          },
+          {
+            "@tag": "GROUP_HIDE_DESC",
+            "#text": "Afișează textul doar membrilor, sau cu <code>[group-hide=Role1;Role2]</code> doar membrilor acestor roluri."
+          },
+          {
+            "@tag": "GROUP_HIDE_EXAMPLE",
+            "#text": "[group-hide]Doar membrii văd acest text.[/group-hide]"
+          },
+          {
+            "@tag": "GROUP_HIDE_TITLE",
+            "#text": "Ascuns pentru grupuri"
+          },
+          {
+            "@tag": "GROUP_LAYOUT",
+            "#text": "Așezare în pagină"
+          },
+          {
+            "@tag": "GROUP_LINKS",
+            "#text": "Linkuri și imagini"
+          },
+          {
+            "@tag": "GROUP_LISTS",
+            "#text": "Liste"
+          },
+          {
+            "@tag": "GROUP_QUOTES",
+            "#text": "Citate și cod"
+          },
+          {
+            "@tag": "GROUP_SPECIAL",
+            "#text": "Membri, spoilere și conținut ascuns"
+          },
+          {
+            "@tag": "GROUP_TEXT",
+            "#text": "Formatarea textului"
+          },
+          {
+            "@tag": "HIDE_DESC",
+            "#text": "Ascunde textul până când cititorul reacționează la postare. Autorul și administratorii îl văd întotdeauna."
+          },
+          {
+            "@tag": "HIDE_EXAMPLE",
+            "#text": "[hide]Un text ascuns.[/hide]"
+          },
+          {
+            "@tag": "HIDE_POSTS_DESC",
+            "#text": "Ascunde textul de membrii care au scris mai puține postări decât numărul indicat."
+          },
+          {
+            "@tag": "HIDE_POSTS_EXAMPLE",
+            "#text": "[hide-posts=10]Un text ascuns.[/hide-posts]"
+          },
+          {
+            "@tag": "HIDE_POSTS_TITLE",
+            "#text": "Ascuns la puține postări"
+          },
+          {
+            "@tag": "HIDE_REPLY_DESC",
+            "#text": "Ascunde textul până când cititorul răspunde în subiect."
+          },
+          {
+            "@tag": "HIDE_REPLY_EXAMPLE",
+            "#text": "[hide-reply]Un text ascuns.[/hide-reply]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_DESC",
+            "#text": "Ascunde textul până când cititorul răspunde în subiect sau reacționează la postare."
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_EXAMPLE",
+            "#text": "[hide-reply-thanks]Un text ascuns.[/hide-reply-thanks]"
+          },
+          {
+            "@tag": "HIDE_REPLY_THANKS_TITLE",
+            "#text": "Ascuns până la un răspuns sau o reacție"
+          },
+          {
+            "@tag": "HIDE_REPLY_TITLE",
+            "#text": "Ascuns până la un răspuns"
+          },
+          {
+            "@tag": "HIDE_THANKS_DESC",
+            "#text": "Ascunde textul de membrii care au primit mai puține reacții decât numărul indicat."
+          },
+          {
+            "@tag": "HIDE_THANKS_EXAMPLE",
+            "#text": "[hide-thanks=5]Un text ascuns.[/hide-thanks]"
+          },
+          {
+            "@tag": "HIDE_THANKS_TITLE",
+            "#text": "Ascuns la puține reacții"
+          },
+          {
+            "@tag": "HIDE_TITLE",
+            "#text": "Ascuns până la o reacție"
+          },
+          {
+            "@tag": "HR_DESC",
+            "#text": "Patru sau mai multe liniuțe pe un rând separat desenează o linie orizontală."
+          },
+          {
+            "@tag": "HR_EXAMPLE",
+            "#text": "Text deasupra liniei\r\n----\r\nText sub linie"
+          },
+          {
+            "@tag": "HR_TITLE",
+            "#text": "Linie orizontală"
+          },
+          {
+            "@tag": "H_DESC",
+            "#text": "Evidențiază textul ca un marker."
+          },
+          {
+            "@tag": "H_EXAMPLE",
+            "#text": "[h]Acest text este evidențiat[/h]"
+          },
+          {
+            "@tag": "H_TITLE",
+            "#text": "Evidențiere"
+          },
+          {
+            "@tag": "IMG_DESC",
+            "#text": "Afișează o imagine de pe internet. Adresa trebuie să se termine cu tipul imaginii (de ex. .png sau .jpg)."
+          },
+          {
+            "@tag": "IMG_EXAMPLE",
+            "#text": "[img]{logo}[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_DESC",
+            "#text": "O imagine cu o descriere, care este afișată când mouse-ul este deasupra imaginii și citită de cititoarele de ecran."
+          },
+          {
+            "@tag": "IMG_TEXT_EXAMPLE",
+            "#text": "[img={logo}]Sigla YAF.NET[/img]"
+          },
+          {
+            "@tag": "IMG_TEXT_TITLE",
+            "#text": "Imagine cu descriere"
+          },
+          {
+            "@tag": "IMG_TITLE",
+            "#text": "Imagine"
+          },
+          {
+            "@tag": "INDENT_DESC",
+            "#text": "Indentează textul."
+          },
+          {
+            "@tag": "INDENT_EXAMPLE",
+            "#text": "[indent]Text indentat[/indent]"
+          },
+          {
+            "@tag": "INDENT_TITLE",
+            "#text": "Indentare"
+          },
+          {
+            "@tag": "I_DESC",
+            "#text": "Face textul cursiv."
+          },
+          {
+            "@tag": "I_EXAMPLE",
+            "#text": "[i]Acest text este cursiv[/i]"
+          },
+          {
+            "@tag": "I_TITLE",
+            "#text": "Cursiv"
+          },
+          {
+            "@tag": "LIST_DESC",
+            "#text": "O listă cu buline. Fiecare element începe cu <code>[*]</code> pe un rând nou."
+          },
+          {
+            "@tag": "LIST_EXAMPLE",
+            "#text": "[list]\r\n[*]Primul element\r\n[*]Al doilea element\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_DESC",
+            "#text": "O listă numerotată. Folosiți <code>[list=a]</code> sau <code>[list=A]</code> pentru litere, <code>[list=i]</code> sau <code>[list=I]</code> pentru cifre romane."
+          },
+          {
+            "@tag": "LIST_ORDERED_EXAMPLE",
+            "#text": "[list=1]\r\n[*]Primul pas\r\n[*]Al doilea pas\r\n[/list]"
+          },
+          {
+            "@tag": "LIST_ORDERED_TITLE",
+            "#text": "Listă numerotată"
+          },
+          {
+            "@tag": "LIST_TITLE",
+            "#text": "Listă"
+          },
+          {
+            "@tag": "NOPARSE_DESC",
+            "#text": "Afișează codurile BB așa cum sunt, fără a le formata."
+          },
+          {
+            "@tag": "NOPARSE_EXAMPLE",
+            "#text": "[noparse][b]nu este aldin[/b][/noparse]"
+          },
+          {
+            "@tag": "NOPARSE_TITLE",
+            "#text": "Fără formatare"
+          },
+          {
+            "@tag": "NOTE_DESC",
+            "#text": "Afișează textul într-o casetă colorată. Tipurile sunt primary, secondary, success, danger, warning, info, light și dark."
+          },
+          {
+            "@tag": "NOTE_EXAMPLE",
+            "#text": "[note=info]O notă cu o informație.[/note]\r\n[note=warning]Un avertisment.[/note]"
+          },
+          {
+            "@tag": "NOTE_TITLE",
+            "#text": "Notă"
+          },
+          {
+            "@tag": "QUOTE_DESC",
+            "#text": "Afișează textul ca citat. Butoanele de citare ale postărilor îl inserează pentru dumneavoastră."
+          },
+          {
+            "@tag": "QUOTE_EXAMPLE",
+            "#text": "[quote]Textul citat.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_DESC",
+            "#text": "Un citat cu numele autorului său."
+          },
+          {
+            "@tag": "QUOTE_NAME_EXAMPLE",
+            "#text": "[quote={user}]Textul citat.[/quote]"
+          },
+          {
+            "@tag": "QUOTE_NAME_TITLE",
+            "#text": "Citat cu autorul"
+          },
+          {
+            "@tag": "QUOTE_TITLE",
+            "#text": "Citat"
+          },
+          {
+            "@tag": "RESULT",
+            "#text": "Rezultat"
+          },
+          {
+            "@tag": "SIZE_DESC",
+            "#text": "Schimbă dimensiunea textului, de la 1 (foarte mic) la 9 (foarte mare). 5 este dimensiunea normală."
+          },
+          {
+            "@tag": "SIZE_EXAMPLE",
+            "#text": "[size=3]Mic[/size] [size=5]Normal[/size] [size=7]Mare[/size]"
+          },
+          {
+            "@tag": "SIZE_TITLE",
+            "#text": "Dimensiunea textului"
+          },
+          {
+            "@tag": "SPOILER_DESC",
+            "#text": "Ascunde textul până când cititorul face clic pe buton, de ex. pentru finalul unui film."
+          },
+          {
+            "@tag": "SPOILER_EXAMPLE",
+            "#text": "[spoiler]Grădinarul a făcut-o.[/spoiler]"
+          },
+          {
+            "@tag": "SPOILER_TITLE",
+            "#text": "Spoiler"
+          },
+          {
+            "@tag": "S_DESC",
+            "#text": "Taie textul cu o linie, de ex. pentru ceva care nu mai este valabil."
+          },
+          {
+            "@tag": "S_EXAMPLE",
+            "#text": "[s]Acest text este tăiat[/s]"
+          },
+          {
+            "@tag": "S_TITLE",
+            "#text": "Tăiat"
+          },
+          {
+            "@tag": "TABLE_DESC",
+            "#text": "Creează un tabel: <code>[tr]</code> este un rând, <code>[td]</code> o celulă a rândului."
+          },
+          {
+            "@tag": "TABLE_EXAMPLE",
+            "#text": "[table][tr][td]Nume[/td][td]Postări[/td][/tr][tr][td]Ana[/td][td]42[/td][/tr][/table]"
+          },
+          {
+            "@tag": "TABLE_TITLE",
+            "#text": "Tabel"
+          },
+          {
+            "@tag": "URL_DESC",
+            "#text": "Adresele site-urilor devin automat linkuri. Le puteți pune și în <code>[url]</code>."
+          },
+          {
+            "@tag": "URL_EXAMPLE",
+            "#text": "https://www.yetanotherforum.net"
+          },
+          {
+            "@tag": "URL_TEXT_DESC",
+            "#text": "Un link care afișează un text în locul adresei."
+          },
+          {
+            "@tag": "URL_TEXT_EXAMPLE",
+            "#text": "[url=https://www.yetanotherforum.net]Site-ul YAF.NET[/url]"
+          },
+          {
+            "@tag": "URL_TEXT_TITLE",
+            "#text": "Link cu text"
+          },
+          {
+            "@tag": "URL_TITLE",
+            "#text": "Link"
+          },
+          {
+            "@tag": "USERLINK_DESC",
+            "#text": "Un link către profilul unui membru. Tastarea @ în editor îl creează pentru dumneavoastră, iar membrul este notificat."
+          },
+          {
+            "@tag": "USERLINK_EXAMPLE",
+            "#text": "[userlink]{user}[/userlink]"
+          },
+          {
+            "@tag": "USERLINK_TITLE",
+            "#text": "Link către un membru"
+          },
+          {
+            "@tag": "U_DESC",
+            "#text": "Subliniază textul."
+          },
+          {
+            "@tag": "U_EXAMPLE",
+            "#text": "[u]Acest text este subliniat[/u]"
+          },
+          {
+            "@tag": "U_TITLE",
+            "#text": "Subliniat"
+          },
+          {
+            "@tag": "YOU_TYPE",
+            "#text": "Ce tastați"
+          }
+        ]
+      },
+      {
         "@name": "HELP_INDEX",
         "Resource": [
           {
+            "@tag": "ACCOUNTTOPICS",
+            "#text": "Contul dumneavoastră"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
-            "#text": "<p>Anunțurile sunt mesaje speciale postate de către administrator sau moderatori. Ele reprezintă o simplă comunicare unidirecțională cu utilizatorii și nu puteți răspunde. Dacă doriți să discutați despre anunțuri, va trebui să creați un nou subiect pe forum.</p>>.\r\n<p>Subiectele de anunțuri sunt afișate în partea de sus a paginilor de listare a forumului, deasupra subiectelor obișnuite și a subiectelor lipicioase.</p>\r\n        "
+            "#text": "<p>Unele subiecte sunt mai importante decât altele:</p>\r\n<ul>\r\n<li><strong>Subiectele fixate</strong> rămân în partea de sus a listei de subiecte a forumului lor, de ex. regulile sau întrebările frecvente ale forumului.</li>\r\n<li><strong>Anunțurile</strong> sunt informații importante, sunt afișate tot în partea de sus a listei de subiecte, marcate cu o insignă.</li>\r\n</ul>\r\n<p>Cine le poate crea stabilește administratorul (de obicei moderatorii și administratorii). Aceștia aleg acest lucru cu <strong>[[POSTMESSAGE.PRIORITY]]</strong> când scriu sau editează subiectul. Puteți răspunde la subiectele fixate și la anunțuri ca la orice alt subiect, cu excepția cazului în care subiectul este blocat.</p>\r\n<h3 class=\"h6 mt-3\">Anunțuri ale forumului</h3>\r\n<p>Administratorul poate afișa și un anunț pe fiecare pagină a forumului, de ex. pentru o lucrare de mentenanță planificată. Îl puteți închide cu butonul din dreapta lui.</p>"
           },
           {
             "@tag": "ANOUNCETITLE",
-            "#text": "Anunțuri"
+            "#text": "Anunțuri și subiecte fixate"
+          },
+          {
+            "@tag": "APPEARANCECONTENT",
+            "#text": "<h3 class=\"h6\">Modul luminos și întunecat</h3>\r\n<p>Butonul modului de culoare din antet comută între <strong>[[THEME_MODE.LIGHT]]</strong>, <strong>[[THEME_MODE.DARK]]</strong> și <strong>[[THEME_MODE.AUTO]]</strong> (modul dispozitivului dumneavoastră). Forumul ține minte alegerea în acest browser.</p>\r\n<h3 class=\"h6 mt-3\">Temă și limbă</h3>\r\n<p>Dacă administratorul permite, puteți alege o altă temă și limba forumului în <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. În funcție de forum, limba poate fi schimbată și din antet.</p>\r\n<h3 class=\"h6 mt-3\">Fus orar și dimensiunea paginii</h3>\r\n<p>Toate datele și orele sunt afișate în fusul dumneavoastră orar. Setați-l în <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>. Orele recente sunt afișate de ex. ca „acum 5 minute”.</p>\r\n<p>Opțiunea <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> de pe aceeași pagină stabilește câte intrări afișează listele forumului pe o pagină.</p>"
+          },
+          {
+            "@tag": "APPEARANCETITLE",
+            "#text": "Aspect și limbă"
           },
           {
             "@tag": "ATTACHMENTSCONTENT",
-            "#text": "\r\n      <p>To attach a file to a post, simply copy and paste the file, in to the editor. </p>\r\n      <p>From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.</p>\r\n      <p><strong>What files types can be used? How large can attachments be?</strong></p>\r\n      <p>In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.</p>\r\n      <p><strong>How to add an image to a post?</strong></p>\r\n      <p>If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image</p>\r\n      <p>To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.</p>\r\n    "
+            "#text": "<p>Dacă aveți dreptul să încărcați fișiere într-un forum, puteți adăuga fișiere și imagini la postările dumneavoastră:</p>\r\n<ul>\r\n<li>Trageți fișierul în editor, sau (în editorul care afișează formatarea) lipiți o imagine.</li>\r\n<li>Sau faceți clic pe butonul de atașare din bara de instrumente (<strong>[[COMMON.ATTACH_BBCODE]]</strong>). Fereastra vă permite să plasați fișiere sau să le alegeți cu <strong>[[ATTACHMENTS.ADD_FILES]]</strong> și afișează încărcările anterioare în <strong>[[ATTACHMENTS.CURRENT_UPLOADS]]</strong>: faceți clic pe una pentru a o insera din nou.</li>\r\n</ul>\r\n<p>Fereastra afișează <strong>[[ATTACHMENTS.ALLOWED_EXTENSIONS]]</strong> și, dacă există, dimensiunea maximă a fișierului. Răspunsul rapid nu are atașamente, folosiți editorul complet.</p>\r\n<p>Imaginile sunt afișate în postare ca previzualizare, faceți clic pe ea pentru a vedea imaginea completă (<strong>[[POSTS.IMAGE_RESIZE_ENLARGE]]</strong>). Celelalte fișiere și imaginile foarte mari sunt afișate ca link cu dimensiunea și numărul de descărcări. Descărcarea poate necesita un drept pe care forumul îl acordă doar membrilor.</p>\r\n<h3 class=\"h6 mt-3\">Imagini de pe alte site-uri</h3>\r\n<p>Pentru a afișa o imagine de pe internet, faceți clic pe <strong>[[COMMON.TT_IMAGE]]</strong> și introduceți adresa ei, sau scrieți <code>[img]adresa imaginii[/img]</code>.</p>\r\n<p>Fișierele încărcate sunt enumerate în <a href=\"[[help:myattachments]]\">Atașamentele mele</a>, unde le puteți și șterge.</p>"
           },
           {
             "@tag": "ATTACHMENTSTITLE",
@@ -10835,79 +11300,143 @@
           },
           {
             "@tag": "BBCODESCONTENT",
-            "#text": "<p>On this Page you find a list  of the BB code tags you can use to format your messages.</p>\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes for Text formatting\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Bold Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse][b] tag allows you to create text that is bold.\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [noparse][b]This text is bold[/b][/noparse]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <strong>This text is bold</strong>\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">\r\n      Italic Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [i] tag allows you to create text that italic.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [i]This text is italic[/i]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <em>This text is italic</em></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Underline Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [u] tag allows you to create text underlined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [u]This text is underlined[/u]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\"><strong>Output</strong></td>\r\n    <td>\r\n      <u>This text is underlined</u></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Strike Text</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      Wrap these tags to strike through text</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [s]This text is Strike through[/strike]</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <s>This text is Strike through</s></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Color</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [color] tag allows you to change the color of your text, by parsing the color you want.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [color=blue]this text is blue[/color]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"color:blue\">this text is blue</span></td>\r\n  </tr>\r\n       <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Size</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [size=9]This Text has the font size of 180%[/size]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <span style=\"font-size:180%\">This Text has the font size of 180%</span></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Font</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [font] tag allows you to change the font family of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [font=courier]this text is in the courier font[/font]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td><span style=\"font-family:courier\">this text is in the courier font</span></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Text Left / Right / Center Direction</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [left], [right] and [center] tags allow you to change the alignment of your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [left]this text is left aligned[/left]<br />\r\n    [center]this text is center aligned[/center]<br />\r\n      [right]this text is right aligned[/right]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><div align=\"left\">this text is left aligned</div>\r\n      <div align=\"center\">this text is center aligned</div>\r\n      <div align=\"right\">this text is right aligned</div></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Highlight</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [highlight] tag allows you to highlight your text.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [highlight]this text is highlighted[/highlight]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><span class=\"highlight\">this text is highlighted</span></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create various Links\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Email Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [email]someone@mydomain.com[/email]<br />\r\n      [email=someone@mydomain.com]Click Here to Email Me[/email]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"mailto:someone@mydomain.com\" title=\"someone@mydomain.com\">someone@mydomain.com</a><br />\r\n      <a href=\"mailto:someone@mydomain.com\" title=\"Click Here to Email Me\">Click Here to Email Me</a></td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [url]{0}[/url]<br />\r\n   [url={0}]mydomain[/url]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Modal URL Hyper Links</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [modalurl]{0}[/modalurl]<br />\r\n   [modalurl={0}]mydomain[/modalurl]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">{0}</a><br />\r\n     <a class=\"ceebox\" href=\"{0}\" target=\"_blank\" title=\"{0}\">mydomain</a></td>\r\n  </tr>\r\n\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to create Lists\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Bullet Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]\r\n    </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><ul>\r\n            <li>list item 1</li>\r\n            <li>list item 2</li>\r\n         </ul>\r\n    </td>\r\n  </tr>\r\n\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Numbered and Alphabetic Lists</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [list=1]<br />\r\n      [*]list item 1<br />\r\n      [*]list item 2<br />\r\n      [/list]<br />\r\n      <br />\r\n      [list=a]<br />\r\n      [*]list item a<br />\r\n      [*]list item b<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=A]<br />\r\n      [*]list item A<br />\r\n      [*]list item B<br />\r\n      [/list]\r\n      <br /><br />\r\n      [list=i]<br />\r\n      [*]list item i<br />\r\n      [*]list item ii<br />\r\n      [/list]<br /><br />\r\n      [list=I]<br />\r\n      [*]list item I<br />\r\n      [*]list item II<br />\r\n      [/list]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <ol>\r\n        <li>list item 1</li>\r\n        <li>list item 2</li>\r\n      </ol>\r\n      <ol type=\"a\">\r\n        <li>list item a</li>\r\n        <li>list item b</li>\r\n      </ol>\r\n      <ol type=\"A\">\r\n        <li>list item A</li>\r\n        <li>list item B</li>\r\n      </ol>\r\n      <ol type=\"i\">\r\n        <li>list item i</li>\r\n        <li>list item ii</li>\r\n      </ol>\r\n      <ol type=\"I\">\r\n        <li>list item I</li>\r\n        <li>list item II</li>\r\n      </ol>\r\n    </td>\r\n  </tr>\r\n  </table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to add Media Elements (Images, Videos)\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Images</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      <p>The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. </p>\r\n      <p>There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.</p></td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [img]{0}images/YAFLogo.svg[/img]<br /><br />\r\n      [img={0}images/YAFLogo.svg]YAF Logo[/img]<br /><br />\r\n    [url={0}] [img]{0}images/YAFLogo.svg[/img] [/url] (Linked)\r\n  </td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><img src=\"{0}images/YAFLogo.svg\" alt=\"\" /><br />\r\n    <br /><img src=\"{0}images/YAFLogo.svg\" alt=\"YAF Logo\" title=\"YAF Logo\" /><br />\r\n    <br />\r\n    <a href=\"{0}\" target=\"_blank\" title=\"YAF Logo\"><img class=\"inlineimg\" src=\"{0}images/YAFLogo.svg\" alt=\"\" /></a> (Linked)\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">You Tube</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [youtube] tag allows the embedding of an <a href=\"http://www.youtube.com/\" title=\"http://www.youtube.com/\">Youtube</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]<br /><br />\r\n      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN youtube --><object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/jqxENMKaeCU\"></param><embed src=\"http://www.youtube.com/v/jqxENMKaeCU\" type=\"application/x-shockwave-flash\" width=\"425\" height=\"350\"></embed></object><!-- END youtube --></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Vimeo</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [vimeo] tag allows the embedding of an <a href=\"http://www.vimeo.com/\" title=\"http://www.vimeo.com/\">Vimeo</a> video, by using the Url to the Video.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [vimeo]http://vimeo.com/25451551[/vimeo]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>      <object width=\"425\" height=\"350\">\r\n      <param name=\"allowfullscreen\" value=\"true\" />\r\n      <param name=\"allowscriptaccess\" value=\"always\" />\r\n      <param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\r\n      <embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=25451551&server=www.vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=&fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"425\" height=\"350\">\r\n      </embed>\r\n      </object></td>\r\n  </tr>\r\n   <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Maps</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5[/googlemaps]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.de/?ll=51.151786,10.415039&amp;spn=21.97528,35.639648&amp;t=h&amp;z=5&amp;output=embed\"></iframe></td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Google Gadgets (Widget)</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the <a href=\"http://www.google.com/ig/directory?synd=open\">Google Gadget Gallery</a>. Select a Gadget and Copy the Html Code for the gadget.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [googlewidget]\r\n      &lt;script src=\r\n      &quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml\r\n      &amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;\r\n      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js&quot;&gt;&lt;/script&gt;\r\n      [/googlewidget]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td><!-- BEGIN Google Widget -->\r\n<script type=\"text/javascript\" src=\"http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&synd=open&w=320&h=200&title=&border=%23ffffff%7C3px%2C1px+solid+%23999999&output=js\"></script>\r\n<!-- END Google Widget --></td>\r\n  </tr>\r\n  </table>\r\n  <br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n      BB Codes to Quote other Postings, and BB Codes to include Code Text\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Quoting</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [quote] tag allows you to quote a text from a posting.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [quote]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe]Quoted Text.[/quote]<br /><br />\r\n    [quote=John Doe;123]Quoted Text.[/quote]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n      <div class=\"quote\"><span class=\"quotetitle\">Quote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">John Doe wrote:</span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n      <div class=\"quote\"><span class=\"quotetitle\">Originally Posted by: John Doe <a href=\"{0}yaf_postsm123_posts.aspx#post123\"><img src=\"{0}Themes/GreenGrey/icon_latest_reply.gif\" title=\"Go to Quoted Post\" alt=\"Go to Quoted Post\" /></a></span><div class=\"innerquote\">Quoted Text</div></div><br />\r\n    </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Code</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [code]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]<br /><br />\r\n        [code=csharp]<br />\r\n    // Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}<br />\r\n    [/code]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\">\r\n// Hello1.cs<br />\r\npublic class Hello1<br />\r\n{{<br />\r\n&nbsp;&nbsp;public static void Main()<br />\r\n&nbsp;{{<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;System.Console.WriteLine(\"Hello, World!\");<br />\r\n&nbsp;&nbsp;}}<br />\r\n}}</div></div><br /><br />\r\n<div class=\"code\"><strong>Code:</strong><div class=\"innercode\"><pre class=\"brush:csharp;\">\r\n// Hello1.cs\r\npublic class Hello1\r\n{{\r\n   public static void Main()\r\n   {{\r\n      System.Console.WriteLine(&quot;Hello, World!&quot;);\r\n   }}\r\n}}</pre>\r\n</div></div></td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     BB Codes to show/Hide its Content only to specific users\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide] tag hides content from people until they press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide]Hidden Content[/hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n    <img src=\"{0}images/HiddenWarnDescription.png\" alt=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" title=\"The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post\" />\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Group Hide</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [group-hide]Hidden Content[/group-hide]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>You have insufficient rights to see the hidden content.</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-thanks] tag hides content from people who have below X thanks received.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-thanks=2]Hidden Content[/hide-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered, and have at least 2 thank(s) received.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Posts</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-posts] tag hides content from people who have below X posts.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-posts=10]Hidden Content[/hide-posts]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and have 10 post(s) or more.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply] tag hides content from people until they replied in the same thread.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply]Hidden Content[/hide-reply]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Hide-Reply-Thanks</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <p>If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content</p>\r\n\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</div></div>\r\n\r\n    <p>Otherwise as Guest you see a Info Message</p>\r\n    <div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\"><p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; padding: 0 0 3px 2px;\"></span>This board requires you to be registered and logged-in before you can view hidden messages.</div></div>\r\n\r\n    <p>If you do have access to see the Content you simply see the Hidden Content</p><br />\r\n    <p>Hidden Content</p>\r\n  </td>\r\n  </tr>\r\n<tr>\r\n    <td class=\"header2\" colspan=\"2\">Spoiler</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [spoiler] tag hides content from people until they click on \"Show Spoiler\".</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [spoiler]Spoiler Content[/spoiler]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <!-- BEGIN spoiler -->\r\n    <script type=\"text/javascript\">\r\n  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}\r\n  </script>\r\n<div class=\"spoilertitle\">\r\n<input type=\"button\" value=\"Show Spoiler\" class=\"spoilerbutton\" name=\"spoilerBtn4360a\" onclick=\"toggleSpoiler(this,'spoil_c3a3b');\"/>\r\n</div>\r\n<div class=\"spoilerbox\" id=\"spoil_c3a3b\" style=\"display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;\">\r\nSpoiler Content\r\n</div>\r\n<!-- END spoiler -->\r\n  </td>\r\n  </tr>\r\n</table>\r\n<br />\r\n<table class=\"content\" width=\"90%\">\r\n  <tr>\r\n    <td class=\"header1\" colspan=\"2\">\r\n     Other\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">User Link</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [userlink]Username[/userlink]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>\r\n    <style type=\"text/css\">.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}\r\n  </style>\r\n    <span class=\"userLinkContainer\">\r\n<a href=\"{0}/UserProfile/1234/Username\" rel=\"nofollow\" title=\"View profile\" target=\"_blank\" id=\"UserLinkBBCodeFor12224\" class=\"UserLinkBBCode\">Username</a>\r\n<img id=\"OnlineStatusImage\" src=\"{0}/Themes/OrangeGrey/icon_useronline.png\" alt=\"Online\" style=\"vertical-align: bottom\" title=\"User is Online\"/>\r\n</span>\r\n  </td>\r\n  </tr>\r\n  <tr>\r\n    <td class=\"header2\" colspan=\"2\">Stop BB Code Parsing</td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Description</strong>\r\n    </td>\r\n    <td>\r\n      The [noparse] tag allows you to stop the parsing of BB code inside the tag.</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Usage</strong>\r\n    </td>\r\n    <td>\r\n      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]</td>\r\n  </tr>\r\n   <tr>\r\n    <td style=\"width:15%;padding-left:10px;vertical-align:top;\">\r\n      <strong>Output</strong>\r\n    </td>\r\n    <td>[noparse][b]Sample text.[/b][/noparse]\r\n  </td>\r\n  </tr>\r\n</table>\r\n\r\n<p>NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.</p>"
+            "#text": "<p>Codurile BB formatează postările dumneavoastră. Sunt etichete scurte între paranteze drepte în jurul textului, de ex. <code>[b]aldin[/b]</code>. Nu trebuie să le tastați: butoanele editorului le inserează pentru dumneavoastră. Dacă editorul afișează formatarea în timp ce scrieți, codurile BB sunt create în fundal.</p>\r\n<p>Mai jos găsiți toate codurile BB ale acestui forum, ce tastați și rezultatul așa cum arată într-o postare. Unele coduri BB sunt afișate aici doar dacă forumul le folosește, iar semnăturile pot permite mai puține coduri BB decât postările.</p>"
           },
           {
             "@tag": "BBCODESTITLE",
-            "#text": "Lista codurilor BB"
+            "#text": "Coduri BB"
+          },
+          {
+            "@tag": "BLOCKINGCONTENT",
+            "#text": "<p>Deschideți <strong>[[BLOCK_OPTIONS.TITLE]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[BLOCK_OPTIONS.BLOCK_OPTIONS]]</h3>\r\n<ul>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_PMS]]</strong> - ceilalți membri nu pot începe conversații private cu dumneavoastră.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_BUDDYS]]</strong> - nimeni nu vă poate trimite cereri de prietenie.</li>\r\n<li><strong>[[BLOCK_OPTIONS.BLOCK_EMAILS]]</strong> - nimeni nu vă poate trimite e-mailuri prin forum.</li>\r\n</ul>\r\n<p>Administratorii și membrii din lista dumneavoastră de prieteni vă pot contacta în continuare.</p>\r\n<h3 class=\"h6 mt-3\">Ignorarea unui membru</h3>\r\n<p>Pentru a ignora un membru, deschideți meniul utilizatorului al uneia dintre postările lui și alegeți <strong>[[POSTS.TOGGLEUSERPOSTS_HIDE]]</strong>. Postările membrilor ignorați sunt ascunse (<strong>[[POSTS.TOGGLEPOST]]</strong> afișează o singură postare), iar aceștia nu vă pot trimite mesaje private. <strong>[[BLOCK_OPTIONS.IGNORED_USERS]]</strong> de pe aceeași pagină enumeră membrii pe care îi ignorați, eliminați un membru din listă pentru a-i vedea din nou postările.</p>"
+          },
+          {
+            "@tag": "BLOCKINGTITLE",
+            "#text": "Ignorarea și blocarea utilizatorilor"
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Amicii sunt o funcție de prietenie și reprezintă o relație bidirecțională între doi utilizatori. Ea este inițiată de un utilizator și acceptată de celălalt.\r\n</p>\r\n<p><strong>Unde este afișată lista de prieteni?</strong></p> <p><strong>.\r\n<p>Amicii dvs. sunt afișați în \"Prietenii mei\" puteți accesa această pagină din Linkul din antet \"Prietenii mei\" sau din <strong>Panelul de control al utilizatorului</strong> Linkul \"Editează prietenii\". </p>\r\n<p><em>Nota: Dacă nu vedeți acest Link, nu aveți niciun Prieten, nu ați trimis nicio Cerere sau nu aveți nicio Cerere de Prietenie în așteptare.</em></p>.\r\n<p>Amicii dvs. sunt afișați și în pagina dvs. de profil.</p>\r\n<p><strong>Cum pot solicita un utilizator ca prieten sau pot accepta o cerere de prietenie?</strong></p>\r\n<p>Pentru a solicita un utilizator ca prieten, vizualizați pagina de profil a persoanei cu care doriți să deveniți prieten și faceți clic pe link-ul \"Adaugă ca prieten\".</p> <p>.\r\n<p>Pentru a accepta o cerere de prietenie, accesați pagina 'My Friends' (Prietenii mei). În fila 'Cereri în așteptare' vedeți Lista utilizatorilor cu cereri în așteptare. Acolo aveți trei opțiuni...</p> <p>.\r\n<ul>\r\n  <li><strong>Aprobă</strong> - Deveniți Prieten al Utilizatorului care o solicită </li>.\r\n  <li><strong>Deny</strong> - Respingeți cererea</li>.\r\n  <li><strong>Aprobă și Adaugă - </strong>Deveniți Prieten al Utilizatorului care o solicită și, de asemenea, Utilizatorul devine Prieten în Lista dvs.</li>.\r\n</ul>\r\n<p><strong>Îndepărtați Prietenul</strong></p> <p>.\r\n<p>Pentru a elimina un Prieten din Lista dvs. accesați pagina \"My Friends\" (Prietenii mei). În fila 'Lista de prieteni' faceți clic pe butonul 'Remove Friend' (Înlătură prietenul) al utilizatorului pe care doriți să-l eliminați</p>>.\r\n<p><strong>Solicitările dumneavoastră</strong></p> <p>\r\n<p>În a treia filă a paginii 'My Friends' (Prietenii mei) sunt afișate Cererile în așteptare pe care le-ați făcut.</p> <p>."
+            "#text": "<p>Prietenia este o legătură între doi membri. Pentru a-i cere unui membru să vă devină prieten, faceți clic pe <strong>[[BUDDY.ADDBUDDY]]</strong> în profil sau în meniul utilizatorului unei postări. Membrul primește o cerere de prietenie și o poate aproba sau respinge.</p>\r\n<p>Prietenii dumneavoastră se află în <strong>[[TOOLBAR.BUDDIES]]</strong> din meniul utilizatorului, pe trei file:</p>\r\n<ul>\r\n<li><strong>[[FRIENDS.BUDDYLIST]]</strong> - prietenii dumneavoastră. Trimiteți-le un mesaj privat sau eliminați-i din listă.</li>\r\n<li><strong>[[FRIENDS.PENDING_REQUESTS]]</strong> - cererile altor membri. <strong>[[FRIENDS.APPROVE]]</strong> adaugă membrul la prietenii dumneavoastră (și pe dumneavoastră la ai lui), respingerea elimină cererea. <strong>[[FRIENDS.APPROVE_ALL]]</strong> aprobă toate cererile deodată.</li>\r\n<li><strong>[[FRIENDS.YOUR_REQUESTS]]</strong> - cererile pe care le-ați trimis și care nu au primit încă răspuns.</li>\r\n</ul>\r\n<p>Prietenii sunt afișați în profilul dumneavoastră. Ei vă pot contacta chiar dacă blocați mesajele private sau e-mailurile, consultați <a href=\"[[help:blocking]]\">Ignorarea și blocarea utilizatorilor</a>. Dacă nu doriți cereri de prietenie, le puteți bloca tot acolo.</p>"
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Prieteni"
           },
           {
+            "@tag": "DELETEACCOUNTCONTENT",
+            "#text": "<p>Deschideți <strong>[[ACCOUNT.DELETE_ACCOUNT]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Aveți două opțiuni:</p>\r\n<ul>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_SUSPEND_TITLE]]</strong> - o pauză: nu vă puteți folosi contul timp de 30 de zile, apoi funcționează din nou.</li>\r\n<li><strong>[[DELETE_ACCOUNT.OPTION_DELETE_TITLE]]</strong> - contul este închis și postările dumneavoastră sunt șterse (răspunsurile altor membri rămân). Nu vă mai puteți autentifica, iar acest lucru nu poate fi anulat.</li>\r\n</ul>\r\n<p>Confirmați cu <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong> și faceți clic pe <strong>[[COMMON.CONTINUE]]</strong>. Veți fi deconectat.</p>\r\n<p>Dacă doriți ca toate datele dumneavoastră să fie eliminate sau aveți întrebări despre datele dumneavoastră, contactați administratorul, consultați <a href=\"[[help:privacy]]\">Confidențialitate, cookie-uri și reguli</a>.</p>"
+          },
+          {
+            "@tag": "DELETEACCOUNTTITLE",
+            "#text": "Suspendarea sau ștergerea contului"
+          },
+          {
             "@tag": "EDITDELETECONTENT",
-            "#text": "<p>Dacă sunteți înregistrat și autentificat în prezent, este posibil să vă puteți edita și șterge mesajele (dacă administratorul nu a dezactivat această opțiune). </p>\r\n<p>Pentru a vă edita sau șterge mesajele, faceți clic pe butonul \"Edit\" (Editare) de lângă mesajul respectiv. Dacă mesajul dvs. a fost primul din firul de discuție, atunci ștergerea acestuia poate elimina întregul fir de discuție.</p> <p>.\r\n<p>După ce ați făcut modificările, o notă, în partea de jos a postării, apare pentru a-i informa pe ceilalți utilizatori că v-ați editat postarea.</p>\r\n<p>Vă rugăm să introduceți, de asemenea, în Câmpul \"Motivul modificării\" un motiv pentru care ați modificat acest Mesaj.</p> <p>.\r\n<p><strong>Pot și alte persoane să îmi editeze mesajele?</strong></p>>\r\n<p>Administratorii și moderatorii pot, de asemenea, să vă editeze mesajele. Dacă o fac, apare o notă în partea de jos care îi anunță pe ceilalți utilizatori că mesajul a fost modificat.</p> <p>."
+            "#text": "<p>Vă puteți edita și șterge propriile postări dacă forumul permite. Deschideți meniul postării (cele trei puncte din dreapta sus) și alegeți <strong>[[BUTTON.BUTTON_EDIT]]</strong> sau <strong>[[BUTTON.BUTTON_DELETE]]</strong>. Acest lucru nu este posibil în subiectele blocate, iar administratorul îl poate limita la un număr de zile după publicare.</p>\r\n<h3 class=\"h6 mt-3\">Editarea</h3>\r\n<p>Pagina de editare este la fel ca pagina unei postări noi. Dacă ați deschis subiectul, îi puteți schimba și titlul, descrierea și etichetele. Introduceți un <strong>[[POSTMESSAGE.EDITREASON]]</strong> pentru a le spune cititorilor ce ați schimbat.</p>\r\n<p>Dacă editați o postare la ceva timp după ce ați publicat-o, postarea arată cine a editat-o, când și de ce. Versiunile anterioare sunt păstrate, consultați <a href=\"[[help:history]]\">Istoricul postării</a>. Și moderatorii vă pot edita postările, caz în care postarea arată că a fost editată de un moderator.</p>\r\n<h3 class=\"h6 mt-3\">Ștergerea</h3>\r\n<p>Introduceți un <strong>[[DELETEMESSAGE.DELETE_REASON]]</strong> și faceți clic pe <strong>[[DELETEMESSAGE.DELETE]]</strong>. Postarea nu este eliminată definitiv: locul ei din subiect arată că a fost ștearsă. O puteți restaura cu <strong>[[BUTTON.BUTTON_UNDELETE]]</strong> din același meniu, cu excepția cazului în care a fost ștearsă de un moderator.</p>\r\n<p>Doar moderatorii pot șterge subiecte întregi și doar administratorii pot elimina definitiv postări.</p>"
           },
           {
             "@tag": "EDITDELETETITLE",
-            "#text": "Editarea și ștergerea postărilor dvs."
+            "#text": "Editarea și ștergerea postărilor"
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Vă puteți modifica informațiile contului dvs. folosind opțiunea Profil personal -&gt; 'Editare profil' din cadrul <strong>Panou de control al utilizatorului</strong>. Dacă doriți să vă schimbați parola, există o pagină suplimentară (Change Password) pentru acest lucru în <strong>Panou de control al utilizatorului</strong>, unde puteți seta o nouă parolă.</p> <p> <p>.\r\n<p><strong>Pagina de editare a profilului</strong></p> <p><strong>Edit Profile Page</strong>.\r\n<p>Această pagină vă permite să setați o serie de detalii obligatorii și opționale, dintre care unele vor fi afișate pe profilul dvs. public. Cu excepția adresei dvs. de e-mail, nu introduceți informații pe care nu doriți să le puteți vedea în mod public.</p> <p>.\r\n<p><strong>Despre dumneavoastră</strong></p> <p> <p><strong>Despre dumneavoastră</strong>.\r\n<p>Acestea sunt informațiile de bază despre dumneavoastră</p>\r\n<p><strong>Localizare</strong></p>\r\n<p>Aici puteți introduce opțional Locul în care locuiți</p>\r\n<p><strong>Pagina de pornire</strong></p>\r\n<p>Aici puteți introduce opțional o pagină de pornire și/sau un blog.</p> <p>.\r\n<p><strong>Servicii de mesagerie instantanee</strong></p>\r\n<p>Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum  XMPP, Facebook și Twitter.</p> <p> Aici puteți introduce opțional ID-urile de messenger ale unor servicii precum  XMPP, Facebook și Twitter.</p>\r\n<p><strong>Fusul orar</strong></p> <p><strong>Fusul orar</strong>.\r\n<p>Aici puteți specifica fusul orar pentru a ajusta ora și data de la bord la ora locală. Și setați ora de vară în cazul în care aceasta este ajustată automat.</p> <p>.\r\n<p><strong>Setări forum</strong></p> <p><strong>Setări forum</strong></p>\r\n<p>Aici vă puteți schimba Adresa de e-mail.</p>.\r\n<p>Și dacă Administratorul a activat-o puteți schimba <strong>Limba</strong> Forumului, <strong>Tema</strong> site-ului și <strong>Editorul de text</strong> (Care este folosit pentru postarea mesajelor).</p>\r\n<p>Există, de asemenea, o setare &quot;Single Sign On&quot; (Dacă este activată). Dacă o activați, vă puteți autentifica prin Facebook, introduceți și ID-ul de Facebook de mai sus.</p> <p>.\r\n\r\n"
+            "#text": "<p>Deschideți <strong>[[ACCOUNT.EDIT_PROFILE]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Toate câmpurile sunt opționale, completați doar ce doriți să împărtășiți. Informațiile sunt afișate în profilul dumneavoastră public.</p>\r\n<ul>\r\n<li><strong>Despre dumneavoastră</strong> - numele afișat (dacă forumul folosește nume afișate), numele real, data nașterii, ocupația, interesele și genul.</li>\r\n<li><strong>Localizare</strong> - țara, regiunea și orașul. Dacă forumul oferă această opțiune, <strong>[[EDIT_PROFILE.GET_LOCATION]]</strong> le completează pentru dumneavoastră.</li>\r\n<li><strong>Pagină personală</strong> - adresele site-ului și ale blogului dumneavoastră.</li>\r\n<li>Alte câmpuri adăugate de administrator.</li>\r\n</ul>\r\n<p>Faceți clic pe <strong>[[COMMON.SAVE]]</strong> pentru a salva modificările. Avatarul și semnătura au pagini proprii, consultați <a href=\"[[help:mypics]]\">Avatar și semnătură</a>. Adresa de e-mail, fusul orar și limba se află în <a href=\"[[help:editsettings]]\">Editarea setărilor</a>.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
-            "#text": "Editarea profilului de utilizator și a setărilor forumului"
+            "#text": "Editarea profilului"
+          },
+          {
+            "@tag": "EDITSETTINGSCONTENT",
+            "#text": "<p>Deschideți <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.CHANGE_EMAIL]]</h3>\r\n<p>Introduceți noua adresă și <strong>[[EDIT_PROFILE.CURRENT_PASSWORD]]</strong>. Forumul trimite un link la noua adresă, iar adresa este schimbată când faceți clic pe el. Adresa dumneavoastră de e-mail nu este niciodată afișată altor membri.</p>\r\n<h3 class=\"h6 mt-3\">[[EDIT_PROFILE.FORUM_SETTINGS]]</h3>\r\n<ul>\r\n<li><strong>[[EDIT_PROFILE.HIDEME]]</strong> - nu apăreți în lista membrilor online (dacă forumul permite).</li>\r\n<li>Fluxul de activitate - notificările dumneavoastră despre mențiuni, citate și reacții, consultați <a href=\"[[help:popups]]\">Notificări</a>.</li>\r\n<li>Fusul orar, opțiunea <strong>[[EDIT_PROFILE.SELECT_PAGESIZE]]</strong> și (dacă forumul permite) tema și limba, consultați <a href=\"[[help:appearance]]\">Aspect și limbă</a>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Autentificarea cu doi factori</h3>\r\n<p>Activați sau dezactivați autentificarea cu doi factori, consultați <a href=\"[[help:login]]\">Autentificare și securitatea contului</a>.</p>"
+          },
+          {
+            "@tag": "EDITSETTINGSTITLE",
+            "#text": "Editarea setărilor"
           },
           {
             "@tag": "FORUMSCONTENT",
-            "#text": "<p><strong>Ce este YAF?</strong></p>> <p><strong>Ce este YAF?</strong></p>\r\n<p>YetAnotherForum.NET (YAF) este Forumul de discuții Open Source pentru site-urile care rulează ASP.NET. Scris 100% în C#, YAF (pronunțat ca &quot;laugh&quot;) este o combinație unică de Open Source, platforma .NET a Microsoft și o colaborare internațională a comunității dezvoltatorilor .NET. În creștere și în schimbare în fiecare zi, proiectul YAF este condus de Ingo Herbote. YAF rulează pe orice server web care suportă ASP.NET Core v9 (și mai sus) și SQL Server. YAF este licențiat sub licența Apache 2.0.</p>.\r\n<p><strong>Cum sunt structurate toate acestea?</strong></p> <p><p>.\r\n<p>Un forum conține diverse zone, care la rândul lor conțin forumuri (zone cu subiecte mai specifice) care conțin subiecte care sunt alcătuite din mesaje individuale (unde un utilizator scrie ceva).</p> <p>.\r\n<p>Pagina principală a forumurilor are o listă de categorii și forumuri, cu statistici de bază pentru fiecare dintre ele, inclusiv numărul de subiecte și mesaje și ce membru a postat cel mai recent mesaj.</p>>.\r\n<p><strong>Cum mă orientez?</strong></p>> <p><strong>Cum mă orientez?\r\n<p>Când dați clic pe numele unui forum, sunteți direcționat către lista de subiecte pe care acesta le conține. Un subiect este o conversație între membri sau invitați. Fiecare subiect începe ca un singur mesaj și se dezvoltă pe măsură ce mai multe mesaje individuale sunt adăugate de diferiți utilizatori. </p>\r\n<p>Pentru a începe un nou subiect, dați pur și simplu clic pe butonul \"Subiect nou\" (dacă aveți acces la acesta).</p>\r\n<p><strong>Paginarea</strong></p> <p>\r\n<p>Când există mai multe subiecte de afișat decât încap pe o singură pagină, este posibil să vedeți Pagerul, care conține numere de pagini. Acest lucru indică faptul că lista de subiecte a fost împărțită pe două sau mai multe pagini.</p> <p>.\r\n<p>Această metodă de împărțire a listelor de subiecte pe mai multe pagini este utilizată în tot forumul.</p>\r\n<p><strong>Ce sunt subiectele lipicioase?</strong></p> <p><strong>Ce sunt subiectele lipicioase?</strong>.\r\n<p>Subiectele \"lipicioase\" pot fi create de către moderatori sau administratori și rămân \"lipite\" în partea de sus a listei, chiar dacă nu au avut niciun mesaj recent. Scopul lor este de a menține informațiile importante vizibile și accesibile în orice moment.</p>>\r\n<p><strong>Cum citesc un subiect?</strong></p> <p><strong>Cum pot citi un subiect?\r\n<p>Pentru a citi un subiect, faceți clic pe titlul acestuia. Fiecare mesaj dintr-un subiect este creat de un membru sau de un invitat. În partea stângă a mesajului veți vedea câteva informații scurte despre membrul care a creat subiectul.</p> <p>.\r\n<p>Pentru a trimite un mesaj de răspuns la un subiect existent, faceți clic pe butonul \"Post Reply\" (Trimite răspuns). Dacă butonul 'Post Reply' nu apare, ar putea însemna că nu sunteți conectat ca membru, sau că nu aveți permisiunea de a răspunde, sau că subiectul a fost închis pentru noi răspunsuri.</p> <p>.\r\n<p>Dacă este activată, va exista, de asemenea, o casetă 'Quick Reply' (Răspuns rapid) în care puteți introduce rapid un răspuns fără a fi nevoie să accesați pagina 'Post Reply'. Trebuie să faceți clic pe butonul 'Răspuns rapid' dintr-un mesaj pentru a activa caseta de răspuns rapid înainte de a putea tasta în ea.</p> <p>.\r\n<p><strong>Cum pot afla mai multe despre membri?</strong></p> <p>\r\n<p>Pentru a vedea informații despre un anumit membru, faceți clic pe numele de utilizator. Acest lucru vă va duce la pagina lor de profil public.</p> <p>.\r\n<p><strong>Ce este antetul?</strong></p> <p><strong>Ce este antetul?\r\n<p>În antetul din partea de sus a fiecărei pagini are link-uri care vă ajută să vă deplasați. Cu un singur clic puteți ajunge la zone precum:: Profilul meu, Ajutor (pe care îl citiți acum), Căutare și alte funcții utile..</p> <p>."
+            "#text": "<p>Un forum este un loc în care discutați cu alte persoane. Discuțiile sunt organizate astfel:</p>\r\n<ul>\r\n<li><strong>Categoriile</strong> grupează forumurile unui domeniu, ele sunt secțiunile paginii de start.</li>\r\n<li><strong>Forumurile</strong> sunt locurile pentru un anumit subiect. Un forum poate conține subforumuri.</li>\r\n<li><strong>Subiectele</strong> sunt discuțiile dintr-un forum. Un subiect începe cu o primă postare și crește cu răspunsurile membrilor.</li>\r\n<li><strong>Postările</strong> (sau mesajele) sunt contribuțiile individuale dintr-un subiect.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Pagina de start</h3>\r\n<p>Pagina de start afișează categoriile cu forumurile lor. Pentru fiecare forum vedeți numărul de subiecte și de postări și cea mai recentă postare. O categorie poate fi restrânsă cu săgeata de lângă numele ei, iar forumul ține minte alegerea dumneavoastră. În funcție de forum, pagina de start afișează și <strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> (cele mai recente postări), statisticile și cine este online.</p>\r\n<h3 class=\"h6 mt-3\">Vizitatori și membri</h3>\r\n<p>Vizitatorii pot citi forumurile care le sunt deschise. Pentru a scrie postări, a folosi funcțiile personale (mesaje private, prieteni, notificări) și a vedea unele pagini (de ex. lista membrilor sau profilurile), aveți nevoie de un cont, consultați <a href=\"[[help:registration]]\">Înregistrare</a>.</p>\r\n<p>Ce puteți face într-un forum (citi, deschide subiecte, răspunde, vota în sondaje, încărca fișiere, ...) stabilește administratorul pentru fiecare forum și fiecare grup de membri. Dacă nu vedeți un buton descris în acest ajutor, nu aveți dreptul respectiv în acest forum.</p>"
           },
           {
             "@tag": "FORUMSTITLE",
-            "#text": "Forumuri, subiecte și mesaje"
+            "#text": "Forumul pe scurt"
           },
           {
-            "@tag": "GENERALTOPICS",
-            "#text": "Utilizarea generală a forumului"
+            "@tag": "GETTINGSTARTED",
+            "#text": "Primii pași"
+          },
+          {
+            "@tag": "HISTORYCONTENT",
+            "#text": "<p>Când o postare a fost editată, ea arată cine a editat-o și când. Faceți clic pe butonul de istoric al acestei mențiuni pentru a deschide <strong>[[MESSAGEHISTORY.TITLE]]</strong>: acesta enumeră versiunile postării cu data, autorul modificării și motivul.</p>\r\n<ul>\r\n<li>Selectați două versiuni și faceți clic pe <strong>[[MESSAGEHISTORY.COMPARE_VERSIONS]]</strong> pentru a vedea <strong>[[MESSAGEHISTORY.TEXT_CHANGES]]</strong>: textul eliminat și cel adăugat sunt evidențiate.</li>\r\n<li><strong>[[MESSAGEHISTORY.TOMESSAGE]]</strong> vă duce înapoi la postare.</li>\r\n</ul>\r\n<p>Moderatorii pot restaura o versiune anterioară cu <strong>[[MESSAGEHISTORY.RESTORE_MESSAGE]]</strong>. Forumul păstrează versiunile un număr de zile stabilit de administrator.</p>"
+          },
+          {
+            "@tag": "HISTORYTITLE",
+            "#text": "Istoricul postării"
           },
           {
             "@tag": "INDEX",
             "#text": "Index"
           },
           {
+            "@tag": "LOGINCONTENT",
+            "#text": "<p>Faceți clic pe <strong>[[TOOLBAR.LOGIN]]</strong> în antet și introduceți numele de utilizator sau adresa de e-mail și parola.</p>\r\n<p>Dacă bifați <strong>[[LOGIN.AUTO]]</strong>, rămâneți autentificat timp de o lună pe acest computer, chiar și după ce închideți browserul. Nu folosiți această opțiune pe un computer folosit și de alte persoane. Fără ea, sunteți deconectat când închideți browserul. Pentru a vă deconecta, deschideți meniul utilizatorului din dreapta sus și faceți clic pe <strong>[[TOOLBAR.LOGOUT]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Autentificarea cu doi factori</h3>\r\n<p>Autentificarea cu doi factori vă protejează contul chiar dacă cineva vă cunoaște parola: la autentificare, forumul cere și un cod dintr-o aplicație de autentificare de pe telefonul dumneavoastră.</p>\r\n<ol>\r\n<li>Deschideți <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong> (meniul utilizatorului, <strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>Faceți clic pe <strong>[[EDIT_SETTINGS.ENABLE_2FA]]</strong>.</li>\r\n<li>Adăugați un cont nou în aplicația de autentificare (de ex. Microsoft Authenticator, Google Authenticator) scanând codul QR sau introducând <strong>[[EDIT_SETTINGS.SETUP_CODE]]</strong>.</li>\r\n<li>Introduceți codul afișat de aplicație pentru confirmare.</li>\r\n</ol>\r\n<p>De acum înainte, autentificarea cere codul din aplicație după parolă (<strong>[[LOGIN.TWO_FA_VALIDATION]]</strong>). O puteți dezactiva pe aceeași pagină cu <strong>[[EDIT_SETTINGS.DISABLE_2FA]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Siguranța contului</h3>\r\n<ul>\r\n<li>Folosiți o parolă pe care nu o folosiți în altă parte. O puteți schimba cu <strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong>.</li>\r\n<li>Forumul nu vă cere niciodată parola prin e-mail sau prin mesaj privat.</li>\r\n<li>Dacă v-ați uitat parola, consultați <a href=\"[[help:recover]]\">Recuperarea parolei pierdute</a>.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">După mai multe parole greșite, contul este blocat pentru câteva minute.</p>"
+          },
+          {
+            "@tag": "LOGINTITLE",
+            "#text": "Autentificare și securitatea contului"
+          },
+          {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to, watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>Deschideți <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). În <strong>[[SUBSCRIPTIONS.NOTIFICATIONSELECTION]]</strong> alegeți ce e-mailuri primiți:</p>\r\n<ul>\r\n<li><strong>[[SUBSCRIPTIONS.NONOTIFICATION]]</strong> - niciun e-mail.</li>\r\n<li>Notificare pentru subiectele în care ați postat sau pe care le urmăriți - fiecare subiect în care postați este urmărit automat.</li>\r\n<li><strong>[[SUBSCRIPTIONS.TOPICSISUBSCRIBETO]]</strong> - doar subiectele și forumurile pe care le urmăriți dumneavoastră înșivă.</li>\r\n</ul>\r\n<p>Dacă forumul oferă această opțiune, <strong>[[SUBSCRIPTIONS.DAILY_DIGEST]]</strong> trimite un singur e-mail pe zi cu postările noi în loc de e-mailuri separate. Faceți clic pe <strong>[[COMMON.SAVE]]</strong> pentru a salva.</p>\r\n<p>Aceeași pagină enumeră <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> și <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, consultați <a href=\"[[help:subscriptions]]\">Urmărirea subiectelor și forumurilor</a>, precum și notificările push ale dispozitivelor dumneavoastră, consultați <a href=\"[[help:push]]\">Notificări push și aplicație</a>.</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
-            "#text": "Preferințe de notificare prin e-mail"
+            "#text": "Preferințe de notificare"
           },
           {
             "@tag": "MEMBERSLISTCONTENT",
-            "#text": "<p>Lista membrilor arată membrii înregistrați ai forumului. Puteți vizualiza lista de membri ordonată alfabetic după numele de utilizator, data &quot;Joined\" Data , sau \"ultima vizită\",</p> <p>.\r\n<p>Există, de asemenea, o casetă de căutare în care puteți căuta un anumit utilizator.</p>\r\n<p>Pentru a vizualiza lista membrilor, faceți clic pe \"Members\" (Membri) în antetul principal din partea de sus a paginii (Dacă nu vedeți linkul, nu ați avut acces la acea pagină).</p> <p>.\r\n"
+            "#text": "<h3 class=\"h6\">[[TOOLBAR.MEMBERS]]</h3>\r\n<p>Lista membrilor afișează membrii înregistrați cu numărul lor de postări, data înscrierii și ultima vizită. Puteți:</p>\r\n<ul>\r\n<li>să o sortați după nume, rang, data înscrierii, numărul de postări sau ultima vizită,</li>\r\n<li>să afișați membrii cu o anumită literă inițială,</li>\r\n<li>să o filtrați cu <strong>[[ADMIN_USERS.FILTER_DROPDOWN]]</strong> după nume, rol, rang sau număr de postări.</li>\r\n</ul>\r\n<p>Faceți clic pe un membru pentru a-i deschide profilul. În funcție de forum, lista este afișată doar membrilor.</p>\r\n<h3 class=\"h6 mt-3\">Utilizatori activi</h3>\r\n<p>Statisticile de pe pagina de start arată cine este online. Lista utilizatorilor activi afișează membrii și vizitatorii online în acest moment și unde se află în forum. Membrii se pot ascunde din această listă în <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>, dacă forumul permite.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.TEAM]]</h3>\r\n<p>Pagina echipei enumeră administratorii și moderatorii forumului, împreună cu forumurile pe care le moderează. Contactați-i dacă aveți nevoie de ajutor.</p>"
           },
           {
             "@tag": "MEMBERSLISTTITLE",
-            "#text": "Lista membrilor"
+            "#text": "Membri, utilizatori activi și echipă"
+          },
+          {
+            "@tag": "MENTIONSCONTENT",
+            "#text": "<h3 class=\"h6\">Menționarea unui membru</h3>\r\n<p>Tastați <code>@</code> urmat de primele litere ale unui nume în editor și alegeți membrul din listă. Numele devine un link către profil, iar membrul este notificat că l-ați menționat (dacă folosește notificările, consultați <a href=\"[[help:popups]]\">Notificări</a>).</p>\r\n<h3 class=\"h6 mt-3\">Etichetele subiectelor</h3>\r\n<p>Etichetele sunt cuvinte-cheie ale unui subiect, de ex. produsul sau tema la care se referă o întrebare. Adăugați-le în <strong>[[POSTTOPIC.TAGS]]</strong> când deschideți un subiect. Etichetele sunt afișate împreună cu subiectul, un clic pe o etichetă afișează toate subiectele cu această etichetă. Căutarea poate căuta și etichete, consultați <a href=\"[[help:searching]]\">Căutare</a>.</p>"
+          },
+          {
+            "@tag": "MENTIONSTITLE",
+            "#text": "Mențiuni și etichete"
+          },
+          {
+            "@tag": "MESSAGINGTOPICS",
+            "#text": "Mesaje și notificări"
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Membrii înregistrați pot trimite mesaje altor membri ai acestui forum folosind sistemul de mesagerie privată (dacă este activat de către administrator).\r\n        </p>\r\n        <p>Când primiți un mesaj privat, veți fi notificat în antetul forumului, despre câte mesaje necitite aveți, de asemenea, va apărea o notificare. De asemenea, puteți activa o Notificare prin e-mail</p>.\r\n        <p><strong>Cum trimit Mesaje private?</strong></p> <p><p>Cum trimit Mesaje private?</strong></p>\r\n        <p>Mesajele private sunt similare cu e-mailurile, dar sunt limitate la membrii înregistrați ai acestui forum. Este posibil să puteți include cod BB, zâmbete și imagini în mesajele private pe care le trimiteți.<br />.\r\n        Puteți trimite un mesaj privat unui utilizator făcând clic pe butonul &ldquo;PM&rdquo; de pe profilul utilizatorului respectiv sau faceți clic pe link-ul &ldquo;New Message&rdquo; din panoul de control al utilizatorului. Mesajul pe care îl trimiteți va fi stocat în folderul &ldquo;Sent Items&rdquo; după ce îl trimiteți.</p> <p>.\r\n        <p><strong>Directoare de mesaje private</strong></p> <p><strong>Directoare de mesaje private</strong>.\r\n        <p>La fel ca un program de e-mail aveți 3 dosare: Inbox, Sent Items și Archive Folder...</p> <p>.\r\n        <ul>\r\n        <li>Poliarul &ldquo;Inbox&rdquo; conține toate mesajele noi pe care le primiți. Acesta vă permite să vizualizați toate mesajele pe care le-ați primit, împreună cu numele persoanei care l-a trimis, subiectul mesajului, precum și data și ora la care a fost trimis.</li>.\r\n        <li>Copia &ldquo;Sent Items&rdquo; conține toate mesajele private pe care le-ați trimis.</li>.\r\n        <li>Darul &ldquo;Archive&rdquo; conține numai mesajele pe care le-ați mutat în acel dosar.</li>\r\n        </ul>\r\n        <p>Din fiecare dosar aveți Opțiuni ce doriți să faceți cu mesajele care se află în dosar puteți pur și simplu să marcați un mesaj și ...<br />.\r\n        </p>\r\n        <ul>\r\n        <li>Arhivați selectat / Arhivați toate - Mutați mesajul (mesajele) în dosarul de arhivă</li>.\r\n        <li>Export Selected / Export All - Exportați mesajul (mesajele) ca fișier (Puteți selecta formatul de export de mai jos -XML-/CSV-/Text-File)</li>.\r\n        <li>Delete Selected / Delete All - Ștergeți mesajul (mesajele) </li>.\r\n        </ul>\r\n        <p>În funcție de câte Mesaje aveți voie să aveți, ar trebui să ștergeți unele dintre ele din timp (Puteți să le exportați înainte de a le șterge pentru a le păstra pe calculatorul local). În caz contrar, atunci când căsuța poștală este plină, nu sunteți în măsură să primiți mesaje noi. În partea de jos veți fi informat câte Mesaje aveți și câte puteți avea la maxim.</p> <p>.\r\n      "
+            "#text": "<p>Mesajele private sunt conversații între dumneavoastră și un alt membru, nimeni altcineva nu le poate citi. Deschideți <strong>[[TOOLBAR.INBOX]]</strong> din meniul utilizatorului: în stânga vedeți <strong>[[PM.CONVERSATION_TITLE]]</strong>, în dreapta mesajele conversației selectate.</p>\r\n<h3 class=\"h6 mt-3\">Începerea unei conversații</h3>\r\n<ul>\r\n<li>Faceți clic pe <strong>[[PM.NEW_CONVERSATION]]</strong>, tastați cel puțin trei litere ale numelui și alegeți membrul.</li>\r\n<li>Sau faceți clic pe <strong>[[POSTS.PM]]</strong> în profilul membrului sau în meniul utilizatorului unei postări.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Scrierea</h3>\r\n<p>Scrieți mesajul și apăsați Enter pentru a-l trimite, Shift+Enter începe un rând nou. Puteți folosi coduri BB, de ex. pentru text aldin sau linkuri. Dacă celălalt membru are conversația deschisă în același timp, mesajele apar imediat de ambele părți, iar conversația arată dacă membrul este online.</p>\r\n<p>Mesajele noi sunt numărate lângă numele dumneavoastră și lângă <strong>[[TOOLBAR.INBOX]]</strong>, iar când deschideți o pagină a forumului, o fereastră vă întreabă dacă doriți să le citiți. Pentru mesajele private nu există notificări prin e-mail.</p>\r\n<h3 class=\"h6 mt-3\">Ștergerea</h3>\r\n<p><strong>[[PM.DELETE_CONVERSATION]]</strong> elimină conversația din lista dumneavoastră, celălalt membru o păstrează.</p>\r\n<p class=\"text-body-secondary small\">Nu puteți scrie membrilor care blochează mesajele private sau vă ignoră (cu excepția cazului în care sunteți prietenul lor), consultați <a href=\"[[help:blocking]]\">Ignorarea și blocarea utilizatorilor</a>. Administratorul poate dezactiva mesajele private.</p>"
           },
           {
             "@tag": "MESSENGERTITLE",
-            "#text": "Mesaje private (Messenger)"
+            "#text": "Mesaje private"
+          },
+          {
+            "@tag": "MODERATINGCONTENT",
+            "#text": "<p>Moderatorii văd <strong>[[TOOLBAR.MODERATE]]</strong> în antet. Pagina enumeră forumurile pe care le moderați, cu numărul de <strong>[[MODERATE_DEFAULT.UNAPPROVED]]</strong> și <strong>[[MODERATE_DEFAULT.REPORTED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.UNAPPROVED]]</h3>\r\n<p>În forumurile moderate (și pentru membrii ale căror postări trebuie verificate), postările noi sunt afișate doar după ce un moderator le-a aprobat. Verificați postarea și faceți clic pe <strong>[[MODERATE_FORUM.APPROVE]]</strong> sau ștergeți-o.</p>\r\n<h3 class=\"h6 mt-3\">[[MODERATE_DEFAULT.REPORTED]]</h3>\r\n<p>Lista afișează postările raportate, cu motivele și cu cine le-a raportat. Citiți postarea (și istoricul ei, dacă a fost editată), luați măsuri dacă este nevoie (editați sau ștergeți postarea, discutați cu autorul) și faceți clic pe <strong>[[MODERATE_FORUM.RESOLVED]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Gestionarea subiectelor</h3>\r\n<ul>\r\n<li>Într-un subiect, <strong>[[POSTS.MANAGE_TOPIC]]</strong> oferă <strong>[[BUTTON.BUTTON_MOVETOPIC]]</strong>, <strong>[[BUTTON.BUTTON_LOCKTOPIC]]</strong> / <strong>[[BUTTON.BUTTON_UNLOCKTOPIC]]</strong> și <strong>[[BUTTON.BUTTON_DELETETOPIC]]</strong>. Un subiect mutat poate lăsa un link în forumul vechi timp de câteva zile.</li>\r\n<li><strong>[[MODERATE_DEFAULT.MODERATE_TOPICS]]</strong> enumeră toate subiectele unui forum: selectați mai multe și blocați-le, mutați-le sau ștergeți-le deodată.</li>\r\n<li>Subiectele fixate și anunțurile se setează cu <strong>[[POSTMESSAGE.PRIORITY]]</strong> când editați prima postare, subiectele persistente (nu sunt eliminate de curățarea automată) cu <strong>[[POSTMESSAGE.PERSISTENCY]]</strong>.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Gestionarea postărilor</h3>\r\n<ul>\r\n<li>Puteți edita și șterge postările altor membri. Când ștergeți o postare, <strong>[[DELETEMESSAGE.DELETE_ALL]]</strong> șterge și răspunsurile la aceasta.</li>\r\n<li><strong>[[BUTTON.BUTTON_MOVE]]</strong> din meniul unei postări o mută în alt subiect sau o separă într-un subiect nou (<strong>[[MOVEMESSAGE.MOVE_TITLE]]</strong>, <strong>[[MOVEMESSAGE.SPLIT_TITLE]]</strong>).</li>\r\n<li>În <a href=\"[[help:history]]\">istoricul postării</a> puteți restaura o versiune anterioară a unei postări.</li>\r\n<li>Puteți răspunde și edita în subiectele blocate, iar postările dumneavoastră nu sunt verificate pentru spam.</li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">În funcție de setări, moderatorii văd și adresele IP ale postărilor. Membrii sunt editați, suspendați și interziși de administratori.</p>"
+          },
+          {
+            "@tag": "MODERATINGTITLE",
+            "#text": "Ghidul moderatorului"
+          },
+          {
+            "@tag": "MODERATIONTOPICS",
+            "#text": "Moderatori și administratori"
           },
           {
             "@tag": "MODSADMINSCONTENT",
-            "#text": "<p>Moderatorii supraveghează forumuri specifice. Aceștia au, în general, capacitatea de a edita și șterge mesaje, de a muta subiecte și de a efectua alte acțiuni. Devenirea unui moderator pentru un forum specific este de obicei recompensată utilizatorilor care sunt deosebit de utili și cunoscători ai subiectului forumului pe care îl moderează.</p>>\r\n<p>Administratorii sunt persoanele care dețin controlul general asupra a tot ceea ce se întâmplă pe forum. Aceștia supraveghează modul în care este stilizat forumul, ce forumuri să creeze și cum să le organizeze, ce informații să ceară membrilor și pe cine să numească ca moderatori.</p> <p>"
+            "#text": "<p><strong>Administratorii</strong> conduc forumul: creează forumurile, decid cine ce poate face, configurează funcțiile și gestionează membrii.</p>\r\n<p><strong>Moderatorii</strong> se ocupă de unul sau mai multe forumuri: păstrează discuțiile la subiect și prietenoase, verifică postările raportate, aprobă postările din forumurile moderate și editează, mută, blochează sau șterg subiecte și postări atunci când este nevoie. Moderatorii unui forum sunt afișați deasupra listei lui de subiecte (<strong>[[DEFAULT.MODERATORS]]</strong>).</p>\r\n<p>Pagina <strong>[[TOOLBAR.TEAM]]</strong> enumeră toți administratorii și moderatorii (dacă forumul o afișează). Dacă aveți o problemă cu o postare, <a href=\"[[help:report]]\">raportați-o</a>. Pentru alte întrebări contactați un moderator sau un administrator prin mesaj privat.</p>\r\n<p>Cum lucrează moderatorii este explicat în <a href=\"[[help:moderating]]\">Ghidul moderatorului</a>.</p>"
           },
           {
             "@tag": "MODSADMINSTITLE",
@@ -10915,39 +11444,55 @@
           },
           {
             "@tag": "MYALBUMSCONTENT",
-            "#text": "<p>Dacă administratorul a activat funcția Album și sunteți un membru care are acces la adăugarea de albume, puteți crea albume de imagini care sunt legate de profilul dvs. public. Albumele pot fi create vizitând <strong>Panelul de control al utilizatorului</strong> și făcând clic pe link-ul \"Editează albume\", apoi pe \"Adaugă un album nou\". Numărul de câte Albume și câte Imagini depinde de ceea ce Administratorul a configurat pentru Grupul de utilizatori în care vă aflați.</p> <p>.\r\n<p>Care album poate avea un titlu și puteți seta o copertă pentru el (Imagine din album) sau puteți folosi o imagine aleatorie, puteți adăuga, de asemenea, o legendă pentru fiecare imagine.</p>\r\n<p><strong>Cum încarc imaginile?</strong></p> <p><strong>Cum pot încărca imagini?\r\n<p>Dacă vă aflați pe pagina Add/Edit Album (Adăugare/modificare album), selectați o imagine de pe computer și faceți clic pe Upload (Încărcare) pentru a o adăuga la album.</p>\r\n<p>Vă veți avea opțiunea de a da fiecărei imagini o legendă și de a seta o imagine ca și copertă a Albumului, care va fi afișată pe profilul public. Pentru a șterge un album sau pentru a modifica titlul, a adăuga imagine(e) sau a șterge imagine(e), faceți clic pe \"Edit\". Pentru a edita sau a adăuga o legendă la o imagine, faceți clic pe textul de sub imagine. Dacă doriți să setați o copertă sau să eliminați coperta, faceți clic pe butonul de sub copertă.</p> <p>."
+            "#text": "<p>Dacă forumul folosește albume, vă puteți prezenta imaginile în albume în profil și le puteți folosi în postări.</p>\r\n<ol>\r\n<li>Deschideți <strong>[[EDIT_PROFILE.EDIT_ALBUMS]]</strong> din meniul paginilor contului (sau <strong>[[TOOLBAR.MYALBUMS]]</strong> din meniul utilizatorului) și faceți clic pe <strong>[[BUTTON.BUTTON_ADDALBUM]]</strong>.</li>\r\n<li>Introduceți un titlu și încărcați primele imagini (puteți încărca mai multe deodată).</li>\r\n</ol>\r\n<p>Cu <strong>[[BUTTON.BUTTON_EDITALBUMIMAGES]]</strong> adăugați sau ștergeți imagini și ștergeți albumul. În album puteți da imaginilor legende și puteți alege coperta cu <strong>[[BUTTON.BUTTON_SETCOVER]]</strong>.</p>\r\n<p>Pentru a afișa o imagine din album într-o postare, faceți clic pe <strong>[[ALBUM.COPY_BBCODE]]</strong> sub imagine și lipiți codul în editor.</p>\r\n<p class=\"text-body-secondary small\">Numărul de albume și de imagini și dimensiunea imaginilor sunt limitate, limitele depind de grupul sau rangul dumneavoastră și sunt afișate pe pagini.</p>"
           },
           {
             "@tag": "MYALBUMSTITLE",
             "#text": "Albume"
           },
           {
+            "@tag": "MYATTACHMENTSCONTENT",
+            "#text": "<p>Toate fișierele pe care le-ați încărcat sunt enumerate în <strong>[[ATTACHMENTS.TITLE]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). Pentru fiecare fișier vedeți în câte postări este folosit, sau că nu este folosit.</p>\r\n<p>Selectați fișiere și ștergeți-le pentru a elibera spațiu, de ex. fișiere pe care le-ați încărcat, dar nu le-ați folosit. Un fișier șters nu mai este afișat în postările care îl folosesc.</p>\r\n<p>Cum se adaugă fișiere la postări este explicat în <a href=\"[[help:attachments]]\">Atașamente și imagini</a>.</p>"
+          },
+          {
+            "@tag": "MYATTACHMENTSTITLE",
+            "#text": "Atașamentele mele"
+          },
+          {
             "@tag": "MYPICSCONTENT",
-            "#text": "<p><strong>Ce sunt avatarurile?</strong></p>> <p><strong> Ce sunt avatarurile?\r\n<p>Avatarul este o imagine mică pe care oamenii o folosesc pentru a se identifica sau a se distinge față de alți membri ai forumului. Aceste Avatars vor fi afișate ca parte a informațiilor despre utilizator în mesaje, precum și în profilul public.</p> <p>.\r\n<p>Puteți să vă modificați Avatarul făcând clic pe \"Modificare Avatar\" în zona \"Profil personal\" din bara de navigare din cadrul <strong>Panelului de control al utilizatorului</strong>.</p> <p> <p>Avatar>.\r\n<p>Există trei modalități de a adăuga un Avatar (Poate mai puține dacă este dezactivat de către Administrator)...</p> <p>.\r\n<ul>\r\n  <li>Dacă este disponibil în forum, puteți alege dintr-o colecție existentă de Avatari</li>.\r\n  <li>Introduceți un URL existent la o imagine de pe un server la distanță</li>.\r\n  <li>Selectați o imagine de pe computerul dumneavoastră și încărcați-o</li>.\r\n</ul>\r\n<p><em>Atenție, administratorul poate seta tipurile de fișiere de imagine permise, dimensiunea imaginii și dimensiunile imaginii (lățimea și înălțimea maximă a unei imagini).</em></p> <p></p>\r\n<p><strong>Ce sunt semnăturile?</strong></p>>\r\n<p>\"Semnăturile\" conțin informații pe care doriți să le includeți în partea de jos a tuturor postărilor dvs. Acestea pot include imagini, linkuri către site-ul (site-urile) dvs., citate etc.</p> <p>.\r\n<p>Pentru a modifica semnăturile, faceți clic pe 'Signature' (Semnătură) în zona 'Personal Profile' (Profil personal) din bara de navigare din cadrul User CP. Pe această pagină veți fi informat ce coduri BB și ce etichete HTML puteți folosi, precum și cât de lungă poate fi semnătura.</p> <p>."
+            "#text": "<h3 class=\"h6\">Avatar</h3>\r\n<p>Un avatar este o imagine mică afișată lângă numele dumneavoastră în postări și în profil. Deschideți <strong>[[ACCOUNT.EDIT_AVATAR]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>). În funcție de forum, puteți:</p>\r\n<ul>\r\n<li><strong>[[EDIT_AVATAR.OURAVATAR]]</strong> - alege unul dintre avatarele forumului.</li>\r\n<li><strong>[[EDIT_AVATAR.AVATARUPLOAD]]</strong> - încărca propria imagine (png, jpg, gif, webp, bmp sau svg). Imaginile mari sunt micșorate automat, pagina afișează dimensiunea permisă.</li>\r\n</ul>\r\n<p><strong>[[EDIT_AVATAR.AVATARDELETE]]</strong> elimină avatarul. Fără avatar, forumul afișează o imagine implicită.</p>\r\n<h3 class=\"h6 mt-3\">Semnătură</h3>\r\n<p>Semnătura este un text scurt afișat sub fiecare dintre postările dumneavoastră, de ex. un motto sau un link către site-ul dumneavoastră. Deschideți <strong>[[ACCOUNT.SIGNATURE]]</strong> din meniul utilizatorului. Pagina afișează lungimea maximă și codurile BB pe care le puteți folosi în semnătură, HTML nu este permis. <strong>[[EDIT_SIGNATURE.SIGNATURE_PREVIEW]]</strong> arată cum va arăta.</p>\r\n<p class=\"text-body-secondary small\">Administratorul decide dacă se folosesc avatare și semnături, iar limitele pot depinde de grupul sau rangul dumneavoastră.</p>"
           },
           {
             "@tag": "MYPICSTITLE",
-            "#text": "Semnături, Avataruri Imagini"
+            "#text": "Avatar și semnătură"
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>Panelul de control al utilizatorului</strong> este locul unde vă controlați setările, opțiunile și preferințele personale.</p> <p>\r\n<p>Pagina principală a <strong>Panou de control</strong> va afișa rezumatul contului dvs., inclusiv numele dvs. de utilizator, adresa de e-mail și numărul de postări, membrul grupurilor în care sunteți și de când sunteți membru.</p> <p>\r\n<p>În partea stângă veți găsi Link-uri către toate Sub Paginile și Formularele care vă permit să controlați..</p> <p>.\r\n<p><strong>Messenger</strong></p> <p><strong>Messenger</strong>.\r\n<ul>\r\n  <li>Inbox</li>\r\n  <li>Elemente trimise</li>\r\n  <li>Arhivă</li>\r\n  <li>Mesaj nou</li>\r\n</ul>\r\n<p><strong>Profilul personal</strong></p> <p><strong>Personal Profile</strong></p>\r\n<ul>\r\n  <li>Vezi profilul</li>\r\n  <li>Editează profilul</li>\r\n  <li>Vezi mulțumirile<br /></li>\r\n  <li>Modifică albume</li>\r\n  <li>Modifică Avatar</li>\r\n  <li>Semnătură</li>\r\n  <li>Preferințe de notificare prin e-mail</li>.\r\n  <li>Schimbă parola</li>\r\n</ul>"
+            "#text": "<p>Faceți clic pe numele dumneavoastră din dreapta sus pentru a deschide meniul utilizatorului:</p>\r\n<ul>\r\n<li><strong>[[TOOLBAR.MYPROFILE]]</strong> - prezentarea generală a contului și a activității dumneavoastră.</li>\r\n<li><strong>[[TOOLBAR.MYSETTINGS]]</strong> - toate setările contului (vedeți mai jos).</li>\r\n<li><strong>[[TOOLBAR.INBOX]]</strong> - mesajele private, consultați <a href=\"[[help:messenger]]\">Mesaje private</a>.</li>\r\n<li><strong>[[TOOLBAR.BUDDIES]]</strong> - consultați <a href=\"[[help:buddies]]\">Prieteni</a>.</li>\r\n<li><strong>[[TOOLBAR.MYALBUMS]]</strong> - consultați <a href=\"[[help:myalbums]]\">Albume</a>.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - consultați <a href=\"[[help:newposts]]\">Vizualizarea postărilor noi</a>.</li>\r\n<li><strong>[[TOOLBAR.LOGOUT]]</strong></li>\r\n</ul>\r\n<p>Numerele de lângă numele dumneavoastră, <strong>[[TOOLBAR.INBOX]]</strong> și <strong>[[TOOLBAR.BUDDIES]]</strong> numără mesajele necitite și cererile de prietenie în așteptare.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYPROFILE]]</h3>\r\n<p>Pagina afișează numele de utilizator, adresa de e-mail, numărul de postări și data înscrierii, precum și <strong>[[ACCOUNT.ACTIVITY]]</strong>: subiectele și răspunsurile dumneavoastră, reacțiile și prieteniile, cu filtre pentru fiecare tip. <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> vă arată profilul așa cum îl văd ceilalți membri.</p>\r\n<h3 class=\"h6 mt-3\">[[TOOLBAR.MYSETTINGS]]</h3>\r\n<p>Setările sunt enumerate și în partea stângă a tuturor paginilor contului:</p>\r\n<ul>\r\n<li><a href=\"[[help:editprofile]]\">[[ACCOUNT.EDIT_PROFILE]]</a> - informațiile despre dumneavoastră.</li>\r\n<li><a href=\"[[help:editsettings]]\">[[ACCOUNT.EDIT_SETTINGS]]</a> - adresa de e-mail, fusul orar, limba, autentificarea cu doi factori.</li>\r\n<li><a href=\"[[help:myattachments]]\">[[ATTACHMENTS.TITLE]]</a> - fișierele pe care le-ați încărcat.</li>\r\n<li><a href=\"[[help:mypics]]\">[[ACCOUNT.EDIT_AVATAR]]</a> și <a href=\"[[help:mypics]]\">[[ACCOUNT.SIGNATURE]]</a>.</li>\r\n<li><a href=\"[[help:mailsettings]]\">[[ACCOUNT.SUBSCRIPTIONS]]</a> - notificările prin e-mail și push, subiectele și forumurile urmărite.</li>\r\n<li><a href=\"[[help:blocking]]\">[[BLOCK_OPTIONS.TITLE]]</a></li>\r\n<li><strong>[[ACCOUNT.CHANGE_PASSWORD]]</strong> - introduceți parola actuală și de două ori parola nouă.</li>\r\n<li><a href=\"[[help:deleteaccount]]\">[[ACCOUNT.DELETE_ACCOUNT]]</a></li>\r\n</ul>\r\n<p class=\"text-body-secondary small\">Unele intrări sunt afișate doar dacă forumul folosește funcția respectivă (de ex. avatare, semnături sau albume).</p>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
-            "#text": "Setările mele (panoul de control al utilizatorului)"
+            "#text": "Contul meu"
           },
           {
             "@tag": "NAVIGATION",
             "#text": "Navigație"
           },
           {
+            "@tag": "NAVIGATIONCONTENT",
+            "#text": "<p>Antetul din partea de sus a fiecărei pagini conține meniul principal: <strong>[[TOOLBAR.SEARCH]]</strong>, <strong>[[TOOLBAR.MEMBERS]]</strong>, <strong>[[TOOLBAR.TEAM]]</strong> și <strong>[[TOOLBAR.HELP]]</strong> (în funcție de forum, nu toate sunt afișate). Vizitatorii văd în dreapta <strong>[[TOOLBAR.LOGIN]]</strong> și <strong>[[TOOLBAR.REGISTER]]</strong>. Membrii văd clopoțelul notificărilor și meniul utilizatorului cu numele și avatarul lor, consultați <a href=\"[[help:mysettings]]\">Contul meu</a>. Sub antet, calea paginii curente (firul de navigare) vă duce înapoi la forum sau la categorie.</p>\r\n<h3 class=\"h6 mt-3\">Lista de subiecte a unui forum</h3>\r\n<p>Faceți clic pe un forum pentru a-i vedea subiectele. Subiectele fixate și anunțurile sunt afișate primele. Mai multe subiecte se încarcă automat când derulați în jos. Bara de deasupra listei conține:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SHOWTOPICS]]</strong> - afișează doar subiectele cu postări din perioada aleasă (de ex. ultima zi sau de la ultima dumneavoastră vizită).</li>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> - caută în subiectele acestui forum.</li>\r\n<li><strong>[[COMMON.FORUM_JUMP]]</strong> - merge la alt forum.</li>\r\n<li><strong>[[TOPICS.WATCHFORUM]]</strong> și <strong>[[TOPICS.MARKREAD]]</strong> (pentru membri).</li>\r\n</ul>\r\n<p>Pictogramele din fața subiectelor indică postări noi, subiecte populare („fierbinți”), subiecte blocate și mutate. Legenda de sub listă le explică.</p>\r\n<h3 class=\"h6 mt-3\">În interiorul unui subiect</h3>\r\n<p>Postările sunt afișate pe pagini, paginarea se află sub postări. Cu <strong>[[POSTS.PREVTOPIC]]</strong> și <strong>[[POSTS.NEXTTOPIC]]</strong> mergeți la subiectele vecine din forum. Un link către o postare deschide subiectul la acea postare.</p>\r\n<h3 class=\"h6 mt-3\">Postări noi și starea de citire</h3>\r\n<p>Forumurile și subiectele cu postări pe care nu le-ați citit încă sunt evidențiate. Membrii pot marca totul ca citit cu <strong>[[DEFAULT.MARKALL]]</strong> pe pagina de start, sau un singur forum cu <strong>[[TOPICS.MARKREAD]]</strong>. Unde găsiți toate postările noi deodată este explicat în <a href=\"[[help:newposts]]\">Vizualizarea postărilor noi</a>.</p>\r\n<h3 class=\"h6 mt-3\">Actualizări în timp real</h3>\r\n<p>Dacă forumul folosește actualizări în timp real, subiectele și postările noi apar fără reîncărcarea paginii. Într-un subiect vedeți mesajul <strong>[[COMMON.LIVE_NEW_REPLY]]</strong>, faceți clic pe el pentru a afișa noul răspuns.</p>\r\n<h3 class=\"h6 mt-3\">Informații despre utilizatori</h3>\r\n<p>Mutați mouse-ul peste numele unui utilizator pentru a vedea o fișă scurtă cu informații despre membru, de ex. localitatea, starea online și data înscrierii. Un clic pe nume deschide profilul membrului.</p>"
+          },
+          {
+            "@tag": "NAVIGATIONTITLE",
+            "#text": "Orientarea în forum"
+          },
+          {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n      <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n      <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n      <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n      <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n      <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n      <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n      <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n    "
+            "#text": "<p>Membrii găsesc postările noi din toate forumurile în <strong>[[TOOLBAR.MYTOPICS]]</strong> din meniul utilizatorului. Pagina are patru file:</p>\r\n<ul>\r\n<li><strong>[[MYTOPICS.ACTIVETOPICS]]</strong> - subiectele cu postări noi de la ultima dumneavoastră vizită.</li>\r\n<li><strong>[[MYTOPICS.UNANSWEREDTOPICS]]</strong> - subiectele care nu au încă niciun răspuns.</li>\r\n<li><strong>[[MYTOPICS.WATCHTOPICS]]</strong> - subiectele pe care le urmăriți.</li>\r\n<li><strong>[[TOOLBAR.MYTOPICS]]</strong> - subiectele pe care le-ați deschis.</li>\r\n</ul>\r\n<p>Cu filtrul de timp alegeți perioada, de ex. ultima oră, ultima săptămână sau toate subiectele. <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong> marchează toate subiectele ca citite.</p>\r\n<p><strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> de pe pagina de start afișează cele mai recente postări din toate forumurile, și pentru vizitatori.</p>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
-            "#text": "Vizualizarea mesajelor noi"
+            "#text": "Vizualizarea postărilor noi"
           },
           {
             "@tag": "NORESULTS",
@@ -10955,63 +11500,75 @@
           },
           {
             "@tag": "PMCONTENT",
-            "#text": "<p>Puteți contacta un altul prin trimiterea unui e-mail, îl găsiți pe lista de membri.</p> <p>\r\n<p>De obicei, acest lucru va deschide o pagină care conține un formular în care puteți introduce mesajul dumneavoastră. După ce ați terminat de scris mesajul, apăsați butonul \"Send E-mail\" și mesajul dvs. va fi trimis instantaneu.</p> <p>.\r\n<p><strong>Pot vedea adresele de e-mail?</strong></p> <p><strong>Pot vedea adresele de e-mail?\r\n<p>Din motive de confidențialitate, adresa de e-mail a destinatarului nu vă este dezvăluită în timpul acestui proces, sau în orice alt loc din forumuri.</p>\r\n<p><strong>De ce nu pot trimite un e-mail cuiva?</strong></p>> <p></p>\r\n<p>Dacă nu puteți găsi un buton sau un link de e-mail pentru un membru, înseamnă fie că administratorul a dezactivat funcțiile de e-mail pentru acest forum, fie că membrul a spus că nu dorește să primească e-mailuri de la alți membri.</p>>.\r\n<p><strong>Ce este mesageria privată?</strong></p>>\r\n<p>Membrii înregistrați pot, de asemenea, să trimită mesaje către alți membri ai acestui forum folosind sistemul de mesagerie privată.</p> <p>."
+            "#text": "<p>Puteți trimite un e-mail unui membru prin intermediul forumului: faceți clic pe <strong>[[POSTS.EMAIL]]</strong> în profilul membrului (sau pe pagina echipei), introduceți un subiect și mesajul, apoi faceți clic pe <strong>[[IM_EMAIL.SEND]]</strong>.</p>\r\n<ul>\r\n<li>Adresa de e-mail a membrului rămâne ascunsă pentru dumneavoastră.</li>\r\n<li>E-mailul este trimis cu numele dumneavoastră de utilizator și cu adresa <strong>dumneavoastră</strong> de e-mail ca expeditor, astfel încât membrul vă poate răspunde direct.</li>\r\n<li>Pentru a preveni spamul, puteți trimite doar câteva e-mailuri pe oră.</li>\r\n</ul>\r\n<p>Nu puteți trimite e-mailuri membrilor care blochează e-mailurile sau vă ignoră (cu excepția prietenilor), și doar dacă administratorul permite e-mailurile între membri. În cele mai multe cazuri, un <a href=\"[[help:messenger]]\">mesaj privat</a> este calea mai bună.</p>"
           },
           {
             "@tag": "PMTITLE",
-            "#text": "Contactarea altor membri"
+            "#text": "E-mail către membri"
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Poll-urile sunt o Opțiune pentru a vota pe o problemă sau o întrebare.</em></p>>\r\n<p><strong>Creați un nou sondaj?</strong></p>>\r\n<p>Când postați un nou subiect, aveți opțiunea \"Adaugă sondaj?\" pentru a crea un nou sondaj. Dacă nu vedeți această opțiune, este posibil să nu aveți acces la această opțiune.</p> <p>.\r\n<p>Puteți, de asemenea, să adăugați noi sondaje la cele existente. Un subiect poate avea oricâte sondaje doriți.</p> <p>.\r\n<p>Acesta vă permite să puneți o întrebare și să specificați un număr de răspunsuri posibile (Max 10 sau Administratorul a stabilit un număr mai mare) - <em>Un Administrator poate atașa Imagini (Remote Urls) ca Răspunsuri</em>. Ceilalți membri vor putea apoi să voteze pentru răspunsul dorit, iar rezultatele votului vor fi afișate în topic.</p> <p>.\r\n<p><em>Un exemplu de sondaj ar putea fi:</em></p> <em>.\r\n<p><em>Care este culoarea ta preferată?</em></p>.\r\n<ul>\r\n  <li><em>Albastru</em></li>.\r\n  <li><em>Roșu</em></li>\r\n  <li><em>Galben</em></li>\r\n  <li><em>Verde</em></li>.\r\n</ul>\r\n<p>De asemenea, este posibil să doriți să specificați o limită de timp pentru sondaj. De exemplu: rulați sondajul timp de 10 Zile sau puteți, de asemenea, să-l setați să nu expire niciodată.</p> <p>.\r\n<p>Puteți decide, de asemenea, dacă utilizatorul ar trebui să poată vedea rezultatele fără a face un vot sau dacă activați caseta de selectare \"Ar trebui să votezi în toate sondajele pentru a vedea rezultatele.<em>'</em> trebuie să voteze înainte de a vedea orice rezultate.</p>>.\r\n<p>'Bound voting' Opțiunea nu afișează rezultatele, dacă sondajul nu a expirat.</p>\r\n<p><strong>Gruparea sondajelor</strong></p> <p><strong>Gruparea sondajelor</strong>.\r\n<p>Toate sondajele atașate la un subiect sunt combinate automat ca un grup. Puteți afișa acest Grup cu Sondaje pe orice alt Subiect doriți.</p> <p>.\r\n<p><strong>Cum se votează?</strong></p> <p><strong>Cum se votează?\r\n<p>Pentru a vota într-un sondaj, pur și simplu faceți clic pe opțiunea pentru care doriți să votați.</p>\r\n<p>În general, odată ce ați votat într-un sondaj, nu veți mai putea să vă schimbați votul ulterior, așa că plasați-vă votul cu atenție!</p> <p>."
+            "#text": "<p>Un sondaj le pune cititorilor unui subiect o întrebare cu mai multe variante.</p>\r\n<h3 class=\"h6 mt-3\">Crearea unui sondaj</h3>\r\n<p>Activați <strong>[[POLLEDIT.POLLADD]]</strong> în opțiuni când deschideți un subiect, editorul sondajului se deschide după publicarea subiectului. Pentru un subiect existent, inițiatorul subiectului și moderatorii văd <strong>[[POLLEDIT.CREATEPOLL]]</strong> deasupra postărilor. Un subiect are un singur sondaj.</p>\r\n<ul>\r\n<li>Introduceți întrebarea și cel puțin două variante, <strong>[[POLLEDIT.ADD_CHOICE]]</strong> adaugă altele (până la un maxim stabilit de administrator).</li>\r\n<li><strong>[[POLLEDIT.POLL_EXPIRE]]</strong> - numărul de zile în care sondajul este deschis, lăsați câmpul gol pentru un sondaj fără termen.</li>\r\n<li><strong>[[POLLEDIT.POLL_MULTIPLECHOICES]]</strong> - votanții pot alege mai mult de un răspuns.</li>\r\n<li><strong>[[POLLEDIT.POLL_SHOWVOTERS]]</strong> - numele votanților sunt afișate împreună cu rezultatele.</li>\r\n<li><strong>[[POLLEDIT.POLLGROUP_CLOSEDBOUND]]</strong> - rezultatele sunt afișate doar după încheierea sondajului.</li>\r\n<li>Dacă forumul permite, întrebarea și variantele pot avea o imagine (adresa unei imagini).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Votarea</h3>\r\n<p>Faceți clic pe butonul variantei alese. Nu vă puteți schimba votul, așa că alegeți cu atenție. Vizitatorii nu pot vota și nu văd rezultatele.</p>\r\n<h3 class=\"h6 mt-3\">Modificarea unui sondaj</h3>\r\n<p>Creatorul poate modifica sondajul cu <strong>[[POLLEDIT.EDITPOLL]]</strong> cât timp nimeni nu a votat (cu excepția cazului în care forumul permite modificări și mai târziu) și îl poate șterge cu <strong>[[POLLEDIT.REMOVEPOLL]]</strong>. Moderatorii pot oricând modifica și șterge sondaje.</p>"
           },
           {
             "@tag": "POLLSTITLE",
-            "#text": "Crearea și participarea la sondaje"
+            "#text": "Sondaje"
           },
           {
             "@tag": "POPUPSCONTENT",
-            "#text": "<p>Când v-ați logat și încărcați pagina, este posibil să primiți o notificare pop-up în centrul ferestrei browserului.</p> <p>\r\n<p>Aceasta vă va informa cu privire la mai multe acțiuni...</p>\r\n<ul>\r\n  <li>Mesaj(e) privat(e) nou(e) </li>.\r\n  <li>Noi cereri de prieteni</li>.\r\n  <li>Solicitări de prieteni aprobate</li>\r\n  <li>Solicitări de prieteni refuzate<br /> <li>Solicitări de prieteni refuzate<br />.\r\n  </li>\r\n</ul>\r\n<p><em>De asemenea, este posibil să primiți câteva mesaje de informare și de eroare în același mod.</em></p>"
+            "#text": "<p>Clopoțelul din antet afișează notificările dumneavoastră, numărul roșu le numără pe cele necitite. Sunteți notificat când:</p>\r\n<ul>\r\n<li>cineva vă menționează (<strong>[[ACCOUNT.WAS_MENTIONED]]</strong>) sau vă citează (<strong>[[ACCOUNT.WAS_QUOTED]]</strong>),</li>\r\n<li>cineva reacționează la una dintre postările dumneavoastră,</li>\r\n<li>apare un răspuns nou într-un subiect pe care îl urmăriți sau un subiect nou într-un forum pe care îl urmăriți,</li>\r\n<li>aveți un prieten nou.</li>\r\n</ul>\r\n<p>Faceți clic pe o notificare pentru a deschide postarea. <strong>[[TOOLBAR.SEE_ALL_NOTIFICATIONS]]</strong> deschide lista tuturor notificărilor, cu un filtru după tip și <strong>[[DEFAULT.MARK_ALL_ASREAD]]</strong>.</p>\r\n<p>Notificările fac parte din fluxul de activitate: le puteți dezactiva în <strong>[[ACCOUNT.EDIT_SETTINGS]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Alte mesaje</h3>\r\n<ul>\r\n<li>Mesajele private noi și cererile de prietenie sunt numărate lângă numele dumneavoastră. Când deschideți o pagină, o fereastră vă întreabă dacă doriți să le citiți.</li>\r\n<li>Mesajele forumului (de ex. „salvat”) apar pentru câteva secunde în partea de sus a paginii.</li>\r\n<li>Notificările pot fi trimise și prin e-mail, precum și în browser sau pe telefon, consultați <a href=\"[[help:mailsettings]]\">Preferințe de notificare</a> și <a href=\"[[help:push]]\">Notificări push și aplicație</a>.</li>\r\n</ul>"
           },
           {
             "@tag": "POPUPSTITLE",
-            "#text": "Notificări PopUp"
+            "#text": "Notificări"
           },
           {
             "@tag": "POSTINGCONTENT",
-            "#text": "<p>When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.</p>\r\n<p>Adding formatting to your post can be done in two ways:</p>\r\n<ul>\r\n  <li>Using clickable controls similar to those found in most word processors</li>\r\n  <li>Typing formatting commands in BB code</li>\r\n</ul>\r\n<p>Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.</p>\r\n<p>Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.</p>\r\n<p>To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.</p>\r\n<p>BB code is a special set of codes similar to HTML that can be used in posts to the board.</p>"
+            "#text": "<p>Deschideți forumul căruia îi aparține subiectul și faceți clic pe <strong>[[BUTTON.BUTTON_NEWTOPIC]]</strong>. Dacă nu vedeți butonul, nu aveți dreptul să deschideți subiecte în acest forum (sau nu sunteți autentificat).</p>\r\n<ul>\r\n<li><strong>[[POSTMESSAGE.SUBJECT]]</strong> - titlul subiectului, este obligatoriu. În timp ce scrieți, forumul afișează <strong>[[POSTS.SIMILAR_TOPICS]]</strong>, poate că întrebarea dumneavoastră a primit deja răspuns.</li>\r\n<li><strong>[[POSTMESSAGE.DESCRIPTION]]</strong> - o descriere scurtă opțională.</li>\r\n<li><strong>[[POSTTOPIC.TAGS]]</strong> - cuvinte-cheie opționale, ceilalți membri pot găsi subiectele după etichetele lor.</li>\r\n<li><strong>[[POSTMESSAGE.PRIORITY]]</strong> - doar pentru membrii care au acest drept, consultați <a href=\"[[help:anounce]]\">Anunțuri și subiecte fixate</a>.</li>\r\n<li>Mesajul propriu-zis, în editor.</li>\r\n</ul>\r\n<p>În <strong>[[POSTMESSAGE.NEWPOSTOPTIONS]]</strong> puteți adăuga un sondaj (<strong>[[POLLEDIT.POLLADD]]</strong>, consultați <a href=\"[[help:polls]]\">Sondaje</a>) și puteți urmări subiectul (<strong>[[POSTMESSAGE.TOPICWATCH]]</strong>). Faceți clic pe <strong>[[POSTMESSAGE.PREVIEW]]</strong> pentru a verifica postarea și pe <strong>[[POSTMESSAGE.NEWTOPIC]]</strong> pentru a o publica.</p>\r\n<h3 class=\"h6 mt-3\">Editorul</h3>\r\n<p>În funcție de forum, editorul afișează formatarea în timp ce scrieți, sau codurile BB (etichete scurte precum <code>[b]aldin[/b]</code>). Butoanele barei de instrumente formatează textul: selectați textul și faceți clic pe buton, de ex. pentru text aldin, un link, un citat sau o listă. Toate codurile BB și rezultatul lor sunt enumerate în <a href=\"[[help:bbcodes]]\">Coduri BB</a>.</p>\r\n<ul>\r\n<li>Tastați <code>@</code> și un nume pentru a menționa un membru, consultați <a href=\"[[help:mentions]]\">Mențiuni și etichete</a>.</li>\r\n<li>Fișierele și imaginile se adaugă cu butonul de atașare, consultați <a href=\"[[help:attachments]]\">Atașamente și imagini</a>.</li>\r\n<li>În editorul de coduri BB, Ctrl+B, Ctrl+I și Ctrl+U formatează textul selectat, Ctrl+Enter trimite postarea.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Bine de știut</h3>\r\n<ul>\r\n<li>Vizitatorii (dacă au voie să posteze) introduc un nume în <strong>[[POSTMESSAGE.FROM]]</strong>, care nu poate fi numele unui membru.</li>\r\n<li>Pentru a preveni spamul, trebuie să așteptați câteva secunde între două postări, iar o postare are o lungime maximă.</li>\r\n<li>În unele forumuri, postările sunt verificate mai întâi de un moderator. Postarea dumneavoastră este afișată după ce a fost aprobată.</li>\r\n</ul>"
           },
           {
             "@tag": "POSTINGTITLE",
-            "#text": "Postarea de subiecte și mesaje noi"
+            "#text": "Deschiderea unui subiect nou"
           },
           {
-            "@tag": "PROFILETOPICS",
-            "#text": "Setări și caracteristici ale profilului"
+            "@tag": "PRIVACYCONTENT",
+            "#text": "<p>Folosind forumul, acceptați regulile acestuia. Pagina <a href=\"[[page:Privacy]]\">[[RULES.TITLE]]</a> conține regulile și politica de confidențialitate: ce date personale stochează forumul, în ce scopuri și drepturile dumneavoastră (de ex. de a primi informații despre datele dumneavoastră sau de a cere ștergerea lor).</p>\r\n<p>Pagina <a href=\"[[page:Cookies]]\">[[COOKIES.TITLE]]</a> enumeră cookie-urile forumului, la ce sunt folosite și cât timp sunt păstrate. Când vizitați forumul pentru prima dată, un mesaj vă informează despre cookie-uri.</p>\r\n<p>Profilul dumneavoastră afișează doar informațiile pe care le introduceți, adresa de e-mail nu este niciodată afișată altor membri. Vă puteți ascunde din lista utilizatorilor activi (dacă forumul permite), puteți bloca mesajele private și e-mailurile și vă puteți șterge contul, consultați <a href=\"[[help:blocking]]\">Ignorarea și blocarea utilizatorilor</a> și <a href=\"[[help:deleteaccount]]\">Suspendarea sau ștergerea contului</a>.</p>"
+          },
+          {
+            "@tag": "PRIVACYTITLE",
+            "#text": "Confidențialitate, cookie-uri și reguli"
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>În calitate de membru aveți o pagină de profil vizibilă public. Această pagină include informațiile furnizate de către membru, fie în timpul procesului de înregistrare, fie ulterior prin intermediul panoului de control al utilizatorului.</p> <p>.\r\n<p><em>Există mai multe moduri de a vizualiza profilul unui membru...</em></p>\r\n<ul>\r\n  <li>Când vedeți un nume de utilizator, faceți clic pe numele acestuia și veți vedea un meniu derulant care conține un link \"Profil de utilizator\" pentru a vizualiza profilul..</li>.\r\n  <li>Lista membrilor vă permite să navigați printre toți membrii înregistrați și să faceți clic rapid pe profilurile publice.</li>.\r\n  <li>Când sunteți conectat, puteți, de asemenea, să vă vizualizați propriul profil public, accesând forumurile și făcând clic pe Linkul 'Profilul meu' din antetul din partea de sus a paginii, pentru a deschide panoul de control al utilizatorului.</li>.\r\n</ul>\r\n<p><strong>Ce informații sunt afișate pe această pagină?</strong></p> <p>\r\n<p>Pagina Profilului Public este grupată în 5 file.</p> <p>.\r\n<ul>\r\n  <li><strong>Despre</strong> - Afișează toate Informațiile pe care utilizatorul le-a furnizat pe Pagina de Profil, cum ar fi Numele real, sexul, Statutul dacă utilizatorul este Online/Offline, Rank-ul pe Forum, și altele.</li>\r\n  <li><strong>Statistics</strong> - Afișează informații statistice cum ar fi Data de conectare, Ultima vizită, Numărul de mulțumiri, Numărul de ori de câte ori acest utilizator a fost mulțumit și Numărul de mesaje pentru care acest utilizator a fost mulțumit.</li>\r\n  <li><strong>Ultimele 10 mesaje</strong> - Afișează, dacă sunt disponibile, ultimele 10 mesaje pe care utilizatorul le-a scris</li>.\r\n  <li><strong>Amici - </strong>Afișează prietenii pe care utilizatorul îi are pe forum.</li>\r\n  <li><strong>Albums - </strong>Afișează albumele (dacă este activat) pe care utilizatorul le-a generat.</li>\r\n</ul>.\r\n<p>Informațiile personale, cum ar fi adresa de e-mail sau parolele, nu sunt <strong>NU sunt afișate.</p> <p>Nu sunt afișate."
+            "#text": "<p>Faceți clic pe numele unui membru (de ex. într-o postare sau în lista membrilor) pentru a-i deschide profilul. În funcție de forum, profilurile sunt afișate doar membrilor. Propriul profil îl deschideți cu <strong>[[ACCOUNT.VIEW_PROFILE]]</strong> din <strong>[[TOOLBAR.MYPROFILE]]</strong>.</p>\r\n<p>Profilul afișează:</p>\r\n<ul>\r\n<li>avatarul, numele, rangul și medaliile membrului, precum și informațiile din profil (de ex. localitatea, data nașterii, ocupația și interesele),</li>\r\n<li>numărul de postări și de reacții date și primite,</li>\r\n<li>reputația (dacă forumul o folosește),</li>\r\n<li><strong>[[PROFILE.LAST10]]</strong>, cu <strong>[[PROFILE.SEARCHUSER]]</strong>,</li>\r\n<li>prietenii și albumele membrului.</li>\r\n</ul>\r\n<p>Butoanele profilului vă permit să <strong>[[BUDDY.ADDBUDDY]]</strong>, să trimiteți un mesaj privat (<strong>[[POSTS.PM]]</strong>) sau un e-mail (<strong>[[POSTS.EMAIL]]</strong>) și să deschideți site-ul sau blogul membrului. Adresa de e-mail a unui membru nu este niciodată afișată.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
-            "#text": "Profilul meu public"
+            "#text": "Profiluri"
           },
           {
-            "@tag": "READPOSTTOPICS",
-            "#text": "Citirea și postarea mesajelor"
+            "@tag": "PUSHCONTENT",
+            "#text": "<p>Notificările push afișează răspunsurile noi din subiectele urmărite și alte notificări pe computer sau pe telefon, chiar și când forumul nu este deschis.</p>\r\n<ol>\r\n<li>Deschideți <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> din meniul utilizatorului (<strong>[[TOOLBAR.MYSETTINGS]]</strong>).</li>\r\n<li>În <strong>[[SUBSCRIPTIONS.PUSH_NOTIFICATIONS]]</strong> faceți clic pe <strong>[[SUBSCRIPTIONS.ENABLE_NOTIFICATIONS]]</strong> și permiteți notificările când browserul vă întreabă.</li>\r\n</ol>\r\n<p>Notificările push se configurează separat pentru fiecare dispozitiv și browser. <strong>[[SUBSCRIPTIONS.STOP_NOTIFICATIONS]]</strong> le dezactivează pentru acest dispozitiv. Notificările sunt trimise prin serviciul push al browserului dumneavoastră (de ex. al Google, Mozilla, Apple sau Microsoft) și sunt criptate.</p>\r\n<h3 class=\"h6 mt-3\">Instalarea forumului ca aplicație</h3>\r\n<p>Puteți instala forumul ca pe o aplicație, cu propria pictogramă pe ecranul principal sau pe desktop: faceți clic pe <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong> pe aceeași pagină sau folosiți funcția de instalare a browserului. Pe iPhone și iPad, notificările push funcționează doar în aplicația instalată: atingeți Partajare, <strong>[[SUBSCRIPTIONS.PWA_INSTALL]]</strong>, deschideți forumul de pe ecranul principal și apoi activați notificările.</p>\r\n<p class=\"text-body-secondary small\">Secțiunea este afișată doar dacă administratorul a configurat notificările push.</p>"
+          },
+          {
+            "@tag": "PUSHTITLE",
+            "#text": "Notificări push și aplicație"
+          },
+          {
+            "@tag": "READINGTOPICS",
+            "#text": "Citire"
           },
           {
             "@tag": "RECOVERCONTENT",
-            "#text": "<p>Dacă v-ați uitat parola, puteți face clic pe \"<a href=\"{0}\">Lost Password</a>\"\r\n  link. Acesta va apărea pe orice pagină care vă cere să vă completați parola. </p>\r\n<p>Acest link face să apară o pagină în care trebuie să introduceți numele de utilizator. Se va trimite un e-mail\r\n  fi trimis în scurt timp la adresa respectivă, cu instrucțiuni pentru resetarea parolei.</p> <p>.\r\n<p> Deoarece parolele sunt criptate, nu există nicio modalitate de a vă retrimite parola originală.\r\n  Această opțiune vă oferă posibilitatea de a vă reseta parola.  </p>\r\n<p>Trebuie să aveți posibilitatea de a primi e-mailuri la adresa de e-mail înregistrată pentru ca această opțiune să\r\n  funcționeze. Este posibil să trebuiască să verificați filtrele și dosarul de spam dacă nu vedeți acest lucru\r\n  e-mail în câteva minute. </p>"
+            "#text": "<p>Dacă v-ați uitat parola, puteți seta una nouă:</p>\r\n<ol>\r\n<li>Faceți clic pe <strong>[[LOGIN.LOSTPASSWORD]]</strong> lângă câmpul parolei de pe <a href=\"[[page:Account_Login]]\">pagina de autentificare</a> sau din fereastra de autentificare.</li>\r\n<li>Introduceți numele de utilizator sau adresa de e-mail și faceți clic pe <strong>[[LOGIN.RECOVER]]</strong>.</li>\r\n<li>Dacă există un cont cu acest nume sau această adresă, forumul vă trimite un e-mail cu un link. Pentru protecția datelor dumneavoastră, pagina afișează același mesaj în orice caz.</li>\r\n<li>Linkul deschide o pagină în care introduceți adresa de e-mail și de două ori noua parolă.</li>\r\n</ol>\r\n<p>Linkul este valabil doar o perioadă limitată. Dacă nu v-ați confirmat încă adresa de e-mail, primiți în schimb un nou e-mail de confirmare. Forumul trimite cel mult câteva astfel de e-mailuri pe oră.</p>\r\n<p>Parolele sunt stocate într-o formă care nu poate fi citită înapoi, așa că nimeni (nici măcar administratorul) nu vă poate spune parola veche.</p>"
           },
           {
             "@tag": "RECOVERTITLE",
-            "#text": "Recuperează parola pierdută"
+            "#text": "Recuperarea parolei pierdute"
           },
           {
             "@tag": "REGISTRATIONCONTENT",
-            "#text": "<p>Administratorul vă va cere, probabil, să vă înregistrați pentru a putea folosi toate funcțiile forumului. Înregistrarea vă oferă o identitate pe forum, un nume de utilizator fix pe toate mesajele pe care le postați și un profil public online.</p> <p>.\r\n<p>Înregistrarea este gratuită (cu excepția cazului în care se specifică altfel) și oferă o gamă extinsă de caracteristici, inclusiv:</p> <p>.\r\n<ul>\r\n  <li>Postarea de noi subiecte</li>.\r\n  <li>Replicarea la subiectele altor persoane</li>.\r\n  <li>Editarea mesajelor dvs.\r\n  <li>Recepționarea de notificări prin e-mail a răspunsurilor la mesajele și subiectele pe care le specificați</li>\r\n  <li>Încărcarea mesajelor private către alți membri</li>\r\n</ul>\r\n<p><strong>Cum mă înregistrez?</strong></p> <p>\r\n<p>Vă înregistrați dând click pe \"Register\" (Înregistrare) în antet. Mai întâi trebuie să acceptați Regulile și Politicile Forumului. Apoi vi se va cere să alegeți un nume de utilizator, o parolă, o întrebare/răspuns de securitate și să introduceți o adresă de e-mail validă. Iar dacă sunteți Administrator trebuie să introduceți codul Captcha afișat pentru a continua. Pe pagina următoare puteți furniza opțional câteva setări de bază ale profilului. </p> <p>.\r\n"
+            "#text": "<p>Multe funcții ale forumului sunt disponibile doar membrilor, de ex. scrierea postărilor, mesajele private, prietenii, urmărirea subiectelor și notificările. Pentru a deveni membru, faceți clic pe <strong>[[TOOLBAR.REGISTER]]</strong> în antet (dacă administratorul permite înregistrări noi).</p>\r\n<ol>\r\n<li>Dacă forumul o cere, citiți <strong>[[RULES.TITLE]]</strong> și faceți clic pe <strong>[[RULES.ACCEPT]]</strong>.</li>\r\n<li>Introduceți un nume de utilizator, adresa dumneavoastră de e-mail și o parolă (de două ori). În funcție de forum, introduceți și un nume afișat și alte informații pe care le cere administratorul.</li>\r\n<li>Faceți clic pe <strong>[[REGISTER.REGISTER]]</strong>.</li>\r\n<li>Forumul afișează <strong>[[REGISTER.CHECK_MAIL]]</strong> și vă trimite un e-mail. Faceți clic pe linkul din acest e-mail pentru a vă confirma adresa. Apoi contul dumneavoastră este activ și vă puteți autentifica.</li>\r\n</ol>\r\n<p>Dacă e-mailul nu sosește, verificați dosarul de spam. Dacă încercați să vă autentificați înainte de a confirma adresa, pagina de autentificare vă spune acest lucru și oferă <strong>[[ADMIN_ADMIN.ADMIN_RESEND_EMAIL]]</strong>.</p>\r\n<p>Pe unele forumuri, conturile noi trebuie mai întâi aprobate de un administrator, veți fi informat prin e-mail când contul dumneavoastră este aprobat.</p>\r\n<p>După înregistrare vă puteți completa profilul, consultați <a href=\"[[help:editprofile]]\">Editarea profilului</a>.</p>"
           },
           {
             "@tag": "REGISTRATIONTITLE",
@@ -11019,19 +11576,27 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Pe unele forumuri s-ar putea să puteți posta și răspunde ca utilizator invitat. Dar majoritatea comunităților necesită înregistrare.</p> <p>.\r\n<p>Un utilizator înregistrat poate merge pe un forum de pe un forum unde are permisiunea de a vizualiza Subiecte și de a lăsa răspunsuri. Pentru a răspunde aveți câteva opțiuni. Puteți face clic pe butonul \"Post Reply\" (Publică răspuns) și adăugați un nou mesaj la sfârșitul subiectului. Alternativ, puteți lăsa un răspuns rapid într-o casetă de răspuns rapid listată sub mesajele din Topic.</p> <p>.\r\n<p>Dacă doriți să răspundeți la un mesaj apăsați butonul 'Quote' și puteți răspunde la un mesaj cu textul citat.</p>"
+            "#text": "<p>Pentru a răspunde la un subiect, faceți clic pe <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> deasupra sau dedesubtul postărilor, sau pe <strong>[[BUTTON.BUTTON_REPLY]]</strong> sub o postare. Pagina de răspuns afișează sub editor <strong>[[POSTMESSAGE.LAST10]]</strong> din subiect, ca să le puteți citi în timp ce scrieți.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Pentru un răspuns scurt folosiți caseta de răspuns rapid de sub postări, sau butonul <strong>[[POSTS.QUICKREPLY]]</strong> al unei postări. Scrieți textul și faceți clic pe <strong>[[COMMON.POST]]</strong>. Pentru editorul complet (de ex. pentru a atașa fișiere) faceți clic pe <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citarea</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> sub o postare începe un răspuns cu textul acestei postări ca citat.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> adună mai multe postări, și de pe alte pagini ale subiectului. Apoi faceți clic pe <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> la una dintre ele, iar răspunsul citează toate postările adunate.</li>\r\n<li>Pentru a cita doar o parte, selectați textul din postare, faceți clic dreapta pe el și alegeți <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Scurtați citatele lungi la partea la care răspundeți. Membrul citat este notificat.</p>\r\n<p>Puteți răspunde doar dacă aveți dreptul în acest forum, și nu într-un subiect blocat. Vizitatorii pot răspunde doar dacă forumul permite.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
-            "#text": "Răspuns la un mesaj"
+            "#text": "Răspunsuri și citate"
+          },
+          {
+            "@tag": "REPORTCONTENT",
+            "#text": "<p>Dacă o postare încalcă regulile forumului (de ex. spam, insulte sau conținut ilegal), vă rugăm să o raportați moderatorilor în loc să îi răspundeți:</p>\r\n<ol>\r\n<li>Deschideți meniul postării (cele trei puncte din dreapta sus) și alegeți <strong>[[POSTS.REPORTPOST]]</strong>.</li>\r\n<li>Introduceți motivul pentru care raportați postarea.</li>\r\n<li>Faceți clic pe <strong>[[REPORTPOST.SEND]]</strong>.</li>\r\n</ol>\r\n<p>Moderatorii forumului verifică postarea raportată și decid ce trebuie făcut. Autorul nu vede cine a raportat postarea. În funcție de forum, doar membrii pot raporta postări.</p>"
+          },
+          {
+            "@tag": "REPORTTITLE",
+            "#text": "Raportarea unei postări"
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>Feederațiile sunt furnizate în prezent în două formate, RSS și Atom.</p> <p>\r\n<p>Dacă administratorul a activat Sindicarea fluxurilor, puteți obține fluxurile pentru un forum, subiecte și subiecte active.</p>\r\n<p>Majoritatea browserelor moderne dispun de facilități pentru citirea fluxurilor RSS și vor detecta automat disponibilitatea fluxurilor pe paginile forumurilor YAF.</p> <p>."
+            "#text": "<p>Fluxurile vă permit să urmăriți forumul într-o aplicație de citire a fluxurilor, fără să vizitați forumul. Forumul oferă fluxuri Atom pentru:</p>\r\n<ul>\r\n<li>cele mai recente postări (<strong>[[DEFAULT.ACTIVE_DISCUSSIONS]]</strong> de pe pagina de start),</li>\r\n<li>subiectele unui forum (butonul fluxului din bara de deasupra listei de subiecte),</li>\r\n<li>postările unui subiect (<strong>[[POSTS.TOOLS]]</strong>, <strong>[[POSTS.ATOMTOPIC]]</strong>).</li>\r\n</ul>\r\n<p>Copiați adresa fluxului în cititorul de fluxuri. Dacă forumul oferă fluxuri și cine le poate folosi (adesea doar membrii) stabilește administratorul. Dacă nu vedeți un buton de flux, fluxurile nu vă sunt disponibile.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "Fluxuri RSS și Atom"
+            "#text": "Fluxuri"
           },
           {
             "@tag": "SEARCHFOR",
@@ -11047,11 +11612,11 @@
           },
           {
             "@tag": "SEARCHINGCONTENT",
-            "#text": "<p>Pentru a găsi rapid un subiect sau o postare de interes oriunde pe forumuri, faceți clic pe linkul \"Căutare\" din antet. Apoi, tastați cuvântul cheie sau fraza pe care doriți să o căutați.</p> <p>.\r\n<p>Pentru un control mai mare asupra căutării, puteți restricționa căutarea la forumuri individuale sau puteți găsi mesaje sau subiecte scrise de un anumit utilizator. De asemenea, puteți selecta câte rezultate trebuie afișate pe pagină.</p> <p>."
+            "#text": "<p>Faceți clic pe <strong>[[TOOLBAR.SEARCH]]</strong> în antet, introduceți cel puțin câteva litere și apăsați Enter sau faceți clic pe <strong>[[SEARCH.BTNSEARCH]]</strong>. Opțiunile de căutare vă permit:</p>\r\n<ul>\r\n<li>să căutați postări, subiecte sau forumuri,</li>\r\n<li>să căutați doar postările unui membru,</li>\r\n<li>să căutați subiectele cu o anumită etichetă,</li>\r\n<li>să găsiți expresia exactă, oricare dintre cuvinte sau toate cuvintele,</li>\r\n<li>să căutați doar în anumite forumuri,</li>\r\n<li>să căutați în postările complete sau doar în titluri,</li>\r\n<li>să alegeți numărul de rezultate pe pagină.</li>\r\n</ul>\r\n<p>Căutarea găsește doar ce aveți dreptul să citiți. Alte moduri de căutare:</p>\r\n<ul>\r\n<li><strong>[[TOPICS.SEARCH_FORUM]]</strong> deasupra listei de subiecte caută într-un singur forum.</li>\r\n<li><strong>[[PROFILE.SEARCHUSER]]</strong> din meniul unei postări sau dintr-un profil afișează postările acestui membru.</li>\r\n<li>O etichetă de sub titlul unui subiect afișează toate subiectele cu această etichetă.</li>\r\n<li>Selectați text dintr-o postare și faceți clic dreapta pe el pentru a căuta cuvintele selectate.</li>\r\n</ul>"
           },
           {
             "@tag": "SEARCHINGTITLE",
-            "#text": "Căutarea în forumuri și subiecte"
+            "#text": "Căutare"
           },
           {
             "@tag": "SEARCHLONGER",
@@ -11059,11 +11624,11 @@
           },
           {
             "@tag": "SUBSCRIPTIONSCONTENT",
-            "#text": "<p>Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.</p>\r\n<p>Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.</p>\r\n<p><strong>How to  watch a topic?</strong></p>\r\n<p>To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.</p>\r\n<p><strong>How to  watch a forum?</strong></p>\r\n<p>To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.</p>\r\n<p><strong>How do I manage my Subscriptions of Watched topics and forums?</strong></p>\r\n<p>You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.</p>"
+            "#text": "<p>Când urmăriți un subiect sau un forum, sunteți notificat despre postările noi: în notificările forumului și (în funcție de <a href=\"[[help:mailsettings]]\">preferințele de notificare</a>) prin e-mail și notificare push.</p>\r\n<ul>\r\n<li><strong>Un subiect:</strong> faceți clic pe <strong>[[POSTS.TOOLS]]</strong> sub titlul subiectului și pe <strong>[[POSTS.WATCHTOPIC]]</strong>. Puteți activa și <strong>[[POSTMESSAGE.TOPICWATCH]]</strong> când scrieți o postare.</li>\r\n<li><strong>Un forum:</strong> faceți clic pe <strong>[[TOPICS.WATCHFORUM]]</strong> în bara de deasupra listei de subiecte. Sunteți notificat despre subiectele noi din acest forum.</li>\r\n<li><strong>Toate forumurile:</strong> faceți clic pe <strong>[[DEFAULT.WATCHFORUM_ALL]]</strong> pe pagina de start.</li>\r\n</ul>\r\n<p>Pentru a nu mai urmări, faceți clic pe <strong>[[POSTS.UNWATCHTOPIC]]</strong> sau <strong>[[TOPICS.UNWATCHFORUM]]</strong>. În <strong>[[ACCOUNT.SUBSCRIPTIONS]]</strong> găsiți toate <strong>[[SUBSCRIPTIONS.FORUMS]]</strong> și <strong>[[SUBSCRIPTIONS.TOPICS]]</strong>, selectați-le pe unele și faceți clic pe <strong>[[SUBSCRIPTIONS.UNSUBSCRIBE]]</strong> pentru a nu le mai urmări.</p>"
           },
           {
             "@tag": "SUBSCRIPTIONSTITLE",
-            "#text": "Abonamente și notificări"
+            "#text": "Urmărirea subiectelor și forumurilor"
           },
           {
             "@tag": "SUBTITLE",
@@ -11071,19 +11636,19 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>Sistemul \"Mulțumiri\" este o funcție care vă permite să oferiți înapoi un feedback pozitiv unui alt utilizator, de exemplu, el sau ea a postat un mesaj pe care îl considerați util sau vă ajută să rezolvați o problemă.</p>>\r\n<p><strong>Cum să oferiți un Mulțumiri unui utilizator?</strong></p> <strong>Cum să oferiți mulțumiri unui utilizator?\r\n<p>Dacă doriți să dați un \"Mulțumesc\" unui Utilizator apăsați butonul \"Mulțumesc\" în interiorul mesajului pe care doriți să îl adăugați, după care veți găsi numele dvs. în Lista Utilizatorilor care au dat un Mulțumesc la sfârșitul mesajului. De asemenea, puteți elimina Mulțumirea în orice moment.</p> <p>.\r\n<p><strong>Vezi toate Mulțumirile</strong></p>>\r\n<p>Dacă doriți să vizualizați toate mesajele în care ați dat Mulțumiri, sau să afișați lista mesajelor în care ați primit Mulțumiri ați ajuns la pagina Profil personal -&gt; 'Vizualizare Mulțumiri' din cadrul Panoului de control al utilizatorului. Acolo vedeți două file...</p> <p>.\r\n<ul>\r\n  <li> <strong>Mulțumiri</strong> - Afișează Lista mesajelor în care ați dat o mulțumire.</li>\r\n  <li><strong>a primit mulțumiri -</strong> Afișează Lista mesajelor în care ați primit mulțumiri.</li>\r\n</ul>"
+            "#text": "<h3 class=\"h6\">Reacții</h3>\r\n<p>Printr-o reacție îi arătați autorului unei postări că vă place, fără să scrieți un răspuns. Faceți clic pe butonul cu emoticon (<strong>[[BUTTON.BUTTON_REACT_TT]]</strong>) de sub o postare și alegeți <strong>[[BUTTON.REACTION_LIKE]]</strong>, <strong>[[BUTTON.REACTION_LOVE]]</strong>, <strong>[[BUTTON.REACTION_LAUGH]]</strong>, <strong>[[BUTTON.REACTION_HOORAY]]</strong> sau <strong>[[BUTTON.REACTION_WOW]]</strong>.</p>\r\n<ul>\r\n<li>Faceți din nou clic pe reacția dumneavoastră pentru a o elimina, sau pe alta pentru a o schimba.</li>\r\n<li>Reacțiile unei postări sunt afișate cu numărul lor, mutați mouse-ul peste ele pentru a vedea cine a reacționat.</li>\r\n<li>Nu puteți reacționa la propriile postări, la postările șterse și în subiectele blocate.</li>\r\n<li>Autorul este notificat, iar reacțiile sunt numărate în profil (mulțumiri date și primite).</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">Reputație</h3>\r\n<p>Dacă forumul folosește sistemul de reputație, reputația unui membru este afișată ca o bară în profil. Membrii care au ei înșiși suficientă reputație pot adăuga (+1) sau scădea (-1) reputația altui membru din meniul utilizatorului unei postări.</p>\r\n<h3 class=\"h6 mt-3\">Răspunsul la o întrebare</h3>\r\n<p>Membrul care a deschis un subiect poate marca răspunsul care i-a rezolvat întrebarea cu <strong>[[POSTS.MARK_ANSWER]]</strong>. Postarea primește o insignă de răspuns, astfel încât ceilalți cititori găsesc repede soluția.</p>"
           },
           {
             "@tag": "THANKSTITLE",
-            "#text": "Mulțumiri Caracteristică"
+            "#text": "Reacții și reputație"
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>În partea de sus a fiecărui subiect, există un link \"Opțiuni\". Făcând clic pe acest link, va apărea un meniu cu o serie de opțiuni:</p> <p>.\r\n<ul>\r\n  <li><strong>Supravegheați acest subiect</strong> - abonându-vă la un subiect, veți primi periodic prin e-mail actualizări privind activitatea recentă din cadrul acestuia.</li>.\r\n  <li><strong>Imprimați acest subiect</strong> - Aceasta vă va afișa o pagină cu conținutul postării din firul de discuție într-un format grafic redus, mai \"prietenos pentru imprimantă\".</li>\r\n  <li><strong>Atom Feed</strong> - Aceasta va afișa Feed-ul acestui subiect cu toate postările ca elemente de Feed.</li>\r\n  <li><strong>Rss Feed</strong> - Aceasta va afișa Feed-ul acestui subiect cu toate postările ca elemente de feed.</li>\r\n</ul>\r\n"
+            "#text": "<p>Bara de sub titlul unui subiect conține instrumentele subiectului:</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.SHARE]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.EMAILTOPIC]]</strong> - trimite cuiva prin e-mail un link către subiect (doar membrii).</li>\r\n<li><strong>[[POSTS.LINKBACK_TOPIC]]</strong> - copiază adresa subiectului, de ex. pentru a pune un link către el pe alt site.</li>\r\n</ul>\r\n<h3 class=\"h6 mt-3\">[[POSTS.TOOLS]]</h3>\r\n<ul>\r\n<li><strong>[[POSTS.WATCHTOPIC]]</strong> / <strong>[[POSTS.UNWATCHTOPIC]]</strong> - sunteți notificat despre răspunsurile noi, consultați <a href=\"[[help:subscriptions]]\">Urmărirea subiectelor și forumurilor</a>.</li>\r\n<li><strong>[[POSTS.PRINTTOPIC]]</strong> - afișează subiectul într-o versiune pentru imprimare.</li>\r\n<li><strong>[[POSTS.ATOMTOPIC]]</strong> - fluxul subiectului, dacă forumul oferă fluxuri, consultați <a href=\"[[help:rss]]\">Fluxuri</a>.</li>\r\n</ul>\r\n<p>Moderatorii văd și <strong>[[POSTS.MANAGE_TOPIC]]</strong> pentru a muta, bloca sau șterge subiectul, consultați <a href=\"[[help:moderating]]\">Ghidul moderatorului</a>.</p>"
           },
           {
             "@tag": "THREADOPTTITLE",
-            "#text": "Opțiuni de subiect"
+            "#text": "Instrumentele subiectului"
           },
           {
             "@tag": "TITLE",
@@ -11092,6 +11657,10 @@
           {
             "@tag": "WELCOME",
             "#text": "Aici puteți găsi răspunsuri la întrebări legate de modul de funcționare a consiliului. Utilizați linkurile din stânga sau caseta de căutare de mai jos pentru a găsi ceea ce căutați."
+          },
+          {
+            "@tag": "WRITINGTOPICS",
+            "#text": "Scriere"
           }
         ]
       },
