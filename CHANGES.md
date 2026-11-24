@@ -200,6 +200,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Access masks of new forums and roles: "Add to YAF" (Admin > Roles, roles of the membership provider) gave the new role the access mask with the id 1 in all forums ("Admin Access" with moderator rights on the first board), and on a second board new forums preselected a mask of the first board (the default of "New Forum Default Access mask" is the id of its "Member Access"), its board settings showed the first mask; a new board gets its own "Member Access" as default, a mask of another board falls back to the member access of the board, new roles of the provider get the default mask
 [FIXED] Board Announcement: the message was shown as raw html on every page, an admin with the access to the page could put a script on the pages of all users (also of the host admin); the announcement is formatted like a post now (html is encoded, BB codes like [b] or [url] format it), also in the admin page and its preview
 [FIXED] Admin > Spam Check Words: the search box showed "Mask" and the edit dialog the label "Bad" (Find) Expression with the help of the replace words (the texts of the page did not exist, other pages were used); they show "Spam" Word (Find) Expression now
+[FIXED] Host > DB Maintenance: "Not Supported by ... Server" (e.g. shrink on PostgreSQL) was shown as a green success message; it is a warning now, like the recovery mode
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

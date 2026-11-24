@@ -394,10 +394,11 @@ public static class IDbAccessExtensions
 
                     var sql = OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Database);
 
-                    // an empty statement can not be run
+                    // an empty statement can not be run (the text was shown as a success)
                     if (string.IsNullOrWhiteSpace(sql))
                     {
-                        return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+                        throw new NotSupportedException(
+                            $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server");
                     }
 
                     return await db.ScalarAsync<string>(sql);
@@ -426,10 +427,11 @@ public static class IDbAccessExtensions
 
                     var sql = OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, objectQualifier);
 
-                    // an empty statement can not be run
+                    // an empty statement can not be run (the text was shown as a success)
                     if (string.IsNullOrWhiteSpace(sql))
                     {
-                        return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+                        throw new NotSupportedException(
+                            $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server");
                     }
 
                     return await db.ScalarAsync<string>(sql);

@@ -181,6 +181,10 @@ public class ReIndexModel : AdminPage
 
             return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
         }
+        catch (NotSupportedException error)
+        {
+            return this.PageBoardContext.Notify(error.Message, MessageTypes.warning);
+        }
         catch (Exception error)
         {
             // e.g. the database user is not allowed to re-index
@@ -216,6 +220,10 @@ public class ReIndexModel : AdminPage
             await this.BindDataAsync();
 
             return this.PageBoardContext.Notify(result.ToString(), MessageTypes.success);
+        }
+        catch (NotSupportedException error)
+        {
+            return this.PageBoardContext.Notify(error.Message, MessageTypes.warning);
         }
         catch (Exception error)
         {
