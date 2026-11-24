@@ -214,6 +214,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Import dialogs: the user import said "(Must be a *.xml file)" although csv files are imported too, the Import button of the BBCode extensions said "Import List" and the BBCode import used texts of a page that does not exist (the texts of the banned lists or other pages were shown); they have their own texts now; all languages
 [FIXED] BBCode Extensions: the "Exec Order" of the extensions was not used, they were run in the order of the database; they run in their order now, lowest first
 [FIXED] Admin > Import of BBCode extensions, replace words and spam words: an xml file sent by the browser as "application/xml" (e.g. Firefox on Linux) was rejected as an invalid upload format
+[FIXED] Admin > Forums: a forum with "No posts count" had the badge "Test" (with a flask), which did not say what the option does; it says "Posts not counted" now; all languages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
