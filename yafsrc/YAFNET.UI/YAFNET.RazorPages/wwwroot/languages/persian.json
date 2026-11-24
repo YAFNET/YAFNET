@@ -8483,23 +8483,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "د"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "د"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "ج"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "جف"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "حرف"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

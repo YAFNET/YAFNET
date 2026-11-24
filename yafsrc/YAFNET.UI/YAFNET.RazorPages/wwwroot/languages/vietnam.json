@@ -8491,11 +8491,11 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "dd/MM/yyyy lúc hh:mm:ss"
+            "#text": "dd/MM/yyyy lúc HH:mm:ss"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "dd-MM-yyyy lúc hh:mm:ss"
+            "#text": "dd-MM-yyyy lúc HH:mm:ss"
           },
           {
             "@tag": "FORMAT_TIME",

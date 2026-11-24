@@ -8483,11 +8483,11 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D."
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "D."
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",

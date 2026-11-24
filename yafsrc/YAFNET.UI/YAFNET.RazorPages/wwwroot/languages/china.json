@@ -8499,7 +8499,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "时间"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

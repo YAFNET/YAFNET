@@ -8483,23 +8483,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "Г"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "г"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "Е"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "Ж"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "Т"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",
