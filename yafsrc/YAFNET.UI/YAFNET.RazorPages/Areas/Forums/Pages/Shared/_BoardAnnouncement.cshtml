@@ -37,7 +37,8 @@
                 <span class="badge text-bg-@(Current.BoardSettings.BoardAnnouncementType) me-1">
                     <i class="fas fa-bullhorn me-1"></i>@Html.LocalizedText("ANNOUNCEMENT")
                 </span>
-                @Html.Raw(Current.BoardSettings.BoardAnnouncement)
+                @* formatted like a post: html is encoded, BB codes format it (raw html let an admin put a script on every page) *@
+                @Html.Raw(await Current.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(Current.BoardSettings.BoardAnnouncement, 0))
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>

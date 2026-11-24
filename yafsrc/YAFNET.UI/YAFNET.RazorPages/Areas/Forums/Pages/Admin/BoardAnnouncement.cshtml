@@ -33,7 +33,8 @@
                             <span class="badge text-bg-@(boardSettings.BoardAnnouncementType) me-1">
                                 @Html.Icon("bullhorn")@Html.LocalizedText("ANNOUNCEMENT")
                             </span>
-                            @Html.Raw(boardSettings.BoardAnnouncement)
+                            @* formatted like a post: html is encoded, BB codes format it (it was shown as raw html) *@
+                            @Html.Raw(await Model.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(boardSettings.BoardAnnouncement, 0))
                         </div>
                         <button button-style="Danger"
                                 button-size="Small"
@@ -54,8 +55,7 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <textarea asp-for="Input.Message" class="form-control" rows="3" required="required"
-                                  aria-label="@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MESSAGE")"
-                                  data-preview-html="#AnnouncementPreviewText"></textarea>
+                                  aria-label="@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MESSAGE")"></textarea>
                         <div class="invalid-feedback">
                             @Html.LocalizedText("ADMIN_BOARDSETTINGS", "NEED_MESSAGE")
                         </div>
@@ -106,7 +106,7 @@
                     <div class="form-label small text-body-secondary mb-1">@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_PREVIEW")</div>
                     <div id="AnnouncementPreview" class="alert alert-@(Model.Input.BoardAnnouncementType) mb-0">
                         <span id="AnnouncementPreviewBadge" class="badge me-1 text-bg-@(Model.Input.BoardAnnouncementType)">@Html.Icon("bullhorn")@Html.LocalizedText("ANNOUNCEMENT")</span>
-                        <span id="AnnouncementPreviewText">@Html.Raw(Model.Input.Message)</span>
+                        <span id="AnnouncementPreviewText">@Html.Raw(await Model.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(Model.Input.Message ?? string.Empty, 0))</span>
                     </div>
                 </div>
             </div>
