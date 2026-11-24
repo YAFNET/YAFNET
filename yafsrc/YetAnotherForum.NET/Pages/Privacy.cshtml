@@ -20,7 +20,7 @@
     </div>
     <div class="card mb-3">
         <div class="card-body info-text">
-            @Html.Raw(await Model.Get<IBBCodeService>().MakeHtmlAsync(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email), true, true))
+            @Html.Raw(await Model.Get<IBBCodeService>().MakeHtmlAsync(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email, Model.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Cookies)), true, true))
         </div>
     </div>
 
