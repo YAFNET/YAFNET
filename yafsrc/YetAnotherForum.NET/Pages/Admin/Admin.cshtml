@@ -370,7 +370,7 @@
 									   rel="noopener">
 										@Html.Icon("computer")@Html.Raw(ipAddress) (@Model.CountRequests(activeUser.IP))
 									</a>
-									@if (!isBanned)
+									@if (!isBanned && Model.CanBanIps)
 									{
 										<button button-style="Danger"
 										        button-size="Small"
@@ -396,7 +396,7 @@
 								}
 							</div>
 							<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-								@if (isBanned)
+								@if (isBanned && Model.CanBanIps)
 								{
 									<button button-style="None"
 									        class="dropdown-item"
@@ -480,116 +480,135 @@
 									@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.Joined))
 								</div>
 							</div>
-							<div class="flex-shrink-0">
-								<button class="dropdown-toggle"
-								        button-style="Secondary"
-								        button-size="Small"
-								        bs-toggle="dropdown"
-								        aria-label="@Model.GetText("TOOLS")"
-								        Icon="ellipsis-v"></button>
-								<div class="dropdown-menu">
-									<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-									   asp-route-u="@Html.Raw(user.ID)"
-									   Icon="user-edit"
-									   text-localized-tag="EDITUSER"
-									   button-style="None"
-									   class="dropdown-item">
-									</a>
-									<button asp-page-handler="ResendEmail"
-									        asp-route-id="@Html.Raw(user.ID)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        Icon="share"
-									        text-localized-tag="ADMIN_RESEND_EMAIL"
-									        button-style="None"
-									        class="dropdown-item">
-									</button>
-									<button asp-page-handler="Approve"
-									        asp-route-id="@Html.Raw(user.ID)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        button-style="None"
-									        class="dropdown-item"
-									        Icon="check"
-									        text-localized-tag="ADMIN_APPROVE">
-									</button>
-									<button asp-page-handler="Delete"
-									        asp-route-id="@Html.Raw(user.ID)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        button-style="None"
-									        class="dropdown-item"
-									        return-confirm-tag="CONFIRM_DELETE"
-									        Icon="trash"
-									        text-localized-tag="ADMIN_DELETE">
-									</button>
+							@* the actions need the access to the users pages (every admin can open the dashboard) *@
+							@if (Model.CanManageUsers || Model.CanEditUsers)
+							{
+								<div class="flex-shrink-0">
+									<button class="dropdown-toggle"
+									        button-style="Secondary"
+									        button-size="Small"
+									        bs-toggle="dropdown"
+									        aria-label="@Model.GetText("TOOLS")"
+									        Icon="ellipsis-v"></button>
+									<div class="dropdown-menu">
+										@if (Model.CanEditUsers)
+										{
+											<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+											   asp-route-u="@Html.Raw(user.ID)"
+											   Icon="user-edit"
+											   text-localized-tag="EDITUSER"
+											   button-style="None"
+											   class="dropdown-item">
+											</a>
+										}
+										@if (Model.CanManageUsers)
+										{
+											<button asp-page-handler="ResendEmail"
+											        asp-route-id="@Html.Raw(user.ID)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        Icon="share"
+											        text-localized-tag="ADMIN_RESEND_EMAIL"
+											        button-style="None"
+											        class="dropdown-item">
+											</button>
+											<button asp-page-handler="Approve"
+											        asp-route-id="@Html.Raw(user.ID)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        button-style="None"
+											        class="dropdown-item"
+											        Icon="check"
+											        text-localized-tag="ADMIN_APPROVE">
+											</button>
+											<button asp-page-handler="Delete"
+											        asp-route-id="@Html.Raw(user.ID)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        button-style="None"
+											        class="dropdown-item"
+											        return-confirm-tag="CONFIRM_DELETE"
+											        Icon="trash"
+											        text-localized-tag="ADMIN_DELETE">
+											</button>
+										}
+									</div>
 								</div>
-							</div>
-							<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-								<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-								   asp-route-u="@Html.Raw(user.ID)"
-								   Icon="user-edit"
-								   text-localized-tag="EDITUSER"
-								   button-style="None"
-								   class="dropdown-item">
-								</a>
-								<button asp-page-handler="ResendEmail"
-								        asp-route-id="@Html.Raw(user.ID)"
-								        asp-route-p="@Model.Request.RouteValues["p"]"
-								        asp-route-p2="@Model.Request.RouteValues["p2"]"
-								        Icon="share"
-								        text-localized-tag="ADMIN_RESEND_EMAIL"
-								        button-style="None"
-								        class="dropdown-item">
-								</button>
-								<button asp-page-handler="Approve"
-								        asp-route-id="@Html.Raw(user.ID)"
-								        asp-route-p="@Model.Request.RouteValues["p"]"
-								        asp-route-p2="@Model.Request.RouteValues["p2"]"
-								        button-style="None"
-								        class="dropdown-item"
-								        Icon="check"
-								        text-localized-tag="ADMIN_APPROVE">
-								</button>
-								<button asp-page-handler="Delete"
-								        asp-route-id="@Html.Raw(user.ID)"
-								        asp-route-p="@Model.Request.RouteValues["p"]"
-								        asp-route-p2="@Model.Request.RouteValues["p2"]"
-								        button-style="None"
-								        class="dropdown-item"
-								        return-confirm-tag="CONFIRM_DELETE"
-								        Icon="trash"
-								        text-localized-tag="ADMIN_DELETE">
-								</button>
-							</div>
+								<div class="dropdown-menu context-menu" aria-labelledby="context menu">
+									@if (Model.CanEditUsers)
+									{
+										<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+										   asp-route-u="@Html.Raw(user.ID)"
+										   Icon="user-edit"
+										   text-localized-tag="EDITUSER"
+										   button-style="None"
+										   class="dropdown-item">
+										</a>
+									}
+									@if (Model.CanManageUsers)
+									{
+										<button asp-page-handler="ResendEmail"
+										        asp-route-id="@Html.Raw(user.ID)"
+										        asp-route-p="@Model.Request.RouteValues["p"]"
+										        asp-route-p2="@Model.Request.RouteValues["p2"]"
+										        Icon="share"
+										        text-localized-tag="ADMIN_RESEND_EMAIL"
+										        button-style="None"
+										        class="dropdown-item">
+										</button>
+										<button asp-page-handler="Approve"
+										        asp-route-id="@Html.Raw(user.ID)"
+										        asp-route-p="@Model.Request.RouteValues["p"]"
+										        asp-route-p2="@Model.Request.RouteValues["p2"]"
+										        button-style="None"
+										        class="dropdown-item"
+										        Icon="check"
+										        text-localized-tag="ADMIN_APPROVE">
+										</button>
+										<button asp-page-handler="Delete"
+										        asp-route-id="@Html.Raw(user.ID)"
+										        asp-route-p="@Model.Request.RouteValues["p"]"
+										        asp-route-p2="@Model.Request.RouteValues["p2"]"
+										        button-style="None"
+										        class="dropdown-item"
+										        return-confirm-tag="CONFIRM_DELETE"
+										        Icon="trash"
+										        text-localized-tag="ADMIN_DELETE">
+										</button>
+									}
+								</div>
+							}
 						</li>
 					}
 				</ul>
-				<div class="card-body border-top">
-					<div class="d-flex flex-wrap gap-2 mb-2">
-						<button asp-page-handler="ApproveAll"
-						        asp-route-p="@Model.Request.RouteValues["p"]"
-						        asp-route-p2="@Model.Request.RouteValues["p2"]"
-						        button-style="Primary"
-						        button-size="Small"
-						        Icon="check"
-						        text-localized-tag="APROVE_ALL"
-						        return-confirm-tag="CONFIRM_APROVE_ALL"></button>
+				@if (Model.CanManageUsers)
+				{
+					<div class="card-body border-top">
+						<div class="d-flex flex-wrap gap-2 mb-2">
+							<button asp-page-handler="ApproveAll"
+							        asp-route-p="@Model.Request.RouteValues["p"]"
+							        asp-route-p2="@Model.Request.RouteValues["p2"]"
+							        button-style="Primary"
+							        button-size="Small"
+							        Icon="check"
+							        text-localized-tag="APROVE_ALL"
+							        return-confirm-tag="CONFIRM_APROVE_ALL"></button>
+						</div>
+						<div class="input-group input-group-sm">
+							<input type="number" asp-for="Input.DaysOld"
+							       placeholder="@Model.GetText("DELETE_ALL")"
+							       aria-label="@Model.GetText("DELETE_ALL")"
+							       class="form-control"/>
+							<button asp-page-handler="DeleteAll"
+							        asp-route-p="@Model.Request.RouteValues["p"]"
+							        asp-route-p2="@Model.Request.RouteValues["p2"]"
+							        button-style="Danger"
+							        Icon="trash"
+							        text-localized-tag="DELETE_ALL"
+							        return-confirm-tag="CONFIRM_DELETE_ALL"></button>
+						</div>
 					</div>
-					<div class="input-group input-group-sm">
-						<input type="number" asp-for="Input.DaysOld"
-						       placeholder="@Model.GetText("DELETE_ALL")"
-						       aria-label="@Model.GetText("DELETE_ALL")"
-						       class="form-control"/>
-						<button asp-page-handler="DeleteAll"
-						        asp-route-p="@Model.Request.RouteValues["p"]"
-						        asp-route-p2="@Model.Request.RouteValues["p2"]"
-						        button-style="Danger"
-						        Icon="trash"
-						        text-localized-tag="DELETE_ALL"
-						        return-confirm-tag="CONFIRM_DELETE_ALL"></button>
-					</div>
-				</div>
+				}
 			}
 			else
 			{

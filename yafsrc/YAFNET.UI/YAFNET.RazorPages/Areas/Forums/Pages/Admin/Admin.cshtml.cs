@@ -120,6 +120,22 @@ public class AdminModel : AdminPage
     public int RunningTaskCount => this.Tasks?.Count(t => t.IsRunning) ?? 0;
 
     /// <summary>
+    /// Gets a value indicating whether the admin can approve and delete users (needs the access to the users page,
+    /// every admin can open the dashboard).
+    /// </summary>
+    public bool CanManageUsers => this.HasPageAccess(ForumPages.Admin_Users);
+
+    /// <summary>
+    /// Gets a value indicating whether the admin can open the user editor.
+    /// </summary>
+    public bool CanEditUsers => this.HasPageAccess(ForumPages.Admin_EditUser);
+
+    /// <summary>
+    /// Gets a value indicating whether the admin can ban IP addresses (needs the access to the banned IPs page).
+    /// </summary>
+    public bool CanBanIps => this.HasPageAccess(ForumPages.Admin_BannedIps);
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="AdminModel"/> class.
     /// </summary>
     public AdminModel()
@@ -144,6 +160,11 @@ public class AdminModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostResendEmailAsync(int id, int p, int p2)
     {
+        if (!this.CanManageUsers)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+        }
+
         var unApprovedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
 
         var userUnApproved = unApprovedUsers.Find(x => x.ID == id);
@@ -179,6 +200,11 @@ public class AdminModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostBanIpAsync(string mask, int p, int p2)
     {
+        if (!this.CanBanIps)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+        }
+
         if (await this.GetRepository<BannedIP>().ExistsAsync(x => x.Mask == mask))
         {
             await this.BindDataAsync(p, p2);
@@ -213,6 +239,12 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAsync(int id, int p, int p2)
     {
+        if (!this.CanManageUsers)
+        {
+            await this.BindDataAsync(p, p2);
+            return;
+        }
+
         // only not approved users of this board, never the guest or an admin (the id is sent by the client)
         var user = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(id, this.PageBoardContext.PageBoardID, true);
 
@@ -234,6 +266,12 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostApproveAsync(int id, int p, int p2)
     {
+        if (!this.CanManageUsers)
+        {
+            await this.BindDataAsync(p, p2);
+            return;
+        }
+
         // only not approved users of the board
         var unApprovedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
 
@@ -253,6 +291,12 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAllAsync(int p, int p2)
     {
+        if (!this.CanManageUsers)
+        {
+            await this.BindDataAsync(p, p2);
+            return;
+        }
+
         var daysValueAll = this.Input.DaysOld;
 
         await this.Get<IAspNetUsersHelper>().DeleteAllUnapprovedAsync(this.PageBoardContext.PageBoardID, DateTime.UtcNow.AddDays(-Math.Clamp(daysValueAll.ToType<int>(), 0, 36500)));
@@ -268,6 +312,12 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostApproveAllAsync(int p, int p2)
     {
+        if (!this.CanManageUsers)
+        {
+            await this.BindDataAsync(p, p2);
+            return;
+        }
+
         await this.Get<IAspNetUsersHelper>().ApproveAllAsync(this.PageBoardContext.PageBoardID);
 
         await this.BindDataAsync(p, p2);
@@ -289,6 +339,17 @@ public class AdminModel : AdminPage
     public Task OnPostAsync(int p, int p2)
     {
         return this.BindDataAsync(p, p2);
+    }
+
+    /// <summary>
+    /// Checks if the admin can use an admin page (the host admin can use all pages).
+    /// </summary>
+    /// <param name="page">The admin page.</param>
+    /// <returns>True if the page access of the admin contains the page.</returns>
+    private bool HasPageAccess(ForumPages page)
+    {
+        return this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
+               || this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, page.ToString());
     }
 
     /// <summary>

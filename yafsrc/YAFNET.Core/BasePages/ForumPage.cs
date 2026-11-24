@@ -137,6 +137,11 @@ public abstract class ForumPage : PageModel,
                 BoardContext.Current.PageUserID,
                 BoardContext.Current.CurrentForumPage.PageName.ToString());
 
+            // every admin can open the admin index (the page access editor shows it as always allowed,
+            // a new admin got "Host Admin permissions required" until the host admin saved the access once),
+            // its actions check the access to the users and banned IPs pages
+            hasAccess = hasAccess || BoardContext.Current.CurrentForumPage.PageName == ForumPages.Admin_Admin;
+
             // Check access rights to the page (the host pages can't be granted, also not by an access stored before).
             if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
                 (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess

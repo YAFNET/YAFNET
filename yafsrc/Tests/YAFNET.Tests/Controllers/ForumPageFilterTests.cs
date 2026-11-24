@@ -170,13 +170,24 @@ public class ForumPageFilterTests
     [Description("Admin pages need an admin, and an admin who is no host admin needs access to the page")]
     public async Task Admin_Page_Test()
     {
-        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeSameAs(this.accessDenied);
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Users, admin: true))).Result.Should().BeSameAs(this.accessDenied);
 
         this.board.PageLoad.IsAdmin = true;
-        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeSameAs(this.infoRedirect);
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Users, admin: true))).Result.Should().BeSameAs(this.infoRedirect);
 
         await this.board.Current.GetRepository<AdminPageUserAccess>().InsertAsync(
-            new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = nameof(ForumPages.Admin_Admin) });
+            new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = nameof(ForumPages.Admin_Users) });
+
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Users, admin: true))).Result.Should().BeNull();
+    }
+
+    [Test]
+    [Description("Every admin can open the admin index (dashboard), also without a saved page access (a new admin got \"Host Admin permissions required\" even there)")]
+    public async Task Admin_Index_Without_Page_Access_Test()
+    {
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeSameAs(this.accessDenied, "only admins");
+
+        this.board.PageLoad.IsAdmin = true;
 
         (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeNull();
     }
