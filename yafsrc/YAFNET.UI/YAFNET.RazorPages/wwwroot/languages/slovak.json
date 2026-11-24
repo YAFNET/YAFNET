@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "„{0}“ nie je platná hodnota časti IP adresy (musí byť menšia ako 255)."
+            "#text": "„{0}“ nie je platná hodnota časti IP adresy (musí byť najviac 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Zapne/vypne ponuku zdieľania, v ktorej môže používateľ tému poslať e-mailom, tweetnúť, zdieľať cez Buzz, dať jej „Páči sa mi to“ na Facebooku, Reddite alebo Tumblri."
+            "#text": "Zapne/vypne ponuku zdieľania témy, v ktorej môže používateľ tému poslať e-mailom alebo skopírovať odkaz na ňu."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne medaily. Novú medailu pridáte kliknutím na tlačidlo [b]Pridať novú medailu[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne medaily. Novú medailu pridáte kliknutím na tlačidlo [b]Nová medaila[/b] nižšie."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Obsah tohto príspevku je skrytý. Keď autorovi POĎAKUJETE, obnovte stránku, aby sa zobrazil skrytý obsah. Musíte poďakovať za tento príspevok"
+            "#text": "Obsah tohto príspevku je skrytý. Keď na príspevok zareagujete, obnovte stránku, aby sa zobrazil skrytý obsah."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Skrytý obsah (Musíte byť zaregistrovaní a mať aspoň {0} prijatých poďakovaní.)"
+            "#text": "Skrytý obsah (Musíte byť zaregistrovaní a mať aspoň {0} prijatých reakcií.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Táto značka skrýva obsah pred ľuďmi, kým nestlačia tlačidlo poďakovania za príspevok."
+            "#text": "Táto značka skrýva obsah pred ľuďmi, kým na príspevok nezareagujú."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Skrytý obsah (Aby ste videli skrytý obsah, musíte byť zaregistrovaní a odpovedať na príspevok alebo poďakovať.)"
+            "#text": "Skrytý obsah (Aby ste videli skrytý obsah, musíte byť zaregistrovaní a odpovedať na príspevok alebo naň zareagovať.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Značka skrýva obsah pred ľuďmi, kým neodpovedia v tej istej téme alebo nestlačia tlačidlo poďakovania za príspevok."
+            "#text": "Značka skrýva obsah pred ľuďmi, kým neodpovedia v tej istej téme alebo na príspevok nezareagujú."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Značka skryje obsah pred ľuďmi, ktorí majú menej ako X prijatých poďakovaní."
+            "#text": "Značka skryje obsah pred ľuďmi, ktorí majú menej ako X prijatých reakcií."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "ste boli ocenení na fóre {0}"
+            "#text": "Získali ste medailu na fóre {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

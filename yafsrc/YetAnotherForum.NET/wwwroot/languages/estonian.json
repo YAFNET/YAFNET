@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Registreerub foorumis"
+            "#text": "Logib sisse"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" ei ole kehtiv IP-osa väärtus (peab olema väiksem kui 255)."
+            "#text": "\"{0}\" ei ole kehtiv IP-osa väärtus (peab olema 255 või väiksem)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Lülitab sisse/välja jagamismenüü, kus kasutaja saab teemat e-postiga saata või jagada Tweeti, Buzzi, Facebooki „Meeldib“, Redditi või Tumblri kaudu."
+            "#text": "Lülitab sisse/välja teema jagamismenüü, kus kasutaja saab teema e-postiga saata või selle lingi kopeerida."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Selle postituse sisu on peidetud. Kui olete autorit TÄNANUD, värskendage lehte, et peidetud sisu näha. Peate tänama just selle postituse eest"
+            "#text": "Selle postituse sisu on peidetud. Kui olete postitusele reageerinud, värskendage lehte, et peidetud sisu näha."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Peidetud sisu (Peate olema registreerunud ja saanud vähemalt {0} tänu)."
+            "#text": "Peidetud sisu (Peate olema registreerunud ja saanud vähemalt {0} reaktsiooni)."
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "See silt peidab sisu inimeste eest, kuni nad vajutavad postituse eest tänunuppu."
+            "#text": "See silt peidab sisu inimeste eest, kuni nad postitusele reageerivad."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Peidetud sisu (peidetud sisu nägemiseks peate olema registreerunud ja postitusele vastama või tänama.)"
+            "#text": "Peidetud sisu (peidetud sisu nägemiseks peate olema registreerunud ja postitusele vastama või sellele reageerima.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Silt peidab sisu inimeste eest seni, kuni nad vastavad samas teemas või vajutavad postituse eest tänunuppu."
+            "#text": "Silt peidab sisu inimeste eest seni, kuni nad vastavad samas teemas või reageerivad postitusele."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Silt peidab sisu inimeste eest, kes on saanud vähem kui X tänu."
+            "#text": "Silt peidab sisu inimeste eest, kes on saanud vähem kui X reaktsiooni."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "teid autasustati {0} foorumis"
+            "#text": "Teid autasustati medaliga {0} foorumis"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -12679,7 +12679,7 @@
           },
           {
             "@tag": "SELECT_FORUM",
-            "#text": "Valige foorum, kuhu soovite postituse teisaldada:"
+            "#text": "Valige foorum, kuhu soovite teema teisaldada:"
           },
           {
             "@tag": "TITLE",

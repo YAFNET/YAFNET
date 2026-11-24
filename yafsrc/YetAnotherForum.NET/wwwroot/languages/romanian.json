@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Se înregistrează pe forum"
+            "#text": "Se autentifică"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" nu este o valoare validă pentru secțiunea IP (trebuie să fie mai mică de 255)."
+            "#text": "\"{0}\" nu este o valoare validă pentru secțiunea IP (trebuie să fie cel mult 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activează/dezactivează meniul de distribuire, din care un utilizator poate trimite un subiect prin e-mail sau îl poate distribui pe Twitter, Buzz, Facebook, Reddit sau Tumblr."
+            "#text": "Activează/dezactivează meniul de distribuire al unui subiect, din care un utilizator poate trimite subiectul prin e-mail sau îi poate copia linkul."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există medalii. Adăugați o medalie nouă făcând clic pe butonul [b]Adăugați o medalie nouă[/b] de mai jos."
+            "#text": "În prezent nu există medalii. Adăugați o medalie nouă făcând clic pe butonul [b]Medalie nouă[/b] de mai jos."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Conținutul acestei postări este ascuns. După ce îi MULȚUMIȚI autorului, reîmprospătați pagina pentru a vedea conținutul ascuns. Trebuie să mulțumiți pentru postarea curentă"
+            "#text": "Conținutul acestei postări este ascuns. După ce reacționați la postare, reîmprospătați pagina pentru a vedea conținutul ascuns."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Conținut ascuns (trebuie să fiți înregistrat și să fi primit cel puțin {0} mulțumiri.)"
+            "#text": "Conținut ascuns (trebuie să fiți înregistrat și să fi primit cel puțin {0} reacții.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Această etichetă ascunde conținutul până când utilizatorul apasă butonul de mulțumire pentru postare."
+            "#text": "Această etichetă ascunde conținutul până când utilizatorul reacționează la postare."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Conținut ascuns (trebuie să fiți înregistrat și să răspundeți în subiect sau să mulțumiți pentru a vedea conținutul ascuns.)"
+            "#text": "Conținut ascuns (trebuie să fiți înregistrat și să răspundeți în subiect sau să reacționați la mesaj pentru a vedea conținutul ascuns.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Eticheta ascunde conținutul până când utilizatorul fie răspunde în același subiect, fie apasă butonul de mulțumire pentru postare."
+            "#text": "Eticheta ascunde conținutul până când utilizatorul fie răspunde în același subiect, fie reacționează la postare."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Eticheta ascunde conținutul de persoanele care au primit mai puțin de X mulțumiri."
+            "#text": "Eticheta ascunde conținutul de persoanele care au primit mai puțin de X reacții."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Active/désactive le menu de partage, avec lequel un utilisateur peut envoyer un sujet par e-mail ou le partager sur Twitter, Buzz, Facebook, Reddit ou Tumblr."
+            "#text": "Active/désactive le menu de partage d'un sujet, avec lequel un utilisateur peut envoyer le sujet par e-mail ou copier son lien."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Le contenu de ce message est caché. Après avoir REMERCIÉ l'auteur, actualisez la page pour voir le contenu caché. Vous devez remercier le message actuel"
+            "#text": "Le contenu de ce message est caché. Après avoir réagi au message, actualisez la page pour voir le contenu caché."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Contenu caché (Vous devez être inscrit, et avoir reçu au moins {0} remerciements)."
+            "#text": "Contenu caché (Vous devez être inscrit, et avoir reçu au moins {0} réaction(s))."
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Cette balise cache le contenu jusqu'à ce que l'utilisateur clique sur le bouton de remerciement du message."
+            "#text": "Cette balise cache le contenu jusqu'à ce que l'utilisateur réagisse au message."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Contenu caché (Vous devez être inscrit et répondre au message, ou remercier, pour voir le contenu caché)."
+            "#text": "Contenu caché (Vous devez être inscrit et répondre au message, ou y réagir, pour voir le contenu caché)."
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Cette balise cache le contenu jusqu'à ce que l'utilisateur réponde dans le même sujet ou clique sur le bouton de remerciement du message."
+            "#text": "Cette balise cache le contenu jusqu'à ce que l'utilisateur réponde dans le même sujet ou réagisse au message."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Cette balise cache le contenu aux utilisateurs qui ont reçu moins de X remerciements."
+            "#text": "Cette balise cache le contenu aux utilisateurs qui ont reçu moins de X réactions."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

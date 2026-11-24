@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Registruojasi forume"
+            "#text": "Prisijungia"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "„{0}“ nėra tinkama IP dalies reikšmė (turi būti mažesnė nei 255)."
+            "#text": "„{0}“ nėra tinkama IP dalies reikšmė (turi būti ne didesnė nei 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Įjungia / išjungia bendrinimo meniu, kuriame naudotojas gali siųsti temą el. paštu arba pasidalinti ja per Tweet, Buzz, Facebook „Patinka“, Reddit ar Tumblr."
+            "#text": "Įjungia / išjungia temos bendrinimo meniu, kuriame naudotojas gali išsiųsti temą el. paštu arba nukopijuoti jos nuorodą."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Šio pranešimo turinys paslėptas. Kai PADĖKOSITE autoriui, atnaujinkite puslapį, kad pamatytumėte paslėptą turinį. Turite padėkoti už šį pranešimą"
+            "#text": "Šio pranešimo turinys paslėptas. Kai sureaguosite į pranešimą, atnaujinkite puslapį, kad pamatytumėte paslėptą turinį."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Paslėptas turinys (turite būti užsiregistravę ir būti gavę bent {0} padėkų.)"
+            "#text": "Paslėptas turinys (turite būti užsiregistravę ir būti gavę bent {0} reakcijų.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Ši žyma slepia turinį, kol skaitytojas nepaspaudžia padėkos mygtuko už pranešimą."
+            "#text": "Ši žyma slepia turinį, kol skaitytojas nesureaguoja į pranešimą."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Paslėptas turinys (kad pamatytumėte paslėptą turinį, turite būti užsiregistravę ir atsakyti į pranešimą arba padėkoti.)"
+            "#text": "Paslėptas turinys (kad pamatytumėte paslėptą turinį, turite būti užsiregistravę ir atsakyti į pranešimą arba į jį sureaguoti.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Žyma slepia turinį, kol skaitytojas neatsako toje pačioje temoje arba nepaspaudžia padėkos mygtuko už pranešimą."
+            "#text": "Žyma slepia turinį, kol skaitytojas neatsako toje pačioje temoje arba nesureaguoja į pranešimą."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Žyma slepia turinį nuo žmonių, gavusių mažiau nei X padėkų."
+            "#text": "Žyma slepia turinį nuo žmonių, gavusių mažiau nei X reakcijų."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "jums suteiktas apdovanojimas {0} forume"
+            "#text": "Jums suteiktas medalis {0} forume"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -12679,7 +12679,7 @@
           },
           {
             "@tag": "SELECT_FORUM",
-            "#text": "Pasirinkite forumą, į kurį norite perkelti pranešimą:"
+            "#text": "Pasirinkite forumą, į kurį norite perkelti temą:"
           },
           {
             "@tag": "TITLE",

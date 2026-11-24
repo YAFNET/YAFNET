@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "在论坛上注册"
+            "#text": "正在登录"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "“{0}”不是有效的 IP 地址段值（必须小于 255）。"
+            "#text": "“{0}”不是有效的 IP 地址段值（必须小于或等于 255）。"
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "启用/禁用分享菜单，用户可以在其中通过电子邮件、推文、Buzz、Facebook 点赞、Reddit 或 Tumblr 分享主题。"
+            "#text": "启用/禁用主题的分享菜单，用户可以在其中通过电子邮件发送主题或复制其链接。"
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "目前没有勋章。点击下方的[b]添加新勋章[/b]按钮可添加勋章。"
+            "#text": "目前没有勋章。点击下方的[b]新勋章[/b]按钮可添加勋章。"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "此帖子的内容已隐藏。感谢发帖人后，刷新页面即可看到隐藏内容。你需要感谢当前帖子"
+            "#text": "此帖子的内容已隐藏。对帖子作出回应后，刷新页面即可看到隐藏内容。"
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "隐藏内容（你必须已注册，并至少收到 {0} 次感谢。）"
+            "#text": "隐藏内容（你必须已注册，并至少收到 {0} 次回应。）"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "此标签会隐藏内容，直到用户点击该帖子的感谢按钮。"
+            "#text": "此标签会隐藏内容，直到用户对该帖子作出回应。"
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "隐藏内容（你必须已注册并回复此主题或表示感谢，才能看到隐藏内容。）"
+            "#text": "隐藏内容（你必须已注册并回复此主题或对其作出回应，才能看到隐藏内容。）"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "此标签会隐藏内容，直到用户在同一主题中回复或点击该帖子的感谢按钮。"
+            "#text": "此标签会隐藏内容，直到用户在同一主题中回复或对该帖子作出回应。"
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "此标签会对收到的感谢少于 X 次的用户隐藏内容。"
+            "#text": "此标签会对收到的回应少于 X 次的用户隐藏内容。"
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

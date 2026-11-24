@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" no es un valor válido para una sección de IP (debe ser menor que 255)."
+            "#text": "\"{0}\" no es un valor válido para una sección de IP (debe ser 255 o menor)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activa/desactiva el menú Compartir, con el que un usuario puede enviar un tema por correo electrónico, tuitearlo, enviarlo a Buzz, darle \"Me gusta\" en Facebook o compartirlo en Reddit o Tumblr."
+            "#text": "Activa/desactiva el menú Compartir de un tema, con el que un usuario puede enviar el tema por correo electrónico o copiar su enlace."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "El contenido de este mensaje está oculto. Después de AGRADECER al autor, recargue la página para ver el contenido oculto. Debe agradecer este mensaje"
+            "#text": "El contenido de este mensaje está oculto. Después de reaccionar al mensaje, recargue la página para ver el contenido oculto."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Contenido oculto (debe estar registrado y haber recibido al menos {0} agradecimiento(s).)"
+            "#text": "Contenido oculto (debe estar registrado y haber recibido al menos {0} reacción(es).)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Esta etiqueta oculta el contenido hasta que se pulsa el botón de agradecimiento del mensaje."
+            "#text": "Esta etiqueta oculta el contenido hasta que se reacciona al mensaje."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Contenido oculto (debe estar registrado y responder al mensaje o agradecerlo para ver el contenido oculto.)"
+            "#text": "Contenido oculto (debe estar registrado y responder al mensaje o reaccionar a él para ver el contenido oculto.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "La etiqueta oculta el contenido hasta que se responde en el mismo tema o se pulsa el botón de agradecimiento del mensaje."
+            "#text": "La etiqueta oculta el contenido hasta que se responde en el mismo tema o se reacciona al mensaje."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "La etiqueta oculta el contenido a quienes han recibido menos de X agradecimientos."
+            "#text": "La etiqueta oculta el contenido a quienes han recibido menos de X reacciones."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Registrerer sig på forummet"
+            "#text": "Logger ind"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" er ikke en gyldig IP-sektionsværdi (skal være mindre end 255)."
+            "#text": "\"{0}\" er ikke en gyldig IP-sektionsværdi (skal være 255 eller mindre)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -3410,7 +3410,7 @@
           },
           {
             "@tag": "RANK_DESC_HELP",
-            "#text": "Indtast her en rollebeskrivelse."
+            "#text": "Indtast her en beskrivelse af rangen."
           },
           {
             "@tag": "RANK_NAME",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverer/deaktiverer menuen Del, hvor en bruger kan dele et emne via e-mail, Tweet, Buzz, Like på Facebook, Reddit eller Tumblr."
+            "#text": "Aktiverer/deaktiverer menuen Del for et emne, hvor en bruger kan sende emnet via e-mail eller kopiere linket til det."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "I øjeblikket er der ingen medaljer. Tilføj en ny medalje ved at klikke på knappen [b]Tilføj ny medalje[/b] nedenfor."
+            "#text": "I øjeblikket er der ingen medaljer. Tilføj en ny medalje ved at klikke på knappen [b]Ny medalje[/b] nedenfor."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Indholdet af dette indlæg er skjult. Når du har TAKKET forfatteren, skal du genindlæse siden for at se det skjulte indhold. Du skal takke for det aktuelle indlæg"
+            "#text": "Indholdet af dette indlæg er skjult. Når du har reageret på indlægget, skal du genindlæse siden for at se det skjulte indhold."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Skjult indhold (Du skal være registreret og have mindst {0} tak modtaget)."
+            "#text": "Skjult indhold (Du skal være registreret og have modtaget mindst {0} reaktion(er))."
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Dette tag skjuler indhold for folk, indtil de trykker på takkeknappen for indlægget."
+            "#text": "Dette tag skjuler indhold for folk, indtil de reagerer på indlægget."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Skjult indhold (Du skal være registreret og svare på indlægget eller takke for at se det skjulte indhold.)"
+            "#text": "Skjult indhold (Du skal være registreret og svare på indlægget eller reagere på det for at se det skjulte indhold.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Tagget skjuler indhold for personer, indtil de enten svarer i samme emne eller trykker på takkeknappen for indlægget."
+            "#text": "Tagget skjuler indhold for personer, indtil de enten svarer i samme emne eller reagerer på indlægget."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Tagget skjuler indhold for personer, der har modtaget færre end X tak."
+            "#text": "Tagget skjuler indhold for personer, der har modtaget færre end X reaktioner."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "du har fået en udmærkelse i {0}-forummet"
+            "#text": "Du har fået en medalje i {0}-forummet"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -12679,7 +12679,7 @@
           },
           {
             "@tag": "SELECT_FORUM",
-            "#text": "Vælg det forum, som du vil flytte indlægget til:"
+            "#text": "Vælg det forum, som du vil flytte emnet til:"
           },
           {
             "@tag": "TITLE",

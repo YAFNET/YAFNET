@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Meldt zich aan op het forum"
+            "#text": "Logt in"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" is geen geldige waarde voor een IP-sectie (moet kleiner zijn dan 255)."
+            "#text": "\"{0}\" is geen geldige waarde voor een IP-sectie (moet 255 of kleiner zijn)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Schakelt het deelmenu in of uit, waarmee een gebruiker een topic kan delen via e-mail, Tweet, Buzz, Like op Facebook, Reddit of Tumblr."
+            "#text": "Schakelt het deelmenu van een topic in of uit, waarmee een gebruiker het topic per e-mail kan versturen of de link ervan kan kopiëren."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen medailles. Voeg een nieuwe medaille toe met de knop [b]Nieuwe medaille toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen medailles. Voeg een nieuwe medaille toe met de knop [b]Nieuwe medaille[/b] hieronder."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "De inhoud van dit bericht is verborgen. Nadat je de auteur hebt BEDANKT, ververs je de pagina om de verborgen inhoud te zien. Je moet het huidige bericht bedanken"
+            "#text": "De inhoud van dit bericht is verborgen. Nadat je een reactie op het bericht hebt gegeven, ververs je de pagina om de verborgen inhoud te zien."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Verborgen inhoud (Je moet geregistreerd zijn en minstens {0} keer zijn bedankt.)"
+            "#text": "Verborgen inhoud (Je moet geregistreerd zijn en minstens {0} reactie(s) hebben ontvangen.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Deze tag verbergt inhoud voor gebruikers totdat ze op de bedankknop van het bericht hebben geklikt."
+            "#text": "Deze tag verbergt inhoud voor gebruikers totdat ze een reactie op het bericht hebben gegeven."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Verborgen inhoud (Je moet geregistreerd zijn en een antwoord in dit topic hebben geplaatst, of de auteur hebben bedankt.)"
+            "#text": "Verborgen inhoud (Je moet geregistreerd zijn en een antwoord in dit topic hebben geplaatst, of een reactie op het bericht hebben gegeven.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Deze tag verbergt inhoud voor gebruikers totdat ze in hetzelfde topic hebben gereageerd of op de bedankknop van het bericht hebben geklikt."
+            "#text": "Deze tag verbergt inhoud voor gebruikers totdat ze in hetzelfde topic hebben geantwoord of een reactie op het bericht hebben gegeven."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Deze tag verbergt inhoud voor gebruikers die minder dan X bedankjes hebben gekregen."
+            "#text": "Deze tag verbergt inhoud voor gebruikers die minder dan X reacties hebben gekregen."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "Je hebt een onderscheiding gekregen op het forum {0}"
+            "#text": "Je hebt een medaille gekregen op het forum {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

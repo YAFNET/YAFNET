@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Rekisteröityminen foorumilla"
+            "#text": "Kirjautuu sisään"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" ei ole kelvollinen IP-osion arvo (sen on oltava pienempi kuin 255)."
+            "#text": "\"{0}\" ei ole kelvollinen IP-osion arvo (sen on oltava enintään 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Ottaa käyttöön tai poistaa käytöstä Jaa-valikon, josta käyttäjä voi jakaa aiheen sähköpostilla, Tweetillä, Buzzilla, tykkäyksellä Facebookissa, Redditissä tai Tumblrissa."
+            "#text": "Ottaa käyttöön tai poistaa käytöstä aiheen Jaa-valikon, josta käyttäjä voi lähettää aiheen sähköpostilla tai kopioida sen linkin."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Tämän viestin sisältö on piilotettu. Kun olet KIITTÄNYT kirjoittajaa, päivitä sivu nähdäksesi piilotetun sisällön. Sinun on kiitettävä tästä viestistä"
+            "#text": "Tämän viestin sisältö on piilotettu. Kun olet reagoinut viestiin, päivitä sivu nähdäksesi piilotetun sisällön."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Piilotettu sisältö (Sinun on oltava rekisteröitynyt ja saanut vähintään {0} kiitosta.)"
+            "#text": "Piilotettu sisältö (Sinun on oltava rekisteröitynyt ja saanut vähintään {0} reaktiota.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Tämä tunniste piilottaa sisällön ihmisiltä, kunnes he painavat viestin kiitospainiketta."
+            "#text": "Tämä tunniste piilottaa sisällön ihmisiltä, kunnes he reagoivat viestiin."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Piilotettu sisältö (Sinun on oltava rekisteröitynyt ja vastattava viestiin tai annettava kiitos, jotta näet piilotetun sisällön.)"
+            "#text": "Piilotettu sisältö (Sinun on oltava rekisteröitynyt ja vastattava viestiin tai reagoitava siihen, jotta näet piilotetun sisällön.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Tunniste piilottaa sisällön ihmisiltä, kunnes he joko vastaavat samaan aiheeseen tai painavat viestin kiitospainiketta."
+            "#text": "Tunniste piilottaa sisällön ihmisiltä, kunnes he joko vastaavat samaan aiheeseen tai reagoivat viestiin."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Tunniste piilottaa sisällön henkilöiltä, jotka ovat saaneet alle X kiitosta."
+            "#text": "Tunniste piilottaa sisällön henkilöiltä, jotka ovat saaneet alle X reaktiota."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "sinulle on myönnetty mitali foorumilla {0}"
+            "#text": "Sinulle on myönnetty mitali foorumilla {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -12679,7 +12679,7 @@
           },
           {
             "@tag": "SELECT_FORUM",
-            "#text": "Valitse alue, jolle haluat siirtää viestin:"
+            "#text": "Valitse alue, jolle haluat siirtää aiheen:"
           },
           {
             "@tag": "TITLE",

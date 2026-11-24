@@ -44,7 +44,7 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Zmień avatar"
+            "#text": "Zmień awatar"
           },
           {
             "@tag": "EDIT_PROFILE",
@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Rejestruje się na forum"
+            "#text": "Loguje się"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" nie jest prawidłową wartością dla sekcji adresu IP (musi być mniejsza niż 255)."
+            "#text": "\"{0}\" nie jest prawidłową wartością dla sekcji adresu IP (musi wynosić 255 lub mniej)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Włącza/wyłącza menu udostępniania, w którym użytkownik może wysłać temat e-mailem, udostępnić go na Twitterze, Buzz, polubić na Facebooku, Reddicie lub Tumblrze."
+            "#text": "Włącza/wyłącza menu udostępniania tematu, w którym użytkownik może wysłać temat e-mailem lub skopiować link do niego."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma medali. Dodaj nowy medal, klikając przycisk [b]Dodaj nowy medal[/b] poniżej."
+            "#text": "Obecnie nie ma medali. Dodaj nowy medal, klikając przycisk [b]Nowy medal[/b] poniżej."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Treść tego postu jest ukryta. Po podziękowaniu autorowi odśwież stronę, aby zobaczyć ukrytą treść. Musisz podziękować za bieżący post"
+            "#text": "Treść tego postu jest ukryta. Po zareagowaniu na post odśwież stronę, aby zobaczyć ukrytą treść."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Ukryta treść (musisz być zarejestrowany i mieć co najmniej {0} otrzymanych podziękowań)."
+            "#text": "Ukryta treść (musisz być zarejestrowany i mieć co najmniej {0} otrzymanych reakcji)."
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Ten znacznik ukrywa treść, dopóki użytkownik nie kliknie przycisku podziękowania za post."
+            "#text": "Ten znacznik ukrywa treść, dopóki użytkownik nie zareaguje na post."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Ukryta treść (aby ją zobaczyć, musisz być zarejestrowany i odpowiedzieć w temacie lub podziękować)."
+            "#text": "Ukryta treść (aby ją zobaczyć, musisz być zarejestrowany i odpowiedzieć w temacie lub zareagować na wiadomość)."
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Ten znacznik ukrywa treść, dopóki użytkownik nie odpowie w tym samym temacie lub nie kliknie przycisku podziękowania za post."
+            "#text": "Ten znacznik ukrywa treść, dopóki użytkownik nie odpowie w tym samym temacie lub nie zareaguje na post."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Ten znacznik ukrywa treść przed osobami, które otrzymały mniej niż X podziękowań."
+            "#text": "Ten znacznik ukrywa treść przed osobami, które otrzymały mniej niż X reakcji."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

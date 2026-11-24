@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Abilita/disabilita il menu di condivisione, con cui un utente può inviare una discussione via e-mail o condividerla su Twitter, Buzz, Facebook, Reddit o Tumblr."
+            "#text": "Abilita/disabilita il menu di condivisione di una discussione, con cui un utente può inviare la discussione via e-mail o copiarne il link."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Il contenuto di questo messaggio è nascosto. Dopo aver RINGRAZIATO l'autore, aggiorna la pagina per vedere il contenuto nascosto. Devi ringraziare il messaggio attuale"
+            "#text": "Il contenuto di questo messaggio è nascosto. Dopo aver reagito al messaggio, aggiorna la pagina per vedere il contenuto nascosto."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Contenuto nascosto (devi essere registrato e aver ricevuto almeno {0} ringraziamenti.)"
+            "#text": "Contenuto nascosto (devi essere registrato e aver ricevuto almeno {0} reazioni.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Questo tag nasconde il contenuto finché l'utente non clicca sul pulsante di ringraziamento del messaggio."
+            "#text": "Questo tag nasconde il contenuto finché l'utente non reagisce al messaggio."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Contenuto nascosto (devi essere registrato e rispondere al messaggio, oppure ringraziare, per vedere il contenuto nascosto.)"
+            "#text": "Contenuto nascosto (devi essere registrato e rispondere al messaggio, oppure reagire ad esso, per vedere il contenuto nascosto.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Questo tag nasconde il contenuto finché l'utente non risponde nella stessa discussione o clicca sul pulsante di ringraziamento del messaggio."
+            "#text": "Questo tag nasconde il contenuto finché l'utente non risponde nella stessa discussione o reagisce al messaggio."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Questo tag nasconde il contenuto agli utenti che hanno ricevuto meno di X ringraziamenti."
+            "#text": "Questo tag nasconde il contenuto agli utenti che hanno ricevuto meno di X reazioni."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

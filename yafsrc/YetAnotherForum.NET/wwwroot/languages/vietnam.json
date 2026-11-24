@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" không phải là giá trị phần IP hợp lệ (phải nhỏ hơn 255)."
+            "#text": "\"{0}\" không phải là giá trị phần IP hợp lệ (phải nhỏ hơn hoặc bằng 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Bật / tắt Menu chia sẻ, nơi người dùng có thể Gửi email, Tweet, Buzz, Thích trên Facebook, Reddit hoặc Tumblr một chủ đề."
+            "#text": "Bật / tắt menu chia sẻ của chủ đề, nơi người dùng có thể gửi chủ đề qua email hoặc sao chép liên kết của chủ đề."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Nội dung của bài viết này bị ẩn. Sau khi bạn CẢM ƠN người viết, hãy tải lại trang để xem nội dung ẩn. Bạn cần cảm ơn bài viết hiện tại"
+            "#text": "Nội dung của bài viết này bị ẩn. Sau khi bạn bày tỏ cảm xúc với bài viết, hãy tải lại trang để xem nội dung ẩn."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Nội dung ẩn (Bạn phải đăng ký và nhận được ít nhất {0} lời cảm ơn.)"
+            "#text": "Nội dung ẩn (Bạn phải đăng ký và nhận được ít nhất {0} lượt cảm xúc.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Thẻ này ẩn nội dung cho đến khi người xem nhấn nút cảm ơn cho bài viết."
+            "#text": "Thẻ này ẩn nội dung cho đến khi người xem bày tỏ cảm xúc với bài viết."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Nội dung ẩn (Bạn phải đăng ký và trả lời bài viết hoặc gửi lời cảm ơn để xem nội dung ẩn.)"
+            "#text": "Nội dung ẩn (Bạn phải đăng ký và trả lời bài viết hoặc bày tỏ cảm xúc với bài viết để xem nội dung ẩn.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Thẻ này ẩn nội dung cho đến khi người xem trả lời trong cùng chủ đề hoặc nhấn nút cảm ơn cho bài viết."
+            "#text": "Thẻ này ẩn nội dung cho đến khi người xem trả lời trong cùng chủ đề hoặc bày tỏ cảm xúc với bài viết."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Thẻ này ẩn nội dung với những người nhận được ít hơn X lời cảm ơn."
+            "#text": "Thẻ này ẩn nội dung với những người nhận được ít hơn X lượt cảm xúc."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",

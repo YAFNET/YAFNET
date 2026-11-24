@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" não é um valor de secção IP válido (deve ser inferior a 255)."
+            "#text": "\"{0}\" não é um valor de secção IP válido (deve ser igual ou inferior a 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Ativa/desativa o menu Partilhar, com o qual um utilizador pode enviar um tópico por e-mail, publicá-lo no Twitter ou no Buzz, dar \"Gosto\" no Facebook ou partilhá-lo no Reddit ou no Tumblr."
+            "#text": "Ativa/desativa o menu Partilhar de um tópico, com o qual um utilizador pode enviar o tópico por e-mail ou copiar a sua ligação."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "O conteúdo desta mensagem está oculto. Depois de AGRADECER ao autor, recarregue a página para ver o conteúdo oculto. Tem de agradecer esta mensagem"
+            "#text": "O conteúdo desta mensagem está oculto. Depois de reagir à mensagem, recarregue a página para ver o conteúdo oculto."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Conteúdo oculto (tem de estar registado e ter recebido pelo menos {0} agradecimento(s).)"
+            "#text": "Conteúdo oculto (tem de estar registado e ter recebido pelo menos {0} reação(ões).)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Esta etiqueta oculta o conteúdo até se carregar no botão de agradecimento da mensagem."
+            "#text": "Esta etiqueta oculta o conteúdo até se reagir à mensagem."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Conteúdo oculto (tem de estar registado e responder à mensagem, ou agradecê-la, para ver o conteúdo oculto.)"
+            "#text": "Conteúdo oculto (tem de estar registado e responder à mensagem, ou reagir a ela, para ver o conteúdo oculto.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "A etiqueta oculta o conteúdo até se responder no mesmo tópico ou carregar no botão de agradecimento da mensagem."
+            "#text": "A etiqueta oculta o conteúdo até se responder no mesmo tópico ou reagir à mensagem."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "A etiqueta oculta o conteúdo a quem recebeu menos de X agradecimentos."
+            "#text": "A etiqueta oculta o conteúdo a quem recebeu menos de X reações."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "recebeu uma medalha no fórum {0}"
+            "#text": "Recebeu uma medalha no fórum {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

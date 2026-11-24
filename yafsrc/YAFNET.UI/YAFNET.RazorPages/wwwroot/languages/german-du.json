@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" ist kein gültiger Wert für einen IP-Abschnitt (muss kleiner als 255 sein)."
+            "#text": "\"{0}\" ist kein gültiger Wert für einen IP-Abschnitt (muss 255 oder kleiner sein)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Schaltet das Teilen-Menü ein oder aus, mit dem ein Benutzer ein Thema per E-Mail, Tweet, Buzz, Like auf Facebook, Reddit oder Tumblr teilen kann."
+            "#text": "Schaltet das Teilen-Menü eines Themas ein oder aus, mit dem ein Benutzer das Thema per E-Mail senden oder seinen Link kopieren kann."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Zurzeit gibt es keine Medaillen. Füge eine neue Medaille mit dem Button [b]Neue Medaille hinzufügen[/b] unten hinzu."
+            "#text": "Zurzeit gibt es keine Medaillen. Füge eine neue Medaille mit dem Button [b]Neue Medaille[/b] unten hinzu."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Der Inhalt dieses Beitrags ist verborgen. Nachdem du dem Autor GEDANKT hast, lade die Seite neu, um den verborgenen Inhalt zu sehen. Du musst für den aktuellen Beitrag danken"
+            "#text": "Der Inhalt dieses Beitrags ist verborgen. Nachdem du auf den Beitrag reagiert hast, lade die Seite neu, um den verborgenen Inhalt zu sehen."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Verborgener Inhalt (du musst registriert sein und mindestens {0} Dank erhalten haben.)"
+            "#text": "Verborgener Inhalt (du musst registriert sein und mindestens {0} Reaktion(en) erhalten haben.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Dieses Tag verbirgt den Inhalt, bis der Leser für den Beitrag dankt."
+            "#text": "Dieses Tag verbirgt den Inhalt, bis der Leser auf den Beitrag reagiert."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Verborgener Inhalt (du musst registriert sein und auf den Beitrag antworten oder danken, um den verborgenen Inhalt zu sehen.)"
+            "#text": "Verborgener Inhalt (du musst registriert sein und auf den Beitrag antworten oder darauf reagieren, um den verborgenen Inhalt zu sehen.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Das Tag verbirgt den Inhalt, bis der Leser im selben Thema antwortet oder für den Beitrag dankt."
+            "#text": "Das Tag verbirgt den Inhalt, bis der Leser im selben Thema antwortet oder auf den Beitrag reagiert."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Das Tag verbirgt den Inhalt vor Benutzern, die weniger als X Dank erhalten haben."
+            "#text": "Das Tag verbirgt den Inhalt vor Benutzern, die weniger als X Reaktionen erhalten haben."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8591,7 +8591,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "Dir wurde im Forum {0} eine Auszeichnung verliehen"
+            "#text": "Dir wurde im Forum {0} eine Medaille verliehen"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

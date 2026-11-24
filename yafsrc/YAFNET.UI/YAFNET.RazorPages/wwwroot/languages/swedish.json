@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Registrerar sig på forumet"
+            "#text": "Loggar in"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" är inte ett giltigt IP-sektionsvärde (måste vara mindre än 255)."
+            "#text": "\"{0}\" är inte ett giltigt IP-sektionsvärde (måste vara 255 eller mindre)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -3410,7 +3410,7 @@
           },
           {
             "@tag": "RANK_DESC_HELP",
-            "#text": "Ange här en rollbeskrivning."
+            "#text": "Ange här en beskrivning av rangen."
           },
           {
             "@tag": "RANK_NAME",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverar/inaktiverar delningsmenyn, där en användare kan dela ett ämne via e-post, Tweet, Buzz, Gilla på Facebook, Reddit eller Tumblr."
+            "#text": "Aktiverar/inaktiverar delningsmenyn för ett ämne, där en användare kan skicka ämnet via e-post eller kopiera länken till det."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -6134,7 +6134,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "För närvarande finns det inga medaljer. Lägg till en ny medalj genom att klicka på knappen [b]Lägg till ny medalj[/b] nedan."
+            "#text": "För närvarande finns det inga medaljer. Lägg till en ny medalj genom att klicka på knappen [b]Ny medalj[/b] nedan."
           },
           {
             "@tag": "NEW_MEDAL",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Innehållet i det här inlägget är dolt. När du har TACKAT skribenten uppdaterar du sidan för att se det dolda innehållet. Du måste tacka för det aktuella inlägget"
+            "#text": "Innehållet i det här inlägget är dolt. När du har reagerat på inlägget uppdaterar du sidan för att se det dolda innehållet."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Dolt innehåll (Du måste vara registrerad och ha fått minst {0} tack.)"
+            "#text": "Dolt innehåll (Du måste vara registrerad och ha fått minst {0} reaktion(er).)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Den här taggen döljer innehållet för människor tills de trycker på tackknappen för inlägget."
+            "#text": "Den här taggen döljer innehållet för människor tills de reagerar på inlägget."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Dolt innehåll (Du måste vara registrerad och svara på inlägget eller tacka för att se det dolda innehållet.)"
+            "#text": "Dolt innehåll (Du måste vara registrerad och svara på inlägget eller reagera på det för att se det dolda innehållet.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Taggen döljer innehållet för andra tills de antingen svarar i samma ämne eller trycker på knappen Tack för inlägget."
+            "#text": "Taggen döljer innehållet för andra tills de antingen svarar i samma ämne eller reagerar på inlägget."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Taggen döljer innehåll från personer som har fått färre än X tack."
+            "#text": "Taggen döljer innehåll från personer som har fått färre än X reaktioner."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "du har tilldelats en utmärkelse på forumet {0}"
+            "#text": "Du har tilldelats en medalj på forumet {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

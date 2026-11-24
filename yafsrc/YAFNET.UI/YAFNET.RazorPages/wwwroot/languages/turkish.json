@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" geçerli bir IP bölümü değeri değildir (255'ten küçük olmalıdır)."
+            "#text": "\"{0}\" geçerli bir IP bölümü değeri değildir (255 veya daha küçük olmalıdır)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4235,7 +4235,7 @@
           },
           {
             "@tag": "ALLOW_NOTIFICATION_ONALL_HELP",
-            "#text": "Kullanıcıların tüm e-postalarda bireysel e-posta bildirimleri almasına izin verin -- tonlarca e-posta trafiği."
+            "#text": "Kullanıcıların tüm mesajlar için bireysel e-posta bildirimleri almasına izin verin -- tonlarca e-posta trafiği."
           },
           {
             "@tag": "ALLOW_PM_NOTIFICATION",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Kullanıcının bir Konuyu E-posta, Tweet, Buzz, Facebook, Reddit veya Tumblr'da Beğenebileceği Paylaş Menüsünü etkinleştirir/devre dışı bırakır."
+            "#text": "Bir konunun, kullanıcının konuyu e-postayla gönderebileceği veya bağlantısını kopyalayabileceği Paylaş menüsünü etkinleştirir/devre dışı bırakır."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Bu mesajın içeriği gizlidir. Mesajın yazarına TEŞEKKÜR ettikten sonra gizli içeriği görmek için sayfayı yenileyin. Bu mesaja teşekkür etmeniz gerekiyor"
+            "#text": "Bu mesajın içeriği gizlidir. Mesaja tepki verdikten sonra gizli içeriği görmek için sayfayı yenileyin."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Gizli İçerik (Kayıtlı olmanız ve en az {0} teşekkür almış olmanız gerekir.)"
+            "#text": "Gizli İçerik (Kayıtlı olmanız ve en az {0} tepki almış olmanız gerekir.)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Bu etiket, kullanıcılar mesaj için teşekkür düğmesine basana kadar içeriği gizler."
+            "#text": "Bu etiket, kullanıcılar mesaja tepki verene kadar içeriği gizler."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Gizli İçerik (Gizli içeriği görmek için kayıtlı olmanız ve mesaja cevap vermeniz veya teşekkür etmeniz gerekir.)"
+            "#text": "Gizli İçerik (Gizli içeriği görmek için kayıtlı olmanız ve mesaja cevap vermeniz veya tepki vermeniz gerekir.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Bu etiket, kullanıcılar aynı konuda cevap verene veya mesaj için teşekkür düğmesine basana kadar içeriği gizler."
+            "#text": "Bu etiket, kullanıcılar aynı konuda cevap verene veya mesaja tepki verene kadar içeriği gizler."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Bu etiket, içeriği X'ten az teşekkür almış kullanıcılardan gizler."
+            "#text": "Bu etiket, içeriği X'ten az tepki almış kullanıcılardan gizler."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "{0} Forumunda ödüllendirildiniz"
+            "#text": "{0} Forumunda size madalya verildi"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

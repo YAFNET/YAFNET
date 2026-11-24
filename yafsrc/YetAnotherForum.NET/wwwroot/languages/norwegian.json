@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Registrerer på forumet"
+            "#text": "Logger inn"
           },
           {
             "@tag": "LOGOUT",
@@ -1465,7 +1465,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "«{0}» er ikke en gyldig IP-delverdi (må være mindre enn 255)."
+            "#text": "«{0}» er ikke en gyldig IP-delverdi (må være 255 eller mindre)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -3410,7 +3410,7 @@
           },
           {
             "@tag": "RANK_DESC_HELP",
-            "#text": "Skriv inn en rollebeskrivelse her."
+            "#text": "Skriv inn en beskrivelse av rangen her."
           },
           {
             "@tag": "RANK_NAME",
@@ -4283,7 +4283,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverer/deaktiverer delingsmenyen, der en bruker kan dele et emne via e-post, Tweet, Buzz, Liker på Facebook, Reddit eller Tumblr."
+            "#text": "Aktiverer/deaktiverer delingsmenyen for et emne, der en bruker kan sende emnet via e-post eller kopiere lenken til det."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -7876,7 +7876,7 @@
           },
           {
             "@tag": "HIDDENMOD_DESC",
-            "#text": "Innholdet i dette innlegget er skjult. Når du har TAKKET forfatteren av innlegget, oppdaterer du siden for å se det skjulte innholdet. Du må takke for dette innlegget"
+            "#text": "Innholdet i dette innlegget er skjult. Når du har reagert på innlegget, oppdaterer du siden for å se det skjulte innholdet."
           },
           {
             "@tag": "HIDDENMOD_GROUP",
@@ -7892,7 +7892,7 @@
           },
           {
             "@tag": "HIDDENMOD_THANKS",
-            "#text": "Skjult innhold (Du må være registrert og ha mottatt minst {0} takk.)"
+            "#text": "Skjult innhold (Du må være registrert og ha mottatt minst {0} reaksjon(er).)"
           },
           {
             "@tag": "HIDEGROUPMOD_DESCRIPTION",
@@ -7900,7 +7900,7 @@
           },
           {
             "@tag": "HIDEMOD_DESCRIPTION",
-            "#text": "Denne taggen skjuler innhold for folk til de trykker på takkeknappen for innlegget."
+            "#text": "Denne taggen skjuler innhold for folk til de reagerer på innlegget."
           },
           {
             "@tag": "HIDEMOD_REPLY",
@@ -7908,7 +7908,7 @@
           },
           {
             "@tag": "HIDEMOD_REPLYTHANKS",
-            "#text": "Skjult innhold (Du må være registrert og svare på innlegget eller takke for å se det skjulte innholdet.)"
+            "#text": "Skjult innhold (Du må være registrert og svare på innlegget eller reagere på det for å se det skjulte innholdet.)"
           },
           {
             "@tag": "HIDEPOSTS_DESCRIPTION",
@@ -7920,11 +7920,11 @@
           },
           {
             "@tag": "HIDEREPLYTHANKS_DESCRIPTION",
-            "#text": "Taggen skjuler innhold for folk til de enten svarer i samme emne eller trykker på takkeknappen for innlegget."
+            "#text": "Taggen skjuler innhold for folk til de enten svarer i samme emne eller reagerer på innlegget."
           },
           {
             "@tag": "HIDETHANKS_DESCRIPTION",
-            "#text": "Taggen skjuler innhold for personer som har mottatt færre enn X takk."
+            "#text": "Taggen skjuler innhold for personer som har mottatt færre enn X reaksjoner."
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
@@ -8595,7 +8595,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "du har fått en medalje i forumet {0}"
+            "#text": "Du har fått en medalje i forumet {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -12679,7 +12679,7 @@
           },
           {
             "@tag": "SELECT_FORUM",
-            "#text": "Velg hvilket forum du vil flytte innlegget til:"
+            "#text": "Velg hvilket forum du vil flytte emnet til:"
           },
           {
             "@tag": "TITLE",
