@@ -202,6 +202,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Spam Check Words: the search box showed "Mask" and the edit dialog the label "Bad" (Find) Expression with the help of the replace words (the texts of the page did not exist, other pages were used); they show "Spam" Word (Find) Expression now
 [FIXED] Host > DB Maintenance: "Not Supported by ... Server" (e.g. shrink on PostgreSQL) was shown as a green success message; it is a warning now, like the recovery mode
 [FIXED] Admin > Digest: "Send Test" reported "Sent via Direct successfully." also when there were no new or active topics and nothing was sent, an error showed the whole stack trace, and "Last Digest Sent" was shifted by the time zone of the server (saved in server time, shown as utc); the test says it was sent to the address, or that the digest is empty, errors show their message; all languages
+[FIXED] Admin menu: an admin whose only page of the Maintenance section is "Private Messages" did not see the section (the check of the section left the page out)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

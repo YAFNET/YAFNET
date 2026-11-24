@@ -94,7 +94,7 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Maintenance Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_EventLog"))
+                x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_Pm" or "Admin_EventLog"))
         {
             content.AppendHtml(RenderAdminMaintenance(pagesAccess, context));
         }
@@ -571,7 +571,7 @@ public static class AdminMenuHtmlHelper
                 context.Get<ILocalization>().GetText("ADMINMENU", "Maintenance"),
                 "#",
                 context.CurrentForumPage.PageName is ForumPages.Admin_Attachments or ForumPages.Admin_Tags or
-                    ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_EventLog,
+                    ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_Pm or ForumPages.Admin_EventLog,
                 true,
                 "toolbox"));
 
