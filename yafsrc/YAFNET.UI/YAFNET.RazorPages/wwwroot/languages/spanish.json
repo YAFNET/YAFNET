@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token usado para llamadas seguras al servicio web. Cambia constantemente hasta que guarde la configuración del servidor."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Mostrar temas similares en un tema nuevo:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "¿Se deben mostrar los temas con un asunto similar mientras un usuario escribe el asunto de un tema nuevo?"
           }
         ]
       },

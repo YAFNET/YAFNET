@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于安全调用 Web 服务的令牌。在保存主机设置之前会不断变化。"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "新建主题时显示相似主题："
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "用户输入新主题的标题时，是否显示标题相似的主题。"
           }
         ]
       },

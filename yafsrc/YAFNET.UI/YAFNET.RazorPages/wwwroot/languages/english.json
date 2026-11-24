@@ -6004,6 +6004,14 @@
                 {
                     "@tag": "WSERVICE_TOKEN_HELP",
                     "#text": "Token used to make secure web service calls. Constantly changing until you save your host settings."
+                },
+                {
+                    "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+                    "#text": "Show Similar Topics on New Topic:"
+                },
+                {
+                    "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+                    "#text": "Should topics with a similar subject be listed while a user types the subject of a new topic."
                 }
             ]
         },

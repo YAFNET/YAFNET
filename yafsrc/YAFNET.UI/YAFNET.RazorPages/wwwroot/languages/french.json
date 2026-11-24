@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Jeton utilisé pour sécuriser les appels au service web. Il change à chaque fois jusqu'à ce que vous enregistriez les paramètres de l'hôte."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Afficher les sujets similaires pour un nouveau sujet :"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Les sujets avec un titre similaire doivent-ils être affichés pendant qu'un utilisateur saisit le titre d'un nouveau sujet."
           }
         ]
       },

@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som används för säkra anrop till webbtjänsten. Ändras hela tiden tills du sparar värdinställningarna."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Visa liknande ämnen vid nytt ämne:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Ska ämnen med en liknande rubrik visas medan en användare skriver rubriken för ett nytt ämne."
           }
         ]
       },

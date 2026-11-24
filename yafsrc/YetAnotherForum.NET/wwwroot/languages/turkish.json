@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Yeni konuda benzer konuları göster:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Kullanıcı yeni bir konunun başlığını yazarken benzer başlıklı konular gösterilsin mi."
           }
         ]
       },

@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Tunnus, jota käytetään suojattuihin verkkopalvelukutsuihin. Vaihtuu jatkuvasti, kunnes tallennat palvelimen asetukset."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Näytä samankaltaiset aiheet uutta aihetta luotaessa:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Näytetäänkö aiheet, joilla on samankaltainen otsikko, kun käyttäjä kirjoittaa uuden aiheen otsikkoa."
           }
         ]
       },

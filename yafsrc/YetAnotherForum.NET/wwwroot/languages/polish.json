@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token używany do bezpiecznych wywołań usług sieciowych. Zmienia się, dopóki nie zapiszesz ustawień hosta."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Pokazuj podobne tematy przy nowym temacie:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Czy tematy o podobnym tytule mają być wyświetlane, gdy użytkownik wpisuje tytuł nowego tematu."
           }
         ]
       },

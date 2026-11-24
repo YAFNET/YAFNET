@@ -6004,6 +6004,14 @@
           {
             "@tag": "ENABLE_LIVEUPDATES_HELP",
             "#text": "Neue Themen und Beiträge werden auf den geöffneten Seiten (aktive Diskussionen, Forenliste, Themenliste und das Thema) angezeigt, ohne dass die Seite neu geladen werden muss."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Ähnliche Themen beim neuen Thema anzeigen:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Sollen Themen mit einem ähnlichen Betreff angezeigt werden, während ein Benutzer den Betreff eines neuen Themas eingibt."
           }
         ]
       },

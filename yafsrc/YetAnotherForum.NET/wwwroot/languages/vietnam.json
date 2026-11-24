@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Mã thông báo được sử dụng để thực hiện các cuộc gọi dịch vụ web an toàn. Liên tục thay đổi cho đến khi bạn lưu cài đặt máy chủ của mình."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Hiển thị chủ đề tương tự khi tạo chủ đề mới:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Có hiển thị các chủ đề có tiêu đề tương tự khi người dùng nhập tiêu đề của chủ đề mới hay không."
           }
         ]
       },

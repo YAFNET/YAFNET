@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Tõend, mida kasutatakse turvaliste veebiteenuse päringute jaoks. Muutub pidevalt, kuni salvestate hosti seaded."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Näita sarnaseid teemasid uue teema juures:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Kas näidata sarnase pealkirjaga teemasid, kui kasutaja kirjutab uue teema pealkirja."
           }
         ]
       },

@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til sikre kall til nettjenesten. Endres hele tiden til du lagrer vertsinnstillingene."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Vis lignende emner ved nytt emne:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Skal emner med en lignende tittel vises mens en bruker skriver tittelen på et nytt emne."
           }
         ]
       },

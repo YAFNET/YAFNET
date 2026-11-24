@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Žetonas, naudojamas saugiems žiniatinklio paslaugos iškvietimams. Nuolat keičiasi, kol išsaugosite serverio nustatymus."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Rodyti panašias temas kuriant naują temą:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Ar rodyti temas panašiu pavadinimu, kol naudotojas rašo naujos temos pavadinimą."
           }
         ]
       },

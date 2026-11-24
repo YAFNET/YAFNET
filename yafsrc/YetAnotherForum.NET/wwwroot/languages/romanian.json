@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizat pentru a efectua apeluri securizate de servicii web. Se schimbă constant până când salvați setările de gazdă."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Afișează subiecte similare la subiect nou:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Se afișează subiectele cu un titlu similar în timp ce un utilizator scrie titlul unui subiect nou."
           }
         ]
       },

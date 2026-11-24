@@ -6004,6 +6004,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token voor beveiligde aanroepen van de webservice. Wijzigt voortdurend tot je de hostinstellingen opslaat."
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC",
+            "#text": "Vergelijkbare topics tonen bij nieuw topic:"
+          },
+          {
+            "@tag": "SHOW_SIMILARTOPICS_POSTTOPIC_HELP",
+            "#text": "Moeten topics met een vergelijkbaar onderwerp worden getoond terwijl een gebruiker het onderwerp van een nieuw topic typt."
           }
         ]
       },
