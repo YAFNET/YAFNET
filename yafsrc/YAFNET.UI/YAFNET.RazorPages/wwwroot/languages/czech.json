@@ -4322,14 +4322,6 @@
             "#text": "Umožnit uživatelům dostávat jednotlivá e-mailová upozornění na všechny příspěvky – obrovské množství e-mailů."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Povolit upozornění na soukromé zprávy:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Povolit uživatelům e-mailová upozornění, když dorazí nové soukromé zprávy."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Povolit soukromé zprávy:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Umožňuje nahrávat a používat přílohy v soukromých zprávách."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Max. velikost souboru obrázků v anketách:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Maximální velikost souboru obrázku v anketě v kilobajtech."
           },
           {
             "@tag": "POPULAR_DAYS",

@@ -4322,14 +4322,6 @@
             "#text": "Consente agli utenti di ricevere una notifica e-mail per ogni messaggio -- moltissime e-mail."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Consentire le notifiche dei messaggi privati:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Consente agli utenti di ricevere notifiche e-mail all'arrivo di nuovi messaggi privati."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Consentire i messaggi privati:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Consente il caricamento e l'uso di allegati nei messaggi privati."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Dimensione max. delle immagini dei sondaggi:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Dimensione massima in kilobyte di un'immagine di sondaggio."
           },
           {
             "@tag": "POPULAR_DAYS",

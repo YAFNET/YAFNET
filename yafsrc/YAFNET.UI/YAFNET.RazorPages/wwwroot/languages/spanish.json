@@ -4322,14 +4322,6 @@
             "#text": "Permite a los usuarios recibir notificaciones individuales por correo electrónico de todos los mensajes; genera muchísimo tráfico de correo."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Permitir notificaciones de mensajes privados:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Permite a los usuarios recibir notificaciones por correo electrónico cuando llegan nuevos mensajes privados."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Permitir mensajes privados:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Permite subir y usar adjuntos en los mensajes privados."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Tamaño máximo de archivo de las imágenes de encuestas:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Defina el tamaño máximo de archivo en kilobytes de una imagen de encuesta."
           },
           {
             "@tag": "POPULAR_DAYS",

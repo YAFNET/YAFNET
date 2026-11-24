@@ -4322,14 +4322,6 @@
             "#text": "Salli käyttäjien saada oma sähköposti-ilmoitus jokaisesta viestistä – valtavasti sähköpostiliikennettä."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Salli yksityisviesti-ilmoitukset:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Salli käyttäjille sähköposti-ilmoitukset uusien yksityisviestien saapumisesta."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Salli yksityisviestit:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Sallii liitteiden lähettämisen ja käytön yksityisviesteissä."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Käyttäjien kyselykuvien enimmäistiedostokoko:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Määritä kyselykuvan enimmäistiedostokoko kilotavuina."
           },
           {
             "@tag": "POPULAR_DAYS",

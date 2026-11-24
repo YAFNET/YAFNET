@@ -4322,14 +4322,6 @@
             "#text": "Leisti naudotojams gauti atskirą el. pašto pranešimą apie kiekvieną pranešimą – labai daug el. laiškų."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Leisti pranešimus apie privačias žinutes:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Leisti naudotojams gauti pranešimus el. paštu, kai gaunamos naujos privačios žinutės."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Leisti privačias žinutes:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Leidžia įkelti ir naudoti priedus privačiose žinutėse."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Didžiausias apklausų paveikslėlių failo dydis:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Nurodykite didžiausią apklausos paveikslėlio failo dydį kilobaitais."
           },
           {
             "@tag": "POPULAR_DAYS",

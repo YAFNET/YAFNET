@@ -4322,14 +4322,6 @@
             "#text": "Pozwala użytkownikom otrzymywać osobne powiadomienia e-mail o wszystkich postach -- ogromna liczba e-maili."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Zezwalaj na powiadomienia o prywatnych wiadomościach:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Pozwala użytkownikom otrzymywać powiadomienia e-mail o nowych prywatnych wiadomościach."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Zezwalaj na prywatne wiadomości:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Pozwala przesyłać i używać załączników w prywatnych wiadomościach."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Maks. rozmiar pliku obrazów w ankietach:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Maksymalny rozmiar pliku obrazu w ankiecie użytkownika w kilobajtach."
           },
           {
             "@tag": "POPULAR_DAYS",

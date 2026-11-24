@@ -4322,14 +4322,6 @@
             "#text": "Permiteți utilizatorilor să primească notificări individuale prin e-mail pentru toate postările -- un trafic uriaș de e-mailuri."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Permiteți notificările de mesaje private:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Permiteți utilizatorilor să primească notificări prin e-mail atunci când sosesc noi mesaje private."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Permiteți mesajele private:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Permite încărcarea și folosirea atașamentelor în mesajele private."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Dimensiunea maximă a fișierului pentru imaginile din sondaje:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Definiți dimensiunea maximă în kilobytes a unei imagini dintr-un sondaj."
           },
           {
             "@tag": "POPULAR_DAYS",

@@ -4322,14 +4322,6 @@
             "#text": "Erlaubt Benutzern, für alle Beiträge einzelne E-Mail-Benachrichtigungen zu erhalten -- sehr viel E-Mail-Verkehr."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Benachrichtigungen über private Nachrichten erlauben:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Erlaubt Benutzern, per E-Mail benachrichtigt zu werden, wenn neue private Nachrichten eintreffen."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Private Nachrichten erlauben:"
           },
@@ -5348,14 +5340,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Erlaubt das Hochladen und Verwenden von Anhängen in privaten Nachrichten."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Maximale Dateigröße für Bilder in Umfragen:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Lege die maximale Dateigröße in Kilobyte für ein Bild in einer Umfrage fest."
           },
           {
             "@tag": "POPULAR_DAYS",

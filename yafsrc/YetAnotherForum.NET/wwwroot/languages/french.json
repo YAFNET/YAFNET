@@ -4322,14 +4322,6 @@
             "#text": "Permet aux utilisateurs de recevoir une notification par e-mail pour chaque message -- énormément d'e-mails."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Autoriser les notifications de messages privés :"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Permet aux utilisateurs de recevoir des notifications par e-mail à l'arrivée de nouveaux messages privés."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Autoriser les messages privés :"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Permet l'envoi et l'utilisation de pièces jointes dans les messages privés."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Taille max. des images de sondage :"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Taille maximale en kilo-octets d'une image de sondage."
           },
           {
             "@tag": "POPULAR_DAYS",

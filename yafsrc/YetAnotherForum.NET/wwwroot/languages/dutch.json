@@ -4322,14 +4322,6 @@
             "#text": "Gebruikers mogen voor alle berichten afzonderlijke e-mailmeldingen ontvangen -- enorm veel e-mailverkeer."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Meldingen van privéberichten toestaan:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Gebruikers mogen een e-mailmelding krijgen als er nieuwe privéberichten binnenkomen."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Privéberichten toestaan:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Staat het uploaden en gebruiken van bijlagen in privéberichten toe."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Maximale bestandsgrootte van afbeeldingen in polls:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Geef de maximale bestandsgrootte in kilobytes op voor een afbeelding in een poll."
           },
           {
             "@tag": "POPULAR_DAYS",

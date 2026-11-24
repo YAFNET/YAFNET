@@ -4322,14 +4322,6 @@
             "#text": "Låt användarna få individuella e-postaviseringar om alla inlägg -- massor av e-posttrafik."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Tillåt aviseringar om privata meddelanden:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Tillåt användare att få e-postaviseringar när nya privata meddelanden kommer in."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Tillåt privata meddelanden:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Tillåter uppladdning och användning av bilagor i privata meddelanden."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Max filstorlek för bilder i omröstningar:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Ange den maximala filstorleken i kilobyte för en bild i en omröstning."
           },
           {
             "@tag": "POPULAR_DAYS",

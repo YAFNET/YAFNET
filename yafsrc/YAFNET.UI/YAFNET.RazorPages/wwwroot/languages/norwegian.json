@@ -4322,14 +4322,6 @@
             "#text": "Lar brukere få et eget e-postvarsel for hvert innlegg – svært mye e-posttrafikk."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Tillat varsler om private meldinger:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Lar brukere få e-postvarsler når nye private meldinger kommer."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Tillat private meldinger:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Tillater opplasting og bruk av vedlegg i private meldinger."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Maks filstørrelse for bilder i brukernes avstemninger:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Angi maks filstørrelse i kilobyte for et bilde i en avstemning."
           },
           {
             "@tag": "POPULAR_DAYS",

@@ -4322,14 +4322,6 @@
             "#text": "Cho phép người dùng nhận email thông báo riêng cho mọi bài viết -- rất nhiều email."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Cho phép thông báo tin nhắn riêng:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Cho phép người dùng nhận thông báo qua email khi có tin nhắn riêng mới."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Cho phép tin nhắn riêng:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Cho phép tải lên và sử dụng tệp đính kèm trong tin nhắn riêng."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Kích thước tệp tối đa cho hình ảnh thăm dò của người dùng:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Xác định kích thước tệp tối đa (KB) cho một hình ảnh thăm dò của người dùng."
           },
           {
             "@tag": "POPULAR_DAYS",

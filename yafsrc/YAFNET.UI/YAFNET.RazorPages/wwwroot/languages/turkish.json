@@ -4322,14 +4322,6 @@
             "#text": "Kullanıcıların tüm mesajlar için bireysel e-posta bildirimleri almasına izin verin -- tonlarca e-posta trafiği."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Özel Mesaj Bildirimlerine İzin Ver:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Yeni özel mesajlar geldiğinde kullanıcıların e-posta bildirimlerine izin verin."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Özel Mesajlara İzin Ver:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Özel mesajlarda ek yüklenmesine ve kullanılmasına izin verir."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Kullanıcı Anket Resimleri için Maks. Dosya Boyutu:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Bir kullanıcı anket resmi için kilobayt cinsinden maksimum dosya boyutunu tanımlayın."
           },
           {
             "@tag": "POPULAR_DAYS",

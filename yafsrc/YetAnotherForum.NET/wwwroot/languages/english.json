@@ -4314,14 +4314,6 @@
                     "#text": "Allow users to get individual email notifications on all posts -- tons of email traffic."
                 },
                 {
-                    "@tag": "ALLOW_PM_NOTIFICATION",
-                    "#text": "Allow Private Message Notifications:"
-                },
-                {
-                    "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-                    "#text": "Allow users to get email notifications when new private messages arrive."
-                },
-                {
                     "@tag": "ALLOW_PMS",
                     "#text": "Allow Private Messages:"
                 },
@@ -5348,14 +5340,6 @@
                 {
                     "@tag": "PM_ATTACHMENTS_HELP",
                     "#text": "Allows the upload and use of attachments in Private messages."
-                },
-                {
-                    "@tag": "POLL_IMAGE_FILESIZE",
-                    "#text": "Max. File Size for User Poll Images:"
-                },
-                {
-                    "@tag": "POLL_IMAGE_FILESIZE_HELP",
-                    "#text": "Define the Max. File Size in Kilo Bytes for a User Poll Image."
                 },
                 {
                     "@tag": "POPULAR_DAYS",

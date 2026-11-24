@@ -4322,14 +4322,6 @@
             "#text": "Luba kasutajatel saada iga postituse kohta eraldi e-posti teavitus – väga palju e-kirju."
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "Luba privaatsõnumite teavitused:"
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "Luba kasutajatel saada uute privaatsõnumite saabumisel teavitus e-postiga."
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "Luba privaatsõnumid:"
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "Lubab privaatsõnumites manuseid üles laadida ja kasutada."
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Kasutajate küsitluspiltide maksimaalne faili suurus:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Määrake küsitluspildi maksimaalne faili suurus kilobaitides."
           },
           {
             "@tag": "POPULAR_DAYS",

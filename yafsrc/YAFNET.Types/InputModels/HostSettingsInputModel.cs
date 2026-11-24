@@ -35,11 +35,6 @@ public class HostSettingsInputModel
     /// <value><c>true</c> if [log banned ip]; otherwise, <c>false</c>.</value>
     public bool LogBannedIP { get; set; }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether [allow pm email notification].
-    /// </summary>
-    /// <value><c>true</c> if [allow pm email notification]; otherwise, <c>false</c>.</value>
-    public bool AllowPMEmailNotification { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [enable ip information service].
@@ -854,11 +849,6 @@ public class HostSettingsInputModel
     /// <value>The hover card open delay.</value>
     public int HoverCardOpenDelay { get; set; }
 
-    /// <summary>
-    /// Gets or sets the size of the poll image maximum file.
-    /// </summary>
-    /// <value>The size of the poll image maximum file.</value>
-    public int PollImageMaxFileSize { get; set; }
 
     /// <summary>
     /// Gets or sets the popular topic views.

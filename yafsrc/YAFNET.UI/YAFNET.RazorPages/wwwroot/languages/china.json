@@ -4322,14 +4322,6 @@
             "#text": "允许用户为所有帖子单独接收电子邮件通知——会产生大量电子邮件流量。"
           },
           {
-            "@tag": "ALLOW_PM_NOTIFICATION",
-            "#text": "允许私信通知："
-          },
-          {
-            "@tag": "ALLOW_PM_NOTIFICATION_HELP",
-            "#text": "允许用户在收到新私信时接收电子邮件通知。"
-          },
-          {
             "@tag": "ALLOW_PMS",
             "#text": "允许私信："
           },
@@ -5356,14 +5348,6 @@
           {
             "@tag": "PM_ATTACHMENTS_HELP",
             "#text": "允许在私信中上传和使用附件。"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "用户投票图片的最大文件大小："
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "定义用户投票图片的最大文件大小（KB）。"
           },
           {
             "@tag": "POPULAR_DAYS",
