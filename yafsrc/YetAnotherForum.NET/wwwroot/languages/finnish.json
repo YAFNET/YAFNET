@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Lopettaa automaattisesti \"Älä seuraa\" -merkittyjen käyttäjien, kuten hakukoneiden ja bottien, istunnot. Ota käyttöön, jos sinulla on ongelmia istuntojen kanssa."
+            "#text": "Hakukoneet ja botit eivät saa istuntoa: indeksoija, joka ei säilytä istuntoevästettä, saa istunnon vain pyyntöään varten, joten sen pyynnöt eivät täytä palvelimen muistia istunnoilla."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

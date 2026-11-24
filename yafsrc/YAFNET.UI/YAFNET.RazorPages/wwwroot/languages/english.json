@@ -4175,7 +4175,7 @@
                 },
                 {
                     "@tag": "ABANDON_TRACKUSR_HELP",
-                    "#text": "Automatically abandon sessions for users who are marked as \"Don't Track\" such as Search Engines and Bots. Enable if you're having any session issues."
+                    "#text": "Search engines and bots get no session: a crawler that does not keep the session cookie gets a session only for its request, so its requests do not fill the memory of the server with sessions."
                 },
                 {
                     "@tag": "ACTIVE_USERTIME",

@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Abandonează automat sesiunile utilizatorilor marcați ca „Don't Track”, cum ar fi motoarele de căutare și roboții. Activați dacă aveți probleme cu sesiunile."
+            "#text": "Motoarele de căutare și boții nu primesc sesiune: un crawler care nu păstrează cookie-ul de sesiune primește o sesiune doar pentru cererea sa, astfel cererile sale nu umplu memoria serverului cu sesiuni."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

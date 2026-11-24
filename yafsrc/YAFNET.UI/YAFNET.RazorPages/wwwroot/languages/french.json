@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Abandonner automatiquement les sessions pour les utilisateurs qui sont marqués comme \"Don't Track\" tels que les moteurs de recherche et les robots. Activez cette fonction si vous rencontrez des problèmes de session."
+            "#text": "Les moteurs de recherche et les robots n'ont pas de session : un robot qui ne garde pas le cookie de session reçoit une session uniquement pour sa requête, ainsi ses requêtes ne remplissent pas la mémoire du serveur de sessions."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

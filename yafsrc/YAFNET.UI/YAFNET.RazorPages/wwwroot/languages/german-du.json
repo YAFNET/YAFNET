@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Verwirft automatisch die Sessions von Benutzern, die als \"Don't Track\" markiert sind, z. B. Suchmaschinen und Bots. Aktiviere diese Option, wenn du Probleme mit Sessions hast."
+            "#text": "Suchmaschinen und Bots erhalten keine Sitzung: Ein Crawler, der das Sitzungs-Cookie nicht behält, erhält nur für seine Anfrage eine Sitzung, damit seine Anfragen den Speicher des Servers nicht mit Sitzungen füllen."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

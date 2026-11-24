@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Avbryt automatiskt sessioner för användare som är markerade som \"Don't Track\", t.ex. sökmotorer och botar. Aktivera om du har problem med sessioner."
+            "#text": "Sökmotorer och botar får ingen session: en crawler som inte behåller sessionskakan får bara en session för sin begäran, så att dess begäranden inte fyller serverns minne med sessioner."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Arama Motorları ve Botlar gibi \"Takip Etme\" olarak işaretlenen kullanıcılar için oturumları otomatik olarak terk edin. Herhangi bir oturum sorunu yaşıyorsanız etkinleştirin."
+            "#text": "Arama motorları ve botlar oturum almaz: oturum çerezini saklamayan bir tarayıcı robotu yalnızca isteği için bir oturum alır, böylece istekleri sunucunun belleğini oturumlarla doldurmaz."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

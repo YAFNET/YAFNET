@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Automatycznie porzucaj sesje dla użytkowników oznaczonych jako \"Nie śledź\", takich jak wyszukiwarki i boty. Włącz, jeśli występują problemy z sesjami."
+            "#text": "Wyszukiwarki i boty nie otrzymują sesji: robot, który nie zachowuje ciasteczka sesji, otrzymuje sesję tylko dla swojego żądania, dzięki czemu jego żądania nie zapełniają pamięci serwera sesjami."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

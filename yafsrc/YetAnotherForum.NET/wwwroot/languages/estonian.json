@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Katkestab automaatselt nende kasutajate seansid, kellel on märge „Ära jälgi“, näiteks otsingumootorid ja robotid. Lülitage sisse, kui seanssidega on probleeme."
+            "#text": "Otsingumootorid ja robotid ei saa seanssi: robot, kes seansiküpsist ei säilita, saab seansi ainult oma päringu jaoks, nii et tema päringud ei täida serveri mälu seanssidega."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

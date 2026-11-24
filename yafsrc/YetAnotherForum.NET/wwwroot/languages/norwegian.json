@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Avslutter automatisk øktene til brukere som er merket som \"Ikke spor\", for eksempel søkemotorer og roboter. Aktiver hvis du har problemer med øktene."
+            "#text": "Søkemotorer og roboter får ingen økt: en crawler som ikke beholder øktinformasjonskapselen, får bare en økt for sin forespørsel, slik at forespørslene ikke fyller serverens minne med økter."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

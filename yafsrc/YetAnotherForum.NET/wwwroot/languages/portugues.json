@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Abandona automaticamente as sessões de utilizadores marcados como \"não rastrear\", como motores de pesquisa e bots. Ative se tiver problemas com as sessões."
+            "#text": "Os motores de pesquisa e os bots não recebem sessão: um rastreador que não guarda o cookie de sessão recebe uma sessão apenas para o seu pedido, assim os seus pedidos não enchem a memória do servidor de sessões."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Beëindig automatisch de sessies van gebruikers die als \"Don't Track\" zijn gemarkeerd, zoals zoekmachines en bots. Schakel dit in als je problemen met sessies hebt."
+            "#text": "Zoekmachines en bots krijgen geen sessie: een crawler die de sessiecookie niet bewaart, krijgt alleen voor zijn verzoek een sessie, zodat zijn verzoeken het geheugen van de server niet met sessies vullen."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

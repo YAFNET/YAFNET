@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Tự động hủy phiên của những người dùng được đánh dấu là \"Không theo dõi\", chẳng hạn như công cụ tìm kiếm và bot. Hãy bật nếu bạn gặp sự cố về phiên."
+            "#text": "Công cụ tìm kiếm và bot không nhận phiên: trình thu thập không giữ cookie phiên chỉ nhận một phiên cho yêu cầu của nó, nhờ vậy các yêu cầu của nó không làm đầy bộ nhớ máy chủ bằng các phiên."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",

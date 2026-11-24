@@ -1181,6 +1181,17 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether search engines and bots get no session (a crawler without
+    /// a session cookie gets a session only for the request, see the CrawlerSession middleware).
+    /// </summary>
+    public bool AbandonSessionsForDontTrack
+    {
+        get => this.Registry.GetValue("AbandonSessionsForDontTrack", false);
+
+        set => this.Registry.SetValue("AbandonSessionsForDontTrack", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether Show Crawlers In Active List.
     /// </summary>
     public bool ShowCrawlersInActiveList

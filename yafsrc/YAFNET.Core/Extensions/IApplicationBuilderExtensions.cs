@@ -127,6 +127,9 @@ public static class IApplicationBuilderExtensions
             app.UseMiddleware<CheckBannedUserAgents>();
             app.UseMiddleware<CheckBannedCountries>();
 
+            // search engines and bots get a session only for the request (when it is turned on)
+            app.UseMiddleware<CrawlerSession>();
+
             // Redirect the old urls to the short urls, and rewrite /category/{id}/{name} to /Index?c={id}
             app.UseRewriter(CategoryRouteHelper.AddCategoryRules(
                 new RewriteOptions().Add(new LegacyUrlRedirectRule(serviceLocator.Get<BoardConfiguration>().Area)),

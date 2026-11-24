@@ -4175,7 +4175,7 @@
           },
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
-            "#text": "Automaticky ukončovat relace uživatelů označených jako „Nesledovat“, jako jsou vyhledávače a roboti. Zapněte, pokud máte problémy s relacemi."
+            "#text": "Vyhledávače a boti nedostanou relaci: robot, který si neponechá cookie relace, dostane relaci jen pro svůj požadavek, takže jeho požadavky neplní paměť serveru relacemi."
           },
           {
             "@tag": "ABUSEIPDB_APIKEY",
