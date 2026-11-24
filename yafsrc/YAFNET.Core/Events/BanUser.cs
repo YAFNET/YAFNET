@@ -86,7 +86,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
         }
 
         // Ban Name ? (masks are regular expressions, ban only this exact name)
-        var nameMask = ExactMatch(@event.Name);
+        var nameMask = ValidationHelper.ExactBanMask(@event.Name);
 
         if (nameMask != null)
         {
@@ -97,7 +97,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
         }
 
         // Ban User Email?
-        var emailMask = ExactMatch(@event.Email);
+        var emailMask = ValidationHelper.ExactBanMask(@event.Email);
 
         if (emailMask != null)
         {
@@ -111,20 +111,4 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
         this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
     }
 
-    /// <summary>
-    /// Creates a ban mask (regular expression) that only matches the given value.
-    /// </summary>
-    /// <param name="value">The user name or e-mail address.</param>
-    /// <returns>The mask, or <c>null</c> when there is no value or the mask does not fit the mask column.</returns>
-    private static string ExactMatch(string value)
-    {
-        if (value.IsNotSet())
-        {
-            return null;
-        }
-
-        var mask = $"^{Regex.Escape(value)}$";
-
-        return mask.Length <= 255 ? mask : null;
-    }
 }

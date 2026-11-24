@@ -149,6 +149,24 @@ public static class ValidationHelper
     }
 
     /// <summary>
+    /// Creates a ban mask (regular expression) that only matches the given value (the ban checks match
+    /// a mask anywhere in the input, so a plain user name would ban every name that contains it).
+    /// </summary>
+    /// <param name="value">The user name or e-mail address.</param>
+    /// <returns>The mask, or <c>null</c> when there is no value or the mask does not fit the mask column.</returns>
+    public static string ExactBanMask(string value)
+    {
+        if (value.IsNotSet())
+        {
+            return null;
+        }
+
+        var mask = $"^{Regex.Escape(value)}$";
+
+        return mask.Length <= 255 ? mask : null;
+    }
+
+    /// <summary>
     /// Checks if a ban mask (a regular expression) matches the input like the ban checks do:
     /// not case sensitive, an invalid or too slow mask never matches.
     /// </summary>

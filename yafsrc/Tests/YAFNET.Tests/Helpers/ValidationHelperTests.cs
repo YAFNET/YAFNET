@@ -119,6 +119,27 @@ public class ValidationHelperTests
         ValidationHelper.IsValidRegex(pattern).Should().Be(expected);
     }
 
+    [TestCase("bob", "bob", true)]
+    [TestCase("bob", "Bob", true)]
+    [TestCase("bob", "bobby", false)]
+    [TestCase("bob", "a bob", false)]
+    [TestCase("john.doe+spam@example.com", "john.doe+spam@example.com", true)]
+    [TestCase("john.doe+spam@example.com", "johnXdoe+spam@example.com", false)]
+    [TestCase("john.doe+spam@example.com", "johnn.doe+spam@example.com", false)]
+    [Description("The exact ban mask of Kill & Ban only bans the value itself (the name was saved as it is, a ban mask is a regular expression matched anywhere: banning bob banned every name containing bob)")]
+    public void ExactBanMask_Only_Matches_The_Value_Test(string value, string input, bool expected)
+    {
+        ValidationHelper.IsBanMatch(input, ValidationHelper.ExactBanMask(value)).Should().Be(expected);
+    }
+
+    [Test]
+    [Description("No mask for an empty value or a value too long for the mask column")]
+    public void ExactBanMask_Empty_Or_Too_Long_Test()
+    {
+        ValidationHelper.ExactBanMask(string.Empty).Should().BeNull();
+        ValidationHelper.ExactBanMask(new string('a', 254)).Should().BeNull();
+    }
+
     /// <summary>
     /// Test the IPHelper if the ip address matches the pattern.
     /// </summary>

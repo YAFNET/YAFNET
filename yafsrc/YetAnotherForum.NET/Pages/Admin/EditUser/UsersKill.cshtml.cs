@@ -164,12 +164,12 @@ public class UsersKillModel : AdminPage
                 new { u = this.Input.UserId, tab = "View9" });
         }
 
-        // Ban User Email?
-        if (this.Input.BanEmail)
+        // Ban User Email? (the mask only matches this address, a ban mask is a regular expression)
+        if (this.Input.BanEmail && ValidationHelper.ExactBanMask(user.Item1.Email) is { } emailMask)
         {
             this.GetRepository<BannedEmail>().Save(
                 null,
-                user.Item1.Email,
+                emailMask,
                 $"Email was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
         }
 
@@ -179,12 +179,12 @@ public class UsersKillModel : AdminPage
             this.BanUserIps(user.Item1);
         }
 
-        // Ban User IP?
-        if (this.Input.BanName)
+        // Ban User Name? (the mask only matches this name, not every name that contains it)
+        if (this.Input.BanName && ValidationHelper.ExactBanMask(user.Item1.Name) is { } nameMask)
         {
             this.GetRepository<BannedName>().Save(
                 null,
-                user.Item1.Name,
+                nameMask,
                 $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
         }
 
