@@ -213,7 +213,7 @@
   </YafBBCode>
   <YafBBCode>
     <Name>ATTACH</Name>
-    <Description>[ATTACH][localization=ATTACH_DESCRIPTION]Enter a Album Image Number[/localization][/ATTACH]</Description>
+    <Description>[ATTACH][localization=ATTACH_DESCRIPTION]Enter an Attachment ID[/localization][/ATTACH]</Description>
     <OnClickJS></OnClickJS>
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>

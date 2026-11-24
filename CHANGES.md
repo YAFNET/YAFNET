@@ -223,6 +223,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Registration: with the bot handling "Do nothing" a user found by the spam check got no verification email and could never log in (the email could not be sent again either), and with "Log User & Send Admin an Email" (it said "Approve User") the page said that a verification email was sent although the account waits for the approval of an admin; "Do nothing" registers the user as usual, the other option says that an admin has to approve the account; all languages
 * [FIXED] Mail: a mail server on port 465 (SSL only, e.g. many hosters) could not be used, the connection always used STARTTLS; the encryption is chosen by the port now (SSL on port 465, otherwise STARTTLS when the server offers it), the new optional MailConfiguration setting "Security" (SslOnConnect, StartTls, StartTlsWhenAvailable, None) sets it for other servers
 * [FIXED] Admin > Board Settings: the email to a user who was awarded a medal could not be turned off (the setting had no switch); it is in the email section of the board settings now; all languages
+* [CHANGES] BBCode extensions: the default description of [ATTACH] said "Enter a Album Image Number" (the translations already said attachment ID, it takes the ID of an attachment)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
