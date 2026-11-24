@@ -7507,7 +7507,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Atașamente"
+            "#text": "Atașamentele utilizatorilor"
           },
           {
             "@tag": "ADMIN_BACKUP",
@@ -7556,10 +7556,6 @@
           {
             "@tag": "ADMIN_EVENTLOG",
             "#text": "Jurnal de evenimente"
-          },
-          {
-            "@tag": "ADMIN_EXTENSIONS",
-            "#text": "Extensii de fișiere"
           },
           {
             "@tag": "ADMIN_FORUMS",
@@ -7647,7 +7643,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Etichete"
+            "#text": "Etichetele subiectelor"
           },
           {
             "@tag": "ADMIN_USERS",

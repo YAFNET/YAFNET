@@ -7507,7 +7507,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "پیوست‌ها"
+            "#text": "پیوست‌های کاربران"
           },
           {
             "@tag": "ADMIN_BACKUP",
@@ -7556,10 +7556,6 @@
           {
             "@tag": "ADMIN_EVENTLOG",
             "#text": "گزارش رویدادها"
-          },
-          {
-            "@tag": "ADMIN_EXTENSIONS",
-            "#text": "پسوندهای فایل"
           },
           {
             "@tag": "ADMIN_FORUMS",
@@ -7647,7 +7643,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "برچسب‌ها"
+            "#text": "برچسب‌های موضوعات"
           },
           {
             "@tag": "ADMIN_USERS",

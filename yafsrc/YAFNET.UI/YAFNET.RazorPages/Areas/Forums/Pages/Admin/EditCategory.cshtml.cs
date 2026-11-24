@@ -76,7 +76,7 @@ public class EditCategoryModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMINMENU", "ADMIN_FORUMS"), this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
     }
 

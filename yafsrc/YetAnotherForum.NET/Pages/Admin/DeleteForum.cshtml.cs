@@ -87,7 +87,7 @@ public class DeleteForumModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
         this.PageBoardContext.PageLinks.AddLink(
-            this.GetText("TEAM", "FORUMS"),
+            this.GetText("ADMINMENU", "ADMIN_FORUMS"),
             this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
     }

@@ -226,6 +226,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] BBCode extensions: the default description of [ATTACH] said "Enter a Album Image Number" (the translations already said attachment ID, it takes the ID of an attachment)
 * [FIXED] Upgrade: every upgrade replaced the BBCode extensions an admin had changed with the version of BBCodeExtensions.xml; the forum remembers the installed version of each extension now, the upgrade only updates the unchanged ones and keeps the changed ones (with a warning in the event log that a new version exists, the import of the file replaces them); an extension installed by an older version is updated like before
 * [FIXED] Admin lists (banned emails, IPs, names, user agents, countries, medals, profile definitions, replace words, spam words): the empty list said to use the add button "below", the button is at the top of the page; all languages
+* [FIXED] Admin menu: the entries "Tags" and "Attachments" opened the pages "Topic Tags" and "User Attachments", and Edit Category and Delete Forum had the breadcrumb "Forums" instead of "Categories & Forums" like the menu and Edit Forum; the menu, the page access list and the breadcrumbs use the page names now (the unused text "File Extensions" of the menu is removed); all languages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

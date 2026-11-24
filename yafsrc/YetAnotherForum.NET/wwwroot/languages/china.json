@@ -7507,7 +7507,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "附件"
+            "#text": "用户附件"
           },
           {
             "@tag": "ADMIN_BACKUP",
@@ -7556,10 +7556,6 @@
           {
             "@tag": "ADMIN_EVENTLOG",
             "#text": "事件日志"
-          },
-          {
-            "@tag": "ADMIN_EXTENSIONS",
-            "#text": "文件扩展名"
           },
           {
             "@tag": "ADMIN_FORUMS",
@@ -7647,7 +7643,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "标签"
+            "#text": "主题标签"
           },
           {
             "@tag": "ADMIN_USERS",

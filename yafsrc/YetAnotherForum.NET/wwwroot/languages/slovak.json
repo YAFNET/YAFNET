@@ -7507,7 +7507,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Prílohy"
+            "#text": "Prílohy používateľov"
           },
           {
             "@tag": "ADMIN_BACKUP",
@@ -7556,10 +7556,6 @@
           {
             "@tag": "ADMIN_EVENTLOG",
             "#text": "Denník udalostí"
-          },
-          {
-            "@tag": "ADMIN_EXTENSIONS",
-            "#text": "Prípony súborov"
           },
           {
             "@tag": "ADMIN_FORUMS",
@@ -7647,7 +7643,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Štítky"
+            "#text": "Štítky tém"
           },
           {
             "@tag": "ADMIN_USERS",

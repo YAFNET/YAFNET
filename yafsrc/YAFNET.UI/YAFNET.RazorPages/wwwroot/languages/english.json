@@ -7507,7 +7507,7 @@
                 },
                 {
                     "@tag": "ADMIN_ATTACHMENTS",
-                    "#text": "Attachments"
+                    "#text": "User Attachments"
                 },
                 {
                     "@tag": "ADMIN_BACKUP",
@@ -7556,10 +7556,6 @@
                 {
                     "@tag": "ADMIN_EVENTLOG",
                     "#text": "Event Log"
-                },
-                {
-                    "@tag": "ADMIN_EXTENSIONS",
-                    "#text": "File Extensions"
                 },
                 {
                     "@tag": "ADMIN_FORUMS",
@@ -7647,7 +7643,7 @@
                 },
                 {
                     "@tag": "ADMIN_TAGS",
-                    "#text": "Tags"
+                    "#text": "Topic Tags"
                 },
                 {
                     "@tag": "ADMIN_USERS",
