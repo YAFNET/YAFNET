@@ -181,6 +181,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Install: the login cookie of an earlier install on the same address (e.g. a new database) made every page fail, also the install, the cookie is not valid anymore now
 * [FIXED] Install: an install that stopped after the database step could not be continued, the pages showed "No data for board ID: 1" instead of the install and the database step failed with "view already exists" (SQLite, MySQL, PostgreSQL)e bar, the topic with its forum, replies and views above the posts, the editors with a preview card, switches for the options and the buttons in a bar at the bottom, the print page with the topic title and a print button, the members as cards with a filter panel, the active users with tabs for members, guests and hidden users, the last posts, friends and albums of the profile side by side
 * [FIXED] Install: the background photo had no credit, the wizard shows "Photo by Luca Bravo on Unsplash" below the dialog now (Lago di Braies, Unsplash photo zAjdgNXsMeg)
+* [FIXED] Cookie Policy: the text had empty lines between all paragraphs, showed "[br]" as text and its two links had no https:// (they opened a page of the forum); it listed poll cookies that do not exist (votes are stored in the database) and missed the login, security, message, collapsed categories, color mode and cookie notice cookies, all cookies are listed now with their name and lifetime, translated in all languages (it was English in all of them except Persian)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
