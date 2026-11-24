@@ -152,7 +152,9 @@ public class EventLogModel : AdminPage
     public async Task OnPostDeleteAllAsync()
     {
         // only the entries of this board (like they are listed)
-        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(this.PageBoardContext.PageBoardID);
+        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(
+            this.PageBoardContext.PageBoardID,
+            includeGlobal: this.PageBoardContext.PageUser.UserFlags.IsHostAdmin);
 
         // re-bind controls
         this.BindData();
@@ -280,7 +282,10 @@ public class EventLogModel : AdminPage
     public async Task OnPostDeleteAsync(int id)
     {
         // delete just this particular log entry (of this board, the id is sent by the client)
-        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(this.PageBoardContext.PageBoardID, id);
+        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(
+            this.PageBoardContext.PageBoardID,
+            id,
+            includeGlobal: this.PageBoardContext.PageUser.UserFlags.IsHostAdmin);
 
         // re-bind controls
         this.BindData();

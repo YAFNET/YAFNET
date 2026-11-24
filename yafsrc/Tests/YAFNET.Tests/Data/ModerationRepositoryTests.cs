@@ -280,10 +280,36 @@ public class ModerationRepositoryTests
         (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId, spamOnly: true)).Should().Be(1);
         (await this.EventLog.CountAsync(e => e.Type == (int)EventLogTypes.Error)).Should().Be(3);
 
-        // the event log deletes the entries of the board and the ones without a user
-        (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId)).Should().Be(2);
+        // the event log deletes the entries of the board, not the ones without a board and user (listed for every board)
+        (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId)).Should().Be(1);
+        (await this.EventLog.CountAsync(e => e.UserID == null)).Should().Be(1);
+
+        // a host admin deletes them too
+        (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId, includeGlobal: true)).Should().Be(1);
 
         (await this.EventLog.GetAsync(_ => true)).Select(e => e.UserID).Should().OnlyContain(id => id == otherBoardUser).And.HaveCount(2);
+    }
+
+    [Test]
+    [Description("Entries written on a board are listed and deleted only on that board, also without a user (an admin of one board deleted the entries of every board)")]
+    public async Task EventLog_Entries_Of_A_Board_Test()
+    {
+        var now = DateTime.UtcNow;
+        var otherBoard = TestDatabase.BoardId + 1;
+
+        this.AddEvent(now.AddMinutes(-3), EventLogTypes.Error, null, TestDatabase.BoardId);
+        this.AddEvent(now.AddMinutes(-2), EventLogTypes.Warning, null, otherBoard);
+        this.AddEvent(now.AddMinutes(-1), EventLogTypes.Information, null);
+
+        this.EventLog.ListPaged(TestDatabase.BoardId, 1050, 365, 0, 10, now.AddDays(-1), now, null)
+            .Select(e => e.Type).Should().Equal((int)EventLogTypes.Information, (int)EventLogTypes.Error);
+        this.EventLog.CountByType(TestDatabase.BoardId, now.AddDays(-1), now).Keys
+            .Should().BeEquivalentTo([(int)EventLogTypes.Information, (int)EventLogTypes.Error]);
+
+        // a host admin of this board deletes its entries and the ones without a board, not the other board's
+        (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId, includeGlobal: true)).Should().Be(2);
+
+        (await this.EventLog.GetAsync(_ => true)).Should().ContainSingle().Which.BoardID.Should().Be(otherBoard);
     }
 
     [Test]
@@ -362,12 +388,12 @@ public class ModerationRepositoryTests
             });
     }
 
-    private void AddEvent(DateTime time, EventLogTypes type, int? userId)
+    private void AddEvent(DateTime time, EventLogTypes type, int? userId, int? boardId = null)
     {
         using var connection = this.db.Open();
 
         connection.Insert(
-            new EventLog { EventTime = time, Type = (int)type, UserID = userId, Source = "test", Description = "d" });
+            new EventLog { EventTime = time, Type = (int)type, UserID = userId, BoardID = boardId, Source = "test", Description = "d" });
     }
 
     private void AddEvents(int count)

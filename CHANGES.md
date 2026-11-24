@@ -216,6 +216,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Import of BBCode extensions, replace words and spam words: an xml file sent by the browser as "application/xml" (e.g. Firefox on Linux) was rejected as an invalid upload format
 [FIXED] Admin > Forums: a forum with "No posts count" had the badge "Test" (with a flask), which did not say what the option does; it says "Posts not counted" now; all languages
 [FIXED] Admin > Edit Forum: the "Styles" of a forum were saved but never used (the help even said "Leave it empty."); they are applied to the forum name in the forum lists (board index, sub-forums, forum page) now; all languages
+[FIXED] Admin > Event Log and Spam Log: "Clean Up" and deleting an entry also deleted the entries without a user, which are listed for every board, so an admin of one board deleted them for all boards; the entries have the board they were written on now (new BoardID column, the existing entries get the board of their user), every board lists and deletes its own entries, the entries without a board and user (e.g. of background tasks) are only deleted by a host admin
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

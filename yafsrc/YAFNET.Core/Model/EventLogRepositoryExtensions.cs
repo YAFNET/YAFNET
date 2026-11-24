@@ -100,9 +100,13 @@ public static class EventLogRepositoryExtensions
 
                     expression.Join<User>((e, u) => u.ID == (e.UserID ?? guestUserId));
 
+                    var board = boardId ?? repository.BoardID;
+
+                    // the entries of the board, entries without a board (older versions, background tasks) by
+                    // the board of their user, without a user they are listed for every board
                     expression.Where<EventLog, User>(
-                        (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
-                                  a.EventTime <= toDate);
+                        (a, b) => (a.BoardID == board || (a.BoardID == null && b.BoardID == board))
+                                  && a.EventTime >= sinceDate && a.EventTime <= toDate);
 
                     if (eventType.HasValue)
                     {
@@ -165,7 +169,8 @@ public static class EventLogRepositoryExtensions
                     expression.Join<User>((e, u) => u.ID == (e.UserID ?? guestUserId));
 
                     expression.Where<EventLog, User>(
-                        (a, b) => b.BoardID == boardId && a.EventTime >= sinceDate && a.EventTime <= toDate);
+                        (a, b) => (a.BoardID == boardId || (a.BoardID == null && b.BoardID == boardId))
+                                  && a.EventTime >= sinceDate && a.EventTime <= toDate);
 
                     expression.GroupBy(a => a.Type).Select(a => new { a.Type, Count = Sql.Count(a.ID) });
 
@@ -174,23 +179,34 @@ public static class EventLogRepositoryExtensions
         }
 
         /// <summary>
-        /// Deletes log entries of a board: the entries of its users and the entries without a user
-        /// (they are listed for every board), like they are listed in the event log of the board.
+        /// Deletes log entries of a board: the entries written on the board and the entries without a board of
+        /// its users. The entries without a board and without a user are listed for every board, only a host
+        /// admin deletes them (an admin of one board deleted them for all boards).
         /// </summary>
         /// <param name="boardId">The board.</param>
         /// <param name="id">Only this entry (null: all entries of the board).</param>
         /// <param name="spamOnly">Only the spam entries (the spam log).</param>
+        /// <param name="includeGlobal">Also the entries without a board and without a user (host admin).</param>
         /// <returns>The number of deleted entries.</returns>
-        public Task<int> DeleteBoardEntriesAsync(int boardId, int? id = null, bool spamOnly = false)
+        public Task<int> DeleteBoardEntriesAsync(int boardId, int? id = null, bool spamOnly = false, bool includeGlobal = false)
         {
             return repository.DbAccess.ExecuteAsync(
                 db =>
                 {
                     var q = db.From<EventLog>();
 
-                    q.Where(
-                        e => e.UserID == null
-                             || Sql.In(e.UserID, db.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID)));
+                    var boardUsers = db.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID);
+
+                    if (includeGlobal)
+                    {
+                        q.Where(
+                            e => e.BoardID == boardId
+                                 || (e.BoardID == null && (e.UserID == null || Sql.In(e.UserID, boardUsers))));
+                    }
+                    else
+                    {
+                        q.Where(e => e.BoardID == boardId || (e.BoardID == null && Sql.In(e.UserID, boardUsers)));
+                    }
 
                     if (id.HasValue)
                     {

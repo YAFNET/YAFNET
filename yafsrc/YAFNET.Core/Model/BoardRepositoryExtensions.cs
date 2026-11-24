@@ -581,6 +581,7 @@ public static class BoardRepositoryExtensions
             await BoardContext.Current.GetRepository<ProfileDefinition>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<DeviceSubscription>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<Registry>().DeleteAsync(x => x.BoardID == boardId);
+            await BoardContext.Current.GetRepository<EventLog>().DeleteAsync(x => x.BoardID == boardId);
 
             await repository.DeleteAsync(x => x.ID == boardId);
         }

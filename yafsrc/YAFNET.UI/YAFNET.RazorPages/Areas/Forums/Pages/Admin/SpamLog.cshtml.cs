@@ -161,7 +161,10 @@ public class SpamLogModel : AdminPage
     public async Task OnPostDeleteAllAsync()
     {
         // only the spam entries of this board (not the whole event log)
-        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(this.PageBoardContext.PageBoardID, spamOnly: true);
+        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(
+            this.PageBoardContext.PageBoardID,
+            spamOnly: true,
+            includeGlobal: this.PageBoardContext.PageUser.UserFlags.IsHostAdmin);
 
         // re-bind controls
         this.BindData();
@@ -174,7 +177,11 @@ public class SpamLogModel : AdminPage
     public async Task OnPostDeleteAsync(int id)
     {
         // delete just this particular log entry (a spam entry of this board, the id is sent by the client)
-        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(this.PageBoardContext.PageBoardID, id, true);
+        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(
+            this.PageBoardContext.PageBoardID,
+            id,
+            true,
+            this.PageBoardContext.PageUser.UserFlags.IsHostAdmin);
 
         // re-bind controls
         this.BindData();

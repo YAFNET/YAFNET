@@ -212,6 +212,21 @@ public class DbLogger : ILogger, IHaveServiceLocator
         var userAgent = string.Empty;
         var httpContext = this.Get<IHttpContextAccessor>().HttpContext;
 
+        // the board of the request (an entry without a board, e.g. of a background task, is listed for every board)
+        int? boardId = null;
+
+        if (httpContext is not null)
+        {
+            try
+            {
+                boardId = this.Get<ControlSettings>().BoardID;
+            }
+            catch (Exception)
+            {
+                boardId = null;
+            }
+        }
+
         if (httpContext is not null)
         {
             try
@@ -285,6 +300,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
                             {
                                 EventType = eventType,
                                 UserID = userId,
+                                BoardID = boardId,
                                 Description = formattedDescription,
                                 Source = source,
                                 EventTime = DateTime.UtcNow
@@ -300,6 +316,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
                             {
                                 EventType = eventType,
                                 UserID = userId,
+                                BoardID = boardId,
                                 Description = formattedDescription,
                                 Source = source,
                                 EventTime = DateTime.UtcNow
@@ -315,6 +332,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
                             {
                                 EventType = eventType,
                                 UserID = userId,
+                                BoardID = boardId,
                                 Description = formattedDescription,
                                 Source = source,
                                 EventTime = DateTime.UtcNow
@@ -328,6 +346,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
                                   {
                                       EventType = eventType,
                                       UserID = userId,
+                                      BoardID = boardId,
                                       Description = formattedDescription,
                                       Source = source,
                                       EventTime = DateTime.UtcNow

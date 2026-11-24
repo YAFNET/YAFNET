@@ -69,6 +69,21 @@ public class DbLoggerTests
     }
 
     [Test]
+    [Description("An entry gets the board of the request, an entry without a request (e.g. a background task) none")]
+    public void Board_Of_The_Entry_Test()
+    {
+        this.board.ControlSettings.BoardID = 3;
+
+        this.logger.Warn("on the board");
+
+        this.board.Resolve<Microsoft.AspNetCore.Http.IHttpContextAccessor>().HttpContext = null;
+
+        this.logger.Warn("in a task");
+
+        this.Entries().Select(e => e.BoardID).Should().Equal(3, null);
+    }
+
+    [Test]
     [Description("Info, Warn and Error are written with the request details")]
     public void Info_Warn_Error_Test()
     {
