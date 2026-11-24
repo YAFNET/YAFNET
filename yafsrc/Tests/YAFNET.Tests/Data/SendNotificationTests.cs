@@ -520,7 +520,7 @@ public class SendNotificationTests
             "Sperrung in Test Forum");
 
         // the texts of the language file of the user, not the ones of the current language
-        this.mail.Sent.Should().OnlyContain(m => m.TextBody.TrimStart().StartsWith("Hello Bob"));
+        this.mail.Sent.Should().OnlyContain(m => m.TextBody.TrimStart().StartsWith("Hallo Bob"));
     }
 
     [Test]
