@@ -88,12 +88,9 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
                     "Login failed");
 
                 // the user starts a topic in the forum
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum is not shown to the user");
 
                 var topicId = await page.CreateTopicAsync(
                                   this.TestSettings,
@@ -149,14 +146,9 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the admin");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum is not shown to the admin");
 
                 var topicId = await page.CreateTopicAsync(
                                   this.TestSettings,
@@ -231,14 +223,9 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the admin");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum is not shown to the admin");
 
                 var topicId = await page.CreateTopicAsync(
                                   this.TestSettings,
@@ -418,14 +405,11 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumIdText = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
+                Assert.That(forumIdText, Is.Not.Null, "The forum was not created");
 
-                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-                var forumId = int.Parse(Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value);
+                var forumId = int.Parse(forumIdText);
 
                 var topicId = await page.CreateTopicAsync(this.TestSettings, forumId, "Topic of a locked forum", "A topic of the locked forum test");
 

@@ -1186,14 +1186,11 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-        await page.GotoAsync(this.TestSettings.TestForumUrl);
+        var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-        var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                            .First.GetAttributeAsync("href");
+        Assert.That(forumId, Is.Not.Null, "The forum was not created");
 
-        Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-        return int.Parse(System.Text.RegularExpressions.Regex.Match(forumLink, "/forum/([0-9]+)/").Groups[1].Value);
+        return int.Parse(forumId);
     }
 
     /// <summary>

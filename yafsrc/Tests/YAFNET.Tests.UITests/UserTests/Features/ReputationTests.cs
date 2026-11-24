@@ -161,7 +161,7 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.That(pageSource, Does.Contain("You have successfully removed -1"), "Voting failed");
+                    Assert.That(pageSource, Does.Contain("You have successfully removed 1 Reputation"), "Voting failed");
                 });
     }
 }

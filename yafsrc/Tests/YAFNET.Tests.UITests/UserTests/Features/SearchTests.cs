@@ -227,10 +227,10 @@ public class SearchTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             {
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Help");
 
-                await page.Locator("#Input_Search").FillAsync("Avatars");
+                await page.Locator("#Input_Search").FillAsync("Avatar");
                 await page.SubmitAndWaitAsync(page.Locator("form:has(#Input_Search) button[type=submit]"));
 
-                var header = page.Locator(".card-header", new PageLocatorOptions { HasText = "Avatars" }).First;
+                var header = page.Locator(".card-header", new PageLocatorOptions { HasText = "Avatar" }).First;
 
                 await Assert.MultipleAsync(
                     async () =>

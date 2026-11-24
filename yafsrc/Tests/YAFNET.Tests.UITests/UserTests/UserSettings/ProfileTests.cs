@@ -91,7 +91,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.That(pageSource, Does.Contain("Dein Account"), "Changing Language failed");
+                    Assert.That(pageSource, Does.Contain("Dein Konto"), "Changing Language failed");
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
 

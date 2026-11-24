@@ -68,7 +68,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                 Assert.That(
                     await page.ContentAsync(),
-                    Does.Contain("The chosen forum cannot be child forum"),
+                    Does.Contain("The chosen forum cannot be a child forum"),
                     "A forum was moved below its own sub forum");
             });
     }
@@ -920,7 +920,16 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
     private async Task<int> ForumIdAsync(IPage page, string name, int? parentId = null)
     {
-        await page.GotoAsync(parentId.HasValue ? $"{this.TestSettings.TestForumUrl}forum/{parentId}/forum" : this.TestSettings.TestForumUrl);
+        if (!parentId.HasValue)
+        {
+            var indexId = await page.ForumIdOnIndexAsync(this.TestSettings, name);
+
+            Assert.That(indexId, Is.Not.Null, $"The forum {name} was not found");
+
+            return int.Parse(indexId);
+        }
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{parentId}/forum");
 
         var link = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = name }).First.GetAttributeAsync("href");
 

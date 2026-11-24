@@ -39,6 +39,48 @@ public static class PageExtensions
     /// </param>
     extension(IPage page)
     {
+        /// <summary>
+        /// Finds the id of a forum on the board index. The index loads the forums in parts while it is scrolled
+        /// ("N of Total forums shown"), a new forum of the tests is often not in the first part.
+        /// </summary>
+        /// <param name="testSettings">The test settings.</param>
+        /// <param name="forumName">The name of the forum.</param>
+        /// <returns>The id of the forum, or null if the forum is not shown.</returns>
+        public async Task<string> ForumIdOnIndexAsync(TestConfig testSettings, string forumName)
+        {
+            await page.GotoAsync(testSettings.TestForumUrl);
+
+            var link = page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName });
+
+            for (var part = 0; part < 50 && await link.CountAsync() == 0; part++)
+            {
+                var more = page.Locator("#category-info-more");
+
+                if (await more.CountAsync() == 0)
+                {
+                    return null;
+                }
+
+                var shown = await more.InnerTextAsync();
+
+                // scrolling to the info loads the next part, the info is replaced (or removed with the last part)
+                await more.ScrollIntoViewIfNeededAsync();
+
+                await page.WaitForFunctionAsync(
+                    "shown => document.getElementById('category-info-more')?.innerText !== shown",
+                    shown);
+            }
+
+            if (await link.CountAsync() == 0)
+            {
+                return null;
+            }
+
+            var href = await link.First.GetAttributeAsync("href");
+
+            return System.Text.RegularExpressions.Regex.Match(href, @"/forum/(\d+)/").Groups[1].Value;
+        }
+
         public async Task RemoveFriendRequestAsync(TestConfig testSettings, string userName, string password)
         {
             // Log user in first!

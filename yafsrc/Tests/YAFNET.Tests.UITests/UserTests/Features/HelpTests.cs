@@ -51,7 +51,7 @@ public class HelpTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Help/forums");
 
-                    Assert.That(await page.TitleAsync(), Does.Contain("Forums"), "The help page is not shown");
+                    Assert.That(await page.TitleAsync(), Does.Contain("The Forum Explained"), "The help page is not shown");
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Help/unknownpage");
 

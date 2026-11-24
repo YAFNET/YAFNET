@@ -150,7 +150,15 @@ public class MembersTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Is.True,
                     "Login failed");
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}members?letter=T");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}members");
+
+                // searched by name (the letter T lists all temporary users of the tests, the test user is on a later page)
+                var search = page.Locator("button[formaction*='Search']");
+
+                await page.RunAndWaitForNextPageAsync(
+                    () => search.EvaluateAsync(
+                        "(b, name) => { document.getElementById('Input_UserSearchName').value = name; b.form.requestSubmit(b); }",
+                        this.TestSettings.TestUserName));
 
                 var profileLink = await page.Locator(".member-row a", new PageLocatorOptions { HasText = this.TestSettings.TestUserName })
                                       .First.GetAttributeAsync("href");

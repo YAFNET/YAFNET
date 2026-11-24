@@ -66,14 +66,9 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum was not created");
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -308,14 +303,9 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum was not created");
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -402,14 +392,9 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum was not created");
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -486,14 +471,9 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum was not created");
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -524,7 +504,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     "Login failed");
 
                 // not shown before the approval
-                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), forumLink).ToString());
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{forumId}/forum");
 
                 Assert.That(
                     await page.Locator("a[href*='/topic/']", new PageLocatorOptions { HasText = topicName }).CountAsync(),
@@ -537,7 +517,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Approve']").First);
 
-                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), forumLink).ToString());
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{forumId}/forum");
 
                 var topicLink = page.Locator("a[href*='/topic/']", new PageLocatorOptions { HasText = topicName });
 
@@ -596,14 +576,9 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
-
-                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum was not created");
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 

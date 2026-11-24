@@ -219,14 +219,9 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
-
-                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum is not shown to the user");
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
 
@@ -571,14 +566,9 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 // a new user (the test user may just have posted, flood control)
                 await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
 
-                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                var forumId = await page.ForumIdOnIndexAsync(this.TestSettings, forumName);
 
-                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
-                                    .First.GetAttributeAsync("href");
-
-                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
-
-                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
+                Assert.That(forumId, Is.Not.Null, "The forum is not shown to the user");
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
 
