@@ -1674,7 +1674,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Ștergeți această extensie YafBBCode?"
+            "#text": "Ștergeți această extensie BBCode?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Cod JS folosit pentru a modifica editorul de text. Folosiți \"{{editorid}}\" (fără ghilimele) pentru ca ID-ul editorului de text să fie înlocuit în cod. Introduceți doar JavaScript în acest câmp. Eticheta script va fi adăugată automat."
+            "#text": "Cod JS folosit pentru a modifica editorul de text. Folosiți \"{editorid}\" (fără ghilimele) pentru ca ID-ul editorului de text să fie înlocuit în cod. Introduceți doar JavaScript în acest câmp. Eticheta script va fi adăugată automat."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1843,7 +1843,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} extensii YafBBCode"
+            "#text": "{0} extensii BBCode"
           },
           {
             "@tag": "USE_MODULE",
@@ -1884,7 +1884,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Importați YafBBCode personalizat"
+            "#text": "Importați BBCode personalizat"
           },
           {
             "@tag": "SELECT_IMPORT",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "NOTĂ: pentru ca rezumatul să funcționeze, forumul trebuie să aibă definite în web.config setările AppSettings \"YAF.BaseUrlMask\" și \"YAF.ForceScriptName\"."
+            "#text": "Utilizatorii pot primi un rezumat pe e-mail cu subiectele noi și active (fiecare utilizator îl activează în setările proprii)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Numărul de ore înainte de a încerca trimiterea unui alt rezumat. Rezumatul se trimite doar între orele 0:00 și 6:00."
+            "#text": "Numărul de ore dintre două rezumate. Rezumatul este trimis doar între miezul nopții și ora 6:00 (ora serverului)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Necesar doar când creați un forum cu un nume de aplicație de membership nou și diferit."
+            "#text": "Dacă este bifat, un utilizator nou cu numele, e-mailul și parola introduse aici este creat ca administrator al forumului nou. Altfel, tu ești administratorul lui."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Atunci când această opțiune este bifată, membrii acestui rol vor avea anumite drepturi de acces administrativ în YAF."
+            "#text": "Membrii acestui rol sunt moderatori ai forumului și pot folosi unele opțiuni ca administratorii (căutarea utilizatorilor în selecțiile de utilizatori, o semnătură când semnăturile sunt dezactivate, rezultate ascunse ale sondajelor). Pentru a modera forumuri, rolul are nevoie de o mască de acces cu acces de moderator în acele forumuri."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Ștergeți toate postările utilizatorului?"
+            "#text": "Mesajele utilizatorului care sunt șterse:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Oferă utilizatorului acces la modificarea secțiunii „Setări gazdă”."
+            "#text": "Face utilizatorul administrator al gazdei: acces complet la toate paginile de administrare și ale gazdei, de ex. setările gazdei, întreținerea bazei de date și forumurile."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Permiteți utilizatorilor să acceseze și să trimită mesaje private. Pentru a le activa pentru utilizatori, trebuie să acordați explicit permisiunea și pentru fiecare grup și/sau rang."
+            "#text": "Permite utilizatorilor să-și trimită mesaje private."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Dacă este activată și este detectat un robot în timpul înregistrării și dacă gestionarea roboților este setată la respingerea înregistrării, adresa IP a robotului este interzisă automat."
+            "#text": "Dacă este activat, un bot detectat la înregistrare este blocat: adresa sa IP, numele de utilizator și adresa de e-mail sunt adăugate în listele de blocare, indiferent de tratarea boților."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Alegeți între niciun serviciu antispam, verificarea internă a spamului sau serviciul extern BlogSpam.net"
+            "#text": "Dezactivat sau verificarea internă: mesajele utilizatorilor noi sunt verificate cu cuvintele spam."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Sigur doriți să curățați subiectele? Acțiunea nu poate fi anulată."
+            "#text": "Sigur vrei să cureți subiectele? Subiectele care nu sunt eliminate definitiv pot fi restaurate mai târziu."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Notă: </strong>Cuvintele spam sunt folosite pentru detectarea internă a spamului: la înregistrare, pagina web pe care utilizatorul o introduce în profil este verificată după cuvintele spam. De asemenea, o postare nouă a unui utilizator în forum este verificată după cuvintele spam dacă în setările gazdei opțiunea „Alegeți un serviciu pentru verificarea automată a spamului” este setată la „Verificarea internă a cuvintelor spam”."
+            "#text": "<strong>Notă:</strong> Cuvintele spam sunt folosite de verificarea anti-spam internă: pagina personală și semnătura unui profil sunt verificate când utilizatorul le modifică, iar mesajele noi sunt verificate când în setările gazdei este aleasă verificarea internă."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Blocați conturile inactive de mai mult de x ani. Conținutul lor (de ex. postările) nu va fi șters"
+            "#text": "Blochează conturile utilizatorilor care nu au vizitat forumul de mai mult de x ani. Conținutul lor (precum mesajele scrise) nu este șters."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

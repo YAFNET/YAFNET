@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-Code, mit dem der Texteditor angepasst wird. Verwende \"{{editorid}}\" (ohne Anführungszeichen), damit die ID des Texteditors im Code eingesetzt wird. Gib einfach JavaScript in dieses Feld ein. Das script-Tag wird automatisch hinzugefügt."
+            "#text": "JS-Code, mit dem der Texteditor angepasst wird. Verwende \"{editorid}\" (ohne Anführungszeichen), damit die ID des Texteditors im Code eingesetzt wird. Gib einfach JavaScript in dieses Feld ein. Das script-Tag wird automatisch hinzugefügt."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "HINWEIS: Damit die Zusammenfassung funktioniert, müssen die AppSettings \"YAF.BaseUrlMask\" und \"YAF.ForceScriptName\" in deiner web.config definiert sein."
+            "#text": "Benutzer können eine Zusammenfassung mit den neuen und aktiven Themen per E-Mail erhalten (jeder Benutzer schaltet sie in seinen Einstellungen ein)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Anzahl Stunden, bevor versucht wird, eine weitere Zusammenfassung zu senden. Die Zusammenfassung wird nur zwischen 0 und 6 Uhr versendet."
+            "#text": "Anzahl der Stunden zwischen zwei Zusammenfassungen. Die Zusammenfassung wird nur zwischen Mitternacht und 6:00 Uhr (Zeit des Servers) gesendet."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Nur erforderlich, wenn du ein Board mit einem neuen, anderen Membership-Anwendungsnamen erstellst."
+            "#text": "Wenn aktiviert, wird ein neuer Benutzer mit dem hier eingegebenen Namen, der E-Mail-Adresse und dem Passwort als Admin des neuen Boards erstellt. Sonst bist du sein Admin."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Wenn aktiviert, haben Mitglieder dieser Rolle einige Admin-Rechte in YAF."
+            "#text": "Mitglieder dieser Rolle sind Moderatoren des Boards und können einige Optionen wie Admins nutzen (Benutzer in der Benutzerauswahl suchen, eine Signatur, wenn Signaturen ausgeschaltet sind, versteckte Umfrageergebnisse). Um Foren zu moderieren, braucht die Rolle in diesen Foren eine Zugriffsmaske mit Moderatorzugriff."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Alle Beiträge des Benutzers löschen?"
+            "#text": "Beiträge des Benutzers, die gelöscht werden:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Gibt dem Benutzer Zugriff auf den Bereich \"Host-Einstellungen\"."
+            "#text": "Macht den Benutzer zum Host-Admin: voller Zugriff auf alle Admin- und Host-Seiten, z. B. die Host-Einstellungen, die Datenbankwartung und die Boards."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Erlaubt Benutzern, private Nachrichten zu lesen und zu senden. Du solltest die Erlaubnis zusätzlich ausdrücklich für jede Gruppe und/oder jeden Rang erteilen, um sie für Benutzer zu aktivieren."
+            "#text": "Erlaubt Benutzern, sich gegenseitig private Nachrichten zu senden."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Wenn diese Funktion aktiviert ist und während der Registrierung ein Bot erkannt wird und die Bot-Behandlung auf \"Registrierung ablehnen\" eingestellt ist, wird die IP-Adresse des Bots automatisch gesperrt."
+            "#text": "Wenn aktiviert, wird ein bei der Registrierung erkannter Bot gesperrt: Seine IP-Adresse, sein Benutzername und seine E-Mail-Adresse werden in die Sperrlisten eingetragen, unabhängig von der Behandlung von Bots."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Wähle zwischen keinem Spam-Dienst, der internen Spam-Prüfung oder dem externen Dienst BlogSpam.net"
+            "#text": "Deaktiviert oder die interne Prüfung: Die Beiträge neuer Benutzer werden mit den Spam-Prüfwörtern abgeglichen."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Willst du die Themen wirklich bereinigen? Das kann nicht rückgängig gemacht werden."
+            "#text": "Willst du die Themen wirklich bereinigen? Themen, die nicht endgültig entfernt werden, können später wiederhergestellt werden."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Hinweis: </strong> Die Spam-Wörter werden für die interne Spam-Erkennung verwendet: Bei der Registrierung wird die Homepage, die der Benutzer im Profil angibt, mit den Spam-Wörtern abgeglichen. Auch neue Beiträge im Forum werden mit den Spam-Wörtern abgeglichen, wenn in den Host-Einstellungen \"Spam-Dienst für die automatische Spam-Prüfung wählen\" auf \"Interne Spam-Wörter\" eingestellt ist."
+            "#text": "<strong>Hinweis:</strong> Die Spam-Prüfwörter werden von der internen Spam-Prüfung verwendet: Die Homepage und die Signatur eines Profils werden geprüft, wenn der Benutzer sie ändert, und neue Beiträge werden geprüft, wenn in den Host-Einstellungen die interne Spam-Prüfung gewählt ist."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Inaktive Konten sperren, die älter als x Jahre sind. Ihre Inhalte (z. B. Beiträge) werden dadurch nicht gelöscht"
+            "#text": "Sperrt die Konten von Benutzern, die das Forum seit mehr als x Jahren nicht besucht haben. Ihre Inhalte (wie geschriebene Beiträge) werden nicht gelöscht."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

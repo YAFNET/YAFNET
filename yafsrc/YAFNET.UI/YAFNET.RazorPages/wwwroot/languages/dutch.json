@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-code om de teksteditor aan te passen. Gebruik \"{{editorid}}\" (zonder aanhalingstekens) om de ID van de teksteditor in de code te laten invullen. Vul alleen JavaScript in, de script-tags worden automatisch toegevoegd."
+            "#text": "JS-code om de teksteditor aan te passen. Gebruik \"{editorid}\" (zonder aanhalingstekens) om de ID van de teksteditor in de code te laten invullen. Vul alleen JavaScript in, de script-tags worden automatisch toegevoegd."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "LET OP: het board moet de AppSettings \"YAF.BaseUrlMask\" en \"YAF.ForceScriptName\" in je web.config hebben om de samenvatting te laten werken."
+            "#text": "Gebruikers kunnen een samenvatting met de nieuwe en actieve topics per e-mail ontvangen (elke gebruiker schakelt die in bij de eigen instellingen)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Aantal uren voordat wordt geprobeerd een nieuwe samenvatting te verzenden. Samenvattingen worden alleen tussen 0:00 en 6:00 uur verzonden."
+            "#text": "Aantal uren tussen twee samenvattingen. De samenvatting wordt alleen tussen middernacht en 6:00 uur (tijd van de server) verzonden."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Alleen verplicht wanneer een board wordt aangemaakt met een nieuwe, afwijkende naam van de membership-applicatie."
+            "#text": "Indien aangevinkt wordt een nieuwe gebruiker met de hier ingevoerde naam, e-mail en wachtwoord als beheerder van het nieuwe forum aangemaakt. Anders ben jij de beheerder."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Indien aangevinkt, hebben de leden van deze rol enkele beheerrechten in YAF."
+            "#text": "Leden van deze rol zijn moderators van het forum en kunnen sommige opties gebruiken zoals beheerders (gebruikers zoeken in de gebruikerskeuze, een handtekening als handtekeningen uitgeschakeld zijn, verborgen peilingresultaten). Om forums te modereren heeft de rol in die forums een toegangsmasker met moderatortoegang nodig."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Alle berichten van de gebruiker verwijderen?"
+            "#text": "Berichten van de gebruiker die worden verwijderd:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Geeft de gebruiker toegang tot het onderdeel \"Hostinstellingen\"."
+            "#text": "Maakt de gebruiker hostbeheerder: volledige toegang tot alle beheer- en hostpagina's, bijv. de hostinstellingen, het databaseonderhoud en de forums."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Gebruikers mogen privéberichten lezen en versturen. Je moet ook voor elke groep en/of rang uitdrukkelijk toestemming geven om ze voor gebruikers in te schakelen."
+            "#text": "Sta gebruikers toe elkaar privéberichten te sturen."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Indien ingeschakeld en er tijdens de registratie een bot wordt herkend, terwijl de afhandeling van bots is ingesteld op het weigeren van de registratie, wordt het IP-adres van de bot automatisch geblokkeerd."
+            "#text": "Indien ingeschakeld wordt een bot die bij de registratie wordt gedetecteerd geblokkeerd: zijn IP-adres, gebruikersnaam en e-mailadres worden aan de blokkeerlijsten toegevoegd, ongeacht de afhandeling van bots."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Kies tussen geen spamdienst, de interne spamcontrole of de externe dienst BlogSpam.net"
+            "#text": "Uitgeschakeld, of de interne controle: de berichten van nieuwe gebruikers worden gecontroleerd met de spamwoorden."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Weet je zeker dat je topics wilt opschonen? Dit kan niet ongedaan worden gemaakt."
+            "#text": "Wil je de topics echt opschonen? Topics die niet definitief worden verwijderd, kunnen later worden hersteld."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Opmerking: </strong> De spamwoorden worden gebruikt voor de interne spamdetectie: bij de registratie wordt de homepage die de gebruiker in het profiel invult vergeleken met de spamwoorden. Ook een nieuw bericht in het forum wordt met de spamwoorden vergeleken als 'Kies een spamdienst voor de automatische spamcontrole' in de hostinstellingen op 'Interne spamwoorden' staat."
+            "#text": "<strong>Let op:</strong> De spamwoorden worden gebruikt door de interne spamcontrole: de homepage en de handtekening van een profiel worden gecontroleerd wanneer de gebruiker ze wijzigt, en nieuwe berichten worden gecontroleerd wanneer in de hostinstellingen de interne spamcontrole is gekozen."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Inactieve accounts ouder dan x jaar vergrendelen. Hun inhoud (zoals geplaatste berichten) wordt hierdoor niet verwijderd"
+            "#text": "Blokkeer de accounts van gebruikers die het forum meer dan x jaar niet hebben bezocht. Hun inhoud (zoals geplaatste berichten) wordt niet verwijderd."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

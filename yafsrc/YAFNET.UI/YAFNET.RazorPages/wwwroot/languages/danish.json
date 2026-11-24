@@ -1674,7 +1674,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Slet denne YafBBCode-udvidelse?"
+            "#text": "Slet denne BBCode-udvidelse?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-kode, der bruges til at ændre teksteditoren. Brug \"{{editorid}}\" (uden anførselstegn) for at få teksteditorens ID indsat i koden. Indtast blot JavaScript i dette felt. Script-tagget tilføjes automatisk."
+            "#text": "JS-kode, der bruges til at ændre teksteditoren. Brug \"{editorid}\" (uden anførselstegn) for at få teksteditorens ID indsat i koden. Indtast blot JavaScript i dette felt. Script-tagget tilføjes automatisk."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1843,7 +1843,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} YafBBCode-udvidelser"
+            "#text": "{0} BBCode-udvidelser"
           },
           {
             "@tag": "USE_MODULE",
@@ -1884,7 +1884,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Importér brugerdefineret YafBBCode"
+            "#text": "Importér brugerdefineret BBCode"
           },
           {
             "@tag": "SELECT_IMPORT",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "BEMÆRK: tavlen skal have AppSettings \"YAF.BaseUrlMask\" og \"YAF.ForceScriptName\" defineret i din web.config, for at sammendraget kan fungere."
+            "#text": "Brugere kan modtage et sammendrag med nye og aktive emner pr. e-mail (hver bruger slår det til i sine egne indstillinger)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Antal timer, før der forsøges at sende et nyt sammendrag. Sammendraget forsøges kun sendt mellem kl. 0:00 og 6:00."
+            "#text": "Antal timer mellem to sammendrag. Sammendraget sendes kun mellem midnat og kl. 6:00 (serverens tid)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Kun påkrævet, når du opretter en tavle med et nyt og andet navn på medlemskabsapplikationen."
+            "#text": "Hvis markeret, oprettes en ny bruger med det navn, den e-mail og den adgangskode, der er indtastet her, som administrator for det nye board. Ellers er du dets administrator."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Når dette er markeret, vil medlemmer af denne rolle have nogle adminadgangsrettigheder i YAF."
+            "#text": "Medlemmer af denne rolle er moderatorer for boardet og kan bruge nogle muligheder som administratorer (søge brugere i brugervalg, en signatur når signaturer er slået fra, skjulte afstemningsresultater). For at moderere fora skal rollen have en adgangsmaske med moderatoradgang i disse fora."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Vil du slette alle indlæg for brugeren?"
+            "#text": "Brugerens indlæg, der slettes:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Giver brugeren adgang til at ændre afsnittet \"Værtsindstillinger\"."
+            "#text": "Gør brugeren til værtsadministrator: fuld adgang til alle administrator- og værtssider, f.eks. værtsindstillingerne, databasevedligeholdelsen og boardene."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Tillad brugere at få adgang til og sende private beskeder. Du skal også udtrykkeligt give tilladelse for hver gruppe og/eller rang for at aktivere dem for brugere."
+            "#text": "Tillad brugere at sende private beskeder til hinanden."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Hvis aktiveret, og en bot opdages under registreringen, og bothåndteringen er sat til at afvise registreringen, bliver botens IP-adresse automatisk forbudt."
+            "#text": "Hvis aktiveret, udelukkes en bot, der opdages ved registrering: dens IP-adresse, brugernavn og e-mailadresse føjes til udelukkelseslisterne, uanset håndteringen af bots."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Vælg mellem ingen spamtjeneste, intern spamkontrol eller den eksterne tjeneste BlogSpam.net"
+            "#text": "Deaktiveret eller den interne kontrol: nye brugeres indlæg kontrolleres mod spamkontrolordene."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Vil du virkelig rydde op i emner? Denne handling kan ikke fortrydes."
+            "#text": "Vil du virkelig rydde op i emnerne? Emner, der ikke fjernes permanent, kan gendannes senere."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Bemærk: </strong> Spamordene bruges til den interne SPAM-registrering. Under registreringen kontrolleres den hjemmeside, brugeren angiver i brugerprofilen, mod spamordene. Hvis en bruger skriver et nyt indlæg i forummet, kontrolleres det også mod spamordene, hvis 'Vælg en SPAM-tjeneste til automatisk SPAM-kontrol' i værtsindstillingerne er sat til 'Interne spamkontrolord'."
+            "#text": "<strong>Bemærk:</strong> Spamkontrolordene bruges af den interne spamkontrol: hjemmesiden og signaturen i en profil kontrolleres, når brugeren ændrer dem, og nye indlæg kontrolleres, når den interne spamkontrol er valgt i værtsindstillingerne."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lås inaktive konti ældre end x år. Dette sletter ikke deres indhold (f.eks. skrevne indlæg)"
+            "#text": "Lås konti for brugere, der ikke har besøgt forummet i mere end x år. Deres indhold (som skrevne indlæg) slettes ikke."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

@@ -1674,7 +1674,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Eliminare questa estensione YafBBCode?"
+            "#text": "Eliminare questa estensione BBCode?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Codice JS usato per modificare l'editor di testo. Utilizzare \"{{editorid}}\" (senza virgolette) per sostituire l'ID dell'editor di testo nel codice. È sufficiente inserire il codice javascript in questo campo. Il tag script verrà aggiunto automaticamente."
+            "#text": "Codice JS usato per modificare l'editor di testo. Utilizzare \"{editorid}\" (senza virgolette) per sostituire l'ID dell'editor di testo nel codice. È sufficiente inserire il codice javascript in questo campo. Il tag script verrà aggiunto automaticamente."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1843,7 +1843,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} Estensioni YafBBCode"
+            "#text": "{0} Estensioni BBCode"
           },
           {
             "@tag": "USE_MODULE",
@@ -1884,7 +1884,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Importa YafBBCode personalizzato"
+            "#text": "Importa BBCode personalizzato"
           },
           {
             "@tag": "SELECT_IMPORT",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "NOTA: affinché il riepilogo funzioni, le AppSettings \"YAF.BaseUrlMask\" e \"YAF.ForceScriptName\" devono essere definite nel web.config."
+            "#text": "Gli utenti possono ricevere un riepilogo via email con le discussioni nuove e attive (ogni utente lo attiva nelle proprie impostazioni)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Numero di ore prima di tentare l'invio di un altro riepilogo. Il riepilogo viene inviato solo tra mezzanotte e le 6:00."
+            "#text": "Numero di ore tra due riepiloghi. Il riepilogo viene inviato solo tra mezzanotte e le 6:00 (ora del server)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Necessario solo quando si crea un forum con un nome di applicazione membership nuovo e diverso."
+            "#text": "Se selezionato, un nuovo utente con il nome, l'email e la password inseriti qui viene creato come amministratore del nuovo forum. Altrimenti l'amministratore sei tu."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Se questa opzione è selezionata, i membri di questo ruolo avranno alcuni diritti di accesso come amministratori in YAF."
+            "#text": "I membri di questo ruolo sono moderatori del forum e possono usare alcune opzioni come gli amministratori (cercare utenti nelle selezioni degli utenti, una firma quando le firme sono disattivate, risultati dei sondaggi nascosti). Per moderare i forum il ruolo ha bisogno di una maschera di accesso con accesso da moderatore in quei forum."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Eliminare tutti i messaggi dell'utente?"
+            "#text": "Messaggi dell'utente che vengono eliminati:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Consente all'utente di modificare la sezione \"Impostazioni host\"."
+            "#text": "Rende l'utente un amministratore dell'host: accesso completo a tutte le pagine di amministrazione e dell'host, ad es. le impostazioni dell'host, la manutenzione del database e i forum."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Consente agli utenti di accedere ai messaggi privati e di inviarli. Devi anche dare esplicitamente l'autorizzazione a ogni gruppo e/o grado per abilitarli per gli utenti."
+            "#text": "Consenti agli utenti di inviarsi messaggi privati."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Se abilitato, quando viene rilevato un bot durante la registrazione e la gestione dei bot è impostata sul rifiuto della registrazione, l'indirizzo IP del bot viene bannato automaticamente."
+            "#text": "Se attivo, un bot rilevato durante la registrazione viene bannato: il suo indirizzo IP, il nome utente e l'indirizzo email vengono aggiunti agli elenchi dei ban, indipendentemente dalla gestione dei bot."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Scegli tra nessun servizio antispam, il controllo interno o il servizio esterno BlogSpam.net"
+            "#text": "Disattivato, oppure il controllo interno: i messaggi dei nuovi utenti vengono confrontati con le parole antispam."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Vuoi davvero ripulire le discussioni? L'operazione è irreversibile."
+            "#text": "Vuoi davvero sfoltire le discussioni? Le discussioni che non vengono rimosse definitivamente possono essere ripristinate in seguito."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Nota: </strong> Le parole spam vengono usate per il rilevamento interno dello SPAM: durante la registrazione, il sito web che l'utente inserisce nel profilo viene confrontato con le parole spam. Inoltre, se un utente pubblica un nuovo messaggio nel forum, il messaggio viene confrontato con le parole spam se nelle impostazioni dell'host \"Servizio per il controllo automatico dello spam\" è impostato su \"Parole antispam interne\"."
+            "#text": "<strong>Nota:</strong> Le parole antispam sono usate dal controllo antispam interno: la home page e la firma di un profilo vengono controllate quando l'utente le modifica, e i nuovi messaggi vengono controllati quando nelle impostazioni dell'host è scelto il controllo antispam interno."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Blocca gli account inattivi da più di x anni. I loro contenuti (come i messaggi pubblicati) non vengono eliminati"
+            "#text": "Blocca gli account degli utenti che non visitano il forum da più di x anni. Il loro contenuto (come i messaggi scritti) non viene eliminato."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

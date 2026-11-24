@@ -1674,7 +1674,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Usunąć to rozszerzenie YafBBCode?"
+            "#text": "Usunąć to rozszerzenie BBCode?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Kod JS używany do modyfikacji edytora tekstu. Użyj \"{{editorid}}\" (bez cudzysłowu), aby w kodzie podstawić identyfikator edytora tekstu. Po prostu wpisz JavaScript w to pole. Znacznik script zostanie dodany automatycznie."
+            "#text": "Kod JS używany do modyfikacji edytora tekstu. Użyj \"{editorid}\" (bez cudzysłowu), aby w kodzie podstawić identyfikator edytora tekstu. Po prostu wpisz JavaScript w to pole. Znacznik script zostanie dodany automatycznie."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1843,7 +1843,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} rozszerzenia YafBBCode"
+            "#text": "{0} rozszerzenia BBCode"
           },
           {
             "@tag": "USE_MODULE",
@@ -1884,7 +1884,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Importuj własne YafBBCode"
+            "#text": "Importuj własne BBCode"
           },
           {
             "@tag": "SELECT_IMPORT",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "UWAGA: aby podsumowanie działało, forum musi mieć zdefiniowane ustawienia AppSettings \"YAF.BaseUrlMask\" i \"YAF.ForceScriptName\" w pliku web.config."
+            "#text": "Użytkownicy mogą otrzymywać e-mailem podsumowanie nowych i aktywnych tematów (każdy użytkownik włącza je we własnych ustawieniach)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Liczba godzin przed próbą wysłania kolejnego podsumowania. Podsumowanie jest wysyłane tylko między 0:00 a 6:00."
+            "#text": "Liczba godzin między dwoma podsumowaniami. Podsumowanie jest wysyłane tylko między północą a 6:00 (czas serwera)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Wymagane tylko przy tworzeniu forum z nową, inną nazwą aplikacji członkostwa (membership)."
+            "#text": "Jeśli zaznaczone, nowy użytkownik z wpisaną tutaj nazwą, adresem e-mail i hasłem zostanie utworzony jako administrator nowego forum. W przeciwnym razie to ty jesteś jego administratorem."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Gdy ta opcja jest zaznaczona, członkowie tej roli będą mieli niektóre uprawnienia administracyjne w YAF."
+            "#text": "Członkowie tej roli są moderatorami forum i mogą używać niektórych opcji jak administratorzy (wyszukiwanie użytkowników przy wyborze użytkowników, podpis, gdy podpisy są wyłączone, ukryte wyniki ankiet). Aby moderować fora, rola potrzebuje w tych forach maski dostępu z dostępem moderatora."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Usunąć wszystkie posty użytkownika?"
+            "#text": "Posty użytkownika, które zostaną usunięte:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Daje użytkownikowi dostęp do modyfikacji sekcji \"Ustawienia hosta\"."
+            "#text": "Czyni użytkownika administratorem hosta: pełny dostęp do wszystkich stron administracyjnych i hosta, np. ustawień hosta, konserwacji bazy danych i forów."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Pozwala użytkownikom korzystać z prywatnych wiadomości i je wysyłać. Aby włączyć je dla użytkowników, należy też jawnie nadać uprawnienia każdej grupie i/lub randze."
+            "#text": "Pozwól użytkownikom wysyłać sobie prywatne wiadomości."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Jeśli jest włączona, a podczas rejestracji zostanie wykryty bot i jeśli obsługa botów jest ustawiona na odrzucanie rejestracji, adres IP bota zostanie automatycznie zbanowany."
+            "#text": "Jeśli włączone, bot wykryty podczas rejestracji jest blokowany: jego adres IP, nazwa użytkownika i adres e-mail są dodawane do list blokad, niezależnie od obsługi botów."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Wybierz między brakiem usługi antyspamowej, wewnętrznym sprawdzaniem spamu lub zewnętrzną usługą BlogSpam.net"
+            "#text": "Wyłączone lub kontrola wewnętrzna: posty nowych użytkowników są sprawdzane pod kątem słów spamu."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Czy na pewno chcesz wyczyścić tematy? Tej operacji nie można cofnąć."
+            "#text": "Czy na pewno chcesz wyczyścić tematy? Tematy, które nie zostaną usunięte trwale, można później przywrócić."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Uwaga: </strong>Słowa spamu są używane do wewnętrznego wykrywania spamu: podczas rejestracji strona domowa, którą użytkownik wpisuje w profilu, jest sprawdzana pod kątem słów spamu. Także nowy post użytkownika na forum jest sprawdzany pod kątem słów spamu, jeśli w ustawieniach hosta opcja 'Wybierz usługę automatycznego sprawdzania spamu' ma wartość 'Wewnętrzne sprawdzanie słów spamu'."
+            "#text": "<strong>Uwaga:</strong> Słowa spamu są używane przez wewnętrzną kontrolę spamu: strona domowa i podpis w profilu są sprawdzane, gdy użytkownik je zmienia, a nowe posty są sprawdzane, gdy w ustawieniach hosta wybrana jest wewnętrzna kontrola spamu."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Blokuje konta nieaktywne dłużej niż x lat. Nie usuwa ich treści (np. napisanych postów)"
+            "#text": "Zablokuj konta użytkowników, którzy nie odwiedzili forum od ponad x lat. Ich treści (np. napisane posty) nie są usuwane."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

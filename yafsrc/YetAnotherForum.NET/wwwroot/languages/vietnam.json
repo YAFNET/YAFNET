@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Mã JS dùng để sửa đổi trình soạn thảo văn bản. Dùng \"{{editorid}}\" (không có dấu ngoặc kép) để ID của trình soạn thảo được thay vào mã. Chỉ cần nhập javascript vào trường này. Thẻ script sẽ được thêm tự động."
+            "#text": "Mã JS dùng để sửa đổi trình soạn thảo văn bản. Dùng \"{editorid}\" (không có dấu ngoặc kép) để ID của trình soạn thảo được thay vào mã. Chỉ cần nhập javascript vào trường này. Thẻ script sẽ được thêm tự động."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1843,7 +1843,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} tiện ích YafBBCode"
+            "#text": "{0} tiện ích BBCode"
           },
           {
             "@tag": "USE_MODULE",
@@ -1884,7 +1884,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Nhập YafBBCode tùy chỉnh"
+            "#text": "Nhập BBCode tùy chỉnh"
           },
           {
             "@tag": "SELECT_IMPORT",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "LƯU Ý: để bản tóm tắt hoạt động, web.config phải định nghĩa AppSettings \"YAF.BaseUrlMask\" và \"YAF.ForceScriptName\"."
+            "#text": "Người dùng có thể nhận email tóm tắt các chủ đề mới và đang hoạt động (mỗi người dùng tự bật trong cài đặt của mình)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Số giờ trước khi thử gửi bản tóm tắt tiếp theo. Bản tóm tắt chỉ được gửi trong khoảng từ 12:00 đến 6:00 sáng."
+            "#text": "Số giờ giữa hai lần tóm tắt. Bản tóm tắt chỉ được gửi từ nửa đêm đến 6:00 sáng (giờ máy chủ)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Chỉ bắt buộc khi tạo bảng với tên ứng dụng thành viên (membership) mới và khác."
+            "#text": "Nếu được chọn, một người dùng mới với tên, email và mật khẩu nhập ở đây sẽ được tạo làm quản trị viên của diễn đàn mới. Nếu không, bạn là quản trị viên của nó."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Khi chọn, thành viên của vai trò này sẽ có một số quyền quản trị trong YAF."
+            "#text": "Thành viên của vai trò này là người điều hành diễn đàn và có thể dùng một số tùy chọn như quản trị viên (tìm người dùng trong phần chọn người dùng, chữ ký khi chữ ký bị tắt, kết quả bình chọn ẩn). Để điều hành các diễn đàn, vai trò cần một mặt nạ truy cập có quyền điều hành trong các diễn đàn đó."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Xóa tất cả bài viết của người dùng?"
+            "#text": "Bài viết của người dùng sẽ bị xóa:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Cho phép người dùng sửa đổi phần \"Cài đặt máy chủ\"."
+            "#text": "Biến người dùng thành quản trị viên máy chủ: toàn quyền truy cập tất cả các trang quản trị và máy chủ, ví dụ cài đặt máy chủ, bảo trì cơ sở dữ liệu và các diễn đàn."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Cho phép người dùng truy cập và gửi tin nhắn riêng. Bạn cũng cần cấp quyền rõ ràng cho từng nhóm và/hoặc cấp bậc để bật tính năng này cho người dùng."
+            "#text": "Cho phép người dùng gửi tin nhắn riêng cho nhau."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Nếu được bật và một Bot được phát hiện trong quá trình đăng ký và nếu xử lý bot được đặt thành từ chối Đăng ký, thì Địa chỉ IP của Bot sẽ tự động bị cấm."
+            "#text": "Nếu bật, một bot bị phát hiện khi đăng ký sẽ bị cấm: địa chỉ IP, tên người dùng và địa chỉ email của nó được thêm vào danh sách cấm, bất kể cách xử lý bot."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Chọn giữa không dùng dịch vụ chống spam, kiểm tra spam nội bộ hoặc dịch vụ bên ngoài BlogSpam.net"
+            "#text": "Tắt, hoặc kiểm tra nội bộ: bài viết của người dùng mới được kiểm tra theo các từ kiểm tra spam."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Bạn có thực sự muốn dọn dẹp các chủ đề? Không thể hoàn tác thao tác này."
+            "#text": "Bạn có thực sự muốn dọn dẹp các chủ đề không? Các chủ đề không bị xóa vĩnh viễn có thể được khôi phục sau."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Lưu ý: </strong> Các từ spam được dùng để phát hiện SPAM nội bộ: khi đăng ký, trang chủ mà người dùng nhập vào hồ sơ sẽ được kiểm tra với các từ spam. Ngoài ra, nếu trong Cài đặt máy chủ, mục 'Chọn dịch vụ SPAM để tự động kiểm tra SPAM' được đặt là 'Từ kiểm tra spam nội bộ', mỗi bài viết mới của người dùng trong diễn đàn cũng sẽ được kiểm tra với các từ spam."
+            "#text": "<strong>Lưu ý:</strong> Các từ kiểm tra spam được dùng bởi kiểm tra spam nội bộ: trang chủ và chữ ký của hồ sơ được kiểm tra khi người dùng thay đổi chúng, và bài viết mới được kiểm tra khi kiểm tra spam nội bộ được chọn trong cài đặt máy chủ."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Khóa các tài khoản không hoạt động quá x năm. Thao tác này không xóa nội dung của họ (như bài viết đã đăng)"
+            "#text": "Khóa tài khoản của những người dùng không truy cập diễn đàn hơn x năm. Nội dung của họ (như bài viết đã đăng) không bị xóa."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

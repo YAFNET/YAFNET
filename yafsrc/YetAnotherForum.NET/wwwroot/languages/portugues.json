@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Código JS para modificar o editor de texto. Use \"{{editorid}}\" (sem aspas) para que o ID do editor de texto seja substituído no código. Basta introduzir javascript neste campo; a etiqueta script é adicionada automaticamente."
+            "#text": "Código JS para modificar o editor de texto. Use \"{editorid}\" (sem aspas) para que o ID do editor de texto seja substituído no código. Basta introduzir javascript neste campo; a etiqueta script é adicionada automaticamente."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "NOTA: o quadro tem de ter os AppSettings \"YAF.BaseUrlMask\" e \"YAF.ForceScriptName\" definidos no seu web.config para o resumo funcionar."
+            "#text": "Os utilizadores podem receber um resumo por email com os tópicos novos e ativos (cada utilizador ativa-o nas suas próprias definições)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Número de horas antes de tentar enviar outro resumo. O resumo só tenta ser enviado entre as 0:00 e as 6:00."
+            "#text": "Número de horas entre dois resumos. O resumo só é enviado entre a meia-noite e as 6:00 (hora do servidor)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Só é necessário ao criar um quadro com um nome de aplicação de membros novo e diferente."
+            "#text": "Se marcado, é criado um novo utilizador com o nome, o email e a palavra-passe introduzidos aqui como administrador do novo fórum. Caso contrário, é você o administrador."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Se marcado, os membros desta função terão alguns direitos de administração no YAF."
+            "#text": "Os membros desta função são moderadores do fórum e podem usar algumas opções como os administradores (pesquisar utilizadores nas seleções de utilizadores, uma assinatura quando as assinaturas estão desativadas, resultados de sondagens ocultos). Para moderar fóruns, a função precisa de uma máscara de acesso com acesso de moderador nesses fóruns."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Eliminar todas as mensagens do utilizador?"
+            "#text": "Mensagens do utilizador que são eliminadas:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Dá ao utilizador acesso para modificar a secção \"Definições do servidor\"."
+            "#text": "Torna o utilizador administrador do anfitrião: acesso total a todas as páginas de administração e do anfitrião, p. ex. as definições do anfitrião, a manutenção da base de dados e os fóruns."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Permitir aos utilizadores aceder a mensagens privadas e enviá-las. Também tem de dar permissão explícita a cada grupo e/ou classificação para as ativar para os utilizadores."
+            "#text": "Permitir que os utilizadores enviem mensagens privadas uns aos outros."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Se ativado, for detetado um bot durante o registo e o tratamento de bots estiver definido para rejeitar o registo, o endereço IP do bot é proibido automaticamente."
+            "#text": "Se ativado, um bot detetado durante o registo é banido: o seu endereço IP, nome de utilizador e endereço de email são adicionados às listas de banimento, seja qual for o tratamento dos bots."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Escolha entre nenhum serviço de spam, a verificação de spam interna ou o serviço externo BlogSpam.net"
+            "#text": "Desativado, ou a verificação interna: as mensagens dos novos utilizadores são verificadas com as palavras de spam."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Quer mesmo limpar os tópicos? Este processo é irreversível."
+            "#text": "Quer mesmo limpar os tópicos? Os tópicos que não forem removidos permanentemente podem ser restaurados mais tarde."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Nota: </strong> As palavras de spam são usadas para a deteção interna de spam: durante o registo, a página web que o utilizador introduz no perfil é comparada com as palavras de spam. Além disso, se um utilizador publicar uma nova mensagem no fórum, esta é comparada com as palavras de spam se, nas definições do servidor, 'Escolha um serviço de spam para a verificação automática de spam' estiver definido como 'Palavras internas de verificação de spam'."
+            "#text": "<strong>Nota:</strong> As palavras de spam são usadas pela verificação de spam interna: a página pessoal e a assinatura de um perfil são verificadas quando o utilizador as altera, e as novas mensagens são verificadas quando a verificação interna está selecionada nas definições do anfitrião."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Bloquear contas inativas com mais de x anos. Isto não elimina o seu conteúdo (como as mensagens publicadas)"
+            "#text": "Bloquear as contas dos utilizadores que não visitam o fórum há mais de x anos. O seu conteúdo (como as mensagens publicadas) não é eliminado."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

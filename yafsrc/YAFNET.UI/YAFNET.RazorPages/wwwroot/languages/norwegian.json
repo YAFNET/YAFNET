@@ -1674,7 +1674,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Vil du slette denne YafBBCode-utvidelsen?"
+            "#text": "Vil du slette denne BBCode-utvidelsen?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-kode som brukes til å endre tekstredigeringsprogrammet. Bruk \"{{editorid}}\" (uten anførselstegn) for å få ID-en til tekstredigeringsprogrammet satt inn i koden. Skriv bare inn JavaScript i dette feltet. Script-taggen legges til automatisk."
+            "#text": "JS-kode som brukes til å endre tekstredigeringsprogrammet. Bruk \"{editorid}\" (uten anførselstegn) for å få ID-en til tekstredigeringsprogrammet satt inn i koden. Skriv bare inn JavaScript i dette feltet. Script-taggen legges til automatisk."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "MERK: Tavlen må ha AppSettings \"YAF.BaseUrlMask\" og \"YAF.ForceScriptName\" definert i web.config for at sammendraget skal fungere."
+            "#text": "Brukere kan motta et sammendrag med nye og aktive emner på e-post (hver bruker slår det på i sine egne innstillinger)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Antall timer før det gjøres et nytt forsøk på å sende et sammendrag. Sammendraget sendes bare mellom kl. 00:00 og 06:00."
+            "#text": "Antall timer mellom to sammendrag. Sammendraget sendes bare mellom midnatt og kl. 6:00 (serverens tid)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Bare nødvendig når du oppretter en tavle med et nytt og annet navn på medlemskapsapplikasjonen."
+            "#text": "Hvis avkrysset, opprettes en ny bruker med navnet, e-posten og passordet som er skrevet inn her, som administrator for det nye forumet. Ellers er du administrator."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Når dette er merket av, får medlemmene av denne rollen visse administratorrettigheter i YAF."
+            "#text": "Medlemmer av denne rollen er moderatorer for forumet og kan bruke noen alternativer som administratorer (søke etter brukere i brukervalg, en signatur når signaturer er slått av, skjulte avstemningsresultater). For å moderere forum trenger rollen en tilgangsmaske med moderatortilgang i disse forumene."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Slette alle innlegg fra brukeren?"
+            "#text": "Brukerens innlegg som slettes:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Gir brukeren tilgang til å endre delen \"Vertsinnstillinger\"."
+            "#text": "Gjør brukeren til vertsadministrator: full tilgang til alle administrator- og vertssider, f.eks. vertsinnstillingene, databasevedlikeholdet og forumene."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Lar brukere bruke og sende private meldinger. Du må også gi tillatelse uttrykkelig for hver gruppe og/eller rang for å aktivere dem for brukere."
+            "#text": "Tillat brukere å sende private meldinger til hverandre."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Hvis aktivert, og en robot oppdages ved registrering mens robothåndteringen er satt til å avvise registreringen, blir IP-adressen til roboten utestengt automatisk."
+            "#text": "Hvis aktivert, utestenges en robot som oppdages ved registrering: IP-adressen, brukernavnet og e-postadressen legges til i utestengelseslistene, uansett håndteringen av roboter."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Velg mellom ingen spamtjeneste, intern spamkontroll eller den eksterne tjenesten BlogSpam.net"
+            "#text": "Deaktivert eller den interne kontrollen: innleggene til nye brukere kontrolleres mot spamkontrollordene."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Vil du virkelig rydde opp i emner? Dette kan ikke angres."
+            "#text": "Vil du virkelig rydde opp i emnene? Emner som ikke fjernes permanent, kan gjenopprettes senere."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Merk: </strong> Spamordene brukes til den interne spamgjenkjenningen. Ved registreringen kontrolleres hjemmesiden brukeren skriver inn i brukerprofilen, mot spamordene. Når en bruker skriver et nytt innlegg i forumet, kontrolleres det også mot spamordene hvis 'Velg en spamtjeneste for automatisk spamkontroll' i vertsinnstillingene er satt til 'Interne spamkontrollord'."
+            "#text": "<strong>Merk:</strong> Spamkontrollordene brukes av den interne spamkontrollen: hjemmesiden og signaturen i en profil kontrolleres når brukeren endrer dem, og nye innlegg kontrolleres når den interne spamkontrollen er valgt i vertsinnstillingene."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lås inaktive kontoer eldre enn x år. Innholdet deres (som skrevne innlegg) slettes ikke"
+            "#text": "Lås kontoene til brukere som ikke har besøkt forumet på mer enn x år. Innholdet deres (som skrevne innlegg) slettes ikke."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

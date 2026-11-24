@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-koodi, jolla muokataan tekstieditoria. Käytä merkintää \"{{editorid}}\" (ilman lainausmerkkejä), niin se korvataan koodissa tekstieditorin tunnuksella. Kirjoita kenttään pelkkä JavaScript. Script-tagi lisätään automaattisesti."
+            "#text": "JS-koodi, jolla muokataan tekstieditoria. Käytä merkintää \"{editorid}\" (ilman lainausmerkkejä), niin se korvataan koodissa tekstieditorin tunnuksella. Kirjoita kenttään pelkkä JavaScript. Script-tagi lisätään automaattisesti."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "HUOM: foorumin web.config-tiedostossa on oltava määritettynä AppSettings-asetukset \"YAF.BaseUrlMask\" ja \"YAF.ForceScriptName\", jotta kooste toimii."
+            "#text": "Käyttäjät voivat saada sähköpostikoosteen uusista ja aktiivisista aiheista (jokainen käyttäjä ottaa sen käyttöön omista asetuksistaan)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Tuntimäärä, jonka jälkeen yritetään lähettää uusi kooste. Koostetta yritetään lähettää vain klo 0:00 ja 6:00 välillä."
+            "#text": "Tuntien määrä kahden koosteen välillä. Kooste lähetetään vain keskiyön ja klo 6.00 välillä (palvelimen aika)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Tarvitaan vain, kun luodaan foorumi uudella, eri jäsenyyssovelluksen nimellä."
+            "#text": "Jos valittu, uusi käyttäjä tähän syötetyllä nimellä, sähköpostilla ja salasanalla luodaan uuden foorumin ylläpitäjäksi. Muuten sinä olet sen ylläpitäjä."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Kun tämä on valittuna, tämän roolin jäsenillä on joitakin YAF:n ylläpitäjän oikeuksia."
+            "#text": "Tämän roolin jäsenet ovat foorumin moderaattoreita ja voivat käyttää joitakin asetuksia kuten ylläpitäjät (käyttäjien haku käyttäjävalinnoissa, allekirjoitus kun allekirjoitukset ovat pois käytöstä, piilotetut äänestystulokset). Foorumien moderointiin rooli tarvitsee näillä foorumeilla käyttöoikeusmaskin, jossa on moderaattorin oikeudet."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Poistetaanko kaikki käyttäjän viestit?"
+            "#text": "Käyttäjän viestit, jotka poistetaan:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Antaa käyttäjälle oikeuden muokata \"Palvelimen asetukset\" -osiota."
+            "#text": "Tekee käyttäjästä palvelimen ylläpitäjän: täysi pääsy kaikille ylläpito- ja palvelinsivuille, esim. palvelinasetuksiin, tietokannan ylläpitoon ja foorumeihin."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Salli käyttäjien käyttää ja lähettää yksityisviestejä. Sinun on myös erikseen annettava oikeus kullekin ryhmälle ja/tai arvolle, jotta ne ovat käyttäjien käytettävissä."
+            "#text": "Salli käyttäjien lähettää yksityisviestejä toisilleen."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Jos käytössä ja botti havaitaan rekisteröitymisessä, ja bottien käsittely on asetettu hylkäämään rekisteröityminen, botin IP-osoite estetään automaattisesti."
+            "#text": "Jos käytössä, rekisteröitymisen yhteydessä havaittu botti estetään: sen IP-osoite, käyttäjänimi ja sähköpostiosoite lisätään estolistoihin bottien käsittelystä riippumatta."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Valitse joko ei roskapostipalvelua, sisäinen roskapostitarkistus tai ulkoinen palvelu BlogSpam.net"
+            "#text": "Pois käytöstä tai sisäinen tarkistus: uusien käyttäjien viestit tarkistetaan roskapostisanoja vasten."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Haluatko todella siivota aiheita? Toimintoa ei voi perua."
+            "#text": "Haluatko varmasti karsia aiheet? Aiheet, joita ei poisteta pysyvästi, voidaan palauttaa myöhemmin."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Huomautus: </strong> Roskapostisanoja käytetään sisäiseen roskapostin tunnistukseen: rekisteröitymisen yhteydessä käyttäjän profiiliin antama kotisivu tarkistetaan roskapostisanoja vasten. Myös käyttäjän uusi viesti foorumilla tarkistetaan roskapostisanoja vasten, jos palvelimen asetuksissa 'Valitse roskapostipalvelu automaattista roskapostitarkistusta varten' on asetettu arvoon 'Sisäiset roskapostisanat'."
+            "#text": "<strong>Huom:</strong> Roskapostisanoja käyttää sisäinen roskapostitarkistus: profiilin kotisivu ja allekirjoitus tarkistetaan, kun käyttäjä muuttaa niitä, ja uudet viestit tarkistetaan, kun palvelinasetuksissa on valittu sisäinen roskapostitarkistus."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lukitse yli x vuotta passiivisina olleet tilit. Niiden sisältöä (kuten kirjoitettuja viestejä) ei poisteta"
+            "#text": "Lukitse niiden käyttäjien tilit, jotka eivät ole käyneet foorumilla yli x vuoteen. Heidän sisältöään (kuten kirjoitettuja viestejä) ei poisteta."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",

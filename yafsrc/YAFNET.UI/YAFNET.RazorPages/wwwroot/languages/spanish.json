@@ -1775,7 +1775,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Código JS para modificar el editor de texto. Use \"{{editorid}}\" (sin comillas) para que se reemplace por el ID del editor de texto en el código. Introduzca javascript en este campo, la etiqueta script se añadirá automáticamente."
+            "#text": "Código JS para modificar el editor de texto. Use \"{editorid}\" (sin comillas) para que se reemplace por el ID del editor de texto en el código. Introduzca javascript en este campo, la etiqueta script se añadirá automáticamente."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -2034,7 +2034,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "NOTA: el tablero debe tener definidos los AppSettings \"YAF.BaseUrlMask\" y \"YAF.ForceScriptName\" en su web.config para que el resumen funcione."
+            "#text": "Los usuarios pueden recibir un resumen por correo con los temas nuevos y activos (cada usuario lo activa en su propia configuración)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -2074,7 +2074,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Horas antes de intentar enviar un nuevo resumen. Los resúmenes solo intentan enviarse entre las 00:00 y las 06:00h."
+            "#text": "Número de horas entre dos resúmenes. El resumen solo se envía entre la medianoche y las 6:00 (hora del servidor)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2636,7 +2636,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Solo es necesario al crear un tablero con un nombre de aplicación de membresía nuevo y diferente."
+            "#text": "Si está marcado, se crea un usuario nuevo con el nombre, el correo y la contraseña introducidos aquí como administrador del nuevo foro. Si no, usted es su administrador."
           },
           {
             "@tag": "CULTURE",
@@ -3015,7 +3015,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Si está marcado, los miembros de este rol tendrán algunos derechos de administración en YAF."
+            "#text": "Los miembros de este rol son moderadores del foro y pueden usar algunas opciones como los administradores (buscar usuarios en las selecciones de usuarios, una firma cuando las firmas están desactivadas, resultados de encuestas ocultos). Para moderar foros, el rol necesita una máscara de acceso con acceso de moderador en esos foros."
           },
           {
             "@tag": "GUEST_NOTE",
@@ -3543,7 +3543,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "¿Eliminar todos los mensajes del usuario?"
+            "#text": "Mensajes del usuario que se eliminan:"
           },
           {
             "@tag": "DISABLED",
@@ -3747,7 +3747,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Proporciona al usuario acceso para modificar la sección de \"Configuración del servidor\"."
+            "#text": "Convierte al usuario en administrador del host: acceso completo a todas las páginas de administración y del host, p. ej. la configuración del host, el mantenimiento de la base de datos y los foros."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4335,7 +4335,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Permite a los usuarios acceder a los mensajes privados y enviarlos. También debe dar permiso explícitamente a cada grupo y/o rango para activarlos para los usuarios."
+            "#text": "Permitir que los usuarios se envíen mensajes privados."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4527,7 +4527,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Si está activado, se detecta un bot durante el registro y el tratamiento de bots está configurado para rechazar el registro, la dirección IP del bot se prohíbe automáticamente."
+            "#text": "Si está activado, un bot detectado durante el registro se bloquea: su dirección IP, su nombre de usuario y su dirección de correo se añaden a las listas de bloqueo, sea cual sea el tratamiento de los bots."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4571,7 +4571,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Elija entre ningún servicio de spam, la comprobación de spam interna o el servicio externo BlogSpam.net"
+            "#text": "Desactivado, o la comprobación interna: los mensajes de los usuarios nuevos se comprueban con las palabras de spam."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6420,7 +6420,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "¿Seguro que quiere depurar los temas? Este proceso es irreversible."
+            "#text": "¿Realmente quiere depurar los temas? Los temas que no se eliminen definitivamente se pueden restaurar más tarde."
           },
           {
             "@tag": "EXPLAIN",
@@ -7039,7 +7039,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Nota: </strong> Las palabras de spam se usan para la detección interna de spam: durante el registro, la página web que el usuario introduce en su perfil se compara con las palabras de spam. Además, si un usuario publica un nuevo mensaje en el foro, se compara con las palabras de spam si en la configuración del servidor 'Elija un servicio de spam para la comprobación automática de spam' está establecido en 'Palabras internas de comprobación de spam'."
+            "#text": "<strong>Nota:</strong> Las palabras de spam las usa la comprobación de spam interna: la página web y la firma de un perfil se comprueban cuando el usuario las cambia, y los mensajes nuevos se comprueban cuando en la configuración del host está seleccionada la comprobación interna."
           },
           {
             "@tag": "SAVE",
@@ -7356,7 +7356,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Bloquear las cuentas inactivas con más de x años. No elimina su contenido (como los mensajes publicados)"
+            "#text": "Bloquear las cuentas de los usuarios que no han visitado el foro desde hace más de x años. Su contenido (como los mensajes publicados) no se elimina."
           },
           {
             "@tag": "LOCKED_ACCOUNTS",
