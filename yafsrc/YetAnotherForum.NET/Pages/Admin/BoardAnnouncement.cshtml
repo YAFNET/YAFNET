@@ -55,7 +55,9 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <textarea asp-for="Input.Message" class="form-control" rows="3" required="required"
-                                  aria-label="@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MESSAGE")"></textarea>
+                                  aria-label="@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MESSAGE")"
+                                  data-preview-format="#AnnouncementPreviewText"
+                                  data-preview-url="@Url.Page("BoardAnnouncement", "Preview")"></textarea>
                         <div class="invalid-feedback">
                             @Html.LocalizedText("ADMIN_BOARDSETTINGS", "NEED_MESSAGE")
                         </div>

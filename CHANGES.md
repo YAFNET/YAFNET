@@ -219,6 +219,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Event Log and Spam Log: "Clean Up" and deleting an entry also deleted the entries without a user, which are listed for every board, so an admin of one board deleted them for all boards; the entries have the board they were written on now (new BoardID column, the existing entries get the board of their user), every board lists and deletes its own entries, the entries without a board and user (e.g. of background tasks) are only deleted by a host admin
 * [FIXED] Host Settings: the options "Max. File Size for User Poll Images" (poll images are links, not uploads) and "Allow Private Message Notifications" (private messages are a chat without mails) were shown but not saved and had no effect; they are removed; all languages
 * [FIXED] Host Settings: "Abandon Sessions for 'Don't Track' Users" was shown but not saved and had no effect (not migrated from YAF.NET v3); search engines and bots without a session cookie get a session only for their request now, every crawler request started a session that was kept in the memory of the server for hours (with the forum list of the index, the page data of a topic...); all languages
+* [FIXED] Admin > Board Announcement: the preview of the message did not change while typing any more (since the announcement is formatted like a post); the preview is formatted by the server while typing, like the announcement on the pages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

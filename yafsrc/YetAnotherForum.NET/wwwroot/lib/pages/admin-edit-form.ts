@@ -79,14 +79,47 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
-// A field with data-preview-html shows its text (html like the board announcement) on the preview element
+// A field with data-preview-format shows its text on the preview element formatted by the server (data-preview-url,
+// a page handler that formats it like the board announcement: html is encoded, BB codes format it), while typing
 document.addEventListener('DOMContentLoaded', () => {
-	document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>('.admin-edit-form [data-preview-html]').forEach(field => {
-		const preview = document.querySelector<HTMLElement>(field.dataset.previewHtml ?? '');
+	document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>('.admin-edit-form [data-preview-format]').forEach(field => {
+		const preview = document.querySelector<HTMLElement>(field.dataset.previewFormat ?? '');
+		const url = field.dataset.previewUrl;
 
-		if (preview) {
-			field.addEventListener('input', () => preview.innerHTML = field.value);
+		if (!preview || !url) {
+			return;
 		}
+
+		let timer: number | undefined;
+		let request = 0;
+
+		field.addEventListener('input', () => {
+			window.clearTimeout(timer);
+
+			timer = window.setTimeout(async () => {
+				// only the answer of the last request is shown
+				const current = ++request;
+
+				const data = new FormData();
+				data.append('message', field.value);
+
+				const token = field.form?.querySelector<HTMLInputElement>('input[name="__RequestVerificationToken"]')?.value;
+
+				if (token) {
+					data.append('__RequestVerificationToken', token);
+				}
+
+				try {
+					const response = await fetch(url, { method: 'POST', body: data });
+
+					if (response.ok && current === request) {
+						preview.innerHTML = await response.text();
+					}
+				} catch {
+					// the preview keeps the last text
+				}
+			}, 300);
+		});
 	});
 });
 

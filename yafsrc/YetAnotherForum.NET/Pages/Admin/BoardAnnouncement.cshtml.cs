@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -136,6 +137,19 @@ public class BoardAnnouncementModel : AdminPage
         this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
+    }
+
+    /// <summary>
+    /// The live preview of the message: formatted like the announcement on the pages (html is encoded,
+    /// BB codes format it), the preview showed the typed text as html.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>The formatted message.</returns>
+    public async Task<IActionResult> OnPostPreviewAsync(string message)
+    {
+        var html = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(message ?? string.Empty, 0);
+
+        return this.Content(html, "text/html");
     }
 
     /// <summary>
