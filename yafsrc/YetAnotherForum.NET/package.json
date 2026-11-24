@@ -38,7 +38,7 @@
 		"@yafnet/sceditor": "^3.2.19",
 		"bootstrap": "^5.3.9",
 		"bootswatch": "^5.3.8",
-		"chart.js": "^4.6.1",
+		"chart.js": "^4.6.2",
 		"choices.js": "^11.2.4",
 		"codemirror": "^6.0.2",
 		"flag-icons": "^7.6.0",
