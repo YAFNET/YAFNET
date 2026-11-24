@@ -7794,7 +7794,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Sie haben noch keine Anhänge. Um einen hinzuzufügen, klicken Sie auf die Schaltfläche <strong>Neue Datei(en)</strong> hochladen"
+            "#text": "Du hast noch keine Anhänge hochgeladen."
           },
           {
             "@tag": "NOT_USED",
@@ -12792,7 +12792,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Optionen um das Thema via E-Mail, RSS, Atom, zu abonnieren. Und eine Option für eine Druckfreundliche Ansicht."
+            "#text": "Dieses Thema beobachten, drucken oder seinen Atom-Feed öffnen."
           },
           {
             "@tag": "PM",
@@ -12864,7 +12864,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Dieses Thema via E-Mail, Facebook, Reddit oder Tumblr verbreiten"
+            "#text": "Dieses Thema teilen: Link kopieren oder per E-Mail senden."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14516,7 +14516,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Öffnet das Benutzer Control Panel."
+            "#text": "Zeigt dein Konto und deine Aktivitäten."
           },
           {
             "@tag": "MYSETTINGS",

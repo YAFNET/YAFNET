@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Ainda não tem nenhum anexo, para adicionar um clique no botão <forte>Carregar Novo(s) Ficheiro(s)</forte>"
+            "#text": "Ainda não carregou nenhum anexo."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Opções de Tópicos para Subscrever via Email, RSS, Atom, e para ver a Página Amigável de Impressão."
+            "#text": "Acompanhar este tópico, imprimi-lo ou abrir o seu feed Atom."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Partilhar este tópico: copiar a ligação ou enviá-lo por e-mail."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Mostra o Painel de Controlo do Utilizador."
+            "#text": "Mostra a sua conta e a sua atividade."
           },
           {
             "@tag": "MYSETTINGS",

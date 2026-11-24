@@ -7794,7 +7794,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Nie masz jeszcze żadnych załączników, aby je dodać, kliknij przycisk <strong>Prześlij nowy plik(i)</strong>."
+            "#text": "Nie przesłano jeszcze żadnych załączników."
           },
           {
             "@tag": "NOT_USED",
@@ -12796,7 +12796,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Opcje do zasubskrybowania tematu przez e-mail, RSS, Atom oraz do zobaczenia strony do wydruku."
+            "#text": "Obserwuj ten temat, wydrukuj go lub otwórz jego kanał Atom."
           },
           {
             "@tag": "PM",
@@ -12868,7 +12868,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Podziel się tematem przez e-mail, Facebook, Reddit, lub Tumblr."
+            "#text": "Udostępnij ten temat: skopiuj link lub wyślij go e-mailem."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14520,7 +14520,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Pokazuje panel użytkownika."
+            "#text": "Pokazuje Twoje konto i Twoją aktywność."
           },
           {
             "@tag": "MYSETTINGS",

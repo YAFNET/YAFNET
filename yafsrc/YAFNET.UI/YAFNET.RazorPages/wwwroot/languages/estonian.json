@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Teil ei ole veel manuseid, et lisada üks klõps nupul <strong>Laadi uus fail(id)</strong>"
+            "#text": "Sa ei ole veel ühtegi manust üles laadinud."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Teemavalikud tellimiseks e-posti, RSS-i, Atomi kaudu ja printerisõbraliku lehe vaatamiseks."
+            "#text": "Jälgi seda teemat, prindi see või ava selle Atom-voog."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Jaga seda teemat: kopeeri link või saada see e-postiga."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14544,7 +14544,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Kuvab kasutaja juhtpaneeli."
+            "#text": "Näitab sinu kontot ja tegevust."
           },
           {
             "@tag": "MYSETTINGS",

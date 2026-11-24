@@ -7794,7 +7794,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "U heeft nog geen bijlagen, om één klik op de knop <strong>Nieuwe bestand(en) uploaden</strong> toe te voegen"
+            "#text": "Je hebt nog geen bijlagen geüpload."
           },
           {
             "@tag": "NOT_USED",
@@ -12792,7 +12792,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Topic Opties om te abonneren via Email, RSS, Atom, en om een printvriendelijke pagina te bekijken."
+            "#text": "Dit onderwerp volgen, afdrukken of de Atom-feed openen."
           },
           {
             "@tag": "PM",
@@ -12864,7 +12864,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Deel dit topic via Email, Facebook, Reddit of Tumblr."
+            "#text": "Dit onderwerp delen: de link kopiëren of per e-mail versturen."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14516,7 +14516,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Laat de gebruikersconfiguratiepagina zien."
+            "#text": "Toont je account en je activiteit."
           },
           {
             "@tag": "MYSETTINGS",

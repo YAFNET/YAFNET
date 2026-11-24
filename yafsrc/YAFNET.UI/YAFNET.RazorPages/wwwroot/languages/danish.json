@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Du har ikke nogen vedhæftede filer endnu, for at tilføje ét klik på knappen <strong>Upload ny(e) fil(er)</strong>"
+            "#text": "Du har ikke uploadet nogen vedhæftede filer endnu."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Emnemuligheder for at abonnere via e-mail, RSS, Atom og for at se printervenlig side."
+            "#text": "Følg emnet, udskriv det eller åbn dets Atom-feed."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Del emnet: kopiér linket eller send det via e-mail."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Viser brugerkontrolpanelet."
+            "#text": "Viser din konto og din aktivitet."
           },
           {
             "@tag": "MYSETTINGS",

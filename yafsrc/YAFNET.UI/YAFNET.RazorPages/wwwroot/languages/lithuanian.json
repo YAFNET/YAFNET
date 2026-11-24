@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Dar neturite jokių priedų, norėdami juos pridėti, spustelėkite mygtuką <strong>Įkelti naują (-us) failą (-us)</strong>."
+            "#text": "Dar neįkėlėte jokių priedų."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Temos parinktys Prenumeruoti el. paštu, RSS, \"Atom\" ir peržiūrėti \"Printer Friendly\" puslapį."
+            "#text": "Stebėti šią temą, ją atspausdinti arba atidaryti jos Atom kanalą."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Bendrinti šią temą: nukopijuoti nuorodą arba išsiųsti el. paštu."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Rodomas naudotojo valdymo skydelis."
+            "#text": "Rodo jūsų paskyrą ir veiklą."
           },
           {
             "@tag": "MYSETTINGS",

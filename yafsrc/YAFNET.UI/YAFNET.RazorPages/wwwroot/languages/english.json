@@ -7794,7 +7794,7 @@
                 },
                 {
                     "@tag": "NO_ATTACHMENTS",
-                    "#text": "You don't have any attachments uploaded yet, to add one click on the <strong>Upload New File(s)</strong> button"
+                    "#text": "You have not uploaded any attachments yet."
                 },
                 {
                     "@tag": "NOT_USED",
@@ -12784,7 +12784,7 @@
                 },
                 {
                     "@tag": "OPTIONS_TOOLTIP",
-                    "#text": "Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page."
+                    "#text": "Watch this topic, print it or open its Atom feed."
                 },
                 {
                     "@tag": "PM",
@@ -12856,7 +12856,7 @@
                 },
                 {
                     "@tag": "SHARE_TOOLTIP",
-                    "#text": "Share this Topic via Email, Facebook or Reddit."
+                    "#text": "Share this topic: copy its link or send it by e-mail."
                 },
                 {
                     "@tag": "SIMILAR_TOPICS",
@@ -14516,7 +14516,7 @@
                 },
                 {
                     "@tag": "MYPROFILE_TITLE",
-                    "#text": "Shows the User Control Panel."
+                    "#text": "Shows your account and your activity."
                 },
                 {
                     "@tag": "MYSETTINGS",

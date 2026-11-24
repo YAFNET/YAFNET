@@ -7794,7 +7794,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "ليس لديك أي مرفقات حتى الآن ، لإضافة نقرة واحدة على الزر <strong> تحميل ملف (ملفات) جديدة </ strong>"
+            "#text": "لم تقم بتحميل أي مرفقات بعد."
           },
           {
             "@tag": "NOT_USED",
@@ -12788,7 +12788,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "خيارات الموضوع للاشتراك عبر البريد الإلكتروني و RSS و Atom ولعرض صفحة قابلة للطباعة."
+            "#text": "تابع هذا الموضوع أو اطبعه أو افتح موجز Atom الخاص به."
           },
           {
             "@tag": "PM",
@@ -12860,7 +12860,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "شارك هذا الموضوع: انسخ رابطه أو أرسله عبر البريد الإلكتروني."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14512,7 +14512,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "يظهر لوحة تحكم المستخدم."
+            "#text": "يعرض حسابك ونشاطك."
           },
           {
             "@tag": "MYSETTINGS",

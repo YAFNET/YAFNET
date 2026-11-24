@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Sinulla ei ole vielä liitetiedostoja, voit lisätä yhden napsauttamalla <strong>Lata uusi(t) tiedosto(t)</strong> -painiketta."
+            "#text": "Et ole vielä ladannut yhtään liitettä."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Aiheen vaihtoehdot tilata sähköpostitse, RSS, Atom ja katsella tulostinystävällistä sivua."
+            "#text": "Seuraa aihetta, tulosta se tai avaa sen Atom-syöte."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Jaa aihe: kopioi sen linkki tai lähetä se sähköpostilla."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Näyttää käyttäjän ohjauspaneelin."
+            "#text": "Näyttää tilisi ja toimintasi."
           },
           {
             "@tag": "MYSETTINGS",

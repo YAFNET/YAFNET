@@ -186,6 +186,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Forum Rules and Policies (Privacy page): the text had up to four empty lines between the paragraphs, showed "[br]" as text and a stray "[/b]", the section headings had the size of the text; it named BlogSpam.net (the service is closed, the forum does not use it), a contact form and a shopping cart the forum does not have, and did not mention IPInfoDB, embedded videos, push notifications, the stored IP addresses and the reports to StopForumSpam; the cookie section links to the Cookie Policy now; translated in all languages (it was English in all of them except Persian and a shortened Hebrew text)
 * [FIXED] BBCode: a numbered list without a list type (e.g. in an older post) was changed to roman numerals ([list=i]) when the post was edited; numbered lists ([list=1]) use the list style "decimal" (it was "number", a counter style that does not exist, the browsers fell back to decimal)
 * [FIXED] User menu: the "My Friends" link had a stray attribute "6" in its html
+* [FIXED] Outdated texts: the attachments dialog without uploads named an "Upload New File(s)" button that does not exist (and showed the html tags as text in the editor; Bulgarian showed "Бордът Дон", Portuguese a translated "<forte>" tag), the tooltip of the topic "Tools" named e-mail and RSS subscriptions, the one of "Share it!" Facebook and Reddit, and "My Account" still the User Control Panel; all languages
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Du har ingen vedlegg ennå, for å legge til ett klikk på <strong>Last opp ny(e) fil(er)</strong> -knappen"
+            "#text": "Du har ikke lastet opp noen vedlegg ennå."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Emnealternativer for å abonnere via e-post, RSS, Atom og for å se utskriftsvennlig side."
+            "#text": "Følg emnet, skriv det ut eller åpne Atom-feeden."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Del emnet: kopier lenken eller send det på e-post."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Viser brukerkontrollpanelet."
+            "#text": "Viser kontoen din og aktiviteten din."
           },
           {
             "@tag": "MYSETTINGS",

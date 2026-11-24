@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Bạn chưa có bất kỳ tệp đính kèm nào, để thêm một cú nhấp chuột vào nút <strong>Tải lên (các) Tệp Mới</strong>"
+            "#text": "Bạn chưa tải lên tệp đính kèm nào."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Chủ đề Tùy chọn để Đăng ký qua Email, RSS, Atom và để xem Trang Thân thiện với Máy in."
+            "#text": "Theo dõi chủ đề này, in nó hoặc mở nguồn cấp Atom của nó."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Chia sẻ chủ đề này: sao chép liên kết hoặc gửi qua e-mail."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Hiển thị Bảng điều khiển Người dùng."
+            "#text": "Hiển thị tài khoản và hoạt động của bạn."
           },
           {
             "@tag": "MYSETTINGS",

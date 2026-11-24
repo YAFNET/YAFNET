@@ -7802,7 +7802,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Henüz herhangi bir eklentiniz yok, bir tane eklemek için <strong>Yeni Dosya(lar)</strong> Yükle düğmesine tıklayın"
+            "#text": "Henüz hiç eklenti yüklemediniz."
           },
           {
             "@tag": "NOT_USED",
@@ -12808,7 +12808,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "E-posta, RSS, Atom yoluyla Abone Olmak ve Yazıcı Dostu Sayfayı görüntülemek için Konu Seçenekleri."
+            "#text": "Bu konuyu izleyin, yazdırın veya Atom akışını açın."
           },
           {
             "@tag": "PM",
@@ -12880,7 +12880,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
+            "#text": "Bu konuyu paylaşın: bağlantısını kopyalayın veya e-posta ile gönderin."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14532,7 +14532,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Kullanıcı Kontrol Panelini gösterir."
+            "#text": "Hesabınızı ve etkinliğinizi gösterir."
           },
           {
             "@tag": "MYSETTINGS",
