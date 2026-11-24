@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Valige, kui soovite näidata ainult teatud tüüpi sündmusi."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Silumine"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Jälitus"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Viga"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Hoiatus"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Teave"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-viga"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Ebaõnnestunud sisselogimine"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Kasutaja peatatud"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Peatamine tühistatud"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Kasutaja kustutatud"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-keeld seatud"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-keeld tühistatud"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Keelatud IP tuvastatud"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Rämpspostirobotist teatatud"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Rämpspostirobot tuvastatud"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Rämpspostitusest teatatud"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Rämpspostitus tuvastatud"
           }
         ]
       },

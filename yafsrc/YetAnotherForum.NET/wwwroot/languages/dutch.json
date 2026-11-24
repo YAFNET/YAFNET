@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Kies ervoor om het logboek te beperken tot bepaalde soorten gebeurtenissen."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Debug"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Trace"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Fout"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Waarschuwing"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informatie"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-fout"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Mislukte aanmelding"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Gebruiker geschorst"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Schorsing opgeheven"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Gebruiker verwijderd"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-ban ingesteld"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-ban opgeheven"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "IP-ban gedetecteerd"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spambot gemeld"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spambot gedetecteerd"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spambericht gemeld"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spambericht gedetecteerd"
           }
         ]
       },

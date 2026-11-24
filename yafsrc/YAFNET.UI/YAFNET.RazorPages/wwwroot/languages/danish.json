@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Vælg for at begrænse loggen til bestemte typer hændelser."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Fejlsøgning"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Sporing"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Fejl"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Advarsel"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Information"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-fejl"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Mislykket login"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Bruger suspenderet"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Suspension ophævet"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Bruger slettet"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-udelukkelse sat"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-udelukkelse ophævet"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Udelukket IP registreret"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spambot rapporteret"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spambot registreret"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spamindlæg rapporteret"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spamindlæg registreret"
           }
         ]
       },

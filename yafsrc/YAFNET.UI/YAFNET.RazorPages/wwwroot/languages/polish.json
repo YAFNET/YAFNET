@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Ogranicz dziennik do wybranych typów zdarzeń."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Debugowanie"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Śledzenie"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Błąd"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Ostrzeżenie"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informacja"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Błąd SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Nieudane logowanie"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Użytkownik zawieszony"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Zawieszenie zniesione"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Użytkownik usunięty"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Ustawiono blokadę IP"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Zniesiono blokadę IP"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Wykryto zablokowany IP"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Zgłoszono spambota"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Wykryto spambota"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Zgłoszono spam"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Wykryto spam"
           }
         ]
       },

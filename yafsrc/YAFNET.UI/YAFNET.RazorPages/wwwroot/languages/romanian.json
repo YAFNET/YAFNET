@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Restricționați jurnalul la anumite tipuri de evenimente."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Depanare"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Urmărire"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Eroare"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Avertisment"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informație"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Eroare SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Autentificare eșuată"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Utilizator suspendat"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Suspendare ridicată"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Utilizator șters"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Blocare IP setată"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Blocare IP ridicată"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "IP blocat detectat"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Bot spam raportat"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Bot spam detectat"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Mesaj spam raportat"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Mesaj spam detectat"
           }
         ]
       },

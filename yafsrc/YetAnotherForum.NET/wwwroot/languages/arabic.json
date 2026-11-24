@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "اختر حصر السجل في أنواع معينة من الأحداث."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "تصحيح الأخطاء"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "تتبع"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "خطأ"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "تحذير"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "معلومات"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "خطأ SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "فشل تسجيل الدخول"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "تم إيقاف المستخدم"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "تم رفع الإيقاف"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "تم حذف المستخدم"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "تم حظر IP"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "تم رفع حظر IP"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "تم اكتشاف IP محظور"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "تم الإبلاغ عن روبوت سبام"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "تم اكتشاف روبوت سبام"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "تم الإبلاغ عن رسالة سبام"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "تم اكتشاف رسالة سبام"
           }
         ]
       },

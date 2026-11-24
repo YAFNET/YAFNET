@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Välj att begränsa loggningen till vissa typer av händelser."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Felsökning"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Spårning"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Fel"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Varning"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Information"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-fel"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Misslyckad inloggning"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Användare avstängd"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Avstängning hävd"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Användare borttagen"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-spärr satt"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-spärr hävd"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Spärrad IP upptäckt"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spambot rapporterad"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spambot upptäckt"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spaminlägg rapporterat"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spaminlägg upptäckt"
           }
         ]
       },

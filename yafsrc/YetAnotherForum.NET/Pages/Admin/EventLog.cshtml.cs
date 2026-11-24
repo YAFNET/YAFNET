@@ -37,6 +37,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Newtonsoft.Json;
 
+using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
@@ -203,9 +204,16 @@ public class EventLogModel : AdminPage
     /// <returns>The name.</returns>
     public static string GetTypeName(int type)
     {
-        var name = Enum.IsDefined(typeof(EventLogTypes), type) ? ((EventLogTypes)type).ToString() : type.ToString();
+        // an unknown type shows its number
+        if (!Enum.IsDefined(typeof(EventLogTypes), type))
+        {
+            return type.ToString();
+        }
 
-        return System.Text.RegularExpressions.Regex.Replace(name, "(?<=[a-z])(?=[A-Z])", " ", System.Text.RegularExpressions.RegexOptions.None, TimeSpan.FromMilliseconds(100));
+        // the translated name (the english name of the enum was shown in every language)
+        return BoardContext.Current.Get<ILocalization>().GetText(
+            "ADMIN_EVENTLOG",
+            $"TYPE_{((EventLogTypes)type).ToString().ToUpperInvariant()}");
     }
 
     /// <summary>

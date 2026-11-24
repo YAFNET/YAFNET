@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "选择将日志限制为某些类型的事件。"
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "调试"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "跟踪"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "错误"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "警告"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "信息"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL 错误"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "登录失败"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "用户已停用"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "用户已恢复"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "用户已删除"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "已封禁 IP"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "已解除 IP 封禁"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "检测到被封禁的 IP"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "已举报垃圾机器人"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "检测到垃圾机器人"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "已举报垃圾帖子"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "检测到垃圾帖子"
           }
         ]
       },

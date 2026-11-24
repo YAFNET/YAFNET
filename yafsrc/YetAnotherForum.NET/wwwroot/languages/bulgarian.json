@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Изберете, за да ограничите дневника до определени видове събития."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Отстраняване на грешки"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Проследяване"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Грешка"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Предупреждение"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Информация"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL грешка"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Неуспешен вход"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Потребителят е спрян"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Спирането е отменено"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Потребителят е изтрит"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Забрана на IP зададена"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Забрана на IP отменена"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Открит забранен IP"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Докладван спам бот"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Открит спам бот"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Докладвано спам съобщение"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Открито спам съобщение"
           }
         ]
       },

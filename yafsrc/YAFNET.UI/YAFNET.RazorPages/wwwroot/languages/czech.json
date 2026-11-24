@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Omezí protokol na určité typy událostí."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Ladění"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Trasování"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Chyba"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Varování"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informace"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Chyba SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Neúspěšné přihlášení"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Uživatel pozastaven"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Pozastavení zrušeno"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Uživatel smazán"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Blokace IP nastavena"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Blokace IP zrušena"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Blokovaná IP zjištěna"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spambot nahlášen"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spambot zjištěn"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spamový příspěvek nahlášen"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spamový příspěvek zjištěn"
           }
         ]
       },

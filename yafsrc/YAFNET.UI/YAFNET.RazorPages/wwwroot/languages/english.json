@@ -3837,6 +3837,74 @@
                 {
                     "@tag": "TYPES_HELP",
                     "#text": "Choose to restrict the Log to certain types of events."
+                },
+                {
+                    "@tag": "TYPE_DEBUG",
+                    "#text": "Debug"
+                },
+                {
+                    "@tag": "TYPE_TRACE",
+                    "#text": "Trace"
+                },
+                {
+                    "@tag": "TYPE_ERROR",
+                    "#text": "Error"
+                },
+                {
+                    "@tag": "TYPE_WARNING",
+                    "#text": "Warning"
+                },
+                {
+                    "@tag": "TYPE_INFORMATION",
+                    "#text": "Information"
+                },
+                {
+                    "@tag": "TYPE_SQLERROR",
+                    "#text": "SQL Error"
+                },
+                {
+                    "@tag": "TYPE_LOGINFAILURE",
+                    "#text": "Login Failure"
+                },
+                {
+                    "@tag": "TYPE_USERSUSPENDED",
+                    "#text": "User Suspended"
+                },
+                {
+                    "@tag": "TYPE_USERUNSUSPENDED",
+                    "#text": "User Unsuspended"
+                },
+                {
+                    "@tag": "TYPE_USERDELETED",
+                    "#text": "User Deleted"
+                },
+                {
+                    "@tag": "TYPE_IPBANSET",
+                    "#text": "IP Ban Set"
+                },
+                {
+                    "@tag": "TYPE_IPBANLIFTED",
+                    "#text": "IP Ban Lifted"
+                },
+                {
+                    "@tag": "TYPE_IPBANDETECTED",
+                    "#text": "IP Ban Detected"
+                },
+                {
+                    "@tag": "TYPE_SPAMBOTREPORTED",
+                    "#text": "Spam Bot Reported"
+                },
+                {
+                    "@tag": "TYPE_SPAMBOTDETECTED",
+                    "#text": "Spam Bot Detected"
+                },
+                {
+                    "@tag": "TYPE_SPAMMESSAGEREPORTED",
+                    "#text": "Spam Message Reported"
+                },
+                {
+                    "@tag": "TYPE_SPAMMESSAGEDETECTED",
+                    "#text": "Spam Message Detected"
                 }
             ]
         },

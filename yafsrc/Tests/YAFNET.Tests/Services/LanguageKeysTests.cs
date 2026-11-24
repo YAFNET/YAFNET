@@ -107,6 +107,25 @@ public partial class LanguageKeysTests
         }
     }
 
+    [Test]
+    [Description("Every event log type has a name in english.json (the names were shown in english in every language)")]
+    public void Event_Log_Types_Have_Names_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var (keys, _) = ReadLanguageFile(Path.Combine(root, "YetAnotherForum.NET", "wwwroot", "languages", "english.json"));
+
+        Enum.GetNames<YAF.Types.Constants.EventLogTypes>()
+            .Select(name => $"ADMIN_EVENTLOG.TYPE_{name.ToUpperInvariant()}")
+            .Where(key => !keys.Contains(key))
+            .Should().BeEmpty();
+    }
+
     private static (HashSet<string> Keys, HashSet<string> Tags) ReadLanguageFile(string fileName)
     {
         using var json = JsonDocument.Parse(File.ReadAllText(fileName));

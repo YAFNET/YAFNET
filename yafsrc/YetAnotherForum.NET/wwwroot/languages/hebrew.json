@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "הגבילו את היומן לסוגי אירועים מסוימים."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "ניפוי באגים"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "מעקב"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "שגיאה"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "אזהרה"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "מידע"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "שגיאת SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "כניסה נכשלה"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "משתמש הושעה"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "השעיה בוטלה"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "משתמש נמחק"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "חסימת IP נקבעה"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "חסימת IP הוסרה"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "זוהתה כתובת IP חסומה"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "דווח על בוט ספאם"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "זוהה בוט ספאם"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "דווח על הודעת ספאם"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "זוהתה הודעת ספאם"
           }
         ]
       },

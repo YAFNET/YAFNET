@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Restrinja o registo a determinados tipos de eventos."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Depuração"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Rastreio"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Erro"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Aviso"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informação"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Erro de SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Falha de início de sessão"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Utilizador suspenso"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Suspensão levantada"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Utilizador eliminado"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Bloqueio de IP definido"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Bloqueio de IP levantado"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "IP bloqueado detetado"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Bot de spam denunciado"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Bot de spam detetado"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Mensagem de spam denunciada"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Mensagem de spam detetada"
           }
         ]
       },

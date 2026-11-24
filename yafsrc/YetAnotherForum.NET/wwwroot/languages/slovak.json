@@ -3837,6 +3837,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Obmedzí denník na určité typy udalostí."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Ladenie"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Sledovanie"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Chyba"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Upozornenie"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informácia"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Chyba SQL"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Neúspešné prihlásenie"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Používateľ pozastavený"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Pozastavenie zrušené"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Používateľ odstránený"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Blokovanie IP nastavené"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Blokovanie IP zrušené"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Blokovaná IP zistená"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spambot nahlásený"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spambot zistený"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spamový príspevok nahlásený"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spamový príspevok zistený"
           }
         ]
       },
