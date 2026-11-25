@@ -350,7 +350,7 @@
     .user-avatar {
         width: 2.5rem;
         height: 2.5rem;
-        border-radius: 50%;
+        border-radius: var(--bs-border-radius);
         object-fit: cover;
         flex: 0 0 auto;
     }
@@ -1069,7 +1069,7 @@
     .page-access-avatar {
         width: 2.5rem;
         height: 2.5rem;
-        border-radius: 50%;
+        border-radius: var(--bs-border-radius);
         object-fit: cover;
         flex: 0 0 auto;
     }
@@ -1090,7 +1090,7 @@
     .edit-user-avatar {
         width: 4rem;
         height: 4rem;
-        border-radius: 50%;
+        border-radius: var(--bs-border-radius);
         object-fit: cover;
     }
 
