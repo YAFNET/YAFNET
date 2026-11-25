@@ -150,7 +150,8 @@ public static class ServiceCollectionExtensionsExtensions
 
             services.AddControllers();
 
-            services.AddSignalR();
+            // the hub methods of a long polling connection get the http context of the connection
+            services.AddSignalR(options => options.AddFilter<HubHttpContextFilter>());
 
             // compress text responses (html, css, js, json, svg), the forum css and js files are several hundred KB
             services.AddResponseCompression(options =>
