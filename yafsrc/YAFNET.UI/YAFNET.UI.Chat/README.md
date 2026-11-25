@@ -5,6 +5,8 @@
 
 A real-time chat room for [YAF.NET](https://yetanotherforum.net): all members of the forum can write to each other on one page (`/Chat`). The messages are sent with SignalR and saved in the forum database.
 
+![The chat page with a conversation of four members](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YAFNET.UI/YAFNET.UI.Chat/docs/chat.png)
+
 - Members only: guests are sent to the login page, suspended members can read but not write
 - Shows the latest 100 messages, new messages appear right away for everybody
 - Messages of the same member within a few minutes are grouped, the times are shown in the time zone of the reader
