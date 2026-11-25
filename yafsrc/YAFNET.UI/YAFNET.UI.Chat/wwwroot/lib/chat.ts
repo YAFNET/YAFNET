@@ -53,8 +53,30 @@ connection.start().then(() => {
     
 }).catch(err => console.error(err.toString()));
 
+const messageInput = document.getElementById('messageInput') as HTMLInputElement;
+
+const sendMessage = (): void => {
+	const message = messageInput.value;
+
+	if (sendButton.disabled || message.trim() === '') {
+		return;
+	}
+
+	// the field is emptied when the message is sent, so the next one can be typed right away
+	connection.invoke('SendMessage', message).then(() => {
+		messageInput.value = '';
+		messageInput.focus();
+	}).catch(err => console.log(err.toString()));
+};
+
 sendButton.addEventListener('click', event => {
-	const message = (document.getElementById('messageInput') as HTMLInputElement).value;
-	connection.invoke('SendMessage', message).catch(err => console.log(err.toString()));
 	event.preventDefault();
+	sendMessage();
+});
+
+messageInput.addEventListener('keydown', event => {
+	if (event.key === 'Enter' && !event.isComposing) {
+		event.preventDefault();
+		sendMessage();
+	}
 });
