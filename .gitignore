@@ -129,3 +129,4 @@ yafsrc/YetAnotherForum.NET/web.Package.config
 yafsrc/YetAnotherForum.NET/web.Release.config
 yafsrc/YetAnotherForum.NET/YAF.csproj
 yafsrc/YetAnotherForum.NET/yarn.lock
+/yafsrc/YetAnotherForum.NET/.sass-cache
