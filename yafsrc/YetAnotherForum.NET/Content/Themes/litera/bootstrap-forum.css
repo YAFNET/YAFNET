@@ -2409,7 +2409,7 @@ progress {
           appearance: none;
   background-color: var(--bs-body-bg);
   background-clip: padding-box;
-  border: var(--bs-border-width) solid rgba(0, 0, 0, 0.1);
+  border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2636,7 +2636,7 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
   background-position: right 1.1rem center;
   background-size: 16px 12px;
-  border: var(--bs-border-width) solid rgba(0, 0, 0, 0.1);
+  border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -3114,8 +3114,8 @@ textarea.form-control-lg {
   color: var(--bs-body-color);
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: var(--bs-border-width) solid rgba(0, 0, 0, 0.1);
+  background-color: var(--bs-tertiary-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
 
@@ -13578,7 +13578,7 @@ table,
   display: block;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--bs-border-color);
   margin: 0;
 }
 .choices[data-type*=select-one] .choices__button {
@@ -13620,7 +13620,7 @@ table,
   width: 100%;
   background-color: var(--bs-body-bg);
   padding: 7.5px 7.5px 3.75px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
   font-size: 1.1rem;
   min-height: 44px;
@@ -13682,7 +13682,7 @@ table,
   position: absolute;
   width: 100%;
   background-color: var(--bs-body-bg);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--bs-border-color);
   top: 100%;
   margin-top: -1px;
   border-bottom-left-radius: var(--bs-border-radius);

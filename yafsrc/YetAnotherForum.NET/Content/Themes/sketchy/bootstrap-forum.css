@@ -13398,7 +13398,7 @@ textarea.form-control-lg {
 }
 .navbar.fixed-bottom {
   border-width: 2px 0 0;
-  border-radius: 255px 25px 0 25px/25px 225px 25px 0;
+  border-radius: 255px 25px 0/25px 225px 25px 0;
 }
 .navbar-brand {
   font-family: "Cabin Sketch", cursive;
@@ -13479,7 +13479,7 @@ table td {
   border-spacing: 0;
   border-collapse: separate;
   background-color: #333;
-  border-radius: 5px 25px 5px 25px/25px 5px 25px 5px;
+  border-radius: 5px 25px/25px 5px;
 }
 .table-bordered th,
 .table-bordered td {
@@ -13561,7 +13561,7 @@ select.form-control {
   height: 16px;
   content: "";
   border: 2px solid #333;
-  border-radius: 2px 8px 2px 4px/5px 3px 5px 3px;
+  border-radius: 2px 8px 2px 4px/5px 3px;
 }
 [type=checkbox]:focus::before {
   -webkit-box-shadow: 0 0 0 0.25rem rgba(51, 51, 51, 0.25);
@@ -13678,7 +13678,7 @@ select.form-control {
 
 .dropdown-menu {
   overflow: hidden;
-  border-radius: 555px 25px 25px 25px/25px 25px 25px 555px;
+  border-radius: 555px 25px 25px/25px 25px 25px 555px;
 }
 
 .dropdown-divider {
@@ -13695,7 +13695,7 @@ select.form-control {
   border-top: 2px solid #333;
   border-right: none;
   border-left: none;
-  border-radius: 255px 5px 225px 5px/25px 225px 25px 255px;
+  border-radius: 255px 5px 225px/25px 225px 25px 255px;
 }
 .list-group-item:first-child {
   border-top: none;
@@ -13725,14 +13725,14 @@ select.form-control {
 }
 
 .pagination .page-link {
-  border-radius: 425px 255px 25px 25px/25px 25px 5px 25px;
+  border-radius: 425px 255px 25px 25px/25px 25px 5px;
 }
 
 .badge {
   border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
 }
 .badge-pill {
-  border-radius: 7rem 8rem 8rem 8rem/4rem 5rem 6rem 6rem;
+  border-radius: 7rem 8rem 8rem/4rem 5rem 6rem 6rem;
 }
 .badge.bg-light {
   color: #555;
@@ -13756,7 +13756,7 @@ select.form-control {
 }
 
 .card {
-  border-radius: 5px 5px 5px 5px/25px 25px 25px 5px;
+  border-radius: 5px/25px 25px 25px 5px;
 }
 .card-outline-primary, .card-outline-success, .card-outline-info, .card-outline-warning, .card-outline-danger {
   border-width: 2px;
@@ -13773,7 +13773,7 @@ select.form-control {
 }
 
 .toast {
-  border-radius: 10px 10px 15px 5px/5px 15px 5px 15px;
+  border-radius: 10px 10px 15px 5px/5px 15px;
 }
 .toast-header {
   font-family: "Cabin Sketch", cursive;

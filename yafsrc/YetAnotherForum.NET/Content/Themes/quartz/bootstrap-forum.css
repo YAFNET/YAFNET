@@ -13390,7 +13390,7 @@ body {
 }
 
 .table-secondary {
-  --bs-table-hover-color: $white;
+  --bs-table-hover-color: #fff;
 }
 
 .btn-secondary {

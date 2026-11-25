@@ -13401,7 +13401,7 @@ textarea.form-control-lg {
   border: 2px solid #000;
 }
 .navbar.fixed-top {
-  border-width: 0 0 2px 0;
+  border-width: 0 0 2px;
 }
 .navbar.fixed-bottom {
   border-width: 2px 0 0 0;

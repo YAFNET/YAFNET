@@ -13382,7 +13382,7 @@ textarea.form-control-lg {
 
 .navbar {
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
 }
 .navbar.bg-primary {
   border-color: rgb(7.4117647059%, 49.4117647059%, 65.6470588235%);
@@ -13414,7 +13414,7 @@ textarea.form-control-lg {
 
 .btn {
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
   text-transform: uppercase;
 }
 .btn:not(.disabled):hover {
@@ -13537,14 +13537,14 @@ textarea.form-control-lg {
 .dropdown-menu {
   margin-top: 0;
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
   border-top-width: 1px;
 }
 
 .breadcrumb {
   border-color: var(--bs-border-color);
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
 }
 
 .pagination > li > a,
@@ -13555,7 +13555,7 @@ textarea.form-control-lg {
   color: #555;
   text-transform: uppercase;
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
 }
 .pagination > li > a:hover, .pagination > li > a:focus,
 .pagination > li > span:hover,
@@ -13573,13 +13573,13 @@ textarea.form-control-lg {
 .pagination > .disabled > span:hover {
   top: 0;
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
 }
 .pagination > .disabled > a:active,
 .pagination > .disabled > span:active {
   top: 0;
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
 }
 
 .pager > li > a, .pager > li > a:hover, .pager > li > a:active,
@@ -13607,7 +13607,7 @@ textarea.form-control-lg {
 .alert {
   color: #fff;
   border-style: solid;
-  border-width: 0 1px 4px 1px;
+  border-width: 0 1px 4px;
 }
 .alert-primary {
   background-color: #158cba;
@@ -13675,6 +13675,21 @@ a.list-group-item-danger.active {
 }
 a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   background-color: rgb(90%, 22.9411764706%, 19.0588235294%);
+}
+
+.card,
+.modal-content,
+.popover,
+.toast {
+  border-style: solid;
+  border-width: 0 1px 4px;
+  border-top-width: 1px;
+}
+
+.accordion-item:last-child,
+.list-group-item:last-child {
+  border-style: solid;
+  border-width: 0 1px 4px;
 }
 
 .modal .btn-close,

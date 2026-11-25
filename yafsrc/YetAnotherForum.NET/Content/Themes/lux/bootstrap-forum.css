@@ -13225,6 +13225,11 @@ h6,
   color: #55595c !important;
 }
 
+hr {
+  border-top: 1px solid var(--bs-emphasis-color);
+  opacity: 0.1;
+}
+
 th {
   font-size: 0.875rem;
   text-transform: uppercase;
@@ -13266,6 +13271,9 @@ th {
 }
 [data-bs-theme=dark] .form-control::placeholder {
   color: rgba(85, 89, 92, 0.75);
+}
+[data-bs-theme=dark] .form-select {
+  color: #55595c;
 }
 [data-bs-theme=dark] .form-floating > label, [data-bs-theme=dark] .form-floating > .form-control:focus ~ label, [data-bs-theme=dark] .form-floating > .form-control:not(:-moz-placeholder) ~ label, [data-bs-theme=dark] .form-floating > .form-control-plaintext ~ label, [data-bs-theme=dark] .form-floating > .form-select ~ label {
   color: rgba(85, 89, 92, 0.75);

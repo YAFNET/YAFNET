@@ -1,4 +1,4 @@
-// Quartz 5.3.8
+// Quartz 5.3.9
 // Bootswatch
 
 
@@ -44,7 +44,7 @@ body {
 // Tables
 
 .table-secondary {
-  --bs-table-hover-color: $white;
+  --bs-table-hover-color: #{$white};
 }
 
 // Buttons

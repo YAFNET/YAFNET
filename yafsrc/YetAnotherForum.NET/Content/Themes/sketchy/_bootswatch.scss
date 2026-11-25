@@ -1,4 +1,4 @@
-// Sketchy 5.3.8
+// Sketchy 5.3.9
 // Bootswatch
 
 
@@ -20,7 +20,7 @@ $border-radius-sm-sketchy: 255px 25px 225px 25px / 25px 225px 25px 255px;
 .navbar {
   border-style: solid;
   border-width: 2px;
-  border-radius: 25px 25px 55px 5px/5px 55px 25px 25px;
+  border-radius: 25px 25px 55px 5px / 5px 55px 25px 25px;
 
   &.bg-light {
     border-color: $gray-800;
@@ -28,12 +28,12 @@ $border-radius-sm-sketchy: 255px 25px 225px 25px / 25px 225px 25px 255px;
 
   &.fixed-top {
     border-width: 0 0 2px;
-    border-radius: 0 25px 225px 0/25px 0 25px 255px;
+    border-radius: 0 25px 225px 0 / 25px 0 25px 255px;
   }
 
   &.fixed-bottom {
     border-width: 2px 0 0;
-    border-radius: 255px 25px 0 25px/25px 225px 25px 0;
+    border-radius: 255px 25px 0 / 25px 225px 25px 0;
   }
 
   &-brand {
@@ -109,7 +109,7 @@ strong {
 }
 
 blockquote {
-  border-radius: 15px 27px 25px 25px/25px 25px 305px 635px;
+  border-radius: 15px 27px 25px 25px / 25px 25px 305px 635px;
 }
 
 // Tables
@@ -126,11 +126,11 @@ table {
   border-spacing: 0;
   border-collapse: separate;
   background-color: $gray-800;
-  border-radius: 5px 25px 5px 25px/25px 5px 25px 5px;
+  border-radius: 5px 25px / 25px 5px;
 
   th,
   td {
-    border-radius: 5px 5px 25px 4px/5px 4px 3px 5px;
+    border-radius: 5px 5px 25px 4px / 5px 4px 3px 5px;
   }
 
   .table-success,
@@ -221,7 +221,7 @@ select.form-control {
     height: 16px;
     content: "";
     border: 2px solid $gray-800;
-    border-radius: 2px 8px 2px 4px / 5px 3px 5px 3px;
+    border-radius: 2px 8px 2px 4px / 5px 3px;
   }
 
   &:focus::before {
@@ -363,7 +363,7 @@ select.form-control {
 
 .dropdown-menu {
   overflow: hidden;
-  border-radius: 555px 25px 25px 25px/25px 25px 25px 555px;
+  border-radius: 555px 25px 25px / 25px 25px 25px 555px;
 }
 
 .dropdown-divider {
@@ -374,13 +374,13 @@ select.form-control {
   overflow: hidden;
   background-color: $gray-800;
   border: 2px solid $gray-800;
-  border-radius: 45px 15px 35px 5px/15px 5px 15px 65px;
+  border-radius: 45px 15px 35px 5px / 15px 5px 15px 65px;
 
   &-item {
     border-top: 2px solid $gray-800;
     border-right: none;
     border-left: none;
-    border-radius: 255px 5px 225px 5px/25px 225px 25px 255px;
+    border-radius: 255px 5px 225px / 25px 225px 25px 255px;
 
     &:first-child {
       border-top: none;
@@ -405,7 +405,7 @@ select.form-control {
 
 .nav-tabs {
   .nav-link {
-    border-radius: 45px 15px 225px 5px/25px 225px 25px 255px;
+    border-radius: 45px 15px 225px 5px / 25px 225px 25px 255px;
   }
 }
 
@@ -416,7 +416,7 @@ select.form-control {
 
 .pagination {
   .page-link {
-    border-radius: 425px 255px 25px 25px/25px 25px 5px 25px;
+    border-radius: 425px 255px 25px 25px / 25px 25px 5px;
   }
 }
 
@@ -426,7 +426,7 @@ select.form-control {
   border-radius: $border-radius-sm-sketchy;
 
   &-pill {
-    border-radius: 7rem 8rem 8rem 8rem / 4rem 5rem 6rem 6rem;
+    border-radius: 7rem 8rem 8rem / 4rem 5rem 6rem 6rem;
   }
 
   &.bg-light {
@@ -459,7 +459,7 @@ select.form-control {
 // Containers
 
 .card {
-  border-radius: 5px 5px 5px 5px/25px 25px 25px 5px;
+  border-radius: 5px / 25px 25px 25px 5px;
 
   &-outline {
     &-primary,
@@ -476,7 +476,7 @@ select.form-control {
     border-bottom-width: 2px;
 
     &:first-child {
-      border-radius: 3px 3px 0 0/23px 23px 0 0;
+      border-radius: 3px 3px 0 0 / 23px 23px 0 0;
     }
   }
 
@@ -486,7 +486,7 @@ select.form-control {
 }
 
 .toast {
-  border-radius: 10px 10px 15px 5px/5px 15px 5px 15px;
+  border-radius: 10px 10px 15px 5px / 5px 15px;
 
   &-header {
     font-family: $headings-font-family;
@@ -495,13 +495,13 @@ select.form-control {
 
 .modal {
   &-content {
-    border-radius: 15px 5px 5px 25px/5px 25px 25px 5px;
+    border-radius: 15px 5px 5px 25px / 5px 25px 25px 5px;
   }
 }
 
 .popover {
   padding: 0;
-  border-radius: 45px 85px 15px 25px/15px 10px 35px 555px;
+  border-radius: 45px 85px 15px 25px / 15px 10px 35px 555px;
 
   &-title {
     border-bottom: 2px solid $gray-800;
@@ -536,7 +536,7 @@ select.form-control {
 
 pre {
   border: 2px solid $gray-800;
-  border-radius: 15px 5px 5px 25px/5px 25px 25px 5px;
+  border-radius: 15px 5px 5px 25px / 5px 25px 25px 5px;
 }
 
 .btn-close {
