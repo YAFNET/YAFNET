@@ -74,7 +74,8 @@
 
 @if (!Current.IsGuest)
 {
-    @await Html.PartialAsync("_LogoutConfirm")
+    @* the logout dialog of the forum (YAFNET.RazorPages), the name alone is not found from the chat area *@
+    @await Html.PartialAsync("~/Areas/Forums/Pages/Shared/_LogoutConfirm.cshtml")
 }
 
 @await RenderSectionAsync("Scripts", required: false)
