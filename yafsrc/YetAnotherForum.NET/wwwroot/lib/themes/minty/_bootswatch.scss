@@ -1,4 +1,4 @@
-// Minty 5.3.8
+// Minty 5.3.9
 // Bootswatch
 
 
@@ -102,22 +102,6 @@ legend {
 }
 
 // Indicators
-
-.alert {
-  a,
-  .alert-link {
-    color: $white;
-  }
-
-  &-light {
-
-    &,
-    a:not(.btn),
-    .alert-link {
-      color: $body-color;
-    }
-  }
-}
 
 .badge {
   color: $white;
