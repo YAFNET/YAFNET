@@ -16,6 +16,10 @@
     <None Include="..\..\YetAnotherForum.NET\wwwroot\languages\german-du.json" Link="languages\german-du.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
+    <!-- the chat project references the released YAF.NET packages, its rules file is compiled here -->
+    <Compile Include="..\..\YAFNET.UI\YAFNET.UI.Chat\ChatRules.cs" Link="Chat\ChatRules.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
     <ProjectReference Include="..\..\YAFNET.Web\YAFNET.Web.csproj" />
     <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" />

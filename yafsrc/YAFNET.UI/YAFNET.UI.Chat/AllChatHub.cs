@@ -25,6 +25,7 @@
 using System;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 using YAF.Configuration;
@@ -44,6 +45,7 @@ namespace YAF.UI.Chat;
 /// </summary>
 /// <seealso cref="Hub" />
 /// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+[Authorize]
 public class AllChatHub : Hub, IHaveServiceLocator
 {
     /// <summary>
@@ -58,6 +60,12 @@ public class AllChatHub : Hub, IHaveServiceLocator
     /// <param name="message">The message.</param>
     public async Task SendMessage(string message)
     {
+        // the page sends guests to the login page, but the hub can be called directly
+        if (!ChatRules.CanSendMessages(BoardContext.Current.IsGuest, BoardContext.Current.IsSuspendedNow))
+        {
+            return;
+        }
+
         var currentDateTime = DateTime.UtcNow;
 
         var dateTimeFormatted = this.Get<BoardSettings>().ShowRelativeTime

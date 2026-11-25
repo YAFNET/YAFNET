@@ -27,7 +27,10 @@
 
                             var avatarUrl = BoardContext.Current.Get<IAvatars>().GetAvatarUrlForUser(message.Item2);
 
-                            var backgroundColor = ValidationHelper.IsNumeric(message.Item2.ProviderUserKey)
+                            // the guest user has no ProviderUserKey (messages of guests could be sent before the hub checked it)
+                            var backgroundColor = message.Item2.ProviderUserKey.IsNotSet()
+                            ? "var(--bs-secondary)"
+                            : ValidationHelper.IsNumeric(message.Item2.ProviderUserKey)
                             ? $"#{message.Item2.ProviderUserKey.ToGuid().ToString()[..6]}"
                             : $"#{message.Item2.ProviderUserKey[..6]}";
 
