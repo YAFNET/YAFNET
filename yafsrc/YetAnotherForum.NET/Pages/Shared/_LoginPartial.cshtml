@@ -10,7 +10,18 @@
 
 @if (!SignInManager.IsSignedIn(User))
 {
-    @if (BoardContext.Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+    @if (BoardContext.Current.Get<BoardConfiguration>().AllowLoginAndLogoff && BoardContext.Current.Get<BoardConfiguration>().HostManagesAccounts)
+    {
+        @* the host application manages the accounts: its login page instead of the login box *@
+        <li class="nav-item">
+            <a class="nav-link" role="button"
+               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_Login, new { ReturnUrl = $"{Context.Request.PathBase}{Context.Request.Path}{Context.Request.QueryString}" }))"
+               text-localized-page="TOOLBAR" text-localized-tag="LOGIN"
+               title-localized-page="TOOLBAR" title-localized-tag="LOGIN_TITLE">
+            </a>
+        </li>
+    }
+    else if (BoardContext.Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
     {
         <li class="nav-item">
             <a class="@Html.Raw(BoardContext.Current.CurrentForumPage.PageName == ForumPages.Account_Login ? "nav-link active" : "nav-link")" role="button"

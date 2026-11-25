@@ -39,6 +39,16 @@ public class BoardConfiguration
     public bool AllowLoginAndLogoff { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the host application (e.g. a CMS like Umbraco) manages the user accounts.
+    /// The forum then has no own login box, password recovery, password change, two-factor authentication, email change,
+    /// account deletion or user creation/import: the login and register links go to the Account/Login and Account/Register
+    /// pages (with the ReturnUrl), which the host application redirects to its own pages.
+    ///
+    /// ** Defaults to: false
+    /// </summary>
+    public bool HostManagesAccounts { get; set; }
+
+    /// <summary>
     /// Gets or sets the Current BoardID of the board that is used inside the application.
     /// You can create as many boards as you want, and they will function as separate forums (with separate users). (Host -> Boards to create new boards.)
     /// 

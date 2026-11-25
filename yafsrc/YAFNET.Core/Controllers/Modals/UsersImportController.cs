@@ -55,6 +55,12 @@ public class UsersImportController : ForumBaseController
     [HttpPost("Import")]
     public async Task<IActionResult> ImportAsync([FromForm] IFormFile file)
     {
+        // the host application manages the accounts: the users are created there
+        if (this.Get<BoardConfiguration>().HostManagesAccounts)
+        {
+            return this.NotFound();
+        }
+
         try
         {
             int importedCount;

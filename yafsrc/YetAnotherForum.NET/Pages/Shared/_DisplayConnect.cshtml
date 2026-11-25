@@ -2,6 +2,7 @@
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Interfaces
+@using YAF.Types.Objects
 
 @inject BoardContext Current
 
@@ -9,12 +10,24 @@
     <div class="col">
         <alert type="warning" dismissible="true">
             <strong>@Html.LocalizedText("TOOLBAR", "WELCOME_GUEST_CONNECT")</strong> 
-            <a title="@Html.LocalizedText("TOOLBAR", "LOGIN_TITLE")"
-               class="alert-link"
-               bs-toggle="ajax-modal"
-               bs-target-url="@Url.Action("ShowModal", "LoginBox", null)">
-                @Html.LocalizedTextFormatted("LOGIN_CONNECT", Html.Encode(Current.BoardSettings.Name))
-            </a>
+            @if (Current.Get<BoardConfiguration>().HostManagesAccounts)
+            {
+                @* the host application manages the accounts: its login page instead of the login box *@
+                <a title="@Html.LocalizedText("TOOLBAR", "LOGIN_TITLE")"
+                   class="alert-link"
+                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_Login, new { ReturnUrl = $"{Context.Request.PathBase}{Context.Request.Path}{Context.Request.QueryString}" }))">
+                    @Html.LocalizedTextFormatted("LOGIN_CONNECT", Html.Encode(Current.BoardSettings.Name))
+                </a>
+            }
+            else
+            {
+                <a title="@Html.LocalizedText("TOOLBAR", "LOGIN_TITLE")"
+                   class="alert-link"
+                   bs-toggle="ajax-modal"
+                   bs-target-url="@Url.Action("ShowModal", "LoginBox", null)">
+                    @Html.LocalizedTextFormatted("LOGIN_CONNECT", Html.Encode(Current.BoardSettings.Name))
+                </a>
+            }
 
             @if (!Current.BoardSettings.DisableRegistrations)
             {

@@ -140,7 +140,7 @@ public class MailService : IMailService, IHaveServiceLocator
             // a refused mail (e.g. an unknown recipient) does not stop the other mails
             try
             {
-                await smtpClient.SendAsync(new MailKit.SendRequest(m));
+                await smtpClient.SendAsync(m);
                 sent++;
             }
             catch (Exception ex) when (IsThrottled(ex))

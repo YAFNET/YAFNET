@@ -222,6 +222,38 @@ public class ForumPageFilterTests
     }
 
     [Test]
+    [Description("When the host application manages the accounts, the forum's own account management pages are denied")]
+    [TestCase(ForumPages.Account_ForgotPassword, true)]
+    [TestCase(ForumPages.Account_ResetPassword, true)]
+    [TestCase(ForumPages.Account_Approve, true)]
+    [TestCase(ForumPages.Account_Authorize, true)]
+    [TestCase(ForumPages.Profile_ChangePassword, false)]
+    [TestCase(ForumPages.Profile_DeleteAccount, false)]
+    [TestCase(ForumPages.Admin_RegisterUser, false)]
+    public async Task Host_Manages_Accounts_Denied_Pages_Test(ForumPages page, bool account)
+    {
+        (await this.RunAsync(new TestPage(page, account: account))).Result.Should().BeNull("the flag is off");
+        this.handlerCalls.Should().Be(1);
+
+        this.board.Configuration.HostManagesAccounts = true;
+
+        (await this.RunAsync(new TestPage(page, account: account))).Result.Should().BeSameAs(this.accessDenied);
+        this.handlerCalls.Should().Be(0);
+    }
+
+    [Test]
+    [Description("When the host application manages the accounts, login and register stay available (the host redirects them)")]
+    [TestCase(ForumPages.Account_Login)]
+    [TestCase(ForumPages.Account_Register)]
+    public async Task Host_Manages_Accounts_Login_Pages_Test(ForumPages page)
+    {
+        this.board.Configuration.HostManagesAccounts = true;
+
+        (await this.RunAsync(new TestPage(page, account: true))).Result.Should().BeNull();
+        this.handlerCalls.Should().Be(1);
+    }
+
+    [Test]
     [Description("Members, active users, profiles and search use their view permission setting")]
     [TestCase(ForumPages.Members)]
     [TestCase(ForumPages.ActiveUsers)]

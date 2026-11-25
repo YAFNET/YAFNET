@@ -29,19 +29,23 @@
 		<span class="badge rounded-pill text-bg-secondary align-middle">@($"{totalRows:N0}")</span>
 	</h2>
 	<div class="d-flex flex-wrap gap-2">
-		<a asp-page="@ForumPages.Admin_RegisterUser.GetPageName()"
-		   button-style="Primary"
-		   Icon="user-plus"
-		   text-localized-tag="NEW_USER"
-		   text-localized-page="ADMIN_USERS">
-		</a>
-		<button Icon="upload"
-		        bs-toggle="ajax-modal"
-		        bs-target-url="@Url.Page(ForumPages.Admin_Users.GetPageName(), "Import")"
-		        button-style="OutlineSecondary"
-		        text-localized-tag="IMPORT"
-		        text-localized-page="ADMIN_USERS">
-		</button>
+		@* the host application manages the accounts: the users are created there *@
+		@if (!Model.Get<BoardConfiguration>().HostManagesAccounts)
+		{
+			<a asp-page="@ForumPages.Admin_RegisterUser.GetPageName()"
+			   button-style="Primary"
+			   Icon="user-plus"
+			   text-localized-tag="NEW_USER"
+			   text-localized-page="ADMIN_USERS">
+			</a>
+			<button Icon="upload"
+			        bs-toggle="ajax-modal"
+			        bs-target-url="@Url.Page(ForumPages.Admin_Users.GetPageName(), "Import")"
+			        button-style="OutlineSecondary"
+			        text-localized-tag="IMPORT"
+			        text-localized-page="ADMIN_USERS">
+			</button>
+		}
 		<button asp-page-handler="ExportUsersXml"
 		        button-style="OutlineSecondary"
 		        Icon="download"

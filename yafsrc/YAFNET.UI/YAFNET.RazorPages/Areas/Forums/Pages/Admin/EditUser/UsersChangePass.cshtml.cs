@@ -41,6 +41,7 @@ using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Class UsersChangePassModel.
@@ -75,7 +76,8 @@ public class UsersChangePassModel : AdminPage
     /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
-        if (!BoardContext.Current.IsAdmin)
+        // the host application manages the accounts (and the passwords)
+        if (!BoardContext.Current.IsAdmin || this.Get<BoardConfiguration>().HostManagesAccounts)
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
@@ -94,6 +96,12 @@ public class UsersChangePassModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostChangePasswordAsync()
     {
+        // the host application manages the accounts (and the passwords)
+        if (this.Get<BoardConfiguration>().HostManagesAccounts)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {

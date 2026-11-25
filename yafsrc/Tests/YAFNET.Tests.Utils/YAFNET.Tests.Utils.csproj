@@ -15,7 +15,7 @@
     <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.15" />
     <PackageReference Include="Microsoft.Playwright" Version="1.65.1" />
-    <PackageReference Include="MimeKit" Version="5.0.0" />
+    <PackageReference Include="MimeKit" Version="4.18.2" />
 	  <PackageReference Include="NUnit" Version="5.0.0" />
 	  <PackageReference Include="SmtpServer" Version="11.1.0" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.37.0.15768">

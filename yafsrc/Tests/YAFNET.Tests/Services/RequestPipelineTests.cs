@@ -254,6 +254,25 @@ public class RequestPipelineTests
         permissions.HandleRequest(ViewPermissions.Nobody).Should().BeNull();
     }
 
+    [Test]
+    [Description("When the host application manages the accounts, the login redirect passes the requested page as ReturnUrl")]
+    public void Permissions_Host_Manages_Accounts_Test()
+    {
+        var permissions = new Permissions(this.board.Current.ServiceLocator);
+        var login = new RedirectResult("/Account/Login?ReturnUrl=x");
+        object values = null;
+        this.board.LinkBuilder.Redirect(ForumPages.Account_Login, Arg.Do<object>(v => values = v)).Returns(login);
+
+        this.configuration.HostManagesAccounts = true;
+        this.board.User.IsGuest = true;
+        this.board.HttpContext.Request.PathBase = "/Forums";
+        this.board.HttpContext.Request.Path = "/Posts/t1-Topic";
+        this.board.HttpContext.Request.QueryString = new QueryString("?p=2");
+
+        permissions.HandleRequest(ViewPermissions.RegisteredUsers).Should().BeSameAs(login);
+        new Microsoft.AspNetCore.Routing.RouteValueDictionary(values)["ReturnUrl"].Should().Be("/Forums/Posts/t1-Topic?p=2");
+    }
+
     private static DefaultHttpContext NewContext(string path)
     {
         var context = new DefaultHttpContext();

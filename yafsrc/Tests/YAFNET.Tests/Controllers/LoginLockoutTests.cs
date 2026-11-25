@@ -234,6 +234,17 @@ public class LoginLockoutTests
         result.ViewData.Model.Should().BeOfType<LoginModal>();
     }
 
+    [Test]
+    [Description("When the host application manages the accounts, the login box is not available")]
+    public async Task Host_Manages_Accounts_Test()
+    {
+        this.board.Configuration.HostManagesAccounts = true;
+
+        this.board.CreateController<LoginBox>().ShowModal().Should().BeOfType<NotFoundResult>();
+        (await this.SignInAsync(Password)).Should().BeOfType<NotFoundResult>();
+        await this.users.DidNotReceive().SignInAsync(Arg.Any<AspNetUsers>(), Arg.Any<bool>());
+    }
+
     private Task<IActionResult> SignInAsync(string password)
     {
         return this.board.CreateController<LoginBox>()

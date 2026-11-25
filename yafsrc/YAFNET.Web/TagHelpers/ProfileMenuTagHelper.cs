@@ -153,14 +153,20 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             this.GetText("BLOCK_OPTIONS", "TITLE"),
             "user-lock"));
 
-        // Render Change Password Item
-        html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "nav-link",
-            ForumPages.Profile_ChangePassword,
-            this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
-            "lock"));
+        // the host application manages the accounts: no password change and account deletion in the forum
+        var hostManagesAccounts = this.Get<BoardConfiguration>().HostManagesAccounts;
 
-        if (!this.PageContext.PageUser.UserFlags.IsHostAdmin)
+        if (!hostManagesAccounts)
+        {
+            // Render Change Password Item
+            html.InnerHtml.AppendHtml(this.RenderMenuItem(
+                "nav-link",
+                ForumPages.Profile_ChangePassword,
+                this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
+                "lock"));
+        }
+
+        if (!this.PageContext.PageUser.UserFlags.IsHostAdmin && !hostManagesAccounts)
         {
             // Render Delete Account Item
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
