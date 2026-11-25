@@ -7,9 +7,15 @@ const sendButton = (document.getElementById('sendButton') as HTMLInputElement)!;
 //Disable the send button until connection is established.
 sendButton.disabled = true;
 
-connection.on('ReceiveMessage', (name, message, dateTime, side, timeSide, msgClass) => {
-	const divChat = document.createElement('div'),
-		toAvatar = (document.getElementById('userAvatar') as HTMLInputElement).value;
+const currentUserId = Number((document.getElementById('userId') as HTMLInputElement).value);
+
+connection.on('ReceiveMessage', (userId: number, name: string, avatarUrl: string, color: string, message: string, dateTime: string) => {
+	// the message is sent to all users, only the sender shows it as their own message
+	const isOwn = userId === currentUserId,
+		side = isOwn ? 'end' : 'start',
+		timeSide = isOwn ? 'start' : 'end';
+
+	const divChat = document.createElement('div');
 
 	divChat.className = `direct-chat-msg ${side}`;
 
@@ -25,11 +31,14 @@ connection.on('ReceiveMessage', (name, message, dateTime, side, timeSide, msgCla
 	const avatarImg = document.createElement('img');
 	avatarImg.className = 'direct-chat-img img-thumbnail rounded';
 	avatarImg.alt = name;
-	avatarImg.src = toAvatar;
+	avatarImg.src = avatarUrl;
 
 	// Build message body
 	const msgDiv = document.createElement('div');
-	msgDiv.className = `direct-chat-text ${msgClass}`;
+	msgDiv.className = isOwn ? 'direct-chat-text text-bg-primary' : 'direct-chat-text';
+	if (!isOwn) {
+		msgDiv.style.backgroundColor = color;
+	}
 	msgDiv.textContent = message;
 
 	divChat.appendChild(metaDiv);

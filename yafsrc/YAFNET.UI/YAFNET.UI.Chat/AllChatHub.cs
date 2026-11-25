@@ -34,7 +34,9 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Types.Constants;
 using YAF.Types.Interfaces;
+using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
 
 namespace YAF.UI.Chat;
 
@@ -83,11 +85,34 @@ public class AllChatHub : Hub, IHaveServiceLocator
                 BoardId = BoardContext.Current.BoardSettings.BoardId
             });
 
-        const string side = "end";
-        const string msgClass = "text-bg-primary";
-        const string timeSide = "start";
+        // the sender, every page decides itself if the message is its own (the message was shown as their own to all users)
+        var user = BoardContext.Current.PageUser;
 
-        await this.Clients.All.SendAsync("ReceiveMessage", BoardContext.Current.PageUser.DisplayOrUserName(), body,
-            dateTimeFormatted, side, timeSide, msgClass);
+        await this.Clients.All.SendAsync(
+            "ReceiveMessage",
+            user.ID,
+            user.DisplayOrUserName(),
+            this.Get<IAvatars>().GetAvatarUrlForUser(user),
+            GetUserColor(user),
+            body,
+            dateTimeFormatted);
+    }
+
+    /// <summary>
+    /// Gets the background color of the messages of a user (the messages of the other users).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>The css color.</returns>
+    public static string GetUserColor(User user)
+    {
+        // the guest user has no ProviderUserKey (messages of guests could be sent before the hub checked it)
+        if (user.ProviderUserKey.IsNotSet())
+        {
+            return "var(--bs-secondary)";
+        }
+
+        return ValidationHelper.IsNumeric(user.ProviderUserKey)
+            ? $"#{user.ProviderUserKey.ToGuid().ToString()[..6]}"
+            : $"#{user.ProviderUserKey[..6]}";
     }
 }

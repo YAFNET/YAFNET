@@ -27,12 +27,7 @@
 
                             var avatarUrl = BoardContext.Current.Get<IAvatars>().GetAvatarUrlForUser(message.Item2);
 
-                            // the guest user has no ProviderUserKey (messages of guests could be sent before the hub checked it)
-                            var backgroundColor = message.Item2.ProviderUserKey.IsNotSet()
-                            ? "var(--bs-secondary)"
-                            : ValidationHelper.IsNumeric(message.Item2.ProviderUserKey)
-                            ? $"#{message.Item2.ProviderUserKey.ToGuid().ToString()[..6]}"
-                            : $"#{message.Item2.ProviderUserKey[..6]}";
+                            var backgroundColor = YAF.UI.Chat.AllChatHub.GetUserColor(message.Item2);
 
                             if (message.Item2.ID == BoardContext.Current.PageUserID) {
                                 side = "end";
@@ -56,7 +51,7 @@
                             </div>
                         }
                     </div>
-                    <input type="hidden" id="userAvatar" value="@Model.AvatarUrl"/>
+                    <input type="hidden" id="userId" value="@BoardContext.Current.PageUserID"/>
                 </div>
                 <div class="card-footer">
                     <div class="input-group mb-0">
