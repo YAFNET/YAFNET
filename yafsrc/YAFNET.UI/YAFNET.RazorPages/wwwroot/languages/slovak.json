@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Správy pre všetkých členov fóra {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Správy chatu"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Hlavná navigácia"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Zatiaľ žiadne správy"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Napíšte prvú správu."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Odoslať"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Pripojené"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Pripája sa..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, obnovte stránku"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Opätovné pripájanie..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Váš účet je pozastavený, chat môžete čítať, ale nie písať."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Zobraziť/skryť navigáciu"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Napíšte správu..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

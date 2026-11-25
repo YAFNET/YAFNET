@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Съобщения до всички членове на {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Съобщения в чата"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Основна навигация"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Все още няма съобщения"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Напишете първото съобщение."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Изпрати"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Свързан"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Свързване..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Няма връзка, презаредете страницата"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Повторно свързване..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Профилът ви е спрян, можете да четете чата, но не и да пишете."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Чат"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Покажи/скрий навигацията"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Напишете съобщение..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

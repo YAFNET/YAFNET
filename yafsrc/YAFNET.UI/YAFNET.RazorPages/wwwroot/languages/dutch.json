@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Berichten aan alle leden van {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Chatberichten"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Hoofdnavigatie"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Nog geen berichten"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Schrijf het eerste bericht."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Verzenden"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Verbonden"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Verbinden..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, laad de pagina opnieuw"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Opnieuw verbinden..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Je account is geschorst, je kunt de chat lezen maar niet schrijven."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Navigatie tonen/verbergen"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Schrijf een bericht..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

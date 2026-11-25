@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "{0} forumunun tüm üyelerine mesajlar"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Sohbet mesajları"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Ana gezinme"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Henüz mesaj yok"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "İlk mesajı yazın."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Gönder"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Bağlandı"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Bağlanıyor..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Çevrimdışı, sayfayı yenileyin"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Yeniden bağlanıyor..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Hesabınız askıya alındı, sohbeti okuyabilirsiniz ancak yazamazsınız."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Sohbet"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Gezinmeyi göster/gizle"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Bir mesaj yazın..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

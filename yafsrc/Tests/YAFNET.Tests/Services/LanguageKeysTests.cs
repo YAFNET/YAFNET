@@ -51,7 +51,11 @@ public partial class LanguageKeysTests
         var missing = new SortedSet<string>();
         var checkedTexts = 0;
 
-        foreach (var folder in new[] { "YAFNET.Core", "YAFNET.Web", Path.Combine("YetAnotherForum.NET", "Pages") })
+        foreach (var folder in new[]
+                 {
+                     "YAFNET.Core", "YAFNET.Web", Path.Combine("YetAnotherForum.NET", "Pages"),
+                     Path.Combine("YAFNET.UI", "YAFNET.UI.Chat", "Areas")
+                 })
         {
             foreach (var file in Directory.EnumerateFiles(Path.Combine(root, folder), "*.*", SearchOption.AllDirectories)
                          .Where(f => f.EndsWith(".cs") || f.EndsWith(".cshtml"))

@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Nachrichten an alle Mitglieder von {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Chat-Nachrichten"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Hauptnavigation"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Noch keine Nachrichten"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Schreib die erste Nachricht."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Senden"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Verbunden"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Verbinde ..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, lade die Seite neu"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Verbinde erneut ..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Dein Konto ist gesperrt, du kannst den Chat lesen, aber nicht schreiben."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Navigation ein-/ausblenden"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Schreib eine Nachricht ..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

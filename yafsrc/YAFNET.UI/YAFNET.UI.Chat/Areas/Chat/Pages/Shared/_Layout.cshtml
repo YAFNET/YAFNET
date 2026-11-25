@@ -11,6 +11,7 @@
    (Areas/Chat/Pages/Shared/_Layout.cshtml), like the YAF.NET Sample Application. *@
 
 @inject BoardContext Current
+@inject ILocalization Localization
 
 @{
     var linkBuilder = Current.Get<ILinkBuilder>();
@@ -31,12 +32,12 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     <header class="border-bottom mb-4">
-        <nav class="navbar navbar-expand-sm" aria-label="Main navigation">
+        <nav class="navbar navbar-expand-sm" aria-label="@Localization.GetText("CHAT", "NAVIGATION")">
             <div class="container-xxl">
                 <a class="navbar-brand fw-semibold" href="@linkBuilder.GetLink(ForumPages.Index)">@Current.BoardSettings.Name</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ChatNav"
-                        aria-controls="ChatNav" aria-expanded="false" aria-label="Toggle navigation">
+                        aria-controls="ChatNav" aria-expanded="false" aria-label="@Localization.GetText("CHAT", "TOGGLE_NAVIGATION")">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -44,12 +45,12 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="@linkBuilder.GetLink(ForumPages.Index)">
-                                @Html.Icon("comments", "me-1") Forums
+                                @Html.Icon("comments", "me-1") @Localization.GetText("DEFAULT", "FORUMS")
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-area="Chat" asp-page="/Index">
-                                @Html.Icon("message", "me-1") Chat
+                                @Html.Icon("message", "me-1") @Localization.GetText("CHAT", "TITLE")
                             </a>
                         </li>
                     </ul>
@@ -60,7 +61,7 @@
                         @if (Current.IsGuest)
                         {
                             <a class="btn btn-sm btn-outline-primary" href="@linkBuilder.GetLink(ForumPages.Account_Login)">
-                                @Html.Icon("sign-in-alt", "me-1") Login
+                                @Html.Icon("sign-in-alt", "me-1") @Localization.GetText("TOOLBAR", "LOGIN")
                             </a>
                         }
                         else
@@ -72,7 +73,7 @@
                                 <span class="fw-semibold">@Current.PageUser.DisplayOrUserName()</span>
                             </a>
                             <a class="btn btn-sm btn-outline-secondary" role="button" href="javascript:LogOutClick()">
-                                @Html.Icon("sign-out-alt", "me-1") Logout
+                                @Html.Icon("sign-out-alt", "me-1") @Localization.GetText("TOOLBAR", "LOGOUT")
                             </a>
                         }
                     </div>

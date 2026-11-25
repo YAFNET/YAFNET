@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "הודעות לכל חברי {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "הודעות הצ'אט"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "ניווט ראשי"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "אין עדיין הודעות"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "כתוב את ההודעה הראשונה."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "שלח"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "מחובר"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "מתחבר..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "לא מקוון, טען מחדש את הדף"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "מתחבר מחדש..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "החשבון שלך מושעה, באפשרותך לקרוא את הצ'אט אך לא לכתוב."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "צ'אט"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "הצג/הסתר ניווט"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "כתוב הודעה..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

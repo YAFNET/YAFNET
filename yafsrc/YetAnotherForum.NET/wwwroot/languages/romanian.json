@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Mesaje către toți membrii {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Mesajele chatului"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Navigare principală"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Încă nu sunt mesaje"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Scrie primul mesaj."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Trimite"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Conectat"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Se conectează..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, reîncarcă pagina"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Se reconectează..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Contul tău este suspendat, poți citi chatul, dar nu poți scrie."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Afișează/ascunde navigarea"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Scrie un mesaj..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

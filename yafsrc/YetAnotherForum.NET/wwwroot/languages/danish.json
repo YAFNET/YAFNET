@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Beskeder til alle medlemmer af {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Chatbeskeder"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Hovednavigation"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Ingen beskeder endnu"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Skriv den første besked."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Send"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Forbundet"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Forbinder..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, genindlæs siden"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Genopretter forbindelsen..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Din konto er suspenderet, du kan læse chatten, men ikke skrive."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Vis/skjul navigation"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Skriv en besked..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

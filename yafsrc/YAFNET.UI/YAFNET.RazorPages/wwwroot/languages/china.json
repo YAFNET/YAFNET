@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "发给 {0} 全体成员的消息"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "聊天消息"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "主导航"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "还没有消息"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "写下第一条消息。"
+          },
+          {
+            "@tag": "SEND",
+            "#text": "发送"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "已连接"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "正在连接…"
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "离线，请重新加载页面"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "正在重新连接…"
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "你的账户已被暂停，你可以阅读聊天，但不能发言。"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "聊天"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "显示/隐藏导航"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "写一条消息…"
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

@@ -8422,6 +8422,67 @@
             ]
         },
         {
+            "@name": "CHAT",
+            "Resource": [
+                {
+                    "@tag": "DESCRIPTION",
+                    "#text": "Messages to all members of {0}"
+                },
+                {
+                    "@tag": "MESSAGES",
+                    "#text": "Chat messages"
+                },
+                {
+                    "@tag": "NAVIGATION",
+                    "#text": "Main navigation"
+                },
+                {
+                    "@tag": "NO_MESSAGES",
+                    "#text": "No messages yet"
+                },
+                {
+                    "@tag": "NO_MESSAGES_HINT",
+                    "#text": "Write the first message."
+                },
+                {
+                    "@tag": "SEND",
+                    "#text": "Send"
+                },
+                {
+                    "@tag": "STATE_CONNECTED",
+                    "#text": "Connected"
+                },
+                {
+                    "@tag": "STATE_CONNECTING",
+                    "#text": "Connecting..."
+                },
+                {
+                    "@tag": "STATE_OFFLINE",
+                    "#text": "Offline, reload the page"
+                },
+                {
+                    "@tag": "STATE_RECONNECTING",
+                    "#text": "Reconnecting..."
+                },
+                {
+                    "@tag": "SUSPENDED",
+                    "#text": "Your account is suspended, you can read the chat but not write."
+                },
+                {
+                    "@tag": "TITLE",
+                    "#text": "Chat"
+                },
+                {
+                    "@tag": "TOGGLE_NAVIGATION",
+                    "#text": "Toggle navigation"
+                },
+                {
+                    "@tag": "WRITE_MESSAGE",
+                    "#text": "Write a message..."
+                }
+            ]
+        },
+        {
             "@name": "CALENDER",
             "Resource": [
                 {

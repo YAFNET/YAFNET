@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "رسائل إلى جميع أعضاء {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "رسائل الدردشة"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "التنقل الرئيسي"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "لا توجد رسائل بعد"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "اكتب أول رسالة."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "إرسال"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "متصل"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "جارٍ الاتصال..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "غير متصل، أعد تحميل الصفحة"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "جارٍ إعادة الاتصال..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "حسابك موقوف، يمكنك قراءة الدردشة ولكن لا يمكنك الكتابة."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "الدردشة"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "إظهار/إخفاء التنقل"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "اكتب رسالة..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

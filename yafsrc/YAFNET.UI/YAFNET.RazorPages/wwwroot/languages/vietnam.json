@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Tin nhắn gửi tới tất cả thành viên của {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Tin nhắn trò chuyện"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Điều hướng chính"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Chưa có tin nhắn nào"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Hãy viết tin nhắn đầu tiên."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Gửi"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Đã kết nối"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Đang kết nối..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Ngoại tuyến, hãy tải lại trang"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Đang kết nối lại..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Tài khoản của bạn bị tạm ngưng, bạn có thể đọc trò chuyện nhưng không thể viết."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Trò chuyện"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Hiện/ẩn điều hướng"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Viết tin nhắn..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

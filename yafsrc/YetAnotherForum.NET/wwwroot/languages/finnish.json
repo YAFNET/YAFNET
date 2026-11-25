@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Viestit kaikille foorumin {0} jäsenille"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Chat-viestit"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Päänavigaatio"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Ei vielä viestejä"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Kirjoita ensimmäinen viesti."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Lähetä"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Yhdistetty"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Yhdistetään..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Ei yhteyttä, lataa sivu uudelleen"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Yhdistetään uudelleen..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Tilisi on jäädytetty, voit lukea chattia mutta et kirjoittaa."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Näytä/piilota navigaatio"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Kirjoita viesti..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {
