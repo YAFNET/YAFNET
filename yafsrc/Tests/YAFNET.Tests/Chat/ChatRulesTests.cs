@@ -45,4 +45,17 @@ public class ChatRulesTests
         ChatRules.CanSendMessages(isGuest: true, isSuspendedNow: false).Should().BeFalse();
         ChatRules.CanSendMessages(isGuest: false, isSuspendedNow: true).Should().BeFalse();
     }
+
+    /// <summary>
+    /// An empty message (or only spaces) is not saved, a message is saved without the spaces around it.
+    /// </summary>
+    [Test]
+    [Description("An empty message is not saved.")]
+    public void Empty_Message_Is_Not_Saved_Test()
+    {
+        ChatRules.NormalizeMessage(null).Should().BeNull();
+        ChatRules.NormalizeMessage(string.Empty).Should().BeNull();
+        ChatRules.NormalizeMessage("   \t\n ").Should().BeNull();
+        ChatRules.NormalizeMessage("  Hello  ").Should().Be("Hello");
+    }
 }

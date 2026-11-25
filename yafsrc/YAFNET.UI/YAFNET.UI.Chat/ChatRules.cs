@@ -41,4 +41,16 @@ public static class ChatRules
     {
         return !isGuest && !isSuspendedNow;
     }
+
+    /// <summary>
+    /// Gets the text of a message as it is saved: without the spaces around it.
+    /// </summary>
+    /// <param name="message">The message (without html).</param>
+    /// <returns>The text, or null if the message is empty (nothing is sent).</returns>
+    public static string NormalizeMessage(string message)
+    {
+        var text = message?.Trim();
+
+        return string.IsNullOrEmpty(text) ? null : text;
+    }
 }

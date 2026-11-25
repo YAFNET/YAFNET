@@ -74,7 +74,13 @@ public class AllChatHub : Hub, IHaveServiceLocator
             ? currentDateTime.ToRelativeTime()
             : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, currentDateTime);
 
-        var body = HtmlTagHelper.StripHtml(message);
+        // an empty message (or only spaces or html) is not saved
+        var body = ChatRules.NormalizeMessage(HtmlTagHelper.StripHtml(message ?? string.Empty));
+
+        if (body is null)
+        {
+            return;
+        }
 
         await this.GetRepository<ChatMessage>().InsertAsync(
             new ChatMessage
