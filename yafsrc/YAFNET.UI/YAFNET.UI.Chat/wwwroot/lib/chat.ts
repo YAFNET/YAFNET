@@ -1,82 +1,175 @@
 import * as signalR from '@microsoft/signalr';
 
-const connection = new signalR.HubConnectionBuilder().withUrl('/allChatHub').configureLogging(signalR.LogLevel.Error).build();
+type ChatState = 'connecting' | 'connected' | 'reconnecting' | 'offline';
 
-const sendButton = (document.getElementById('sendButton') as HTMLInputElement)!;
+// messages of the same user within this time are one group (ChatRules.GroupTime on the server)
+const groupTimeMs = 5 * 60 * 1000;
 
-//Disable the send button until connection is established.
-sendButton.disabled = true;
+const list = document.getElementById('ChatMessages') as HTMLElement | null;
 
-const currentUserId = Number((document.getElementById('userId') as HTMLInputElement).value);
+if (list) {
+	const currentUserId = Number(list.dataset.userId),
+		empty = document.getElementById('ChatEmpty'),
+		status = document.getElementById('ChatStatus') as HTMLElement,
+		form = document.getElementById('ChatForm') as HTMLFormElement | null,
+		input = document.getElementById('messageInput') as HTMLInputElement | null,
+		sendButton = document.getElementById('sendButton') as HTMLButtonElement | null;
 
-connection.on('ReceiveMessage', (userId: number, name: string, avatarUrl: string, color: string, message: string, dateTime: string) => {
-	// the message is sent to all users, only the sender shows it as their own message
-	const isOwn = userId === currentUserId,
-		side = isOwn ? 'end' : 'start',
-		timeSide = isOwn ? 'start' : 'end';
+	let connected = false;
 
-	const divChat = document.createElement('div');
+	// the times are shown in the time zone and language of the browser (the hub sends UTC)
+	const locale = document.documentElement.lang || undefined,
+		timeFormat = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }),
+		dateTimeFormat = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }),
+		fullFormat = new Intl.DateTimeFormat(locale, { dateStyle: 'full', timeStyle: 'short' });
 
-	divChat.className = `direct-chat-msg ${side}`;
+	const formatTime = (time: HTMLTimeElement): void => {
+		const date = new Date(time.dateTime);
 
-	// Build meta (date/time) bar
-	const metaDiv = document.createElement('div');
-	metaDiv.className = 'fs-6 mb-1 clearfix';
-	const metaSpan = document.createElement('span');
-	metaSpan.className = `text-body-secondary float-${timeSide}`;
-	metaSpan.textContent = dateTime;
-	metaDiv.appendChild(metaSpan);
+		if (Number.isNaN(date.getTime())) {
+			return;
+		}
 
-	// Build avatar img safely
-	const avatarImg = document.createElement('img');
-	avatarImg.className = 'direct-chat-img img-thumbnail rounded';
-	avatarImg.alt = name;
-	avatarImg.src = avatarUrl;
+		time.textContent = date.toDateString() === new Date().toDateString()
+			? timeFormat.format(date)
+			: dateTimeFormat.format(date);
+		time.title = fullFormat.format(date);
+	};
 
-	// Build message body
-	const msgDiv = document.createElement('div');
-	msgDiv.className = isOwn ? 'direct-chat-text text-bg-primary' : 'direct-chat-text';
-	if (!isOwn) {
-		msgDiv.style.backgroundColor = color;
-	}
-	msgDiv.textContent = message;
+	const isNearBottom = (): boolean => list.scrollHeight - list.scrollTop - list.clientHeight < 80;
 
-	divChat.appendChild(metaDiv);
-	divChat.appendChild(avatarImg);
-	divChat.appendChild(msgDiv);
+	// again in the next frame: messages that arrive together, and the layout after the fonts and avatars are loaded
+	const scrollToBottom = (): void => {
+		list.scrollTop = list.scrollHeight;
+		requestAnimationFrame(() => {
+			list.scrollTop = list.scrollHeight;
+		});
+	};
 
-	document.getElementById('divMessage')!.appendChild(divChat);
-});
+	const updateSendButton = (): void => {
+		if (sendButton && input) {
+			sendButton.disabled = !connected || input.value.trim() === '';
+		}
+	};
 
-connection.start().then(() => {
-	sendButton.disabled = false;
-    
-}).catch(err => console.error(err.toString()));
+	const setState = (state: ChatState): void => {
+		status.dataset.state = state;
+		status.querySelector('.chat-status-text')!.textContent = status.dataset[`text${state[0].toUpperCase()}${state.slice(1)}`] ?? state;
+		connected = state === 'connected';
+		updateSendButton();
+	};
 
-const messageInput = document.getElementById('messageInput') as HTMLInputElement;
+	const lastMessage = (): HTMLElement | undefined => {
+		const messages = list.querySelectorAll<HTMLElement>('.chat-msg');
+		return messages[messages.length - 1];
+	};
 
-const sendMessage = (): void => {
-	const message = messageInput.value;
+	// the same markup as the page (Areas/Chat/Pages/Index.cshtml), all texts are set as text, not html
+	const addMessage = (userId: number, name: string, avatarUrl: string, color: string, message: string, created: string): void => {
+		const own = userId === currentUserId,
+			previous = lastMessage(),
+			createdMs = new Date(created).getTime(),
+			continued = !!previous && Number(previous.dataset.userId) === userId
+				&& createdMs - new Date(previous.dataset.created ?? '').getTime() >= 0
+				&& createdMs - new Date(previous.dataset.created ?? '').getTime() <= groupTimeMs,
+			stick = own || isNearBottom();
 
-	if (sendButton.disabled || message.trim() === '') {
-		return;
-	}
+		const item = document.createElement('div');
+		item.className = `chat-msg${own ? ' chat-msg-own' : ''}${continued ? ' chat-msg-continued' : ''}`;
+		item.dataset.userId = String(userId);
+		item.dataset.created = created;
 
-	// the field is emptied when the message is sent, so the next one can be typed right away
-	connection.invoke('SendMessage', message).then(() => {
-		messageInput.value = '';
-		messageInput.focus();
-	}).catch(err => console.log(err.toString()));
-};
+		if (!own) {
+			const avatar = document.createElement('img');
+			avatar.className = 'chat-avatar';
+			avatar.src = avatarUrl;
+			avatar.alt = '';
+			avatar.width = 36;
+			avatar.height = 36;
+			item.appendChild(avatar);
+		}
 
-sendButton.addEventListener('click', event => {
-	event.preventDefault();
-	sendMessage();
-});
+		const body = document.createElement('div');
+		body.className = 'chat-msg-body';
 
-messageInput.addEventListener('keydown', event => {
-	if (event.key === 'Enter' && !event.isComposing) {
+		const meta = document.createElement('div');
+		meta.className = 'chat-msg-meta';
+
+		if (!own) {
+			const nameSpan = document.createElement('span');
+			nameSpan.className = 'chat-msg-name';
+			nameSpan.textContent = name;
+			meta.appendChild(nameSpan);
+		}
+
+		const time = document.createElement('time');
+		time.dateTime = created;
+		meta.appendChild(time);
+		formatTime(time);
+
+		const bubble = document.createElement('div');
+		bubble.className = 'chat-bubble';
+		bubble.style.setProperty('--chat-user-color', color);
+		bubble.textContent = message;
+
+		body.appendChild(meta);
+		body.appendChild(bubble);
+		item.appendChild(body);
+		list.appendChild(item);
+
+		empty?.classList.add('d-none');
+
+		// a new message of somebody else does not move the list while the user reads older messages
+		if (stick) {
+			scrollToBottom();
+		}
+	};
+
+	const connection = new signalR.HubConnectionBuilder()
+		.withUrl(list.dataset.hubUrl || '/AllChatHub')
+		.withAutomaticReconnect()
+		.configureLogging(signalR.LogLevel.Error)
+		.build();
+
+	connection.on('ReceiveMessage', addMessage);
+	connection.onreconnecting(() => setState('reconnecting'));
+	connection.onreconnected(() => setState('connected'));
+	connection.onclose(() => setState('offline'));
+
+	list.querySelectorAll<HTMLTimeElement>('time[datetime]').forEach(formatTime);
+	scrollToBottom();
+
+	setState('connecting');
+
+	connection.start()
+		.then(() => setState('connected'))
+		.catch(err => {
+			console.error(err.toString());
+			setState('offline');
+		});
+
+	const sendMessage = (): void => {
+		if (!input || !connected || input.value.trim() === '') {
+			return;
+		}
+
+		sendButton!.disabled = true;
+
+		// the field is emptied when the message is sent, so the next one can be typed right away
+		connection.invoke('SendMessage', input.value)
+			.then(() => {
+				input.value = '';
+				input.focus();
+			})
+			.catch(err => console.error(err.toString()))
+			.finally(updateSendButton);
+	};
+
+	// Enter in the field submits the form
+	form?.addEventListener('submit', event => {
 		event.preventDefault();
 		sendMessage();
-	}
-});
+	});
+
+	input?.addEventListener('input', updateSendButton);
+}

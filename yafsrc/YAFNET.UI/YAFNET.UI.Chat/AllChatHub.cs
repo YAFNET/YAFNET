@@ -28,11 +28,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Types.Constants;
 using YAF.Types.Interfaces;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Services;
@@ -70,10 +68,6 @@ public class AllChatHub : Hub, IHaveServiceLocator
 
         var currentDateTime = DateTime.UtcNow;
 
-        var dateTimeFormatted = this.Get<BoardSettings>().ShowRelativeTime
-            ? currentDateTime.ToRelativeTime()
-            : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, currentDateTime);
-
         // an empty message (or only spaces or html) is not saved
         var body = ChatRules.NormalizeMessage(HtmlTagHelper.StripHtml(message ?? string.Empty));
 
@@ -101,7 +95,8 @@ public class AllChatHub : Hub, IHaveServiceLocator
             this.Get<IAvatars>().GetAvatarUrlForUser(user),
             GetUserColor(user),
             body,
-            dateTimeFormatted);
+            // the time in UTC, every page shows it in the time of its user (it was formatted in the time zone of the sender)
+            currentDateTime.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
     }
 
     /// <summary>

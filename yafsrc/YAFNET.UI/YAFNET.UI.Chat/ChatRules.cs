@@ -31,6 +31,21 @@ namespace YAF.UI.Chat;
 public static class ChatRules
 {
     /// <summary>
+    /// The maximum length of a message (the message field has the same limit).
+    /// </summary>
+    public const int MaxMessageLength = 1000;
+
+    /// <summary>
+    /// The number of messages the chat page shows (the latest ones).
+    /// </summary>
+    public const int MessagesShown = 100;
+
+    /// <summary>
+    /// Messages of the same user within this time are shown as one group (one name and avatar).
+    /// </summary>
+    public static readonly System.TimeSpan GroupTime = System.TimeSpan.FromMinutes(5);
+
+    /// <summary>
     /// Checks if a user can send chat messages. The chat page sends guests to the login page,
     /// but the hub can be called directly, so the hub checks it again.
     /// </summary>
@@ -43,7 +58,8 @@ public static class ChatRules
     }
 
     /// <summary>
-    /// Gets the text of a message as it is saved: without the spaces around it.
+    /// Gets the text of a message as it is saved: without the spaces around it and
+    /// at most <see cref="MaxMessageLength"/> characters (the hub can be called without the message field).
     /// </summary>
     /// <param name="message">The message (without html).</param>
     /// <returns>The text, or null if the message is empty (nothing is sent).</returns>
@@ -51,6 +67,25 @@ public static class ChatRules
     {
         var text = message?.Trim();
 
-        return string.IsNullOrEmpty(text) ? null : text;
+        if (string.IsNullOrEmpty(text))
+        {
+            return null;
+        }
+
+        return text.Length > MaxMessageLength ? text[..MaxMessageLength].TrimEnd() : text;
+    }
+
+    /// <summary>
+    /// Checks if a message continues the group of the message before it:
+    /// same user and sent within <see cref="GroupTime"/>.
+    /// </summary>
+    /// <param name="previousUserId">The user of the message before (null for the first message).</param>
+    /// <param name="previousCreated">The time of the message before.</param>
+    /// <param name="userId">The user of the message.</param>
+    /// <param name="created">The time of the message.</param>
+    /// <returns>True if the message is shown without name and avatar.</returns>
+    public static bool ContinuesGroup(int? previousUserId, System.DateTime previousCreated, int userId, System.DateTime created)
+    {
+        return previousUserId == userId && created >= previousCreated && created - previousCreated <= GroupTime;
     }
 }

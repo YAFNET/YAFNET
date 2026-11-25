@@ -58,4 +58,36 @@ public class ChatRulesTests
         ChatRules.NormalizeMessage("   \t\n ").Should().BeNull();
         ChatRules.NormalizeMessage("  Hello  ").Should().Be("Hello");
     }
+
+    /// <summary>
+    /// A message longer than the limit is cut (the hub can be called without the message field).
+    /// </summary>
+    [Test]
+    [Description("A message is saved with at most MaxMessageLength characters.")]
+    public void Long_Message_Is_Cut_Test()
+    {
+        var message = new string('a', ChatRules.MaxMessageLength + 50);
+
+        ChatRules.NormalizeMessage(message).Should().HaveLength(ChatRules.MaxMessageLength);
+        ChatRules.NormalizeMessage(new string('b', ChatRules.MaxMessageLength)).Should().HaveLength(ChatRules.MaxMessageLength);
+    }
+
+    /// <summary>
+    /// Messages of the same user within the group time are shown as one group.
+    /// </summary>
+    [Test]
+    [Description("Messages of the same user within a few minutes are one group.")]
+    public void Messages_Of_The_Same_User_Are_Grouped_Test()
+    {
+        var first = new DateTime(2026, 11, 25, 10, 0, 0, DateTimeKind.Utc);
+
+        ChatRules.ContinuesGroup(1, first, 1, first.AddMinutes(1)).Should().BeTrue();
+        ChatRules.ContinuesGroup(1, first, 1, first + ChatRules.GroupTime).Should().BeTrue();
+
+        // another user, too late, the first message, or an older message
+        ChatRules.ContinuesGroup(2, first, 1, first.AddMinutes(1)).Should().BeFalse();
+        ChatRules.ContinuesGroup(1, first, 1, first + ChatRules.GroupTime + TimeSpan.FromSeconds(1)).Should().BeFalse();
+        ChatRules.ContinuesGroup(null, first, 1, first).Should().BeFalse();
+        ChatRules.ContinuesGroup(1, first, 1, first.AddMinutes(-1)).Should().BeFalse();
+    }
 }

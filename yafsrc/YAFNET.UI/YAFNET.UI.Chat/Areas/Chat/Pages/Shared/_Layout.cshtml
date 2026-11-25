@@ -1,56 +1,78 @@
 ﻿@using YAF.Core.Context
 @using YAF.Core.Extensions
+@using YAF.Core.Services
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
-@using YAF.Web.Extensions
+@using YAF.Web.HtmlHelpers
+
+@* The layout of the chat page. An application can use its own layout with a file at the same path
+   (Areas/Chat/Pages/Shared/_Layout.cshtml), like the YAF.NET Sample Application. *@
 
 @inject BoardContext Current
 
+@{
+    var linkBuilder = Current.Get<ILinkBuilder>();
+}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] &middot; @Current.BoardSettings.Name</title>
     <link rel="stylesheet" href="@Html.Raw(Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"))"
           type="text/css" asp-append-version="true" />
+    @* the forum css has the icons *@
+    <link rel="stylesheet" href="~/css/forum.min.css" asp-append-version="true" />
+    <link rel="preload" href="~/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="~/js/themeSelector.min.js" asp-append-version="true"></script>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">YAF.SampleApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+<body class="d-flex flex-column min-vh-100">
+    <header class="border-bottom mb-4">
+        <nav class="navbar navbar-expand-sm" aria-label="Main navigation">
+            <div class="container-xxl">
+                <a class="navbar-brand fw-semibold" href="@linkBuilder.GetLink(ForumPages.Index)">@Current.BoardSettings.Name</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ChatNav"
+                        aria-controls="ChatNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="ChatNav">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" href="@linkBuilder.GetLink(ForumPages.Index)">
+                                @Html.Icon("comments", "me-1") Forums
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Forums" asp-page="/Index">Forums</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Chat">Chat</a>
+                            <a class="nav-link active" aria-current="page" asp-area="Chat" asp-page="/Index">
+                                @Html.Icon("message", "me-1") Chat
+                            </a>
                         </li>
                     </ul>
-                    <div class="form-inline mt-2 mt-md-0">
+
+                    <div class="d-flex flex-wrap align-items-center gap-2 py-2 py-sm-0">
+                        @await Html.PartialAsync("~/Areas/Forums/Pages/Shared/_ThemeModeSelector.cshtml")
+
                         @if (Current.IsGuest)
                         {
-                            <a class="btn btn-outline-success my-2 my-sm-0 me-sm-2" asp-page="@ForumPages.Account_Login.GetPageName()" asp-area="Forums">Login</a>
-                            <a class="btn btn-outline-success my-2 my-sm-0" asp-page="@(Current.BoardSettings.ShowRulesForRegistration ? "/Privacy" : "/Account/Register")" asp-area="Forums">Register</a>
+                            <a class="btn btn-sm btn-outline-primary" href="@linkBuilder.GetLink(ForumPages.Account_Login)">
+                                @Html.Icon("sign-in-alt", "me-1") Login
+                            </a>
                         }
                         else
                         {
-                            @("Welcome ")<span class="fw-bold">@HtmlEncoder.Encode(Current.PageUser.DisplayOrUserName())</span>
-                            <a class="btn btn-outline-secondary"
-                               role="button"
-                               href="javascript:LogOutClick()"
-                               aria-label="sign-out-alt">Logout
+                            <a class="d-flex align-items-center gap-2 text-decoration-none text-body"
+                               href="@linkBuilder.GetLink(ForumPages.MyAccount)">
+                                <img src="@(Current.Get<IAvatars>().GetAvatarUrlForCurrentUser())" alt=""
+                                     class="rounded" width="28" height="28" style="object-fit: contain" />
+                                <span class="fw-semibold">@Current.PageUser.DisplayOrUserName()</span>
+                            </a>
+                            <a class="btn btn-sm btn-outline-secondary" role="button" href="javascript:LogOutClick()">
+                                @Html.Icon("sign-out-alt", "me-1") Logout
                             </a>
                         }
                     </div>
@@ -58,26 +80,25 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2024 - YAF.SampleApp
-    </div>
-</footer>
+    <main role="main" class="flex-grow-1 pb-4">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top py-3 small">
+        <div class="container-xxl text-end">
+            @Html.FooterHelper()
+        </div>
+    </footer>
 
     <script src="~/js/forumExtensions.min.js" asp-append-version="true"></script>
 
-@if (!Current.IsGuest)
-{
-    @* the logout dialog of the forum (YAFNET.RazorPages), the name alone is not found from the chat area *@
-    @await Html.PartialAsync("~/Areas/Forums/Pages/Shared/_LogoutConfirm.cshtml")
-}
+    @if (!Current.IsGuest)
+    {
+        @* the logout dialog of the forum (YAFNET.RazorPages), the name alone is not found from the chat area *@
+        @await Html.PartialAsync("~/Areas/Forums/Pages/Shared/_LogoutConfirm.cshtml")
+    }
 
-@await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
