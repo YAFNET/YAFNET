@@ -1,5 +1,4 @@
 ﻿import * as signalR from '@microsoft/signalr';
-import scrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 const chatHub = new signalR.HubConnectionBuilder().withUrl('/chatHub').configureLogging(signalR.LogLevel.Error).build();
 
@@ -13,7 +12,7 @@ function currentUserId(): number {
 	return parseInt((document.getElementById('UserId') as HTMLInputElement).value);
 }
 
-chatHub.on('onConnected', (toUserId: string, conversations: Array<{ body: string, dateTime: string, toUserId: number }>) => {
+chatHub.on('onConnected', (toUserId: string, conversations: Array<{ body: string, dateTime: string, created: string, fromUserId: number }>) => {
 	const ctrId = `private_${toUserId}`;
 	const control = document.getElementById(ctrId) as HTMLElement | null;
 
@@ -27,44 +26,25 @@ chatHub.on('onConnected', (toUserId: string, conversations: Array<{ body: string
 	control.querySelector('#divMessage')?.replaceChildren();
 
 	// load existing conversations
-	for (let i = 0; i < conversations.length; i++) {
-		const avatar = control.dataset.avatar;
+	conversations.forEach(message => {
+		addMessage(ctrId, message.body, message.dateTime, message.created, message.fromUserId === currentUserId(),
+			message.fromUserId, control.dataset.toAvatar ?? '');
+	});
 
-		let toAvatar = control.dataset.toAvatar!;
-		let side = 'start';
-		let msgClass = 'text-bg-light';
-		let timeSide = 'end';
-		const message = conversations[i].body;
-		const dateTime = conversations[i].dateTime;
-
-		if (currentUserId() !== conversations[i].toUserId) {
-			side = 'end';
-			msgClass = 'text-bg-primary';
-			timeSide = 'start';
-			toAvatar = avatar!;
-		}
-
-		addMessage(ctrId, message, dateTime, side, timeSide, msgClass, toAvatar);
-	}
+	scrollToEnd(ctrId);
 });
 
-// toUserId is the other user of the conversation, fromUserId the author of the message
-chatHub.on('sendPrivateMessage', (toUserId: number, message: string, toAvatar: string, dateTime: string, fromUserId?: number) => {
+// toUserId is the other user of the conversation, fromUserId the author of the message,
+// created the time in UTC (older servers send only the formatted time)
+chatHub.on('sendPrivateMessage', (toUserId: number, message: string, avatar: string, dateTime: string, fromUserId?: number, created?: string) => {
 	const ctrId = `private_${toUserId}`;
-
-	let side = 'start';
-	let msgClass = 'text-bg-light';
-	let timeSide = 'end';
 
 	const isOwn = fromUserId === undefined ? currentUserId() !== toUserId : fromUserId === currentUserId();
 
-	if (isOwn) {
-		side = 'end';
-		msgClass = 'text-bg-primary';
-		timeSide = 'start';
-	}
+	addMessage(ctrId, message, dateTime, created ?? new Date().toISOString(), isOwn,
+		fromUserId ?? (isOwn ? currentUserId() : toUserId), decodeHtml(avatar));
 
-	addMessage(ctrId, message, dateTime, side, timeSide, msgClass, toAvatar);
+	scrollToEnd(ctrId);
 
 	updateConversation(toUserId, message, dateTime, isOwn);
 });
@@ -302,16 +282,83 @@ function addMessageUser(li: HTMLLIElement): void {
 	});
 }
 
-function addMessage(ctrlId: string, message: string, dateTime: string, side: string, timeSide: string, msgClass: string, toAvatar: string): void {
-	const divChat: HTMLDivElement = document.createElement('div');
-	divChat.className = `direct-chat-msg ${side}`;
-	divChat.innerHTML = `<div class="fs-6 mb-1 clearfix"><span class="text-body-secondary float-${timeSide}">${dateTime}</span>
-                         </div> <img class="direct-chat-img img-thumbnail rounded" src="${toAvatar}" alt="Message User Image"> <div class="direct-chat-text ${msgClass}">${message}</div>`;
+// messages of the same user within this time are one group (like the chat)
+const groupTimeMs = 5 * 60 * 1000;
 
-	const messageContainer = document.getElementById(ctrlId)?.querySelector('#divMessage');
-	messageContainer?.append(divChat);
+// the times are shown in the time zone and language of the browser
+const locale = document.documentElement.lang || undefined,
+	timeFormat = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }),
+	dateTimeFormat = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }),
+	fullFormat = new Intl.DateTimeFormat(locale, { dateStyle: 'full', timeStyle: 'short' });
 
-	scrollIntoView(divChat);
+// a message of the conversation, the same bubbles as the chat:
+// the messages of the other user on the left with the avatar, the own messages on the right
+function addMessage(ctrlId: string, message: string, dateTime: string, created: string, isOwn: boolean, fromUserId: number, avatar: string): void {
+	const container = document.getElementById(ctrlId)?.querySelector<HTMLElement>('#divMessage');
+
+	if (!container) {
+		return;
+	}
+
+	const previous = container.lastElementChild as HTMLElement | null,
+		date = new Date(created),
+		continued = !!previous && Number(previous.dataset.userId) === fromUserId
+			&& date.getTime() - new Date(previous.dataset.created ?? '').getTime() >= 0
+			&& date.getTime() - new Date(previous.dataset.created ?? '').getTime() <= groupTimeMs;
+
+	const item = document.createElement('div');
+	item.className = `chat-msg${isOwn ? ' chat-msg-own' : ''}${continued ? ' chat-msg-continued' : ''}`;
+	item.dataset.userId = `${fromUserId}`;
+	item.dataset.created = created;
+
+	if (!isOwn) {
+		const img = document.createElement('img');
+		img.className = 'chat-avatar';
+		img.src = avatar;
+		img.alt = '';
+		img.width = 36;
+		img.height = 36;
+		item.append(img);
+	}
+
+	const body = document.createElement('div');
+	body.className = 'chat-msg-body';
+
+	const time = document.createElement('time');
+	time.className = 'chat-msg-meta';
+
+	if (Number.isNaN(date.getTime())) {
+		time.textContent = dateTime;
+	} else {
+		time.dateTime = created;
+		time.textContent = date.toDateString() === new Date().toDateString() ? timeFormat.format(date) : dateTimeFormat.format(date);
+		time.title = fullFormat.format(date);
+	}
+
+	// the message is formatted on the server (bb codes)
+	const bubble = document.createElement('div');
+	bubble.className = 'chat-bubble';
+	bubble.innerHTML = message;
+
+	body.append(time, bubble);
+	item.append(body);
+	container.append(item);
+}
+
+// shows the latest message
+function scrollToEnd(ctrlId: string): void {
+	const container = document.getElementById(ctrlId)?.querySelector<HTMLElement>('#divMessage');
+
+	if (!container) {
+		return;
+	}
+
+	container.scrollTop = container.scrollHeight;
+
+	// again after the images of the messages are loaded
+	requestAnimationFrame(() => {
+		container.scrollTop = container.scrollHeight;
+	});
 }
 
 // escapes a text for the use in a html attribute

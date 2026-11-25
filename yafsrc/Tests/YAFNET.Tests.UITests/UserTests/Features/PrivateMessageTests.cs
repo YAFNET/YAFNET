@@ -94,7 +94,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages?u={adminId}");
 
                     var text = $"Chat message {Random.Shared.Next()}";
-                    var message = page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text });
+                    var message = page.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = text });
 
                     // Enter sends the message
                     await page.Locator("#txtPrivateMessage").FillAsync(text);
@@ -193,7 +193,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages?u={adminId}");
 
                     var text = $"Once {Random.Shared.Next()}";
-                    var message = page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text });
+                    var message = page.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = text });
 
                     await page.Locator("#txtPrivateMessage").FillAsync(text);
                     await page.Locator("#txtPrivateMessage").PressAsync("Enter");
@@ -232,7 +232,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                     await page.Locator("#txtPrivateMessage").FillAsync(hello);
                     await page.Locator("#txtPrivateMessage").PressAsync("Enter");
-                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = hello }).WaitForAsync();
+                    await page.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = hello }).WaitForAsync();
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/BlockOptions");
                     await page.Locator("#BlockPMs").CheckAsync();
@@ -251,7 +251,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages");
                     await page.Locator($"li.chat-list-user[data-name='{userName}']").ClickAsync();
-                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = hello }).WaitForAsync();
+                    await page.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = hello }).WaitForAsync();
 
                     var answer = $"Answer {Random.Shared.Next()}";
 
@@ -271,7 +271,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                                     Is.EqualTo(answer),
                                     "The text that was not sent is lost");
                                 Assert.That(
-                                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = answer }).CountAsync(),
+                                    await page.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = answer }).CountAsync(),
                                     Is.Zero,
                                     "The message is shown as sent");
                             });
@@ -322,7 +322,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                     await adminPage.Locator("#txtPrivateMessage").FillAsync(text);
                     await adminPage.Locator("#txtPrivateMessage").PressAsync("Enter");
-                    await adminPage.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text }).WaitForAsync();
+                    await adminPage.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = text }).WaitForAsync();
 
                     // the conversation with the admin is added to the list of the user
                     var conversation = page.Locator(
@@ -341,7 +341,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     // the conversation can be opened
                     await conversation.ClickAsync();
 
-                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text })
+                    await page.Locator(".direct-chat .chat-bubble", new PageLocatorOptions { HasText = text })
                         .WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
 
                     Assert.That(await page.Locator("#UnreadCount").TextContentAsync(), Is.EqualTo("0"), "The read messages are counted");
