@@ -3,11 +3,20 @@
 
         const input = document.querySelector('.searchSimilarTopics');
 
-        input.addEventListener('keyup', () => {
+        // one search after the typing (a search per key ran into the request limit), only the newest answer is shown
+        let timer = null;
+        let request = 0;
 
+        input.addEventListener('keyup', () => {
+            clearTimeout(timer);
+            timer = setTimeout(searchSimilar, 500);
+        });
+
+        function searchSimilar() {
             const placeHolder = document.getElementById('SearchResultsPlaceholder'),
                 ajaxUrl = placeHolder.dataset.url + 'api/Search/GetSimilarTitles',
-                searchText = input.value;
+                searchText = input.value,
+                current = ++request;
 
             if (searchText.length && searchText.length >= 4) {
 
@@ -26,6 +35,9 @@
                             "Content-Type": 'application/json;charset=utf-8'
                         }
                     }).then(res => res.json()).then(data => {
+                        if (current !== request) {
+                            return;
+                        }
 
                         empty(placeHolder);
 
@@ -37,11 +49,6 @@
                             list.classList.add('list-group','list-similar');
 
                             if (data.SearchResults.length > 0) {
-                                const markRead = document.getElementById('MarkRead');
-
-                                markRead.classList.remove('d-none');
-                                markRead.classList.add('d-block');
-
                                 data.SearchResults.forEach((dataItem) => {
                                     var li = document.createElement('li');
 
@@ -57,11 +64,11 @@
                             placeHolder.appendChild(list);
                         }
                 }).catch(function (error) {
+                    // the error is not shown as the similar topics (it was the text of a script error)
                     console.log(error);
-                    placeHolder.textContent = error;
+                    empty(placeHolder);
                 });
             }
-
-        });
+        }
     }
 });

@@ -14645,8 +14645,14 @@ function setSearchPageNumber(pageSize, pageNumber, total) {
 document.addEventListener("DOMContentLoaded", function() {
     if (document.querySelector(".searchSimilarTopics") != null) {
         const input = document.querySelector(".searchSimilarTopics");
+        let timer = null;
+        let request = 0;
         input.addEventListener("keyup", () => {
-            const placeHolder = document.getElementById("SearchResultsPlaceholder"), ajaxUrl = placeHolder.dataset.url + "api/Search/GetSimilarTitles", searchText = input.value;
+            clearTimeout(timer);
+            timer = setTimeout(searchSimilar, 500);
+        });
+        function searchSimilar() {
+            const placeHolder = document.getElementById("SearchResultsPlaceholder"), ajaxUrl = placeHolder.dataset.url + "api/Search/GetSimilarTitles", searchText = input.value, current = ++request;
             if (searchText.length && searchText.length >= 4) {
                 const searchTopic = {};
                 searchTopic.ForumId = 0;
@@ -14661,15 +14667,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         "Content-Type": "application/json;charset=utf-8"
                     }
                 }).then(res => res.json()).then(data => {
+                    if (current !== request) {
+                        return;
+                    }
                     empty(placeHolder);
                     placeHolder.classList.remove("list-group");
                     if (data.TotalRecords > 0) {
                         var list = document.createElement("ul");
                         list.classList.add("list-group", "list-similar");
                         if (data.SearchResults.length > 0) {
-                            const markRead = document.getElementById("MarkRead");
-                            markRead.classList.remove("d-none");
-                            markRead.classList.add("d-block");
                             data.SearchResults.forEach(dataItem => {
                                 var li = document.createElement("li");
                                 li.classList.add("list-group-item");
@@ -14682,10 +14688,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }).catch(function(error) {
                     console.log(error);
-                    placeHolder.textContent = error;
+                    empty(placeHolder);
                 });
             }
-        });
+        }
     }
 });
 

@@ -55,6 +55,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New topic, reply, edit, quick reply: a max post size of 0 (unlimited) did not accept any text in the editor
 * [FIXED] Login: the button stayed "Loading..." and disabled when the form was not sent (an empty required field), the login could not be tried again
 * [FIXED] Search: Enter in the "posted by" and the tags field did nothing, now it searches (a search by the user or the tag alone is possible)
+* [FIXED] New topic: the similar topics showed the "mark all as read" entry of the notification menu (a script error for guests, written into the similar topics) and a search was sent for every key; it waits for the end of the typing and shows only the newest answer
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
