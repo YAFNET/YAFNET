@@ -64,6 +64,29 @@ public partial class RegisterUser : AdminPage
             return;
         }
 
+        // the name rules of the register page (the name of the guest was linked to the guest user)
+        if (!UserHelper.IsAllowedName(newUsername, this.PageBoardContext.PageBoardID))
+        {
+            this.PageBoardContext.Notify(this.GetText("COMMON", "BAD_USERNAME"), MessageTypes.warning);
+            return;
+        }
+
+        if (newUsername.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
+        {
+            this.PageBoardContext.Notify(
+                string.Format(this.GetText("COMMON", "USERNAME_TOOSMALL"), this.PageBoardContext.BoardSettings.DisplayNameMinLength),
+                MessageTypes.danger);
+            return;
+        }
+
+        if (newUsername.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
+        {
+            this.PageBoardContext.Notify(
+                string.Format(this.GetText("COMMON", "USERNAME_TOOLONG"), this.PageBoardContext.BoardSettings.UserNameMaxLength),
+                MessageTypes.danger);
+            return;
+        }
+
         if (this.Get<IAspNetUsersHelper>().UserExists(this.UserName.Text.Trim(), newEmail))
         {
             this.PageBoardContext.Notify(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);

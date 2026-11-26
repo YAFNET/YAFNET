@@ -38,6 +38,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Board Settings: "Send digest every X hours" accepted 0 and negative numbers, the digest was then sent on each run of the task; at least 1 hour is required now (new text in all languages)
 * [FIXED] Admin > Board Settings: a board name of spaces was saved, and the hint of the empty name was missing (the text was looked up on the wrong page)
 * [FIXED] Profile, Admin > Edit User: an empty birthday was shown as 1903-01-01 and saving the profile stored it, the profile then showed the birthday "January 1, 1903"; the empty birthday stays empty and the profiles saved with it show no birthday
+* [FIXED] Admin > Register User: the name rules of the register page were not checked (no semicolons, not the name of the guest or a bad word, the minimum and maximum length); the name of the guest was linked to the guest user, which got the roles of a new user
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
