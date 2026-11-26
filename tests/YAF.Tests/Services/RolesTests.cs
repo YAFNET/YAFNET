@@ -207,6 +207,22 @@ public class RolesTests
     }
 
     [Test]
+    [Description("A new forum user gets the notification defaults of the board (self-registered users had no notifications and no digest)")]
+    public void CreateForumUser_Notification_Defaults_Test()
+    {
+        this.board.BoardSettings.DefaultNotificationSetting = YAF.Types.Constants.UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+        this.board.BoardSettings.DefaultSendDigestEmail = true;
+
+        var userId = this.roles.CreateForumUser(this.CreateIdentity("bob"), "Bob", TestDatabase.BoardId);
+
+        var user = this.Repository<User>().GetById(userId!.Value);
+        user.NotificationType.Should().Be(YAF.Types.Constants.UserNotificationSetting.TopicsIPostToOrSubscribeTo.ToInt());
+        user.AutoWatchTopics.Should().BeTrue();
+        user.DailyDigest.Should().BeTrue();
+        user.PMNotification.Should().BeTrue();
+    }
+
+    [Test]
     [Description("DidCreateForumUser reports success only when the forum user was created")]
     public void DidCreateForumUser_Test()
     {

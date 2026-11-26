@@ -121,9 +121,6 @@ public partial class RegisterUser : AdminPage
         // create the user in the YAF DB as well as sync roles...
         var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageBoardContext.PageBoardID);
 
-        var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
-            .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
-
         var created = this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim());
 
         try
@@ -137,13 +134,6 @@ public partial class RegisterUser : AdminPage
 
             created = $"{created} {x.Message}";
         }
-
-        this.GetRepository<User>().SaveNotification(
-            this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,
-            true,
-            autoWatchTopicsEnabled,
-            this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
-            this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
         // success
         this.PageBoardContext.LoadMessage.AddSession(created, MessageTypes.success);

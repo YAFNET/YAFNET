@@ -462,9 +462,6 @@ public partial class UsersImport : BaseUserControl
             timeZone = TimeZoneInfo.Local.Id;
         }
 
-        var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
-                                     == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
         this.GetRepository<User>().Save(
             userId.Value,
             timeZone,
@@ -474,14 +471,6 @@ public partial class UsersImport : BaseUserControl
             false,
             true,
             5);
-
-        // save the settings...
-        this.GetRepository<User>().SaveNotification(
-            userId.Value,
-            true,
-            autoWatchTopicsEnabled,
-            this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
-            this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
         importCount++;
 

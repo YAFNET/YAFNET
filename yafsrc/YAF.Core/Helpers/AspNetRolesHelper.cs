@@ -117,6 +117,17 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
                 this.Get<BoardSettings>().PageSizeDefault,
                 user.IsApproved);
 
+            // the notification defaults of the board (the registration did not set them, new users had
+            // "Turn off notifications" and no digest whatever the board default was)
+            var notification = this.Get<BoardSettings>().DefaultNotificationSetting;
+
+            this.GetRepository<User>().SaveNotification(
+                userId.Value,
+                true,
+                notification == Types.Constants.UserNotificationSetting.TopicsIPostToOrSubscribeTo,
+                notification.ToInt(),
+                this.Get<BoardSettings>().DefaultSendDigestEmail);
+
             this.Get<IAspNetRolesHelper>().GetRolesForUser(user).ForEach(
                 role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId.Value, role));
 
