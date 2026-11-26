@@ -59,6 +59,9 @@ public partial class SpamWords : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void SearchClick(object sender, EventArgs e)
     {
+        // the search starts on the first page (the shown page may not exist with it)
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 
@@ -123,6 +126,9 @@ public partial class SpamWords : AdminPage
     /// </param>
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
+        // the search starts on the first page (the shown page may not exist with it)
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 

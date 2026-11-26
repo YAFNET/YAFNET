@@ -163,6 +163,9 @@ public partial class BannedEmails : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Search_Click(object sender, EventArgs e)
     {
+        // the search starts on the first page (the shown page may not exist with it)
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 
@@ -174,6 +177,9 @@ public partial class BannedEmails : AdminPage
     protected void ClearClick(object sender, EventArgs e)
     {
         this.SearchInput.Text = string.Empty;
+
+        // the search starts on the first page (the shown page may not exist with it)
+        this.PagerTop.CurrentPageIndex = 0;
 
         this.BindData();
     }
@@ -189,6 +195,9 @@ public partial class BannedEmails : AdminPage
     /// </param>
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
+        // the search starts on the first page (the shown page may not exist with it)
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 
