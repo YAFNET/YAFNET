@@ -310,10 +310,14 @@ public static class IDbAccessExtensions
 
                     var sql = OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Connection.Database);
 
-                    // an empty statement can not be run
-                    return sql.IsNotSet()
-                               ? $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server"
-                               : db.Connection.Scalar<string>(sql);
+                    // an empty statement can not be run (the text was shown as a success)
+                    if (sql.IsNotSet())
+                    {
+                        throw new NotSupportedException(
+                            $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server");
+                    }
+
+                    return db.Connection.Scalar<string>(sql);
                 });
     }
 
@@ -342,10 +346,14 @@ public static class IDbAccessExtensions
 
                     var sql = OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier);
 
-                    // an empty statement can not be run
-                    return sql.IsNotSet()
-                               ? $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server"
-                               : db.Connection.Scalar<string>(sql);
+                    // an empty statement can not be run (the text was shown as a success)
+                    if (sql.IsNotSet())
+                    {
+                        throw new NotSupportedException(
+                            $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server");
+                    }
+
+                    return db.Connection.Scalar<string>(sql);
                 });
     }
 
@@ -399,16 +407,22 @@ public static class IDbAccessExtensions
     /// </param>
     public static string ChangeRecoveryMode(this IDbAccess dbAccess, string recoveryMode)
     {
-        try
-        {
-            return dbAccess.Execute(
-                db => db.Connection.Scalar<string>(
-                    OrmLiteConfig.DialectProvider.ChangeRecoveryMode(db.Connection.Database, recoveryMode)));
-        }
-        catch (Exception)
-        {
-            return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
-        }
+        // an error of the database (e.g. the user is not allowed to change it) is thrown, it was reported as the
+        // success of the change
+        return dbAccess.Execute(
+            db =>
+                {
+                    var sql = OrmLiteConfig.DialectProvider.ChangeRecoveryMode(db.Connection.Database, recoveryMode);
+
+                    // an empty statement can not be run
+                    if (sql.IsNotSet())
+                    {
+                        throw new NotSupportedException(
+                            $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server");
+                    }
+
+                    return db.Connection.Scalar<string>(sql);
+                });
     }
 
     /// <summary>

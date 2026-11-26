@@ -113,7 +113,7 @@ public class DbAccessExtensionsTests
     }
 
     [Test]
-    [Description("Changing the recovery mode runs the recovery mode statement, not a re-index")]
+    [Description("SQLite has no recovery mode: the change is refused as not supported (it was reported as a success) and runs no statement")]
     public void Change_Recovery_Mode_Test()
     {
         var statements = new List<string>();
@@ -122,14 +122,37 @@ public class DbAccessExtensionsTests
 
         try
         {
-            this.db.ChangeRecoveryMode("FULL");
+            this.db.Invoking(d => d.ChangeRecoveryMode("FULL")).Should().Throw<NotSupportedException>()
+                .WithMessage("Not Supported by *");
         }
         finally
         {
             OrmLiteConfig.BeforeExecFilter = previous;
         }
 
-        statements.Should().NotContain(s => s.Contains("auto_vacuum"), "that is the re-index statement");
+        statements.Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("Re-index and shrink on SQLite run REINDEX and VACUUM (they only changed the vacuum mode)")]
+    public void ReIndex_And_Shrink_Statements_Test()
+    {
+        var statements = new List<string>();
+        var previous = OrmLiteConfig.BeforeExecFilter;
+        OrmLiteConfig.BeforeExecFilter = cmd => statements.Add(cmd.CommandText);
+
+        try
+        {
+            this.db.ReIndexDatabase("yaf_");
+            this.db.ShrinkDatabase("yaf_");
+        }
+        finally
+        {
+            OrmLiteConfig.BeforeExecFilter = previous;
+        }
+
+        statements.Should().Contain("REINDEX;").And.Contain("VACUUM;");
+        statements.Should().NotContain(s => s.Contains("auto_vacuum"));
     }
 
     [Test]

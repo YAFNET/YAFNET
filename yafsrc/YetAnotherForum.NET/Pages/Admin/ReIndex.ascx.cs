@@ -110,9 +110,21 @@ public partial class ReIndex : AdminPage
 
         this.txtIndexStatistics.Text = string.Empty;
 
-        var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
+        try
+        {
+            var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
 
-        this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+            this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+        }
+        catch (NotSupportedException error)
+        {
+            this.PageBoardContext.Notify(error.Message, MessageTypes.warning);
+        }
+        catch (Exception error)
+        {
+            // e.g. the database user is not allowed to change it (it was shown as a success)
+            this.PageBoardContext.Notify(this.GetTextFormatted("INDEX_STATS_FAIL", error.Message), MessageTypes.danger);
+        }
     }
 
     /// <summary>
@@ -132,6 +144,10 @@ public partial class ReIndex : AdminPage
             var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
 
             this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+        }
+        catch (NotSupportedException error)
+        {
+            this.PageBoardContext.Notify(error.Message, MessageTypes.warning);
         }
         catch (Exception error)
         {
@@ -164,6 +180,10 @@ public partial class ReIndex : AdminPage
             this.txtIndexStatistics.Text = string.Empty;
 
             this.PageBoardContext.Notify(result.ToString(), MessageTypes.success);
+        }
+        catch (NotSupportedException error)
+        {
+            this.PageBoardContext.Notify(error.Message, MessageTypes.warning);
         }
         catch (Exception error)
         {
