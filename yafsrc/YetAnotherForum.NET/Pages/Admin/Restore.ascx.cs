@@ -303,6 +303,9 @@ public partial class Restore : AdminPage
     /// </param>
     protected void RefreshClick(object sender, EventArgs e)
     {
+        // the filter of the topics starts on the first page (the shown page may not exist with it)
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 
