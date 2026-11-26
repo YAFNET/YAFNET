@@ -155,6 +155,14 @@ public partial class Register : AccountPage
             return;
         }
 
+        // the confirmation is compared on the server too (a different confirmation was accepted, the password typed
+        // first was saved)
+        if (this.Password.Text != this.ConfirmPassword.Text)
+        {
+            this.PageBoardContext.Notify(this.GetText("PASSWORD_NOTMATCH"), MessageTypes.warning);
+            return;
+        }
+
         var user = new AspNetUsers
                        {
                            Id = Guid.NewGuid().ToString(),

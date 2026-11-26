@@ -50,6 +50,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Moderate > Reported Posts: a report text with a "|" was split, the second part was shown as another report with the date "[error]"
 * [FIXED] My Topics: "mark all as read" marked only the topics of the shown page
 * [FIXED] Edit Avatar: an upload without a file or with a file that is not an image showed the page again without a message (new text in all languages)
+* [FIXED] Register: a confirm password that differed was accepted on the server and the password typed first was saved (only the script of the page compared them)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
