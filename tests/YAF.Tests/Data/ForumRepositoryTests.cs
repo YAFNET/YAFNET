@@ -185,6 +185,32 @@ public class ForumRepositoryTests
     }
 
     [Test]
+    [Description("The forum select lists a sub forum below its parent, indented per level (a sub forum with a lower sort order was listed above its parent, every level alike)")]
+    public void ListAllSorted_Tree_Order_Test()
+    {
+        var top = this.db.AddForum("Tree top", this.category, f => f.SortOrder = 5);
+        var middle = this.db.AddForum("Tree middle", this.category, f =>
+        {
+            f.ParentID = top;
+            f.SortOrder = 1;
+        });
+        var bottom = this.db.AddForum("Tree bottom", this.category, f =>
+        {
+            f.ParentID = middle;
+            f.SortOrder = 1;
+        });
+        var other = this.db.AddForum("Tree other", this.category, f => f.SortOrder = 3);
+
+        foreach (var forum in new[] { top, middle, bottom, other })
+        {
+            this.board.GrantAccess(this.alice, forum);
+        }
+
+        this.Forums.ListAllSorted(TestDatabase.BoardId, this.alice, "tree").Single().children.Select(c => c.text)
+            .Should().Equal("Tree other", "Tree top", " - Tree middle", "&nbsp;&nbsp;&nbsp; - Tree bottom");
+    }
+
+    [Test]
     [Description("The forum jump lists group forums by category and can search, filter and page")]
     public void ListAllSorted_Test()
     {
