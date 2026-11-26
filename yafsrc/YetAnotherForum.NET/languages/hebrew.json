@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "הפעילות שלך"
+            "#text": "הפעילות שלכם"
           },
           {
             "@tag": "ARCHIVE",
@@ -16,7 +16,7 @@
           },
           {
             "@tag": "CHANGE_PASSWORD",
-            "#text": "החלף/י סיסמא"
+            "#text": "שינוי סיסמה"
           },
           {
             "@tag": "CONTROL_PANEL",
@@ -44,7 +44,7 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "החלפת דמות"
+            "#text": "שינוי אווטאר"
           },
           {
             "@tag": "EDIT_PROFILE",
@@ -853,7 +853,7 @@
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "שלח שוב אימות דוא&quot;ל"
+            "#text": "שלח שוב אימות דוא״ל"
           },
           {
             "@tag": "ADMIN_UPGRADE",
@@ -6741,7 +6741,7 @@
           },
           {
             "@tag": "FILTER_DROPDOWN",
-            "#text": "לְסַנֵן"
+            "#text": "סינון"
           },
           {
             "@tag": "FILTER_NO",
@@ -7167,7 +7167,7 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "הוסף קבצים)..."
+            "#text": "הוסף קבצים..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
@@ -7410,7 +7410,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "רשימת משתמשים מתעלמת"
+            "#text": "רשימת משתמשים שהתעלמתם מהם"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -7426,7 +7426,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "אפשרויות חסימת משתמש ומשתמשים שהתעלמו"
+            "#text": "אפשרויות חסימה ומשתמשים שהתעלמתם מהם"
           }
         ]
       },
@@ -7632,11 +7632,11 @@
           },
           {
             "@tag": "BUTTON_QUOTE_TT",
-            "#text": "שלח/י תגובה להודעה זו יחד עם ציטוט"
+            "#text": "הגב עם ציטוט"
           },
           {
             "@tag": "BUTTON_REPLY",
-            "#text": "שלח תגובה"
+            "#text": "הגב"
           },
           {
             "@tag": "BUTTON_REPLY_TT",
@@ -7656,7 +7656,7 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "הגדר ככריכה"
+            "#text": "הגדר כתמונת שער"
           },
           {
             "@tag": "BUTTON_THANKS",
@@ -7684,7 +7684,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "בטל נעילה"
+            "#text": "בטל נעילת דיון"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -7879,7 +7879,7 @@
           },
           {
             "@tag": "CONTINUE",
-            "#text": "לְהַמשִׁיך"
+            "#text": "המשך"
           },
           {
             "@tag": "COOKIE",
@@ -8175,7 +8175,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "הודעה"
+            "#text": "פרסם"
           },
           {
             "@tag": "POWERED_BY",
@@ -9422,7 +9422,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "שיחה פעילה"
+            "#text": "דיונים פעילים"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9534,7 +9534,7 @@
           },
           {
             "@tag": "MODERATORS",
-            "#text": "אחראי פורום"
+            "#text": "מנחים"
           },
           {
             "@tag": "MOST_ACTIVE",
@@ -9630,7 +9630,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "צפה בכל הפורומים"
+            "#text": "עקוב אחר כל הפורומים"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9859,7 +9859,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "נקה דמות"
+            "#text": "הסר אווטאר"
           },
           {
             "@tag": "AVATARNEW",
@@ -9875,7 +9875,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "העלאת דמות מהמחשב שלך:"
+            "#text": "העלאת אווטאר מהמחשב שלכם:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -9899,7 +9899,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "בחר דמות מהאוסף שלנו:"
+            "#text": "בחירת אווטאר מהאוסף שלנו:"
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -9980,7 +9980,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "החלף/ת כתובת דוא\"ל"
+            "#text": "שינוי כתובת דוא״ל"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10277,7 +10277,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "לְאַשֵׁר"
+            "#text": "אשר"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10733,7 +10733,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "שלח דוא\"ל"
+            "#text": "שלח דוא״ל"
           },
           {
             "@tag": "SUBJECT",
@@ -11286,7 +11286,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "התחבר אוטומטית:"
+            "#text": "זכור אותי"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11318,7 +11318,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "שכחתי סיסמא"
+            "#text": "שכחתי סיסמה"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -11334,7 +11334,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "שחזר סיסמא"
+            "#text": "שחזר סיסמה"
           },
           {
             "@tag": "RECOVER_ERROR",
@@ -11569,7 +11569,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "ניתן לבחור רק 2 גרסאות בהשוואה!"
+            "#text": "ניתן לבחור רק 2 גרסאות להשוואה!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11577,7 +11577,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "היסטוריית עריכת ההודעה"
           },
           {
             "@tag": "TOMESSAGE",
@@ -11736,7 +11736,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "דווחו כהודעות פוגעניות"
+            "#text": "הודעות שדווחו"
           },
           {
             "@tag": "TITLE",
@@ -11744,7 +11744,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "לא אושרו"
+            "#text": "הודעות שלא אושרו"
           }
         ]
       },
@@ -11858,7 +11858,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "העבר הודעה לנושא אחר"
+            "#text": "העבר הודעה לדיון אחר"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11874,7 +11874,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "פיצול הודעה לנושא חדש"
+            "#text": "פיצול הודעה לדיון חדש"
           },
           {
             "@tag": "TITLE",
@@ -11916,7 +11916,7 @@
         "Resource": [
           {
             "@tag": "ACTIVETOPICS",
-            "#text": "נושאים פעילים"
+            "#text": "דיונים פעילים"
           },
           {
             "@tag": "ATOMFEED",
@@ -12012,7 +12012,7 @@
           },
           {
             "@tag": "UNANSWEREDTOPICS",
-            "#text": "נושאים ללא מענה"
+            "#text": "דיונים ללא תגובה"
           },
           {
             "@tag": "UNREADTOPICS",
@@ -12024,7 +12024,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "צפו בנושאים"
+            "#text": "דיונים במעקב"
           }
         ]
       },
@@ -12351,7 +12351,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "אפשר להצביע עבור אפשרויות רבות"
+            "#text": "אפשר להצביע לכמה אפשרויות"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12367,7 +12367,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "הצג מי הצביע"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12391,7 +12391,7 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "הצבעה כבולה"
+            "#text": "תוצאות רק בסיום הסקר"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
@@ -12516,7 +12516,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "כתוב דיון חדש"
+            "#text": "פרסם דיון חדש"
           },
           {
             "@tag": "NORMAL",
@@ -12524,7 +12524,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "מתמיד:"
+            "#text": "האם הדיון קבוע?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12608,7 +12608,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "האם ברצונך לקבל עדכונים במייל על פעילות בדיון זה?"
+            "#text": "לעקוב אחר הדיון ולקבל התראות על פעילות בדוא״ל?"
           },
           {
             "@tag": "WAIT",
@@ -12629,7 +12629,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "הזנת אטום"
+            "#text": "פיד Atom"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12797,7 +12797,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "כתובת אתר של נושא LinkBack"
+            "#text": "כתובת LinkBack של הדיון"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12813,7 +12813,7 @@
           },
           {
             "@tag": "MANAGE_TOPIC",
-            "#text": "נהל נושא"
+            "#text": "ניהול דיון"
           },
           {
             "@tag": "MARK_ANSWER",
@@ -12941,7 +12941,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "דווח/י על תוכן פוגעני"
+            "#text": "דווח"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12957,7 +12957,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "שתף!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -12965,7 +12965,7 @@
           },
           {
             "@tag": "SIMILAR_TOPICS",
-            "#text": "נושאים דומים"
+            "#text": "דיונים דומים"
           },
           {
             "@tag": "STATISTICS",
@@ -13021,11 +13021,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "הצג/הסתר הודעה של משתמש שמתעלמים ממנו"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "הסתר פוסטים של משתמשים"
+            "#text": "הסתר את הודעות המשתמש"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13348,7 +13348,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "הצג את כל ההודעות על ידי משתמש"
+            "#text": "הצג את כל ההודעות של המשתמש"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -14191,7 +14191,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "להגיש תלונה"
+            "#text": "דווח"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14310,7 +14310,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "אני מסכים/ה לכללי הפורום ומדיניותו."
+            "#text": "אני מסכים/ה לכללי הפורום ולמדיניותו"
           },
           {
             "@tag": "DECLINE",
@@ -14448,7 +14448,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "מקבלים פעם אחת תקציר/סיכום פעילות?"
+            "#text": "לקבל תקציר יומי של הפעילות?"
           },
           {
             "@tag": "FORUM",
@@ -14456,7 +14456,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "פורומים"
+            "#text": "פורומים במעקב"
           },
           {
             "@tag": "LASTPOST",
@@ -14472,7 +14472,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "בחר העדפת התראות באימייל:"
+            "#text": "בחר העדפת התראות בדוא״ל:"
           },
           {
             "@tag": "REPLIES",
@@ -14492,7 +14492,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "דיונים"
+            "#text": "דיונים במעקב"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14500,11 +14500,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "התראה על נושאים או פורומים שצפית בהם באופן סלקטיבי (המפורטים למטה)"
+            "#text": "התראות על דיונים או פורומים שאתם עוקבים אחריהם (מפורטים למטה)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "בטל מנוי"
+            "#text": "בטל מעקב"
           },
           {
             "@tag": "VIEWS",
@@ -14701,7 +14701,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "החברים שלי"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14809,7 +14809,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "הפרופיל שלי"
+            "#text": "החשבון שלי"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14825,7 +14825,7 @@
           },
           {
             "@tag": "MYTOPICS",
-            "#text": "הנושאים שלי"
+            "#text": "הדיונים שלי"
           },
           {
             "@tag": "MYTOPICS_TITLE",
@@ -14861,7 +14861,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "קְבוּצָה"
+            "#text": "צוות"
           },
           {
             "@tag": "TEAM_TITLE",
@@ -15018,7 +15018,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "הפסק מעקב אחרי הפעילות בפורום"
+            "#text": "בטל מעקב אחר הפורום"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15038,7 +15038,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "עקוב אחר הפעילות בפורום"
+            "#text": "עקוב אחר הפורום"
           },
           {
             "@tag": "YESTERDAYAT",

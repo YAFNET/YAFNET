@@ -7398,11 +7398,11 @@
           },
           {
             "@tag": "BLOCK_EMAILS",
-            "#text": "Sähköpostin estäminen"
+            "#text": "Estä sähköpostit"
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Lohkoasetukset"
+            "#text": "Estoasetukset"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7410,7 +7410,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Unohdettu käyttäjäluettelo"
+            "#text": "Sivuutettujen käyttäjien luettelo"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -7556,7 +7556,7 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Kuvien lataaminen/poistaminen"
+            "#text": "Lataa/poista kuvia"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
@@ -7652,7 +7652,7 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Aseta kansi"
+            "#text": "Aseta kansikuvaksi"
           },
           {
             "@tag": "BUTTON_THANKS",
@@ -7680,7 +7680,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Aiheen avaaminen"
+            "#text": "Avaa aiheen lukitus"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -7991,7 +7991,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Siirry alueelle "
+            "#text": "Siirry alueelle"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -9626,7 +9626,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Katso kaikki foorumit"
+            "#text": "Seuraa kaikkia alueita"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9680,7 +9680,7 @@
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Poista syy"
+            "#text": "Poiston syy"
           },
           {
             "@tag": "DELETE_TT",
@@ -9855,7 +9855,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Tyhjennä Avatar"
+            "#text": "Poista avatar"
           },
           {
             "@tag": "AVATARNEW",
@@ -9895,7 +9895,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Valitse Avatar kokoelmastamme:"
+            "#text": "Valitse avatar kokoelmastamme:"
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -10028,11 +10028,11 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Keskustelualueen asetukset"
+            "#text": "Foorumin asetukset"
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Sijainnin hakeminen IP-osoitteesta"
+            "#text": "Hae sijainti IP-osoitteesta"
           },
           {
             "@tag": "HIDEME",
@@ -10345,7 +10345,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Pyyntönne"
+            "#text": "Omat pyyntösi"
           }
         ]
       },
@@ -11282,7 +11282,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Kirjaudu automaattisesti:"
+            "#text": "Muista minut"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11314,7 +11314,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Hukkunut salasana"
+            "#text": "Unohtunut salasana"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -11330,7 +11330,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Hukkunut salasana"
+            "#text": "Palauta salasana"
           },
           {
             "@tag": "RECOVER_ERROR",
@@ -11565,7 +11565,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Vain 2 versiota voidaan valita vertailun ajaksi!"
+            "#text": "Vertailuun voi valita vain 2 versiota!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11573,7 +11573,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Viestin muokkaushistoria"
           },
           {
             "@tag": "TOMESSAGE",
@@ -11732,7 +11732,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Raportoidut viestit"
           },
           {
             "@tag": "TITLE",
@@ -11870,7 +11870,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Viestin jakaminen uuteen aiheeseen"
+            "#text": "Jaa viesti uudeksi aiheeksi"
           },
           {
             "@tag": "TITLE",
@@ -12020,7 +12020,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Katso aiheita"
+            "#text": "Seuratut aiheet"
           }
         ]
       },
@@ -12331,7 +12331,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Suorita kysely:"
+            "#text": "Kyselyn kesto:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Salli äänestää monista vaihtoehdoista"
+            "#text": "Salli äänestää useaa vaihtoehtoa"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12363,7 +12363,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Näytä, ketkä äänestivät"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12512,7 +12512,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Onko tämä aihe pysyvä?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12785,7 +12785,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Aiheen URL-osoite"
+            "#text": "Aiheen LinkBack-osoite"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12853,7 +12853,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM"
+            "#text": "YV"
           },
           {
             "@tag": "PM_TITLE",
@@ -12929,7 +12929,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Report Abusive"
+            "#text": "Raportoi"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12945,7 +12945,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Jaa!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13009,7 +13009,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "Näytä/piilota sivuutetun käyttäjän viesti"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13336,7 +13336,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Näytä kaikki käyttäjän Viestit"
+            "#text": "Näytä kaikki käyttäjän viestit"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -14179,7 +14179,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Raportti"
+            "#text": "Raportoi"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14436,7 +14436,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Saatko kerran päivässä yhteenvedon/yhteenvedon toiminnasta?"
+            "#text": "Vastaanotetaanko kerran päivässä koonti toiminnasta?"
           },
           {
             "@tag": "FORUM",
@@ -14444,7 +14444,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Alueet"
+            "#text": "Seuratut alueet"
           },
           {
             "@tag": "LASTPOST",
@@ -14480,7 +14480,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Aiheet"
+            "#text": "Seuratut aiheet"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14488,11 +14488,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Ilmoitus aiheista tai foorumeista, joita olet valikoivasti katsonut (lueteltu alla)."
+            "#text": "Ilmoitukset aiheista tai alueista, joita olet valikoiden seurannut (lueteltu alla)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Peruuta seuranta"
+            "#text": "Lopeta seuranta"
           },
           {
             "@tag": "VIEWS",
@@ -14689,7 +14689,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "Ystäväni"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14709,7 +14709,7 @@
           },
           {
             "@tag": "HELP",
-            "#text": "Apua"
+            "#text": "Ohje"
           },
           {
             "@tag": "HELP_TITLE",
@@ -14797,7 +14797,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Oma profiili"
+            "#text": "Oma tili"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14849,7 +14849,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Joukkue"
+            "#text": "Tiimi"
           },
           {
             "@tag": "TEAM_TITLE",
@@ -14982,11 +14982,11 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Etsi foorumi"
+            "#text": "Etsi alueelta"
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Näytä aiheet "
+            "#text": "Näytä aiheet"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15006,7 +15006,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Peru alueen seuranta"
+            "#text": "Lopeta alueen seuranta"
           },
           {
             "@tag": "USER_AVATAR",

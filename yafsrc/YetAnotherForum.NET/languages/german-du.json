@@ -128,7 +128,7 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Erwähnt wurde"
+            "#text": "Wurde erwähnt"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -7179,7 +7179,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Aktuelle Attachment-Uploads:"
+            "#text": "Aktuell hochgeladene Anhänge:"
           },
           {
             "@tag": "DELETE",
@@ -7394,7 +7394,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Optionen blockieren"
+            "#text": "Blockieroptionen"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7402,7 +7402,7 @@
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignorierte Benutzerliste"
+            "#text": "Liste der ignorierten Benutzer"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -7532,7 +7532,7 @@
           },
           {
             "@tag": "BUTTON_DELETETOPIC",
-            "#text": "Thema Löschen"
+            "#text": "Thema löschen"
           },
           {
             "@tag": "BUTTON_DELETETOPIC_TT",
@@ -7548,11 +7548,11 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Bild Hochladen/Löschen"
+            "#text": "Bilder hochladen/löschen"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Sperren"
+            "#text": "Thema sperren"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -7584,7 +7584,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Mehrfach Zitat"
+            "#text": "Mehrfachzitat"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7620,7 +7620,7 @@
           },
           {
             "@tag": "BUTTON_QUOTE_TT",
-            "#text": "Auf diesen Beitrag mit Zitat Antworten"
+            "#text": "Mit Zitat antworten"
           },
           {
             "@tag": "BUTTON_REPLY",
@@ -7664,7 +7664,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Löschen Rückgängig"
+            "#text": "Wiederherstellen"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -7672,7 +7672,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Entsperren"
+            "#text": "Thema entsperren"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -7983,7 +7983,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Gehe zu:"
+            "#text": "Forum wechseln"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -8163,7 +8163,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Beitrag"
+            "#text": "Absenden"
           },
           {
             "@tag": "POWERED_BY",
@@ -9618,7 +9618,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Alle Foren beobachten"
+            "#text": "Alle Foren abonnieren"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9639,7 +9639,7 @@
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Löschen Sie Ihr Konto (dauerhaft)"
+            "#text": "Lösche dein Konto (dauerhaft)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
@@ -9647,7 +9647,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Sperren Sie Ihr Konto für 30 Tage"
+            "#text": "Sperre dein Konto für 30 Tage"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9863,7 +9863,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Lade ein Avatar von deinem Computer hoch."
+            "#text": "Avatar von deinem Computer hochladen:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -9887,7 +9887,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Unsere Avatar Sammlung."
+            "#text": "Wähle deinen Avatar aus unserer Sammlung:"
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -9968,7 +9968,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Änderung der E-Mail-Adresse"
+            "#text": "E-Mail-Adresse ändern"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10028,7 +10028,7 @@
           },
           {
             "@tag": "HIDEME",
-            "#text": "Verstecken Sie mich aus der aktiven Nutzerliste"
+            "#text": "Mich in der Liste der aktiven Benutzer verbergen"
           },
           {
             "@tag": "HOMEPAGE",
@@ -10186,7 +10186,7 @@
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
-            "#text": "Signatur Vorschau"
+            "#text": "Signaturvorschau"
           },
           {
             "@tag": "TITLE",
@@ -10269,7 +10269,7 @@
           },
           {
             "@tag": "APPROVE_ALL",
-            "#text": "Alle Genehmigen"
+            "#text": "Alle genehmigen"
           },
           {
             "@tag": "BUDDYLIST",
@@ -10337,7 +10337,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Ihre Anfragen"
+            "#text": "Deine Anfragen"
           }
         ]
       },
@@ -10713,7 +10713,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Sende E-Mail"
+            "#text": "E-Mail senden"
           },
           {
             "@tag": "SUBJECT",
@@ -11266,7 +11266,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Login merken"
+            "#text": "Angemeldet bleiben"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11497,7 +11497,7 @@
           },
           {
             "@tag": "EDITEDBY_MOD",
-            "#text": "Bearbeited durch einen Moderator"
+            "#text": "Bearbeitet von einem Moderator"
           },
           {
             "@tag": "EDITEREASON",
@@ -11553,15 +11553,15 @@
           },
           {
             "@tag": "TEXT_CHANGES",
-            "#text": "Text änderungen"
+            "#text": "Textänderungen"
           },
           {
             "@tag": "TITLE",
-            "#text": "Nachrichten Verlauf"
+            "#text": "Bearbeitungsverlauf des Beitrags"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Gehe zu Nachricht"
+            "#text": "Zum Beitrag gehen"
           }
         ]
       },
@@ -11716,7 +11716,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Beleidigende Beiträge"
+            "#text": "Gemeldete Beiträge"
           },
           {
             "@tag": "TITLE",
@@ -11733,7 +11733,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Beiträge bestätigten"
+            "#text": "Beitrag bestätigen"
           },
           {
             "@tag": "APPROVED",
@@ -11797,7 +11797,7 @@
           },
           {
             "@tag": "RESOLVED",
-            "#text": "Als \"geklärt\" markieren"
+            "#text": "Als erledigt markieren"
           },
           {
             "@tag": "RESOLVEDBY",
@@ -11838,7 +11838,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Beitrag in anderes Thema verschieben."
+            "#text": "Beitrag in ein anderes Thema verschieben"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11854,7 +11854,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Beitrag in ein neues Thema splitten."
+            "#text": "Beitrag in ein neues Thema abtrennen"
           },
           {
             "@tag": "TITLE",
@@ -12004,7 +12004,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Themen beobachten"
+            "#text": "Abonnierte Themen"
           }
         ]
       },
@@ -12287,7 +12287,7 @@
           },
           {
             "@tag": "CREATEPOLL",
-            "#text": "Umfrage Erstellen"
+            "#text": "Umfrage erstellen"
           },
           {
             "@tag": "EDITPOLL",
@@ -12315,7 +12315,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Umfrage laufen lassen:"
+            "#text": "Laufzeit der Umfrage:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12331,7 +12331,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Möglichkeit für mehrere Möglichkeiten zu stimmen"
+            "#text": "Abstimmung für mehrere Antworten erlauben"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Zeigen wer gewählt hat."
+            "#text": "Zeigen, wer abgestimmt hat"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12452,7 +12452,7 @@
           },
           {
             "@tag": "EDITREASON",
-            "#text": "Grund der Änderung"
+            "#text": "Grund der Änderung:"
           },
           {
             "@tag": "FROM",
@@ -12496,7 +12496,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Feste Nachricht:"
+            "#text": "Dieses Thema dauerhaft behalten?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12580,7 +12580,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Möchtest Du per E-Mail informiert werden, wenn es Antworten auf das Thema gibt?"
+            "#text": "Dieses Thema abonnieren und bei Aktivität per E-Mail benachrichtigt werden?"
           },
           {
             "@tag": "WAIT",
@@ -12725,7 +12725,7 @@
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
-            "#text": "Anklicken um Bild zu betrachten"
+            "#text": "Klicken, um das Bild anzuzeigen"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
@@ -12769,7 +12769,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Themen URL"
+            "#text": "LinkBack-URL des Themas"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12869,7 +12869,7 @@
           },
           {
             "@tag": "PRINTTOPIC",
-            "#text": "Druckansicht"
+            "#text": "Dieses Thema drucken"
           },
           {
             "@tag": "QUESTION",
@@ -12877,7 +12877,7 @@
           },
           {
             "@tag": "QUICKREPLY",
-            "#text": "Schnelles Antworten"
+            "#text": "Schnellantwort"
           },
           {
             "@tag": "QUICKREPLY_HIDE",
@@ -12913,7 +12913,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Diesen Beitrag melden"
+            "#text": "Melden"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12993,11 +12993,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Zeige/Verstecke Beiträge"
+            "#text": "Beitrag eines ignorierten Benutzers anzeigen/verbergen"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Verstecke Benutzer Beiträge"
+            "#text": "Beiträge des Benutzers verbergen"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -14282,7 +14282,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "Ich bin mit diesen Regeln einverstanden"
+            "#text": "Ich stimme diesen Regeln und Richtlinien zu"
           },
           {
             "@tag": "DECLINE",
@@ -14428,7 +14428,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Foren"
+            "#text": "Abonnierte Foren"
           },
           {
             "@tag": "LASTPOST",
@@ -14440,11 +14440,11 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Benachrichtigen abschalten"
+            "#text": "Benachrichtigungen abschalten"
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Wählen Sie die Emailbenachrichtigungseinstellung:"
+            "#text": "Wähle die Einstellung für E-Mail-Benachrichtigungen:"
           },
           {
             "@tag": "REPLIES",
@@ -14464,7 +14464,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Themen"
+            "#text": "Abonnierte Themen"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14472,11 +14472,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Benachrichtigungen für Themen oder Foren die Sie zum Verfolgen Ausgewählt haben (Unterhalb aufgelistet)"
+            "#text": "Benachrichtigungen für Themen oder Foren, die du gezielt abonniert hast (siehe unten)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Abonnements kündigen"
+            "#text": "Nicht mehr abonnieren"
           },
           {
             "@tag": "VIEWS",
@@ -14781,7 +14781,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Mein Profil"
+            "#text": "Mein Konto"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14833,7 +14833,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Mannschaft"
+            "#text": "Team"
           },
           {
             "@tag": "TEAM_TITLE",
@@ -14970,7 +14970,7 @@
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Zeige Themen"
+            "#text": "Themen anzeigen"
           },
           {
             "@tag": "SUBFORUMS",
@@ -14990,7 +14990,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Forum Abonnement auflösen"
+            "#text": "Forum nicht mehr abonnieren"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15010,7 +15010,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Dieses Forum abonnieren"
+            "#text": "Forum abonnieren"
           },
           {
             "@tag": "YESTERDAYAT",

@@ -44,11 +44,11 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Modyfikuj avatar"
+            "#text": "Zmień avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "Edytuj Profil"
+            "#text": "Edytuj profil"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -124,11 +124,11 @@
           },
           {
             "@tag": "VIEW_PROFILE",
-            "#text": "Widok profilu"
+            "#text": "Zobacz profil"
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Został wymieniony"
+            "#text": "Został wspomniany"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -136,7 +136,7 @@
           },
           {
             "@tag": "WAS_QUOTED",
-            "#text": "został zacytowany"
+            "#text": "Został zacytowany"
           },
           {
             "@tag": "WAS_QUOTED_MSG",
@@ -7179,7 +7179,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Bieżące przesyłanie załączników:"
+            "#text": "Aktualnie przesłane załączniki:"
           },
           {
             "@tag": "DELETE",
@@ -7394,15 +7394,15 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Opcje bloków"
+            "#text": "Opcje blokowania"
           },
           {
             "@tag": "BLOCK_PMS",
-            "#text": "Zablokuj prywatne wiadomości"
+            "#text": "Blokuj prywatne wiadomości"
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignorowana lista użytkowników"
+            "#text": "Lista ignorowanych użytkowników"
           },
           {
             "@tag": "NOTE_BLOCK",
@@ -7427,7 +7427,7 @@
         "Resource": [
           {
             "@tag": "ADDBUDDY",
-            "#text": "Dodaj do Znajomych"
+            "#text": "Dodaj do znajomych"
           },
           {
             "@tag": "AWAIT_BUDDY_APPROVAL",
@@ -7548,7 +7548,7 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Wyślij/Usuń obrazy"
+            "#text": "Prześlij/usuń obrazy"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
@@ -7584,7 +7584,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Wiele cytatów"
+            "#text": "Cytuj wiele"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7664,7 +7664,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Przywróc"
+            "#text": "Przywróć"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -8163,7 +8163,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Poczta"
+            "#text": "Wyślij"
           },
           {
             "@tag": "POWERED_BY",
@@ -8275,7 +8275,7 @@
           },
           {
             "@tag": "TT_IMAGE",
-            "#text": "Dodaj obraz"
+            "#text": "Wstaw obraz"
           },
           {
             "@tag": "TT_IMAGE_DESC",
@@ -9414,7 +9414,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "Aktywne Dyskusje"
+            "#text": "Aktywne dyskusje"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9518,7 +9518,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "Zaznacz wszystkie fora jako przeczytane."
+            "#text": "Zaznacz wszystkie fora jako przeczytane"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -9972,7 +9972,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Zmień adres email"
+            "#text": "Zmień adres e-mail"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10024,7 +10024,7 @@
           },
           {
             "@tag": "FORUM_SETTINGS",
-            "#text": "Ustawienia Forum"
+            "#text": "Ustawienia forum"
           },
           {
             "@tag": "GET_LOCATION",
@@ -11302,7 +11302,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Utracone Hasło"
+            "#text": "Zapomniane hasło"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -11318,7 +11318,7 @@
           },
           {
             "@tag": "RECOVER",
-            "#text": "Odzyskaj Hasło"
+            "#text": "Odzyskaj hasło"
           },
           {
             "@tag": "RECOVER_ERROR",
@@ -11553,7 +11553,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Przed porównaniem można wybrać tylko 2 wersje!"
+            "#text": "Do porównania można wybrać tylko 2 wersje!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11561,11 +11561,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Historia posta"
+            "#text": "Historia edycji posta"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Idź do posta"
+            "#text": "Przejdź do posta"
           }
         ]
       },
@@ -11728,7 +11728,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Niezatwierdzone Posty"
+            "#text": "Niezatwierdzone posty"
           }
         ]
       },
@@ -11737,7 +11737,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Zatwierdź Post"
+            "#text": "Zatwierdź post"
           },
           {
             "@tag": "APPROVED",
@@ -11842,7 +11842,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Przenieść post do innego tematu"
+            "#text": "Przenieś post do innego tematu"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11858,7 +11858,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Przenieś posty do nowego tematu"
+            "#text": "Wydziel post do nowego tematu"
           },
           {
             "@tag": "TITLE",
@@ -12008,7 +12008,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Tematy do obejrzenia"
+            "#text": "Obserwowane tematy"
           }
         ]
       },
@@ -12476,7 +12476,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Ostatnie 10 Wiadomości (W odwrotnej kolejności)"
+            "#text": "Ostatnie 10 postów (w odwrotnej kolejności)"
           },
           {
             "@tag": "MESSAGE",
@@ -12492,7 +12492,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Wyślij nowy Temat"
+            "#text": "Napisz nowy temat"
           },
           {
             "@tag": "NORMAL",
@@ -12584,7 +12584,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Subskrybuj ten temat przez e-mail?"
+            "#text": "Obserwować ten temat i otrzymywać powiadomienia o aktywności e-mailem?"
           },
           {
             "@tag": "WAIT",
@@ -12685,7 +12685,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "Prześlij ten temat"
+            "#text": "Wyślij ten temat e-mailem"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -12773,7 +12773,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "Adres tematu"
+            "#text": "Adres URL tematu (LinkBack)"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12825,7 +12825,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Następny Temat"
+            "#text": "Następny temat"
           },
           {
             "@tag": "NORMAL",
@@ -12869,7 +12869,7 @@
           },
           {
             "@tag": "PREVTOPIC",
-            "#text": "Poprzedni Temat"
+            "#text": "Poprzedni temat"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -12997,7 +12997,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Pokaż/Ukryj post"
+            "#text": "Pokaż/ukryj post ignorowanego użytkownika"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13240,7 +13240,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Ostatnie 10 Postów"
+            "#text": "Ostatnie 10 postów"
           },
           {
             "@tag": "LASTVISIT",
@@ -14001,7 +14001,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Zarejestruj"
+            "#text": "Zarejestruj się"
           },
           {
             "@tag": "REGISTER_AUTH",
@@ -14286,7 +14286,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "Akceptuję"
+            "#text": "Akceptuję regulamin i zasady forum"
           },
           {
             "@tag": "DECLINE",
@@ -14424,7 +14424,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Dostawać codziennie digest/wszystkie aktywności?"
+            "#text": "Otrzymywać raz dziennie podsumowanie aktywności?"
           },
           {
             "@tag": "FORUM",
@@ -14432,7 +14432,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Obserwowane działy"
+            "#text": "Obserwowane fora"
           },
           {
             "@tag": "LASTPOST",
@@ -14444,7 +14444,7 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Wyłącz notyfikacje"
+            "#text": "Wyłącz powiadomienia"
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
@@ -14468,7 +14468,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Zasubskrybowane tematy"
+            "#text": "Obserwowane tematy"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14476,11 +14476,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Powiadomienia dla tematów lub działów, które oznaczyłeś jako subskrybowane"
+            "#text": "Powiadomienia o tematach lub forach, które obserwujesz (lista poniżej)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Usuń Subskrypcje"
+            "#text": "Przestań obserwować"
           },
           {
             "@tag": "VIEWS",
@@ -14677,7 +14677,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Znajomi"
+            "#text": "Moi znajomi"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14713,7 +14713,7 @@
           },
           {
             "@tag": "INBOX",
-            "#text": "Wiadomości"
+            "#text": "Moja skrzynka odbiorcza"
           },
           {
             "@tag": "INBOX_TITLE",
@@ -14785,7 +14785,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Mój Profil"
+            "#text": "Moje konto"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14801,7 +14801,7 @@
           },
           {
             "@tag": "MYTOPICS",
-            "#text": "Moje wątki"
+            "#text": "Moje tematy"
           },
           {
             "@tag": "MYTOPICS_TITLE",
@@ -14813,7 +14813,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Rejestruj"
+            "#text": "Zarejestruj się"
           },
           {
             "@tag": "REGISTER_CONNECT",
@@ -14974,7 +14974,7 @@
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "Pokaż Tematy"
+            "#text": "Pokaż tematy"
           },
           {
             "@tag": "SUBFORUMS",
@@ -14994,7 +14994,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Przestań obserwować"
+            "#text": "Przestań obserwować forum"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15014,7 +15014,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Forum obserwacyjne"
+            "#text": "Obserwuj forum"
           },
           {
             "@tag": "YESTERDAYAT",

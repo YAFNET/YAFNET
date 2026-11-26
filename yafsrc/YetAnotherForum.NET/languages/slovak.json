@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "Vaša činnosť"
+            "#text": "Vaša aktivita"
           },
           {
             "@tag": "ARCHIVE",
@@ -44,7 +44,7 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Uprav personifikáciu"
+            "#text": "Upraviť avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
@@ -128,7 +128,7 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Bola spomenutá"
+            "#text": "Bol spomenutý"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -853,7 +853,7 @@
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "Opätovné odoslanie overenia e-mailu"
+            "#text": "Znova odoslať overenie e-mailu"
           },
           {
             "@tag": "ADMIN_UPGRADE",
@@ -7187,7 +7187,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Aktuálne nahrávanie príloh:"
+            "#text": "Aktuálne nahrané prílohy:"
           },
           {
             "@tag": "DELETE",
@@ -7402,7 +7402,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Možnosti bloku"
+            "#text": "Možnosti blokovania"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7560,7 +7560,7 @@
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Téma uzamknutia"
+            "#text": "Zamknúť tému"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -7576,7 +7576,7 @@
           },
           {
             "@tag": "BUTTON_MOVE",
-            "#text": "Presun"
+            "#text": "Presunúť"
           },
           {
             "@tag": "BUTTON_MOVE_TT",
@@ -7584,7 +7584,7 @@
           },
           {
             "@tag": "BUTTON_MOVETOPIC",
-            "#text": "Presun témy"
+            "#text": "Presunúť tému"
           },
           {
             "@tag": "BUTTON_MOVETOPIC_TT",
@@ -7592,7 +7592,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Viaceré ponuky"
+            "#text": "Viacnásobná citácia"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7616,7 +7616,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Odpovedať na príspevok"
+            "#text": "Odpovedať"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -7632,7 +7632,7 @@
           },
           {
             "@tag": "BUTTON_REPLY",
-            "#text": "Odpoveď"
+            "#text": "Odpovedať"
           },
           {
             "@tag": "BUTTON_REPLY_TT",
@@ -7652,7 +7652,7 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Nastaviť ako kryt"
+            "#text": "Nastaviť ako obal"
           },
           {
             "@tag": "BUTTON_THANKS",
@@ -7672,7 +7672,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Odstrániť"
+            "#text": "Obnoviť"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -7680,7 +7680,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Odomknutie témy"
+            "#text": "Odomknúť tému"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -7823,7 +7823,7 @@
           },
           {
             "@tag": "ATTACH_BBCODE",
-            "#text": "Vložte existujúcu prílohu alebo nahrajte nový súbor..."
+            "#text": "Vložiť existujúcu prílohu alebo nahrať nový súbor..."
           },
           {
             "@tag": "BACK",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Príspevok"
+            "#text": "Odoslať"
           },
           {
             "@tag": "POWERED_BY",
@@ -9522,7 +9522,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "Označiť všetky fóra ako přečítené"
+            "#text": "Označiť všetky fóra ako prečítané"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -9626,7 +9626,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Sledovanie všetkých fór"
+            "#text": "Sledovať všetky fóra"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9672,7 +9672,7 @@
         "Resource": [
           {
             "@tag": "DELETE",
-            "#text": "Zmazať"
+            "#text": "Odstrániť"
           },
           {
             "@tag": "DELETE_ALL",
@@ -9680,7 +9680,7 @@
           },
           {
             "@tag": "DELETE_REASON",
-            "#text": "Dôvod zmazania"
+            "#text": "Dôvod odstránenia"
           },
           {
             "@tag": "DELETE_TT",
@@ -9855,7 +9855,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Zruš personifikáciu"
+            "#text": "Odstrániť avatar"
           },
           {
             "@tag": "AVATARNEW",
@@ -9871,7 +9871,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Nahraj personifikáciu z tvojho počítača:"
+            "#text": "Nahrať avatar z vášho počítača:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -9895,7 +9895,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Vyber tvoju personifikáciu z našej kolekcie:"
+            "#text": "Vyberte avatar z našej kolekcie:"
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -10012,7 +10012,7 @@
           },
           {
             "@tag": "EDIT_ALBUMS",
-            "#text": "Úprava albumov"
+            "#text": "Upraviť albumy"
           },
           {
             "@tag": "EMAIL",
@@ -10032,7 +10032,7 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Získanie polohy z adresy IP"
+            "#text": "Zistiť polohu z IP adresy"
           },
           {
             "@tag": "HIDEME",
@@ -10345,7 +10345,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Vaše požiadavky"
+            "#text": "Vaše žiadosti"
           }
         ]
       },
@@ -11282,7 +11282,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Automatické prihlásenie:"
+            "#text": "Zapamätať si ma"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11493,7 +11493,7 @@
           },
           {
             "@tag": "COMPARE_VERSIONS",
-            "#text": "Porovnanie verzií"
+            "#text": "Porovnať verzie"
           },
           {
             "@tag": "CONFIRM_RESTORE",
@@ -11553,7 +11553,7 @@
           },
           {
             "@tag": "RESTORE_MESSAGE",
-            "#text": "Obnovenie verzie"
+            "#text": "Obnoviť verziu"
           },
           {
             "@tag": "SELECT_BOTH",
@@ -11573,7 +11573,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "História úprav príspevku"
           },
           {
             "@tag": "TOMESSAGE",
@@ -11732,7 +11732,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Nahlásené príspevky"
           },
           {
             "@tag": "TITLE",
@@ -11740,7 +11740,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Neschválené správy"
+            "#text": "Neschválené príspevky"
           }
         ]
       },
@@ -11749,7 +11749,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Schváliť správu"
+            "#text": "Schváliť príspevok"
           },
           {
             "@tag": "APPROVED",
@@ -11854,7 +11854,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Presunutie správy do inej témy"
+            "#text": "Presunúť príspevok do inej témy"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11870,7 +11870,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Rozdelenie správy do novej témy"
+            "#text": "Rozdeliť príspevok do novej témy"
           },
           {
             "@tag": "TITLE",
@@ -12020,7 +12020,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Témy hodiniek"
+            "#text": "Sledované témy"
           }
         ]
       },
@@ -12303,11 +12303,11 @@
           },
           {
             "@tag": "CREATEPOLL",
-            "#text": "Vytvoriť prieskum verejnej mienky"
+            "#text": "Vytvoriť anketu"
           },
           {
             "@tag": "EDITPOLL",
-            "#text": "Úprava ankety"
+            "#text": "Upraviť anketu"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12331,7 +12331,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Spustiť anketu pre:"
+            "#text": "Trvanie ankety:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Umožniť hlasovať za mnohé možnosti"
+            "#text": "Povoliť hlasovanie za viac možností"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12363,7 +12363,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Zobraziť, kto hlasoval"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12383,7 +12383,7 @@
           },
           {
             "@tag": "POLLADD",
-            "#text": "Pridať prieskum verejnej mienky"
+            "#text": "Pridať anketu"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
@@ -12427,7 +12427,7 @@
           },
           {
             "@tag": "REMOVEPOLL",
-            "#text": "Odstránenie ankety"
+            "#text": "Odstrániť anketu"
           },
           {
             "@tag": "REMOVEPOLL_MSG",
@@ -12460,7 +12460,7 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Popis: V súčasnosti je na trhu viac ako 10 000 zariadení, ktoré sú určené na predaj:"
+            "#text": "Popis:"
           },
           {
             "@tag": "EDIT",
@@ -12488,7 +12488,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Posledných 10 správ (v obrátenom poradí)"
+            "#text": "Posledných 10 príspevkov (v obrátenom poradí)"
           },
           {
             "@tag": "MESSAGE",
@@ -12504,7 +12504,7 @@
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Zaháiť novú tému"
+            "#text": "Založiť novú tému"
           },
           {
             "@tag": "NORMAL",
@@ -12512,7 +12512,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Je táto téma trvalá?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12617,7 +12617,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Kŕmenie atómov"
+            "#text": "Atom kanál"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12785,7 +12785,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Adresa URL témy"
+            "#text": "URL spätného odkazu na tému"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12853,7 +12853,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "POPOLUDNIE"
+            "#text": "SS"
           },
           {
             "@tag": "PM_TITLE",
@@ -12893,7 +12893,7 @@
           },
           {
             "@tag": "QUICKREPLY",
-            "#text": "Rýchla reakcia"
+            "#text": "Rýchla odpoveď"
           },
           {
             "@tag": "QUICKREPLY_HIDE",
@@ -12929,7 +12929,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Report Abusive"
+            "#text": "Nahlásiť"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12945,7 +12945,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Zdieľať"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13009,11 +13009,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "Zobraziť/skryť príspevok ignorovaného používateľa"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Skryť príspevky používateľov"
+            "#text": "Skryť príspevky používateľa"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13252,7 +13252,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Posledných 10 správ"
+            "#text": "Posledných 10 príspevkov"
           },
           {
             "@tag": "LASTVISIT",
@@ -14179,7 +14179,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Správa"
+            "#text": "Nahlásiť"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14323,7 +14323,7 @@
           },
           {
             "@tag": "BTNSEARCH",
-            "#text": "Hľadaj"
+            "#text": "Hľadať"
           },
           {
             "@tag": "BY",
@@ -14436,7 +14436,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Dostať raz denne prehľad/súhrn aktivít?"
+            "#text": "Dostávať raz denne prehľad/súhrn aktivít?"
           },
           {
             "@tag": "FORUM",
@@ -14444,7 +14444,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Fóra"
+            "#text": "Sledované fóra"
           },
           {
             "@tag": "LASTPOST",
@@ -14456,7 +14456,7 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Vypnutie oznámení"
+            "#text": "Vypnúť upozornenia"
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
@@ -14480,7 +14480,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Témy"
+            "#text": "Sledované témy"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14488,11 +14488,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Upozornenie na témy alebo fóra, ktoré ste selektívne sledovali (uvedené nižšie)"
+            "#text": "Upozornenia na témy alebo fóra, ktoré ste vybrali na sledovanie (uvedené nižšie)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Odhlásiť"
+            "#text": "Ukončiť sledovanie"
           },
           {
             "@tag": "VIEWS",
@@ -14689,7 +14689,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "Moji priatelia"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14797,7 +14797,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Môj profil"
+            "#text": "Môj účet"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14982,7 +14982,7 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Vyhľadávacie fórum"
+            "#text": "Hľadať vo fóre"
           },
           {
             "@tag": "SHOWTOPICS",

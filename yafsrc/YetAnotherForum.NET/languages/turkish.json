@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "Sizin Faaliyetiniz"
+            "#text": "Etkinliğiniz"
           },
           {
             "@tag": "ARCHIVE",
@@ -7171,7 +7171,7 @@
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
-            "#text": "İzin verilen uzantılar"
+            "#text": "İzin Verilen Dosya Türleri"
           },
           {
             "@tag": "ASK_DELETE",
@@ -7231,7 +7231,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Ekteki Dosyalar"
+            "#text": "Ekler"
           },
           {
             "@tag": "UPLOAD",
@@ -7402,7 +7402,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Blok Seçenekleri"
+            "#text": "Engelleme Seçenekleri"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7540,7 +7540,7 @@
           },
           {
             "@tag": "BUTTON_DELETETOPIC",
-            "#text": "Konu Sil"
+            "#text": "Konuyu Sil"
           },
           {
             "@tag": "BUTTON_DELETETOPIC_TT",
@@ -7556,11 +7556,11 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Fotoğrafları Yükle/Sil"
+            "#text": "Resimleri Yükle/Sil"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Konu Kilitle"
+            "#text": "Konuyu Kilitle"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -7616,7 +7616,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Cevapla"
+            "#text": "Cevap Gönder"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -7672,7 +7672,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Kurtar"
+            "#text": "Silmeyi Geri Al"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -7680,7 +7680,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Konu Kilidi Kaldır"
+            "#text": "Konunun Kilidini Aç"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Posta"
+            "#text": "Gönder"
           },
           {
             "@tag": "POWERED_BY",
@@ -8211,7 +8211,7 @@
           },
           {
             "@tag": "SELECTED_QUOTE",
-            "#text": "Seçili Metinden Alıntı"
+            "#text": "Seçili Metni Alıntıla"
           },
           {
             "@tag": "SELECTED_SEARCH",
@@ -9418,7 +9418,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "Aktif Konular"
+            "#text": "Aktif Tartışmalar"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9530,7 +9530,7 @@
           },
           {
             "@tag": "MODERATORS",
-            "#text": "Forum Editörleri"
+            "#text": "Moderatörler"
           },
           {
             "@tag": "MOST_ACTIVE",
@@ -9626,7 +9626,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Tüm forumları izleyin"
+            "#text": "Tüm forumları izle"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9871,7 +9871,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Kendi bilgisarınızdan yükleyin"
+            "#text": "Bilgisayarınızdan avatar yükleyin:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -10032,11 +10032,11 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "IP Adresinden Konum Alma"
+            "#text": "Konumu IP Adresinden Al"
           },
           {
             "@tag": "HIDEME",
-            "#text": "Forumda beni gizle"
+            "#text": "Beni aktif kullanıcılar listesinde gizle"
           },
           {
             "@tag": "HOMEPAGE",
@@ -10281,7 +10281,7 @@
           },
           {
             "@tag": "BUDDYLIST",
-            "#text": "Arkadaş Listeniz"
+            "#text": "Arkadaş Listesi"
           },
           {
             "@tag": "BUDDYLIST_TT",
@@ -10345,7 +10345,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Sizin istedikleriniz"
+            "#text": "İstekleriniz"
           }
         ]
       },
@@ -11282,7 +11282,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Beni Hatırla?"
+            "#text": "Beni hatırla"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11314,7 +11314,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Kayıp Şifre"
+            "#text": "Şifremi Unuttum"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -11565,7 +11565,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Karşılaştırma için sadece 2 Versiyon seçilebilir!"
+            "#text": "Karşılaştırma için yalnızca 2 sürüm seçilebilir!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11573,7 +11573,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Mesaj Geçmişi"
+            "#text": "Mesaj Düzenleme Geçmişi"
           },
           {
             "@tag": "TOMESSAGE",
@@ -11732,7 +11732,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Suistimal olarak bildirilen mesajlar"
+            "#text": "Bildirilen Mesajlar"
           },
           {
             "@tag": "TITLE",
@@ -11870,7 +11870,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Mesajı Yeni Bir Konuya Bölme"
+            "#text": "Mesajı Yeni Bir Konuya Ayır"
           },
           {
             "@tag": "TITLE",
@@ -11912,7 +11912,7 @@
         "Resource": [
           {
             "@tag": "ACTIVETOPICS",
-            "#text": "Aktif Konularım"
+            "#text": "Aktif Konular"
           },
           {
             "@tag": "ATOMFEED",
@@ -12020,7 +12020,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "İzleme Konuları"
+            "#text": "İzlenen Konular"
           }
         ]
       },
@@ -12303,11 +12303,11 @@
           },
           {
             "@tag": "CREATEPOLL",
-            "#text": "Anket Yarat"
+            "#text": "Anket Oluştur"
           },
           {
             "@tag": "EDITPOLL",
-            "#text": "Anketi Güncelle"
+            "#text": "Anketi Düzenle"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12331,7 +12331,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Anketi başlat :"
+            "#text": "Anket süresi:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Birçok seçenek için oylama yapılmasına izin verin"
+            "#text": "Birden fazla seçeneğe oy verilmesine izin ver"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12363,7 +12363,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Kimin oy verdiğini göster"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12488,7 +12488,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Son 10 E-posta (Ters sıralamayla)"
+            "#text": "Son 10 Mesaj (Ters sırayla)"
           },
           {
             "@tag": "MESSAGE",
@@ -12500,11 +12500,11 @@
           },
           {
             "@tag": "NEWPOSTOPTIONS",
-            "#text": "Ayarlar:"
+            "#text": "Seçenekler:"
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Yeni Konu Gönder"
+            "#text": "Yeni Konu Aç"
           },
           {
             "@tag": "NORMAL",
@@ -12512,7 +12512,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "İz bırak:"
+            "#text": "Bu konu kalıcı mı?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12596,7 +12596,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "Bu konuyu takip et ve bir aktivite olduğunda E-Posta ile uyar?"
+            "#text": "Bu konuyu izle ve etkinlik olduğunda e-posta ile bildirim al?"
           },
           {
             "@tag": "WAIT",
@@ -12741,7 +12741,7 @@
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
-            "#text": "Görmek için tıklayınız"
+            "#text": "Resmi görmek için tıklayın"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
@@ -12837,7 +12837,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "Bir Sonraki Konu"
+            "#text": "Sonraki Konu"
           },
           {
             "@tag": "NORMAL",
@@ -12853,7 +12853,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "BAŞBAKAN"
+            "#text": "Özel Mesaj"
           },
           {
             "@tag": "PM_TITLE",
@@ -12929,7 +12929,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Kötü kullanım bildir"
+            "#text": "Bildir"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12945,7 +12945,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Paylaş!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13009,7 +13009,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Mesajı Göster/Gizle"
+            "#text": "Yoksayılan Kullanıcının Mesajını Göster/Gizle"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13049,7 +13049,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "Konuyu izlemeyi bırak"
+            "#text": "Bu Konuyu İzlemeyi Bırak"
           },
           {
             "@tag": "USERGENDER_FEM",
@@ -13252,7 +13252,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Son 10 e-posta"
+            "#text": "Son 10 Mesaj"
           },
           {
             "@tag": "LASTVISIT",
@@ -14179,7 +14179,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Gönder"
+            "#text": "Bildir"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14298,7 +14298,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "Bu kural ve politikaları kabul EDİYORUM."
+            "#text": "Bu kuralları ve politikaları kabul ediyorum"
           },
           {
             "@tag": "DECLINE",
@@ -14436,7 +14436,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Günde bir kez faaliyet özeti/özeti alıyor musunuz?"
+            "#text": "Etkinliğin özeti günde bir kez gönderilsin mi?"
           },
           {
             "@tag": "FORUM",
@@ -14444,7 +14444,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forumlar"
+            "#text": "İzlenen Forumlar"
           },
           {
             "@tag": "LASTPOST",
@@ -14456,7 +14456,7 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Uyarıları kapatın"
+            "#text": "Bildirimleri kapat"
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
@@ -14480,7 +14480,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Konular"
+            "#text": "İzlenen Konular"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14492,7 +14492,7 @@
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Abonelik İptali"
+            "#text": "İzlemeyi Bırak"
           },
           {
             "@tag": "VIEWS",
@@ -14769,7 +14769,7 @@
           },
           {
             "@tag": "MODERATE",
-            "#text": "Editör Paneli"
+            "#text": "Moderasyon"
           },
           {
             "@tag": "MODERATE_NEW",
@@ -14797,7 +14797,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Profilim"
+            "#text": "Hesabım"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14805,7 +14805,7 @@
           },
           {
             "@tag": "MYSETTINGS",
-            "#text": "Benim Ayarlarım"
+            "#text": "Ayarlarım"
           },
           {
             "@tag": "MYSETTINGS_TITLE",
@@ -14825,7 +14825,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Kayıt"
+            "#text": "Kayıt Ol"
           },
           {
             "@tag": "REGISTER_CONNECT",
@@ -14837,7 +14837,7 @@
           },
           {
             "@tag": "SEARCH",
-            "#text": "Arama"
+            "#text": "Ara"
           },
           {
             "@tag": "SEARCH_TITLE",
@@ -14849,7 +14849,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Takım"
+            "#text": "Ekip"
           },
           {
             "@tag": "TEAM_TITLE",
@@ -14954,7 +14954,7 @@
           },
           {
             "@tag": "MARKREAD",
-            "#text": "Forumu okundu olarak işaretle"
+            "#text": "Bu forumu okundu olarak işaretle"
           },
           {
             "@tag": "NO_POSTS",
@@ -14982,7 +14982,7 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Arama Forumu"
+            "#text": "Forumda Ara"
           },
           {
             "@tag": "SHOWTOPICS",
@@ -15006,7 +15006,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "Takip İptali"
+            "#text": "Forumu İzlemeyi Bırak"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15026,7 +15026,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "Forum Takibi"
+            "#text": "Forumu İzle"
           },
           {
             "@tag": "YESTERDAYAT",

@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "您的活动"
+            "#text": "你的活动"
           },
           {
             "@tag": "ARCHIVE",
@@ -40,7 +40,7 @@
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "删除帐户"
+            "#text": "删除账户"
           },
           {
             "@tag": "EDIT_AVATAR",
@@ -48,7 +48,7 @@
           },
           {
             "@tag": "EDIT_PROFILE",
-            "#text": "配置"
+            "#text": "编辑个人资料"
           },
           {
             "@tag": "EDIT_SETTINGS",
@@ -124,7 +124,7 @@
           },
           {
             "@tag": "VIEW_PROFILE",
-            "#text": "查看配置文件"
+            "#text": "查看个人资料"
           },
           {
             "@tag": "WAS_MENTIONED",
@@ -7398,15 +7398,15 @@
           },
           {
             "@tag": "BLOCK_EMAILS",
-            "#text": "阻止电子邮件"
+            "#text": "屏蔽电子邮件"
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "块选项"
+            "#text": "屏蔽选项"
           },
           {
             "@tag": "BLOCK_PMS",
-            "#text": "阻止私人消息"
+            "#text": "屏蔽私信"
           },
           {
             "@tag": "IGNORED_USERS",
@@ -7426,7 +7426,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "用户阻止选项和忽略的用户"
+            "#text": "用户屏蔽选项和忽略的用户"
           }
         ]
       },
@@ -7592,7 +7592,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "多报价"
+            "#text": "多重引用"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7616,7 +7616,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "回复"
+            "#text": "发表回复"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -7672,7 +7672,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "恢复删除"
+            "#text": "撤销删除"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -7680,7 +7680,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "解锁帖子"
+            "#text": "解锁主题"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "帖子"
+            "#text": "发表"
           },
           {
             "@tag": "POWERED_BY",
@@ -9418,7 +9418,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "当前讨论"
+            "#text": "活跃讨论"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9522,7 +9522,7 @@
           },
           {
             "@tag": "MARKALL",
-            "#text": "标注所有论坛板块为已读."
+            "#text": "将所有论坛标记为已读"
           },
           {
             "@tag": "MARKALL_MESSAGE",
@@ -9626,7 +9626,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "观看所有论坛"
+            "#text": "订阅所有论坛"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9647,7 +9647,7 @@
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "删除您的帐户（永久）"
+            "#text": "删除你的账户（永久）"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
@@ -9655,7 +9655,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "暂停您的帐户 30 天"
+            "#text": "暂停你的账户 30 天"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9871,7 +9871,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "从您的计算机上传头像："
+            "#text": "从你的电脑上传头像："
           },
           {
             "@tag": "INVALID_FILE",
@@ -9895,7 +9895,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "从我们的收藏中选择您的头像："
+            "#text": "从我们的头像库中选择你的头像："
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -10345,7 +10345,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "您的要求"
+            "#text": "你的请求"
           }
         ]
       },
@@ -11282,7 +11282,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "自动登录:"
+            "#text": "记住我"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11565,7 +11565,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "比较只能选择 2 个版本！"
+            "#text": "只能选择 2 个版本进行比较！"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11573,11 +11573,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "帖子编辑历史"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "去留言"
+            "#text": "转到帖子"
           }
         ]
       },
@@ -11749,7 +11749,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "审核帖子"
+            "#text": "批准帖子"
           },
           {
             "@tag": "APPROVED",
@@ -11854,7 +11854,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "移动信息到另一个主题"
+            "#text": "将帖子移动到其他主题"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11870,7 +11870,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "分割信息到新的主题"
+            "#text": "将帖子拆分为新主题"
           },
           {
             "@tag": "TITLE",
@@ -11912,7 +11912,7 @@
         "Resource": [
           {
             "@tag": "ACTIVETOPICS",
-            "#text": "活动主题"
+            "#text": "活跃主题"
           },
           {
             "@tag": "ATOMFEED",
@@ -12020,7 +12020,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "观看主题"
+            "#text": "订阅的主题"
           }
         ]
       },
@@ -12331,7 +12331,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "运行民意调查："
+            "#text": "投票持续时间："
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "允许为许多选择投票"
+            "#text": "允许选择多个选项"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12363,7 +12363,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "显示投票者"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12387,7 +12387,7 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "投票"
+            "#text": "投票结束后显示结果"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
@@ -12488,7 +12488,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "最后 10 个新贴（倒序）"
+            "#text": "最近 10 个帖子（倒序）"
           },
           {
             "@tag": "MESSAGE",
@@ -12512,7 +12512,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "此主题是否永久保留？"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12596,7 +12596,7 @@
           },
           {
             "@tag": "TOPICWATCH",
-            "#text": "观看此主题并通过电子邮件接收活动通知？"
+            "#text": "订阅此主题并通过电子邮件接收活动通知？"
           },
           {
             "@tag": "WAIT",
@@ -12617,7 +12617,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "原子饲料"
+            "#text": "Atom Feed"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12697,7 +12697,7 @@
           },
           {
             "@tag": "EMAILTOPIC",
-            "#text": "发送邮件"
+            "#text": "通过电子邮件发送此主题"
           },
           {
             "@tag": "EMPTY_MESSAGE",
@@ -12837,7 +12837,7 @@
           },
           {
             "@tag": "NEXTTOPIC",
-            "#text": "下一话题"
+            "#text": "下一主题"
           },
           {
             "@tag": "NORMAL",
@@ -12853,7 +12853,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "悄悄话"
+            "#text": "私信"
           },
           {
             "@tag": "PM_TITLE",
@@ -12881,11 +12881,11 @@
           },
           {
             "@tag": "PREVTOPIC",
-            "#text": "上一话题"
+            "#text": "上一主题"
           },
           {
             "@tag": "PRINTTOPIC",
-            "#text": "打印"
+            "#text": "打印此主题"
           },
           {
             "@tag": "QUESTION",
@@ -12929,7 +12929,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "报告"
+            "#text": "举报"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12945,7 +12945,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "分享！"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13009,7 +13009,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "显示/隐藏被忽略用户的帖子"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13049,7 +13049,7 @@
           },
           {
             "@tag": "UNWATCHTOPIC",
-            "#text": "取消订阅"
+            "#text": "取消订阅此主题"
           },
           {
             "@tag": "USERGENDER_FEM",
@@ -13117,7 +13117,7 @@
           },
           {
             "@tag": "WATCHTOPIC",
-            "#text": "订阅"
+            "#text": "订阅此主题"
           },
           {
             "@tag": "XMPP",
@@ -14179,7 +14179,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "报告"
+            "#text": "举报"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14436,7 +14436,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "每天收到一次活动摘要/活动摘要？"
+            "#text": "每天接收一次活动摘要？"
           },
           {
             "@tag": "FORUM",
@@ -14444,7 +14444,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "论坛"
+            "#text": "订阅的论坛"
           },
           {
             "@tag": "LASTPOST",
@@ -14460,7 +14460,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "通知邮件地址:"
+            "#text": "选择电子邮件通知方式："
           },
           {
             "@tag": "REPLIES",
@@ -14480,7 +14480,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "话题"
+            "#text": "订阅的主题"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14488,11 +14488,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "您选择性观看的主题或论坛的通知（如下所列）"
+            "#text": "你单独订阅的主题或论坛的通知（见下方列表）"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "退订"
+            "#text": "取消订阅"
           },
           {
             "@tag": "VIEWS",
@@ -14689,7 +14689,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "好友"
+            "#text": "我的好友"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14797,7 +14797,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "个人配置"
+            "#text": "我的账户"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14954,7 +14954,7 @@
           },
           {
             "@tag": "MARKREAD",
-            "#text": "标注本论坛为已读"
+            "#text": "将此论坛标记为已读"
           },
           {
             "@tag": "NO_POSTS",
@@ -14986,7 +14986,7 @@
           },
           {
             "@tag": "SHOWTOPICS",
-            "#text": "显示话题"
+            "#text": "显示主题"
           },
           {
             "@tag": "SUBFORUMS",
@@ -15006,7 +15006,7 @@
           },
           {
             "@tag": "UNWATCHFORUM",
-            "#text": "未订阅"
+            "#text": "取消订阅论坛"
           },
           {
             "@tag": "USER_AVATAR",
@@ -15026,7 +15026,7 @@
           },
           {
             "@tag": "WATCHFORUM",
-            "#text": "订阅"
+            "#text": "订阅论坛"
           },
           {
             "@tag": "YESTERDAYAT",

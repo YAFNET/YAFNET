@@ -16,7 +16,7 @@
           },
           {
             "@tag": "CHANGE_PASSWORD",
-            "#text": "Cambiar clave"
+            "#text": "Cambiar contraseña"
           },
           {
             "@tag": "CONTROL_PANEL",
@@ -40,7 +40,7 @@
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "Borrar la cuenta"
+            "#text": "Eliminar cuenta"
           },
           {
             "@tag": "EDIT_AVATAR",
@@ -128,7 +128,7 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Se mencionó"
+            "#text": "Fue mencionado"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -7179,7 +7179,7 @@
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Carga actual de archivos adjuntos:"
+            "#text": "Adjuntos subidos:"
           },
           {
             "@tag": "DELETE",
@@ -7394,7 +7394,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Opciones de bloque"
+            "#text": "Opciones de bloqueo"
           },
           {
             "@tag": "BLOCK_PMS",
@@ -7552,7 +7552,7 @@
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
-            "#text": "Proteger tema"
+            "#text": "Cerrar tema"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC_TT",
@@ -7608,7 +7608,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Postear respuesta"
+            "#text": "Publicar respuesta"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -7644,7 +7644,7 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Marcar como versión"
+            "#text": "Establecer como portada"
           },
           {
             "@tag": "BUTTON_THANKS",
@@ -7672,7 +7672,7 @@
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC",
-            "#text": "Desproteger tema"
+            "#text": "Reabrir tema"
           },
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
@@ -7815,7 +7815,7 @@
           },
           {
             "@tag": "ATTACH_BBCODE",
-            "#text": "Insertar un adjunto existente o cargar un nuevo archivo..."
+            "#text": "Insertar un adjunto existente o subir un nuevo archivo..."
           },
           {
             "@tag": "BACK",
@@ -9410,7 +9410,7 @@
         "Resource": [
           {
             "@tag": "ACTIVE_DISCUSSIONS",
-            "#text": "Ver lista de usuarios activos"
+            "#text": "Discusiones activas"
           },
           {
             "@tag": "ACTIVE_USERS",
@@ -9618,7 +9618,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Ver todos los foros"
+            "#text": "Vigilar todos los foros"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9847,7 +9847,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Eliminar Avatar"
+            "#text": "Eliminar avatar"
           },
           {
             "@tag": "AVATARNEW",
@@ -9863,7 +9863,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Subir Avatar desde tu ordenador:"
+            "#text": "Subir avatar desde su ordenador:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -9887,7 +9887,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Elije tu Avatar de nuestra colección:"
+            "#text": "Elija su avatar de nuestra colección:"
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -10321,7 +10321,7 @@
           },
           {
             "@tag": "PENDING_REQUESTS",
-            "#text": "Peticiones pendientes"
+            "#text": "Solicitudes pendientes"
           },
           {
             "@tag": "POSTS",
@@ -10337,7 +10337,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Tus peticiones"
+            "#text": "Sus solicitudes"
           }
         ]
       },
@@ -11266,7 +11266,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Iniciar sesión automaticamente:"
+            "#text": "Recordarme"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11298,7 +11298,7 @@
           },
           {
             "@tag": "LOSTPASSWORD",
-            "#text": "Recuperar contraseña"
+            "#text": "Contraseña olvidada"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
@@ -11549,7 +11549,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Sólo se pueden seleccionar 2 versiones por comparación."
+            "#text": "¡Solo se pueden seleccionar 2 versiones para comparar!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11557,7 +11557,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Historial de mensajes"
+            "#text": "Historial de ediciones del mensaje"
           },
           {
             "@tag": "TOMESSAGE",
@@ -12004,7 +12004,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Ver temas"
+            "#text": "Temas vigilados"
           }
         ]
       },
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Mostrar qué han votado"
+            "#text": "Mostrar quién votó"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12452,7 +12452,7 @@
           },
           {
             "@tag": "EDITREASON",
-            "#text": "Razon para editar:"
+            "#text": "Motivo de la edición:"
           },
           {
             "@tag": "FROM",
@@ -12472,7 +12472,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Ultimos 10 mensajes (en orden inverso)"
+            "#text": "Últimos 10 mensajes (en orden inverso)"
           },
           {
             "@tag": "MESSAGE",
@@ -12496,7 +12496,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistente:"
+            "#text": "¿Es este tema persistente?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12673,7 +12673,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "Envíe un correo electrónico a"
+            "#text": "Correo electrónico"
           },
           {
             "@tag": "EMAIL_TITLE",
@@ -12725,7 +12725,7 @@
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
-            "#text": "Click para ver imagen"
+            "#text": "Haga clic para ver la imagen"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
@@ -12769,7 +12769,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "\"LinkBack\" la URL del tema"
+            "#text": "URL de LinkBack del tema"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12993,11 +12993,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Muestra/Oculta Mensaje"
+            "#text": "Mostrar/ocultar mensaje de un usuario ignorado"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Oculta mensajes de usuario"
+            "#text": "Ocultar mensajes del usuario"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13236,7 +13236,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Ultimos 10 mensajes"
+            "#text": "Últimos 10 mensajes"
           },
           {
             "@tag": "LASTVISIT",
@@ -13320,7 +13320,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Ver todos los mensajes por usuario"
+            "#text": "Ver todos los mensajes del usuario"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -13997,7 +13997,7 @@
           },
           {
             "@tag": "REGISTER",
-            "#text": "Registro"
+            "#text": "Registrarse"
           },
           {
             "@tag": "REGISTER_AUTH",
@@ -14282,7 +14282,7 @@
         "Resource": [
           {
             "@tag": "ACCEPT",
-            "#text": "Estoy de acuerdo con las reglas y politicas del foro"
+            "#text": "Acepto estas reglas y políticas"
           },
           {
             "@tag": "DECLINE",
@@ -14294,7 +14294,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Reglas y politicas de foro"
+            "#text": "Reglas y políticas del foro"
           }
         ]
       },
@@ -14428,7 +14428,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Foros"
+            "#text": "Foros vigilados"
           },
           {
             "@tag": "LASTPOST",
@@ -14444,7 +14444,7 @@
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
-            "#text": "Selecciona preferencia de notificación por email:"
+            "#text": "Seleccione la preferencia de notificación por correo electrónico:"
           },
           {
             "@tag": "REPLIES",
@@ -14464,7 +14464,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Temas"
+            "#text": "Temas vigilados"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14472,11 +14472,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Notificaciones para temas o foros en los que te has suscrito (listados más abajo)"
+            "#text": "Notificaciones para temas o foros que vigila de forma selectiva (listados más abajo)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Cancelar subscripción"
+            "#text": "Dejar de vigilar"
           },
           {
             "@tag": "VIEWS",
@@ -14673,7 +14673,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Amigos"
+            "#text": "Mis amigos"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14781,7 +14781,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Mi perfil"
+            "#text": "Mi cuenta"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14938,7 +14938,7 @@
           },
           {
             "@tag": "MARKREAD",
-            "#text": "Marcar foro como leído"
+            "#text": "Marcar este foro como leído"
           },
           {
             "@tag": "NO_POSTS",
@@ -14966,7 +14966,7 @@
           },
           {
             "@tag": "SEARCH_FORUM",
-            "#text": "Búsqueda en el foro"
+            "#text": "Buscar en el foro"
           },
           {
             "@tag": "SHOWTOPICS",

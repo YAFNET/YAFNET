@@ -44,7 +44,7 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Uprav personifikaci"
+            "#text": "Upravit avatar"
           },
           {
             "@tag": "EDIT_PROFILE",
@@ -128,7 +128,7 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Bylo zmíněno"
+            "#text": "Byl zmíněn"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -7167,7 +7167,7 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Přidat soubory)..."
+            "#text": "Přidat soubor(y)..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
@@ -7512,7 +7512,7 @@
           },
           {
             "@tag": "BUTTON_DELETE",
-            "#text": "Vymazat"
+            "#text": "Smazat"
           },
           {
             "@tag": "BUTTON_DELETE_TT",
@@ -7576,7 +7576,7 @@
           },
           {
             "@tag": "BUTTON_MOVE",
-            "#text": "Přestěhovat se"
+            "#text": "Přesunout"
           },
           {
             "@tag": "BUTTON_MOVE_TT",
@@ -7592,7 +7592,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Vícenásobná nabídka"
+            "#text": "Vícenásobná citace"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7628,11 +7628,11 @@
           },
           {
             "@tag": "BUTTON_QUOTE_TT",
-            "#text": "Odpovězte s citací"
+            "#text": "Odpovědět s citací"
           },
           {
             "@tag": "BUTTON_REPLY",
-            "#text": "Odpověď"
+            "#text": "Odpovědět"
           },
           {
             "@tag": "BUTTON_REPLY_TT",
@@ -7652,7 +7652,7 @@
           },
           {
             "@tag": "BUTTON_SETCOVER",
-            "#text": "Nastavit jako kryt"
+            "#text": "Nastavit jako obálku"
           },
           {
             "@tag": "BUTTON_THANKS",
@@ -7823,7 +7823,7 @@
           },
           {
             "@tag": "ATTACH_BBCODE",
-            "#text": "Vložte existující přílohu nebo nahrajte nový soubor..."
+            "#text": "Vložit existující přílohu nebo nahrát nový soubor..."
           },
           {
             "@tag": "BACK",
@@ -8171,7 +8171,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Pošta"
+            "#text": "Odeslat"
           },
           {
             "@tag": "POWERED_BY",
@@ -9630,7 +9630,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Sledujte všechna fóra"
+            "#text": "Sledovat všechna fóra"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9859,7 +9859,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Zruš personifikaci"
+            "#text": "Odstranit avatar"
           },
           {
             "@tag": "AVATARNEW",
@@ -9875,7 +9875,7 @@
           },
           {
             "@tag": "AVATARUPLOAD",
-            "#text": "Nahraj personifikaci z tvého počítače:"
+            "#text": "Nahrát avatar z vašeho počítače:"
           },
           {
             "@tag": "INVALID_FILE",
@@ -9899,7 +9899,7 @@
           },
           {
             "@tag": "OURAVATAR",
-            "#text": "Vyber tvoji personifikaci z naši kolekce:"
+            "#text": "Vyberte avatar z naší kolekce:"
           },
           {
             "@tag": "OURAVATAR_SELECT",
@@ -10036,7 +10036,7 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Získejte polohu z IP adresy"
+            "#text": "Zjistit polohu z IP adresy"
           },
           {
             "@tag": "HIDEME",
@@ -10349,7 +10349,7 @@
           },
           {
             "@tag": "YOUR_REQUESTS",
-            "#text": "Vaše požadavky"
+            "#text": "Vaše žádosti"
           }
         ]
       },
@@ -11286,7 +11286,7 @@
           },
           {
             "@tag": "AUTO",
-            "#text": "Automatické přihlášení:"
+            "#text": "Zapamatovat si mě"
           },
           {
             "@tag": "BOTH_USERNAME_EMAIL",
@@ -11497,7 +11497,7 @@
           },
           {
             "@tag": "COMPARE_VERSIONS",
-            "#text": "Porovnejte verze"
+            "#text": "Porovnat verze"
           },
           {
             "@tag": "CONFIRM_RESTORE",
@@ -11577,7 +11577,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Message History"
+            "#text": "Historie úprav příspěvku"
           },
           {
             "@tag": "TOMESSAGE",
@@ -11736,7 +11736,7 @@
           },
           {
             "@tag": "REPORTED",
-            "#text": "Reported as Abuse Posts"
+            "#text": "Nahlášené příspěvky"
           },
           {
             "@tag": "TITLE",
@@ -11744,7 +11744,7 @@
           },
           {
             "@tag": "UNAPPROVED",
-            "#text": "Neschválené zprávy"
+            "#text": "Neschválené příspěvky"
           }
         ]
       },
@@ -11753,7 +11753,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Schválit zprávu"
+            "#text": "Schválit příspěvek"
           },
           {
             "@tag": "APPROVED",
@@ -11858,7 +11858,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Přesunout zprávu na jiné téma"
+            "#text": "Přesunout příspěvek do jiného tématu"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11874,7 +11874,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Rozdělit zprávu do nového tématu"
+            "#text": "Rozdělit příspěvek do nového tématu"
           },
           {
             "@tag": "TITLE",
@@ -12024,7 +12024,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Sledujte témata"
+            "#text": "Sledovaná témata"
           }
         ]
       },
@@ -12335,7 +12335,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Spustit anketu pro:"
+            "#text": "Doba trvání ankety:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12351,7 +12351,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Umožněte hlasovat pro mnoho možností"
+            "#text": "Povolit hlasování pro více možností"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12367,7 +12367,7 @@
           },
           {
             "@tag": "POLL_SHOWVOTERS",
-            "#text": "Show who is voted"
+            "#text": "Zobrazit, kdo hlasoval"
           },
           {
             "@tag": "POLL_SHOWVOTERS_INFO",
@@ -12492,7 +12492,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Posledních 10 zpráv (v obráceném pořadí)"
+            "#text": "Posledních 10 příspěvků (v obráceném pořadí)"
           },
           {
             "@tag": "MESSAGE",
@@ -12516,7 +12516,7 @@
           },
           {
             "@tag": "PERSISTENCY",
-            "#text": "Persistent:"
+            "#text": "Je toto téma trvalé?"
           },
           {
             "@tag": "PERSISTENCY_INFO",
@@ -12621,7 +12621,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Krmení atomu"
+            "#text": "Atom kanál"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12693,7 +12693,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "E-mailem"
+            "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_TITLE",
@@ -12789,7 +12789,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "Adresa URL tématu zpětného odkazu"
+            "#text": "URL zpětného odkazu na téma"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12857,7 +12857,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "ODPOLEDNE"
+            "#text": "SZ"
           },
           {
             "@tag": "PM_TITLE",
@@ -12897,7 +12897,7 @@
           },
           {
             "@tag": "QUICKREPLY",
-            "#text": "Rýchla odpověď"
+            "#text": "Rychlá odpověď"
           },
           {
             "@tag": "QUICKREPLY_HIDE",
@@ -12933,7 +12933,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Zpráva"
+            "#text": "Nahlásit"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12949,7 +12949,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Sdílet"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13013,11 +13013,11 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Show/Hide Post"
+            "#text": "Zobrazit/skrýt příspěvek ignorovaného uživatele"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
-            "#text": "Skrýt uživatelské příspěvky"
+            "#text": "Skrýt příspěvky uživatele"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_SHOW",
@@ -13256,7 +13256,7 @@
           },
           {
             "@tag": "LAST10",
-            "#text": "Posledních 10 zpráv"
+            "#text": "Posledních 10 příspěvků"
           },
           {
             "@tag": "LASTVISIT",
@@ -14183,7 +14183,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Zpráva"
+            "#text": "Nahlásit"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14448,7 +14448,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Fóra"
+            "#text": "Sledovaná fóra"
           },
           {
             "@tag": "LASTPOST",
@@ -14484,7 +14484,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Témata"
+            "#text": "Sledovaná témata"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14492,11 +14492,11 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Upozornění na témata nebo fóra, která jste selektivně sledovali (uvedeno níže)"
+            "#text": "Upozornění na témata nebo fóra, která jste vybrali ke sledování (uvedeno níže)"
           },
           {
             "@tag": "UNSUBSCRIBE",
-            "#text": "Odhlásit"
+            "#text": "Ukončit sledování"
           },
           {
             "@tag": "VIEWS",
@@ -14693,7 +14693,7 @@
           },
           {
             "@tag": "BUDDIES",
-            "#text": "Friends"
+            "#text": "Moji přátelé"
           },
           {
             "@tag": "BUDDIES_TITLE",
@@ -14785,7 +14785,7 @@
           },
           {
             "@tag": "MYALBUMS",
-            "#text": "Moje galerie"
+            "#text": "Moje alba"
           },
           {
             "@tag": "MYALBUMS_TITLE",
@@ -14801,7 +14801,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Můj profil"
+            "#text": "Můj účet"
           },
           {
             "@tag": "MYPROFILE_TITLE",
@@ -14853,7 +14853,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "tým"
+            "#text": "Tým"
           },
           {
             "@tag": "TEAM_TITLE",

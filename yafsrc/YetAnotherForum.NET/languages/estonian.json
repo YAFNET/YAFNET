@@ -52,7 +52,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Redigeeri sätteid"
+            "#text": "Muuda seadeid"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -128,7 +128,7 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Mainiti ära"
+            "#text": "Mainiti"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
@@ -7435,7 +7435,7 @@
         "Resource": [
           {
             "@tag": "ADDBUDDY",
-            "#text": "Lisa sõbrana"
+            "#text": "Lisa sõbraks"
           },
           {
             "@tag": "AWAIT_BUDDY_APPROVAL",
@@ -7556,7 +7556,7 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Laadi üles/Kustuta pilt"
+            "#text": "Laadi üles/kustuta pilte"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
@@ -7592,7 +7592,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Mitu tsitaat"
+            "#text": "Tsiteeri mitut"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7991,7 +7991,7 @@
           },
           {
             "@tag": "FORUM_JUMP",
-            "#text": "Forumi hüpe"
+            "#text": "Mine foorumisse"
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
@@ -9626,7 +9626,7 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Vaadake kõiki foorumeid"
+            "#text": "Jälgi kõiki foorumeid"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
@@ -9647,7 +9647,7 @@
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Kustutage oma konto (jäädavalt)"
+            "#text": "Kustuta oma konto (jäädavalt)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
@@ -9655,7 +9655,7 @@
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Peatage oma konto 30 päevaks"
+            "#text": "Peata oma konto 30 päevaks"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9976,7 +9976,7 @@
           },
           {
             "@tag": "CHANGE_EMAIL",
-            "#text": "Muuda E-posti aadressi"
+            "#text": "Muuda e-posti aadressi"
           },
           {
             "@tag": "CHANGE_EMAIL_SENT",
@@ -10012,7 +10012,7 @@
           },
           {
             "@tag": "EDIT_ALBUMS",
-            "#text": "Muuda albumid"
+            "#text": "Muuda albumeid"
           },
           {
             "@tag": "EMAIL",
@@ -10032,7 +10032,7 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Hankige asukoht IP-aadressi järgi"
+            "#text": "Tuvasta asukoht IP-aadressi järgi"
           },
           {
             "@tag": "HIDEME",
@@ -11493,7 +11493,7 @@
           },
           {
             "@tag": "COMPARE_VERSIONS",
-            "#text": "Võrrelge versioone"
+            "#text": "Võrdle versioone"
           },
           {
             "@tag": "CONFIRM_RESTORE",
@@ -11553,7 +11553,7 @@
           },
           {
             "@tag": "RESTORE_MESSAGE",
-            "#text": "Taastage versioon"
+            "#text": "Taasta versioon"
           },
           {
             "@tag": "SELECT_BOTH",
@@ -11565,7 +11565,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Võrreldes saab valida ainult 2 versiooni!"
+            "#text": "Võrdlemiseks saab valida ainult 2 versiooni!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11573,11 +11573,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Sõnumite ajalugu"
+            "#text": "Postituse muutmise ajalugu"
           },
           {
             "@tag": "TOMESSAGE",
-            "#text": "Ava sõnum"
+            "#text": "Mine postituse juurde"
           }
         ]
       },
@@ -11749,7 +11749,7 @@
         "Resource": [
           {
             "@tag": "APPROVE",
-            "#text": "Postituse kinnitamine"
+            "#text": "Kinnita postitus"
           },
           {
             "@tag": "APPROVED",
@@ -11854,7 +11854,7 @@
           },
           {
             "@tag": "MOVE_TITLE",
-            "#text": "Teisaldage sõnum teisele teemale"
+            "#text": "Teisalda postitus teise teemasse"
           },
           {
             "@tag": "NEW_TOPIC",
@@ -11870,7 +11870,7 @@
           },
           {
             "@tag": "SPLIT_TITLE",
-            "#text": "Jaga sõnum uude teemasse"
+            "#text": "Eralda postitus uude teemasse"
           },
           {
             "@tag": "TITLE",
@@ -12020,7 +12020,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Vaata teemasid"
+            "#text": "Jälgitavad teemad"
           }
         ]
       },
@@ -12303,7 +12303,7 @@
           },
           {
             "@tag": "CREATEPOLL",
-            "#text": "Lisa küsitlus"
+            "#text": "Loo küsitlus"
           },
           {
             "@tag": "EDITPOLL",
@@ -12331,7 +12331,7 @@
           },
           {
             "@tag": "POLL_EXPIRE",
-            "#text": "Küsitlus aktiivne kuni:"
+            "#text": "Küsitluse kestus:"
           },
           {
             "@tag": "POLL_EXPIRE_EXPLAIN",
@@ -12347,7 +12347,7 @@
           },
           {
             "@tag": "POLL_MULTIPLECHOICES",
-            "#text": "Lubage hääletada paljude valikute poolt"
+            "#text": "Luba hääletada mitme valiku poolt"
           },
           {
             "@tag": "POLL_MULTIPLECHOICES_INFO",
@@ -12500,11 +12500,11 @@
           },
           {
             "@tag": "NEWPOSTOPTIONS",
-            "#text": "Valikus:"
+            "#text": "Valikud:"
           },
           {
             "@tag": "NEWTOPIC",
-            "#text": "Uue teema algatamine"
+            "#text": "Postita uus teema"
           },
           {
             "@tag": "NORMAL",
@@ -12741,7 +12741,7 @@
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
-            "#text": "Vajutage pildi vaatamiseks"
+            "#text": "Klõpsa pildi vaatamiseks"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
@@ -12853,7 +12853,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "Peaminister"
+            "#text": "PS"
           },
           {
             "@tag": "PM_TITLE",
@@ -12929,7 +12929,7 @@
           },
           {
             "@tag": "REPORTPOST",
-            "#text": "Kas saadan raporti?"
+            "#text": "Teata"
           },
           {
             "@tag": "REPORTPOST_TITLE",
@@ -12945,7 +12945,7 @@
           },
           {
             "@tag": "SHARE",
-            "#text": "Share"
+            "#text": "Jaga!"
           },
           {
             "@tag": "SHARE_TOOLTIP",
@@ -13009,7 +13009,7 @@
           },
           {
             "@tag": "TOGGLEPOST",
-            "#text": "Näita/peida postitus"
+            "#text": "Näita/peida eiratud kasutaja postitus"
           },
           {
             "@tag": "TOGGLEUSERPOSTS_HIDE",
@@ -13336,7 +13336,7 @@
           },
           {
             "@tag": "SEARCHUSER",
-            "#text": "Vaata kõiki postitusi kasutaja järgi"
+            "#text": "Vaata kõiki kasutaja postitusi"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -14179,7 +14179,7 @@
           },
           {
             "@tag": "SEND",
-            "#text": "Raport"
+            "#text": "Teata"
           },
           {
             "@tag": "SEND_TITLE",
@@ -14436,7 +14436,7 @@
           },
           {
             "@tag": "DAILY_DIGEST",
-            "#text": "Kas saadan kokkuvõtte päevase aktiivsuse kohta?"
+            "#text": "Kas saada kord päevas tegevuste kokkuvõte?"
           },
           {
             "@tag": "FORUM",
@@ -14456,7 +14456,7 @@
           },
           {
             "@tag": "NONOTIFICATION",
-            "#text": "Lülita välja teavitus"
+            "#text": "Lülita teavitused välja"
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
@@ -14480,7 +14480,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Vaadatud teemad"
+            "#text": "Jälgitud teemad"
           },
           {
             "@tag": "TOPICSIPOSTTOORSUBSCRIBETO",
@@ -14488,7 +14488,7 @@
           },
           {
             "@tag": "TOPICSISUBSCRIBETO",
-            "#text": "Teavitus teemade kohta foorumites, mida olete valinud jälgimiseks (allpool loetletud)"
+            "#text": "Teavitused teemade või foorumite kohta, mida olete valikuliselt jälgima hakanud (loetletud allpool)"
           },
           {
             "@tag": "UNSUBSCRIBE",
@@ -14809,7 +14809,7 @@
           },
           {
             "@tag": "MYPROFILE",
-            "#text": "Minu profiil"
+            "#text": "Minu konto"
           },
           {
             "@tag": "MYPROFILE_TITLE",
