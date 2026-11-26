@@ -5757,8 +5757,12 @@
             "#text": "Para:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Ninguém recebeu o email, a função escolhida não tem utilizadores com um endereço de email."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Os correios fazem fila."
+            "#text": "O email foi enviado para {0} destinatário(s)."
           },
           {
             "@tag": "MSG_SUBJECT",

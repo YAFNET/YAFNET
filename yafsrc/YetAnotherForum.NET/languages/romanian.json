@@ -5757,8 +5757,12 @@
             "#text": "Către:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nimeni nu a primit e-mailul, rolul ales nu are utilizatori cu o adresă de e-mail."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Mesaje în coadă de așteptare."
+            "#text": "E-mailul a fost trimis către {0} destinatar(i)."
           },
           {
             "@tag": "MSG_SUBJECT",

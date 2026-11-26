@@ -5757,8 +5757,12 @@
             "#text": "Đến:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Không ai nhận được thư, vai trò đã chọn không có người dùng nào có địa chỉ email."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Thư đã xếp hàng đợi."
+            "#text": "Thư đã được gửi đến {0} người nhận."
           },
           {
             "@tag": "MSG_SUBJECT",

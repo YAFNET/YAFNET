@@ -5749,8 +5749,12 @@
             "#text": "Do:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nikt nie otrzymał wiadomości, wybrana rola nie ma użytkowników z adresem e-mail."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Listy oczekujące w kolejce."
+            "#text": "Wiadomość została wysłana do {0} odbiorców."
           },
           {
             "@tag": "MSG_SUBJECT",

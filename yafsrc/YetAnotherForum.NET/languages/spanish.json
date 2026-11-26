@@ -5749,8 +5749,12 @@
             "#text": "Para:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nadie ha recibido el correo, el rol elegido no tiene usuarios con una dirección de correo."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Emails en cola."
+            "#text": "El correo se ha enviado a {0} destinatario(s)."
           },
           {
             "@tag": "MSG_SUBJECT",

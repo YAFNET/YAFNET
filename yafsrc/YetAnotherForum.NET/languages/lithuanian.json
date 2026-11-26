@@ -5757,8 +5757,12 @@
             "#text": "Kam:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Niekas negavo laiško, pasirinkta rolė neturi naudotojų su el. pašto adresu."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Laiškai laukia eilėje."
+            "#text": "Laiškas išsiųstas {0} gavėjui (-ams)."
           },
           {
             "@tag": "MSG_SUBJECT",

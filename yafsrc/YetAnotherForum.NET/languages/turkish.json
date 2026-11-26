@@ -5757,8 +5757,12 @@
             "#text": "Kime?"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "E-postayı kimse almadı, seçilen rolün e-posta adresi olan kullanıcısı yok."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Postalar sıraya alındı."
+            "#text": "E-posta {0} alıcıya gönderildi."
           },
           {
             "@tag": "MSG_SUBJECT",

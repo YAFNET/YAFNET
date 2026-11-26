@@ -5757,8 +5757,12 @@
             "#text": "Til:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Ingen mottok e-posten, den valgte rollen har ingen brukere med en e-postadresse."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Poster i kø."
+            "#text": "E-posten ble sendt til {0} mottaker(e)."
           },
           {
             "@tag": "MSG_SUBJECT",

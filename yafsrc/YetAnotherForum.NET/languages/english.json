@@ -5780,8 +5780,12 @@
 						"#text": "To:"
 					},
 					{
+						"@tag": "MSG_NO_RECIPIENTS",
+						"#text": "Nobody received the mail, the selected role has no users with an email address."
+					},
+					{
 						"@tag": "MSG_QUEUED",
-						"#text": "Mails queued."
+						"#text": "The mail was sent to {0} recipient(s)."
 					},
 					{
 						"@tag": "MSG_SUBJECT",

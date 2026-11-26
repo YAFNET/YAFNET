@@ -5757,8 +5757,12 @@
             "#text": "Vastaanottaja:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Kukaan ei saanut sähköpostia, valitulla roolilla ei ole käyttäjiä, joilla on sähköpostiosoite."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Postit jonossa."
+            "#text": "Sähköposti lähetettiin {0} vastaanottajalle."
           },
           {
             "@tag": "MSG_SUBJECT",

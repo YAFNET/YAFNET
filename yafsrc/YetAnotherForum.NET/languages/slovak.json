@@ -5757,8 +5757,12 @@
             "#text": "Pre:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "E-mail nikto nedostal, zvolená rola nemá žiadnych používateľov s e-mailovou adresou."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Maily v čakacom rade."
+            "#text": "E-mail bol odoslaný {0} príjemcom."
           },
           {
             "@tag": "MSG_SUBJECT",

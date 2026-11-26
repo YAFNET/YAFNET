@@ -79,6 +79,13 @@ public partial class Mail : AdminPage
     {
         var emails = this.GetRepository<User>().GroupEmails(this.ToList.SelectedValue.ToType<int>());
 
+        // nobody to send to (it was reported as "Mails queued.")
+        if (!emails.Any())
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_MAIL", "MSG_NO_RECIPIENTS"), MessageTypes.warning);
+            return;
+        }
+
         var from = new MailAddress(
             this.PageBoardContext.BoardSettings.ForumEmail,
             this.PageBoardContext.BoardSettings.Name);
@@ -105,7 +112,8 @@ public partial class Mail : AdminPage
 
         this.Subject.Text = string.Empty;
         this.Body.Text = string.Empty;
-        this.PageBoardContext.Notify(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
+        // the mails are sent directly, not queued
+        this.PageBoardContext.Notify(this.GetTextFormatted("MSG_QUEUED", emails.Count()), MessageTypes.success);
     }
 
     /// <summary>

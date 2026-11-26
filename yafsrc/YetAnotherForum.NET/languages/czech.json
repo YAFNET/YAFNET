@@ -5757,8 +5757,12 @@
             "#text": "Na:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "E-mail nikdo neobdržel, zvolená role nemá žádné uživatele s e-mailovou adresou."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Maily ve frontě."
+            "#text": "E-mail byl odeslán {0} příjemcům."
           },
           {
             "@tag": "MSG_SUBJECT",

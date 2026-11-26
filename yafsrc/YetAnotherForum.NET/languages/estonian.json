@@ -5757,8 +5757,12 @@
             "#text": "Kellele:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Keegi ei saanud e-kirja, valitud rollil pole e-posti aadressiga kasutajaid."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Kirjad on järjekorras."
+            "#text": "E-kiri saadeti {0} adressaadile."
           },
           {
             "@tag": "MSG_SUBJECT",

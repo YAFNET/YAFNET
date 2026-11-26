@@ -5757,8 +5757,12 @@
             "#text": "至："
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "没有人收到邮件，所选角色中没有拥有电子邮件地址的用户。"
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "邮件排队。"
+            "#text": "邮件已发送给 {0} 位收件人。"
           },
           {
             "@tag": "MSG_SUBJECT",

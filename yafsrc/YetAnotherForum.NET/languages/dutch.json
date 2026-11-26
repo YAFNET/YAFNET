@@ -5749,8 +5749,12 @@
             "#text": "Aan:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Niemand heeft de e-mail ontvangen, de gekozen rol heeft geen gebruikers met een e-mailadres."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Mails in wachtrij."
+            "#text": "De e-mail is verzonden naar {0} ontvanger(s)."
           },
           {
             "@tag": "MSG_SUBJECT",

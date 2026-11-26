@@ -5757,8 +5757,12 @@
             "#text": "A :"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Personne n'a reçu le mail, le rôle choisi n'a aucun utilisateur avec une adresse e-mail."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Courriers en attente."
+            "#text": "Le mail a été envoyé à {0} destinataire(s)."
           },
           {
             "@tag": "MSG_SUBJECT",

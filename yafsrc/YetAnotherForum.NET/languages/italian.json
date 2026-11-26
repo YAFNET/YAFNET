@@ -5749,8 +5749,12 @@
             "#text": "A:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Nessuno ha ricevuto l'email, il ruolo scelto non ha utenti con un indirizzo email."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Posta in coda."
+            "#text": "L'email è stata inviata a {0} destinatario/i."
           },
           {
             "@tag": "MSG_SUBJECT",

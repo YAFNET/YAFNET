@@ -5749,8 +5749,12 @@
             "#text": "An:"
           },
           {
+            "@tag": "MSG_NO_RECIPIENTS",
+            "#text": "Niemand hat die E-Mail erhalten, die gewählte Rolle hat keine Benutzer mit einer E-Mail-Adresse."
+          },
+          {
             "@tag": "MSG_QUEUED",
-            "#text": "Mail ist  in der Warteschlange."
+            "#text": "Die E-Mail wurde an {0} Empfänger gesendet."
           },
           {
             "@tag": "MSG_SUBJECT",
