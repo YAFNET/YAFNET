@@ -147,6 +147,11 @@
             margin-top: .5rem;
         }
     }
+
+    // below the text of the topic, next to the icon column
+    .topic-list > .row .last-post {
+        margin-left: 3.35rem;
+    }
 }
 
 // the active discussions: the list item is the box

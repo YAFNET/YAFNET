@@ -68,7 +68,12 @@ public static class TopicContainerHtmlHelper
 
         var titleColumn = new TagBuilder(HtmlTag.Div);
 
-        titleColumn.AddCssClass("col-md-8");
+        titleColumn.AddCssClass("col-md-8 topic-main");
+
+        // the icon has its own column, the title, the counts, the description and the starter wrap next to it
+        var topicBody = new TagBuilder(HtmlTag.Div);
+
+        topicBody.AddCssClass("topic-body");
 
         var header = new TagBuilder(HtmlTag.H5);
 
@@ -85,7 +90,7 @@ public static class TopicContainerHtmlHelper
 
         topicIcon.InnerHtml.AppendHtml(GetTopicIcon(topic, lastRead, htmlHelper));
 
-        header.InnerHtml.AppendHtml(topicIcon);
+        titleColumn.InnerHtml.AppendHtml(topicIcon);
 
         var priorityMessage = RenderPriorityMessage(topic, htmlHelper);
 
@@ -160,16 +165,18 @@ public static class TopicContainerHtmlHelper
                 context.BoardSettings.PostsPerPage,
                 topic.LinkTopicID));
 
-        titleColumn.InnerHtml.AppendHtml(header);
+        topicBody.InnerHtml.AppendHtml(header);
 
         var topicDescription = HtmlTagHelper.StripHtml(topic.Description);
 
         if (topicDescription.IsSet())
         {
-            RenderTopicDescription(topicDescription, titleColumn);
+            RenderTopicDescription(topicDescription, topicBody);
         }
 
-        titleColumn.InnerHtml.AppendHtml(RenderTopicStarter(htmlHelper, topic, context));
+        topicBody.InnerHtml.AppendHtml(RenderTopicStarter(htmlHelper, topic, context));
+
+        titleColumn.InnerHtml.AppendHtml(topicBody);
 
         mainDiv.InnerHtml.AppendHtml(titleColumn);
 
