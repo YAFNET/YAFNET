@@ -637,8 +637,104 @@ module.exports = function (grunt) {
             'sass', 'postcss', 'cssmin'
         ]);
 
+    grunt.registerTask('updateDnnVersionNumber',
+        'Updates the version numbers in the YAF.NET DNN module manifest',
+        function () {
+            const manifest = '../../yaf_dnn/Installation/YAF.DotNetNuke.Module.dnn';
+
+            if (!grunt.file.exists(manifest)) {
+                grunt.log.writeln(`DNN module manifest not found (${manifest}), skipping.`);
+                return;
+            }
+
+            const pkg = grunt.config('pkg');
+            const [major, minor, patch] = pkg.version.split('.');
+            const prefix = `${major.padStart(2, '0')}.${minor}${patch}`;
+
+            let content = grunt.file.read(manifest);
+
+            const moduleRegex = /(<package name="YetAnotherForumDotNet" type="Module" version=")(\d+)\.(\d+)\.(\d+)(")/;
+            const current = content.match(moduleRegex);
+
+            if (!current) {
+                grunt.fail.warn('Module version not found in the DNN module manifest.');
+                return;
+            }
+
+            const currentPrefix = `${current[2]}.${current[3]}`;
+            let build = parseInt(current[4], 10);
+
+            // the build number is increased with every new version
+            if (currentPrefix !== prefix) {
+                build++;
+            }
+
+            const newVersion = `${prefix}.${String(build).padStart(6, '0')}`;
+
+            // version of both modules
+            content = content.replace(
+                /(<package name="(?:YetAnotherForumDotNet|YAF\.WhatsNew)" type="Module" version=")[\d.]+(")/g,
+                `$1${newVersion}$2`);
+
+            // add the new version to the upgradeVersionsList of both modules
+            content = content.replace(/(<upgradeVersionsList>)([\s\S]*?)(\s*<\/upgradeVersionsList>)/g,
+                (match, start, list, end) => {
+                    if (list.split(',').some(v => v.trim() === newVersion)) {
+                        return match;
+                    }
+
+                    return `${start}${list.replace(/,?\s*$/, '')},${newVersion}${end}`;
+                });
+
+            // build number of the bootstrap bundle
+            content = content.replace(
+                /(<package name="bootstrap-bundle" type="JavaScript_Library" version="\d+\.\d+\.)\d+(")/,
+                `$1${100000 + build}$2`);
+
+            grunt.file.write(manifest, content);
+
+            grunt.log.ok(`DNN module version updated to ${newVersion}`);
+        });
+
+    grunt.registerTask('updateSampleAppVersionNumber',
+        'Updates the version numbers of the YAF.SampleWebApplication',
+        function () {
+            const fs = require('fs');
+            const appPath = '../../../YAF.SampleWebApplication/YAF.SampleWebApplication/';
+            const version = grunt.config('pkg').version;
+
+            const files = [
+                {
+                    path: `${appPath}package.json`,
+                    match: /("version":\s*")[\d.]+(")/,
+                    replacement: `$1${version}$2`
+                },
+                {
+                    path: `${appPath}Properties/AssemblyInfo.cs`,
+                    match: /(Assembly(?:File)?Version\(")[\d.]+(\.\d+"\))/g,
+                    replacement: `$1${version}$2`
+                }
+            ];
+
+            files.forEach(file => {
+                if (!fs.existsSync(file.path)) {
+                    grunt.log.writeln(`${file.path} not found, skipping.`);
+                    return;
+                }
+
+                // use fs directly to keep the BOM and line endings of the files
+                const content = fs.readFileSync(file.path, 'utf8');
+                const updated = content.replace(file.match, file.replacement);
+
+                if (updated !== content) {
+                    fs.writeFileSync(file.path, updated, 'utf8');
+                    grunt.log.ok(`${file.path} updated to ${version}`);
+                }
+            });
+        });
+
     grunt.registerTask('updateVersionNumber',
 	    [
-		    'replace:version'
+		    'replace:version', 'updateDnnVersionNumber', 'updateSampleAppVersionNumber'
 	    ]);
 };
