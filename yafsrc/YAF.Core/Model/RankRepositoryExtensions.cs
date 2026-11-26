@@ -150,6 +150,19 @@ public static class RankRepositoryExtensions
             repository.FireNew(rankId);
         }
 
+        // the new users get one start rank, the other ranks of the board lose the flag
+        if (flags.IsStart)
+        {
+            var startRanks = repository.Get(r => r.BoardID == boardId && (r.Flags & 1) == 1 && r.ID != rankId.Value);
+
+            foreach (var startRank in startRanks)
+            {
+                var startRankFlags = startRank.Flags & ~1;
+
+                repository.UpdateOnly(() => new Rank { Flags = startRankFlags }, r => r.ID == startRank.ID);
+            }
+        }
+
         if (style.IsSet() || oldStyle.IsSet())
         {
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
