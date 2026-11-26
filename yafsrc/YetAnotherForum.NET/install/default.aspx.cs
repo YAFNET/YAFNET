@@ -469,11 +469,11 @@ public partial class install : BasePage, IHaveServiceLocator
     /// <param name="msg">The message.</param>
     private void ShowErrorMessage(string msg)
     {
-        msg = msg.Replace("\\", "\\\\");
-        msg = msg.Replace("'", "\\'");
+        // the message is html of the page (it was escaped for a script: quotes were shown with a backslash, html in an
+        // error message was rendered)
+        msg = HttpUtility.HtmlEncode(msg);
         msg = msg.Replace("\r\n", "<br /><br />");
         msg = msg.Replace("\n", "<br />");
-        msg = msg.Replace("\"", "\\\"");
         this.loadMessage += msg;
 
         if (!this.loadMessage.IsSet())
