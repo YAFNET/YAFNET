@@ -111,7 +111,10 @@ public partial class SpamWordsEdit : BaseUserControl
             return;
         }
 
-        if (!ValidationHelper.IsValidRegex(this.spamword.Text.Trim()))
+        // saved as it is checked (the spaces around the word were saved too)
+        var spamWord = this.spamword.Text.Trim();
+
+        if (!ValidationHelper.IsValidRegex(spamWord))
         {
             this.PageBoardContext.Notify(
                 this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
@@ -125,7 +128,7 @@ public partial class SpamWordsEdit : BaseUserControl
         {
             this.GetRepository<Spam_Words>().Save(
                 this.SpamWordId,
-                this.spamword.Text);
+                spamWord);
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
         }

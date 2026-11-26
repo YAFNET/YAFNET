@@ -11,6 +11,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] My Topics: the German (du) title of the page was "Keine Themen" (no topics) instead of "Meine Themen" (my topics)
 * [FIXED] Admin > Re-Index on SQLite: re-index and shrink only changed the vacuum mode, they now rebuild the indexes (REINDEX) and remove the unused space (VACUUM)
 * [FIXED] Admin > Re-Index: a failed change of the recovery mode (e.g. missing rights) and "Not Supported by ... Server" (e.g. the recovery mode on SQLite, MySQL and PostgreSQL, shrink on PostgreSQL) were shown as a green success message; not supported is a warning now, an error of the database an error message
+* [FIXED] Admin > Spam Words: the spaces around a spam word were saved (it was checked without them)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
