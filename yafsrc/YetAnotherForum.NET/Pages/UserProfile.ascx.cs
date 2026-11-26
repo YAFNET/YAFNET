@@ -504,7 +504,9 @@ public partial class UserProfile : ForumPage
         this.ReputationReceived.Text =
             this.Get<IReputation>().GenerateReputationBar(user.Item1.Points, user.Item1.ID);
 
-        if (user.Item2.Profile_Birthday >= DateTimeHelper.SqlDbMinTime())
+        // the minimum date is "no birthday" (profiles saved with it showed the birthday January 1, 1903)
+        if (user.Item2.Profile_Birthday.HasValue
+            && user.Item2.Profile_Birthday.Value.Date > DateTimeHelper.SqlDbMinTime().Date)
         {
             this.BirthdayTR.Visible = true;
             // a date, not a point in time (it was converted into the time zone of the viewer, viewers west of the

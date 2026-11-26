@@ -604,7 +604,7 @@ public partial class EditUsersProfile : BaseUserControl
                 this.User.Item2.Profile_Birthday.HasValue &&
                 this.User.Item2.Profile_Birthday.Value > DateTimeHelper.SqlDbMinTime()
                     ? this.User.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
-                    : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
+                    : string.Empty; // the minimum date is "no birthday" (it was shown and saved)
 
             this.Birthday.TextMode = TextBoxMode.Date;
         }
@@ -706,7 +706,8 @@ public partial class EditUsersProfile : BaseUserControl
                 userBirthdate = DateTimeHelper.SqlDbMinTime().Date;
             }
 
-            if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
+            // the minimum date is "no birthday" (the empty field showed it and it was saved)
+            if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
             {
                 userProfile.Birthday = userBirthdate.Date;
             }
@@ -715,7 +716,8 @@ public partial class EditUsersProfile : BaseUserControl
         {
             DateTime.TryParse(this.Birthday.Text, this.CurrentCultureInfo, DateTimeStyles.None, out userBirthdate);
 
-            if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
+            // the minimum date is "no birthday" (the empty field showed it and it was saved)
+            if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
             {
                 // Attention! This is stored in profile in the user timezone date
                 userProfile.Birthday = userBirthdate.Date;
