@@ -247,7 +247,7 @@ function addMessageUser(li: HTMLLIElement): void {
 	const userId = currentUserId();
     const toUserId = li.id;
 	const toUserName = (li.querySelector('.name') as HTMLSpanElement).outerHTML;
-	const avatarUrl = (li.querySelector('.img-thumbnail') as HTMLImageElement).src;
+	const avatarUrl = (li.querySelector('.chat-avatar') as HTMLImageElement).src;
 
 	if (userId !== parseInt(toUserId)) {
 		const ctrId = `private_${toUserId}`;
