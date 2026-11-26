@@ -2974,7 +2974,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Gebruikers mogen deze medaille verbergen."
+            "#text": "Indien ingeschakeld, kan de medaille voor afzonderlijke gebruikers of groepen worden verborgen met de optie Verbergen bij de toekenning."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3026,7 +3026,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Als deze is aangevinkt, wordt de medaille niet getoond in het Gebruikersvak."
+            "#text": "Als deze is aangevinkt, wordt de medaille niet getoond in het gebruikersprofiel. Alleen mogelijk als de medaille verbergen toestaat."
           },
           {
             "@tag": "MEDAL_CATEGORY",

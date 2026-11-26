@@ -2978,7 +2978,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Kullanıcıların bu madalyayı gizlemesine izin verileceği/verilmeyeceği anlamına gelir."
+            "#text": "Etkinleştirilirse, madalya verilirken Gizle seçeneğiyle belirli kullanıcılar veya gruplar için gizlenebilir."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3030,7 +3030,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "İşaretlenirse, madalya kullanıcı kutusunda görüntülenmez."
+            "#text": "İşaretlenirse, madalya kullanıcı profilinde görüntülenmez. Yalnızca madalya gizlemeye izin veriyorsa mümkündür."
           },
           {
             "@tag": "MEDAL_CATEGORY",

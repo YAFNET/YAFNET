@@ -2974,7 +2974,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Oznacza, że użytkownicy będą mogli/nie będą mogli ukrywać ten medal."
+            "#text": "Jeśli włączone, medal może zostać ukryty dla poszczególnych użytkowników lub grup za pomocą opcji Ukryj przy przyznaniu."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3026,7 +3026,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Jeśli jest zaznaczone, medal nie jest wyświetlany w polu użytkownika."
+            "#text": "Jeśli jest zaznaczone, medal nie jest wyświetlany w profilu użytkownika. Możliwe tylko, jeśli medal pozwala na ukrywanie."
           },
           {
             "@tag": "MEDAL_CATEGORY",

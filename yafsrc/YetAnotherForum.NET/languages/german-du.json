@@ -2974,7 +2974,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Erlaubt, dass der Benutzer die Medaille verstecken kann."
+            "#text": "Wenn aktiviert, kann die Medaille für einzelne Benutzer oder Gruppen mit der Option Verstecken der Verleihung versteckt werden."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3026,7 +3026,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Wenn aktiviert wird die Medaille nicht in der Benutzerbox gezeigt."
+            "#text": "Wenn aktiviert, wird die Medaille nicht im Benutzerprofil angezeigt. Nur möglich, wenn die Medaille das Ausblenden erlaubt."
           },
           {
             "@tag": "MEDAL_CATEGORY",

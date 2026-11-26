@@ -2978,7 +2978,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Betyr at brukere får/ikke tillates å skjule denne medaljen."
+            "#text": "Hvis aktivert, kan medaljen skjules for enkelte brukere eller grupper med alternativet Skjul ved tildelingen."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3030,7 +3030,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Hvis det er krysset av, vises ikke medalje i brukerboksen."
+            "#text": "Hvis det er krysset av, vises ikke medaljen i brukerprofilen. Kun mulig hvis medaljen tillater skjuling."
           },
           {
             "@tag": "MEDAL_CATEGORY",

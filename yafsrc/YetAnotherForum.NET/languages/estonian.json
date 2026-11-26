@@ -2978,7 +2978,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Tähendab, et kasutajatel lubatakse/keelatakse seda medalit peita."
+            "#text": "Kui lubatud, saab medali üksikute kasutajate või gruppide jaoks peita autasustamise valikuga Peida."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3030,7 +3030,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Märkimisel medalit kasutajakastis ei kuvata."
+            "#text": "Kui see on märgitud, ei kuvata medalit kasutaja profiilis. Võimalik ainult siis, kui medal lubab peitmist."
           },
           {
             "@tag": "MEDAL_CATEGORY",

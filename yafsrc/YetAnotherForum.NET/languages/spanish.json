@@ -2974,7 +2974,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Significa que los usuarios podrán o no ocultar esta medalla."
+            "#text": "Si está activado, la medalla puede ocultarse para usuarios o grupos concretos con la opción Ocultar de la concesión."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3026,7 +3026,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Si está marcado, la medalla no será mostrada en la caja de usuario."
+            "#text": "Si está marcado, la medalla no se muestra en el perfil del usuario. Solo es posible si la medalla permite ocultarla."
           },
           {
             "@tag": "MEDAL_CATEGORY",

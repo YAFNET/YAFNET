@@ -2978,7 +2978,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Significa que os utilizadores serão autorizados/dispensados a esconder esta medalha."
+            "#text": "Se ativado, a medalha pode ser escondida para utilizadores ou grupos individuais com a opção Esconder da atribuição."
           },
           {
             "@tag": "ALLOW_REORDER",
@@ -3030,7 +3030,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Se marcada, a medalha não é exibida na caixa do utilizador."
+            "#text": "Se marcado, a medalha não é mostrada no perfil do utilizador. Só é possível se a medalha permitir ocultar."
           },
           {
             "@tag": "MEDAL_CATEGORY",
