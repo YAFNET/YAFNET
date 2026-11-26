@@ -6900,7 +6900,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Anexos"
+            "#text": "Anexos do utilizador"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
@@ -7032,7 +7032,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Etiquetas"
+            "#text": "Etiquetas dos tópicos"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",

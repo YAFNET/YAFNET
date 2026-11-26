@@ -6900,7 +6900,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Pièces jointes"
+            "#text": "Pièces jointes des utilisateurs"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
@@ -7032,7 +7032,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Mots clés"
+            "#text": "Mots-clés des sujets"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",

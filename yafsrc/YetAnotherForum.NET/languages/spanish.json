@@ -6892,7 +6892,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Anexos"
+            "#text": "Archivos adjuntos de los usuarios"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
@@ -7024,7 +7024,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Etiquetas:"
+            "#text": "Etiquetas de temas"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",

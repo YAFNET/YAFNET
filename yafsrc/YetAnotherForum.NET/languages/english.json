@@ -6938,7 +6938,7 @@
 					},
 					{
 						"@tag": "ADMIN_ATTACHMENTS",
-						"#text": "Attachments"
+						"#text": "User Attachments"
 					},
 					{
 						"@tag": "ADMIN_BANNEDEMAIL",
@@ -7070,7 +7070,7 @@
 					},
 					{
 						"@tag": "ADMIN_TAGS",
-						"#text": "Tags"
+						"#text": "Topic Tags"
 					},
 					{
 						"@tag": "ADMIN_TASKMANAGER",

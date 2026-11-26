@@ -6892,7 +6892,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "پیوست ها"
+            "#text": "پیوست‌های کاربران"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
@@ -7024,7 +7024,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "برچسب ها"
+            "#text": "برچسب‌های موضوعات"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",

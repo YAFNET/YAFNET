@@ -6892,7 +6892,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Allegati"
+            "#text": "Allegati degli utenti"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
@@ -7024,7 +7024,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Tag"
+            "#text": "Tag delle discussioni"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
