@@ -2081,12 +2081,16 @@
             "#text": "Envoi de digest programmé pour un envoi immédiat"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Il n'y a aucun sujet nouveau ou actif, le résumé est vide et n'a pas été envoyé."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Exception Obtenir le résumé : {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Envoyé par {0} avec succès."
+            "#text": "Le résumé de test a été envoyé à {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

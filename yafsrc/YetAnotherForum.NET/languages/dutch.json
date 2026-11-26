@@ -2081,12 +2081,16 @@
             "#text": "Het versturen van de Samenvatting is ingepland om zsm te versturen"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Er zijn geen nieuwe of actieve topics, de samenvatting is leeg en is niet verzonden."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Fout bij samenstellen samenvatting: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Succesvol verzonden via {0}."
+            "#text": "De testsamenvatting is verzonden naar {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

@@ -2081,12 +2081,16 @@
             "#text": "Sammanfattning av sändning planerad för omedelbar sändning"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Det finns inga nya eller aktiva ämnen, sammanfattningen är tom och skickades inte."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Undantag får en sammanfattning: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Skickat via {0} framgångsrikt."
+            "#text": "Testsammanfattningen skickades till {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

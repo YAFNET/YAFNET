@@ -2081,12 +2081,16 @@
             "#text": "Anında Gönderim için Planlanmış Özet Gönderimi"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Yeni veya etkin konu yok, özet boş ve gönderilmedi."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "İstisna Özeti Alınıyor: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "{0} üzerinden başarıyla gönderildi."
+            "#text": "Test özeti {0} adresine gönderildi."
           },
           {
             "@tag": "MSG_VALID_MAIL",

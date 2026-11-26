@@ -107,17 +107,25 @@ public partial class Digest : AdminPage
                     this.TextSendEmail.Text.Trim(),
                     string.Empty);
 
+                // without new or active topics there is no digest (nothing was sent, it was reported as sent)
+                if (digestMail is null)
+                {
+                    this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_NO_TOPICS"), MessageTypes.warning);
+                    return;
+                }
+
                 // send
                 this.Get<IMailService>().SendAll(new List<MailMessage> { digestMail });
 
                 this.PageBoardContext.Notify(
-                    this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
+                    this.GetTextFormatted("MSG_SEND_SUC", this.HtmlEncode(this.TextSendEmail.Text.Trim())),
                     MessageTypes.success);
             }
             catch (Exception ex)
             {
                 this.PageBoardContext.Notify(
-                    string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
+                    // the message, not the stack trace
+                    string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), this.HtmlEncode(ex.Message)),
                     MessageTypes.danger);
             }
         }

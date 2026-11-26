@@ -2081,12 +2081,16 @@
             "#text": "Programación de envío de resumen para envío inmediato."
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "No hay temas nuevos ni activos, el resumen está vacío y no se ha enviado."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Error al obtener resumen: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Envío correcto a través de {0}."
+            "#text": "El resumen de prueba se ha enviado a {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

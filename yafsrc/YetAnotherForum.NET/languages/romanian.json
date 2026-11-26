@@ -2081,12 +2081,16 @@
             "#text": "Digest Send Programat pentru trimitere imediată"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Nu există subiecte noi sau active, rezumatul este gol și nu a fost trimis."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Excepție Obținând Digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Trimis prin {0} cu succes."
+            "#text": "Rezumatul de test a fost trimis la {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

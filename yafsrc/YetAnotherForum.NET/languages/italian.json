@@ -2081,12 +2081,16 @@
             "#text": "Invio Digest programmato per l'invio immediato"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Non ci sono discussioni nuove o attive, il riepilogo è vuoto e non è stato inviato."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Eccezione ottenuta da Digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Inviato tramite {0} con successo."
+            "#text": "Il riepilogo di prova è stato inviato a {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

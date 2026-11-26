@@ -2081,12 +2081,16 @@
             "#text": "Sammenfatning afsendelse planlagt til øjeblikkelig afsendelse"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Der er ingen nye eller aktive emner, sammendraget er tomt og blev ikke sendt."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Undtagelse får digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Sendt via {0}."
+            "#text": "Testsammendraget blev sendt til {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

@@ -2081,12 +2081,16 @@
             "#text": "Harmonogram wysyłania wiadomości Digest."
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Nie ma nowych ani aktywnych tematów, podsumowanie jest puste i nie zostało wysłane."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Błędy podczas wysyłania: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Wysyłanie za pomocą {0} udane."
+            "#text": "Testowe podsumowanie zostało wysłane na adres {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

@@ -71,6 +71,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Mail: "Mails queued." was shown although the mails are sent directly, also when the role had no users with an email address; the page says now how many users got the mail, or that nobody got it (new text in all languages)
 * [FIXED] Admin > Board Settings: the email to a user who was awarded a medal could not be turned off (the setting had no switch); new switch "Email Users on Medal Award" (new texts in all languages)
 * [FIXED] Mails: when the mail server throttles the sending (e.g. the hourly mail limit of the hoster, "You have exceeded your session messaging limits"), every mail wrote an error to the event log; the sending is paused for an hour with one warning (with the number of the mails not sent)
+* [FIXED] Admin > Digest: "Send Test" reported "Sent via Direct successfully." also when there were no new or active topics and nothing was sent, and an error showed the whole stack trace; the test digest names the address it was sent to (new text in all languages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

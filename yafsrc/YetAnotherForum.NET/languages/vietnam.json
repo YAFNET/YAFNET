@@ -2081,12 +2081,16 @@
             "#text": "Gửi thông báo đã được lên lịch để gửi ngay lập tức"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Không có chủ đề mới hoặc đang hoạt động, bản tóm tắt trống và chưa được gửi."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Thông báo về Ngoại lệ: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Đã gửi qua {0} thành công."
+            "#text": "Bản tóm tắt thử nghiệm đã được gửi đến {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

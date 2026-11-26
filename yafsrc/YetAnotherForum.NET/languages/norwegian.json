@@ -2081,12 +2081,16 @@
             "#text": "Sammendragssending er planlagt for umiddelbar sending"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Det finnes ingen nye eller aktive emner, sammendraget er tomt og ble ikke sendt."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Unntak får sammendrag: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Sendt via {0} vellykket."
+            "#text": "Testsammendraget ble sendt til {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

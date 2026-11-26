@@ -2081,12 +2081,16 @@
             "#text": "Odeslání souhrnu je naplánováno pro okamžité odeslání"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Neexistují žádná nová ani aktivní témata, přehled je prázdný a nebyl odeslán."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Výjimka získává přehled: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Úspěšně odesláno prostřednictvím {0}."
+            "#text": "Testovací přehled byl odeslán na {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

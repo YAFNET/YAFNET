@@ -2081,12 +2081,16 @@
             "#text": "Siųsdinimas iš karto suplanuotas siųsti iš karto"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Naujų ar aktyvių temų nėra, suvestinė tuščia ir nebuvo išsiųsta."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Išimties gavimas \"Digest\": {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Sėkmingai išsiųsta per {0}."
+            "#text": "Bandomoji suvestinė išsiųsta adresu {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

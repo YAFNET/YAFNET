@@ -2081,12 +2081,16 @@
             "#text": "Digest-lähetys Ajastettu välitöntä lähetystä varten"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Uusia tai aktiivisia aiheita ei ole, kooste on tyhjä eikä sitä lähetetty."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Poikkeus Getting Digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Lähetetty {0} kautta onnistuneesti."
+            "#text": "Testikooste lähetettiin osoitteeseen {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

@@ -2081,12 +2081,16 @@
             "#text": "Odoslanie zostavy naplánované na okamžité odoslanie"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "Neexistujú žiadne nové ani aktívne témy, prehľad je prázdny a nebol odoslaný."
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "Získanie výnimky Digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Úspešne odoslané prostredníctvom {0}."
+            "#text": "Testovací prehľad bol odoslaný na {0}."
           },
           {
             "@tag": "MSG_VALID_MAIL",

@@ -2081,12 +2081,16 @@
             "#text": "安排立即发送的摘要发送"
           },
           {
+            "@tag": "MSG_NO_TOPICS",
+            "#text": "没有新的或活跃的主题，摘要为空，未发送。"
+          },
+          {
             "@tag": "MSG_SEND_ERR",
             "#text": "获取摘要的异常：{0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "通过 {0} 成功发送。"
+            "#text": "测试摘要已发送至 {0}。"
           },
           {
             "@tag": "MSG_VALID_MAIL",
