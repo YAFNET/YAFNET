@@ -208,53 +208,7 @@ public partial class MyTopics : ForumPageRegistered
             this.sinceDate = this.Get<ISession>().LastVisit ?? DateTime.UtcNow;
         }
 
-        switch (this.TopicMode.SelectedValue.ToEnum<TopicListMode>())
-        {
-            case TopicListMode.Active:
-                this.IconHeader.LocalizedTag = "ActiveTopics";
-
-                topicList = this.GetRepository<Topic>().ListActivePaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    basePageSize,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-            case TopicListMode.Unanswered:
-                this.IconHeader.LocalizedTag = "UnansweredTopics";
-
-                topicList = this.GetRepository<Topic>().ListUnansweredPaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    basePageSize,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-            case TopicListMode.Watch:
-                this.IconHeader.LocalizedTag = "WatchTopics";
-
-                topicList = this.GetRepository<Topic>().ListWatchedPaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    basePageSize,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-            case TopicListMode.User:
-                this.IconHeader.LocalizedTag = "MyTopics";
-
-                topicList = this.GetRepository<Topic>().ListByUserPaged(
-                    this.PageBoardContext.PageUserID,
-                    this.sinceDate,
-                    DateTime.UtcNow,
-                    currentPageIndex,
-                    basePageSize,
-                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
-                break;
-        }
+        topicList = this.ListTopics(currentPageIndex, basePageSize);
 
         if (topicList is null)
         {
@@ -280,6 +234,67 @@ public partial class MyTopics : ForumPageRegistered
     }
 
     /// <summary>
+    /// Lists the topics of the selected list (since the selected date).
+    /// </summary>
+    /// <param name="pageIndex">The page index.</param>
+    /// <param name="pageSize">The page size.</param>
+    /// <returns>The topics of the page.</returns>
+    private List<PagedTopic> ListTopics(int pageIndex, int pageSize)
+    {
+        List<PagedTopic> topicList = null;
+
+        switch (this.TopicMode.SelectedValue.ToEnum<TopicListMode>())
+        {
+            case TopicListMode.Active:
+                this.IconHeader.LocalizedTag = "ActiveTopics";
+
+                topicList = this.GetRepository<Topic>().ListActivePaged(
+                    this.PageBoardContext.PageUserID,
+                    this.sinceDate,
+                    DateTime.UtcNow,
+                    pageIndex,
+                    pageSize,
+                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
+                break;
+            case TopicListMode.Unanswered:
+                this.IconHeader.LocalizedTag = "UnansweredTopics";
+
+                topicList = this.GetRepository<Topic>().ListUnansweredPaged(
+                    this.PageBoardContext.PageUserID,
+                    this.sinceDate,
+                    DateTime.UtcNow,
+                    pageIndex,
+                    pageSize,
+                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
+                break;
+            case TopicListMode.Watch:
+                this.IconHeader.LocalizedTag = "WatchTopics";
+
+                topicList = this.GetRepository<Topic>().ListWatchedPaged(
+                    this.PageBoardContext.PageUserID,
+                    this.sinceDate,
+                    DateTime.UtcNow,
+                    pageIndex,
+                    pageSize,
+                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
+                break;
+            case TopicListMode.User:
+                this.IconHeader.LocalizedTag = "MyTopics";
+
+                topicList = this.GetRepository<Topic>().ListByUserPaged(
+                    this.PageBoardContext.PageUserID,
+                    this.sinceDate,
+                    DateTime.UtcNow,
+                    pageIndex,
+                    pageSize,
+                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
+                break;
+        }
+
+        return topicList;
+    }
+
+    /// <summary>
     /// Mark all Topics in the List as Read
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -288,14 +303,14 @@ public partial class MyTopics : ForumPageRegistered
     {
         this.BindData();
 
-        if (this.TopicList.Items.Count <= 0)
+        if (this.PagerTop.Count <= 0)
         {
             return;
         }
 
-        this.TopicList.DataSource.ToType<List<PagedTopic>>()
-            .ForEach(
-                item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.TopicID));
+        // all topics of the list, not only the shown page
+        this.ListTopics(0, this.PagerTop.Count)?.ForEach(
+            item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.TopicID));
 
         // Rebind
         this.BindData();
