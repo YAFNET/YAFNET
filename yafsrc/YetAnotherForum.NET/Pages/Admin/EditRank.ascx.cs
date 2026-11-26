@@ -180,6 +180,13 @@ public partial class EditRank : AdminPage
         var editedId = rankId ?? 0;
         var rankName = this.Name.Text.Trim();
 
+        // a name of spaces is no name
+        if (rankName.IsNotSet())
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "NEED_NAME"), MessageTypes.warning);
+            return;
+        }
+
         // the start rank keeps the flag, the new users need a start rank (another rank can be marked as start rank)
         if (!this.IsStart.Checked && rankId.HasValue
             && this.GetRepository<Rank>().Exists(r => r.ID == rankId.Value && (r.Flags & 1) == 1))

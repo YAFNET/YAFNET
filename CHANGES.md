@@ -30,6 +30,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Ranks: the start rank of a new board (Newbie) was not on the rank ladder, the new users were never promoted to Member and Advanced Member (existing boards: switch on "Ladder Group" of the start rank)
 * [FIXED] Admin > Ranks: a new start rank kept the old start rank, the new users got one of them; now the old start rank loses the flag
 * [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown (new text in all languages)
+* [FIXED] Admin > Edit Rank: a name of spaces was saved as a rank without a name
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
