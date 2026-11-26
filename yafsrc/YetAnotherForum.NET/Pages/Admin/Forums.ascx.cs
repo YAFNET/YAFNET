@@ -344,9 +344,16 @@ public partial class Forums : AdminPage
         var baseSize = this.PageSize.SelectedValue.ToType<int>();
         this.PagerTop.PageSize = baseSize;
 
-        this.ListAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID).GetPaged(this.PagerTop);
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
 
-        this.CategoryList.DataSource = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name);
+        // the pages have whole categories with all their forums (the rows were paged, a category with more forums than
+        // the page size was shown on several pages), two categories with the same name are both shown
+        var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.ID).ToList().GetPaged(this.PagerTop);
+        var categoryIds = new HashSet<int>(categories.Select(c => c.ID));
+
+        this.ListAll = listAll.Where(x => categoryIds.Contains(x.Item1.ID)).ToList();
+
+        this.CategoryList.DataSource = categories;
 
         // Hide the New Forum Button if there are no Categories.
         this.NewForum.Visible = this.CategoryList.Items.Count < 1;
