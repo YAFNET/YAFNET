@@ -146,7 +146,7 @@
                         <li class="list-group-item list-group-item-action list-group-item-menu">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <i class="fa fa-comments me-2"></i><%# ((YAF.Types.Models.Forum)Container.DataItem).ParentID.HasValue ? "---" : "-" %> <%# this.HtmlEncode(((YAF.Types.Models.Forum)Container.DataItem).Name) %>
+                                    <i class="fa fa-comments me-2"></i><%# this.ForumIndent((YAF.Types.Models.Forum)Container.DataItem) %> <%# this.HtmlEncode(((YAF.Types.Models.Forum)Container.DataItem).Name) %>
                                 </h5>
                                 <small class="d-none d-md-block">
                                     <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER" />&nbsp;

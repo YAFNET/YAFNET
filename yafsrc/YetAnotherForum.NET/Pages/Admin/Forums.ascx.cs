@@ -43,6 +43,11 @@ public partial class Forums : AdminPage
     }
 
     /// <summary>
+    /// The depth of the listed forums in the tree.
+    /// </summary>
+    private readonly Dictionary<int, int> forumDepths = new();
+
+    /// <summary>
     /// Gets or sets the user album.
     /// </summary>
     public IList<Tuple<Category, Forum>> ListAll
@@ -168,7 +173,8 @@ public partial class Forums : AdminPage
 
         var category = (Category)e.Item.DataItem;
 
-        var forums = this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
+        // a forum is followed by its sub forums (a sub forum with a lower sort order was shown above its parent)
+        var forums = this.OrderAsTree(this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList());
 
         var themeButtonDelete = e.Item.FindControlAs<ThemeButton>("ThemeButtonDelete");
         var themeButton2 = e.Item.FindControlAs<ThemeButton>("ThemeButton2");
@@ -183,6 +189,19 @@ public partial class Forums : AdminPage
         var forumRepeater = e.Item.FindControlAs<Repeater>("ForumList");
         forumRepeater.DataSource = forums;
         forumRepeater.DataBind();
+    }
+
+    /// <summary>
+    /// The indent of a forum in the list (a level deeper per sub forum level, the third level was indented like the
+    /// second).
+    /// </summary>
+    /// <param name="forum">The forum.</param>
+    /// <returns>The indent.</returns>
+    protected string ForumIndent(Forum forum)
+    {
+        return this.forumDepths.TryGetValue(forum.ID, out var depth) && depth > 0
+                   ? string.Concat(Enumerable.Repeat("--", depth)) + "-"
+                   : "-";
     }
 
     /// <summary>
@@ -334,6 +353,48 @@ public partial class Forums : AdminPage
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
         this.BindData();
+    }
+
+    /// <summary>
+    /// Orders the forums of a category as a tree (each forum is followed by its sub forums), the depth of each forum
+    /// is kept for its indent.
+    /// </summary>
+    /// <param name="forums">The forums of the category (sorted by the sort order).</param>
+    /// <returns>The forums in the order of the tree.</returns>
+    private List<Forum> OrderAsTree(List<Forum> forums)
+    {
+        var ordered = new List<Forum>(forums.Count);
+        var ids = new HashSet<int>(forums.Select(f => f.ID));
+        var children = forums.Where(f => f.ParentID.HasValue).ToLookup(f => f.ParentID.Value);
+
+        void Add(Forum forum, int depth)
+        {
+            // a broken hierarchy (a forum below its own sub forum) is listed only once
+            if (this.forumDepths.ContainsKey(forum.ID))
+            {
+                return;
+            }
+
+            this.forumDepths[forum.ID] = depth;
+            ordered.Add(forum);
+
+            foreach (var child in children[forum.ID])
+            {
+                Add(child, depth + 1);
+            }
+        }
+
+        foreach (var forum in forums.Where(f => !f.ParentID.HasValue || !ids.Contains(f.ParentID.Value)))
+        {
+            Add(forum, 0);
+        }
+
+        foreach (var forum in forums.Where(f => !this.forumDepths.ContainsKey(f.ID)))
+        {
+            Add(forum, 0);
+        }
+
+        return ordered;
     }
 
     /// <summary>
