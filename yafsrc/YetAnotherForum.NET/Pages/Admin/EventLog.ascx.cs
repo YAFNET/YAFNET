@@ -370,6 +370,9 @@ public partial class EventLog : AdminPage
     /// <param name="eventArgs">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void ApplyButtonClick(object source, EventArgs eventArgs)
     {
+        // the filter starts on the first page (the shown page may not exist with the filter)
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 
@@ -384,6 +387,8 @@ public partial class EventLog : AdminPage
     /// </param>
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 
