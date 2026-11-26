@@ -118,8 +118,9 @@ public class HelpLabel : BaseControl, ILocalizationSupport
 
         if (this.AssociatedControlID.IsSet())
         {
+            // a server control, or the id of a html element of the page (e.g. a select filled by a script)
             var control = this.FindControl(this.AssociatedControlID);
-            associatedControlID = control.ClientID;
+            associatedControlID = control?.ClientID ?? this.AssociatedControlID;
         }
         else
         {

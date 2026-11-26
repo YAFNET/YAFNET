@@ -23,6 +23,7 @@
                     </div>
                     <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel2" runat="server"
+                                       AssociatedControlID="ForumList"
                                        LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
                         <select id="ForumList" name="forumList"></select>
                         <asp:HiddenField runat="server" ID="ForumListSelected" Value="-1" />

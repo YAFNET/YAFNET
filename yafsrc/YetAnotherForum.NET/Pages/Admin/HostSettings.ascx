@@ -1671,6 +1671,7 @@
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel42" runat="server"
+                                           AssociatedControlID="BoardUserStatsCacheTimeout"
                                            LocalizedTag="USRSTATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <div class="input-group">
                                 <asp:TextBox CssClass="form-control" runat="server" ID="BoardUserStatsCacheTimeout" />
@@ -1682,6 +1683,7 @@
                         </div>
                     <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel43" runat="server"
+                                       AssociatedControlID="ActiveDiscussionsCacheTimeout"
                                        LocalizedTag="DISCUSSIONS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         <div class="input-group">
                             <asp:TextBox CssClass="form-control" runat="server" ID="ActiveDiscussionsCacheTimeout" />
@@ -1694,6 +1696,7 @@
                     </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel45" runat="server"
+                                           AssociatedControlID="BoardModeratorsCacheTimeout"
                                            LocalizedTag="MOD_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <div class="input-group">
                                 <asp:TextBox CssClass="form-control" runat="server" ID="BoardModeratorsCacheTimeout" />
@@ -1705,12 +1708,14 @@
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel48" runat="server"
+                                           AssociatedControlID="OnlineStatusCacheTimeout"
                                            LocalizedTag="ONLINE_STATUS_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <asp:TextBox runat="server" ID="OnlineStatusCacheTimeout"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel49" runat="server"
+                                           AssociatedControlID="ActiveUserLazyDataCacheTimeout"
                                            LocalizedTag="LAZY_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <div class="input-group">
                                 <asp:TextBox runat="server" ID="ActiveUserLazyDataCacheTimeout"
@@ -1747,23 +1752,27 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel28" runat="server"
+                                               AssociatedControlID="ReturnSearchMax"
                                                LocalizedTag="MAX_SEARCH_RESULTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="ReturnSearchMax" runat="server"></asp:TextBox>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel30" runat="server"
+                                               AssociatedControlID="SearchStringMinLength"
                                                LocalizedTag="SEARCH_MINLENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="SearchStringMinLength" runat="server"></asp:TextBox>
                             </div>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel33" runat="server"
+                                           AssociatedControlID="SearchPermissions"
                                            LocalizedTag="SEARCH_PERMISS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <asp:DropDownList CssClass="form-select" ID="SearchPermissions" runat="server">
                             </asp:DropDownList>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel39" runat="server"
+                                           AssociatedControlID="ShowQuickSearch"
                                            LocalizedTag="QUICK_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <div class="form-check form-switch">
                                 <asp:CheckBox Text="&nbsp;" ID="ShowQuickSearch" runat="server"></asp:CheckBox>
@@ -1803,16 +1812,19 @@
                         <div class="row">
                 <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="HelpLabel140" runat="server"
+                                   AssociatedControlID="EventLogMaxMessages"
                                    LocalizedTag="EVENTLOG_MAX_MESSAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                     <asp:TextBox CssClass="form-control" ID="EventLogMaxMessages" runat="server"></asp:TextBox>
                 </div>
                 <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="HelpLabel141" runat="server"
+                                   AssociatedControlID="EventLogMaxDays"
                                    LocalizedTag="EVENTLOG_MAX_DAYS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                     <asp:TextBox CssClass="form-control" ID="EventLogMaxDays" runat="server"></asp:TextBox>
                 </div>
                 <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="HelpLabel149" runat="server"
+                                   AssociatedControlID="MessageHistoryDaysToLog"
                                    LocalizedTag="MESSAGE_CHANGE_HISTORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                     <asp:TextBox CssClass="form-control" ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
                 </div>
@@ -1825,6 +1837,7 @@
             <div class="row">
                 <div class="mb-3 col-md-6">
                                <YAF:HelpLabel ID="LogErrorLabel" runat="server"
+                                              AssociatedControlID="LogError"
                                               LocalizedTag="LOG_ERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                <div class="form-check form-switch">
                                    <asp:CheckBox Text="&nbsp;" ID="LogError" runat="server"></asp:CheckBox>
@@ -1832,6 +1845,7 @@
                            </div>
                 <div class="mb-3 col-md-6">
                                <YAF:HelpLabel ID="HelpLabel142" runat="server"
+                                              AssociatedControlID="LogWarning"
                                               LocalizedTag="LOG_WARNING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                <div class="form-check form-switch">
                                    <asp:CheckBox Text="&nbsp;" ID="LogWarning" runat="server"></asp:CheckBox>
@@ -1839,6 +1853,7 @@
                            </div>
                            <div class="mb-3 col-md-6">
                                <YAF:HelpLabel ID="HelpLabel180" runat="server"
+                                              AssociatedControlID="LogInformation"
                                               LocalizedTag="LOG_INFORMATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                <div class="form-check form-switch">
                                    <asp:CheckBox Text="&nbsp;" ID="LogInformation" runat="server"></asp:CheckBox>
@@ -1848,6 +1863,7 @@
                 <div class="row">
                     <div class="mb-3 col-md-6">
                                <YAF:HelpLabel ID="HelpLabel210" runat="server"
+                                              AssociatedControlID="LogViewStateError"
                                               LocalizedTag="LOG_VIEWSTATEERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                <div class="form-check form-switch">
                                    <asp:CheckBox Text="&nbsp;" ID="LogViewStateError" runat="server"></asp:CheckBox>
@@ -1855,6 +1871,7 @@
                            </div>
                            <div class="mb-3 col-md-6">
                                <YAF:HelpLabel ID="HelpLabel211" runat="server"
+                                              AssociatedControlID="LogBannedIP"
                                               LocalizedTag="LOG_BANNEDIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                <div class="form-check form-switch">
                                    <asp:CheckBox Text="&nbsp;" ID="LogBannedIP" runat="server"></asp:CheckBox>
@@ -1864,6 +1881,7 @@
                       <div class="row">
                           <div class="mb-3 col-md-6">
                               <YAF:HelpLabel ID="HelpLabel212" runat="server"
+                                             AssociatedControlID="LogUserDeleted"
                                              LocalizedTag="LOG_USERDELETED" LocalizedPage="ADMIN_HOSTSETTINGS" />
                               <div class="form-check form-switch">
                                   <asp:CheckBox Text="&nbsp;" ID="LogUserDeleted" runat="server"></asp:CheckBox>
@@ -1871,6 +1889,7 @@
                           </div>
                           <div class="mb-3 col-md-6">
                               <YAF:HelpLabel ID="HelpLabel213" runat="server"
+                                             AssociatedControlID="LogUserSuspendedUnsuspended"
                                              LocalizedTag="LOG_SUSPENDEDANDCONTRA" LocalizedPage="ADMIN_HOSTSETTINGS" />
                               <div class="form-check form-switch">
                                   <asp:CheckBox Text="&nbsp;" ID="LogUserSuspendedUnsuspended" runat="server"></asp:CheckBox>
