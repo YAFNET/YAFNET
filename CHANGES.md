@@ -15,6 +15,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Replace Words: the spaces around a bad word were saved (it was checked without them)
 * [FIXED] Spam protection: the banned emails and names were case sensitive
 * [FIXED] Admin menu: an admin whose only page of the Maintenance section is "Private Messages" did not see the section (and the section was not marked as active on that page)
+* [FIXED] Host Settings: the heading of the features card was "Server Info" (the text and its page were swapped)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

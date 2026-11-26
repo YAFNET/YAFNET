@@ -665,8 +665,8 @@
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel60" runat="server"
-                                              LocalizedTag="HEADER_SERVER_INFO"
-                                              LocalizedPage="HEADER_FEATURES" />
+                                              LocalizedTag="HEADER_FEATURES"
+                                              LocalizedPage="ADMIN_HOSTSETTINGS" />
                     </div>
                     <div class="card-body">
                          <ul class="nav nav-tabs" id="featuresTab" role="tablist">
