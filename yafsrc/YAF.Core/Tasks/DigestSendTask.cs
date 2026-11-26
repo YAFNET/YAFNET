@@ -23,6 +23,8 @@
  */
 namespace YAF.Core.Tasks;
 
+using YAF.Types.Exceptions;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -202,7 +204,16 @@ public class DigestSendTask : LongBackgroundTask
                     }
                 });
 
-        this.Get<IMailService>().SendAll(mailMessages);
+        try
+        {
+            this.Get<IMailService>().SendAll(mailMessages);
+        }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning (with the number of mails not sent) to the event log, the digest is
+            // not reported as sent
+            return;
+        }
 
         this.Get<ILoggerService>().Log(
             $"Digest send to {mailMessages.Count} user(s)",

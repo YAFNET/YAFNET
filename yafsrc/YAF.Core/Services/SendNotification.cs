@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services;
 
+using YAF.Types.Exceptions;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -147,6 +149,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
                         notifyModerators.SendEmail(new MailAddress(user.Email, user.DisplayOrUserName()), subject);
                     }
+                    catch (MailThrottledException)
+                    {
+                        // the mail service wrote one warning to the event log when the mail server throttled the sending
+                    }
                     catch (Exception x)
                     {
                         // a mail error does not fail the post, the other moderators get their mail
@@ -238,12 +244,20 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                 new MailAddress(membershipUser.Email, membershipUser.UserName),
                                 subject);
                         }
+                        catch (MailThrottledException)
+                        {
+                            // the mail service wrote one warning to the event log when the mail server throttled the sending
+                        }
                         catch (Exception x)
                         {
                             // the other moderators get their mail
                             this.Get<ILoggerService>().Error(x, $"Report Notification Error for {userName}");
                         }
                     });
+        }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning to the event log when the mail server throttled the sending
         }
         catch (Exception x)
         {
@@ -317,6 +331,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
             // send email
             notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject);
+        }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning to the event log when the mail server throttled the sending
         }
         catch (Exception x)
         {
@@ -451,6 +469,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     user.Email,
                                     this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
                                 subject));
+                    }
+                    catch (MailThrottledException)
+                    {
+                        // the mail service wrote one warning to the event log when the mail server throttled the sending
                     }
                     catch (Exception x)
                     {
@@ -931,6 +953,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         try
         {
             send();
+        }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning to the event log when the mail server throttled the sending
         }
         catch (Exception x)
         {
