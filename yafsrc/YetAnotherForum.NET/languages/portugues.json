@@ -989,6 +989,10 @@
             "#text": "Excluir anexo (s)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mostrar mensagens"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Anexos do utilizador"
           }

@@ -26,7 +26,10 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
+using YAF.Core.Helpers;
 using YAF.Types.Models;
 
 /// <summary>
@@ -34,6 +37,69 @@ using YAF.Types.Models;
 /// </summary>
 public static class AttachmentRepositoryExtensions
 {
+    /// <summary>
+    /// The attachment of a post: [attach]id[/attach] (like the bb code, any case).
+    /// </summary>
+    private static readonly Regex AttachTag = new(
+        @"\[attach\]\s*(?<id>\d{1,9})\s*\[/attach\]",
+        RegexOptions.IgnoreCase,
+        RegexHelper.Timeout);
+
+    /// <summary>
+    /// Gets the posts that show the attachments: their text contains "[attach]id[/attach]" (not deleted posts of
+    /// not deleted topics). The usages were the hits of the search index for "]id[", the index finds the number
+    /// in any post and only after it was updated.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="attachmentIds">The attachment ids.</param>
+    /// <returns>The posts (message id, topic id and topic name) by the attachment id.</returns>
+    public static Dictionary<int, List<(int MessageId, int TopicId, string TopicName)>> GetUsages(
+        this IRepository<Attachment> repository,
+        IList<int> attachmentIds)
+    {
+        var usages = attachmentIds.Distinct().ToDictionary(id => id, _ => new List<(int, int, string)>());
+
+        if (usages.Count == 0)
+        {
+            return usages;
+        }
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        expression.Join<Topic>((m, t) => t.ID == m.TopicID)
+            .Where<Message, Topic>((m, t) => (m.Flags & 8) != 8 && (t.Flags & 8) != 8);
+
+        // the posts with one of the numbers after "attach]" (without "[", it is a wildcard of a like on SQL Server,
+        // in lower case: the tag can be upper case), the tags are checked below
+        var patterns = usages.Keys.Select(id => $"attach]{id}").ToList();
+
+        expression.And(
+            string.Join(
+                " OR ",
+                patterns.Select(
+                    (_, index) => $"LOWER({expression.Column<Message>(m => m.MessageText, true)}) LIKE {{{index}}}")),
+            patterns.Select(pattern => (object)$"%{pattern}%").ToArray());
+
+        var messages = repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression));
+
+        foreach (var (message, topic) in messages)
+        {
+            var ids = AttachTag.Matches(message.MessageText).Cast<Match>()
+                .Select(match => int.Parse(match.Groups["id"].Value))
+                .Distinct();
+
+            foreach (var id in ids)
+            {
+                if (usages.TryGetValue(id, out var list))
+                {
+                    list.Add((message.ID, topic.ID, topic.TopicName));
+                }
+            }
+        }
+
+        return usages;
+    }
+
     /// <summary>
     /// Gets All User Attachments by Board ID as paged Result
     /// </summary>

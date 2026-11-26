@@ -51,7 +51,7 @@
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="USAGES"></YAF:LocalizedLabel>
                             <span class="badge text-bg-secondary">
-                                <%# this.Get<ISearch>().CountHits(string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID))  %>
+                                <%# this.GetPosts(((Tuple<User,Attachment>)Container.DataItem).Item2.ID).Count  %>
                             </span>
                         </small>
                     </div>
@@ -60,10 +60,7 @@
                     </p>
                     <small>
                         <div class="btn-group btn-group-sm">
-                            <a href="<%# this.Get<LinkBuilder>().GetLink(
-                                             ForumPages.Search,
-                                             new { search = string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID) }) %>"
-                               class="btn btn-info"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
+                            <%# this.GetPostsButton(((Tuple<User,Attachment>)Container.DataItem).Item2.ID) %>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"
                                              Size="Small"
@@ -75,10 +72,7 @@
                         </div>
                     </small>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                        <a href="<%# this.Get<LinkBuilder>().GetLink(
-                                         ForumPages.Search,
-                                         new { search = string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID) }) %>"
-                           class="dropdown-item"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
+                        <%# this.GetPostsMenuItems(((Tuple<User,Attachment>)Container.DataItem).Item2.ID) %>
                         <YAF:ThemeButton runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"

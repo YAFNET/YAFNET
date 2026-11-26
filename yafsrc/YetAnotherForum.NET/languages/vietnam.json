@@ -989,6 +989,10 @@
             "#text": "Xóa (các) tệp đính kèm?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Hiển thị bài viết"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
           }

@@ -989,6 +989,10 @@
             "#text": "Ștergeți atașamentul (e)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Afișați postările"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Atașamente de utilizator"
           }

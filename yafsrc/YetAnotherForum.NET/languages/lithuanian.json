@@ -989,6 +989,10 @@
             "#text": "Ištrinti priedą (-us)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Rodyti pranešimus"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Naudotojo priedai"
           }

@@ -173,6 +173,83 @@ public partial class Attachments : AdminPage
     }
 
     /// <summary>
+    /// Gets or sets the posts that show the attachments of the page (by the attachment id).
+    /// </summary>
+    protected Dictionary<int, List<(int MessageId, int TopicId, string TopicName)>> Usages { get; set; } = new();
+
+    /// <summary>
+    /// Gets the posts that show an attachment.
+    /// </summary>
+    /// <param name="attachmentId">The attachment id.</param>
+    /// <returns>The posts.</returns>
+    protected List<(int MessageId, int TopicId, string TopicName)> GetPosts(int attachmentId)
+    {
+        return this.Usages.TryGetValue(attachmentId, out var posts)
+                   ? posts
+                   : new List<(int MessageId, int TopicId, string TopicName)>();
+    }
+
+    /// <summary>
+    /// The button that leads to the posts with the attachment (a menu with more than one post).
+    /// </summary>
+    /// <param name="attachmentId">The attachment id.</param>
+    /// <returns>The html of the button.</returns>
+    protected string GetPostsButton(int attachmentId)
+    {
+        var posts = this.GetPosts(attachmentId);
+        var text = this.HtmlEncode(this.GetText("ADMIN_ATTACHMENTS", "SHOW_POSTS"));
+
+        switch (posts.Count)
+        {
+            case 0:
+                return string.Empty;
+            case 1:
+                return
+                    $@"<a href=""{this.GetPostLink(posts[0].MessageId, posts[0].TopicName)}"" class=""btn btn-info"" title=""{this.HtmlEncode(posts[0].TopicName)}""><i class=""fas fa-comment me-1""></i>{text}</a>";
+            default:
+                var items = string.Concat(
+                    posts.Select(
+                        post =>
+                            $@"<li><a class=""dropdown-item text-break"" href=""{this.GetPostLink(post.MessageId, post.TopicName)}"">{this.HtmlEncode(post.TopicName)}</a></li>"));
+
+                return
+                    $@"<div class=""btn-group btn-group-sm""><button type=""button"" class=""btn btn-info dropdown-toggle"" data-bs-toggle=""dropdown"" aria-expanded=""false""><i class=""fas fa-comments me-1""></i>{text}</button><ul class=""dropdown-menu"">{items}</ul></div>";
+        }
+    }
+
+    /// <summary>
+    /// The context menu entries of the posts with the attachment.
+    /// </summary>
+    /// <param name="attachmentId">The attachment id.</param>
+    /// <returns>The html of the entries.</returns>
+    protected string GetPostsMenuItems(int attachmentId)
+    {
+        var posts = this.GetPosts(attachmentId);
+
+        if (posts.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        return string.Concat(
+                   posts.Select(
+                       post =>
+                           $@"<a class=""dropdown-item text-break"" href=""{this.GetPostLink(post.MessageId, post.TopicName)}""><i class=""fas fa-comment me-1""></i>{this.HtmlEncode(post.TopicName)}</a>"))
+               + @"<div class=""dropdown-divider""></div>";
+    }
+
+    /// <summary>
+    /// Gets the link to a post.
+    /// </summary>
+    /// <param name="messageId">The message id.</param>
+    /// <param name="topicName">The topic name.</param>
+    /// <returns>The link.</returns>
+    private string GetPostLink(int messageId, string topicName)
+    {
+        return this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = messageId, name = topicName });
+    }
+
+    /// <summary>
     /// Populates data source and binds data to controls.
     /// </summary>
     private void BindData()
@@ -189,6 +266,11 @@ public partial class Attachments : AdminPage
             baseSize);
 
         this.List.DataSource = list;
+
+        // the posts with the attachments (the search index found the number in any post, and only after an update)
+        this.Usages = list.NullOrEmpty()
+                          ? new Dictionary<int, List<(int MessageId, int TopicId, string TopicName)>>()
+                          : this.GetRepository<Attachment>().GetUsages(list.Select(x => x.Item2.ID).ToList());
 
         this.PagerTop.Count = !list.NullOrEmpty() ? count : 0;
 

@@ -992,6 +992,10 @@
 					{
 						"@tag": "CONFIRM_DELETE",
 						"#text": "Delete attachment(s)?"
+					},
+					{
+						"@tag": "SHOW_POSTS",
+						"#text": "Show posts"
 					}
 				]
 			},

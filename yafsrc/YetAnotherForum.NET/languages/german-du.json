@@ -989,6 +989,10 @@
             "#text": "Anhaftungen löschen?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Beiträge anzeigen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Benutzer-Anhänge"
           }

@@ -989,6 +989,10 @@
             "#text": "¿Eliminar el accesorio (s)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mostrar mensajes"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Archivos adjuntos de los usuarios"
           }

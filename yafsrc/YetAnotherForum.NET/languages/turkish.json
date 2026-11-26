@@ -989,6 +989,10 @@
             "#text": "Ek (ler) si silinsin mi?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mesajları göster"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kullanıcı Ekleri"
           }

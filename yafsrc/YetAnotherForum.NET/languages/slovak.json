@@ -989,6 +989,10 @@
             "#text": "Odstrániť prílohy?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Zobraziť príspevky"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Prílohy používateľa"
           }

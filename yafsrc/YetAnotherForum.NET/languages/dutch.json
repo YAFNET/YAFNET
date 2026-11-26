@@ -989,6 +989,10 @@
             "#text": "Bijlage (s) verwijderen?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Berichten tonen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Gebruikersbijlagen"
           }

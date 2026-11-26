@@ -989,6 +989,10 @@
             "#text": "Supprimer les pièces jointes?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Afficher les messages"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Pièces jointes par l'utilisateur"
           }

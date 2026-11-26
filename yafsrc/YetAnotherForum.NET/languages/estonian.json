@@ -989,6 +989,10 @@
             "#text": "Kustuta kinnitus (d)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Näita postitusi"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kasutaja manused"
           }

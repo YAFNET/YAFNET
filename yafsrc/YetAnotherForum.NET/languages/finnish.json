@@ -989,6 +989,10 @@
             "#text": "Poista liitetiedot?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Näytä viestit"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Käyttäjän liitteet"
           }

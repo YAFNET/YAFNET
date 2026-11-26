@@ -989,6 +989,10 @@
             "#text": "Slet tilknytning (er)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Vis indlæg"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Brugervedhæftede filer"
           }

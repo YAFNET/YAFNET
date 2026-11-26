@@ -989,6 +989,10 @@
             "#text": "Slette vedlegg (er)?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Vis innlegg"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Brukervedlegg"
           }

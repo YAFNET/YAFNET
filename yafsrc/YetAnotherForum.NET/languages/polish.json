@@ -989,6 +989,10 @@
             "#text": "Usuń załącznik?"
           },
           {
+            "@tag": "SHOW_POSTS",
+            "#text": "Pokaż posty"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Załączniki użytkownika"
           }
