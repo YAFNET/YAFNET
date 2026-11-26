@@ -98,7 +98,17 @@ public static class MedalRepositoryExtensions
                 .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
                     Flags, DateTime DateAwarded)>(expressionUserGroup));
 
-        return userMedals.Union(userGroupMedals).Distinct().ToList();
+        // one entry per medal (the award of the user first): a medal of several groups was listed more than once, and a
+        // medal hidden in one award was still shown when the user had it from another award
+        return userMedals.Concat(userGroupMedals).GroupBy(medal => medal.MedalID).Select(
+            awards =>
+                {
+                    var medal = awards.First();
+
+                    medal.Hide = awards.Any(award => award.Hide);
+
+                    return medal;
+                }).ToList();
     }
 
     /// <summary>

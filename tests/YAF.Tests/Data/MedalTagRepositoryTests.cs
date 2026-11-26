@@ -129,6 +129,28 @@ public class MedalTagRepositoryTests
     }
 
     [Test]
+    [Description("A medal of the user and of two groups is listed once, hidden when one award hides it (it was listed three times and shown)")]
+    public void Medal_ListUserMedals_Several_Awards_Test()
+    {
+        var medal = this.AddMedal("Shared", MedalFlags.Flags.AllowHiding);
+        var firstGroup = this.db.AddForumAccess(this.alice, this.db.AddForum());
+        var secondGroup = this.db.AddForumAccess(this.alice, this.db.AddForum());
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new UserMedal { UserID = this.alice, MedalID = medal, Message = "personal", Hide = false, SortOrder = 1, DateAwarded = DateTime.UtcNow });
+            connection.Insert(new GroupMedal { GroupID = firstGroup, MedalID = medal, Hide = true, SortOrder = 2 });
+            connection.Insert(new GroupMedal { GroupID = secondGroup, MedalID = medal, Hide = false, SortOrder = 3 });
+        }
+
+        var medals = this.Medals.ListUserMedals(this.alice);
+
+        medals.Should().ContainSingle();
+        medals[0].Message.Should().Be("personal", "the award of the user comes first");
+        medals[0].Hide.Should().BeTrue("one award hides the medal");
+    }
+
+    [Test]
     [Description("A user without medals gets an empty list")]
     public void Medal_ListUserMedals_None_Test()
     {
