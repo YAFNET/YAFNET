@@ -340,8 +340,11 @@ public partial class UserProfile : ForumPage
         this.CustomProfile.DataSource = customProfile;
         this.CustomProfile.DataBind();
 
-        if (user.Item1.ID == this.PageBoardContext.PageUserID)
+        // guests can not send private messages or emails (they got the buttons, which led to "access denied")
+        if (user.Item1.ID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsGuest)
         {
+            this.PM.Visible = false;
+            this.Email.Visible = false;
             return;
         }
 
