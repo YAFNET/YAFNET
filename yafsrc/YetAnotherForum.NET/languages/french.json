@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Code JS utilisé pour modifier l'éditeur de texte. Utilisez \"{editorid}\" (sans guillemets) pour que l'ID de l'éditeur de texte soit remplacé dans le code. Il suffit d'entrer le javascript dans ce champ. La balise script sera ajoutée automatiquement."
+            "#text": "Code JS utilisé pour modifier l'éditeur de texte. Utilisez \"{{editorid}}\" (sans guillemets) pour que l'ID de l'éditeur de texte soit remplacé dans le code. Il suffit d'entrer le javascript dans ce champ. La balise script sera ajoutée automatiquement."
           },
           {
             "@tag": "EXEC_ORDER",

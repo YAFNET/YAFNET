@@ -43,7 +43,7 @@ public class AdminListsTests : ForumTestBase
     [TestCase("BannedEmails", "Add New Email", "Import Email(s)", "mask", "BanReason", "ui{0}@example.com", "ui{0}x@example.com", "txt", true)]
     [TestCase("BannedIps", "Add New Address", "Import Address(es)", "mask", "BanReason", "198.51.{1}.*", "198.51.{1}.1", "txt", true)]
     [TestCase("BannedNames", "Add New User Name", "Import Name(s)", "mask", "BanReason", "uiname{0}", "uiname{0}x", "txt", true)]
-    [TestCase("BannedUserAgents", "Add New UserAgent", "Import UserAgent(s)", "mask", null, "UiAgent{0}", "UiAgent{0}x", "txt", true)]
+    [TestCase("BannedUserAgents", "Add New User Agent", "Import User Agent(s)", "mask", null, "UiAgent{0}", "UiAgent{0}x", "txt", true)]
     [TestCase("SpamWords", "Add New Word", "Import from XML", "spamword", null, "uispam{0}", "uispam{0}x", "xml", false)]
     [TestCase("ReplaceWords", "Add New Word Replace", "Import from XML", "badword", "goodword", "uibad{0}", "uibad{0}x", "xml", false)]
     [Description("An entry is added (twice), found, edited, exported, deleted and imported again from the export, a file that is not text is refused")]

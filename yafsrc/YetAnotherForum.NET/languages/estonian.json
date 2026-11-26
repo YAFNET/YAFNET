@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-kood, mida kasutatakse tekstiredaktori muutmiseks. Kasutage \"{editorid}\" (ilma jutumärkideta), et koodis asendataks see tekstiredaktori ID-ga. Sisestage sellele väljale lihtsalt javascript. Silt script lisatakse automaatselt."
+            "#text": "JS-kood, mida kasutatakse tekstiredaktori muutmiseks. Kasutage \"{{editorid}}\" (ilma jutumärkideta), et koodis asendataks see tekstiredaktori ID-ga. Sisestage sellele väljale lihtsalt javascript. Silt script lisatakse automaatselt."
           },
           {
             "@tag": "EXEC_ORDER",

@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Código JS para modificar el editor de texto. Use \"{editorid}\" (sin comillas) para que se reemplace por el ID del editor de texto en el código. Introduzca javascript en este campo, la etiqueta script se añadirá automáticamente."
+            "#text": "Código JS para modificar el editor de texto. Use \"{{editorid}}\" (sin comillas) para que se reemplace por el ID del editor de texto en el código. Introduzca javascript en este campo, la etiqueta script se añadirá automáticamente."
           },
           {
             "@tag": "EXEC_ORDER",

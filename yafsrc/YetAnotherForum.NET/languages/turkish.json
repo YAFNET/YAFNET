@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Metin düzenleyiciyi değiştirmek için kullanılan JS kodu. Metin düzenleyici kimliğinin kodda değiştirilmesi için \"{editorid}\" (tırnak işaretleri olmadan) kullanın. Bu alana sadece javascript girin. script etiketi otomatik olarak eklenecektir."
+            "#text": "Metin düzenleyiciyi değiştirmek için kullanılan JS kodu. Metin düzenleyici kimliğinin kodda değiştirilmesi için \"{{editorid}}\" (tırnak işaretleri olmadan) kullanın. Bu alana sadece javascript girin. script etiketi otomatik olarak eklenecektir."
           },
           {
             "@tag": "EXEC_ORDER",

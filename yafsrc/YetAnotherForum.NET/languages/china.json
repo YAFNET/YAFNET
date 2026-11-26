@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "用于修改文本编辑器的 JS 代码。使用“{editorid}”（不带引号）可在代码中替换为文本编辑器的 ID。只需在此字段中输入 JavaScript，script 标签会自动添加。"
+            "#text": "用于修改文本编辑器的 JS 代码。使用“{{editorid}}”（不带引号）可在代码中替换为文本编辑器的 ID。只需在此字段中输入 JavaScript，script 标签会自动添加。"
           },
           {
             "@tag": "EXEC_ORDER",

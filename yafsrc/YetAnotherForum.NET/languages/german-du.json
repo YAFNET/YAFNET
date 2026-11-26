@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-Code, mit dem der Texteditor angepasst wird. Verwende \"{editorid}\" (ohne Anführungszeichen), damit die ID des Texteditors im Code eingesetzt wird. Gib einfach JavaScript in dieses Feld ein. Das script-Tag wird automatisch hinzugefügt."
+            "#text": "JS-Code, mit dem der Texteditor angepasst wird. Verwende \"{{editorid}}\" (ohne Anführungszeichen), damit die ID des Texteditors im Code eingesetzt wird. Gib einfach JavaScript in dieses Feld ein. Das script-Tag wird automatisch hinzugefügt."
           },
           {
             "@tag": "EXEC_ORDER",

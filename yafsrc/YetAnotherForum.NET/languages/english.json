@@ -1583,7 +1583,7 @@
 					{
 						"@tag": "EDIT_JS_HELP",
 						"#text":
-							"JS code used to modify the text editor. Use \"{editorid}\" (without quotes) to have the text editor ID replaced in the code. Just enter javascript into this field. script tag will be added automatically."
+							"JS code used to modify the text editor. Use \"{{editorid}}\" (without quotes) to have the text editor ID replaced in the code. Just enter javascript into this field. script tag will be added automatically."
 					},
 					{
 						"@tag": "EXEC_ORDER",

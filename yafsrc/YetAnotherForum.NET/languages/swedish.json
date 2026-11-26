@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-kod som används för att ändra textredigeraren. Använd \"{editorid}\" (utan citationstecken) för att få textredigerarens ID insatt i koden. Skriv bara in JavaScript i detta fält. Script-taggen läggs till automatiskt."
+            "#text": "JS-kod som används för att ändra textredigeraren. Använd \"{{editorid}}\" (utan citationstecken) för att få textredigerarens ID insatt i koden. Skriv bara in JavaScript i detta fält. Script-taggen läggs till automatiskt."
           },
           {
             "@tag": "EXEC_ORDER",

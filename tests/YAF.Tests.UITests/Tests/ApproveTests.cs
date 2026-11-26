@@ -36,17 +36,19 @@ using YAF.Tests.UITests.Infrastructure;
 public class ApproveTests : ForumTestBase
 {
     [Test]
-    [Description("No key and an unknown key (in the address and in the form) fail")]
+    [Description("No key shows the field for the key without an error, an unknown key (in the address and in the form) fails")]
     public async Task Invalid_Key_Test()
     {
         await this.LogoutAsync();
 
-        foreach (var url in new[] { "Account/Approve", "Account/Approve?code=unknown" })
-        {
-            await this.GotoAsync(url);
-            await this.AssertNoServerErrorAsync();
-            (await this.Page.InnerTextAsync("body")).Should().Contain("Failed to verify email address.", url);
-        }
+        await this.GotoAsync("Account/Approve");
+        await this.AssertNoServerErrorAsync();
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("Failed to verify email address.");
+        (await this.Control("key").IsVisibleAsync()).Should().BeTrue();
+
+        await this.GotoAsync("Account/Approve?code=unknown");
+        await this.AssertNoServerErrorAsync();
+        (await this.Page.InnerTextAsync("body")).Should().Contain("Failed to verify email address.");
 
         await this.Control("key").FillAsync("another unknown key");
         await this.ClickAndWaitAsync(this.Control("ValidateKey"));
@@ -89,7 +91,7 @@ public class ApproveTests : ForumTestBase
         await this.LoginAsync(member, TestConfig.TestUserPassword);
         await this.GotoAsync(mail.GetLink("Approve"));
         await this.AssertNoServerErrorAsync();
-        (await this.Page.InnerTextAsync("body")).Should().Contain("The e-mail address you have entered is already in use.");
+        (await this.Page.InnerTextAsync("body")).Should().Contain("The email address you have entered is already in use.");
 
         await this.GotoAsync("Profile/EditSettings");
         (await this.Control("ProfileSettings_Email").InputValueAsync()).Should().Be(EmailOf(member));

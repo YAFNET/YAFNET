@@ -91,23 +91,15 @@ public class AdminForumsTests : ForumTestBase
 
         await this.LoginAsAdminAsync();
 
-        // more entries than one page (a category with forums), the category of the test is the last one
-        var other = $"MMM sort {id}";
-        await this.CreateCategoryAsync(other, "90");
-
+        // more categories than one page (the pages list whole categories), the category of the test is the last one
         for (var i = 1; i <= 5; i++)
         {
-            await this.GotoAsync("Admin/EditForum");
-            await this.Control("Name").FillAsync($"Sort forum {id} {i}");
-            await this.Control("Description").FillAsync("A forum to sort");
-            await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = other });
-            await this.Control("SortOrder").FillAsync(i.ToString());
-            await this.ClickAndWaitAsync(this.Control("Save"));
+            await this.CreateCategoryAsync($"MMM sort {id} {i}", "90");
         }
 
         await this.CreateCategoryAsync(first, "99");
 
-        // five entries per page: the new category is not on the first page
+        // five categories per page: the new category is not on the first page
         await this.GotoAsync("Admin/Forums");
         await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("5", new LocatorSelectOptionOptions { Force = true }));

@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS kód na úpravu textového editora. Použite „{editorid}“ (bez úvodzoviek), aby sa v kóde nahradilo ID textového editora. Do tohto poľa zadajte iba JavaScript. Značka script sa pridá automaticky."
+            "#text": "JS kód na úpravu textového editora. Použite „{{editorid}}“ (bez úvodzoviek), aby sa v kóde nahradilo ID textového editora. Do tohto poľa zadajte iba JavaScript. Značka script sa pridá automaticky."
           },
           {
             "@tag": "EXEC_ORDER",

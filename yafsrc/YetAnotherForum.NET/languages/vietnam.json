@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Mã JS dùng để sửa đổi trình soạn thảo văn bản. Dùng \"{editorid}\" (không có dấu ngoặc kép) để ID của trình soạn thảo được thay vào mã. Chỉ cần nhập javascript vào trường này. Thẻ script sẽ được thêm tự động."
+            "#text": "Mã JS dùng để sửa đổi trình soạn thảo văn bản. Dùng \"{{editorid}}\" (không có dấu ngoặc kép) để ID của trình soạn thảo được thay vào mã. Chỉ cần nhập javascript vào trường này. Thẻ script sẽ được thêm tự động."
           },
           {
             "@tag": "EXEC_ORDER",

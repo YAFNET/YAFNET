@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS kodas, naudojamas teksto redaktoriui keisti. Naudokite \"{editorid}\" (be kabučių), kad kode būtų įrašytas teksto redaktoriaus ID. Tiesiog įveskite javascript į šį lauką. Žyma script bus pridėta automatiškai."
+            "#text": "JS kodas, naudojamas teksto redaktoriui keisti. Naudokite \"{{editorid}}\" (be kabučių), kad kode būtų įrašytas teksto redaktoriaus ID. Tiesiog įveskite javascript į šį lauką. Žyma script bus pridėta automatiškai."
           },
           {
             "@tag": "EXEC_ORDER",

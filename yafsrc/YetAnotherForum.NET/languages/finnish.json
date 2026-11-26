@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-koodi, jolla muokataan tekstieditoria. Käytä merkintää \"{editorid}\" (ilman lainausmerkkejä), niin se korvataan koodissa tekstieditorin tunnuksella. Kirjoita kenttään pelkkä JavaScript. Script-tagi lisätään automaattisesti."
+            "#text": "JS-koodi, jolla muokataan tekstieditoria. Käytä merkintää \"{{editorid}}\" (ilman lainausmerkkejä), niin se korvataan koodissa tekstieditorin tunnuksella. Kirjoita kenttään pelkkä JavaScript. Script-tagi lisätään automaattisesti."
           },
           {
             "@tag": "EXEC_ORDER",

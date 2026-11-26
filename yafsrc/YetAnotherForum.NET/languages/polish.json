@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Kod JS używany do modyfikacji edytora tekstu. Użyj \"{editorid}\" (bez cudzysłowu), aby w kodzie podstawić identyfikator edytora tekstu. Po prostu wpisz JavaScript w to pole. Znacznik script zostanie dodany automatycznie."
+            "#text": "Kod JS używany do modyfikacji edytora tekstu. Użyj \"{{editorid}}\" (bez cudzysłowu), aby w kodzie podstawić identyfikator edytora tekstu. Po prostu wpisz JavaScript w to pole. Znacznik script zostanie dodany automatycznie."
           },
           {
             "@tag": "EXEC_ORDER",

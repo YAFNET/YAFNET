@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Codice JS usato per modificare l'editor di testo. Utilizzare \"{editorid}\" (senza virgolette) per sostituire l'ID dell'editor di testo nel codice. È sufficiente inserire il codice javascript in questo campo. Il tag script verrà aggiunto automaticamente."
+            "#text": "Codice JS usato per modificare l'editor di testo. Utilizzare \"{{editorid}}\" (senza virgolette) per sostituire l'ID dell'editor di testo nel codice. È sufficiente inserire il codice javascript in questo campo. Il tag script verrà aggiunto automaticamente."
           },
           {
             "@tag": "EXEC_ORDER",

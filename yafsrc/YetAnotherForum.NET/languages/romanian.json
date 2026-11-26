@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Cod JS folosit pentru a modifica editorul de text. Folosiți \"{editorid}\" (fără ghilimele) pentru ca ID-ul editorului de text să fie înlocuit în cod. Introduceți doar JavaScript în acest câmp. Eticheta script va fi adăugată automat."
+            "#text": "Cod JS folosit pentru a modifica editorul de text. Folosiți \"{{editorid}}\" (fără ghilimele) pentru ca ID-ul editorului de text să fie înlocuit în cod. Introduceți doar JavaScript în acest câmp. Eticheta script va fi adăugată automat."
           },
           {
             "@tag": "EXEC_ORDER",

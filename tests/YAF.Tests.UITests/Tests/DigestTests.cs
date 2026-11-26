@@ -56,7 +56,7 @@ public class DigestTests : ForumTestBase
         await this.Control("TextSendEmail").FillAsync(address);
         await this.ClickAndWaitAsync(this.Control("TestSend"));
         await this.AssertNoServerErrorAsync();
-        (await this.Page.ContentAsync()).Should().Contain("successfully");
+        (await this.Page.ContentAsync()).Should().Contain($"The test digest was sent to {address}.");
 
         await TestMail.WaitForAsync(address, started);
 

@@ -375,7 +375,7 @@ public class ContentFeatureTests : ForumTestBase
         await this.LogoutAsync();
         await this.GotoAsync(topicHref);
         (await this.Page.InnerTextAsync("body")).Should().NotContain(replySecret).And.NotContain(thanksSecret)
-            .And.Contain("registered and logged-in");
+            .And.Contain("registered and logged in");
 
         // a member who neither replied nor thanked
         await this.LoginAsUserAsync(TestConfig.TestUserName2);
