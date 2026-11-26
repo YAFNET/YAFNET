@@ -1264,30 +1264,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// The forum mods popover JS.
-    /// </summary>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string ForumModsPopoverJs(string title)
-    {
-        return $$"""
-                 var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
-                                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
-                                            return new bootstrap.Popover(popoverTriggerEl,{
-                                            title: '{{JsEncode(title)}}',
-                                            html: true,
-                                            trigger: 'focus',
-                                            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
-                                            });
-                                 });
-                 """;
-    }
-
-    /// <summary>
     /// The Hover Card Load JS.
     /// </summary>
     /// <returns>

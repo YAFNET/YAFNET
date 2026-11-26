@@ -300,10 +300,10 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
-    /// The button of the moderators is shown only when the forum has moderators: an empty list was shown.
+    /// The moderators of a forum are shown only when the forum has moderators: an empty list was shown.
     /// </summary>
     [Test]
-    public async Task ModeratorsButtonOnlyWithModeratorsTest()
+    public async Task ModeratorsOnlyWithModeratorsTest()
     {
         await this.Fixture.Context.GotoPageAsync(
             this.TestSettings.TestForumUrl,
@@ -317,7 +317,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 // the test forum is moderated by the admins
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/test");
 
-                Assert.That(await page.Locator(".forum-mods-popover").CountAsync(), Is.EqualTo(1), "The button of the moderators is missing");
+                Assert.That(await page.Locator(".forum-moderators").CountAsync(), Is.EqualTo(1), "The moderators are missing");
 
                 // a forum without moderators (all roles read only)
                 var name = $"No moderators {Random.Shared.Next()}";
@@ -341,7 +341,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{forumId}/test");
 
                     Assert.That(await page.ContentAsync(), Does.Contain(name), "The forum is not shown");
-                    Assert.That(await page.Locator(".forum-mods-popover").CountAsync(), Is.Zero, "The button of the moderators is shown without moderators");
+                    Assert.That(await page.Locator(".forum-moderators").CountAsync(), Is.Zero, "The moderators are shown without moderators");
                 }
                 finally
                 {

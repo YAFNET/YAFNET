@@ -113,6 +113,20 @@
         color: var(--bs-secondary-color);
     }
 
+    // the moderators of the forum below the description
+    .forum-moderators {
+        gap: .25rem .6rem;
+        margin-top: .35rem;
+
+        .forum-moderators-label {
+            font-weight: 500;
+        }
+
+        .forum-moderators-more {
+            cursor: help;
+        }
+    }
+
     .topics-header-actions {
         display: flex;
         flex-wrap: wrap;

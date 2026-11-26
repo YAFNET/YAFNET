@@ -88,9 +88,10 @@
     }
 }
 
-// the poster and the time of the last post, the topic starter in the topic list
+// the poster and the time of the last post, the topic starter in the topic list, the moderators of a forum
 .last-post-meta,
-.topic-starter-meta {
+.topic-starter-meta,
+.forum-moderators {
     display: flex;
     flex-wrap: wrap;
     align-items: center;

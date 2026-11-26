@@ -363,9 +363,6 @@
 		@await Html.PartialAsync("_EditorScriptsPartial")
 	}
 	<script>
-	@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
-		$"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
-
 	@Html.Raw(JsAndCssHelper.CompressJavaScript(
 		JavaScriptBlocks.ForumIconLegendPopoverJs(
 			(await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
