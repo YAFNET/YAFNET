@@ -141,8 +141,8 @@ public class AdminImportControllerTests
                         "application/xml")))
             .MessageType.Should().Be(MessageTypes.success.ToString());
 
-        this.Repository<SpamWords>().Get(_ => true).Select(s => s.SpamWord).Should().Equal("casino");
-        this.Repository<ReplaceWords>().Get(_ => true).Select(r => r.BadWord).Should().Equal("darn");
+        (await this.Repository<SpamWords>().GetAsync(_ => true)).Select(s => s.SpamWord).Should().Equal("casino");
+        (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(r => r.BadWord).Should().Equal("darn");
     }
 
     [Test]

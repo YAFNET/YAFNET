@@ -138,7 +138,10 @@ public class CustomBBCodeTests
             }
         }
 
+        // the synchronous version is tested on purpose
+#pragma warning disable S6966
         this.Service.GetCustomBBCodes().Select(b => b.Name).Should().Equal("FIRST", "SECOND", "THIRD");
+#pragma warning restore S6966
 
         this.board.Current.Get<YAF.Types.Interfaces.IDataCache>().Remove(YAF.Types.Constants.Constants.Cache.CustomBBCode);
 

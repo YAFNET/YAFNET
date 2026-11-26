@@ -87,7 +87,7 @@ public partial class LanguageFormatTests
             Assert.Ignore("The source code is not available next to the tests.");
         }
 
-        var date = new DateTime(2026, 11, 24, 14, 30, 5);
+        var date = new DateTime(2026, 11, 24, 14, 30, 5, DateTimeKind.Unspecified);
         var errors = new List<string>();
 
         foreach (var file in Directory.EnumerateFiles(Path.Combine(root, "YAFNET.UI", "YAFNET.RazorPages", "wwwroot", "languages"), "*.json"))
