@@ -12560,7 +12560,7 @@
           },
           {
             "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Themen Beschreibung darf nicht mehr als {0} Zeichen lang sein."
+            "#text": "Die Themenbeschreibung darf nicht länger als 255 Zeichen sein."
           },
           {
             "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
@@ -12568,7 +12568,7 @@
           },
           {
             "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Themen Titel darf nicht mehr als {0} Zeichen lang sein."
+            "#text": "Der Thementitel darf nicht länger als 255 Zeichen sein."
           },
           {
             "@tag": "TOPIC_NAME_WORDTOOLONG",
