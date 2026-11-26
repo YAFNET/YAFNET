@@ -105,6 +105,28 @@ public class BoardRepositoryTests
     }
 
     [Test]
+    [Description("New forums of a new board get the member access of that board (the default mask id 3 belonged to the first board), and a mask of another board falls back to the member access of the board")]
+    public void Create_Default_Forum_Access_Mask_Test()
+    {
+        var boardId = this.CreateBoard(isHostAdmin: false, rolePrefix: "B2 ");
+
+        var masks = this.Repository<AccessMask>().GetByBoardId(boardId);
+        var memberAccess = masks.Single(m => m.Name == "Member Access").ID;
+
+        (this.Repository<Registry>().GetSingle(r => r.Name == "forumdefaultaccessmask" && r.BoardID == boardId)).Value
+            .Should().Be(memberAccess.ToString());
+
+        // a mask of another board (e.g. the default id of the setting)
+        var otherBoardMask = this.Repository<AccessMask>().Insert(
+            new AccessMask { BoardID = TestDatabase.BoardId, Name = "Other board", Flags = 423, SortOrder = 1 });
+
+        this.Repository<AccessMask>().GetDefaultForumAccessMaskId(otherBoardMask, boardId)
+            .Should().Be(memberAccess, "the mask with the most rights without moderator access");
+
+        this.Repository<AccessMask>().GetDefaultForumAccessMaskId(memberAccess, boardId).Should().Be(memberAccess);
+    }
+
+    [Test]
     [Description("A host admin creating a board makes the new admin a host admin too")]
     public void Create_HostAdmin_Test()
     {

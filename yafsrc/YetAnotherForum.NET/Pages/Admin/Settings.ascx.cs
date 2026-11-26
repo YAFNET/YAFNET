@@ -262,7 +262,10 @@ public partial class Settings : AdminPage
         this.ForumDefaultAccessMask.DataTextField = "Name";
         this.ForumDefaultAccessMask.DataBind();
 
-        SetSelectedOnList(ref this.ForumDefaultAccessMask, boardSettings.ForumDefaultAccessMask.ToString());
+        // a mask of this board (else the list showed the first mask and the next save stored it)
+        SetSelectedOnList(
+            ref this.ForumDefaultAccessMask,
+            this.GetRepository<AccessMask>().GetDefaultForumAccessMaskId(boardSettings.ForumDefaultAccessMask).ToString());
 
         if (boardSettings.Theme.Contains(".xml"))
         {

@@ -292,7 +292,10 @@ public partial class EditForum : AdminPage
         else
         {
             // Load default from board settings
-            var item = list.Items.FindByValue(this.PageBoardContext.BoardSettings.ForumDefaultAccessMask.ToString());
+            // a mask of this board (the default of the setting belongs to the first board)
+            var item = list.Items.FindByValue(
+                this.GetRepository<AccessMask>().GetDefaultForumAccessMaskId(
+                    this.PageBoardContext.BoardSettings.ForumDefaultAccessMask).ToString());
 
             if (item != null)
             {

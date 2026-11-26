@@ -62,6 +62,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit message: a post edited to spam stayed approved and visible with the spam handling "flag as not approved"
 * [FIXED] Registration: the "Default Notification Setting" and "Default Send Digest On for New Users" of the board settings were only used for users created by an admin or imported, users who registered themselves always had "Turn off notifications" and no digest; every new user gets the defaults now
 * [FIXED] Admin Page Access: a new admin got "Host Admin permissions required!" even on the Admin Index until the host admin saved the page access once; every admin can open the Admin Index now, its actions (approve, delete and resend the email of unverified users) need the access to Users
+* [FIXED] Access masks of new forums and roles: "Add to YAF" (Admin > Roles, roles of the membership provider) gave the new role the access mask with the id 1 in all forums ("Admin Access" with moderator rights on the first board), and on a second board new forums preselected a mask of the first board; a new board gets its own "Member Access" as default, a mask of another board falls back to the member access of the board
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

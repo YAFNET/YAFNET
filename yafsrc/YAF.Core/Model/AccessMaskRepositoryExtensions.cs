@@ -31,6 +31,51 @@ using YAF.Types.Models;
 public static class AccessMaskRepositoryExtensions
 {
     /// <summary>
+    /// Gets the access mask new forums give to the roles (and a new role gets in the forums): the mask of the
+    /// board setting if it belongs to the board (the default is the id of the "Member Access" of the first board,
+    /// on another board it was a mask of the first board), otherwise the mask of the board with the most rights
+    /// without moderator access ("Member Access" of a new board).
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="defaultMaskId">The access mask of the board setting.</param>
+    /// <param name="boardId">The board id.</param>
+    /// <returns>The access mask id, 0 if the board has no masks.</returns>
+    public static int GetDefaultForumAccessMaskId(
+        this IRepository<AccessMask> repository,
+        int defaultMaskId,
+        int? boardId = null)
+    {
+        var masks = repository.GetByBoardId(boardId);
+
+        if (masks.Any(m => m.ID == defaultMaskId))
+        {
+            return defaultMaskId;
+        }
+
+        return masks.Where(m => !new AccessFlags(m.Flags).ModeratorAccess)
+            .OrderByDescending(m => CountBits(m.Flags))
+            .Select(m => m.ID)
+            .FirstOrDefault();
+    }
+
+    /// <summary>
+    /// The number of the rights of a mask.
+    /// </summary>
+    /// <param name="flags">The flags of the mask.</param>
+    /// <returns>The number of the set bits.</returns>
+    private static int CountBits(int flags)
+    {
+        var count = 0;
+
+        for (var value = (uint)flags; value != 0; value &= value - 1)
+        {
+            count++;
+        }
+
+        return count;
+    }
+
+    /// <summary>
     /// The save.
     /// </summary>
     /// <param name="repository">The repository.</param>

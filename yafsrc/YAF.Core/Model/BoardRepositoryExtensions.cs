@@ -321,6 +321,10 @@ public static class BoardRepositoryExtensions
         BoardContext.Current.GetRepository<ForumAccess>().Insert(
             new ForumAccess { GroupID = groupIdMember, ForumID = forum.ID, AccessMaskID = accessMaskIdMember });
 
+        // the default access mask of new forums is the member access of this board (the default of the setting is the
+        // id of the mask of the first board)
+        BoardContext.Current.GetRepository<Registry>().Save("ForumDefaultAccessMask", accessMaskIdMember, newBoardId);
+
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
 
         repository.FireNew(newBoardId);

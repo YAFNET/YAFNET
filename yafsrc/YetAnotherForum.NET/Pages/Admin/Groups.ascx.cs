@@ -189,7 +189,11 @@ public partial class Groups : AdminPage
                     this.PageBoardContext.PageBoardID,
                     e.CommandArgument.ToString(),
                     groupFlags,
-                    1,
+
+                    // the default access mask of new forums (the id 1 was "Admin Access" with moderator rights on the
+                    // first board, and a mask of another board on the other boards)
+                    this.GetRepository<AccessMask>().GetDefaultForumAccessMaskId(
+                        this.PageBoardContext.BoardSettings.ForumDefaultAccessMask),
                     InitialPMessages,
                     null,
                     100,
