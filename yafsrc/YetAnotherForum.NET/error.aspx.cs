@@ -50,20 +50,35 @@ public partial class Error : Page
 
             this.Session["StartupException"] = null;
         }
-        else if (this.Application["Exception"] != null)
+        else if (this.Application["Exception"] != null && IsHostAdmin())
         {
+            // the message and the stack trace only for host admins: they were shown to every visitor (the last error
+            // of any user, the error is in the event log)
             this.ErrorDescriptionHolder.Visible = true;
 
             this.ErrorMessage.Text = this.Server.HtmlEncode(this.Application["ExceptionMessage"].ToString());
             this.ErrorDescription.Text = this.Server.HtmlEncode(this.Application["Exception"].ToString());
-
-            this.Session["Exception"] = null;
-            this.Session["ExceptionMessage"] = null;
         }
         else
         {
             this.ErrorMessage.Text =
                 "There has been a serious error loading the forum. No further information is available.";
+        }
+    }
+
+    /// <summary>
+    /// Is the current user a host admin (the forum may not be loaded on the error page)?
+    /// </summary>
+    /// <returns>True for a host admin.</returns>
+    private static bool IsHostAdmin()
+    {
+        try
+        {
+            return YAF.Core.Context.BoardContext.Current?.PageUser?.UserFlags.IsHostAdmin ?? false;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 }
