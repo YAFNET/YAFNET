@@ -75,6 +75,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Install: an error message was escaped for a script and shown as html of the page (quotes were shown with a backslash, html in the message of an error was rendered); it is encoded now
 * [FIXED] Install: an install that stopped after the database step could not be continued, the pages showed "No data for board ID: 1" instead of the install and the database step failed with "view already exists" (SQLite, MySQL, PostgreSQL)
 * [FIXED] Host Settings > Cache, Search and Log, Admin > Delete Forum: 20 labels were not linked to their field (a click on the label did nothing, screen readers did not name the field)
+* [FIXED] Admin > Event Log: the names of the event types in the type filter (e.g. "LoginFailure", "UserSuspended") were the english names of the code in every language; they are translated now (new texts in all languages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

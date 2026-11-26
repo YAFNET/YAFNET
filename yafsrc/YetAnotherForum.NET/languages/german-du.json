@@ -3666,6 +3666,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Wählen Sie ein Ereignislog Typ um nur bestimmte Ereignisse anzuzeigen."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Debug"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Fehler"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Information"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Gesperrte IP erkannt"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-Sperre aufgehoben"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-Sperre gesetzt"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Fehlgeschlagene Anmeldung"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spam-Bot erkannt"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spam-Bot gemeldet"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spam-Beitrag erkannt"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spam-Beitrag gemeldet"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-Fehler"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Ablaufverfolgung"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Benutzer gelöscht"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Benutzer gesperrt"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Benutzersperre aufgehoben"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Warnung"
           }
         ]
       },

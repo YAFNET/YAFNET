@@ -3666,6 +3666,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "برای محدود کردن گزارش به نوع خاصی از رویدادها، انتخاب کنید."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "اشکال‌زدایی"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "خطا"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "اطلاعات"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "IP مسدود شناسایی شد"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "مسدودسازی IP لغو شد"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "مسدودسازی IP تنظیم شد"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "ورود ناموفق"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "ربات اسپم شناسایی شد"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "ربات اسپم گزارش شد"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "پیام اسپم شناسایی شد"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "پیام اسپم گزارش شد"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "خطای SQL"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "ردیابی"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "کاربر حذف شد"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "کاربر تعلیق شد"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "تعلیق لغو شد"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "هشدار"
           }
         ]
       },

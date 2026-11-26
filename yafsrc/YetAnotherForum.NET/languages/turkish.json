@@ -3674,6 +3674,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Günlüğü belirli olay türleriyle kısıtlamayı seçin."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Hata ayıklama"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Hata"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Bilgi"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Yasaklı IP algılandı"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP yasağı kaldırıldı"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP yasağı kondu"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Başarısız giriş"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spam botu algılandı"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spam botu bildirildi"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spam mesajı algılandı"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spam mesajı bildirildi"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL hatası"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "İzleme"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Kullanıcı silindi"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Kullanıcı askıya alındı"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Askı kaldırıldı"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Uyarı"
           }
         ]
       },

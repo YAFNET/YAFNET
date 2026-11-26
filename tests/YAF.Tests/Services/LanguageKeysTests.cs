@@ -131,6 +131,25 @@ public class LanguageKeysTests
             .Should().BeEmpty();
     }
 
+    [Test]
+    [Description("Every event log type has a name in english.json (the names were shown in english in every language)")]
+    public void Event_Log_Types_Have_Names_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var tags = ReadTags(Path.Combine(root, "YetAnotherForum.NET", "languages", "english.json"));
+
+        Enum.GetNames(typeof(YAF.Types.Constants.EventLogTypes))
+            .Select(name => $"TYPE_{name.ToUpperInvariant()}")
+            .Where(tag => !tags.Contains(tag))
+            .Should().BeEmpty();
+    }
+
     private static string HelpTag(string attributes)
     {
         var helpTag = HelpLabelHelpTag.Match(attributes);

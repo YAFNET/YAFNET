@@ -3666,6 +3666,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Выберите, чтобы ограничить журнал определенными типами событий."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Отладка"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Ошибка"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Информация"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Обнаружен забаненный IP"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Бан IP снят"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Бан IP установлен"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Неудачный вход"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Обнаружен спам-бот"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Сообщено о спам-боте"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Обнаружено спам-сообщение"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Сообщено о спам-сообщении"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Ошибка SQL"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Трассировка"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Пользователь удалён"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Пользователь заблокирован"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Блокировка снята"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Предупреждение"
           }
         ]
       },

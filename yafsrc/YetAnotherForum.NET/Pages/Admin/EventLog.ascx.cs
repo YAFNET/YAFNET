@@ -306,11 +306,14 @@ public partial class EventLog : AdminPage
                             _ => "exclamation-circle"
                         };
 
-                    var item = new ListItem { Value = type.ToInt().ToString(), Text = type.ToString() };
+                    // the translated name (the english name of the enum was shown in every language)
+                    var name = this.GetText("ADMIN_EVENTLOG", $"TYPE_{type.ToString().ToUpperInvariant()}");
+
+                    var item = new ListItem { Value = type.ToInt().ToString(), Text = name };
 
                     item.Attributes.Add(
                         "data-custom-properties",
-                        $$"""{ "label": "<i class='fas fa-{{icon}} text-secondary ms-1'></i>{{type}}" }""");
+                        $$"""{ "label": "<i class='fas fa-{{icon}} text-secondary ms-1'></i>{{HttpUtility.JavaScriptStringEncode(this.HtmlEncode(name))}}" }""");
 
                     this.Types.Items.Add(item);
                 });

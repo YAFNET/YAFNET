@@ -3666,6 +3666,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Scegliere di limitare il Registro a determinati tipi di eventi."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Debug"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Errore"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informazione"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "IP bannato rilevato"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Ban IP revocato"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Ban IP impostato"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Accesso non riuscito"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spam bot rilevato"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spam bot segnalato"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Messaggio spam rilevato"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Messaggio spam segnalato"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Errore SQL"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Traccia"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Utente eliminato"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Utente sospeso"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Sospensione revocata"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Avviso"
           }
         ]
       },

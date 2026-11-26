@@ -3674,6 +3674,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Pasirinkite, ar norite apriboti tam tikrų tipų įvykių registravimą."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Derinimas"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Klaida"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informacija"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Aptiktas uždraustas IP"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP draudimas panaikintas"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP draudimas nustatytas"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Nepavykęs prisijungimas"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Aptiktas šlamšto robotas"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Pranešta apie šlamšto robotą"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Aptiktas šlamšto pranešimas"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Pranešta apie šlamšto pranešimą"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL klaida"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Sekimas"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Naudotojas ištrintas"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Naudotojas suspenduotas"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Suspendavimas panaikintas"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Įspėjimas"
           }
         ]
       },

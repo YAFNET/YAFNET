@@ -3674,6 +3674,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Velg å begrense loggen til visse typer hendelser."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Feilsøking"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Feil"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Informasjon"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Utestengt IP oppdaget"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-utestengelse opphevet"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-utestengelse satt"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Mislykket innlogging"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Spambot oppdaget"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Spambot rapportert"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Spaminnlegg oppdaget"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Spaminnlegg rapportert"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-feil"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Sporing"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Bruker slettet"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Bruker suspendert"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Suspensjon opphevet"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Advarsel"
           }
         ]
       },

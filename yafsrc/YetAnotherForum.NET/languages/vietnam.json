@@ -3674,6 +3674,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Chọn để hạn chế Nhật ký đối với một số loại sự kiện nhất định."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Gỡ lỗi"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Lỗi"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Thông tin"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Phát hiện IP bị cấm"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "Đã gỡ cấm IP"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "Đã cấm IP"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Đăng nhập thất bại"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Phát hiện bot spam"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Đã báo cáo bot spam"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Phát hiện bài viết spam"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Đã báo cáo bài viết spam"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "Lỗi SQL"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Theo dõi"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Người dùng đã bị xóa"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Người dùng bị đình chỉ"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Đã gỡ đình chỉ"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Cảnh báo"
           }
         ]
       },

@@ -3674,6 +3674,74 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Voit rajoittaa lokin tietyntyyppisiin tapahtumiin."
+          },
+          {
+            "@tag": "TYPE_DEBUG",
+            "#text": "Vianetsintä"
+          },
+          {
+            "@tag": "TYPE_ERROR",
+            "#text": "Virhe"
+          },
+          {
+            "@tag": "TYPE_INFORMATION",
+            "#text": "Tiedote"
+          },
+          {
+            "@tag": "TYPE_IPBANDETECTED",
+            "#text": "Estetty IP havaittu"
+          },
+          {
+            "@tag": "TYPE_IPBANLIFTED",
+            "#text": "IP-esto poistettu"
+          },
+          {
+            "@tag": "TYPE_IPBANSET",
+            "#text": "IP-esto asetettu"
+          },
+          {
+            "@tag": "TYPE_LOGINFAILURE",
+            "#text": "Epäonnistunut kirjautuminen"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTDETECTED",
+            "#text": "Roskapostibotti havaittu"
+          },
+          {
+            "@tag": "TYPE_SPAMBOTREPORTED",
+            "#text": "Roskapostibotti ilmoitettu"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEDETECTED",
+            "#text": "Roskaviesti havaittu"
+          },
+          {
+            "@tag": "TYPE_SPAMMESSAGEREPORTED",
+            "#text": "Roskaviesti ilmoitettu"
+          },
+          {
+            "@tag": "TYPE_SQLERROR",
+            "#text": "SQL-virhe"
+          },
+          {
+            "@tag": "TYPE_TRACE",
+            "#text": "Jäljitys"
+          },
+          {
+            "@tag": "TYPE_USERDELETED",
+            "#text": "Käyttäjä poistettu"
+          },
+          {
+            "@tag": "TYPE_USERSUSPENDED",
+            "#text": "Käyttäjä hyllytetty"
+          },
+          {
+            "@tag": "TYPE_USERUNSUSPENDED",
+            "#text": "Hyllytys poistettu"
+          },
+          {
+            "@tag": "TYPE_WARNING",
+            "#text": "Varoitus"
           }
         ]
       },
