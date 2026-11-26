@@ -166,6 +166,17 @@ public class SpamCheckTests
     }
 
     [Test]
+    [Description("Banned e-mails and names match without regard to case (they were case sensitive)")]
+    public void Bot_Banned_Email_And_Name_Ignore_Case_Test()
+    {
+        this.Insert(new BannedEmail { BoardID = TestDatabase.BoardId, Mask = @".*@spam\.example$", Since = DateTime.UtcNow });
+        this.Insert(new BannedName { BoardID = TestDatabase.BoardId, Mask = "^casino", Since = DateTime.UtcNow });
+
+        (this.CheckBot("someone", "X@SPAM.Example", "1.2.3.4")).IsBot.Should().BeTrue();
+        (this.CheckBot("Casino-King", "a@example.com", "1.2.3.4")).IsBot.Should().BeTrue();
+    }
+
+    [Test]
     [Description("An invalid name mask does not cancel a match on a banned IP")]
     public void Bot_Invalid_Name_Mask_Keeps_IP_Match_Test()
     {

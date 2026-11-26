@@ -90,7 +90,7 @@ public class InternalCheck : ICheckForBot
                 {
                     try
                     {
-                        if (!Regex.Match(emailAddress, mask, RegexOptions.None, TimeSpan.FromMilliseconds(100))
+                        if (!Regex.Match(emailAddress, mask, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100))
                                 .Success)
                         {
                             continue;
@@ -122,7 +122,7 @@ public class InternalCheck : ICheckForBot
                 try
                 {
                     if (userName.IsNotSet()
-                        || !Regex.Match(userName, mask, RegexOptions.None, TimeSpan.FromMilliseconds(100)).Success)
+                        || !Regex.Match(userName, mask, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100)).Success)
                     {
                         continue;
                     }
