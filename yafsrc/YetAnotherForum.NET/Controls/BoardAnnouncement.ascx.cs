@@ -47,7 +47,8 @@ public partial class BoardAnnouncement : BaseUserControl
             this.PageBoardContext.BoardSettings.BoardAnnouncementUntil,
             CultureInfo.InvariantCulture);
 
-        if (dateTime <= DateTime.Now)
+        // the end is saved in utc
+        if (dateTime <= DateTime.UtcNow)
         {
             var boardSettings = this.PageBoardContext.BoardSettings;
 

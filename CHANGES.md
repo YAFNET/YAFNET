@@ -42,6 +42,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Role: the last admin role could lose the admin flag, then the board had no admins; now a warning is shown (new text in all languages)
 * [FIXED] Admin > Spam Protection: a ban changed to the mask of another ban stopped with an error or was saved twice, a spam word could be added twice (new text in all languages)
 * [FIXED] Admin > Replace Words: the same bad word could be added twice (also by the import, with another good word or twice in the file); the import counts only the added words (new text in all languages)
+* [FIXED] Admin > Board Announcement: the end of the current announcement was shown as the saved invariant date in the time of the server; it is saved in utc and shown in the time zone of the user
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

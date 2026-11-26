@@ -77,7 +77,8 @@ public partial class BoardAnnouncement : AdminPage
     /// </param>
     protected void SaveAnnouncementClick(object sender, EventArgs e)
     {
-        var boardAnnouncementUntil = DateTime.Now;
+        // the end is saved in utc (it is shown in the time zone of the user)
+        var boardAnnouncementUntil = DateTime.UtcNow;
 
         // the duration is 1 unit - 100 years (a bigger number failed with an error, 0 or less was already expired)
         if (!int.TryParse(this.BoardAnnouncementUntil.Text.Trim(), out var count))
@@ -157,8 +158,20 @@ public partial class BoardAnnouncement : AdminPage
 
         this.CurrentAnnouncement.Visible = true;
         this.CurrentMessage.Text =
-            $"<strong>{this.GetText("ANNOUNCEMENT_CURRENT")}:</strong>&nbsp;{boardSettings.BoardAnnouncementUntil}";
+            $"<strong>{this.GetText("ANNOUNCEMENT_CURRENT")}:</strong>&nbsp;{this.HtmlEncode(this.FormatAnnouncementEnd(boardSettings.BoardAnnouncementUntil))}";
         this.BoardAnnouncementType.SelectedValue = boardSettings.BoardAnnouncementType;
         this.Message.Text = boardSettings.BoardAnnouncement;
+    }
+
+    /// <summary>
+    /// The end of the announcement, formatted for the user (it was shown as the saved invariant date).
+    /// </summary>
+    /// <param name="until">The saved end.</param>
+    /// <returns>The formatted end.</returns>
+    private string FormatAnnouncementEnd(string until)
+    {
+        return DateTime.TryParse(until, CultureInfo.InvariantCulture, DateTimeStyles.None, out var end)
+                   ? this.Get<IDateTimeService>().FormatDateTime(end)
+                   : until;
     }
 }
