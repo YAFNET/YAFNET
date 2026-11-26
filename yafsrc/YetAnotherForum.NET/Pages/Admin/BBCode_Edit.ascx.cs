@@ -52,6 +52,13 @@ public partial class BBCode_Edit : AdminPage
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Add_Click(object sender, EventArgs e)
     {
+        // the name is required (a name of spaces saved a bb code without a name)
+        if (this.txtName.Text.Trim().IsNotSet())
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_BBCODE_EDIT", "MSG_NAME"), MessageTypes.warning);
+            return;
+        }
+
         if (!short.TryParse(this.txtExecOrder.Text.Trim(), out var execOrder) || execOrder < 0)
         {
             this.PageBoardContext.Notify(this.GetText("ADMIN_BBCODE_EDIT", "MSG_NUMBER"), MessageTypes.warning);

@@ -32,6 +32,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown (new text in all languages)
 * [FIXED] Admin > Edit Rank: a name of spaces was saved as a rank without a name
 * [FIXED] Admin > Edit Medal: the spaces around the name were saved, a name of spaces was saved too
+* [FIXED] Admin > Edit BBCode Extension: a name of spaces saved an extension without a name
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
