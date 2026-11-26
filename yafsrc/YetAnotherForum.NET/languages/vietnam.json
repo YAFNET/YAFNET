@@ -1910,6 +1910,10 @@
             "#text": "Cài đặt bảng hiện tại"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Số giờ giữa các lần gửi bản tóm tắt phải ít nhất là 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Bạn cần nhập Tin nhắn thông báo."
           },

@@ -1910,6 +1910,10 @@
             "#text": "Aktuelle bestyrelsesindstillinger"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Antallet af timer mellem afsendelse af sammendraget skal være mindst 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Du skal indtaste en meddelelsesmeddelelse."
           },

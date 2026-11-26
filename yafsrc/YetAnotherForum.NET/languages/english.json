@@ -1927,6 +1927,10 @@
 						"#text": "Current Board Settings"
 					},
 					{
+						"@tag": "MSG_DIGEST_HOURS",
+						"#text": "The hours between digest sending must be at least 1."
+					},
+					{
 						"@tag": "NEED_MESSAGE",
 						"#text": "You need to enter an Announcement Message."
 					},

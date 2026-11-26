@@ -1910,6 +1910,10 @@
             "#text": "Configuraión actual del tablero."
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Las horas entre los envíos del resumen deben ser al menos 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Es necesario introducir un Mensaje de Anuncio."
           },

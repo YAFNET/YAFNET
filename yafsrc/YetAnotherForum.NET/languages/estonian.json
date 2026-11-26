@@ -1910,6 +1910,10 @@
             "#text": "Praegused tahvli seaded"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Kokkuvõtte saatmiste vahel peab olema vähemalt 1 tund."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Peate sisestama teadaande."
           },

@@ -1910,6 +1910,10 @@
             "#text": "Definições actuais da placa"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "As horas entre os envios do resumo devem ser pelo menos 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "É necessário introduzir uma Mensagem de Anúncio."
           },

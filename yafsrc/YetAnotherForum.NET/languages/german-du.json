@@ -1910,6 +1910,10 @@
             "#text": "Aktuelle Boardeinstellungen"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Die Stunden zwischen dem Versand der Zusammenfassung müssen mindestens 1 sein."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Sie müssen eine Ankündigungsnachricht eingeben."
           },

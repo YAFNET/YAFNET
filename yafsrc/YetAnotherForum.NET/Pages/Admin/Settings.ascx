@@ -150,7 +150,7 @@
                                    AssociatedControlID="DigestSendEveryXHours"
                                    LocalizedTag="BOARD_DIGEST_HOURS"
                                    LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <asp:TextBox ID="DigestSendEveryXHours" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="DigestSendEveryXHours" runat="server" TextMode="Number" min="1" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
             <div class="mb-3">

@@ -1910,6 +1910,10 @@
             "#text": "Paramètres actuels de la carte"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Le nombre d'heures entre les envois du résumé doit être d'au moins 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Vous devez saisir un message d'annonce."
           },

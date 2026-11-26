@@ -1910,6 +1910,10 @@
             "#text": "Huidige Board Configuratie"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Het aantal uren tussen het verzenden van de samenvatting moet minstens 1 zijn."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "U moet een aankondigingsbericht invoeren."
           },

@@ -80,6 +80,13 @@ public partial class Settings : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void SaveClick(object sender, EventArgs e)
     {
+        // at least one hour between the digests (else the digest is sent on each run of the task)
+        if (int.TryParse(this.DigestSendEveryXHours.Text.Trim(), out var digestHours) && digestHours < 1)
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_BOARDSETTINGS", "MSG_DIGEST_HOURS"), MessageTypes.danger);
+            return;
+        }
+
         var languageFile = "english.json";
 
         var culture = StaticDataHelper.Cultures()
@@ -119,7 +126,7 @@ public partial class Settings : AdminPage
 
         boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
         boardSettings.ForumEmail = this.ForumEmail.Text;
-        if (int.TryParse(this.DigestSendEveryXHours.Text.Trim(), out var digestHours))
+        if (digestHours >= 1)
         {
             boardSettings.DigestSendEveryXHours = digestHours;
         }
