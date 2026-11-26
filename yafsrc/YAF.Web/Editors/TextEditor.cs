@@ -99,7 +99,11 @@ public class TextEditor : ForumEditor
 
         this.TextAreaControl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
         this.TextAreaControl.Attributes.Add(nameof(HtmlTextWriterAttribute.Class), this.ClassName);
-        this.TextAreaControl.Attributes.Add(nameof(HtmlTextWriterAttribute.Maxlength), this.MaxCharacters.ToString());
+        // 0 is unlimited (maxlength="0" did not accept any text)
+        if (this.MaxCharacters > 0)
+        {
+            this.TextAreaControl.Attributes.Add(nameof(HtmlTextWriterAttribute.Maxlength), this.MaxCharacters.ToString());
+        }
 
         this.AddEditorControl(this.TextAreaControl);
 

@@ -489,7 +489,7 @@ public static class JavaScriptBlocks
                    sceditor.create(textarea, {
                      autoUpdate: true,
                      autoExpand: true,
-                     maxLength: {{maxLength}},
+                     maxLength: {{(maxLength > 0 ? maxLength.ToString() : "null")}},
                      locale: '{{locale}}',
                      toolbar: '{{toolbar}}',
                      root: '{{root}}',
