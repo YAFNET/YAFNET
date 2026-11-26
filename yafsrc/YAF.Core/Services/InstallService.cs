@@ -208,6 +208,20 @@ public class InstallService : IHaveServiceLocator
     /// </summary>
     private void CreateViews()
     {
+        // the views of a database that was already initialized (an install that is continued) are created again:
+        // SQLite, MySQL and PostgreSQL failed with "view already exists" and the install could not be finished
+        this.DbAccess.Execute(
+            dbCommand =>
+                {
+                    dbCommand.Connection.DropView<VAccess>();
+                    dbCommand.Connection.DropView<vaccessfull>();
+                    dbCommand.Connection.DropView<vaccess_group>();
+                    dbCommand.Connection.DropView<vaccess_null>();
+                    dbCommand.Connection.DropView<vaccess_user>();
+
+                    return true;
+                });
+
         // Run other
         this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
 

@@ -35,6 +35,11 @@ using YAF.Types.Models;
 public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, IHaveServiceLocator
 {
     /// <summary>
+    /// A board exists (checked once, a board is never removed again).
+    /// </summary>
+    private static volatile bool boardExists;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StartupInitializeDb"/> class.
     /// </summary>
     /// <param name="httpResponseBase">
@@ -105,6 +110,19 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
         switch (versionType)
         {
             case DbVersionType.Current:
+                // an install that stopped after the database was initialized (no board yet): the pages failed with
+                // "No data for board ID: 1", the install is continued
+                if (!boardExists)
+                {
+                    if (!this.Get<InstallService>().IsForumInstalled)
+                    {
+                        this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx", true);
+                        return false;
+                    }
+
+                    boardExists = true;
+                }
+
                 return true;
             case DbVersionType.Upgrade:
                 // Run Auto Upgrade
