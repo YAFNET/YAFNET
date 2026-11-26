@@ -39,7 +39,9 @@ public partial class BBCodeImport : BaseUserControl
     protected void Import_OnClick(object sender, EventArgs e)
     {
         // import selected file (if it's the proper format)...
-        if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
+        // an xml file can be sent as "application/xml" (it was refused)
+        if (!this.importFile.PostedFile.ContentType.StartsWith("text")
+            && this.importFile.PostedFile.ContentType.IndexOf("xml", StringComparison.OrdinalIgnoreCase) < 0)
         {
             this.PageBoardContext.Notify(
                 this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
