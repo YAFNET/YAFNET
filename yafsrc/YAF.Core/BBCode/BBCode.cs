@@ -304,8 +304,16 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 "<ol type=\"1\">(?<inner>(.*?))</ol>",
                 "[list=1]${inner}[/list]",
                 RegexOptions.Singleline));
+        // an ordered list without a type is numbered (it was converted to roman numerals)
         ruleEngine.AddRule(
-            new SimpleRegexReplaceRule("<ol>(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", Options));
+            new SimpleRegexReplaceRule("<ol>(?<inner>(.*?))</ol>", "[list=1]${inner}[/list]", Options));
+
+        // "decimal" is rendered now, "number" (an undefined counter style) is in older messages
+        ruleEngine.AddRule(
+            new SimpleRegexReplaceRule(
+                "<ol style=\"list-style-type:decimal\">(?<inner>(.*?))</ol>",
+                "[list=1]${inner}[/list]",
+                RegexOptions.Singleline));
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
@@ -698,7 +706,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=1\]\r\n(?<inner>(.*?))\[/list\]",
-                    "<ol style=\"list-style-type:number\">${inner}</ol>",
+                    "<ol style=\"list-style-type:decimal\">${inner}</ol>",
                     RegexOptions.Singleline)
                 {
                     RuleRank = 18

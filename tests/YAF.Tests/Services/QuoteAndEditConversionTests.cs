@@ -69,6 +69,23 @@ public class QuoteAndEditConversionTests
     }
 
     [Test]
+    [Description("A numbered list is rendered with a valid list style and stays numbered when it is edited")]
+    public void NumberedList_Test()
+    {
+        // 3.x renders a list with a line break after [list=1]
+        var html = this.Service.MakeHtml("[list=1]\r\n[*]a\r\n[*]b\r\n[/list]", true, false);
+
+        // "number" is no defined counter style (the browsers fell back to decimal)
+        html.Should().Contain("<ol style=\"list-style-type:decimal\"><li>a</li><li>b</li></ol>");
+        this.Service.ConvertHtmlToBBCodeForEdit(html).Should().Be("[list=1][*]a\r\n[*]b\r\n[/list]");
+
+        // messages rendered before, and an ordered list without a type (it became roman numerals)
+        this.Service.ConvertHtmlToBBCodeForEdit("<ol style=\"list-style-type:number\"><li>a</li></ol>")
+            .Should().Be("[list=1][*]a\r\n[/list]");
+        this.Service.ConvertHtmlToBBCodeForEdit("<ol><li>a</li></ol>").Should().Be("[list=1][*]a\r\n[/list]");
+    }
+
+    [Test]
     [Description("A plain quote is rendered as a card")]
     public void Quote_Plain_Test()
     {
