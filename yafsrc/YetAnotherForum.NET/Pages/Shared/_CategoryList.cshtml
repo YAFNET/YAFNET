@@ -18,6 +18,12 @@
     var categoryRoute = Current.PageCategoryID > 0
                             ? new Dictionary<string, string> { { "c", Current.PageCategoryID.ToString() } }
                             : new Dictionary<string, string>();
+
+    // the avatars of the last posters, with one query
+    var lastPosterAvatars = Current.Get<IAvatars>().GetAvatarUrlsForUsers(
+        Current.Get<ISessionService>().Forums
+            .Where(forum => forum.ReadAccess && forum.LastPosted.HasValue && forum.LastUserID.HasValue)
+            .Select(forum => forum.LastUserID.Value));
 }
 
 @foreach (var category in Model)
@@ -199,70 +205,8 @@
                             </div>
                             @if (forum.RemoteURL.IsNotSet())
                             {
-                                <div class="col-md-4 text-secondary">
-                                    <div class="card bg-light-subtle card-post-last h-100">
-                                        <div class="card-body py-1 ps-2">
-
-                                            @if (forum.ReadAccess && forum.LastPosted.HasValue)
-                                            {
-                                                var topicLinkText = Current.Get<IBadWordReplace>().ReplaceHtml(Html.HtmlEncode(forum.LastTopicName).ToString()).Truncate(50);
-
-                                                @if (Current.BoardSettings.UseStyledTopicTitles)
-                                                {
-	                                                <a icon="comment"
-	                                                   icon-color="text-secondary"
-	                                                   icon-css-class="far"
-	                                                   button-style="Link"
-	                                                   class="fw-bold p-0 text-start"
-	                                                   bs-toggle="tooltip"
-	                                                   role="button"
-	                                                   title-localized-page="COMMON"
-	                                                   title-localized-tag="VIEW_TOPIC"
-                                                       href="@(Current.Get<ILinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
-	                                                   text="@topicLinkText"
-                                                       style="@(Current.BoardSettings.UseStyledTopicTitles ? Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles) : string.Empty)"></a>
-                                                }
-                                                else
-                                                {
-	                                                <a icon="comment"
-	                                                   icon-color="text-secondary"
-	                                                   icon-css-class="far"
-	                                                   button-style="Link"
-	                                                   class="fw-bold p-0 text-start"
-	                                                   bs-toggle="tooltip"
-	                                                   role="button"
-	                                                   title-localized-page="COMMON"
-	                                                   title-localized-tag="VIEW_TOPIC"
-                                                       href="@(Current.Get<ILinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
-	                                                   text="@topicLinkText"></a>
-                                                }
-
-                                                @if (forum.LastPosted.Value > lastRead)
-                                                {
-                                                    <span class="badge text-bg-success me-1">
-                                                        @Html.LocalizedText("DEFAULT", "NEW_POSTS")
-                                                    </span>
-                                                }
-
-                                                var infoText = string.Format(Current.Get<ILocalization>().GetText("Default", "BY"), Html.Encode(Current.BoardSettings.EnableDisplayName ? forum.LastUserDisplayName : forum.LastUser));
-
-                                                <a icon="info-circle"
-                                                   button-style="Link"
-                                                   button-size="Small"
-                                                   role="button"
-                                                   class="topic-link-popover text-body-secondary"
-                                                   bs-toggle="popover"
-                                                   bs-content="@Html.GetLastPostInfo(forum)"
-                                                   text="@infoText"></a>
-                                            }
-                                            else
-                                            {
-                                                <span class="fst-italic text-secondary">
-                                                    @Html.LocalizedText("DEFAULT", "NO_POSTS")
-                                                </span>
-                                            }
-                                        </div>
-                                    </div>
+                                <div class="col-md-4">
+                                    @Html.ForumLastPost(forum, lastPosterAvatars)
                                 </div>
                             }
                         </div>

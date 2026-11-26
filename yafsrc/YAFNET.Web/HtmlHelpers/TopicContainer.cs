@@ -199,7 +199,7 @@ public static class TopicContainerHtmlHelper
         // No Last Post
         return !topic.LastMessageID.HasValue
             ? content.AppendHtml(mainDiv)
-            : RenderLastPost(htmlHelper, topic, context, dateTimeIcon, span, mainDiv, content);
+            : RenderLastPost(htmlHelper, topic, mainDiv, content);
     }
 
     /// <summary>
@@ -207,80 +207,31 @@ public static class TopicContainerHtmlHelper
     /// </summary>
     /// <param name="htmlHelper">The HTML helper.</param>
     /// <param name="topic">The topic.</param>
-    /// <param name="context">The context.</param>
-    /// <param name="dateTimeIcon">The date time icon.</param>
-    /// <param name="span">The span.</param>
     /// <param name="mainDiv">The main div.</param>
     /// <param name="content">The content.</param>
     /// <returns>IHtmlContentBuilder.</returns>
-    private static IHtmlContentBuilder RenderLastPost(IHtmlHelper htmlHelper, PagedTopic topic, BoardContext context,
-        IHtmlContent dateTimeIcon, string span, TagBuilder mainDiv, HtmlContentBuilder content)
+    private static IHtmlContentBuilder RenderLastPost(IHtmlHelper htmlHelper, PagedTopic topic, TagBuilder mainDiv, HtmlContentBuilder content)
     {
         var lastPostColumn = new TagBuilder(HtmlTag.Div);
 
-        lastPostColumn.AddCssClass("col-md-4 text-secondary");
+        lastPostColumn.AddCssClass("col-md-4");
 
-        var lastPostDiv = new TagBuilder(HtmlTag.Div);
-        var lastPostDivBody = new TagBuilder(HtmlTag.Div);
-
-        lastPostDiv.AddCssClass("card bg-light-subtle card-post-last");
-
-        lastPostDivBody.AddCssClass("card-body py-1 ps-2");
-
-        var lastPostHeader = new TagBuilder(HtmlTag.Span);
-        lastPostHeader.AddCssClass("text-body-secondary");
-        lastPostHeader.InnerHtml.AppendHtml(htmlHelper.LocalizedText("LASTPOST"));
-
-        lastPostDivBody.InnerHtml.AppendHtml(lastPostHeader);
-
-        var lastPostedDateTime = topic.LastPosted;
-
-        var formattedDatetime = context.BoardSettings.ShowRelativeTime
-                                    ? lastPostedDateTime!.Value.ToRelativeTime()
-                                    : context.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, lastPostedDateTime);
-        var userLast = htmlHelper.UserLink(
-        topic.LastUserID!.Value,
-        context.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName,
-            topic.LastUserSuspended,
-            topic.LastUserStyle,
-            true);
-
-        var infoLastPost = new TagBuilder(HtmlTag.A);
-
-        infoLastPost.AddCssClass("btn btn-link btn-sm topic-link-popover text-body-secondary");
-        infoLastPost.MergeAttribute(
-        "data-bs-content",
-            $"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");
-        infoLastPost.MergeAttribute(HtmlAttribute.Href, "#!");
-        infoLastPost.MergeAttribute("data-bs-toggle", "popover");
-
-        infoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("info-circle"));
-
-        // the text is html, the name is chosen by the user
-        infoLastPost.InnerHtml.AppendHtml(context.Get<ILocalization>().GetTextFormatted("by", HttpUtility.HtmlEncode(context.BoardSettings.EnableDisplayName
-            ? topic.LastUserDisplayName
-            : topic.LastUserName)));
-
-        lastPostDivBody.InnerHtml.AppendHtml(infoLastPost);
-
-        var gotoLastPost = new TagBuilder(HtmlTag.A);
-
-        gotoLastPost.AddCssClass("btn btn-outline-secondary btn-sm");
-
-        gotoLastPost.MergeAttribute(
-            HtmlAttribute.Href,
-            context.Get<ILinkBuilder>().GetTopicLink(topic.TopicID, topic.Subject));
-
-        gotoLastPost.MergeAttribute("data-bs-toggle", "tooltip");
-        gotoLastPost.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("GO_LAST_POST"));
-
-        gotoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("share-square", marginEnd: false));
-
-        lastPostDivBody.InnerHtml.AppendHtml(gotoLastPost);
-
-        lastPostDiv.InnerHtml.AppendHtml(lastPostDivBody);
-
-        lastPostColumn.InnerHtml.AppendHtml(lastPostDiv);
+        // the topic is the row itself, the new posts badge is next to its name
+        lastPostColumn.InnerHtml.AppendHtml(
+            htmlHelper.LastPost(
+                new LastPostItem
+                {
+                    TopicID = topic.TopicID,
+                    TopicName = topic.Subject,
+                    ShowTopic = false,
+                    MessageID = topic.LastMessageID,
+                    UserID = topic.LastUserID!.Value,
+                    UserName = topic.LastUserName,
+                    UserDisplayName = topic.LastUserDisplayName,
+                    UserStyle = topic.LastUserStyle,
+                    UserSuspended = topic.LastUserSuspended,
+                    Posted = topic.LastPosted!.Value
+                }));
 
         mainDiv.InnerHtml.AppendHtml(lastPostColumn);
 

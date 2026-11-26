@@ -72,8 +72,7 @@
         <div id="category-list"
              data-load-more-url="@Url.Page("", "ShowMore", Model.PageBoardContext.PageCategoryID > 0 ? new { c = Model.PageBoardContext.PageCategoryID } : null)"
              data-refresh-url="@Url.Page("", "RefreshCategories", Model.PageBoardContext.PageCategoryID > 0 ? new { c = Model.PageBoardContext.PageCategoryID } : null)"
-             data-forum-icon-legend-content="@((await Html.PartialAsync("_ForumIconLegend")).RenderToString())"
-             data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
+             data-forum-icon-legend-content="@((await Html.PartialAsync("_ForumIconLegend")).RenderToString())">
             @await Html.PartialAsync("_CategoryList", Model.Categories)
         </div>
         <input type="hidden" value="0" id="category-index" />
@@ -106,10 +105,6 @@
 {
     <script src="~/js/forum-index.min.js" asp-append-version="true" defer></script>
     <script>
-        @Html.Raw(
-	        JsAndCssHelper.CompressJavaScript(
-		        JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
-
         @Html.Raw(
                  JsAndCssHelper.CompressJavaScript(
                  JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),

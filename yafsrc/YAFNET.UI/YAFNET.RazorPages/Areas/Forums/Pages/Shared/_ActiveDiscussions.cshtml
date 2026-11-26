@@ -44,105 +44,64 @@
     }
 }
 
-<div class="card mb-3">
-    <div class="card-header d-flex align-items-center">
-        @Html.IconHeader("comments", "DEFAULT", "ACTIVE_DISCUSSIONS", "fa-2x")
-    </div>
-    <ul class="list-group list-group-flush">
-        @if (activeTopics.HasItems())
+@{
+    // only topics with a last post, the avatars of the last posters with one query
+    var shownTopics = activeTopics?.Where(topic => topic.LastPosted.HasValue && topic.LastUserID.HasValue).ToList() ?? [];
+
+    var lastPosterAvatars = Current.Get<IAvatars>().GetAvatarUrlsForUsers(shownTopics.Select(topic => topic.LastUserID.Value));
+
+    var showFeed = Current.Get<IPermissions>().Check(Current.BoardSettings.PostLatestFeedAccess) && Current.BoardSettings.ShowAtomLink;
+}
+
+<div class="card mb-3 active-discussions">
+    <div class="card-header d-flex align-items-center justify-content-between gap-2">
+        <span class="d-flex align-items-center">
+            @Html.IconHeader("comments", "DEFAULT", "ACTIVE_DISCUSSIONS", "fa-2x")
+        </span>
+        @if (showFeed)
         {
-            foreach (var topic in activeTopics)
+            @Html.RssFeedLink(RssFeeds.LatestPosts, true)
+        }
+    </div>
+    @if (shownTopics.Count == 0)
+    {
+        <div class="card-body active-discussions-empty">
+            @Html.LocalizedText("DEFAULT", "NO_POSTS")
+        </div>
+    }
+    else
+    {
+        <ul class="list-group list-group-flush">
+            @foreach (var topic in shownTopics)
             {
-                if (!topic.LastPosted.HasValue)
-                {
-                    continue;
-                }
-
-                if (!topic.LastUserID.HasValue)
-                {
-                    continue;
-                }
-
-                var topicSubject = Current.Get<IBadWordReplace>().ReplaceHtml(Html.HtmlEncode(topic.Topic).ToString());
-
-                var topicStyle = topic.Styles;
-
-                var styles = Current.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
-                                 ? Current.Get<IStyleTransform>().Decode(topic.Styles)
-                                 : string.Empty;
-
                 var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                     topic.ForumID,
                     topic.TopicID,
                     topic.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
                     topic.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-                var startedByText = Current.Get<ILocalization>().GetTextFormatted(
-                    "VIEW_TOPIC_STARTED_BY",
-                    Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName);
+                lastPosterAvatars.TryGetValue(topic.LastUserID.Value, out var avatarUrl);
 
-                var inForumText = Current.Get<ILocalization>().GetTextFormatted("IN_FORUM", Html.HtmlEncode(topic.Forum));
-
-                var lastPostedDateTime = topic.LastPosted.Value;
-
-                var formattedDatetime = Current.BoardSettings.ShowRelativeTime
-                                            ? lastPostedDateTime.ToRelativeTime()
-                                            : Current.Get<IDateTimeService>().Format(
-                                                DateTimeFormat.BothTopic,
-                                                lastPostedDateTime);
-
-                var span = Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
-
-                var iconBadge = Html.IconBadge("calendar-day", "clock");
-
-                var infoData = $@"{Html.UserLink(topic.LastUserID.Value, Current.BoardSettings.EnableDisplayName
-                                                                             ? topic.LastUserDisplayName
-                                                                             : topic.LastUserName, topic.LastUserSuspended, topic.LastUserStyle).RenderToString()}
-{iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>";
-
-                <li class="list-group-item pt-2 list-group-item-action" data-topic-id="@topic.TopicID">
-	                <a button-style="@ButtonStyle.Link"
-	                   icon="comment"
-	                   icon-css-class="far"
-	                   icon-color="text-secondary"
-	                   class="fw-bold p-0 text-start"
-	                   style="@styles"
-	                   bs-toggle="tooltip"
-	                   text="@Html.Raw(topicSubject)"
-	                   title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
-	                   href="@Html.Raw(Current.Get<ILinkBuilder>().GetTopicLink(topic.TopicID, topic.Topic))">
-	                </a>
-					
-	                <span class="badge bg-light-subtle border float-end">  <a button-style="@ButtonStyle.Link"
-	                                                                        icon="info-circle"
-	                                                                        text-localized-page="DEFAULT"
-	                                                                        text-localized-tag="BY"
-	                                                                        text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName)"
-	                                                                        bs-content="@infoData"
-	                                                                        class="text-body-secondary topic-link-popover p-0 text-start"
-	                                                                        bs-toggle="popover"></a>
-		                </span>
-
-	                @if (topic.LastPosted > lastRead)
+                <li class="list-group-item active-discussion" data-topic-id="@topic.TopicID">
+                    @Html.LastPost(new LastPostItem
                     {
-	                    <span class="badge text-bg-success">@Html.LocalizedText("COMMON", "NEW_MESSAGE")</span>
-                    }
-
-                    <a class="text-body-secondary p-0 text-start"
-                       button-style="@ButtonStyle.Link"
-                       text="@Html.Encode($"({topic.Forum})")"
-                       href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
-
+                        TopicID = topic.TopicID,
+                        TopicName = topic.Topic,
+                        TopicStyles = topic.Styles,
+                        IsNew = topic.LastPosted > lastRead,
+                        MessageID = topic.LastMessageID,
+                        ForumID = topic.ForumID,
+                        ForumName = topic.Forum,
+                        UserID = topic.LastUserID.Value,
+                        UserName = topic.LastUserName,
+                        UserDisplayName = topic.LastUserDisplayName,
+                        UserStyle = topic.LastUserStyle,
+                        UserSuspended = topic.LastUserSuspended,
+                        AvatarUrl = avatarUrl,
+                        Posted = topic.LastPosted.Value
+                    })
                 </li>
             }
-        }
-    </ul>
-    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.PostLatestFeedAccess) && Current.BoardSettings.ShowAtomLink)
-    {
-        <div class="card-footer">
-            <div class="float-end" role="group" aria-label="Tools">
-                @Html.RssFeedLink(RssFeeds.LatestPosts, true)
-            </div>
-        </div>
+        </ul>
     }
 </div>

@@ -9,8 +9,7 @@ const popoverTemplate =
 function initTopicRowWidgets(
 	scope: ParentNode,
 	iconLegendContent: string,
-	topicStarterTitle: string,
-	lastPostTitle: string): void {
+	topicStarterTitle: string): void {
 	scope.querySelectorAll<HTMLElement>('[data-bs-toggle="tooltip"]').forEach(el => {
 		new bootstrap.Tooltip(el);
 	});
@@ -31,15 +30,6 @@ function initTopicRowWidgets(
 			template: popoverTemplate
 		});
 	});
-
-	scope.querySelectorAll<HTMLElement>('.topic-link-popover').forEach(el => {
-		new bootstrap.Popover(el, {
-			title: lastPostTitle,
-			html: true,
-			trigger: 'hover focus',
-			template: popoverTemplate
-		});
-	});
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,11 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const iconLegendContent = container.dataset.iconLegendContent || '';
 	const topicStarterTitle = container.dataset.topicStarterTitle || '';
-	const lastPostTitle = container.dataset.lastPostTitle || '';
 
-	initTopicRowWidgets(container, iconLegendContent, topicStarterTitle, lastPostTitle);
+	initTopicRowWidgets(container, iconLegendContent, topicStarterTitle);
 
-	initLiveTopics(container, iconLegendContent, topicStarterTitle, lastPostTitle);
+	initLiveTopics(container, iconLegendContent, topicStarterTitle);
 
 	const loadMoreUrl = container.dataset.loadMoreUrl;
 	const pageSize = parseInt(container.dataset.pageSize || '0', 10);
@@ -111,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					.filter(row => !row.dataset.topicId || !container.querySelector(`[data-topic-id="${row.dataset.topicId}"]`));
 
 				newRows.forEach(row => sentinel.parentElement!.insertBefore(row, sentinel));
-				newRows.forEach(row => initTopicRowWidgets(row, iconLegendContent, topicStarterTitle, lastPostTitle));
+				newRows.forEach(row => initTopicRowWidgets(row, iconLegendContent, topicStarterTitle));
 
 				nextPage++;
 				loadedCount += newRows.length;
@@ -137,8 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initLiveTopics(
 	container: HTMLElement,
 	iconLegendContent: string,
-	topicStarterTitle: string,
-	lastPostTitle: string): void {
+	topicStarterTitle: string): void {
 	const liveUrl = container.dataset.liveUrl;
 
 	if (!liveUrl || document.body.dataset.liveUpdates !== 'true') {
@@ -184,7 +172,7 @@ function initLiveTopics(
 				container.appendChild(row);
 			}
 
-			initTopicRowWidgets(row, iconLegendContent, topicStarterTitle, lastPostTitle);
+			initTopicRowWidgets(row, iconLegendContent, topicStarterTitle);
 		});
 
 		const changed = new Set(posts.map(post => post.topicId.toString()));

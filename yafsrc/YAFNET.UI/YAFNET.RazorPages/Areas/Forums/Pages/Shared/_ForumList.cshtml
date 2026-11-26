@@ -13,6 +13,11 @@
 @{
     var forumList = Current.PageForumID > 0 ?
         Model.SubForums : [.. Model.SubForums.Where(x => !x.ParentID.HasValue)];
+
+    // the avatars of the last posters, with one query
+    var lastPosterAvatars = Current.Get<IAvatars>().GetAvatarUrlsForUsers(
+        forumList.Where(forum => forum.ReadAccess && forum.LastPosted.HasValue && forum.LastUserID.HasValue)
+            .Select(forum => forum.LastUserID.Value));
 }
 
 @foreach (var forum in forumList)
@@ -172,12 +177,8 @@
 
         @if (forum.RemoteURL.IsNotSet())
         {
-            <div class="col-md-4 text-secondary">
-                <div class="card bg-light-subtle card-post-last h-100">
-	                <div class="card-body py-1 ps-2">
-		                @await Html.PartialAsync("_ForumLastPost", forum)
-	                </div>
-                </div>
+            <div class="col-md-4">
+                @Html.ForumLastPost(forum, lastPosterAvatars)
             </div>
         }
     </div>

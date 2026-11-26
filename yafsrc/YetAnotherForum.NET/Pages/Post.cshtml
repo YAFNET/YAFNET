@@ -372,12 +372,6 @@
 		"hover")))
 
 	@Html.Raw(JsAndCssHelper.CompressJavaScript(
-		JavaScriptBlocks.TopicLinkPopoverJs(
-			$"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
-			".topic-link-popover",
-			"focus hover")))
-
-	@Html.Raw(JsAndCssHelper.CompressJavaScript(
 		JavaScriptBlocks.ForumIconLegendPopoverJs(
 			(await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
 			"topic-icon-legend-popvover")))

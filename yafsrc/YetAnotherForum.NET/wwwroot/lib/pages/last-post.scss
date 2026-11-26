@@ -1,0 +1,177 @@
+// The last post of a forum or topic: the forum list (index, sub forums), the topic list and the active discussions
+.last-post {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    height: 100%;
+    min-width: 0;
+    padding: .5rem .65rem;
+    border: 1px solid var(--bs-border-color-translucent, var(--bs-border-color));
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-tertiary-bg);
+    font-size: .875rem;
+
+    .last-post-avatar {
+        flex: 0 0 auto;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: .5rem;
+        // photos are square, the text avatars are twice as wide as high
+        object-fit: contain;
+        background: var(--bs-secondary-bg);
+        border: 1px solid var(--bs-border-color);
+    }
+
+    .last-post-body {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .last-post-topic-line {
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        min-width: 0;
+
+        .badge {
+            flex: 0 0 auto;
+            font-weight: 500;
+        }
+    }
+
+    .last-post-topic {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .last-post-label {
+        font-size: .75rem;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--bs-secondary-color);
+    }
+
+    .last-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0 .35rem;
+        font-size: .8125rem;
+        color: var(--bs-secondary-color);
+
+        // the user link is a button everywhere else, here it is a part of the line
+        .btn {
+            --bs-btn-padding-x: 0;
+            --bs-btn-padding-y: 0;
+            --bs-btn-font-size: inherit;
+            --bs-btn-border-width: 0;
+            --bs-btn-hover-bg: transparent;
+            --bs-btn-active-bg: transparent;
+            --bs-btn-color: var(--bs-body-color);
+            --bs-btn-hover-color: var(--bs-body-color);
+            --bs-btn-active-color: var(--bs-body-color);
+            font-weight: 500;
+            vertical-align: baseline;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            // the online status: a dot in front of the name (on a button it is a dot on the corner)
+            > .rounded-circle {
+                position: static !important;
+                display: inline-block;
+                margin-right: .3rem;
+                transform: none !important;
+                vertical-align: middle;
+            }
+        }
+
+        abbr.timeago {
+            text-decoration: none;
+            cursor: help;
+        }
+    }
+
+    .last-post-separator {
+        opacity: .6;
+    }
+
+    .last-post-forum {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        i {
+            margin-right: .25rem !important;
+        }
+    }
+
+    .last-post-jump {
+        flex: 0 0 auto;
+
+        i {
+            margin: 0 !important;
+        }
+    }
+
+    &.last-post-empty {
+        font-style: italic;
+        color: var(--bs-secondary-color);
+    }
+}
+
+// below each other on small screens
+@media (max-width: 767.98px) {
+    .forum-row,
+    .topic-list > .row {
+        .last-post {
+            height: auto;
+            margin-top: .5rem;
+        }
+    }
+}
+
+// the active discussions: the list item is the box
+.active-discussions {
+    .card-header {
+        .btn {
+            flex: 0 0 auto;
+        }
+    }
+
+    .active-discussion {
+        padding: .6rem .75rem;
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        .last-post {
+            padding: 0;
+            border: 0;
+            background: none;
+        }
+    }
+
+    .active-discussions-empty {
+        font-style: italic;
+        color: var(--bs-secondary-color);
+    }
+}

@@ -308,47 +308,6 @@ public static class CategoryListHelpers
         }
 
         /// <summary>
-        /// Gets the last post info.
-        /// </summary>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetLastPostInfo(ForumRead item)
-        {
-            // Last Post Date
-            var lastPostedDateTime = item.LastPosted.Value;
-
-            // Last Topic PageUser
-            var lastUserLink = htmlHelper.UserLink(
-                item.LastUserID.Value,
-                BoardContext.Current.BoardSettings.EnableDisplayName ? item.LastUserDisplayName : item.LastUser,
-                item.LastUserSuspended,
-                BoardContext.Current.BoardSettings.UseStyledNicks && item.Style.IsSet()
-                    ? BoardContext.Current.Get<IStyleTransform>().Decode(item.Style)
-                    : string.Empty,
-                true);
-
-            var formattedDatetime = BoardContext.Current.BoardSettings.ShowRelativeTime
-                ? lastPostedDateTime.ToRelativeTime()
-                : BoardContext.Current.Get<IDateTimeService>().Format(
-                    DateTimeFormat.BothTopic,
-                    lastPostedDateTime);
-
-            var span = BoardContext.Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
-
-            var iconBadge = htmlHelper.IconBadge("calendar-day", "clock");
-
-            return $"""
-                                              {lastUserLink.RenderToString()}
-                                              {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>
-                                             
-                    """;
-        }
-
-        /// <summary>
         /// Gets the sub Forums.
         /// </summary>
         /// <param name="item">
