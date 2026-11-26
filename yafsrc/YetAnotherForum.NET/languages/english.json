@@ -28,7 +28,7 @@
 					},
 					{
 						"@tag": "CREATED_REPLY_MSG",
-						"#text": "Added an Reply to the Topic {0}"
+						"#text": "Added a Reply to the Topic {0}"
 					},
 					{
 						"@tag": "CREATED_TOPIC",
@@ -144,11 +144,11 @@
 					},
 					{
 						"@tag": "WATCH_FORUM_MSG",
-						"#text": "{0} Created the new topic {1}"
+						"#text": "{0} created the new topic {1}"
 					},
 					{
 						"@tag": "WATCH_FORUM_REPLY",
-						"#text": "New Topic in a Watch Forum"
+						"#text": "New Topic in a Watched Forum"
 					},
 					{
 						"@tag": "WATCH_TOPIC_MSG",
@@ -156,7 +156,7 @@
 					},
 					{
 						"@tag": "WATCH_TOPIC_REPLY",
-						"#text": "New Reply in a Watch Topic"
+						"#text": "New Reply in a Watched Topic"
 					},
 					{
 						"@tag": "YOUR_ACCOUNT",
@@ -222,15 +222,15 @@
 					},
 					{
 						"@tag": "ADMIN_BANNEDEMAIL",
-						"#text": "Views banned Emails list"
+						"#text": "Views banned emails list"
 					},
 					{
 						"@tag": "ADMIN_BANNEDEMAIL_EDIT",
-						"#text": "Edits banned Emails"
+						"#text": "Edits banned emails"
 					},
 					{
 						"@tag": "ADMIN_BANNEDEMAIL_IMPORT",
-						"#text": "Imports banned Emails"
+						"#text": "Imports banned emails"
 					},
 					{
 						"@tag": "ADMIN_BANNEDIP",
@@ -242,11 +242,11 @@
 					},
 					{
 						"@tag": "ADMIN_BANNEDIP_IMPORT",
-						"#text": "Imports banned ips"
+						"#text": "Imports banned IPs"
 					},
 					{
 						"@tag": "ADMIN_BANNEDNAME",
-						"#text": "Views banned Names list"
+						"#text": "Views banned names list"
 					},
 					{
 						"@tag": "ADMIN_BANNED_USERAGENTS",
@@ -262,11 +262,11 @@
 					},
 					{
 						"@tag": "ADMIN_BANNEDNAME_EDIT",
-						"#text": "Edits banned Names"
+						"#text": "Edits banned names"
 					},
 					{
 						"@tag": "ADMIN_BANNEDNAME_IMPORT",
-						"#text": "Imports banned Names"
+						"#text": "Imports banned names"
 					},
 					{
 						"@tag": "ADMIN_BBCODE",
@@ -290,7 +290,7 @@
 					},
 					{
 						"@tag": "ADMIN_DELETEFORUM",
-						"#text": "Delete forums"
+						"#text": "Deletes forums"
 					},
 					{
 						"@tag": "ADMIN_EDITACCESSMASK",
@@ -314,7 +314,7 @@
 					},
 					{
 						"@tag": "ADMIN_EDITLANGUAGE",
-						"#text": "Edits a languages file"
+						"#text": "Edits a language file"
 					},
 					{
 						"@tag": "ADMIN_EDITMEDAL",
@@ -342,7 +342,7 @@
 					},
 					{
 						"@tag": "ADMIN_HOSTSETTING",
-						"#text": "Views/edits hosts settings"
+						"#text": "Views/edits host settings"
 					},
 					{
 						"@tag": "ADMIN_LANGUAGES",
@@ -446,19 +446,19 @@
 					},
 					{
 						"@tag": "ALBUM_OWN",
-						"#text": "View/Edit your Album"
+						"#text": "Views/edits his/her own album"
 					},
 					{
 						"@tag": "ALBUMS",
-						"#text": "View Albums"
+						"#text": "Views albums"
 					},
 					{
 						"@tag": "ALBUMS_OFUSER",
-						"#text": "View User Albums"
+						"#text": "Views user albums"
 					},
 					{
 						"@tag": "ALBUMS_OWN",
-						"#text": "Views/Edit the Albums"
+						"#text": "Views/edits the albums"
 					},
 					{
 						"@tag": "APPROVE",
@@ -474,7 +474,7 @@
 					},
 					{
 						"@tag": "BLOCK_OPTIONS",
-						"#text": "Edits his Ignored users and block option"
+						"#text": "Edits his ignored users and block options"
 					},
 					{
 						"@tag": "CHANGE_PASSWORD",
@@ -498,23 +498,23 @@
 					},
 					{
 						"@tag": "EDIT_ALBUMIMAGES",
-						"#text": "Edit the album images"
+						"#text": "Edits the album images"
 					},
 					{
 						"@tag": "EDIT_AVATAR",
-						"#text": "Edit the avatar"
+						"#text": "Edits the avatar"
 					},
 					{
 						"@tag": "EDIT_PROFILE",
-						"#text": "Edit the profile"
+						"#text": "Edits the profile"
 					},
 					{
 						"@tag": "EDIT_SETTINGS",
-						"#text": "Edit the user settings"
+						"#text": "Edits the user settings"
 					},
 					{
 						"@tag": "EDIT_SIGNATURE",
-						"#text": "Edit the signature"
+						"#text": "Edits the signature"
 					},
 					{
 						"@tag": "EMAILTOPIC",
@@ -546,7 +546,7 @@
 					},
 					{
 						"@tag": "IM_EMAIL",
-						"#text": "Uses Email"
+						"#text": "Uses email"
 					},
 					{
 						"@tag": "IM_XMPP",
@@ -566,7 +566,7 @@
 					},
 					{
 						"@tag": "LOGIN",
-						"#text": "Registers on the forum"
+						"#text": "Logs in"
 					},
 					{
 						"@tag": "LOGOUT",
@@ -833,7 +833,7 @@
 					},
 					{
 						"@tag": "ADMIN_EMAIL",
-						"#text": "E-Mail"
+						"#text": "Email"
 					},
 					{
 						"@tag": "ADMIN_IPADRESS",
@@ -922,7 +922,7 @@
 					},
 					{
 						"@tag": "MSG_MESSAGE_SEND",
-						"#text": "Verification Mail was send again to the User."
+						"#text": "Verification Mail was sent again to the User."
 					},
 					{
 						"@tag": "MSG_VALID_DAYS",
@@ -1013,7 +1013,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+							"Currently there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] button below."
 					},
 					{
 						"@tag": "IMPORT_IPS",
@@ -1025,7 +1025,7 @@
 					},
 					{
 						"@tag": "MSG_EXIST",
-						"#text": "The Banned Email Address Already exists!"
+						"#text": "The banned email address already exists!"
 					},
 					{
 						"@tag": "MSG_REMOVEBAN_EMAIL",
@@ -1054,11 +1054,11 @@
 					},
 					{
 						"@tag": "MASK_HELP",
-						"#text": "The Email address to ban. You can use Regular Expressions."
+						"#text": "The email address to ban. You can use Regular Expressions."
 					},
 					{
 						"@tag": "NEED_MASK",
-						"#text": "You must define an Email address."
+						"#text": "You must define an email address."
 					},
 					{
 						"@tag": "REASON",
@@ -1099,7 +1099,7 @@
 					},
 					{
 						"@tag": "IMPORT_FILE_HELP",
-						"#text": "Must be *.txt file containing an Email Address on each line"
+						"#text": "Must be a *.txt file containing an email address on each line"
 					},
 					{
 						"@tag": "IMPORT_NOTHING",
@@ -1112,7 +1112,7 @@
 					{
 						"@tag": "NOTE",
 						"#text":
-							"You can find a list of Spam Bot Email Addresses on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
+							"You can find a list of spam bot email addresses on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
 					},
 					{
 						"@tag": "TITLE",
@@ -1142,7 +1142,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+							"Currently there are no banned IP addresses. Add a new banned IP address by clicking the [b]Add New Address[/b] button below."
 					},
 					{
 						"@tag": "IMPORT_IPS",
@@ -1158,7 +1158,7 @@
 					},
 					{
 						"@tag": "MSG_EXIST",
-						"#text": "The Banned IP Already exists!"
+						"#text": "The banned IP already exists!"
 					},
 					{
 						"@tag": "MSG_REMOVEBAN_IP",
@@ -1187,7 +1187,7 @@
 					},
 					{
 						"@tag": "INVALID_LESS",
-						"#text": "\"{0}\" is not a valid IP section value (must be less then 255)."
+						"#text": "\"{0}\" is not a valid IP section value (must be 255 or less)."
 					},
 					{
 						"@tag": "INVALID_SECTION",
@@ -1195,7 +1195,7 @@
 					},
 					{
 						"@tag": "INVALID_VALUE",
-						"#text": "One of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard."
+						"#text": "One of the IP sections does not have a value. Valid values are 0-255 or \"*\" for a wildcard."
 					},
 					{
 						"@tag": "MASK",
@@ -1203,7 +1203,7 @@
 					},
 					{
 						"@tag": "MASK_HELP",
-						"#text": "The ip address to ban. You can use wild cards (127.0.0.*)."
+						"#text": "The IP address to ban. You can use wildcards (127.0.0.*)."
 					},
 					{
 						"@tag": "NEED_MASK",
@@ -1215,7 +1215,7 @@
 					},
 					{
 						"@tag": "REASON_HELP",
-						"#text": "The reason why the ip was banned."
+						"#text": "The reason why the IP was banned."
 					},
 					{
 						"@tag": "TITLE",
@@ -1248,20 +1248,20 @@
 					},
 					{
 						"@tag": "IMPORT_FILE_HELP",
-						"#text": "Must be *.txt file containing an Ip Address on each line"
+						"#text": "Must be a *.txt file containing an IP address on each line"
 					},
 					{
 						"@tag": "IMPORT_NOTHING",
-						"#text": "Nothing imported: no new ip address was found in the upload."
+						"#text": "Nothing imported: no new IP address was found in the upload."
 					},
 					{
 						"@tag": "IMPORT_SUCESS",
-						"#text": "{0} new ip address(es) imported successfully."
+						"#text": "{0} new IP address(es) imported successfully."
 					},
 					{
 						"@tag": "NOTE",
 						"#text":
-							"You can find a list of Spam Bot Ips on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
+							"You can find a list of spam bot IPs on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
 					},
 					{
 						"@tag": "TITLE",
@@ -1287,7 +1287,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+							"Currently there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] button below."
 					},
 					{
 						"@tag": "MASK",
@@ -1295,7 +1295,7 @@
 					},
 					{
 						"@tag": "MSG_EXIST",
-						"#text": "The Banned Name Already exists!"
+						"#text": "The banned name already exists!"
 					},
 					{
 						"@tag": "MSG_REMOVEBAN_NAME",
@@ -1320,20 +1320,20 @@
 				"Resource": [
 					{
 						"@tag": "ADD_UA",
-						"#text": "Add New UserAgent"
+						"#text": "Add New User Agent"
 					},
 					{
 						"@tag": "IMPORT_UA",
-						"#text": "Import UserAgent(s)"
+						"#text": "Import User Agent(s)"
 					},
 					{
 						"@tag": "EMPTY_HEADER",
-						"#text": "No UserAgents"
+						"#text": "No User Agents"
 					},
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+							"Currently there are no banned user agents. Add a new banned user agent by clicking the [b]Add New User Agent[/b] button below."
 					},
 					{
 						"@tag": "MASK",
@@ -1341,15 +1341,15 @@
 					},
 					{
 						"@tag": "MSG_EXIST",
-						"#text": "The Banned UserAgent Already exists!"
+						"#text": "The banned user agent already exists!"
 					},
 					{
 						"@tag": "MSG_REMOVEBAN_NAME",
-						"#text": "The UserAgent was successfully deleted"
+						"#text": "The user agent was successfully deleted"
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "Banned UserAgent"
+						"#text": "Banned User Agents"
 					}
 				]
 			},
@@ -1358,7 +1358,7 @@
 				"Resource": [
 					{
 						"@tag": "MASK",
-						"#text": "UserAgent:"
+						"#text": "User Agent:"
 					},
 					{
 						"@tag": "MASK_HELP",
@@ -1370,11 +1370,11 @@
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "Add Banned UserAgent"
+						"#text": "Add Banned User Agent"
 					},
 					{
 						"@tag": "TITLE_EDIT",
-						"#text": "Edit Banned UserAgent"
+						"#text": "Edit Banned User Agent"
 					}
 				]
 			},
@@ -1383,7 +1383,7 @@
 				"Resource": [
 					{
 						"@tag": "HEADER",
-						"#text": "Import UserAgent List"
+						"#text": "Import User Agent List"
 					},
 					{
 						"@tag": "IMPORT",
@@ -1399,19 +1399,19 @@
 					},
 					{
 						"@tag": "IMPORT_FILE_HELP",
-						"#text": "Must be *.txt file containing one useragent on each line"
+						"#text": "Must be a *.txt file containing one user agent on each line"
 					},
 					{
 						"@tag": "IMPORT_NOTHING",
-						"#text": "Nothing imported: no new useragent was found in the upload."
+						"#text": "Nothing imported: no new user agent was found in the upload."
 					},
 					{
 						"@tag": "IMPORT_SUCESS",
-						"#text": "{0} new useragent(s) imported successfully."
+						"#text": "{0} new user agent(s) imported successfully."
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "Import UserAgent(s)"
+						"#text": "Import User Agent(s)"
 					}
 				]
 			},
@@ -1424,7 +1424,7 @@
 					},
 					{
 						"@tag": "MASK_HELP",
-						"#text": "The User Name to ban. You can use Regular Expressions."
+						"#text": "The user name to ban. You can use Regular Expressions."
 					},
 					{
 						"@tag": "NEED_MASK",
@@ -1469,7 +1469,7 @@
 					},
 					{
 						"@tag": "IMPORT_FILE_HELP",
-						"#text": "Must be *.txt file containing one Name on each line"
+						"#text": "Must be a *.txt file containing one name on each line"
 					},
 					{
 						"@tag": "IMPORT_NOTHING",
@@ -1482,7 +1482,7 @@
 					{
 						"@tag": "NOTE",
 						"#text":
-							"You can find a list of Spam Bot user names on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
+							"You can find a list of spam bot user names on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
 					},
 					{
 						"@tag": "TITLE",
@@ -1615,7 +1615,7 @@
 					},
 					{
 						"@tag": "MSG_NUMBER",
-						"#text": "You must enter an number value from 0 to 32767 for sort order."
+						"#text": "You must enter a number value from 0 to 32767 for sort order."
 					},
 					{
 						"@tag": "MSG_POSITIVE_VALUE",
@@ -1673,7 +1673,7 @@
 					},
 					{
 						"@tag": "USE_TOOLBAR_HELP",
-						"#text": "If enabled Show toolbar button in the Standard BBCode Editor"
+						"#text": "If enabled, show a toolbar button in the Standard BBCode Editor"
 					}
 				]
 			},
@@ -2027,7 +2027,7 @@
 					},
 					{
 						"@tag": "MOVE_TOPICS_HELP",
-						"#text": "Move all Topics inside the Forum to a Forum selected Bellow."
+						"#text": "Move all Topics inside the Forum to a Forum selected below."
 					},
 					{
 						"@tag": "NEW_FORUM",
@@ -2073,11 +2073,11 @@
 					},
 					{
 						"@tag": "DIGEST_LAST",
-						"#text": "Last Digest Send:"
+						"#text": "Last Digest Sent:"
 					},
 					{
 						"@tag": "DIGEST_LAST_HELP",
-						"#text": "The last time (based on server time) the digest task was run.>"
+						"#text": "The last time (based on server time) the digest task was run."
 					},
 					{
 						"@tag": "DIGEST_METHOD",
@@ -2146,7 +2146,7 @@
 					},
 					{
 						"@tag": "DATA_TYPE_HELP",
-						"#text": "Select an Data Type for the Profile Definition."
+						"#text": "Select a Data Type for the Profile Definition."
 					},
 					{
 						"@tag": "DEFAULT",
@@ -2307,7 +2307,7 @@
 					},
 					{
 						"@tag": "PRIORITY_ACCESS_HELP",
-						"#text": "Allows Users to Change the Priority of Topic (Normal, Sticky, Announcement)."
+						"#text": "Allows Users to Change the Priority of Topics (Normal, Sticky, Announcement)."
 					},
 					{
 						"@tag": "READ_ACCESS",
@@ -2612,7 +2612,7 @@
 					},
 					{
 						"@tag": "HIDE_NOACESS_HELP",
-						"#text": "Means that the forum will be hidden when the user don't have read access to it."
+						"#text": "Means that the forum will be hidden when the user doesn't have read access to it."
 					},
 					{
 						"@tag": "INITAL_MASK",
@@ -2641,7 +2641,7 @@
 					{
 						"@tag": "MODERATED_COUNT_HELP",
 						"#text":
-							"Set it to 'Moderate all Posts' or uncheck that option to specify the amount of post a user has to reach to be automatically approved."
+							"Set it to 'Moderate all Posts' or uncheck that option to specify the number of posts a user has to reach to be automatically approved."
 					},
 					{
 						"@tag": "MODERATED_NEWTOPIC_ONLY",
@@ -2650,7 +2650,7 @@
 					{
 						"@tag": "MODERATED_NEWTOPIC_ONLY_HELP",
 						"#text":
-							"If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation."
+							"If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages need moderation."
 					},
 					{
 						"@tag": "MSG_CATEGORY",
@@ -2658,7 +2658,7 @@
 					},
 					{
 						"@tag": "MSG_CHILD_PARENT",
-						"#text": "The chosen forum cannot be child forum as it's a parent."
+						"#text": "The chosen forum cannot be a child forum as it's a parent."
 					},
 					{
 						"@tag": "MSG_DESCRIPTION",
@@ -2730,11 +2730,11 @@
 					},
 					{
 						"@tag": "REMOTE_URL_HELP",
-						"#text": "Enter a url here, and instead of going to the forum you will be taken to this url instead."
+						"#text": "Enter a URL here, and instead of going to the forum you will be taken to this URL."
 					},
 					{
 						"@tag": "SORT_ORDER",
-						"#text": "SortOrder:"
+						"#text": "Sort Order:"
 					},
 					{
 						"@tag": "SORT_ORDER_HELP",
@@ -2754,7 +2754,7 @@
 					},
 					{
 						"@tag": "THEME_HELP",
-						"#text": "Choose a theme for this forum if its to differ from the standard Board theme."
+						"#text": "Choose a theme for this forum if it is to differ from the standard Board theme."
 					},
 					{
 						"@tag": "TITLE",
@@ -2836,7 +2836,7 @@
 					{
 						"@tag": "IS_GUEST_HELP",
 						"#text":
-							"This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must a member of it. Never use this flag in conjunction with any other flags."
+							"This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must be a member of it. Never use this flag in conjunction with any other flags."
 					},
 					{
 						"@tag": "IS_START",
@@ -3075,7 +3075,7 @@
 					},
 					{
 						"@tag": "MEDAL_GROUP_HELP",
-						"#text": "Choose a Yaf Group."
+						"#text": "Choose a YAF Group."
 					},
 					{
 						"@tag": "MEDAL_IMAGE",
@@ -3127,7 +3127,7 @@
 					},
 					{
 						"@tag": "MSG_VALID_USER",
-						"#text": "Please specify valid user!"
+						"#text": "Please specify a valid user!"
 					},
 					{
 						"@tag": "OVERRIDE_MESSAGE",
@@ -3238,7 +3238,7 @@
 					},
 					{
 						"@tag": "RANK_DESC_HELP",
-						"#text": "Enter here a role description."
+						"#text": "Enter here a rank description."
 					},
 					{
 						"@tag": "RANK_IMAGE",
@@ -3262,7 +3262,7 @@
 					},
 					{
 						"@tag": "RANK_PRIO_HELP",
-						"#text": "Priority of rank is various things."
+						"#text": "Priority of the rank for various things."
 					},
 					{
 						"@tag": "RANK_STYLE",
@@ -3282,7 +3282,7 @@
 					},
 					{
 						"@tag": "SIG_BBCODE_HELP",
-						"#text": "Comma separated  BBCodes allowed in a user signature in the rank."
+						"#text": "Comma separated BBCodes allowed in a user signature in the rank."
 					},
 					{
 						"@tag": "SIG_LENGTH",
@@ -3443,7 +3443,7 @@
 					},
 					{
 						"@tag": "LINK_USER_BAN",
-						"#text": "User <a id=\"usr{0}\" href=\"{1}\">{2}</a>  is banned by IP"
+						"#text": "User <a id=\"usr{0}\" href=\"{1}\">{2}</a> is banned by IP"
 					},
 					{
 						"@tag": "MEMBER",
@@ -3692,7 +3692,7 @@
 					},
 					{
 						"@tag": "TODATE_HELP",
-						"#text": "Select the end date for log to show."
+						"#text": "Select the end date for the log to show."
 					},
 					{
 						"@tag": "TYPE",
@@ -3794,7 +3794,7 @@
 					},
 					{
 						"@tag": "CONFIRM_SORTING",
-						"#text": "Are you sure? this step is irreversible!"
+						"#text": "Are you sure? This step is irreversible!"
 					},
 					{
 						"@tag": "MSG_NOT_DELETE",
@@ -4039,7 +4039,7 @@
 					},
 					{
 						"@tag": "ALLOW_MOD_VIEWIP_HELP",
-						"#text": "Allow to view IPs to moderators."
+						"#text": "Allow moderators to view IPs."
 					},
 					{
 						"@tag": "ALLOW_MODIFY_DISPLAYNAME",
@@ -4063,7 +4063,7 @@
 					},
 					{
 						"@tag": "ALLOW_NOTIFICATION_ONALL_HELP",
-						"#text": "Allow users to get individual email notifications on all emails -- tons of email traffic."
+						"#text": "Allow users to get individual email notifications on all posts -- tons of email traffic."
 					},
 					{
 						"@tag": "ALLOW_PM_NOTIFICATION",
@@ -4071,7 +4071,7 @@
 					},
 					{
 						"@tag": "ALLOW_PM_NOTIFICATION_HELP",
-						"#text": "Allow users email notifications when new private messages arrive."
+						"#text": "Allow users to get email notifications when new private messages arrive."
 					},
 					{
 						"@tag": "ALLOW_PMS",
@@ -4159,7 +4159,7 @@
 					},
 					{
 						"@tag": "AMOUNT_OF_SUBFORUMS_HELP",
-						"#text": "The amount of Sub Forums In Forums List."
+						"#text": "The number of Sub Forums In Forums List."
 					},
 					{
 						"@tag": "APP_CORES",
@@ -4259,7 +4259,7 @@
 					},
 					{
 						"@tag": "BOT_IPBAN_ONREGISTER",
-						"#text": "Automatically Ban Ip Address of Detected Bot:"
+						"#text": "Automatically Ban IP Address of Detected Bot:"
 					},
 					{
 						"@tag": "BOT_IPBAN_ONREGISTER_HELP",
@@ -4295,15 +4295,15 @@
 					},
 					{
 						"@tag": "CHECK_FOR_BOTSPAM",
-						"#text": "Choose a Service for Automatically User Bot Checking:"
+						"#text": "Choose a Service for Automatic User Bot Checking:"
 					},
 					{
 						"@tag": "CHECK_FOR_BOTSPAM_HELP",
-						"#text": "Enables/disables automatically Bot SPAM Checking via the <a href=\"http://stopforumspam.com/\">StopForumSpam.com API</a> , BotScout.com API, or both together."
+						"#text": "Enables/disables automatic Bot SPAM Checking via the <a href=\"http://stopforumspam.com/\">StopForumSpam.com API</a>, BotScout.com API, or both together."
 					},
 					{
 						"@tag": "CHECK_FOR_SPAM",
-						"#text": "Choose a SPAM Service for Automatically SPAM Checking:"
+						"#text": "Choose a SPAM Service for Automatic SPAM Checking:"
 					},
 					{
 						"@tag": "CHECK_FOR_SPAM_HELP",
@@ -4339,7 +4339,7 @@
 					},
 					{
 						"@tag": "DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP",
-						"#text": "If \"NoFollow\" is enabled above, this is disable no follow for links on messages older then X days old (which takes into consideration last edited)."
+						"#text": "If \"NoFollow\" is enabled above, this disables no follow for links on messages older than X days (which takes into consideration last edited)."
 					},
 					{
 						"@tag": "DISABLE_REGISTER",
@@ -4427,7 +4427,7 @@
 					},
 					{
 						"@tag": "ENABLE_HOVERCARDS_HELP",
-						"#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Facebook Profile Button.\r\n     "
+						"#text": "If enabled it shows a Hover Card (Which shows some quick info about the user) when you hover over a user name. This will also show a Hover Card on the Facebook Profile Button.\r\n     "
 					},
 					{
 						"@tag": "ENABLE_RETWEET_MSG",
@@ -4443,7 +4443,7 @@
 					},
 					{
 						"@tag": "ENABLE_USERREPUTATION_HELP",
-						"#text": "Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation."
+						"#text": "Setting to Enable/Disable the Built-In Reputation System to allow Users to Give or Remove Reputation."
 					},
 					{
 						"@tag": "ENABLE_WYSIWYG",
@@ -4459,7 +4459,7 @@
 					},
 					{
 						"@tag": "ENTER_MODE_HELP",
-						"#text": "Sets the behavior of the Enter key, like whether the 'br'' or an empty 'p' element is to be used as a paragraph separator when indenting text."
+						"#text": "Sets the behavior of the Enter key, like whether the 'br' or an empty 'p' element is to be used as a paragraph separator when indenting text."
 					},
 					{
 						"@tag": "ENTER_MODE_0",
@@ -4479,7 +4479,7 @@
 					},
 					{
 						"@tag": "EVENTLOG_MAX_MESSAGES",
-						"#text": "Max event log message"
+						"#text": "Max event log messages"
 					},
 					{
 						"@tag": "EVENTLOG_MAX_MESSAGES_HELP",
@@ -4535,7 +4535,7 @@
 					},
 					{
 						"@tag": "FORUM_BASEURLMASK_HELP",
-						"#text": "The full forward-facing url to this forum."
+						"#text": "The full forward-facing URL to this forum."
 					},
 					{
 						"@tag": "FORUM_EMAIL",
@@ -4699,7 +4699,7 @@
 					},
 					{
 						"@tag": "IGNORE_SPAMCHECK_COUNT_HELP",
-						"#text": "The amount of posts a user has to have to be ignored by the spam checking."
+						"#text": "The number of posts a user has to have to be ignored by the spam checking."
 					},
 					{
 						"@tag": "IMAGE_ATTACH_RESIZE",
@@ -4727,7 +4727,7 @@
 					},
 					{
 						"@tag": "IMAGE_THUMB_HEIGHT",
-						"#text": "Thumbnail Image  Max Height:"
+						"#text": "Thumbnail Image Max Height:"
 					},
 					{
 						"@tag": "IMAGE_THUMB_HEIGHT_HELP",
@@ -4735,7 +4735,7 @@
 					},
 					{
 						"@tag": "IMAGE_THUMB_WIDTH",
-						"#text": "Thumbnail Image  Max Width:"
+						"#text": "Thumbnail Image Max Width:"
 					},
 					{
 						"@tag": "IMAGE_THUMB_WIDTH_HELP",
@@ -4871,11 +4871,11 @@
 					},
 					{
 						"@tag": "LOGIN_REDIR_URL",
-						"#text": "Custom Login Redirect Url:"
+						"#text": "Custom Login Redirect URL:"
 					},
 					{
 						"@tag": "LOGIN_REDIR_URL_HELP",
-						"#text": "If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to \"false\"), this is the URL users will be redirected to when they need to access the forum. Optionally add \"{0}\" to the URL to pass the return URL to the custom Url. E.g. \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\""
+						"#text": "If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to \"false\"), this is the URL users will be redirected to when they need to access the forum. Optionally add \"{0}\" to the URL to pass the return URL to the custom URL. E.g. \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\""
 					},
 					{
 						"@tag": "MAX_ALLOWED_CHOICES",
@@ -4883,7 +4883,7 @@
 					},
 					{
 						"@tag": "MAX_ALLOWED_CHOICES_HELP",
-						"#text": "Number of a question choices, max value no more than 99."
+						"#text": "Number of choices of a question, max value no more than 99."
 					},
 					{
 						"@tag": "MAX_ATTACHMENTS",
@@ -5051,7 +5051,7 @@
 					},
 					{
 						"@tag": "PASSWORD_REQUIRE_NON_LETTER_HELP",
-						"#text": "Option to requires a non-letter or digit character in a Password."
+						"#text": "Option to require a non-letter or digit character in a Password."
 					},
 					{
 						"@tag": "PASSWORD_UPPER_CASE",
@@ -5059,7 +5059,7 @@
 					},
 					{
 						"@tag": "PASSWORD_UPPER_CASE_HELP",
-						"#text": "Option to require a upper case letter ('A' - 'Z') in a Password."
+						"#text": "Option to require an upper case letter ('A' - 'Z') in a Password."
 					},
 					{
 						"@tag": "PM_ATTACHMENTS",
@@ -5075,7 +5075,7 @@
 					},
 					{
 						"@tag": "POLL_IMAGE_FILESIZE_HELP",
-						"#text": "Define the Max. File Size in Kilo Bytes for an User Poll Image."
+						"#text": "Define the Max. File Size in Kilo Bytes for a User Poll Image."
 					},
 					{
 						"@tag": "POPULAR_DAYS",
@@ -5083,19 +5083,19 @@
 					},
 					{
 						"@tag": "POPULAR_DAYS_HELP",
-						"#text": "Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week."
+						"#text": "Define the Number of days the topic's last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week."
 					},
 					{
 						"@tag": "POPULAR_REPLYS",
-						"#text": "Min. Replies to became Hot:"
+						"#text": "Min. Replies to become Hot:"
 					},
 					{
 						"@tag": "POPULAR_REPLYS_HELP",
-						"#text": "The number of Replies per topic becomes popular."
+						"#text": "The number of Replies before a topic becomes popular."
 					},
 					{
 						"@tag": "POPULAR_VIEWS",
-						"#text": "Min. Views to became Hot:"
+						"#text": "Min. Views to become Hot:"
 					},
 					{
 						"@tag": "POPULAR_VIEWS_HELP",
@@ -5107,7 +5107,7 @@
 					},
 					{
 						"@tag": "POST_AD_HELP",
-						"#text": "Place the code that you wish to be displayed in each thread after the 1st post. If you do not want an ad to be displayed, don't put anything in the box."
+						"#text": "Place the code that you wish to be displayed in each topic after the 1st post. If you do not want an ad to be displayed, don't put anything in the box."
 					},
 					{
 						"@tag": "POSTED_IMAGE_RESIZE",
@@ -5115,7 +5115,7 @@
 					},
 					{
 						"@tag": "POSTED_IMAGE_RESIZE_HELP",
-						"#text": "Resize user posted images in messages, if there are bigger then the max values bellow."
+						"#text": "Resize user posted images in messages, if they are bigger than the max values below."
 					},
 					{
 						"@tag": "POSTEDIT_TIMEOUT",
@@ -5223,7 +5223,7 @@
 					},
 					{
 						"@tag": "REQUIRE_LOGIN_HELP",
-						"#text": "If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page."
+						"#text": "If checked, users will be required to log in before they can see any content. They'll be redirected straight to the login page."
 					},
 					{
 						"@tag": "RULES_ONREGISTER",
@@ -5339,7 +5339,7 @@
 					},
 					{
 						"@tag": "SHOW_DEL_MESSAGES_HELP",
-						"#text": "If this is checked, messages that are deleted will leave with some notes"
+						"#text": "If this is checked, messages that are deleted will leave behind some notes"
 					},
 					{
 						"@tag": "SHOW_DEL_MESSAGES_TOALL",
@@ -5387,7 +5387,7 @@
 					},
 					{
 						"@tag": "SHOW_GROUPS_INPROFILE_HELP",
-						"#text": "Should the groups a user is part of be visible on the users profile page."
+						"#text": "Should the groups a user is part of be visible on the user's profile page."
 					},
 					{
 						"@tag": "SHOW_GUESTS_INACTIVE",
@@ -5507,7 +5507,7 @@
 					},
 					{
 						"@tag": "SHOW_SIMILARTOPICS_HELP",
-						"#text": "Should similar topics to be displayed at the bottom of a topic."
+						"#text": "Should similar topics be displayed at the bottom of a topic."
 					},
 					{
 						"@tag": "SHOW_THANK_DATE",
@@ -5547,7 +5547,7 @@
 					},
 					{
 						"@tag": "SHOW_YAFVERSION_HELP",
-						"#text": "Enable or disable display of the version/date information the bottom of the page (disable if your concerned about security)."
+						"#text": "Enable or disable display of the version/date information at the bottom of the page (disable if you're concerned about security)."
 					},
 					{
 						"@tag": "SHOWAD_LOGINUSERS",
@@ -5563,7 +5563,7 @@
 					},
 					{
 						"@tag": "SHOWHELP_HELP",
-						"#text": "Enable or disable display the Help Link in the Header that Shows the Help Files Pages"
+						"#text": "Enable or disable display of the Help Link in the Header that Shows the Help Files Pages"
 					},
 					{
 						"@tag": "SHOWTEAM",
@@ -5571,7 +5571,7 @@
 					},
 					{
 						"@tag": "SHOWTEAM_HELP",
-						"#text": "Enable or disable display the Team Link in the Header that Shows the Team Page"
+						"#text": "Enable or disable display of the Team Link in the Header that Shows the Team Page"
 					},
 					{
 						"@tag": "SPAM_MESSAGE_0",
@@ -5591,11 +5591,11 @@
 					},
 					{
 						"@tag": "SPAM_MESSAGE_HANDLING",
-						"#text": "Handling of as SPAM Detected Messages"
+						"#text": "Handling of Messages Detected as SPAM"
 					},
 					{
 						"@tag": "SPAM_MESSAGE_HANDLING_HELP",
-						"#text": "Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message."
+						"#text": "Choose what to do when a Message was detected as SPAM, you can choose between Do Nothing, Flag Message as Unapproved, or reject the Message."
 					},
 					{
 						"@tag": "SPAM_SERVICE_TYP_1",
@@ -5611,7 +5611,7 @@
 					},
 					{
 						"@tag": "SPAMCHECK_ALLOWED_URLS_HELP",
-						"#text": "If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have."
+						"#text": "If the user posts in one Message more than the allowed URLs the message is flagged as spam. This Check also depends on how many posts the user has."
 					},
 					{
 						"@tag": "SQL_FULLTEXT",
@@ -5623,7 +5623,7 @@
 					},
 					{
 						"@tag": "SSL_LOGIN_HELP",
-						"#text": "Redirect all non Secure Urls to Secure"
+						"#text": "Redirect all non Secure URLs to Secure"
 					},
 					{
 						"@tag": "SSL_REQUIRE",
@@ -5699,7 +5699,7 @@
 					},
 					{
 						"@tag": "TOPICFEED_COUNT_HELP",
-						"#text": "The maximum Amount of Topics to show on the Atom/Rss Feed."
+						"#text": "The maximum Number of Topics to show on the Atom/RSS Feed."
 					},
 					{
 						"@tag": "TWOCOLUMN_BOARD",
@@ -5719,11 +5719,11 @@
 					},
 					{
 						"@tag": "USE_FARSI_CALENDER",
-						"#text": "Use Farsi (Shamsi) Persian Calender:"
+						"#text": "Use Farsi (Shamsi) Persian Calendar:"
 					},
 					{
 						"@tag": "USE_FARSI_CALENDER_HELP",
-						"#text": "If enabled the Persian Calender all Date Times are Converted to the Persian Calender."
+						"#text": "If enabled, all Date Times are Converted to the Persian Calendar."
 					},
 					{
 						"@tag": "USE_READ_TRACKING",
@@ -5731,7 +5731,7 @@
 					},
 					{
 						"@tag": "USE_READ_TRACKING_HELP",
-						"#text": "If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. <br />WARNING: This Can Increase your DB if you have a big amount of users and/or topics"
+						"#text": "If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. <br />WARNING: This Can Increase your DB size if you have a large number of users and/or topics"
 					},
 					{
 						"@tag": "USER_CHANGE_LANGUAGE",
@@ -5791,7 +5791,7 @@
 					},
 					{
 						"@tag": "WELCOME_NOTIFICATION_1",
-						"#text": "Send as e-mail"
+						"#text": "Send as email"
 					},
 					{
 						"@tag": "WELCOME_NOTIFICATION_2",
@@ -5799,7 +5799,7 @@
 					},
 					{
 						"@tag": "WELCOME_NOTIFICATION_HELP",
-						"#text": "If enabled you it sends a user a Welcome Mail/Private Message after successfully registration."
+						"#text": "If enabled, it sends a user a Welcome Mail/Private Message after successful registration."
 					},
 					{
 						"@tag": "WSERVICE_TOKEN",
@@ -5909,7 +5909,7 @@
 					},
 					{
 						"@tag": "TO_MAIL_HELP",
-						"#text": "Enter the Email Address where the test email should be send"
+						"#text": "Enter the Email Address where the test email should be sent"
 					}
 				]
 			},
@@ -5935,7 +5935,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+							"Currently there are no medals. Add a new Medal by clicking the [b]New Medal[/b] button below."
 					},
 					{
 						"@tag": "MOVE_DOWN",
@@ -6068,7 +6068,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+							"Currently there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] button below."
 					},
 					{
 						"@tag": "NEW_DEF",
@@ -6233,11 +6233,11 @@
 					},
 					{
 						"@tag": "MSG_INVALID_MAIL",
-						"#text": "You have entered an illegal e-mail address."
+						"#text": "You have entered an invalid email address."
 					},
 					{
 						"@tag": "MSG_NAME_EXISTS",
-						"#text": "Username or email are already registered."
+						"#text": "Username or email is already registered."
 					},
 					{
 						"@tag": "REGISTER",
@@ -6265,7 +6265,7 @@
 					{
 						"@tag": "CONFIRM_SHRINK",
 						"#text":
-							"Are you sure you want to Shrink database?<br />The operation may make the DB inaccessible and may take a little while."
+							"Are you sure you want to shrink the database?<br />The operation may make the DB inaccessible and may take a little while."
 					},
 					{
 						"@tag": "HEADER",
@@ -6273,7 +6273,7 @@
 					},
 					{
 						"@tag": "INDEX_SHRINK",
-						"#text": "Shrink operation was Successful.Your database size is now: {0}MB"
+						"#text": "Shrink operation was Successful. Your database size is now: {0}MB"
 					},
 					{
 						"@tag": "INDEX_STATS",
@@ -6290,7 +6290,7 @@
 					{
 						"@tag": "RECOVERY2",
 						"#text":
-							"Simple (Simple Recovery allows the database to be recovered to the most recent backup.You need to backup your DB regularly.)"
+							"Simple (Simple Recovery allows the database to be recovered to the most recent backup. You need to backup your DB regularly.)"
 					},
 					{
 						"@tag": "RECOVERY3",
@@ -6299,7 +6299,7 @@
 					{
 						"@tag": "REINDEX",
 						"#text":
-							"With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance."
+							"With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in the database to boost performance."
 					},
 					{
 						"@tag": "REINDEX_MSG",
@@ -6362,7 +6362,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+							"Currently there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] button below."
 					},
 					{
 						"@tag": "GOOD",
@@ -6391,7 +6391,7 @@
 					},
 					{
 						"@tag": "BAD_HELP",
-						"#text": "Regular expression statement. Escape punctuation with a preceding slash (e.g. '\\.')."
+						"#text": "Regular expression statement. Escape punctuation with a preceding backslash (e.g. '\\.')."
 					},
 					{
 						"@tag": "GOOD",
@@ -6399,7 +6399,7 @@
 					},
 					{
 						"@tag": "GOOD_HELP",
-						"#text": "Regular expression statement. Escape punctuation with a preceding slash (e.g. '\\.')."
+						"#text": "Regular expression statement. Escape punctuation with a preceding backslash (e.g. '\\.')."
 					},
 					{
 						"@tag": "MSG_EXIST",
@@ -6448,7 +6448,7 @@
 					},
 					{
 						"@tag": "SELECT_IMPORT_HELP",
-						"#text": "(Must be *.xml file)"
+						"#text": "(Must be a *.xml file)"
 					},
 					{
 						"@tag": "TITLE",
@@ -6576,7 +6576,7 @@
 					{
 						"@tag": "EMPTY_MESSAGE",
 						"#text":
-							"Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+							"Currently there are no spam check words. Add a new spam check word by clicking the [b]Add New Word[/b] button below."
 					},
 					{
 						"@tag": "EXPORT",
@@ -6593,7 +6593,7 @@
 					{
 						"@tag": "NOTE",
 						"#text":
-							"<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
+							"<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatic SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
 					},
 					{
 						"@tag": "SAVE",
@@ -6671,7 +6671,7 @@
 					},
 					{
 						"@tag": "SELECT_IMPORT_HELP",
-						"#text": "(Must be *.xml file)"
+						"#text": "(Must be a *.xml file)"
 					},
 					{
 						"@tag": "TITLE",
@@ -6758,7 +6758,7 @@
 					},
 					{
 						"@tag": "EXPORT_XML",
-						"#text": "Export All User(s) as Xml"
+						"#text": "Export All User(s) as XML"
 					},
 					{
 						"@tag": "FACEBOOK_USER",
@@ -6803,7 +6803,7 @@
 					{
 						"@tag": "LOCK_INACTIVE_HELP",
 						"#text":
-							"Lock inactive accounts older then x years. This will not delete there content (like posted messages)"
+							"Lock inactive accounts older than x years. This will not delete their content (like posted messages)"
 					},
 					{
 						"@tag": "MSG_DELETE_ADMIN",
@@ -6884,7 +6884,7 @@
 					},
 					{
 						"@tag": "IMPORT_FAILED_FORMAT",
-						"#text": "Input failed, wrong file format!"
+						"#text": "Import failed, wrong file format!"
 					},
 					{
 						"@tag": "IMPORT_FILE",
@@ -6892,11 +6892,11 @@
 					},
 					{
 						"@tag": "IMPORT_FILE_HELP",
-						"#text": "Must be *.xml or *.csv file"
+						"#text": "Must be a *.xml or *.csv file"
 					},
 					{
 						"@tag": "IMPORT_NOTHING",
-						"#text": "Nothing imported: no new user where found in the upload."
+						"#text": "Nothing imported: no new users were found in the upload."
 					},
 					{
 						"@tag": "IMPORT_SUCESS",
@@ -6958,7 +6958,7 @@
 					},
 					{
 						"@tag": "ADMIN_BANNED_USERAGENTS",
-						"#text": "Banned UserAgents"
+						"#text": "Banned User Agents"
 					},
 					{
 						"@tag": "ADMIN_BBCODE",
@@ -7320,11 +7320,11 @@
 				"Resource": [
 					{
 						"@tag": "ALBUMIMG_DESCRIPTION",
-						"#text": "Enter a Album Image Number"
+						"#text": "Enter an Album Image Number"
 					},
 					{
 						"@tag": "ATTACH_DESCRIPTION",
-						"#text": "Enter a Attachment ID"
+						"#text": "Enter an Attachment ID"
 					},
 					{
 						"@tag": "ATTACH_NO",
@@ -7332,15 +7332,15 @@
 					},
 					{
 						"@tag": "DAILYMOTION_DESCRIPTION",
-						"#text": "Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)"
+						"#text": "Enter Dailymotion URL (http://www.dailymotion.com/video/xxxx)"
 					},
 					{
 						"@tag": "FACEBOOK_DESCRIPTION",
-						"#text": "Enter the Url of the post or the Embed Code of the Post you want to embed"
+						"#text": "Enter the URL of the post or the Embed Code of the Post you want to embed"
 					},
 					{
 						"@tag": "GOOGLEMAPS_DESCRIPTION",
-						"#text": "Enter Google Maps Url"
+						"#text": "Enter Google Maps URL"
 					},
 					{
 						"@tag": "HIDDENMOD_DESC",
@@ -7353,7 +7353,7 @@
 					},
 					{
 						"@tag": "HIDDENMOD_GUEST",
-						"#text": "This board requires you to be registered and logged-in before you can view hidden messages."
+						"#text": "This board requires you to be registered and logged in before you can view hidden messages."
 					},
 					{
 						"@tag": "HIDDENMOD_POST",
@@ -7382,11 +7382,11 @@
 					},
 					{
 						"@tag": "HIDEPOSTS_DESCRIPTION",
-						"#text": "The tag hides content from people who have below then X posts."
+						"#text": "The tag hides content from people who have fewer than X posts."
 					},
 					{
 						"@tag": "HIDEREPLY_DESCRIPTION",
-						"#text": "The tag hides content from people until they replied in the same thread."
+						"#text": "The tag hides content from people until they reply in the same topic."
 					},
 					{
 						"@tag": "HIDEREPLYTHANKS_DESCRIPTION",
@@ -7578,7 +7578,7 @@
 					},
 					{
 						"@tag": "BUTTON_DELETEATTACHMENT_TT",
-						"#text": "Delete selected attachment(s)s"
+						"#text": "Delete selected attachment(s)"
 					},
 					{
 						"@tag": "BUTTON_DELETETOPIC",
@@ -8157,7 +8157,7 @@
 					},
 					{
 						"@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-						"#text": "you have been awarded on the {0} Forum"
+						"#text": "You have been awarded a medal on the {0} Forum"
 					},
 					{
 						"@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -8173,7 +8173,7 @@
 					},
 					{
 						"@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
-						"#text": "Registration on {0} Forum successfully"
+						"#text": "Registration on {0} Forum successful"
 					},
 					{
 						"@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
@@ -8385,7 +8385,7 @@
 					},
 					{
 						"@tag": "TT_IMAGE_TITLE",
-						"#text": "Enter Image Url:"
+						"#text": "Enter Image URL:"
 					},
 					{
 						"@tag": "TT_IMAGE_DESC",
@@ -8401,7 +8401,7 @@
 					},
 					{
 						"@tag": "TT_MEDIA",
-						"#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+						"#text": "Paste the media URL in the input (For example a YouTube Video, Spotify Playlist or Instagram Image)."
 					},
 					{
 						"@tag": "UNREAD_MENTION_MSG",
@@ -8421,7 +8421,7 @@
 					},
 					{
 						"@tag": "UNREAD_MSG2",
-						"#text": "You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?"
+						"#text": "You have {0} unread message(s) in your Inbox. Would you like to go to your Inbox now?"
 					},
 					{
 						"@tag": "UNREAD_QUOTED_MSG",
@@ -9501,7 +9501,7 @@
 					},
 					{
 						"@tag": "ACTIVE_USERS_TIME",
-						"#text": "for last {0:N0} minutes"
+						"#text": "for the last {0:N0} minutes"
 					},
 					{
 						"@tag": "ALPHABET_FILTER",
@@ -9529,7 +9529,7 @@
 					},
 					{
 						"@tag": "GO_LAST_POST",
-						"#text": "Got to the newest Posting in the topic"
+						"#text": "Go to the newest Post in the topic"
 					},
 					{
 						"@tag": "GO_LASTUNREAD_POST",
@@ -9573,7 +9573,7 @@
 					},
 					{
 						"@tag": "MARKALL_MESSAGE",
-						"#text": "All forums has been marked as read"
+						"#text": "All forums have been marked as read"
 					},
 					{
 						"@tag": "MODERATORS",
@@ -9665,11 +9665,11 @@
 					},
 					{
 						"@tag": "VOTE_DOWN_TITLE",
-						"#text": "Remove -1 of the Users Reputation"
+						"#text": "Remove 1 from the User's Reputation"
 					},
 					{
 						"@tag": "VOTE_UP_TITLE",
-						"#text": "Add +1 to the Users Reputation."
+						"#text": "Add +1 to the User's Reputation."
 					},
 					{
 						"@tag": "WATCHFORUM_ALL",
@@ -9872,7 +9872,7 @@
 					{
 						"@tag": "IMAGES_INFO",
 						"#text":
-							"Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. file size for an Image is {2} kb"
+							"Currently this Album contains {0} Image(s), you are allowed to have {1} images for each album. The max. file size for an Image is {2} KB"
 					},
 					{
 						"@tag": "NEED_TITLE",
@@ -9996,7 +9996,7 @@
 					},
 					{
 						"@tag": "BAD_EMAIL",
-						"#text": "You have entered an illegal e-mail address."
+						"#text": "You have entered an invalid email address."
 					},
 					{
 						"@tag": "BAD_FACEBOOK",
@@ -10060,7 +10060,7 @@
 					},
 					{
 						"@tag": "DUPLICATED_EMAIL",
-						"#text": "The e-mail address you have entered is already in use."
+						"#text": "The email address you have entered is already in use."
 					},
 					{
 						"@tag": "EDIT_ALBUMS",
@@ -10268,7 +10268,7 @@
 					},
 					{
 						"@tag": "NEED_EMAIL",
-						"#text": "You must enter a email address."
+						"#text": "You must enter an email address."
 					},
 					{
 						"@tag": "NEED_MESSAGE",
@@ -10799,7 +10799,7 @@
 					},
 					{
 						"@tag": "ERROR",
-						"#text": "There was an error sending your e-mail."
+						"#text": "There was an error sending your email."
 					},
 					{
 						"@tag": "SEND",
@@ -10811,11 +10811,11 @@
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "E-mail"
+						"#text": "Email"
 					},
 					{
 						"@tag": "TITLE2",
-						"#text": "Send E-mail to {0}"
+						"#text": "Send Email to {0}"
 					}
 				]
 			},
@@ -10886,7 +10886,7 @@
 					{
 						"@tag": "REGISTRATION",
 						"#text":
-							"An email has been sent to the email address you supplied. Please read the instructions in the email to login."
+							"An email has been sent to the email address you supplied. Please read the instructions in the email to log in."
 					},
 					{
 						"@tag": "SUSPENDED",
@@ -11023,7 +11023,7 @@
 					},
 					{
 						"@tag": "DATASOURCE",
-						"#text": "Enter the Data Source (Name or address of the sql server)"
+						"#text": "Enter the Data Source (Name or address of the SQL server)"
 					},
 					{
 						"@tag": "DBCONNECTION",
@@ -11108,7 +11108,7 @@
 					},
 					{
 						"@tag": "FORUMURL",
-						"#text": "Forum Base Url Mask"
+						"#text": "Forum Base URL Mask"
 					},
 					{
 						"@tag": "FROMEMAIL",
@@ -11116,7 +11116,7 @@
 					},
 					{
 						"@tag": "INITFINISH",
-						"#text": "Your forum is now been ready."
+						"#text": "Your forum is now ready."
 					},
 					{
 						"@tag": "INITIALIZE",
@@ -11279,7 +11279,7 @@
 					},
 					{
 						"@tag": "TESTEMAIL",
-						"#text": "Test Smtp Settings"
+						"#text": "Test SMTP Settings"
 					},
 					{
 						"@tag": "TESTPERMISSION",
@@ -11362,7 +11362,7 @@
 					{
 						"@tag": "ACCOUNT_NOT_APPROVED",
 						"#text":
-							"Your account is not approved yet because you have not validated your email. Please verify so you can login."
+							"Your account is not approved yet because you have not validated your email. Please verify so you can log in."
 					},
 					{
 						"@tag": "AUTH_CONNECT",
@@ -11394,7 +11394,7 @@
 					},
 					{
 						"@tag": "ERROR_LOCKEDOUT",
-						"#text": "You have been locked out because of to many failed log in attempts."
+						"#text": "You have been locked out because of too many failed login attempts."
 					},
 					{
 						"@tag": "FORUM_LOGIN",
@@ -11406,7 +11406,7 @@
 					},
 					{
 						"@tag": "MSG_MESSAGE_SEND",
-						"#text": "Verification Mail was send again to you."
+						"#text": "Verification Mail was sent again to you."
 					},
 					{
 						"@tag": "PASSWORD",
@@ -11442,7 +11442,7 @@
 					},
 					{
 						"@tag": "USERNAME",
-						"#text": "User Name or E-Mail Address:"
+						"#text": "User Name or Email Address:"
 					},
 					{
 						"@tag": "WRONG_USERNAME_EMAIL",
@@ -11491,11 +11491,11 @@
 					},
 					{
 						"@tag": "NUMPOSTSLESSOREQUAL",
-						"#text": "is less or equal to"
+						"#text": "is less than or equal to"
 					},
 					{
 						"@tag": "NUMPOSTSMOREOREQUAL",
-						"#text": "is more or equal to"
+						"#text": "is more than or equal to"
 					},
 					{
 						"@tag": "PAGES",
@@ -11585,7 +11585,7 @@
 					},
 					{
 						"@tag": "CONFIRM_RESTORE",
-						"#text": "Are you really want to restore that Message version?"
+						"#text": "Do you really want to restore that Message version?"
 					},
 					{
 						"@tag": "CURRENTMESSAGE",
@@ -11609,7 +11609,7 @@
 					},
 					{
 						"@tag": "GOMODERATE",
-						"#text": "Continue moderate"
+						"#text": "Continue moderating"
 					},
 					{
 						"@tag": "MESSAGE_EDITEDAT",
@@ -11755,7 +11755,7 @@
 					},
 					{
 						"@tag": "MOVE_TO_DIFFERENT",
-						"#text": "The forum you want to move the topic(s) must be different then the current forum."
+						"#text": "The forum you want to move the topic(s) to must be different from the current forum."
 					},
 					{
 						"@tag": "MOVED",
@@ -11962,7 +11962,7 @@
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "Move Message to a Different Topic or split in to a new Topic"
+						"#text": "Move Message to a Different Topic or split into a new Topic"
 					}
 				]
 			},
@@ -11987,7 +11987,7 @@
 					},
 					{
 						"@tag": "SELECT_FORUM",
-						"#text": "Select the forum you want to move the post to:"
+						"#text": "Select the forum you want to move the topic to:"
 					},
 					{
 						"@tag": "TITLE",
@@ -12500,11 +12500,11 @@
 					},
 					{
 						"@tag": "POLLIMAGE_TEXT",
-						"#text": "Image Url:"
+						"#text": "Image URL:"
 					},
 					{
 						"@tag": "POLLOPTIONSHIDDEN_GUEST",
-						"#text": "Guests can't see poll choices and poll results. Try login or register."
+						"#text": "Guests can't see poll choices and poll results. Log in or register."
 					},
 					{
 						"@tag": "POLLQUESTION",
@@ -12553,7 +12553,7 @@
 					},
 					{
 						"@tag": "ASK_POLL_DELETE",
-						"#text": "Do you really want to remove poll from this topic?"
+						"#text": "Do you really want to remove the poll from this topic?"
 					},
 					{
 						"@tag": "BLOG_PASSWORD",
@@ -12732,7 +12732,7 @@
 					},
 					{
 						"@tag": "ATTACHMENTINFO",
-						"#text": "({0:N0}kb) downloaded [b]{1:N0}[/b] time(s)."
+						"#text": "({0:N0}KB) downloaded [b]{1:N0}[/b] time(s)."
 					},
 					{
 						"@tag": "ATTACHMENTS",
@@ -13024,7 +13024,7 @@
 					},
 					{
 						"@tag": "REP_VOTE_DOWN_MSG",
-						"#text": "You have successfully removed -1 Reputation to {0}."
+						"#text": "You have successfully removed 1 Reputation from {0}."
 					},
 					{
 						"@tag": "REP_VOTE_TITLE",
@@ -13307,11 +13307,11 @@
 					},
 					{
 						"@tag": "EMAIL",
-						"#text": "E-mail:"
+						"#text": "Email:"
 					},
 					{
 						"@tag": "EMAIL_HELP",
-						"#text": "The E-mail Address of the User."
+						"#text": "The Email Address of the User."
 					},
 					{
 						"@tag": "ENDS",
@@ -13471,7 +13471,7 @@
 					},
 					{
 						"@tag": "SUSPEND_INFO",
-						"#text": "The Suspension is based on the Users current Date and Time which is Now: {0}."
+						"#text": "The Suspension is based on the User's current Date and Time which is Now: {0}."
 					},
 					{
 						"@tag": "SUSPEND_NEW",
@@ -13696,7 +13696,7 @@
 					},
 					{
 						"@tag": "RGN_DE_HE",
-						"#text": "Hessen"
+						"#text": "Hesse"
 					},
 					{
 						"@tag": "RGN_DE_HH",
@@ -13979,7 +13979,7 @@
 					{
 						"@tag": "ACCOUNT_CREATED_VERIFICATION",
 						"#text":
-							"[center]Your account has been successfully created. Although, you still need to confirm your email account before you can login. Please check your email account for verification instructions.[/center]"
+							"[center]Your account has been successfully created. However, you still need to confirm your email account before you can log in. Please check your email account for verification instructions.[/center]"
 					},
 					{
 						"@tag": "ACCOUNT_CREATED_MAIL_FAILED",
@@ -13995,7 +13995,7 @@
 					},
 					{
 						"@tag": "BAD_EMAIL",
-						"#text": "You have entered an illegal email address."
+						"#text": "You have entered an invalid email address."
 					},
 					{
 						"@tag": "BAD_PASSWORD",
@@ -14007,7 +14007,7 @@
 					},
 					{
 						"@tag": "BOT_MESSAGE",
-						"#text": "Sorry Spammers are not allowed in the Forum!"
+						"#text": "Sorry, Spammers are not allowed in the Forum!"
 					},
 					{
 						"@tag": "CONFIRM_PASSWORD",
@@ -14059,7 +14059,7 @@
 					},
 					{
 						"@tag": "LOGIN_INSTEAD",
-						"#text": "Already Signed Up? Click Sign In to login your account."
+						"#text": "Already Signed Up? Click Sign In to log in to your account."
 					},
 					{
 						"@tag": "NEED_ANSWER",
@@ -14696,7 +14696,7 @@
 					{
 						"@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
 						"#text":
-							"\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
+							"\r\n    Hello {user}.\r\n\r\n    Congratulations, you have been awarded the {medalname} on the {forumname} forum.\r\n  "
 					},
 					{
 						"@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT",
@@ -14711,7 +14711,7 @@
 					{
 						"@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT",
 						"#text":
-							"\r\n      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked\r\n\r\n      Administration Link: {adminlink}\r\n   "
+							"\r\n      A new message (posted in the {forumname} forum) was detected as SPAM and needs to be checked\r\n\r\n      Administration Link: {adminlink}\r\n   "
 					},
 					{
 						"@tag": "NOTIFICATION_ON_REGISTER_TEXT",
@@ -14736,27 +14736,27 @@
 					{
 						"@tag": "NOTIFICATION_ON_WELCOME_USER_TEXT",
 						"#text":
-							"\r\n    Hello {user},\r\n\r\n    You have been successfully registered on the {forumname} forum. You're all ready to go!\r\n\r\n    Before posting, consider other ways of finding information:\r\n\r\n    - Use the help pages to find out how the forum works\r\n    - Try the Forum Search, often times your questions are already been answered\r\n    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.\r\n    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+							"\r\n    Hello {user},\r\n\r\n    You have been successfully registered on the {forumname} forum. You're all ready to go!\r\n\r\n    Before posting, consider other ways of finding information:\r\n\r\n    - Use the help pages to find out how the forum works\r\n    - Try the Forum Search, often times your questions have already been answered\r\n    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.\r\n    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
 					},
 					{
 						"@tag": "NOTIFICATION_ROLE_ASSIGNMENT_TEXT",
 						"#text":
-							"\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
+							"\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has been recently updated to include access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
 					},
 					{
 						"@tag": "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT",
 						"#text":
-							"\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
+							"\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has been recently updated to restrict access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
 					},
 					{
 						"@tag": "PASSWORDRETRIEVAL_ADMIN_TEXT",
 						"#text":
-							"\r\n     Hello {username},\r\n\r\n     Your password has been resetted for the {forumname}, and new password has been generated for you at {forumlink}.\r\n\r\n     Please return to the site and login using the following information:\r\n\r\n     User Name: {username}\r\n     Password: {password}\r\n   "
+							"\r\n     Hello {username},\r\n\r\n     Your password has been reset for {forumname}, and a new password has been generated for you at {forumlink}.\r\n\r\n     Please return to the site and log in using the following information:\r\n\r\n     User Name: {username}\r\n     Password: {password}\r\n   "
 					},
 					{
 						"@tag": "PASSWORDRETRIEVAL_TEXT",
 						"#text":
-							"\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
+							"\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and log in using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
 					},
 					{
 						"@tag": "PMNOTIFICATION_TEXT",
@@ -14862,7 +14862,7 @@
 					},
 					{
 						"@tag": "LOGIN_CONNECT",
-						"#text": "Login to your {0} forum account"
+						"#text": "Log in to your {0} forum account"
 					},
 					{
 						"@tag": "LOGIN_TITLE",
@@ -14874,11 +14874,11 @@
 					},
 					{
 						"@tag": "LOGOUT_QUESTION",
-						"#text": "Are you sure you want to logout?"
+						"#text": "Are you sure you want to log out?"
 					},
 					{
 						"@tag": "LOGOUT_TITLE",
-						"#text": "Logout from the Forum."
+						"#text": "Log out from the Forum."
 					},
 					{
 						"@tag": "MEMBERS",
@@ -14898,7 +14898,7 @@
 					},
 					{
 						"@tag": "MODERATE_TITLE",
-						"#text": "Shows the Moderate Page where you can view unapproved and reported Posts.."
+						"#text": "Shows the Moderate Page where you can view unapproved and reported Posts."
 					},
 					{
 						"@tag": "MYALBUMS",
@@ -14974,7 +14974,7 @@
 					},
 					{
 						"@tag": "TEAM_TITLE",
-						"#text": "Shows the Team Page which shows all Moderators and Admins.."
+						"#text": "Shows the Team Page which shows all Moderators and Admins."
 					},
 					{
 						"@tag": "UNREADTOPICS",
@@ -14994,7 +14994,7 @@
 					},
 					{
 						"@tag": "WELCOME_GUEST_NO",
-						"#text": "Welcome Guest! You can <strong>not</strong> login or register."
+						"#text": "Welcome Guest! You can <strong>not</strong> log in or register."
 					}
 				]
 			},
