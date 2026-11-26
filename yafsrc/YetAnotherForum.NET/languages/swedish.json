@@ -7215,7 +7215,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Du har inga bilagor ännu, för att lägga till en klickar du på knappen <strong>Överför ny(a) fil(er)</strong>."
+            "#text": "Du har inte laddat upp några bilagor ännu."
           },
           {
             "@tag": "SELECT_FILE",
@@ -12849,7 +12849,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Ämnesalternativ för att prenumerera via e-post, RSS, Atom och för att visa en utskriftsvänlig sida."
+            "#text": "Bevaka ämnet, skriv ut det eller öppna dess Atom-flöde."
           },
           {
             "@tag": "PM",
@@ -12949,7 +12949,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Dela ämnet: kopiera länken eller skicka det via e-post."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14801,7 +14801,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Visar användarkontrollpanelen."
+            "#text": "Visar ditt konto och din aktivitet."
           },
           {
             "@tag": "MYSETTINGS",

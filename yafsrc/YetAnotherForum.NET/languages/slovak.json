@@ -7215,7 +7215,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Zatiaľ nemáte žiadne prílohy, ak ich chcete pridať, kliknite na tlačidlo <strong>Nahrať nový súbor(y)</strong>."
+            "#text": "Zatiaľ ste nenahrali žiadne prílohy."
           },
           {
             "@tag": "SELECT_FILE",
@@ -12849,7 +12849,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Možnosti témy Prihlásiť sa k odberu e-mailom, RSS, Atom a zobraziť stránku pre tlačiareň."
+            "#text": "Sledovať túto tému, vytlačiť ju alebo otvoriť jej kanál Atom."
           },
           {
             "@tag": "PM",
@@ -12949,7 +12949,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Zdieľať túto tému: skopírovať odkaz alebo ju poslať e-mailom."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14801,7 +14801,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Zobrazí ovládací panel používateľa."
+            "#text": "Zobrazí váš účet a vašu aktivitu."
           },
           {
             "@tag": "MYSETTINGS",

@@ -7215,7 +7215,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "Nu aveți încă niciun atașament, pentru a adăuga unul, faceți clic pe butonul <strong>Încărcați fișier(e) nou(e)</strong>."
+            "#text": "Nu ați încărcat încă niciun atașament."
           },
           {
             "@tag": "SELECT_FILE",
@@ -12849,7 +12849,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "Opțiuni de subiect pentru a vă abona prin e-mail, RSS, Atom și pentru a vizualiza pagina pentru imprimantă."
+            "#text": "Urmăriți acest subiect, imprimați-l sau deschideți fluxul său Atom."
           },
           {
             "@tag": "PM",
@@ -12949,7 +12949,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Distribuiți acest subiect: copiați linkul sau trimiteți-l prin e-mail."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14801,7 +14801,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "Afișează panoul de control al utilizatorului."
+            "#text": "Afișează contul și activitatea dumneavoastră."
           },
           {
             "@tag": "MYSETTINGS",

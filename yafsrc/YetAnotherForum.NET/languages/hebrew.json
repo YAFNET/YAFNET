@@ -7215,7 +7215,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "אין לך עדיין קבצים מצורפים, כדי להוסיף לחיצה אחת על כפתור <strong>העלאת קבצים חדשים</strong>"
+            "#text": "עדיין לא העליתם קבצים מצורפים."
           },
           {
             "@tag": "SELECT_FILE",
@@ -12861,7 +12861,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "אפשרויות נושא להירשם באמצעות דואר אלקטרוני, RSS, Atom, ולצפייה בדף ידידותי להדפסה."
+            "#text": "מעקב אחר הנושא, הדפסתו או פתיחת עדכון ה-Atom שלו."
           },
           {
             "@tag": "PM",
@@ -12961,7 +12961,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "שיתוף הדיון: העתקת הקישור או שליחתו בדוא״ל."
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14813,7 +14813,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "מציג את לוח הבקרה של המשתמש."
+            "#text": "מציג את החשבון שלך ואת הפעילות שלך."
           },
           {
             "@tag": "MYSETTINGS",

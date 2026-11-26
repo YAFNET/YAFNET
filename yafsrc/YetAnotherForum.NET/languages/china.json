@@ -7215,7 +7215,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "您还没有任何附件，添加一键<strong>上传新文件</strong>按钮"
+            "#text": "你还没有上传任何附件。"
           },
           {
             "@tag": "SELECT_FILE",
@@ -12849,7 +12849,7 @@
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
-            "#text": "通过电子邮件、RSS、Atom 订阅和查看打印机友好页面的主题选项。"
+            "#text": "关注此主题、打印它或打开它的 Atom 订阅源。"
           },
           {
             "@tag": "PM",
@@ -12949,7 +12949,7 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "分享此主题：复制链接或通过电子邮件发送。"
           },
           {
             "@tag": "SIMILAR_TOPICS",
@@ -14801,7 +14801,7 @@
           },
           {
             "@tag": "MYPROFILE_TITLE",
-            "#text": "显示用户控制面板。"
+            "#text": "显示您的帐户和您的动态。"
           },
           {
             "@tag": "MYSETTINGS",
