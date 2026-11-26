@@ -275,6 +275,19 @@ public partial class EditGroup : AdminPage
             oldRoleName = group.Name;
         }
 
+        // the admin flag of the last admin group is kept (without it the board has no admins, the group can't be
+        // deleted for the same reason)
+        if (roleId.HasValue && !this.IsAdminX.Checked
+            && this.GetRepository<Group>().Exists(g => g.ID == roleId.Value && (g.Flags & 1) == 1)
+            && !this.GetRepository<Group>().Exists(
+                g => g.BoardID == this.PageBoardContext.PageBoardID && g.ID != roleId.Value && (g.Flags & 1) == 1))
+        {
+            this.IsAdminX.Checked = true;
+
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITGROUP", "MSG_LAST_ADMIN"), MessageTypes.warning);
+            return;
+        }
+
         var groupFlags = new GroupFlags {
                                                 IsGuest = this.IsGuestX.Checked,
                                                 IsAdmin = this.IsAdminX.Checked,

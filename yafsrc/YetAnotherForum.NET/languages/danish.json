@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Tilføj/rediger rolle"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Administratorflaget kan ikke fjernes fra den sidste gruppe med administratorrettigheder, uden den har tavlen ingen administratorer."
           }
         ]
       },

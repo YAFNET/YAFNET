@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Legg til/rediger rolle"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Administratorretten kan ikke fjernes fra den siste gruppen med administratorrettigheter, uten den har forumet ingen administratorer."
           }
         ]
       },

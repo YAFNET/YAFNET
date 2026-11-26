@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa vai trò"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Không thể gỡ quyền quản trị khỏi nhóm cuối cùng có quyền quản trị, nếu không bảng sẽ không còn quản trị viên."
           }
         ]
       },

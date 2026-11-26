@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adicionar/Editar o papel"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "A permissão de administrador não pode ser retirada ao último grupo que a tem; sem ela o quadro não teria administradores."
           }
         ]
       },

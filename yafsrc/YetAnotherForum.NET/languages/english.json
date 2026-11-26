@@ -2902,6 +2902,10 @@
 					{
 						"@tag": "TITLE",
 						"#text": "Add/Edit Role"
+					},
+					{
+						"@tag": "MSG_LAST_ADMIN",
+						"#text": "The admin flag can't be removed from the last group with admin rights, without it the board has no admins."
 					}
 				]
 			},

@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lisää/muokkaa roolia"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Ylläpitäjän oikeutta ei voi poistaa viimeiseltä ryhmältä, jolla se on, ilman sitä foorumilla ei ole ylläpitäjiä."
           }
         ]
       },

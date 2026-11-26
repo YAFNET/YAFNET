@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Přidat/upravit roli"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Právo správce nelze odebrat poslední skupině s právy správce, jinak by nástěnka neměla žádné správce."
           }
         ]
       },

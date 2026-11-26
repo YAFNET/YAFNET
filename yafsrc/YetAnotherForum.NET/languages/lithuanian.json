@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridėti / redaguoti vaidmenį"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Administratoriaus požymio negalima pašalinti iš paskutinės grupės su administratoriaus teisėmis, nes be jos lenta neturėtų administratorių."
           }
         ]
       },

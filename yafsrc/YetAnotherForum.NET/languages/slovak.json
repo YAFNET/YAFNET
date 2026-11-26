@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť úlohu"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Právo správcu nemožno odobrať poslednej skupine s právami správcu, inak by nástenka nemala žiadnych správcov."
           }
         ]
       },

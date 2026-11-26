@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/Modifier un rôle"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Le droit d'administrateur ne peut pas être retiré du dernier groupe qui le possède, sans lui le forum n'a plus d'administrateurs."
           }
         ]
       },

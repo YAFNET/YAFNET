@@ -2877,6 +2877,10 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar rol"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "No se puede quitar el permiso de administrador al último grupo con derechos de administrador; sin él, el tablero no tendría administradores."
           }
         ]
       },

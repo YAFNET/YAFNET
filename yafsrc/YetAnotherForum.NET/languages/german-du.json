@@ -2877,6 +2877,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rolle Hinzufügen / Bearbeiten"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Das Admin-Recht kann der letzten Gruppe mit Admin-Rechten nicht entzogen werden, ohne sie hat das Board keine Admins."
           }
         ]
       },

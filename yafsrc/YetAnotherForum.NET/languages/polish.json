@@ -2877,6 +2877,10 @@
           {
             "@tag": "TITLE",
             "#text": "Dodaj/Edytuj rolę"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Nie można odebrać uprawnień administratora ostatniej grupie, która je ma, bez niej forum nie ma administratorów."
           }
         ]
       },

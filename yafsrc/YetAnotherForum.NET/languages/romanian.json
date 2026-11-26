@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare rol"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Dreptul de administrator nu poate fi eliminat de la ultimul grup care îl are, fără el forumul nu are administratori."
           }
         ]
       },

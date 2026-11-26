@@ -2881,6 +2881,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rol Ekle/Düzenle"
+          },
+          {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Yönetici işareti, yönetici haklarına sahip son gruptan kaldırılamaz; aksi halde panonun hiç yöneticisi kalmaz."
           }
         ]
       },
