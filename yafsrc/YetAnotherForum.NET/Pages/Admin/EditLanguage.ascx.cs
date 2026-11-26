@@ -226,10 +226,32 @@ public partial class EditLanguage : AdminPage
         this.pageName = this.LoadedPage;
         var pageTranslations = this.translations.Where(x => x.PageName == this.pageName);
 
-        translationResource.Resources.Page.First(x => x.Name == this.pageName).Resource.ForEach(
-            resource =>
+        // a page or text that is missing in the translation file is added (it threw an exception, the texts could
+        // not be translated)
+        var page = translationResource.Resources.Page.Find(
+            p => p.Name.Equals(this.pageName, StringComparison.OrdinalIgnoreCase));
+
+        if (page is null)
+        {
+            page = new Types.Objects.Language.Page { Name = this.pageName, Resource = [] };
+            translationResource.Resources.Page.Add(page);
+        }
+
+        page.Resource ??= [];
+
+        pageTranslations.Where(translation => translation.ResourceName.IsSet()).ForEach(
+            translation =>
             {
-                resource.Text = pageTranslations.First(x => x.ResourceName == resource.Tag).LocalizedResourceText;
+                var resource = page.Resource.Find(
+                    r => r.Tag.Equals(translation.ResourceName, StringComparison.OrdinalIgnoreCase));
+
+                if (resource is null)
+                {
+                    resource = new Types.Objects.Language.Resource { Tag = translation.ResourceName };
+                    page.Resource.Add(resource);
+                }
+
+                resource.Text = translation.LocalizedResourceText;
             });
 
         var serializer = new JsonSerializer { Formatting = Formatting.Indented };
@@ -305,14 +327,16 @@ public partial class EditLanguage : AdminPage
                     pageResources.ForEach(
                         resource =>
                         {
-                            var translationResourceText = translationPage.Resource.Find(
+                            // a page or text missing in the translation file is shown empty, as not translated
+                            // (it threw an exception, the rest of the texts was not shown)
+                            var translationResourceText = translationPage?.Resource?.Find(
                                 r => r.Tag.Equals(resource.Tag, StringComparison.OrdinalIgnoreCase));
 
                             this.CreatePageResourceControl(
                                 page.Name,
                                 resource.Tag,
                                 resource.Text,
-                                translationResourceText.Text);
+                                translationResourceText?.Text);
                         });
                 });
         }

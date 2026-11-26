@@ -46,6 +46,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Board Announcement: the message was shown as raw html on every page, an admin with the access to the page could put a script on the pages of all users (also of the host admin); the announcement is formatted like a post now (html is encoded, BB codes like [b] or [url] format it)
 * [FIXED] Admin > Private Messages: the number of the deleted messages was not shown after the delete, and the entered days were reset (new text in all languages)
 * [FIXED] Admin > Edit Language: saving after selecting another page (without loading it) failed with an error; the texts of the loaded page are saved
+* [FIXED] Admin > Edit Language: a page or text missing in the language file stopped the list with an error in the log (the texts after it were not shown), and a missing text could not be added; missing texts are shown as not translated and saving adds them to the file
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
