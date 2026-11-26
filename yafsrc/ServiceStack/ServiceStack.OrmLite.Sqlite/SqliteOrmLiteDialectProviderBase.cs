@@ -1087,7 +1087,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     public override string ShrinkDatabase(string database)
     {
-        return "PRAGMA auto_vacuum = FULL;";
+        // VACUUM rebuilds the database file without the unused pages (the auto_vacuum pragma did nothing for an
+        // existing database)
+        return "VACUUM;";
     }
 
     /// <summary>
@@ -1098,7 +1100,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     public override string ReIndexDatabase(string database, string objectQualifier)
     {
-        return "PRAGMA auto_vacuum = INCREMENTAL;";
+        // rebuilds all indexes (the auto_vacuum pragma changed the vacuum mode instead)
+        return "REINDEX;";
     }
 
     /// <summary>
