@@ -59,6 +59,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile: guests (profile view permission "everyone") got the PM and email buttons, which led to "access denied"
 * [FIXED] Profile: the tooltips of the blog, Facebook, XMPP, PM and email buttons showed the name of the user encoded twice (e.g. "O&#39;Brien")
 * [FIXED] Active users: the guests and the hidden users were filtered after the paging, the guest list showed only the guests of the first sessions, pages had fewer entries and the count included the filtered users
+* [FIXED] Edit message: a post edited to spam stayed approved and visible with the spam handling "flag as not approved"
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

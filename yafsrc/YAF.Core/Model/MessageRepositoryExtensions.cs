@@ -1238,6 +1238,9 @@ public static class MessageRepositoryExtensions
     /// <param name="editedBy">
     /// UserId of who edited the message.
     /// </param>
+    /// <param name="isPossibleSpam">
+    /// The edit was found as spam (with the spam handling "flag as not approved").
+    /// </param>
     public static void Update(
         this IRepository<Message> repository,
         short? priority,
@@ -1253,14 +1256,26 @@ public static class MessageRepositoryExtensions
         Message originalMessage,
         Forum forum,
         User originalMessageUser,
-        int editedBy)
+        int editedBy,
+        bool isPossibleSpam = false)
     {
-        
-
         // the flags object of the message is created for every access, it has to be kept
         var flags = originalMessage.MessageFlags;
 
-        if (overrideApproval || !forum.ForumFlags.IsModerated)
+        if (isPossibleSpam)
+        {
+            // an edit that is found as spam is hidden until a moderator approves it (it stayed approved and visible),
+            // the approval counts the post of the user again
+            if (flags.IsApproved && !forum.ForumFlags.IsTest)
+            {
+                BoardContext.Current.GetRepository<User>().UpdateAdd(
+                    () => new User { NumPosts = -1 },
+                    u => u.ID == originalMessage.UserID);
+            }
+
+            flags.IsApproved = false;
+        }
+        else if (overrideApproval || !forum.ForumFlags.IsModerated)
         {
             flags.IsApproved = true;
         }

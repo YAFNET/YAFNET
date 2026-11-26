@@ -265,10 +265,10 @@ public partial class EditMessage : ForumPage
     /// <summary>
     /// The post reply handle edit post.
     /// </summary>
-    /// <returns>
-    /// Returns the Message Id
-    /// </returns>
-    private void PostReplyHandleEditPost()
+    /// <param name="isPossibleSpamMessage">
+    /// The edit was found as spam (the post is not approved any more).
+    /// </param>
+    private void PostReplyHandleEditPost(bool isPossibleSpamMessage)
     {
         if (!this.PageBoardContext.ForumEditAccess)
         {
@@ -342,7 +342,8 @@ public partial class EditMessage : ForumPage
             this.PageBoardContext.PageMessage,
             this.PageBoardContext.PageForum,
             messageUser,
-            this.PageBoardContext.PageUserID);
+            this.PageBoardContext.PageUserID,
+            isPossibleSpamMessage);
 
         // the tags are only changed when they are shown (topic starter and moderators), editing a reply kept none
         if (this.TagsRow.Visible)
@@ -430,10 +431,10 @@ public partial class EditMessage : ForumPage
         this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
         // Edit existing post
-        this.PostReplyHandleEditPost();
+        this.PostReplyHandleEditPost(isPossibleSpamMessage);
 
-        // Check if message is approved
-        var isApproved = this.PageBoardContext.PageMessage.MessageFlags.IsApproved;
+        // Check if message is approved (an edit found as spam is not approved any more)
+        var isApproved = !isPossibleSpamMessage && this.PageBoardContext.PageMessage.MessageFlags.IsApproved;
 
         var messageId = this.PageBoardContext.PageMessage.ID;
 

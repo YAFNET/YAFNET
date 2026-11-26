@@ -156,6 +156,24 @@ public class MessageEditTests
     }
 
     [Test]
+    [Description("An edit found as spam (\"flag as not approved\") hides the approved post, the post of the user is not counted until the approval")]
+    public void UpdateAsync_Possible_Spam_Unapproves_Test()
+    {
+        var message = this.AddPost(this.alice, "fine", 0);
+        this.Repository<User>().UpdateOnly(() => new User { NumPosts = 5 }, u => u.ID == this.alice);
+
+        this.Edit(message, "buy cheap pills", "reason", isPossibleSpam: true);
+
+        (this.Messages.GetById(message)).MessageFlags.IsApproved.Should().BeFalse("it stayed approved and visible");
+        (this.Repository<User>().GetById(this.alice)).NumPosts.Should().Be(4);
+
+        // an edit of the not approved post does not count again
+        this.Edit(message, "buy cheap pills now", "reason", isPossibleSpam: true);
+
+        (this.Repository<User>().GetById(this.alice)).NumPosts.Should().Be(4);
+    }
+
+    [Test]
     [Description("In a moderated forum an edit only approves the post with override approval")]
     public void UpdateAsync_Moderated_Forum_Test()
     {
@@ -488,7 +506,8 @@ public class MessageEditTests
         string reason,
         string subject = null,
         short? priority = null,
-        bool overrideApproval = false)
+        bool overrideApproval = false,
+        bool isPossibleSpam = false)
     {
         var message = this.Messages.GetById(messageId);
         var topicEntity = this.Repository<Topic>().GetById(message.TopicID);
@@ -507,6 +526,7 @@ public class MessageEditTests
             message,
             this.Repository<Forum>().GetById(topicEntity.ForumID),
             this.Repository<User>().GetById(message.UserID),
-            this.bob);
+            this.bob,
+            isPossibleSpam);
     }
 }
