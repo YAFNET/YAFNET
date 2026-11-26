@@ -867,43 +867,36 @@ public static class UserRepositoryExtensions
         int userId,
         int boardId)
     {
-        var groupMax = repository.DbAccess.Execute(
-            db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
+        // the limits of every role of the user (MAX of the bb code lists picked the alphabetically last list, e.g.
+        // "URL" of one role instead of "B,I" and "URL" of two roles)
+        var groups = repository.DbAccess.Execute(
+            db => db.Connection.Select<(string usrSigBBCodes, int? usrSigChars)>(
                 db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
                     .Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
                     .Where(a => a.ID == userId && a.BoardID == boardId).Select<Group>(
-                        c => new { UsrSigBBCodes = Sql.Max(c.UsrSigBBCodes), UsrSigChars = Sql.Max(c.UsrSigChars) })));
+                        c => new { c.UsrSigBBCodes, c.UsrSigChars })));
 
-        var rankMax = repository.DbAccess.Execute(
-            db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
+        var ranks = repository.DbAccess.Execute(
+            db => db.Connection.Select<(string usrSigBBCodes, int? usrSigChars)>(
                 db.Connection.From<User>().Join<Rank>((a, b) => b.ID == a.RankID)
                     .Where(a => a.ID == userId && a.BoardID == boardId).Select<Rank>(
                         b => new { b.UsrSigBBCodes, b.UsrSigChars })));
 
+        var limits = groups.Concat(ranks).ToList();
+
         dynamic data = new ExpandoObject();
 
-        try
-        {
-            data.UsrSigChars = groupMax.usrSigChars > rankMax.usrSigChars ? groupMax.usrSigChars : rankMax.usrSigChars;
-        }
-        catch (Exception)
-        {
-            data.UsrSigChars = 0;
-        }
+        // the most characters of the roles and the rank
+        data.UsrSigChars = limits.Count == 0 ? 0 : limits.Max(x => x.usrSigChars ?? 0);
 
-        if (rankMax.usrSigBBCodes.IsSet() && groupMax.usrSigBBCodes.IsSet())
-        {
-            data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
-        }
-        else if (groupMax.usrSigBBCodes.IsSet())
-        {
-            // the codes of the groups or the rank, whichever has codes
-            data.UsrSigBBCodes = groupMax.usrSigBBCodes;
-        }
-        else
-        {
-            data.UsrSigBBCodes = rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
-        }
+        // all bb codes any of the roles or the rank allows (the longest list was used)
+        data.UsrSigBBCodes = string.Join(
+            ",",
+            limits.Where(x => x.usrSigBBCodes.IsSet())
+                .SelectMany(x => x.usrSigBBCodes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                .Select(x => x.Trim())
+                .Where(x => x.Length > 0)
+                .Distinct(StringComparer.OrdinalIgnoreCase));
 
         return data;
     }

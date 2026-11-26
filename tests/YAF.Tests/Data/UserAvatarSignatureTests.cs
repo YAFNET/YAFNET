@@ -141,6 +141,31 @@ public class UserAvatarSignatureTests
     }
 
     [Test]
+    [Description("The allowed signature bb codes are all codes of the user's roles and rank (MAX picked the alphabetically last list)")]
+    public void Signature_BBCodes_Of_All_Roles_Test()
+    {
+        var groups = this.board.Current.GetRepository<Group>();
+
+        var first = this.db.AddForumAccess(this.alice, this.db.AddForum());
+        var second = this.db.AddForumAccess(this.alice, this.db.AddForum());
+
+        groups.UpdateOnly(() => new Group { UsrSigChars = 50, UsrSigBBCodes = "B,I" }, g => g.ID == first);
+        groups.UpdateOnly(() => new Group { UsrSigChars = 200, UsrSigBBCodes = "URL" }, g => g.ID == second);
+
+        var rank = this.db.AddRank("Quoting", configure: r =>
+        {
+            r.UsrSigChars = 10;
+            r.UsrSigBBCodes = "QUOTE,b";
+        });
+        this.Users.UpdateOnly(() => new User { RankID = rank }, u => u.ID == this.alice);
+
+        var signature = this.Users.SignatureData(this.alice, TestDatabase.BoardId);
+
+        ((int)signature.UsrSigChars).Should().Be(200);
+        ((string)signature.UsrSigBBCodes).Split(',').Should().BeEquivalentTo("B", "I", "URL", "QUOTE");
+    }
+
+    [Test]
     [Description("The reporters of a post and the report of one user")]
     public void Message_Reporters_Test()
     {
