@@ -3170,6 +3170,10 @@
             "#text": "Rangas Prioritetas turėtų būti mažas sveikasis skaičius."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nauji naudotojai gauna pradinį rangą, jis negali prarasti šios žymės. Vietoj to pažymėkite kitą rangą kaip pradinį."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Turite apibrėžti rango pavadinimą."
           },

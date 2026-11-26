@@ -3170,6 +3170,10 @@
             "#text": "Ưu tiên Xếp hạng phải là số nguyên nhỏ."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Người dùng mới nhận cấp bậc khởi đầu, cấp bậc này không thể bỏ đánh dấu. Hãy đánh dấu một cấp bậc khác làm cấp bậc khởi đầu."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Bạn phải xác định tên cấp bậc."
           },

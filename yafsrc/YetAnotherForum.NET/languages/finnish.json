@@ -3170,6 +3170,10 @@
             "#text": "Sijoitus Prioriteetin tulisi olla pieni kokonaisluku."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Uudet käyttäjät saavat aloitusarvon, se ei voi menettää merkintää. Merkitse sen sijaan toinen arvo aloitusarvoksi."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Sinun on määriteltävä arvojärjestyksen nimi."
           },

@@ -3170,6 +3170,10 @@
             "#text": "Rang Prioritet ska vara ett litet heltal."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nya användare får startrangen, den kan inte förlora markeringen. Markera en annan rang som startrang i stället."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Du måste definiera ett namn på en rang."
           },

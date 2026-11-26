@@ -3170,6 +3170,10 @@
             "#text": "Priorita pozice by měla být malé celé číslo."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Noví uživatelé dostávají počáteční hodnost, označení nelze odebrat. Místo toho označte jako počáteční jinou hodnost."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Musíte definovat název hodnosti."
           },

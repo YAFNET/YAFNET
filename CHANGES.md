@@ -29,6 +29,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit User: the homepage saved by the admin in the profile of a user went through the spam bot check of the own profile, with a spam word the event log reported the user as a spam bot ("user was deleted and the name, email and IP Address are banned")
 * [FIXED] Admin > Ranks: the start rank of a new board (Newbie) was not on the rank ladder, the new users were never promoted to Member and Advanced Member (existing boards: switch on "Ladder Group" of the start rank)
 * [FIXED] Admin > Ranks: a new start rank kept the old start rank, the new users got one of them; now the old start rank loses the flag
+* [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown (new text in all languages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

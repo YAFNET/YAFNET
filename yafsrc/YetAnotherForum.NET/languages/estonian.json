@@ -3170,6 +3170,10 @@
             "#text": "Asetuse prioriteet peaks olema väike täisarv."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Uued kasutajad saavad algastme, see ei saa märget kaotada. Märkige selle asemel algastmeks mõni teine aste."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Peate määrama auastme nime."
           },

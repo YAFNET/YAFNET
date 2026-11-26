@@ -180,6 +180,16 @@ public partial class EditRank : AdminPage
         var editedId = rankId ?? 0;
         var rankName = this.Name.Text.Trim();
 
+        // the start rank keeps the flag, the new users need a start rank (another rank can be marked as start rank)
+        if (!this.IsStart.Checked && rankId.HasValue
+            && this.GetRepository<Rank>().Exists(r => r.ID == rankId.Value && (r.Flags & 1) == 1))
+        {
+            this.IsStart.Checked = true;
+
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "MSG_START_RANK"), MessageTypes.warning);
+            return;
+        }
+
         if (this.GetRepository<Rank>().Exists(r => r.BoardID == boardId && r.Name == rankName && r.ID != editedId))
         {
             this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "MSG_RANK_EXISTS"), MessageTypes.warning);

@@ -3162,6 +3162,10 @@
             "#text": "Rang Priorität sollte eine niedrige Zahl sein."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Neue Benutzer erhalten den Startrang, er kann die Markierung nicht verlieren. Markiere stattdessen einen anderen Rang als Startrang."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Sie müssen einen Rangnamen definieren."
           },

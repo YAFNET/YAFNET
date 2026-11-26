@@ -3170,6 +3170,10 @@
             "#text": "O Rank Priority deve ser um número inteiro pequeno."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Os novos utilizadores recebem a classificação inicial, por isso ela não pode perder a marcação. Em vez disso, marque outra classificação como inicial."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "É necessário definir um nome de classificação."
           },

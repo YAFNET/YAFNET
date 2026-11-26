@@ -3170,6 +3170,10 @@
             "#text": "Rangeringsprioritet skal være et lille heltal."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nye brugere får startrangen, den kan ikke miste markeringen. Markér en anden rang som startrang i stedet."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Du skal definere et rangnavn."
           },

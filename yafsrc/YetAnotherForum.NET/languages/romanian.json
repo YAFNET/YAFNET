@@ -3170,6 +3170,10 @@
             "#text": "Prioritatea de rang trebuie să fie un număr întreg mic."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Utilizatorii noi primesc rangul de start, acesta nu poate pierde marcajul. Marcați în schimb alt rang ca rang de start."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Trebuie să definiți un nume de rang."
           },

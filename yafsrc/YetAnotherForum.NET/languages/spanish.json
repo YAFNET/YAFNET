@@ -3162,6 +3162,10 @@
             "#text": "La prioridad del rango debe ser un entero pequeño."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Los nuevos usuarios reciben el rango inicial, por eso no puede perder la marca. Marque otro rango como rango inicial en su lugar."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Debe definir un nombre de rango."
           },

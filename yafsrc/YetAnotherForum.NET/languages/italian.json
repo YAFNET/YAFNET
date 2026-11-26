@@ -3162,6 +3162,10 @@
             "#text": "La priorità del rango deve essere un numero intero piccolo."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "I nuovi utenti ricevono il grado iniziale, che non può perdere questa opzione. Contrassegna invece un altro grado come grado iniziale."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "È necessario definire un nome di rango."
           },
