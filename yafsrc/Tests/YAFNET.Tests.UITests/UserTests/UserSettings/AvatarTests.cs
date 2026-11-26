@@ -75,7 +75,7 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Update" }).ClickAsync();
 
                     // Check new avatar
-                    var image = page.Locator(".img-thumbnail");
+                    var image = page.Locator(".avatar-current");
 
                     var src = await image.GetAttributeAsync(HtmlAttribute.Src);
 
@@ -142,7 +142,7 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("//button[contains(@formaction,'UploadUpdate')]").ClickAsync();
 
                     // Check new avatar
-                    var image = page.Locator(".img-thumbnail");
+                    var image = page.Locator(".avatar-current");
 
                     var src = await image.GetAttributeAsync(HtmlAttribute.Src);
 
@@ -201,7 +201,7 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditAvatar");
 
                     Assert.That(
-                        await page.Locator(".img-thumbnail").First.GetAttributeAsync(HtmlAttribute.Src),
+                        await page.Locator(".avatar-current").First.GetAttributeAsync(HtmlAttribute.Src),
                         Does.Contain("GetTextAvatar"),
                         "The too big avatar was saved");
                 }
@@ -255,7 +255,7 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await this.OpenAvatarTabAsync(page, editUserUrl);
 
                 Assert.That(
-                    await page.Locator("#View4 .img-thumbnail").GetAttributeAsync(HtmlAttribute.Src),
+                    await page.Locator("#View4 .users-avatar-current").GetAttributeAsync(HtmlAttribute.Src),
                     Does.Contain("SampleAvatar"),
                     "The avatar of the gallery was not saved");
 
@@ -268,7 +268,7 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await this.OpenAvatarTabAsync(page, editUserUrl);
 
-                var src = await page.Locator("#View4 .img-thumbnail").GetAttributeAsync(HtmlAttribute.Src);
+                var src = await page.Locator("#View4 .users-avatar-current").GetAttributeAsync(HtmlAttribute.Src);
 
                 Assert.That(src, Does.Not.Contain("SampleAvatar").And.Not.Contain("GetTextAvatar"), "The uploaded avatar was not saved");
             });
@@ -283,7 +283,7 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.Locator("//button[contains(@data-bs-target,'#View4')]").ClickAsync();
 
-        await page.Locator("#View4 .img-thumbnail").WaitForAsync();
+        await page.Locator("#View4 .users-avatar-current").WaitForAsync();
     }
 
     /// <summary>

@@ -369,7 +369,7 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditAvatar");
 
                 Assert.That(
-                    await page.Locator("img.img-thumbnail").First.GetAttributeAsync("src"),
+                    await page.Locator("img.avatar-current").First.GetAttributeAsync("src"),
                     Does.Not.Contain("/uploads/"),
                     "An avatar was uploaded with the avatar upload disabled");
 
