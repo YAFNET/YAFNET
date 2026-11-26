@@ -251,8 +251,7 @@ public partial class ActiveUsers : ForumPage
         }
 
         // remove hidden users...
-        activeUsers.RemoveAll(
-            row => !row.IsActiveExcluded && this.PageBoardContext.PageUserID != row.UserID);
+        activeUsers.RemoveAll(row => !row.IsActiveExcluded);
     }
 
     /// <summary>
