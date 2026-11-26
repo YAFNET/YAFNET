@@ -380,7 +380,7 @@ public static class LastPostHtmlHelper
             HtmlAttribute.Href,
             context.Get<ILinkBuilder>().GetForumLink(item.ForumID, item.ForumName));
 
-        forumLink.InnerHtml.AppendHtml(htmlHelper.Icon("folder", "text-secondary", "far"));
+        forumLink.InnerHtml.AppendHtml(htmlHelper.Icon("comments", "text-secondary"));
         forumLink.InnerHtml.Append(item.ForumName);
 
         meta.InnerHtml.AppendHtml(forumLink);
