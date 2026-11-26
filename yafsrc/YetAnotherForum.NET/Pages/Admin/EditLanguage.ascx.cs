@@ -122,6 +122,7 @@ public partial class EditLanguage : AdminPage
         this.Pages.Items.FindByText("DEFAULT").Selected = true;
 
         this.pageName = "DEFAULT";
+        this.LoadedPage = this.pageName;
 
         this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
 
@@ -191,6 +192,7 @@ public partial class EditLanguage : AdminPage
     protected void LoadPageLocalizationClick(object sender, EventArgs e)
     {
         this.pageName = this.Pages.SelectedValue;
+        this.LoadedPage = this.pageName;
 
         this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
 
@@ -220,7 +222,8 @@ public partial class EditLanguage : AdminPage
     {
         var translationResource = this.Get<ILocalization>().LoadLanguageFile(Path.Combine(this.langPath, this.languageFile));
 
-        this.pageName = this.Pages.SelectedValue;
+        // the texts of the loaded page are saved (another selected, not loaded page failed with an error)
+        this.pageName = this.LoadedPage;
         var pageTranslations = this.translations.Where(x => x.PageName == this.pageName);
 
         translationResource.Resources.Page.First(x => x.Name == this.pageName).Resource.ForEach(
@@ -239,6 +242,16 @@ public partial class EditLanguage : AdminPage
     }
 
     /// <summary>
+    /// Gets or sets the page of the language file whose texts are shown.
+    /// </summary>
+    private string LoadedPage
+    {
+        get => this.ViewState["LoadedPage"] as string ?? "DEFAULT";
+
+        set => this.ViewState["LoadedPage"] = value;
+    }
+
+    /// <summary>
     /// Update Localized Values in the Generics List
     /// </summary>
     private void UpdateLocalizedValues()
@@ -251,9 +264,15 @@ public partial class EditLanguage : AdminPage
 
                     var lblResourceName = item.FindControlAs<Label>("lblResourceName");
 
-                    this.translations.Find(
-                        check => check.PageName.Equals(this.Pages.SelectedValue) &&
-                                 check.ResourceName.Equals(lblResourceName.Text)).LocalizedResourceText = txtLocalized.Text;
+                    // the shown texts are the texts of the loaded page (not of the selected one)
+                    var translation = this.translations.Find(
+                        check => check.PageName.Equals(this.LoadedPage) &&
+                                 check.ResourceName.Equals(lblResourceName.Text));
+
+                    if (translation != null)
+                    {
+                        translation.LocalizedResourceText = txtLocalized.Text;
+                    }
 
                     txtLocalized.CssClass = txtLocalized.Text.Equals(txtResource.Text, StringComparison.OrdinalIgnoreCase)
                                                 ? "form-control is-invalid"

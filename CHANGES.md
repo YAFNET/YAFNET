@@ -45,6 +45,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Board Announcement: the end of the current announcement was shown as the saved invariant date in the time of the server; it is saved in utc and shown in the time zone of the user
 * [FIXED] Board Announcement: the message was shown as raw html on every page, an admin with the access to the page could put a script on the pages of all users (also of the host admin); the announcement is formatted like a post now (html is encoded, BB codes like [b] or [url] format it)
 * [FIXED] Admin > Private Messages: the number of the deleted messages was not shown after the delete, and the entered days were reset (new text in all languages)
+* [FIXED] Admin > Edit Language: saving after selecting another page (without loading it) failed with an error; the texts of the loaded page are saved
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
