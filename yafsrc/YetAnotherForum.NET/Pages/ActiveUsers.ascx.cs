@@ -116,23 +116,6 @@ public partial class ActiveUsers : ForumPage
     }
 
     /// <summary>
-    /// Removes from the DataView all users but guests.
-    /// </summary>
-    /// <param name="activeUsers">
-    /// The active users.
-    /// </param>
-    private static void RemoveAllButGuests(ref List<ActiveUser> activeUsers)
-    {
-        if (!activeUsers.Any())
-        {
-            return;
-        }
-
-        // remove non-guest users...
-        activeUsers.RemoveAll(row => !row.IsGuest);
-    }
-
-    /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()
@@ -142,6 +125,9 @@ public partial class ActiveUsers : ForumPage
 
         List<ActiveUser> activeUsers = null;
 
+        // the hidden users are only listed for admins (and the own session)
+        var hideHidden = !this.PageBoardContext.IsAdmin;
+
         switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("v"))
         {
             case 0:
@@ -149,23 +135,14 @@ public partial class ActiveUsers : ForumPage
                 // Show all users
                 activeUsers = this.GetActiveUsersData(
                     true,
-                    this.PageBoardContext.BoardSettings.ShowGuestsInDetailedActiveList);
-
-                if (activeUsers != null)
-                {
-                    this.RemoveHiddenUsers(ref activeUsers);
-                }
+                    this.PageBoardContext.BoardSettings.ShowGuestsInDetailedActiveList,
+                    hideHidden: hideHidden);
 
                 break;
             case 1:
 
                 // Show members
-                activeUsers = this.GetActiveUsersData(false, false);
-
-                if (activeUsers != null)
-                {
-                    this.RemoveHiddenUsers(ref activeUsers);
-                }
+                activeUsers = this.GetActiveUsersData(false, false, hideHidden: hideHidden);
 
                 break;
             case 2:
@@ -173,12 +150,8 @@ public partial class ActiveUsers : ForumPage
                 // Show guests
                 activeUsers = this.GetActiveUsersData(
                     true,
-                    this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList);
-
-                if (activeUsers != null)
-                {
-                    RemoveAllButGuests(ref activeUsers);
-                }
+                    this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList,
+                    guestsOnly: true);
 
                 break;
             case 3:
@@ -186,11 +159,7 @@ public partial class ActiveUsers : ForumPage
                 // Show hidden
                 if (this.PageBoardContext.IsAdmin)
                 {
-                    activeUsers = this.GetActiveUsersData(false, false);
-                    if (activeUsers != null)
-                    {
-                        this.RemoveAllButHiddenUsers(ref activeUsers);
-                    }
+                    activeUsers = this.GetActiveUsersData(false, false, hiddenOnly: true);
                 }
                 else
                 {
@@ -225,54 +194,35 @@ public partial class ActiveUsers : ForumPage
     /// <param name="showCrawlers">
     /// The show crawlers.
     /// </param>
+    /// <param name="guestsOnly">
+    /// Only the guests.
+    /// </param>
+    /// <param name="hiddenOnly">
+    /// Only the hidden users.
+    /// </param>
+    /// <param name="hideHidden">
+    /// Without the hidden users (the own session is listed).
+    /// </param>
     /// <returns>
     /// Returns the Active user list
     /// </returns>
-    private List<ActiveUser> GetActiveUsersData(bool showGuests, bool showCrawlers)
+    private List<ActiveUser> GetActiveUsersData(
+        bool showGuests,
+        bool showCrawlers,
+        bool guestsOnly = false,
+        bool hiddenOnly = false,
+        bool hideHidden = false)
     {
         var activeUsers = this.GetRepository<Active>().ListUsersPaged(
             this.PageBoardContext.PageUserID,
             showGuests,
             showCrawlers,
             this.PagerTop.CurrentPageIndex,
-            this.PagerTop.PageSize);
+            this.PagerTop.PageSize,
+            guestsOnly,
+            hiddenOnly,
+            hideHidden);
 
         return activeUsers;
-    }
-
-    /// <summary>
-    /// Removes from the DataView all users but hidden.
-    /// </summary>
-    /// <param name="activeUsers">
-    /// The active users.
-    /// </param>
-    private void RemoveAllButHiddenUsers(ref List<ActiveUser> activeUsers)
-    {
-        if (!activeUsers.Any())
-        {
-            return;
-        }
-
-        // remove hidden users...
-        activeUsers.RemoveAll(row => !row.IsActiveExcluded);
-    }
-
-    /// <summary>
-    /// Removes hidden users.
-    /// </summary>
-    /// <param name="activeUsers">
-    /// The active users.
-    /// </param>
-    private void RemoveHiddenUsers(ref List<ActiveUser> activeUsers)
-    {
-        if (!activeUsers.Any())
-        {
-            return;
-        }
-
-        // remove hidden users...
-        activeUsers.RemoveAll(
-            row => row.IsActiveExcluded && !this.PageBoardContext.IsAdmin &&
-                   this.PageBoardContext.PageUserID != row.UserID);
     }
 }

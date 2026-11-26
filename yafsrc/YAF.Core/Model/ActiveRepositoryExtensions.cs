@@ -277,6 +277,15 @@ public static class ActiveRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
+    /// <param name="guestsOnly">
+    /// Only the guests (and crawlers when shown).
+    /// </param>
+    /// <param name="hiddenOnly">
+    /// Only the hidden users ("hide me" of the active users).
+    /// </param>
+    /// <param name="hideHidden">
+    /// Without the hidden users, the user who views the list sees the own session.
+    /// </param>
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
@@ -286,7 +295,10 @@ public static class ActiveRepositoryExtensions
         bool showGuests,
         bool showCrawlers,
         int pageIndex,
-        int pageSize)
+        int pageSize,
+        bool guestsOnly = false,
+        bool hiddenOnly = false,
+        bool hideHidden = false)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -318,6 +330,23 @@ public static class ActiveRepositoryExtensions
                     {
                         // members only
                         expression.And<User>(u => (u.Flags & 4) != 4);
+                    }
+
+                    // the filters are part of the query: the page and the count only have the listed users (they were
+                    // filtered after the paging)
+                    if (guestsOnly)
+                    {
+                        expression.And<User>(u => (u.Flags & 4) == 4);
+                    }
+
+                    if (hiddenOnly)
+                    {
+                        expression.And<User>(u => (u.Flags & 16) == 16);
+                    }
+
+                    if (hideHidden)
+                    {
+                        expression.And<User>(u => (u.Flags & 16) != 16 || u.ID == userId);
                     }
 
                     var countExpression = expression;
