@@ -524,7 +524,12 @@ public class BoardSettings
     /// </summary>
     public int SpamServiceType
     {
-        get => this.Registry.GetValue("SpamServiceType", SpamService.Internal.ToInt());
+        // the former services BlogSpam.NET (1) and Akismet (2) are gone, the forum uses the internal check for them:
+        // shown as "Disabled" (no such option), the next save of the host settings turned the spam check off
+        get => this.Registry.GetValue("SpamServiceType", SpamService.Internal.ToInt()) is var type
+               && (type == SpamService.BlogSpam.ToInt() || type == SpamService.Akismet.ToInt())
+                   ? SpamService.Internal.ToInt()
+                   : type;
 
         set => this.Registry.SetValue("SpamServiceType", value);
     }
