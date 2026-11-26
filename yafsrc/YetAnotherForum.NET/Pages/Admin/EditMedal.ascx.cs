@@ -227,6 +227,15 @@ public partial class EditMedal : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void SaveClick(object sender, EventArgs e)
     {
+        // the name is saved without the spaces around it, a name of spaces is no name
+        var name = this.Name.Text.Trim();
+
+        if (name.IsNotSet())
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_NAME"), MessageTypes.warning);
+            return;
+        }
+
         if (this.MedalImage.SelectedIndex <= 0)
         {
             this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
@@ -242,7 +251,7 @@ public partial class EditMedal : AdminPage
         // save medal
         this.GetRepository<Medal>().Save(
             this.CurrentMedalId,
-            this.Name.Text,
+            name,
             this.Description.Text,
             this.Message.Text,
             this.Category.Text,
