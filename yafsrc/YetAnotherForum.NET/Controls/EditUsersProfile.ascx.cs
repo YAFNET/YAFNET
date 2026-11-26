@@ -273,7 +273,11 @@ public partial class EditUsersProfile : BaseUserControl
                 return;
             }
 
-            if (this.User.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
+            // the bot check is for the own profile: a homepage saved by an admin (Admin > Edit User) logged the user as a
+            // spam bot ("user was deleted and ... banned")
+            if (!this.PageBoardContext.CurrentForumPage.IsAdminPage
+                && this.User.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount
+                && this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
             {
                 // Check for spam
                 switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
@@ -295,21 +299,16 @@ public partial class EditUsersProfile : BaseUserControl
                             EventLogTypes.SpamBotDetected);
 
                         // Kill user
-                        if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
-                        {
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.User.Item1,
-                                this.User.Item2,
-                                this.User.Item1.IP);
+                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                            this.User.Item1,
+                            this.User.Item2,
+                            this.User.Item1.IP);
 
-                            // the user is deleted: logged out, nothing is saved
-                            this.Get<IAspNetUsersHelper>().SignOut();
-                            System.Web.Security.FormsAuthentication.SignOut();
-                            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
-                            return;
-                        }
-
-                        break;
+                        // the user is deleted: logged out, nothing is saved
+                        this.Get<IAspNetUsersHelper>().SignOut();
+                        System.Web.Security.FormsAuthentication.SignOut();
+                        this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+                        return;
                     }
                 }
             }
