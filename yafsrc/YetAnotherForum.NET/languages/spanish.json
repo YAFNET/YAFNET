@@ -1798,6 +1798,14 @@
             "#text": "Cuando una nueva cuenta de usuario es creada, ¿Marcar por defecto el envío de resúmenes?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Enviar un correo a los usuarios al otorgar una medalla:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "¿Debe recibir un usuario un correo cuando se le otorga una medalla?"
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Enviar email a los moderadores cuando se modere una nueva publicación:"
           },

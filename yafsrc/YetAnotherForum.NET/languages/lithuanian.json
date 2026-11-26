@@ -1798,6 +1798,14 @@
             "#text": "Kai sukuriama nauja naudotojo paskyra, pagal numatytuosius nustatymus siųsti digest į true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Siųsti naudotojams el. laišką suteikus medalį:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Ar naudotojas turi gauti el. laišką, kai jam suteikiamas medalis."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "El. paštas moderatoriams apie naują moderuojamą pranešimą:"
           },

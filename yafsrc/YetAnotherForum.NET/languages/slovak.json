@@ -1798,6 +1798,14 @@
             "#text": "Pri vytvorení nového používateľského účtu predvolené odoslanie digestu na true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Poslať používateľom e-mail pri udelení medaily:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Má používateľ dostať e-mail, keď mu je udelená medaila."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "E-mail moderátorov o novom moderovanom príspevku:"
           },

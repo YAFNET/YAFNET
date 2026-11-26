@@ -1798,6 +1798,14 @@
             "#text": "Quando viene creato un nuovo account utente, l'invio predefinito di digest è vero?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Invia un'email agli utenti all'assegnazione di una medaglia:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Un utente deve ricevere un'email quando gli viene assegnata una medaglia."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "E-mail Moderators On New Moderated Post:"
           },

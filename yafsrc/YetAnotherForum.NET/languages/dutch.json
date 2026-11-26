@@ -1798,6 +1798,14 @@
             "#text": "Als een nieuwe gebruiker is aangemaakt, moet deze dan standaard Samenvattingen krijgen?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Gebruikers e-mailen bij toekenning van een medaille:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Moet een gebruiker een e-mail krijgen wanneer hem een medaille wordt toegekend."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Mail Moderators als er een nieuwe Moderated Post is:"
           },

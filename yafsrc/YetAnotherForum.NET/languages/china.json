@@ -1798,6 +1798,14 @@
             "#text": "创建新用户帐户时，默认发送摘要为 true？"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "授予奖章时给用户发送电子邮件："
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "用户被授予奖章时是否收到电子邮件。"
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "新主持帖子上的电子邮件版主："
           },

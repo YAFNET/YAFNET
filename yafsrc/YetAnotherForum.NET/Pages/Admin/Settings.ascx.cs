@@ -123,6 +123,9 @@ public partial class Settings : AdminPage
         boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
         boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
         boardSettings.EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
+
+        // the mail of a medal award can be turned off (the setting had no switch)
+        boardSettings.EmailUserOnMedalAward = this.EmailUserOnMedalAward.Checked;
         boardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
         boardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
         boardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
@@ -296,6 +299,7 @@ public partial class Settings : AdminPage
         this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
         this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
         this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
+        this.EmailUserOnMedalAward.Checked = boardSettings.EmailUserOnMedalAward;
         this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
         this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
         this.ForumEmail.Text = boardSettings.ForumEmail;

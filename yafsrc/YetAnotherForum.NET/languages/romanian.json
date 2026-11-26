@@ -1798,6 +1798,14 @@
             "#text": "Atunci când este creat un nou cont de utilizator, trimiteți în mod implicit digest la true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Trimite e-mail utilizatorilor la acordarea unei medalii:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Primește un utilizator un e-mail când i se acordă o medalie."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Trimiteți un e-mail moderatorilor la o nouă postare moderată:"
           },

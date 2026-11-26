@@ -1798,6 +1798,14 @@
             "#text": "Quando é criada uma nova conta de utilizador, por defeito envie a digestão para true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Enviar email aos utilizadores ao atribuir uma medalha:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Um utilizador deve receber um email quando lhe é atribuída uma medalha."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Moderadores de correio electrónico em novos postos moderados:"
           },

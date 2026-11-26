@@ -1798,6 +1798,14 @@
             "#text": "Kas uue kasutajakonto loomisel saadab vaikimisi kokkuvõtte väärtuseks Tõene?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Saada kasutajatele medali andmisel e-kiri:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Kas kasutaja saab e-kirja, kui talle antakse medal."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Meili moderaatorid uue modereeritud postituse kohta:"
           },

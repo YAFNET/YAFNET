@@ -1798,6 +1798,14 @@
             "#text": "Kiedy nowy użytkownik jest zarejestrowany, powinien mieć ustawione wysyłanie digest?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Wysyłaj e-mail do użytkowników przy przyznaniu medalu:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Czy użytkownik ma otrzymać e-mail, gdy zostanie mu przyznany medal."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "E-mail do moderatorów, gdy powstanie nowy post wymagający zaakceptowania:"
           },

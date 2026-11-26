@@ -1798,6 +1798,14 @@
             "#text": "Wenn ein neues Benutzerkonto angelegt wird, soll die Option zum Versenden der Täglichen Zusammenfassung automatisch aktiviert sein?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Benutzer bei Medaillenverleihung per E-Mail benachrichtigen:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Soll ein Benutzer eine E-Mail erhalten, wenn ihm eine Medaille verliehen wird."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Moderatoren bei neuem Moderiertem Beitrag benachrichtigen:"
           },

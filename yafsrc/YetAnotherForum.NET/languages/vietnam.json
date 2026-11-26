@@ -1798,6 +1798,14 @@
             "#text": "Khi một tài khoản người dùng mới được tạo, thông báo gửi mặc định thành true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Gửi email cho người dùng khi được trao huy chương:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Người dùng có nhận email khi được trao huy chương hay không."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Người kiểm duyệt email trên bài đăng mới được kiểm duyệt:"
           },

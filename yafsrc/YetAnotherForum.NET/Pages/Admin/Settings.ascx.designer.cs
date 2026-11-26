@@ -258,6 +258,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox EmailModeratorsOnReportedPost;
 
         /// <summary>
+        /// HelpLabelMedalMail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabelMedalMail;
+
+        /// <summary>
+        /// EmailUserOnMedalAward control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EmailUserOnMedalAward;
+
+        /// <summary>
         /// LocalizedLabel15 control.
         /// </summary>
         /// <remarks>

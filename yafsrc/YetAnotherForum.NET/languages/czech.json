@@ -1798,6 +1798,14 @@
             "#text": "Když je vytvořen nový uživatelský účet, výchozí odeslat výtah na hodnotu true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Poslat uživatelům e-mail při udělení medaile:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Má uživatel dostat e-mail, když mu je udělena medaile."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "E-mail moderátorům na nový moderovaný příspěvek:"
           },

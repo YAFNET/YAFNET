@@ -1798,6 +1798,14 @@
             "#text": "Lorsqu'un nouveau compte utilisateur est créé, l'envoi par défaut du digest à true ?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Envoyer un e-mail aux utilisateurs lors de l'attribution d'une médaille :"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Un utilisateur doit-il recevoir un e-mail quand une médaille lui est attribuée."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Envoi d'un courriel aux modérateurs pour tout nouveau message modéré :"
           },

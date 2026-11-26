@@ -1798,6 +1798,14 @@
             "#text": "När ett nytt användarkonto skapas, ska standardvärdet skicka digest till true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Skicka e-post till användare vid tilldelning av medalj:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Ska en användare få ett e-postmeddelande när en medalj tilldelas användaren."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Skicka e-post till moderatorer om nya modererade inlägg:"
           },

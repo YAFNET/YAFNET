@@ -127,6 +127,17 @@
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
+                    <YAF:HelpLabel ID="HelpLabelMedalMail" runat="server"
+                                   AssociatedControlID="EmailUserOnMedalAward"
+                                   LocalizedTag="BOARD_EMAIL_MEDAL"
+                                   LocalizedPage="ADMIN_BOARDSETTINGS"/>
+                    <div class="form-check form-switch">
+                        <asp:CheckBox ID="EmailUserOnMedalAward" runat="server" Text="&nbsp;"></asp:CheckBox>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel15" runat="server"
                                    AssociatedControlID="AllowDigestEmail"
                                    LocalizedTag="BOARD_ALLOW_DIGEST"

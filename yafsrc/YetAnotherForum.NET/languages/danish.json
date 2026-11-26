@@ -1798,6 +1798,14 @@
             "#text": "Når en ny brugerkonto er oprettet, er standard send digest til sand?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Send e-mail til brugere ved tildeling af medalje:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Skal en bruger modtage en e-mail, når brugeren tildeles en medalje."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "E-mail-moderatorer på nyt modereret indlæg:"
           },

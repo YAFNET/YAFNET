@@ -1798,6 +1798,14 @@
             "#text": "Kun uusi käyttäjätili luodaan, lähetä digestin oletusarvo true?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Lähetä käyttäjälle sähköposti mitalin myöntämisestä:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Saako käyttäjä sähköpostin, kun hänelle myönnetään mitali."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Sähköposti moderaattoreille uudesta moderoidusta viestistä:"
           },

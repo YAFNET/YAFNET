@@ -1798,6 +1798,14 @@
             "#text": "Yeni bir kullanıcı hesabı oluşturulduğunda, varsayılan olarak özeti true olarak gönder?"
           },
           {
+            "@tag": "BOARD_EMAIL_MEDAL",
+            "#text": "Madalya verildiğinde kullanıcılara e-posta gönder:"
+          },
+          {
+            "@tag": "BOARD_EMAIL_MEDAL_HELP",
+            "#text": "Kullanıcıya bir madalya verildiğinde e-posta gönderilsin mi."
+          },
+          {
             "@tag": "BOARD_EMAIL_MODS",
             "#text": "Yeni Moderasyonlu Gönderide Moderatörlere E-posta Gönderin:"
           },

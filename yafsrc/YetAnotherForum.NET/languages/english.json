@@ -1813,6 +1813,14 @@
 						"#text": "When a new user account is created, default send digest to true?"
 					},
 					{
+						"@tag": "BOARD_EMAIL_MEDAL",
+						"#text": "Email Users on Medal Award:"
+					},
+					{
+						"@tag": "BOARD_EMAIL_MEDAL_HELP",
+						"#text": "Should a user get an email when a medal is awarded to the user."
+					},
+					{
 						"@tag": "BOARD_EMAIL_MODS",
 						"#text": "Email Moderators On New Moderated Post:"
 					},
