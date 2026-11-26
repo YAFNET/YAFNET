@@ -9790,6 +9790,10 @@
             "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Välj en bild att ladda upp."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Välj din avatar från vår samling:"
           },

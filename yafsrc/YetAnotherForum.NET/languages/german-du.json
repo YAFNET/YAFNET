@@ -9782,6 +9782,10 @@
             "#text": "Notiz: Wenn das Bild größer als {0}x{1} Pixel ist wird es automatisch verkleinert."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Wähle ein Bild zum Hochladen."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Unsere Avatar Sammlung."
           },

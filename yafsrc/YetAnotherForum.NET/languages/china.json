@@ -9790,6 +9790,10 @@
             "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "请选择要上传的图片。"
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "从我们的收藏中选择您的头像："
           },

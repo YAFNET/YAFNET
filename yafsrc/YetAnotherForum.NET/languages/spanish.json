@@ -9782,6 +9782,10 @@
             "#text": "Nota: Si la imagen es mayor que {0}x{1} píxeles, será automáticamente redimensionada."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Seleccione una imagen para subir."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Elije tu Avatar de nuestra colección:"
           },

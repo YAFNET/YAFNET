@@ -9782,6 +9782,10 @@
             "#text": "Attenzione: l'immagine sarà ridimensionata automaticamente se più grande di {0}x{1} pixel."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Seleziona un’immagine da caricare."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Seleziona il tuo Avatar dalla nostra raccolta:"
           },

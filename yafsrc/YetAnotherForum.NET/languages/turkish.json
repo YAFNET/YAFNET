@@ -9790,6 +9790,10 @@
             "#text": "Not: Eğer resim {0}x{1} pikselden büyük olursa, otomatik olarak boyutlandırılacaktır."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Yüklenecek bir resim seçin."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Koleksiyonumuzdan avatar seçin:"
           },

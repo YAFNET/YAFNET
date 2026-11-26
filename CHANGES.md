@@ -49,6 +49,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Language: a page or text missing in the language file stopped the list with an error in the log (the texts after it were not shown), and a missing text could not be added; missing texts are shown as not translated and saving adds them to the file
 * [FIXED] Moderate > Reported Posts: a report text with a "|" was split, the second part was shown as another report with the date "[error]"
 * [FIXED] My Topics: "mark all as read" marked only the topics of the shown page
+* [FIXED] Edit Avatar: an upload without a file or with a file that is not an image showed the page again without a message (new text in all languages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

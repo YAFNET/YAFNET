@@ -9786,6 +9786,10 @@
             "#text": "Jeżeli obraz jest większy niż {0}x{1} pikseli zostanie automatycznie przeskalowany."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Wybierz obraz do przesłania."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Wybierz avatar z naszej kolekcji:"
           },

@@ -9841,6 +9841,10 @@
 						"#text": "If the Image is larger than {0}x{1} pixels, it will be automatically resized."
 					},
 					{
+						"@tag": "NO_FILE",
+						"#text": "Select an image to upload."
+					},
+					{
 						"@tag": "OURAVATAR",
 						"#text": "Select your Avatar from our Collection:"
 					},

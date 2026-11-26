@@ -9794,6 +9794,10 @@
             "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Vyberte obrázek k nahrání."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Vyber tvoji personifikaci z naši kolekce:"
           },

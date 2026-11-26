@@ -139,9 +139,17 @@ public partial class EditUsersAvatar : BaseUserControl
             return;
         }
 
+        // a message instead of the page shown again without a message
         if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0
-                                         || this.File.PostedFile.ContentLength <= 0 || !this.File.PostedFile.FileName.IsImageName())
+                                         || this.File.PostedFile.ContentLength <= 0)
         {
+            this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "NO_FILE"), MessageTypes.warning);
+            return;
+        }
+
+        if (!this.File.PostedFile.FileName.IsImageName())
+        {
+            this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.warning);
             return;
         }
 

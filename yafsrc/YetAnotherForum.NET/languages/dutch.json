@@ -9782,6 +9782,10 @@
             "#text": "Let op: Als het plaatje groter is dan {0}x{1} pixels, wordt het automatisch aangepast."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "Kies een afbeelding om te uploaden."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": "Onze avatar-galerij:"
           },

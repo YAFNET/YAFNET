@@ -9778,6 +9778,10 @@
             "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
           },
           {
+            "@tag": "NO_FILE",
+            "#text": "اختر صورة لرفعها."
+          },
+          {
             "@tag": "OURAVATAR",
             "#text": " :اختار صورتك الشخصية من مجموعتنا "
           },
