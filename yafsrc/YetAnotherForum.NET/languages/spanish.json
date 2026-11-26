@@ -14631,7 +14631,7 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automático"
           },
           {
             "@tag": "DARK",
@@ -14639,7 +14639,7 @@
           },
           {
             "@tag": "LIGHT",
-            "#text": "Luz"
+            "#text": "Claro"
           }
         ]
       },

@@ -14631,15 +14631,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automatico"
           },
           {
             "@tag": "DARK",
-            "#text": "Buio"
+            "#text": "Scuro"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Leggero"
+            "#text": "Chiaro"
           }
         ]
       },

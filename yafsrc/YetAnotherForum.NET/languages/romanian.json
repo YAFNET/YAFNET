@@ -14647,15 +14647,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Automat"
           },
           {
             "@tag": "DARK",
-            "#text": "Întuneric"
+            "#text": "Întunecat"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Aprinde"
+            "#text": "Luminos"
           }
         ]
       },

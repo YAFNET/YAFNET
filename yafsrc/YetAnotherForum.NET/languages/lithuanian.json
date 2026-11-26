@@ -14651,11 +14651,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Tamsu"
+            "#text": "Tamsus"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Lengvas"
+            "#text": "Šviesus"
           }
         ]
       },
