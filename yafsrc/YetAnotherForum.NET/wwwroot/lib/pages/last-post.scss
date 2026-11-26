@@ -59,52 +59,6 @@
         color: var(--bs-secondary-color);
     }
 
-    .last-post-meta {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0 .35rem;
-        font-size: .8125rem;
-        color: var(--bs-secondary-color);
-
-        // the user link is a button everywhere else, here it is a part of the line
-        .btn {
-            --bs-btn-padding-x: 0;
-            --bs-btn-padding-y: 0;
-            --bs-btn-font-size: inherit;
-            --bs-btn-border-width: 0;
-            --bs-btn-hover-bg: transparent;
-            --bs-btn-active-bg: transparent;
-            --bs-btn-color: var(--bs-body-color);
-            --bs-btn-hover-color: var(--bs-body-color);
-            --bs-btn-active-color: var(--bs-body-color);
-            font-weight: 500;
-            vertical-align: baseline;
-
-            &:hover {
-                text-decoration: underline;
-            }
-
-            // the online status: a dot in front of the name (on a button it is a dot on the corner)
-            > .rounded-circle {
-                position: static !important;
-                display: inline-block;
-                margin-right: .3rem;
-                transform: none !important;
-                vertical-align: middle;
-            }
-        }
-
-        abbr.timeago {
-            text-decoration: none;
-            cursor: help;
-        }
-    }
-
-    .last-post-separator {
-        opacity: .6;
-    }
-
     .last-post-forum {
         min-width: 0;
         overflow: hidden;
@@ -134,6 +88,54 @@
         font-style: italic;
         color: var(--bs-secondary-color);
     }
+}
+
+// the poster and the time of the last post, the topic starter in the topic list
+.last-post-meta,
+.topic-starter-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 .35rem;
+    font-size: .8125rem;
+    color: var(--bs-secondary-color);
+
+    // the user link is a button everywhere else, here it is a part of the line
+    .btn {
+        --bs-btn-padding-x: 0;
+        --bs-btn-padding-y: 0;
+        --bs-btn-font-size: inherit;
+        --bs-btn-border-width: 0;
+        --bs-btn-hover-bg: transparent;
+        --bs-btn-active-bg: transparent;
+        --bs-btn-color: var(--bs-body-color);
+        --bs-btn-hover-color: var(--bs-body-color);
+        --bs-btn-active-color: var(--bs-body-color);
+        font-weight: 500;
+        vertical-align: baseline;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        // the online status: a dot in front of the name (on a button it is a dot on the corner)
+        > .rounded-circle {
+            position: static !important;
+            display: inline-block;
+            margin-right: .3rem;
+            transform: none !important;
+            vertical-align: middle;
+        }
+    }
+
+    abbr.timeago {
+        text-decoration: none;
+        cursor: help;
+    }
+}
+
+.last-post-separator {
+    opacity: .6;
 }
 
 // below each other on small screens

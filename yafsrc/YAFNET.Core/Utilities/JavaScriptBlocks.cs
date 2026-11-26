@@ -1264,41 +1264,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Renders the Topic Link Popover JS.
-    /// </summary>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="cssClass">
-    /// The CSS Class.
-    /// </param>
-    /// <param name="trigger">
-    /// The trigger.
-    /// </param>
-    /// <returns>
-    /// Returns the JS String
-    /// </returns>
-    public static string TopicLinkPopoverJs(
-        string title,
-        string cssClass,
-        string trigger)
-   {
-        return $$"""
-                 document.addEventListener("DOMContentLoaded", function() {
-                                       var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{{cssClass}}'));
-                                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
-                                            return new bootstrap.Popover(popoverTriggerEl,{
-                                            title: "{{JsEncode(title)}}",
-                                            html: true,
-                                            trigger: "{{trigger}}",
-                                            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
-                                            });
-                                 });
-                                 });
-                 """;
-    }
-
-    /// <summary>
     /// The forum mods popover JS.
     /// </summary>
     /// <param name="title">

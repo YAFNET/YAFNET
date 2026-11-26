@@ -396,11 +396,6 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
             $"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
 
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
-            $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
-            ".topic-starter-popover",
-            "hover")))
-
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.ForumIconLegendPopoverJs(
                 (await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),

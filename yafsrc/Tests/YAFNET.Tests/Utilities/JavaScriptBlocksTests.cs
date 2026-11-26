@@ -72,7 +72,6 @@ public class JavaScriptBlocksTests
         yield return Case("SelectForumsLoadJs", () => JavaScriptBlocks.SelectForumsLoadJs("ForumSelect", Evil, true, false, "ForumId"));
         yield return Case("PasswordStrengthCheckerJs", () => JavaScriptBlocks.PasswordStrengthCheckerJs("Password", "Confirm", 8, Evil, Evil, Evil, Evil, Evil));
         yield return Case("DoQuickSearchJs", () => JavaScriptBlocks.DoQuickSearchJs(Evil));
-        yield return Case("TopicLinkPopoverJs", () => JavaScriptBlocks.TopicLinkPopoverJs(Evil, ".topic-link-popover", "focus hover"));
         yield return Case("ForumModsPopoverJs", () => JavaScriptBlocks.ForumModsPopoverJs(Evil));
         yield return Case("BootBoxConfirmJs", () => JavaScriptBlocks.BootBoxConfirmJs(Evil, Evil, Evil, Evil, Evil));
         yield return Case("NotifyJs", () => JavaScriptBlocks.NotifyJs("warning", Evil));

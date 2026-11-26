@@ -394,7 +394,7 @@ public static class LastPostHtmlHelper
     /// <returns>
     /// The <see cref="TagBuilder"/>.
     /// </returns>
-    private static TagBuilder Separator()
+    internal static TagBuilder Separator()
     {
         var separator = new TagBuilder(HtmlTag.Span);
 

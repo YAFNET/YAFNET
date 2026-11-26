@@ -39,7 +39,7 @@
             }
         }
 
-        .topic-starter-popover {
+        .topic-title {
             text-decoration: none;
             font-weight: 600;
 
@@ -54,8 +54,13 @@
             }
         }
 
-        .card-subtitle {
+        .card-subtitle,
+        .topic-starter-meta {
             margin-left: 3.25rem;
+        }
+
+        .topic-starter-meta {
+            margin-top: .15rem;
         }
     }
 }

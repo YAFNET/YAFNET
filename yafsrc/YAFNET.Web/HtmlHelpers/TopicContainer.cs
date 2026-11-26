@@ -96,36 +96,11 @@ public static class TopicContainerHtmlHelper
 
         var topicLink = new TagBuilder(HtmlTag.A);
 
-        topicLink.AddCssClass("topic-starter-popover");
+        topicLink.AddCssClass("topic-title");
 
         topicLink.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetTopicLink(topic.LinkTopicID, topic.Subject));
-        topicLink.MergeAttribute("data-bs-toggle", "popover");
 
         topicLink.InnerHtml.AppendHtml(FormatTopicName(topic, htmlHelper));
-
-        var topicStartedDateTime = topic.Posted;
-
-        var formattedStartedDatetime = context.BoardSettings.ShowRelativeTime
-                                           ? topicStartedDateTime.ToRelativeTime()
-                                           : context.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, topicStartedDateTime);
-
-        var topicStarterLink = htmlHelper.UserLink(
-            topic.UserID,
-            context.BoardSettings.EnableDisplayName ? topic.StarterDisplay : topic.Starter,
-            topic.StarterSuspended,
-            topic.StarterStyle,
-            true);
-
-        var span = context.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
-
-        var dateTimeIcon = htmlHelper.IconBadge(
-            "calendar-day",
-            "clock",
-            "text-secondary");
-
-        topicLink.Attributes.Add(
-            "data-bs-content",
-            $"{topicStarterLink.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedStartedDatetime}</span>");
 
         if (topic.LastMessageID.HasValue && topic.LastPosted > lastRead)
         {
@@ -194,6 +169,8 @@ public static class TopicContainerHtmlHelper
             RenderTopicDescription(topicDescription, titleColumn);
         }
 
+        titleColumn.InnerHtml.AppendHtml(RenderTopicStarter(htmlHelper, topic, context));
+
         mainDiv.InnerHtml.AppendHtml(titleColumn);
 
         // No Last Post
@@ -236,6 +213,45 @@ public static class TopicContainerHtmlHelper
         mainDiv.InnerHtml.AppendHtml(lastPostColumn);
 
         return content.AppendHtml(mainDiv);
+    }
+
+    /// <summary>
+    /// Renders who started the topic and when.
+    /// </summary>
+    /// <param name="htmlHelper">The HTML helper.</param>
+    /// <param name="topic">The topic.</param>
+    /// <param name="context">The context.</param>
+    /// <returns>The <see cref="TagBuilder"/>.</returns>
+    private static TagBuilder RenderTopicStarter(IHtmlHelper htmlHelper, PagedTopic topic, BoardContext context)
+    {
+        var starter = new TagBuilder(HtmlTag.Div);
+
+        starter.AddCssClass("topic-starter-meta");
+
+        // the line is the topic starter (for screen readers, others see it below the topic)
+        var label = new TagBuilder(HtmlTag.Span);
+
+        label.AddCssClass("visually-hidden");
+
+        label.InnerHtml.Append(context.Get<ILocalization>().GetText("TOPICS", "TOPIC_STARTER"));
+
+        starter.InnerHtml.AppendHtml(label);
+
+        starter.InnerHtml.AppendHtml(
+            htmlHelper.UserLink(
+                topic.UserID,
+                context.BoardSettings.EnableDisplayName && topic.StarterDisplay.IsSet()
+                    ? topic.StarterDisplay
+                    : topic.Starter,
+                topic.StarterSuspended,
+                topic.StarterStyle,
+                topic.UserID == context.GuestUserID));
+
+        starter.InnerHtml.AppendHtml(LastPostHtmlHelper.Separator());
+
+        starter.InnerHtml.AppendHtml(htmlHelper.DisplayDateTime(DateTimeFormat.BothTopic, topic.Posted));
+
+        return starter;
     }
 
     private static void RenderTopicDescription(string topicDescription, TagBuilder titleColumn)

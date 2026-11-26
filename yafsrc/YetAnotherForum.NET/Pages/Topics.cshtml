@@ -199,8 +199,7 @@
          data-show="@Model.ShowTopicListSelected"
          data-total="@totalTopics"
          data-loaded-count="@Model.Topics.Count"
-         data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
-         data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))">
+         data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())">
         @if (!Model.Announcements.HasItems() && !Model.Topics.HasItems())
         {
 	                <p class="text-center">@Html.Icon("comments", "text-secondary", iconSize: "fa-3x")</p>
