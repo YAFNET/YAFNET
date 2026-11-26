@@ -244,13 +244,13 @@ public class GroupsRanksMessagesTests
         var otherBoardUser = this.db.AddUser("OtherBoardUser", u => u.BoardID = TestDatabase.BoardId + 1);
         var otherBoard = this.AddPm(otherBoardUser, otherBoardUser, DateTime.UtcNow.AddDays(-40), read: true);
 
-        this.Repository<PMessage>().PruneAll(TestDatabase.BoardId, 30, 60);
+        this.Repository<PMessage>().PruneAll(TestDatabase.BoardId, 30, 60).Should().Be(1, "the old read message");
 
         this.Repository<PMessage>().Get(_ => true).Select(m => m.ID).Should()
             .BeEquivalentTo([oldUnread, recent, otherBoard]);
 
         // 0 days (or less) would delete everything, at least one day is kept
-        this.Repository<PMessage>().PruneAll(TestDatabase.BoardId, 0, 0);
+        this.Repository<PMessage>().PruneAll(TestDatabase.BoardId, 0, 0).Should().Be(1, "the old unread message");
 
         this.Repository<PMessage>().Get(_ => true).Select(m => m.ID).Should().BeEquivalentTo([recent, otherBoard]);
         this.Repository<UserPMessage>().Count(_ => true).Should().Be(2);

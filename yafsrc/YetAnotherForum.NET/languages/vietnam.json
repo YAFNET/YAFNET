@@ -5921,6 +5921,10 @@
             "#text": "Tin nhắn riêng tư"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "Đã xóa {0} tin nhắn riêng."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Số lượng tin nhắn:"
           },

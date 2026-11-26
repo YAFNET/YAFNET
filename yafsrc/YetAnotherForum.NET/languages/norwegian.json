@@ -5921,6 +5921,10 @@
             "#text": "Private meldinger"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} private meldinger ble slettet."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Antall private meldinger:"
           },

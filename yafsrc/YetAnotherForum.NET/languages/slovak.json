@@ -5921,6 +5921,10 @@
             "#text": "Súkromné správy"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "Odstránené súkromné správy: {0}."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Počet súkromných správ:"
           },

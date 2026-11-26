@@ -5913,6 +5913,10 @@
             "#text": "Private Nachrichten"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} private Nachrichten wurden gelöscht."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Anzahl der privaten Nachrichten:"
           },

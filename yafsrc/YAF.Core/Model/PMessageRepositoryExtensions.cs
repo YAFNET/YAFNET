@@ -28,7 +28,10 @@ public static class PMessageRepositoryExtensions
     /// <param name="daysUnread">
     /// The days unread.
     /// </param>
-    public static void PruneAll(
+    /// <returns>
+    /// The number of the deleted messages (of the users).
+    /// </returns>
+    public static int PruneAll(
         this IRepository<PMessage> repository,
         int boardId,
         int daysRead,
@@ -39,7 +42,7 @@ public static class PMessageRepositoryExtensions
         var unreadDate = DateTime.UtcNow.AddDays(-Math.Max(daysUnread, 1));
 
         // Delete the read and unread messages of the users of the board
-        repository.DbAccess.Execute(
+        var deleted = repository.DbAccess.Execute(
             db =>
                 {
                     var users = db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID);
@@ -49,7 +52,7 @@ public static class PMessageRepositoryExtensions
                         x => Sql.In(x.UserID, users) && Sql.In(x.PMessageID, readMessages) && (x.Flags & 1) == 1);
                 });
 
-        repository.DbAccess.Execute(
+        deleted += repository.DbAccess.Execute(
             db =>
                 {
                     var users = db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID);
@@ -71,6 +74,8 @@ public static class PMessageRepositoryExtensions
 
                     return db.Connection.Delete(q);
                 });
+
+        return deleted;
     }
 
     /// <summary>

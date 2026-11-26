@@ -59,6 +59,9 @@ public partial class Pm : AdminPage
             return;
         }
 
+        this.Days1.Text = "60";
+        this.Days2.Text = "180";
+
         this.BindData();
     }
 
@@ -77,9 +80,6 @@ public partial class Pm : AdminPage
     /// </summary>
     private void BindData()
     {
-        this.Days1.Text = "60";
-        this.Days2.Text = "180";
-
         this.Count.Text = this.GetRepository<UserPMessage>().Count(m => (m.Flags & 8) != 8).ToString();
     }
 
@@ -97,8 +97,11 @@ public partial class Pm : AdminPage
             return;
         }
 
-        this.GetRepository<PMessage>().PruneAll(this.PageBoardContext.PageBoardID, daysRead, daysUnread);
+        var count = this.GetRepository<PMessage>().PruneAll(this.PageBoardContext.PageBoardID, daysRead, daysUnread);
 
+        // the entered days are kept (they were reset), the number of the deleted messages is shown
         this.BindData();
+
+        this.PageBoardContext.Notify(this.GetTextFormatted("MSG_DELETED", count), MessageTypes.success);
     }
 }

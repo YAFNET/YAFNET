@@ -5921,6 +5921,10 @@
             "#text": "Mensagens privadas"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} mensagens privadas foram eliminadas."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Número de mensagens privadas:"
           },
