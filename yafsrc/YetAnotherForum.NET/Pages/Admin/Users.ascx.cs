@@ -208,11 +208,12 @@ public partial class Users : AdminPage
     {
         var lastVisit = this.Get<ISession>().LastVisit;
 
-        // value 0, for since last visit
+        // value 0, for since last visit (the texts of my topics: the options were english, the date of the last visit
+        // was missing)
         this.Since.Items.Add(
             new ListItem(
-                this.GetTextFormatted(
-                    "last_visit",
+                string.Format(
+                    this.GetText("MYTOPICS", "LAST_VISIT"),
                     this.Get<IDateTimeService>().FormatDateTime(
                         lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
                             ? lastVisit.Value
@@ -220,18 +221,18 @@ public partial class Users : AdminPage
                 "0"));
 
         // negative values for hours backward
-        this.Since.Items.Add(new ListItem("Last hour", "-1"));
-        this.Since.Items.Add(new ListItem("Last two hours", "-2"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_HOUR"), "-1"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_TWO_HOURS"), "-2"));
 
         // positive values for days backward
-        this.Since.Items.Add(new ListItem("Last day", "1"));
-        this.Since.Items.Add(new ListItem("Last two days", "2"));
-        this.Since.Items.Add(new ListItem("Last week", "7"));
-        this.Since.Items.Add(new ListItem("Last two weeks", "14"));
-        this.Since.Items.Add(new ListItem("Last month", "31"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_DAY"), "1"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_TWO_DAYS"), "2"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_WEEK"), "7"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_TWO_WEEKS"), "14"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "LAST_MONTH"), "31"));
 
         // all time (i.e. no filter)
-        this.Since.Items.Add(new ListItem("All time", "9999"));
+        this.Since.Items.Add(new ListItem(this.GetText("MYTOPICS", "SHOW_ALL"), "9999"));
     }
 
     /// <summary>
