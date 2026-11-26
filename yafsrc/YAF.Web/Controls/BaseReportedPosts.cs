@@ -110,24 +110,22 @@ public class BaseReportedPosts : BaseUserControl
                             new { u = reporter.Item2.ID, r = this.MessageID }),
                         this.GetText("REPLYTO"));
 
-                    var reportString = reporter.Item1.ReportText.Trim().Split('|');
-
-                    reportString.ForEach(
-                        t =>
+                    // a "|" in the text of a report is part of the text (it was split there, the rest was shown as another
+                    // report with the date "[error]")
+                    ReportTextHelper.Parse(reporter.Item1.ReportText).ForEach(
+                        report =>
                             {
-                                // "date??text": only the first separator (a question mark in the text is kept)
-                                var separator = t.IndexOf("??", StringComparison.Ordinal);
-                                var date = separator >= 0 ? t.Substring(0, separator) : t;
-                                var text = separator >= 0 ? t.Substring(separator + 2) : t;
-
-                                writer.Write(
-                                    @"<p class=""card-text"">@<span class=""ps-1"">{0}</span></p>",
-                                    this.Get<IDateTimeService>().FormatDateTimeTopic(date));
+                                if (report.Date.HasValue)
+                                {
+                                    writer.Write(
+                                        @"<p class=""card-text"">@<span class=""ps-1"">{0}</span></p>",
+                                        this.Get<IDateTimeService>().FormatDateTimeTopic(report.Date.Value));
+                                }
 
                                 writer.Write(@"<p class=""card-text"">");
 
                                 // the text of the user (stored as typed)
-                                writer.Write(this.HtmlEncode(text));
+                                writer.Write(this.HtmlEncode(report.Text));
 
                                 writer.WriteLine(@"</p>");
                             });
