@@ -1491,7 +1491,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Bu YafBBCode uzantısı silinsin mi?"
+            "#text": "Bu BBCode uzantısı silinsin mi?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "Metin düzenleyiciyi değiştirmek için kullanılan JS kodu. Metin düzenleyici kimliğinin kodda değiştirilmesi için \"{{editorid}}\" (tırnak işaretleri olmadan) kullanın. Bu alana sadece javascript girin. script etiketi otomatik olarak eklenecektir."
+            "#text": "Metin düzenleyiciyi değiştirmek için kullanılan JS kodu. Metin düzenleyici kimliğinin kodda değiştirilmesi için \"{editorid}\" (tırnak işaretleri olmadan) kullanın. Bu alana sadece javascript girin. script etiketi otomatik olarak eklenecektir."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1644,7 +1644,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} YafBBCode Uzantıları"
+            "#text": "{0} BBCode Uzantıları"
           },
           {
             "@tag": "USE_MODULE",
@@ -1693,7 +1693,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Özel YafBBCode'u İçe Aktar"
+            "#text": "Özel BBCode'u İçe Aktar"
           }
         ]
       },
@@ -1759,7 +1759,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "NOT: Özetin çalışması için web.config dosyanızda \"YAF.BaseUrlMask\" ve \"YAF.ForceScriptName\" AppSettings değerleri tanımlı olmalıdır."
+            "#text": "Kullanıcılar yeni ve etkin konuları içeren bir özet e-postası alabilir (her kullanıcı bunu kendi ayarlarında açar)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -1799,7 +1799,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Başka bir özet göndermeye çalışmadan önceki saat sayısı. Özet yalnızca 12:00 ile 6:00 arasında gönderilmeye çalışılır."
+            "#text": "İki özet arasındaki saat sayısı. Özet yalnızca gece yarısı ile 06:00 arasında (sunucu saati) gönderilir."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2337,7 +2337,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Yalnızca yeni ve farklı bir üyelik uygulaması adı kullanılarak bir pano oluşturulurken gereklidir."
+            "#text": "İşaretlenirse burada girilen ad, e-posta ve parola ile yeni bir kullanıcı yeni forumun yöneticisi olarak oluşturulur. Aksi halde yöneticisi sizsiniz."
           },
           {
             "@tag": "CULTURE",
@@ -2780,7 +2780,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Bu işaretlendiğinde, bu rolün üyeleri YAF'ta bazı yönetici erişim haklarına sahip olacaktır."
+            "#text": "Bu rolün üyeleri forumun moderatörleridir ve bazı seçenekleri yöneticiler gibi kullanabilir (kullanıcı seçimlerinde kullanıcı arama, imzalar kapalıyken imza, kullanıcı profillerinin moderatör görünümü). Forumları yönetmek için rolün bu forumlarda moderatör erişimli bir erişim maskesine ihtiyacı vardır."
           },
           {
             "@tag": "HEADER",
@@ -3348,7 +3348,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Kullanıcının tüm mesajları silinsin mi?"
+            "#text": "Kullanıcının silinecek mesajları:"
           },
           {
             "@tag": "DISABLED",
@@ -3592,7 +3592,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Kullanıcıya \"Ana Bilgisayar Ayarları\" bölümünü değiştirme erişimi verir."
+            "#text": "Kullanıcıyı sunucu yöneticisi yapar: tüm yönetim ve sunucu sayfalarına tam erişim, örn. sunucu ayarları, veritabanı bakımı ve forumlar."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4056,7 +4056,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Kullanıcıların özel mesajlara erişmesine ve göndermesine izin verin. Kullanıcılar için bunları etkinleştirmek üzere her grup ve/veya rütbe için de açıkça izin vermelisiniz."
+            "#text": "Kullanıcıların birbirine özel mesaj göndermesine izin ver."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4240,7 +4240,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Etkinleştirilmişse ve kayıt sırasında bir Bot algılanırsa ve bot kullanımı Kaydı reddet olarak ayarlanmışsa, Botun IP Adresi otomatik olarak yasaklanır."
+            "#text": "Etkinleştirilirse kayıt sırasında algılanan bir bot yasaklanır: IP adresi, kullanıcı adı ve e-posta adresi, botların ele alınma şeklinden bağımsız olarak yasak listelerine eklenir."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -6077,7 +6077,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Konuları gerçekten temizlemek istiyor musunuz? Bu işlem geri alınamaz."
+            "#text": "Konuları gerçekten temizlemek istiyor musunuz? Kalıcı olarak kaldırılmayan konular daha sonra geri yüklenebilir."
           },
           {
             "@tag": "MSG_TASK",
@@ -6556,7 +6556,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Not: </strong> Spam kelimeleri dahili SPAM tespiti için kullanılır: kayıt sırasında kullanıcının profiline girdiği ana sayfa adresi spam kelimelerine göre kontrol edilir. Ayrıca Sunucu Ayarlarında 'Otomatik SPAM Kontrolü için bir SPAM Hizmeti seçin' seçeneği 'Dahili Spam Kontrol Kelimeleri' olarak ayarlanmışsa, bir kullanıcının forumda yazdığı her yeni mesaj spam kelimelerine göre kontrol edilir."
+            "#text": "<strong>Not:</strong> Spam kontrol kelimeleri dahili spam kontrolü tarafından kullanılır: bir profilin ana sayfası ve imzası kullanıcı bunları değiştirdiğinde kontrol edilir, yeni mesajlar ise sunucu ayarlarında dahili spam kontrolü seçildiğinde kontrol edilir."
           },
           {
             "@tag": "SAVE",
@@ -6765,7 +6765,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "X yıldan uzun süredir etkin olmayan hesapları kilitleyin. Bu işlem hesapların içeriğini (yazılan mesajlar gibi) silmez"
+            "#text": "Foruma x yıldan uzun süredir girmemiş kullanıcıların hesaplarını kilitle. İçerikleri (yazılan mesajlar gibi) silinmez."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",

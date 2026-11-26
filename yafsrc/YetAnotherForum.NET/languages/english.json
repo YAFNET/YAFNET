@@ -1499,7 +1499,7 @@
 					},
 					{
 						"@tag": "CONFIRM_DELETE",
-						"#text": "Delete this YafBBCode Extension?"
+						"#text": "Delete this BBCode extension?"
 					},
 					{
 						"@tag": "DESCRIPTION",
@@ -1583,7 +1583,7 @@
 					{
 						"@tag": "EDIT_JS_HELP",
 						"#text":
-							"JS code used to modify the text editor. Use \"{{editorid}}\" (without quotes) to have the text editor ID replaced in the code. Just enter javascript into this field. script tag will be added automatically."
+							"JS code used to modify the text editor. Use \"{editorid}\" (without quotes) to have the text editor ID replaced in the code. Just enter javascript into this field. script tag will be added automatically."
 					},
 					{
 						"@tag": "EXEC_ORDER",
@@ -1657,7 +1657,7 @@
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "{0} YafBBCode Extensions"
+						"#text": "{0} BBCode Extension"
 					},
 					{
 						"@tag": "USE_MODULE",
@@ -1706,7 +1706,7 @@
 					},
 					{
 						"@tag": "TITLE",
-						"#text": "Import Custom YafBBCode"
+						"#text": "Import Custom BBCode"
 					}
 				]
 			},
@@ -1773,7 +1773,7 @@
 					{
 						"@tag": "BOARD_ALLOW_DIGEST_HELP",
 						"#text":
-							"NOTE: board must have \"YAF.BaseUrlMask\" and \"YAF.ForceScriptName\" AppSettings defined in your web.config for digest to function."
+							"Users can receive a digest email with the new and active topics (every user turns it on in the own settings)."
 					},
 					{
 						"@tag": "BOARD_CULTURE",
@@ -1814,7 +1814,7 @@
 					{
 						"@tag": "BOARD_DIGEST_HOURS_HELP",
 						"#text":
-							"Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am."
+							"Number of hours between two digests. The digest is only sent between midnight and 6:00 am (time of the server)."
 					},
 					{
 						"@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2356,7 +2356,7 @@
 					},
 					{
 						"@tag": "ADMIN_USER_HELP",
-						"#text": "Only required when creating a board using a new & different membership application name."
+						"#text": "If checked, a new user with the name, email and password entered here is created as the admin of the new board. Otherwise you are its admin."
 					},
 					{
 						"@tag": "CULTURE",
@@ -2799,7 +2799,7 @@
 					},
 					{
 						"@tag": "FORUM_MOD_HELP",
-						"#text": "When this is checked, members of this role will have some admin access rights in YAF."
+						"#text": "Members of this role are moderators of the board and can use some options like admins (search users in the user selections, a signature when signatures are turned off, the moderator view of the user profiles). To moderate forums the role needs an access mask with moderator access in these forums."
 					},
 					{
 						"@tag": "HEADER",
@@ -3367,7 +3367,7 @@
 					},
 					{
 						"@tag": "DELETE_POSTS_USER",
-						"#text": "Delete all Posts for User?"
+						"#text": "Posts of the user that are deleted:"
 					},
 					{
 						"@tag": "DISABLED",
@@ -3611,7 +3611,7 @@
 					},
 					{
 						"@tag": "USERINFO_HOST_HELP",
-						"#text": "Gives user access to modify \"Host Settings\" section."
+						"#text": "Makes the user a host admin: full access to all admin and host pages, e.g. the host settings, the database maintenance and the boards."
 					},
 					{
 						"@tag": "USERINFO_NAME",
@@ -4079,7 +4079,7 @@
 					},
 					{
 						"@tag": "ALLOW_PMS_HELP",
-						"#text": "Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users."
+						"#text": "Allow users to send private messages to each other."
 					},
 					{
 						"@tag": "ALLOW_POSTBLOG",
@@ -4263,7 +4263,7 @@
 					},
 					{
 						"@tag": "BOT_IPBAN_ONREGISTER_HELP",
-						"#text": "If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned."
+						"#text": "If enabled, a bot detected during the registration is banned: its IP address, user name and email address are added to the banned lists, whatever the handling of bots is."
 					},
 					{
 						"@tag": "BOT_MESSAGE_0",
@@ -6102,7 +6102,7 @@
 					},
 					{
 						"@tag": "CONFIRM_PRUNE",
-						"#text": "Do you really want to prune topics? This process is irreversible."
+						"#text": "Do you really want to prune the topics? Topics that are not removed permanently can be restored later."
 					},
 					{
 						"@tag": "MSG_TASK",
@@ -6593,7 +6593,7 @@
 					{
 						"@tag": "NOTE",
 						"#text":
-							"<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatic SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
+							"<strong>Note:</strong> The Spam Check Words are used by the internal spam check: the home page and the signature of a profile are checked when the user changes them, and new posts are checked when the internal spam check is selected in the Host Settings."
 					},
 					{
 						"@tag": "SAVE",
@@ -6803,7 +6803,7 @@
 					{
 						"@tag": "LOCK_INACTIVE_HELP",
 						"#text":
-							"Lock inactive accounts older than x years. This will not delete their content (like posted messages)"
+							"Lock the accounts of users who have not visited the forum for more than x years. Their content (like posted messages) is not deleted."
 					},
 					{
 						"@tag": "MSG_DELETE_ADMIN",

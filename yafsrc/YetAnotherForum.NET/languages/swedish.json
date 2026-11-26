@@ -1491,7 +1491,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Ta bort detta YafBBCode-tillägg?"
+            "#text": "Ta bort detta BBCode-tillägg?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-kod som används för att ändra textredigeraren. Använd \"{{editorid}}\" (utan citationstecken) för att få textredigerarens ID insatt i koden. Skriv bara in JavaScript i detta fält. Script-taggen läggs till automatiskt."
+            "#text": "JS-kod som används för att ändra textredigeraren. Använd \"{editorid}\" (utan citationstecken) för att få textredigerarens ID insatt i koden. Skriv bara in JavaScript i detta fält. Script-taggen läggs till automatiskt."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1644,7 +1644,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} YafBBCode-tillägg"
+            "#text": "{0} BBCode-tillägg"
           },
           {
             "@tag": "USE_MODULE",
@@ -1693,7 +1693,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Importera anpassad YafBBCode"
+            "#text": "Importera anpassad BBCode"
           }
         ]
       },
@@ -1759,7 +1759,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "OBS: forumtavlan måste ha AppSettings \"YAF.BaseUrlMask\" och \"YAF.ForceScriptName\" definierade i din web.config för att sammanfattningen ska fungera."
+            "#text": "Användare kan få en sammanfattning med nya och aktiva ämnen via e-post (varje användare slår på den i sina egna inställningar)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -1799,7 +1799,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Antal timmar innan nästa sammanfattning försöker skickas. Sammanfattningen försöker bara skickas mellan kl. 00.00 och 06.00."
+            "#text": "Antal timmar mellan två sammanfattningar. Sammanfattningen skickas bara mellan midnatt och kl. 6:00 (serverns tid)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2337,7 +2337,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Krävs endast när du skapar en forumtavla med ett nytt och annat namn på medlemskapsapplikationen."
+            "#text": "Om markerad skapas en ny användare med det namn, den e-postadress och det lösenord som anges här som administratör för det nya forumet. Annars är du dess administratör."
           },
           {
             "@tag": "CULTURE",
@@ -2780,7 +2780,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "När detta är markerat har medlemmar i denna roll vissa administratörsrättigheter i YAF."
+            "#text": "Medlemmar i den här rollen är moderatorer för forumet och kan använda vissa alternativ som administratörer (söka användare i användarval, en signatur när signaturer är avstängda, moderatorvyn av användarprofiler). För att moderera forum behöver rollen en åtkomstmask med moderatoråtkomst i dessa forum."
           },
           {
             "@tag": "HEADER",
@@ -3348,7 +3348,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Ta bort alla inlägg för användaren?"
+            "#text": "Användarens inlägg som raderas:"
           },
           {
             "@tag": "DISABLED",
@@ -3592,7 +3592,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Ger användaren behörighet att ändra avsnittet \"Värdinställningar\"."
+            "#text": "Gör användaren till värdadministratör: full åtkomst till alla administratörs- och värdsidor, t.ex. värdinställningarna, databasunderhållet och forumen."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4056,7 +4056,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Tillåt användare att få tillgång till och skicka privata meddelanden. Du bör uttryckligen ge tillstånd för varje grupp och/eller rang för att aktivera dem för användarna."
+            "#text": "Tillåt användare att skicka privata meddelanden till varandra."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4240,7 +4240,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Om den är aktiverad och en bot upptäcks under registreringen, och om bothantering är inställd på att avvisa registrering, förbjuds botens IP-adress automatiskt."
+            "#text": "Om aktiverad spärras en bot som upptäcks vid registreringen: dess IP-adress, användarnamn och e-postadress läggs till i spärrlistorna, oavsett hanteringen av botar."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -6077,7 +6077,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Vill du verkligen rensa ämnen? Detta kan inte ångras."
+            "#text": "Vill du verkligen rensa ämnena? Ämnen som inte tas bort permanent kan återställas senare."
           },
           {
             "@tag": "MSG_TASK",
@@ -6556,7 +6556,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Obs: </strong> Skräppostorden används för den interna SPAM-identifieringen. Vid registreringen kontrolleras den hemsida som användaren anger i användarprofilen mot skräppostorden. Om en användare skriver ett nytt inlägg i forumet kontrolleras det också mot skräppostorden om 'Välj en SPAM-tjänst för automatisk SPAM-kontroll' i värdinställningarna är inställd på 'Ord för intern skräppostkontroll'."
+            "#text": "<strong>Obs!</strong> Skräppostkontrollorden används av den interna skräppostkontrollen: hemsidan och signaturen i en profil kontrolleras när användaren ändrar dem, och nya inlägg kontrolleras när den interna skräppostkontrollen är vald i värdinställningarna."
           },
           {
             "@tag": "SAVE",
@@ -6765,7 +6765,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lås inaktiva konton som är äldre än x år. Detta tar inte bort deras innehåll (t.ex. skrivna inlägg)"
+            "#text": "Lås konton för användare som inte har besökt forumet på mer än x år. Deras innehåll (som skrivna inlägg) raderas inte."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",

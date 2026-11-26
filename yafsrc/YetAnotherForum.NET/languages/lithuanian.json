@@ -1491,7 +1491,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Ištrinti šį YafBBCode plėtinį?"
+            "#text": "Ištrinti šį BBCode plėtinį?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS kodas, naudojamas teksto redaktoriui keisti. Naudokite \"{{editorid}}\" (be kabučių), kad kode būtų įrašytas teksto redaktoriaus ID. Tiesiog įveskite javascript į šį lauką. Žyma script bus pridėta automatiškai."
+            "#text": "JS kodas, naudojamas teksto redaktoriui keisti. Naudokite \"{editorid}\" (be kabučių), kad kode būtų įrašytas teksto redaktoriaus ID. Tiesiog įveskite javascript į šį lauką. Žyma script bus pridėta automatiškai."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1759,7 +1759,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "PASTABA: kad suvestinė veiktų, jūsų web.config faile turi būti apibrėžti lentos AppSettings \"YAF.BaseUrlMask\" ir \"YAF.ForceScriptName\"."
+            "#text": "Naudotojai gali gauti el. laišku naujų ir aktyvių temų suvestinę (kiekvienas naudotojas ją įjungia savo nustatymuose)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -1799,7 +1799,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Valandų skaičius prieš bandant siųsti kitą suvestinę. Suvestinę bandoma siųsti tik nuo 0:00 iki 6:00 val."
+            "#text": "Valandų skaičius tarp dviejų suvestinių. Suvestinė siunčiama tik nuo vidurnakčio iki 6:00 (serverio laiku)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2337,7 +2337,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Reikalinga tik kuriant lentą su nauju, kitokiu narystės programos pavadinimu."
+            "#text": "Jei pažymėta, naujas naudotojas su čia įvestu vardu, el. paštu ir slaptažodžiu sukuriamas kaip naujo forumo administratorius. Kitu atveju administratorius esate jūs."
           },
           {
             "@tag": "CULTURE",
@@ -2780,7 +2780,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Kai ši parinktis pažymėta, šio vaidmens nariai turės tam tikras YAF administravimo teises."
+            "#text": "Šios rolės nariai yra forumo moderatoriai ir gali naudoti kai kurias parinktis kaip administratoriai (ieškoti naudotojų naudotojų pasirinkimuose, parašas, kai parašai išjungti, moderatoriaus naudotojų profilių rodinys). Kad galėtų moderuoti forumus, rolei tuose forumuose reikia prieigos kaukės su moderatoriaus prieiga."
           },
           {
             "@tag": "HEADER",
@@ -3348,7 +3348,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Ištrinti visus naudotojo pranešimus?"
+            "#text": "Naudotojo pranešimai, kurie bus ištrinti:"
           },
           {
             "@tag": "DISABLED",
@@ -3592,7 +3592,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Suteikia naudotojui teisę keisti „Serverio nustatymų“ skyrių."
+            "#text": "Padaro naudotoją pagrindinio serverio administratoriumi: visiška prieiga prie visų administravimo ir pagrindinio serverio puslapių, pvz., pagrindinio serverio nustatymų, duomenų bazės priežiūros ir forumų."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4056,7 +4056,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Leisti naudotojams naudotis privačiomis žinutėmis ir jas siųsti. Kad naudotojai galėtų jomis naudotis, leidimą taip pat turite aiškiai suteikti kiekvienai grupei ir (arba) rangui."
+            "#text": "Leisti naudotojams siųsti vienas kitam privačias žinutes."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4240,7 +4240,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Jei įjungta ir registracijos metu aptinkamas robotas, o robotų tvarkymas nustatytas atmesti registraciją, roboto IP adresas automatiškai uždraudžiamas."
+            "#text": "Jei įjungta, registracijos metu aptiktas robotas užblokuojamas: jo IP adresas, naudotojo vardas ir el. pašto adresas įtraukiami į draudimų sąrašus, nepriklausomai nuo robotų tvarkymo."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -6077,7 +6077,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Ar tikrai norite išvalyti temas? Šio veiksmo atšaukti negalima."
+            "#text": "Ar tikrai norite išvalyti temas? Temas, kurios nepašalinamos visam laikui, vėliau galima atkurti."
           },
           {
             "@tag": "MSG_TASK",
@@ -6556,7 +6556,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Pastaba: </strong> šlamšto žodžiai naudojami vidiniam šlamšto aptikimui: registracijos metu naudotojo profilyje įvestas tinklalapis tikrinamas pagal šlamšto žodžius. Be to, kai naudotojas forume paskelbia naują pranešimą, jis tikrinamas pagal šlamšto žodžius, jei serverio nustatymuose parinktis „Pasirinkite automatinio šlamšto tikrinimo paslaugą“ nustatyta į „Vidinio šlamšto tikrinimo žodžiai“."
+            "#text": "<strong>Pastaba:</strong> Šlamšto žodžius naudoja vidinė šlamšto patikra: profilio tinklalapis ir parašas tikrinami, kai naudotojas juos keičia, o nauji pranešimai tikrinami, kai pagrindinio serverio nustatymuose pasirinkta vidinė šlamšto patikra."
           },
           {
             "@tag": "SAVE",
@@ -6765,7 +6765,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Užrakinti neaktyvias paskyras, senesnes nei x metų. Jų turinys (pvz., paskelbti pranešimai) nebus ištrintas."
+            "#text": "Užrakinti paskyras naudotojų, kurie nesilankė forume ilgiau nei x metų. Jų turinys (pvz., parašyti pranešimai) neištrinamas."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",

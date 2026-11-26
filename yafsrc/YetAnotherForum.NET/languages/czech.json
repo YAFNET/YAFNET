@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS kód pro úpravu textového editoru. Použijte „{{editorid}}“ (bez uvozovek), aby se v kódu nahradilo ID textového editoru. Do tohoto pole zadejte pouze JavaScript. Značka script bude přidána automaticky."
+            "#text": "JS kód pro úpravu textového editoru. Použijte „{editorid}“ (bez uvozovek), aby se v kódu nahradilo ID textového editoru. Do tohoto pole zadejte pouze JavaScript. Značka script bude přidána automaticky."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1759,7 +1759,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "POZNÁMKA: aby přehled fungoval, musí mít nástěnka ve web.config definována nastavení AppSettings „YAF.BaseUrlMask“ a „YAF.ForceScriptName“."
+            "#text": "Uživatelé mohou dostávat e-mailem přehled nových a aktivních témat (každý uživatel si ho zapne ve vlastním nastavení)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -1799,7 +1799,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Počet hodin před pokusem o odeslání dalšího přehledu. Přehled se pokouší odeslat pouze mezi 0:00 a 6:00."
+            "#text": "Počet hodin mezi dvěma přehledy. Přehled se odesílá jen mezi půlnocí a 6:00 (čas serveru)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2337,7 +2337,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Vyžaduje se pouze při vytváření nástěnky s novým, odlišným názvem aplikace členství."
+            "#text": "Pokud je zaškrtnuto, vytvoří se nový uživatel se zde zadaným jménem, e-mailem a heslem jako administrátor nového fóra. Jinak jste jeho administrátorem vy."
           },
           {
             "@tag": "CULTURE",
@@ -2780,7 +2780,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Pokud je zaškrtnuto, členové této role budou mít v YAF některá přístupová práva správce."
+            "#text": "Členové této role jsou moderátory fóra a mohou používat některé možnosti jako administrátoři (hledání uživatelů ve výběrech uživatelů, podpis, když jsou podpisy vypnuté, moderátorský pohled na profily uživatelů). K moderování fór potřebuje role v těchto fórech masku přístupu s přístupem moderátora."
           },
           {
             "@tag": "HEADER",
@@ -3348,7 +3348,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Smazat všechny příspěvky uživatele?"
+            "#text": "Příspěvky uživatele, které se smažou:"
           },
           {
             "@tag": "DISABLED",
@@ -3592,7 +3592,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Umožňuje uživateli upravovat sekci „Nastavení hostitele“."
+            "#text": "Udělá z uživatele administrátora hostitele: plný přístup ke všem stránkám administrace a hostitele, např. k nastavení hostitele, údržbě databáze a fórům."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4056,7 +4056,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Povolit uživatelům přístup k soukromým zprávám a jejich odesílání. Aby je uživatelé mohli používat, musíte je také výslovně povolit pro každou skupinu a/nebo hodnost."
+            "#text": "Povolit uživatelům posílat si soukromé zprávy."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4240,7 +4240,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Je-li povoleno a při registraci je rozpoznán robot a zacházení s roboty je nastaveno na odmítnutí registrace, IP adresa robota se automaticky zakáže."
+            "#text": "Pokud je zapnuto, bot zjištěný při registraci se zablokuje: jeho IP adresa, uživatelské jméno a e-mailová adresa se přidají do seznamů zákazů bez ohledu na zacházení s boty."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -6077,7 +6077,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Opravdu chcete pročistit témata? Tento proces je nevratný."
+            "#text": "Opravdu chcete pročistit témata? Témata, která nejsou odstraněna trvale, lze později obnovit."
           },
           {
             "@tag": "MSG_TASK",
@@ -6556,7 +6556,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Poznámka: </strong> Spamová slova se používají pro interní rozpoznávání SPAMu: při registraci se domovská stránka, kterou uživatel zadá do profilu, porovná se spamovými slovy. Také nový příspěvek uživatele ve fóru se porovná se spamovými slovy, pokud je v nastavení hostitele u „Vyberte službu pro automatickou kontrolu spamu“ nastaveno „Interní slova pro kontrolu spamu“."
+            "#text": "<strong>Poznámka:</strong> Slova pro kontrolu spamu používá interní kontrola spamu: domovská stránka a podpis v profilu se kontrolují, když je uživatel změní, a nové příspěvky se kontrolují, když je v nastavení hostitele zvolena interní kontrola spamu."
           },
           {
             "@tag": "SAVE",
@@ -6765,7 +6765,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Uzamknout neaktivní účty starší než x let. Jejich obsah (např. příspěvky) se nesmaže"
+            "#text": "Zamknout účty uživatelů, kteří fórum nenavštívili déle než x let. Jejich obsah (např. napsané příspěvky) se nesmaže."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",

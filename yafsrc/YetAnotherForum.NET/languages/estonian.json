@@ -1491,7 +1491,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Kas kustutada see YafBBCode'i laiendus?"
+            "#text": "Kas kustutada see BBCode'i laiendus?"
           },
           {
             "@tag": "DESCRIPTION",
@@ -1572,7 +1572,7 @@
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS-kood, mida kasutatakse tekstiredaktori muutmiseks. Kasutage \"{{editorid}}\" (ilma jutumärkideta), et koodis asendataks see tekstiredaktori ID-ga. Sisestage sellele väljale lihtsalt javascript. Silt script lisatakse automaatselt."
+            "#text": "JS-kood, mida kasutatakse tekstiredaktori muutmiseks. Kasutage \"{editorid}\" (ilma jutumärkideta), et koodis asendataks see tekstiredaktori ID-ga. Sisestage sellele väljale lihtsalt javascript. Silt script lisatakse automaatselt."
           },
           {
             "@tag": "EXEC_ORDER",
@@ -1759,7 +1759,7 @@
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
-            "#text": "MÄRKUS: kokkuvõtte toimimiseks peavad teie web.config failis olema tahvli jaoks määratud AppSettings \"YAF.BaseUrlMask\" ja \"YAF.ForceScriptName\"."
+            "#text": "Kasutajad saavad e-postiga kokkuvõtte uutest ja aktiivsetest teemadest (iga kasutaja lülitab selle oma seadetes sisse)."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -1799,7 +1799,7 @@
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Mitu tundi oodata enne järgmise kokkuvõtte saatmist. Kokkuvõtet proovitakse saata ainult kella 0:00 ja 6:00 vahel."
+            "#text": "Tundide arv kahe kokkuvõtte vahel. Kokkuvõte saadetakse ainult keskööst kella 6:00-ni (serveri aeg)."
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
@@ -2337,7 +2337,7 @@
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Nõutav ainult tahvli loomisel uue, erineva liikmesusrakenduse nimega."
+            "#text": "Kui see on märgitud, luuakse siin sisestatud nime, e-posti ja parooliga uus kasutaja uue foorumi administraatoriks. Muidu olete selle administraator teie."
           },
           {
             "@tag": "CULTURE",
@@ -2780,7 +2780,7 @@
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "Kui see on märgitud, on selle rolli liikmetel YAF-is teatud administraatori juurdepääsuõigused."
+            "#text": "Selle rolli liikmed on foorumi moderaatorid ja saavad kasutada mõnda valikut nagu administraatorid (kasutajate otsimine kasutajavalikutes, allkiri, kui allkirjad on välja lülitatud, kasutajaprofiilide moderaatorivaade). Foorumite modereerimiseks vajab roll neis foorumites moderaatori juurdepääsuga juurdepääsumaski."
           },
           {
             "@tag": "HEADER",
@@ -3348,7 +3348,7 @@
           },
           {
             "@tag": "DELETE_POSTS_USER",
-            "#text": "Kas kustutada kõik kasutaja postitused?"
+            "#text": "Kasutaja postitused, mis kustutatakse:"
           },
           {
             "@tag": "DISABLED",
@@ -3592,7 +3592,7 @@
           },
           {
             "@tag": "USERINFO_HOST_HELP",
-            "#text": "Annab kasutajale juurdepääsu jaotise \"Hosti seaded\" muutmiseks."
+            "#text": "Teeb kasutajast hosti administraatori: täielik juurdepääs kõigile administreerimis- ja hostilehtedele, nt hosti seaded, andmebaasi hooldus ja foorumid."
           },
           {
             "@tag": "USERINFO_NAME",
@@ -4056,7 +4056,7 @@
           },
           {
             "@tag": "ALLOW_PMS_HELP",
-            "#text": "Luba kasutajatel privaatsõnumeid kasutada ja saata. Kasutajatele sisselülitamiseks peate loa andma ka igale grupile ja/või astmele eraldi."
+            "#text": "Luba kasutajatel üksteisele privaatsõnumeid saata."
           },
           {
             "@tag": "ALLOW_POSTBLOG",
@@ -4240,7 +4240,7 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "Kui see on lubatud ja registreerimisel tuvastatakse robot ning robotite käsitlemine on seatud registreerimisest keelduma, keelatakse roboti IP-aadress automaatselt."
+            "#text": "Kui see on sisse lülitatud, keelatakse registreerimisel tuvastatud robot: selle IP-aadress, kasutajanimi ja e-posti aadress lisatakse keelunimekirjadesse, olenemata robotite käsitlemisest."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -6077,7 +6077,7 @@
           },
           {
             "@tag": "CONFIRM_PRUNE",
-            "#text": "Kas soovite tõesti teemad puhastada? Seda ei saa tagasi võtta."
+            "#text": "Kas soovite teemad tõesti puhastada? Teemasid, mida ei eemaldata jäädavalt, saab hiljem taastada."
           },
           {
             "@tag": "MSG_TASK",
@@ -6556,7 +6556,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Märkus: </strong> rämpspostisõnu kasutatakse sisemiseks rämpsposti tuvastamiseks: registreerimisel kontrollitakse kasutaja profiili sisestatud kodulehte rämpspostisõnade suhtes. Samuti kontrollitakse kasutaja uut foorumipostitust rämpspostisõnade suhtes, kui hosti seadetes on „Valige automaatse rämpspostikontrolli teenus“ seatud väärtusele „Sisemised rämpspostikontrolli sõnad“."
+            "#text": "<strong>Märkus:</strong> Rämpspostisõnu kasutab sisemine rämpspostikontroll: profiili koduleht ja allkiri kontrollitakse, kui kasutaja neid muudab, ning uusi postitusi kontrollitakse, kui hosti seadetes on valitud sisemine rämpspostikontroll."
           },
           {
             "@tag": "SAVE",
@@ -6765,7 +6765,7 @@
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lukusta mitteaktiivsed kontod, mis on vanemad kui x aastat. See ei kustuta nende sisu (nt postitusi)."
+            "#text": "Lukusta nende kasutajate kontod, kes pole foorumit külastanud üle x aasta. Nende sisu (näiteks kirjutatud postitusi) ei kustutata."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
