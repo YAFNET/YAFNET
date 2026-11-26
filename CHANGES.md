@@ -53,6 +53,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Register: a confirm password that differed was accepted on the server and the password typed first was saved (only the script of the page compared them)
 * [FIXED] Error page: the message and the stack trace of an error were shown to every visitor (the last error of any user), now only host admins see them (the error is in the event log)
 * [FIXED] New topic, reply, edit, quick reply: a max post size of 0 (unlimited) did not accept any text in the editor
+* [FIXED] Login: the button stayed "Loading..." and disabled when the form was not sent (an empty required field), the login could not be tried again
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

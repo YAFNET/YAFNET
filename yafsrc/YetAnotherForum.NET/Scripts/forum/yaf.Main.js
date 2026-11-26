@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	const loginButton = document.querySelector('a.btn-login,input.btn-login, .btn-spinner');
     if (loginButton) {
 	    loginButton.addEventListener('click', () => {
+            // the browser does not send an invalid form (an empty required field): the button stays usable
+            const form = loginButton.closest('form');
+            if (form && !form.checkValidity()) {
+                return;
+            }
+
             loginButton.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
             loginButton.classList.add('disabled');
 	    });
