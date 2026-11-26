@@ -110,7 +110,10 @@ public partial class ReplaceWordsEdit : BaseUserControl
             return;
         }
 
-        if (!ValidationHelper.IsValidRegex(this.badword.Text.Trim()))
+        // saved as it is checked (the spaces around the word were saved too)
+        var badWord = this.badword.Text.Trim();
+
+        if (!ValidationHelper.IsValidRegex(badWord))
         {
             this.PageBoardContext.Notify(
                 this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
@@ -126,7 +129,7 @@ public partial class ReplaceWordsEdit : BaseUserControl
         this.GetRepository<Replace_Words>()
             .Save(
                 this.ReplaceWordId,
-                this.badword.Text,
+                badWord,
                 this.goodword.Text);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ReplaceWords);
