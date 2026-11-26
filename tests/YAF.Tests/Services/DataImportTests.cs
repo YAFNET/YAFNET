@@ -164,6 +164,49 @@ public class DataImportTests
     }
 
     [Test]
+    [Description("The upgrade (BBCodeExtensions.xml of the forum) updates an unchanged extension and keeps an extension the admin changed (the upgrade replaced it)")]
+    public void BBCode_Upgrade_Keeps_Admin_Changes_Test()
+    {
+        // install: the extensions of the forum
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(CodeList(("KEEP", "a"), ("EDITED", "b"))), true);
+
+        // the admin changes one of them
+        var codes = this.board.Current.GetRepository<BBCode>();
+        var edited = codes.GetSingle(c => c.Name == "EDITED");
+        edited.ReplaceRegex = "admin";
+        codes.Update(edited);
+
+        // upgrade: the forum has a new version of both
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(CodeList(("KEEP", "a2"), ("EDITED", "b2"))), true);
+
+        codes.GetSingle(c => c.Name == "KEEP").ReplaceRegex.Should().Be("a2", "it was not changed");
+        codes.GetSingle(c => c.Name == "EDITED").ReplaceRegex.Should().Be("admin", "the admin changed it");
+
+        // the next upgrade still keeps it, the unchanged one is updated again
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(CodeList(("KEEP", "a3"), ("EDITED", "b3"))), true);
+
+        codes.GetSingle(c => c.Name == "KEEP").ReplaceRegex.Should().Be("a3");
+        codes.GetSingle(c => c.Name == "EDITED").ReplaceRegex.Should().Be("admin");
+
+        // an import of the admin replaces it
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(CodeList(("EDITED", "b4"))));
+
+        codes.GetSingle(c => c.Name == "EDITED").ReplaceRegex.Should().Be("b4");
+    }
+
+    [Test]
+    [Description("An extension installed by an older version (no hash of the installed version) is updated by the upgrade like before")]
+    public void BBCode_Upgrade_Without_Hash_Test()
+    {
+        this.board.Current.GetRepository<BBCode>().Insert(
+            new BBCode { BoardID = TestDatabase.BoardId, Name = "OLDINSTALL", SearchRegex = "c", ReplaceRegex = "changed?", ExecOrder = 1 });
+
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(CodeList(("OLDINSTALL", "new"))), true);
+
+        this.board.Current.GetRepository<BBCode>().GetSingle(c => c.Name == "OLDINSTALL").ReplaceRegex.Should().Be("new");
+    }
+
+    [Test]
     [Description("BBCode extensions with an invalid search expression are not imported")]
     public void BBCode_Invalid_Regex_Test()
     {
@@ -193,5 +236,12 @@ public class DataImportTests
     private static MemoryStream Lines(params string[] lines)
     {
         return new MemoryStream(Encoding.UTF8.GetBytes(string.Join("\n", lines)));
+    }
+
+    private static string CodeList(params (string Name, string Replace)[] codes)
+    {
+        return "<YafBBCodeList>" + string.Concat(
+                   codes.Select(c => $"<YafBBCode><Name>{c.Name}</Name><Description>d</Description><SearchRegex>c</SearchRegex><ReplaceRegex>{c.Replace}</ReplaceRegex><ExecOrder>1</ExecOrder><OnClickJS /><DisplayJS /><EditJS /><DisplayCSS /><Variables /><ModuleClass /><UseModule>false</UseModule><UseToolbar>false</UseToolbar></YafBBCode>"))
+               + "</YafBBCodeList>";
     }
 }

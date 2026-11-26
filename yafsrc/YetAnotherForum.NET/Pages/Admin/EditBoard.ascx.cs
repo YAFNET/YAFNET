@@ -365,7 +365,7 @@ public partial class EditBoard : AdminPage
                 });
 
         // load default bbcode if available...
-        loadWrapper($"{Config.InstallPath()}bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
+        loadWrapper($"{Config.InstallPath()}bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s, true));
 
         // load default spam word if available...
         loadWrapper($"{Config.InstallPath()}SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));

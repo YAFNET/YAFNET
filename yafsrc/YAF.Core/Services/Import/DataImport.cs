@@ -29,8 +29,10 @@ namespace YAF.Core.Services.Import;
 using System;
 using System.Data;
 using System.IO;
+using System.Text;
 
 using YAF.Core.Model;
+using YAF.Types.Constants;
 using YAF.Types.Models;
 
 /// <summary>
@@ -52,7 +54,11 @@ public static class DataImport
     /// </returns>
     /// <exception cref="FormatException">Import stream is not expected format.
     /// </exception>
-    public static int BBCodeExtensionImport(int boardId, Stream inputStream)
+    /// <param name="isDefaultFile">
+    ///     The file is the BBCodeExtensions.xml of the forum (install, new board, upgrade): an extension the admin
+    ///     changed is kept. An import of the admin replaces the extensions.
+    /// </param>
+    public static int BBCodeExtensionImport(int boardId, Stream inputStream, bool isDefaultFile = false)
     {
         var importedCount = 0;
 
@@ -101,12 +107,36 @@ public static class DataImport
 
                         if (bbCodeExtension != null)
                         {
-                            if (!BBCode.Equals(updateEntry, bbCodeExtension))
+                            if (BBCode.Equals(updateEntry, bbCodeExtension))
                             {
-                                updateEntry.ID = bbCodeExtension.ID;
+                                if (isDefaultFile)
+                                {
+                                    SaveDefaultHash(boardId, updateEntry);
+                                }
 
-                                // update this bbcode...
-                                repository.Update(updateEntry);
+                                return;
+                            }
+
+                            // the upgrade replaced the extensions the admin changed: only an extension that is still
+                            // the installed one (the hash of the last installed version) is updated, a changed one is
+                            // kept
+                            if (isDefaultFile && IsChangedByAdmin(boardId, bbCodeExtension))
+                            {
+                                BoardContext.Current.Get<ILoggerService>().Log(
+                                    $"The BBCode extension {name} was changed by an admin and is not updated. The forum has a new version of it in BBCodeExtensions.xml, import the file to use it.",
+                                    EventLogTypes.Warning);
+
+                                return;
+                            }
+
+                            updateEntry.ID = bbCodeExtension.ID;
+
+                            // update this bbcode...
+                            repository.Update(updateEntry);
+
+                            if (isDefaultFile)
+                            {
+                                SaveDefaultHash(boardId, updateEntry);
                             }
                         }
                         else
@@ -129,6 +159,11 @@ public static class DataImport
                                 row["ExecOrder"].ToType<int>(),
                                 boardId);
 
+                            if (isDefaultFile)
+                            {
+                                SaveDefaultHash(boardId, updateEntry);
+                            }
+
                             importedCount++;
                         }
                     });
@@ -139,6 +174,71 @@ public static class DataImport
         }
 
         return importedCount;
+    }
+
+    /// <summary>
+    /// Gets the hash of a BBCode extension (all fields of the definition, an empty field is the same as null).
+    /// </summary>
+    /// <param name="code">The code.</param>
+    /// <returns>The hash.</returns>
+    public static string DefinitionHash(BBCode code)
+    {
+        var definition = string.Join(
+            "\u001f",
+            code.Name ?? string.Empty,
+            code.Description ?? string.Empty,
+            code.OnClickJS ?? string.Empty,
+            code.DisplayJS ?? string.Empty,
+            code.EditJS ?? string.Empty,
+            code.DisplayCSS ?? string.Empty,
+            code.SearchRegex ?? string.Empty,
+            code.ReplaceRegex ?? string.Empty,
+            code.Variables ?? string.Empty,
+            code.UseModule ?? false,
+            code.UseToolbar ?? false,
+            code.ModuleClass ?? string.Empty,
+            code.ExecOrder);
+
+        using var sha = System.Security.Cryptography.SHA256.Create();
+
+        return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(definition))).Replace("-", string.Empty);
+    }
+
+    /// <summary>
+    /// The registry name of the hash of the installed version of a BBCode extension.
+    /// </summary>
+    /// <param name="name">The name of the extension.</param>
+    /// <returns>The registry name.</returns>
+    private static string DefaultHashName(string name)
+    {
+        return $"bbcodedefault.{name}".ToLowerInvariant();
+    }
+
+    /// <summary>
+    /// Saves the hash of the installed version of a BBCode extension (of BBCodeExtensions.xml).
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="code">The code.</param>
+    private static void SaveDefaultHash(int boardId, BBCode code)
+    {
+        BoardContext.Current.GetRepository<Registry>().Save(DefaultHashName(code.Name), DefinitionHash(code), boardId);
+    }
+
+    /// <summary>
+    /// Is the extension different from the version the forum installed (an admin changed it)? Without a hash
+    /// (installed by an older version) it is not known, the extension is updated like before.
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="code">The extension in the database.</param>
+    /// <returns>True if an admin changed it.</returns>
+    private static bool IsChangedByAdmin(int boardId, BBCode code)
+    {
+        var name = DefaultHashName(code.Name);
+
+        var installed = BoardContext.Current.GetRepository<Registry>()
+            .GetSingle(r => r.Name == name && r.BoardID == boardId)?.Value;
+
+        return installed.IsSet() && installed != DefinitionHash(code);
     }
 
     /// <summary>

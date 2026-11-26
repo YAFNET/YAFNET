@@ -344,7 +344,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                     this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
                     // load default bbcode if available...
-                    loadWrapper(this.bbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
+                    loadWrapper(this.bbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s, true));
 
                     // load default spam word if available...
                     loadWrapper(this.spamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
