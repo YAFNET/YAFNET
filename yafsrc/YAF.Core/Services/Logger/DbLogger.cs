@@ -173,6 +173,21 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
             }
         }
 
+        // the board of the request (an entry without a board, e.g. of a background task, is listed for every board)
+        int? boardId = null;
+
+        if (HttpContext.Current != null)
+        {
+            try
+            {
+                boardId = this.Get<ControlSettings>().BoardID;
+            }
+            catch (Exception)
+            {
+                boardId = null;
+            }
+        }
+
         switch (eventType)
         {
             case EventLogTypes.Debug:
@@ -194,6 +209,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
                             {
                                 EventType = eventType,
                                 UserID = userId,
+                                BoardID = boardId,
                                 Description = formattedDescription,
                                 Source = source,
                                 EventTime = DateTime.UtcNow
@@ -209,6 +225,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
                             {
                                 EventType = eventType,
                                 UserID = userId,
+                                BoardID = boardId,
                                 Description = formattedDescription,
                                 Source = source,
                                 EventTime = DateTime.UtcNow
@@ -224,6 +241,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
                             {
                                 EventType = eventType,
                                 UserID = userId,
+                                BoardID = boardId,
                                 Description = formattedDescription,
                                 Source = source,
                                 EventTime = DateTime.UtcNow
@@ -237,6 +255,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
                                   {
                                       EventType = eventType,
                                       UserID = userId,
+                                      BoardID = boardId,
                                       Description = formattedDescription,
                                       Source = source,
                                       EventTime = DateTime.UtcNow

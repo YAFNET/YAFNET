@@ -83,6 +83,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Forums: the pages split the list of categories and forums by rows, a category with more forums than the page size was shown on several pages, and of two categories with the same name only the first was shown; the pages list whole categories now
 * [FIXED] Admin > Forums: a sub forum with a lower sort order than its parent was shown above the parent, the third level was indented like the second; the forums are shown as a tree, indented per level
 * [FIXED] Admin > Edit Forum: saving a forum of an inactive category removed its parent forum (the list of the parent forums was empty for an inactive category)
+* [FIXED] Admin > Event Log and Spam Log: "Clean Up" and deleting an entry also deleted the entries without a user, which are listed for every board, so an admin of one board deleted them for all boards; the entries have the board they were written on now (new BoardID column, Migration96: the existing entries get the board of their user), every board lists and deletes its own entries, the entries without a board and user (e.g. of background tasks) are only deleted by a host admin
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

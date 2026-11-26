@@ -54,7 +54,10 @@ public partial class SpamLog : AdminPage
     protected void DeleteAllClick(object sender, EventArgs e)
     {
         // only the spam entries of the board
-        this.GetRepository<Types.Models.EventLog>().DeleteBoardEntries(this.PageBoardContext.PageBoardID, spamOnly: true);
+        this.GetRepository<Types.Models.EventLog>().DeleteBoardEntries(
+            this.PageBoardContext.PageBoardID,
+            spamOnly: true,
+            includeGlobal: this.PageBoardContext.PageUser.UserFlags.IsHostAdmin);
 
         // re-bind controls
         this.BindData();
@@ -373,7 +376,8 @@ public partial class SpamLog : AdminPage
                 this.GetRepository<Types.Models.EventLog>().DeleteBoardEntries(
                     this.PageBoardContext.PageBoardID,
                     e.CommandArgument.ToType<int>(),
-                    true);
+                    true,
+                    this.PageBoardContext.PageUser.UserFlags.IsHostAdmin);
 
                 // re-bind controls
                 this.BindData();

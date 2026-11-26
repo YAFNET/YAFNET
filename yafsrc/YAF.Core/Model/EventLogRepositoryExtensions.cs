@@ -94,8 +94,12 @@ public static class EventLogRepositoryExtensions
 
                 expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
 
+                var board = boardId ?? repository.BoardID;
+
+                // the entries of the board, entries without a board (older versions, background tasks) by the board of
+                // their user, without a user they are listed for every board
                 expression.Where<EventLog, User>(
-                    (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
+                    (a, b) => (a.BoardID == board || (a.BoardID == null && b.BoardID == board)) && a.EventTime >= sinceDate &&
                               a.EventTime <= toDate);
 
                 if (eventType.HasValue)
@@ -156,6 +160,9 @@ public static class EventLogRepositoryExtensions
     /// <param name="spamOnly">
     /// Only the entries of the spam log.
     /// </param>
+    /// <param name="includeGlobal">
+    /// Also the entries without a board and without a user (host admin).
+    /// </param>
     /// <returns>
     /// The number of deleted entries.
     /// </returns>
@@ -163,18 +170,29 @@ public static class EventLogRepositoryExtensions
         this IRepository<EventLog> repository,
         int boardId,
         int? id = null,
-        bool spamOnly = false)
+        bool spamOnly = false,
+        bool includeGlobal = false)
     {
         return repository.DbAccess.Execute(
             db =>
                 {
                     var q = db.Connection.From<EventLog>();
 
-                    // the entries of the users of the board and the entries without a user
-                    q.Where(
-                        e => e.UserID == null || Sql.In(
-                                 e.UserID,
-                                 db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID)));
+                    var boardUsers = db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID);
+
+                    // the entries written on the board and the entries without a board of its users; the entries
+                    // without a board and without a user are listed for every board, only a host admin deletes them
+                    // (an admin of one board deleted them for all boards)
+                    if (includeGlobal)
+                    {
+                        q.Where(
+                            e => e.BoardID == boardId
+                                 || (e.BoardID == null && (e.UserID == null || Sql.In(e.UserID, boardUsers))));
+                    }
+                    else
+                    {
+                        q.Where(e => e.BoardID == boardId || (e.BoardID == null && Sql.In(e.UserID, boardUsers)));
+                    }
 
                     if (id.HasValue)
                     {

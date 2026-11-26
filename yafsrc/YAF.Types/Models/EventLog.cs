@@ -72,6 +72,12 @@ public class EventLog : IEntity, IHaveID
     public int Type { get; set; }
 
     /// <summary>
+    /// Gets or sets the board the entry was written on (null: written outside of a board, e.g. by a background
+    /// task or at the start of the application; those entries are listed for every board).
+    /// </summary>
+    public int? BoardID { get; set; }
+
+    /// <summary>
     /// Gets or sets the event type.
     /// </summary>
     [Ignore]

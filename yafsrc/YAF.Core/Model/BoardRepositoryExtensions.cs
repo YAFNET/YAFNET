@@ -581,6 +581,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     BoardContext.Current.GetRepository<Group>().Delete(x => x.ID == g.ID);
                 });
 
+        BoardContext.Current.GetRepository<EventLog>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Category>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<ActiveAccess>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Active>().Delete(x => x.BoardID == boardId);
