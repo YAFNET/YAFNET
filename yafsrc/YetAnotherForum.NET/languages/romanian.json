@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Se înregistrează pe forum"
+            "#text": "Se autentifică"
           },
           {
             "@tag": "LOGOUT",
@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" nu este o valoare validă pentru secțiunea IP (trebuie să fie mai mică de 255)."
+            "#text": "\"{0}\" nu este o valoare validă pentru secțiunea IP (trebuie să fie cel mult 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activează/dezactivează Meniul de partajare, unde un utilizator poate trimite un subiect prin e-mail, Tweet, Buzz, Like pe Facebook, Digg, Reddit sau Tumblr."
+            "#text": "Activează/dezactivează meniul de distribuire al unui subiect, din care un utilizator poate trimite subiectul prin e-mail sau îi poate copia linkul."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5911,7 +5911,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "În prezent nu există medalii. Adăugați o medalie nouă făcând clic pe butonul [b]Adăugați o medalie nouă[/b] de mai jos."
+            "#text": "În prezent nu există medalii. Adăugați o medalie nouă făcând clic pe butonul [b]Medalie nouă[/b] de mai jos."
           },
           {
             "@tag": "MOVE_DOWN",

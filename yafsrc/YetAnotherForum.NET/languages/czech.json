@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "„{0}“ není platná hodnota části IP adresy (musí být menší než 255)."
+            "#text": "„{0}“ není platná hodnota části IP adresy (musí být nejvýše 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Povolí/zakáže nabídku sdílení, kde může uživatel e-mailovat, tweetovat, hlásat, lajkovat na Facebooku, Digg, Reddit nebo Tumblr téma."
+            "#text": "Zapne/vypne nabídku sdílení tématu, ve které může uživatel téma poslat e-mailem nebo zkopírovat odkaz na něj."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5911,7 +5911,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V současné době nejsou žádné medaile. Novou medaili přidáte kliknutím na tlačítko [b]Přidat novou medaili[/b] níže."
+            "#text": "V současné době nejsou žádné medaile. Novou medaili přidáte kliknutím na tlačítko [b]Nová medaile[/b] níže."
           },
           {
             "@tag": "MOVE_DOWN",
@@ -8115,7 +8115,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "získali jste ocenění na fóru {0}"
+            "#text": "Získali jste medaili na fóru {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

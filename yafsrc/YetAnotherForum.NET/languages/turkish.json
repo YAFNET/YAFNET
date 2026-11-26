@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" geçerli bir IP bölümü değeri değildir (255'ten küçük olmalıdır)."
+            "#text": "\"{0}\" geçerli bir IP bölümü değeri değildir (255 veya daha küçük olmalıdır)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4040,7 +4040,7 @@
           },
           {
             "@tag": "ALLOW_NOTIFICATION_ONALL_HELP",
-            "#text": "Kullanıcıların tüm e-postalarda bireysel e-posta bildirimleri almasına izin verin -- tonlarca e-posta trafiği."
+            "#text": "Kullanıcıların tüm mesajlar için bireysel e-posta bildirimleri almasına izin verin -- tonlarca e-posta trafiği."
           },
           {
             "@tag": "ALLOW_PM_NOTIFICATION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Kullanıcının bir Konuyu E-posta, Tweet, Buzz, Facebook, Digg, Reddit veya Tumblr'da Beğenebileceği Paylaş Menüsünü etkinleştirir/devre dışı bırakır."
+            "#text": "Bir konunun, kullanıcının konuyu e-postayla gönderebileceği veya bağlantısını kopyalayabileceği Paylaş menüsünü etkinleştirir/devre dışı bırakır."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -8115,7 +8115,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "{0} Forumunda ödüllendirildiniz"
+            "#text": "{0} Forumunda size madalya verildi"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

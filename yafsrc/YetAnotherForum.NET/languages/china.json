@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "在论坛上注册"
+            "#text": "正在登录"
           },
           {
             "@tag": "LOGOUT",
@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "“{0}”不是有效的 IP 地址段值（必须小于 255）。"
+            "#text": "“{0}”不是有效的 IP 地址段值（必须小于或等于 255）。"
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "启用/禁用共享菜单，用户可以在其中通过电子邮件、推文、嗡嗡声、在 Facebook、Digg、Reddit 或 Tumblr 上点赞主题。"
+            "#text": "启用/禁用主题的分享菜单，用户可以在其中通过电子邮件发送主题或复制其链接。"
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5911,7 +5911,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "目前没有勋章。点击下方的[b]添加新勋章[/b]按钮可添加勋章。"
+            "#text": "目前没有勋章。点击下方的[b]新勋章[/b]按钮可添加勋章。"
           },
           {
             "@tag": "MOVE_DOWN",

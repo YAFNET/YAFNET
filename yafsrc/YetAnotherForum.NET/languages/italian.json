@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Enables/disables the share Menu, where a user can E-mail, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic."
+            "#text": "Abilita/disabilita il menu di condivisione di una discussione, con cui un utente può inviare la discussione via e-mail o copiarne il link."
           },
           {
             "@tag": "ALLOW_SIGNATURE",

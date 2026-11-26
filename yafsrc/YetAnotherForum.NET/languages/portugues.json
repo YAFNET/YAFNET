@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" não é um valor de secção IP válido (deve ser inferior a 255)."
+            "#text": "\"{0}\" não é um valor de secção IP válido (deve ser igual ou inferior a 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activa/desactiva o menu de partilha, onde um utilizador pode enviar um e-mail, Tweet, Buzz, Como no Facebook, Digg, Reddit ou Tumblr a Topic."
+            "#text": "Ativa/desativa o menu Partilhar de um tópico, com o qual um utilizador pode enviar o tópico por e-mail ou copiar a sua ligação."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -8115,7 +8115,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "recebeu uma medalha no fórum {0}"
+            "#text": "Recebeu uma medalha no fórum {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

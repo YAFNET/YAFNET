@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" no es un valor válido para una sección de IP (debe ser menor que 255)."
+            "#text": "\"{0}\" no es un valor válido para una sección de IP (debe ser 255 o menor)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activa/desactiva el manú de compartir, donde un usuario puede enviar por email, Tweetear, enviar a Buzz, darle a me gusa en Facebook, enviar a Digg, Reedit o Tumblr un tema."
+            "#text": "Activa/desactiva el menú Compartir de un tema, con el que un usuario puede enviar el tema por correo electrónico o copiar su enlace."
           },
           {
             "@tag": "ALLOW_SIGNATURE",

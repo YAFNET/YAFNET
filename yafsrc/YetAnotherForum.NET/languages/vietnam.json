@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" không phải là giá trị phần IP hợp lệ (phải nhỏ hơn 255)."
+            "#text": "\"{0}\" không phải là giá trị phần IP hợp lệ (phải nhỏ hơn hoặc bằng 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Bật / tắt Menu chia sẻ, nơi người dùng có thể Gửi email, Tweet, Buzz, Thích trên Facebook, Digg, Reddit hoặc Tumblr một chủ đề."
+            "#text": "Bật / tắt menu chia sẻ của chủ đề, nơi người dùng có thể gửi chủ đề qua email hoặc sao chép liên kết của chủ đề."
           },
           {
             "@tag": "ALLOW_SIGNATURE",

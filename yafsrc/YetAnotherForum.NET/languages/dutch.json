@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Meldt zich aan op het forum"
+            "#text": "Logt in"
           },
           {
             "@tag": "LOGOUT",
@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" is geen geldige waarde voor een IP-sectie (moet kleiner zijn dan 255)."
+            "#text": "\"{0}\" is geen geldige waarde voor een IP-sectie (moet 255 of kleiner zijn)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Zet het 'Deel-Menu' aan of uit, zodat een gebruiker een topic kan delen via Email, Tweet, Buzz, Liken op Facebook, +Google, Digg, Reddit of Tumblr."
+            "#text": "Schakelt het deelmenu van een topic in of uit, waarmee een gebruiker het topic per e-mail kan versturen of de link ervan kan kopiëren."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5903,7 +5903,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Er zijn momenteel geen medailles. Voeg een nieuwe medaille toe met de knop [b]Nieuwe medaille toevoegen[/b] hieronder."
+            "#text": "Er zijn momenteel geen medailles. Voeg een nieuwe medaille toe met de knop [b]Nieuwe medaille[/b] hieronder."
           },
           {
             "@tag": "MOVE_DOWN",
@@ -8107,7 +8107,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "Je hebt een onderscheiding gekregen op het forum {0}"
+            "#text": "Je hebt een medaille gekregen op het forum {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",

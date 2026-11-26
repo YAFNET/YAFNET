@@ -4111,7 +4111,7 @@
 					},
 					{
 						"@tag": "ALLOW_SHARE_TOPIC_HELP",
-						"#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic."
+						"#text": "Enables/disables the share menu of a topic, where a user can send the topic by email or copy its link."
 					},
 					{
 						"@tag": "ALLOW_SIGNATURE",

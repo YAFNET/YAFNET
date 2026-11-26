@@ -44,7 +44,7 @@
           },
           {
             "@tag": "EDIT_AVATAR",
-            "#text": "Zmień avatar"
+            "#text": "Zmień awatar"
           },
           {
             "@tag": "EDIT_PROFILE",
@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Rejestruje się na forum"
+            "#text": "Loguje się"
           },
           {
             "@tag": "LOGOUT",
@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" nie jest prawidłową wartością dla sekcji adresu IP (musi być mniejsza niż 255)."
+            "#text": "\"{0}\" nie jest prawidłową wartością dla sekcji adresu IP (musi wynosić 255 lub mniej)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4080,7 +4080,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Włącza/wyłącza menu udostępniania, za pomocą którego użytkownik może wysłać wiadomość e-mail, Tweet, Buzz, Like on Facebook, Digg, Reddit lub Tumblr na temat."
+            "#text": "Włącza/wyłącza menu udostępniania tematu, w którym użytkownik może wysłać temat e-mailem lub skopiować link do niego."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5903,7 +5903,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Obecnie nie ma medali. Dodaj nowy medal, klikając przycisk [b]Dodaj nowy medal[/b] poniżej."
+            "#text": "Obecnie nie ma medali. Dodaj nowy medal, klikając przycisk [b]Nowy medal[/b] poniżej."
           },
           {
             "@tag": "MOVE_DOWN",

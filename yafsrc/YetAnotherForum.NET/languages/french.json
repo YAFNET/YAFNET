@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Active/désactive le menu de partage, dans lequel un utilisateur peut envoyer un sujet par courrier électronique, le tweeter, le buzzer, l'aimer sur Facebook, le Digg, le Reddit ou le Tumblr."
+            "#text": "Active/désactive le menu de partage d'un sujet, avec lequel un utilisateur peut envoyer le sujet par e-mail ou copier son lien."
           },
           {
             "@tag": "ALLOW_SIGNATURE",

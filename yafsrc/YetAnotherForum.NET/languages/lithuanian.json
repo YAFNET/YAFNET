@@ -566,7 +566,7 @@
           },
           {
             "@tag": "LOGIN",
-            "#text": "Registruojasi forume"
+            "#text": "Prisijungia"
           },
           {
             "@tag": "LOGOUT",
@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "„{0}“ nėra tinkama IP dalies reikšmė (turi būti mažesnė nei 255)."
+            "#text": "„{0}“ nėra tinkama IP dalies reikšmė (turi būti ne didesnė nei 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Įjungiamas / išjungiamas bendrinimo meniu, kuriame naudotojas gali siųsti temą el. paštu, \"Twitter\", \"Buzz\", \"Facebook\", \"Digg\", \"Reddit\" arba \"Tumblr\"."
+            "#text": "Įjungia / išjungia temos bendrinimo meniu, kuriame naudotojas gali išsiųsti temą el. paštu arba nukopijuoti jos nuorodą."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -8115,7 +8115,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "jums suteiktas apdovanojimas {0} forume"
+            "#text": "Jums suteiktas medalis {0} forume"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -11899,7 +11899,7 @@
           },
           {
             "@tag": "SELECT_FORUM",
-            "#text": "Pasirinkite forumą, į kurį norite perkelti pranešimą:"
+            "#text": "Pasirinkite forumą, į kurį norite perkelti temą:"
           },
           {
             "@tag": "TITLE",

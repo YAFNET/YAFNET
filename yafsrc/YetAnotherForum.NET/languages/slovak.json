@@ -1282,7 +1282,7 @@
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "„{0}“ nie je platná hodnota časti IP adresy (musí byť menšia ako 255)."
+            "#text": "„{0}“ nie je platná hodnota časti IP adresy (musí byť najviac 255)."
           },
           {
             "@tag": "INVALID_SECTION",
@@ -4088,7 +4088,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Zapnutie/vypnutie zdieľania Ponuka, v ktorej môže používateľ poslať e-mail, Tweet, Buzz, Like na Facebooku, Digg, Reddit alebo Tumblr."
+            "#text": "Zapne/vypne ponuku zdieľania témy, v ktorej môže používateľ tému poslať e-mailom alebo skopírovať odkaz na ňu."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -5911,7 +5911,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "V súčasnosti nie sú žiadne medaily. Novú medailu pridáte kliknutím na tlačidlo [b]Pridať novú medailu[/b] nižšie."
+            "#text": "V súčasnosti nie sú žiadne medaily. Novú medailu pridáte kliknutím na tlačidlo [b]Nová medaila[/b] nižšie."
           },
           {
             "@tag": "MOVE_DOWN",
@@ -8115,7 +8115,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "ste boli ocenení na fóre {0}"
+            "#text": "Získali ste medailu na fóre {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
