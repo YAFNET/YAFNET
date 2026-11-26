@@ -43,7 +43,7 @@
                                 <div class="mb-3">
                                     <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                                    AssociatedControlID="SearchInput"
-                                                   LocalizedTag="MASK" LocalizedPage="ADMIN_SPAMWORDS" />
+                                                   LocalizedTag="SPAM" LocalizedPage="ADMIN_SPAMWORDS" />
                                     <asp:TextBox runat="server" ID="SearchInput"
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>

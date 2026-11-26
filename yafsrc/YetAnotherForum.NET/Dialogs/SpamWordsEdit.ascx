@@ -33,8 +33,8 @@
                     <div class="modal-footer">
                         <YAF:ThemeButton id="Save" runat="server" 
                                          OnClick="Save_OnClick"
-                                         TextLocalizedTag="ADMIN_SPAMWORDS_EDIT" 
-                                         TextLocalizedPage="TITLE"
+                                         TextLocalizedTag="TITLE" 
+                                         TextLocalizedPage="ADMIN_SPAMWORDS_EDIT"
                                          CausesValidation="True"
                                          Type="Primary" 
                                          Icon="save">
