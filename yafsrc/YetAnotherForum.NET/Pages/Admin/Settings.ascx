@@ -22,7 +22,8 @@
                                  CssClass="form-control" />
                     <div class="invalid-feedback">
                         <YAF:LocalizedLabel runat="server" 
-                                            LocalizedTag="MSG_NAME_BOARD" />
+                                            LocalizedTag="MSG_NAME_BOARD"
+                                            LocalizedPage="ADMIN_EDITBOARD" />
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">

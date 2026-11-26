@@ -87,6 +87,15 @@ public partial class Settings : AdminPage
             return;
         }
 
+        // the board needs a name (a name of spaces passed the check of the browser)
+        var boardName = this.Name.Text.Trim();
+
+        if (boardName.IsNotSet())
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"), MessageTypes.warning);
+            return;
+        }
+
         var languageFile = "english.json";
 
         var culture = StaticDataHelper.Cultures()
@@ -99,7 +108,7 @@ public partial class Settings : AdminPage
 
         this.GetRepository<Board>().Save(
             this.PageBoardContext.PageBoardID,
-            this.Name.Text,
+            boardName,
             languageFile,
             this.Culture.SelectedValue);
 
