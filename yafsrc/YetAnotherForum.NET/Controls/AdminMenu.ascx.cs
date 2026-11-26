@@ -158,7 +158,7 @@ public partial class AdminMenu : BaseUserControl
         // Admin - Maintenance Menu
         if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or
-                         "Admin_TaskManager" or "Admin_EventLog" or "Admin_RestartApp"))
+                         "Admin_TaskManager" or "Admin_EventLog" or "Admin_RestartApp" or "Admin_Pm"))
         {
             this.RenderAdminMaintenance(pagesAccess);
         }
@@ -570,7 +570,7 @@ public partial class AdminMenu : BaseUserControl
             "#",
             this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Admin_Attachments or ForumPages.Admin_Tags or
                 ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_TaskManager or
-                ForumPages.Admin_EventLog or ForumPages.Admin_RestartApp,
+                ForumPages.Admin_EventLog or ForumPages.Admin_RestartApp or ForumPages.Admin_Pm,
             true,
             "toolbox");
 
