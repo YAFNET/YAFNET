@@ -6596,6 +6596,10 @@
             "#text": "Aprovado"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Um utilizador mantém pelo menos uma função, a última função não é removida."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Eliminar este utilizador?"
           },

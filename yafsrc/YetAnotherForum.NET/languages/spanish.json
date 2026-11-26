@@ -6588,6 +6588,10 @@
             "#text": "Aprobado"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Un usuario conserva al menos un rol, el último rol no se quita."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "¿Eliminar este usuario?"
           },

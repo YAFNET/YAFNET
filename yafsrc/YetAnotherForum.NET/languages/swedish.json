@@ -6596,6 +6596,10 @@
             "#text": "Godkänd"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "En användare behåller minst en roll, den sista rollen tas inte bort."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ta bort den här användaren?"
           },

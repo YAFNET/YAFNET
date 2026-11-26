@@ -6596,6 +6596,10 @@
             "#text": "Đã được phê duyệt"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Người dùng luôn giữ ít nhất một vai trò, vai trò cuối cùng không bị xóa."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa người dùng này?"
           },

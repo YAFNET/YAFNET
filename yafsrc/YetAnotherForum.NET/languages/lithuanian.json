@@ -6596,6 +6596,10 @@
             "#text": "Patvirtinta"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Naudotojui lieka bent vienas vaidmuo, paskutinis vaidmuo nepašalinamas."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ištrinti šį naudotoją?"
           },

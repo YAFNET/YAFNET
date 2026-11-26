@@ -73,6 +73,13 @@ public partial class EditUsersGroups : BaseUserControl
     /// </param>
     protected void Save_Click(object sender, EventArgs e)
     {
+        // a user keeps at least one role (without a role the user could not read any forum)
+        if (!this.UserGroups.Items.Cast<RepeaterItem>().Any(item => item.FindControlAs<CheckBox>("GroupMember").Checked))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_USERS", "BULK_LAST_ROLE"), MessageTypes.warning);
+            return;
+        }
+
         var addedRoles = new List<string>();
         var removedRoles = new List<string>();
 

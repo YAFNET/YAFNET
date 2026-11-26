@@ -6596,6 +6596,10 @@
             "#text": "godkendt"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "En bruger beholder mindst én rolle, den sidste rolle fjernes ikke."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette denne bruger?"
           },

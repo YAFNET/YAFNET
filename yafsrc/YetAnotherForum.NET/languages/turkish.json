@@ -6596,6 +6596,10 @@
             "#text": "Onaylandı"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Bir kullanıcının en az bir rolü kalır, son rol kaldırılmaz."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Bu kullanıcıyı silelim mi?"
           },

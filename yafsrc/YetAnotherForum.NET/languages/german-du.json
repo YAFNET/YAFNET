@@ -6588,6 +6588,10 @@
             "#text": "Genehmigt"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Ein Benutzer behält mindestens eine Rolle, die letzte Rolle wird nicht entfernt."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Diesen Benutzer löschen?"
           },

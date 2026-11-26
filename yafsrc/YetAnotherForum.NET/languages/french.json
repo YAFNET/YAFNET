@@ -6596,6 +6596,10 @@
             "#text": "Approuvé"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Un utilisateur garde au moins un rôle, le dernier rôle n’est pas retiré."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Supprimer cet utilisateur ?"
           },

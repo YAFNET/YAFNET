@@ -67,6 +67,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Signature: the allowed BB codes of a user with several roles were the alphabetically last list of one role (e.g. only "URL" of one role instead of "B,I" and "URL" of two roles), and of the roles and the rank the longest list was used; all BB codes of the roles and the rank are allowed now
 * [FIXED] Medals: a medal hidden in a group award (or the user award) was still shown in the profile when the user also had it from another award, and a medal awarded to several groups of the user was shown more than once
 * [FIXED] Admin > Users: the texts of the "since" filter were not translated (English text in the code), the first option showed "Last Visit" without the date of the last visit
+* [FIXED] Admin > Edit User > User Roles: all roles could be removed, the user had no role and could not read any forum; the last role is kept with a message (new text in all languages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

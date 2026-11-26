@@ -6596,6 +6596,10 @@
             "#text": "Aprobat"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Un utilizator păstrează cel puțin un rol, ultimul rol nu este eliminat."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți acest utilizator?"
           },

@@ -6633,6 +6633,10 @@
 						"#text": "Approved"
 					},
 					{
+						"@tag": "BULK_LAST_ROLE",
+						"#text": "A user keeps at least one role, the last role is not removed."
+					},
+					{
 						"@tag": "CONFIRM_DELETE",
 						"#text": "Delete this user?"
 					},

@@ -6596,6 +6596,10 @@
             "#text": "Hyväksytty"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Käyttäjälle jää vähintään yksi rooli, viimeistä roolia ei poisteta."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poista tämä käyttäjä?"
           },

@@ -6596,6 +6596,10 @@
             "#text": "Kinnitatud"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Kasutajale jääb vähemalt üks roll, viimast rolli ei eemaldata."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada see kasutaja?"
           },

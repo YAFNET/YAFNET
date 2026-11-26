@@ -6596,6 +6596,10 @@
             "#text": "Schválený"
           },
           {
+            "@tag": "BULK_LAST_ROLE",
+            "#text": "Uživateli zůstane alespoň jedna role, poslední role se neodebere."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Smazat tohoto uživatele?"
           },
