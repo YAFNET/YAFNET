@@ -2719,7 +2719,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Łańcuch stylów, aby dostosować nazwę forum. Pozostaw pusty."
+            "#text": "Style CSS nazwy forum na listach forów, np. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

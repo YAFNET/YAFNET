@@ -2719,7 +2719,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stringa di stili per personalizzare il nome del forum. Lasciare vuoto."
+            "#text": "Stili CSS del nome del forum negli elenchi dei forum, ad es. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

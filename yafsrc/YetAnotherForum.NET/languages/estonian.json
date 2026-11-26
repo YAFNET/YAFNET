@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stiilide string foorumi nime kohandamiseks. "
+            "#text": "Foorumi nime CSS-stiilid foorumite loendites, nt color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

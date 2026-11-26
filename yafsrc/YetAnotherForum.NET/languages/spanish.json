@@ -2719,7 +2719,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Cadena de estilo para personalizar el nombre del foro. Puedes dejarlo vacío."
+            "#text": "Estilos CSS del nombre del foro en las listas de foros, p. ej. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

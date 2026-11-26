@@ -2742,7 +2742,7 @@
 					},
 					{
 						"@tag": "STYLES_HELP",
-						"#text": "Styles string to customize Forum Name. Leave it empty."
+						"#text": "CSS styles of the forum name in the forum lists, e.g. color: red; font-weight: bold;"
 					},
 					{
 						"@tag": "THEME",

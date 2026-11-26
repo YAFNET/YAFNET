@@ -2719,7 +2719,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stijl tekst om de Forumnaam aan te passen. Leeglaten.."
+            "#text": "CSS-stijlen van de forumnaam in de forumlijsten, bijv. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

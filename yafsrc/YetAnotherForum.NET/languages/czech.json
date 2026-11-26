@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Řetězec stylů pro přizpůsobení názvu fóra. "
+            "#text": "Styly CSS názvu fóra v seznamech fór, např. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

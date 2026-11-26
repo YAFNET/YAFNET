@@ -77,6 +77,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Host Settings > Cache, Search and Log, Admin > Delete Forum: 20 labels were not linked to their field (a click on the label did nothing, screen readers did not name the field)
 * [FIXED] Admin > Event Log: the names of the event types in the type filter (e.g. "LoginFailure", "UserSuspended") were the english names of the code in every language; they are translated now (new texts in all languages)
 * [FIXED] Admin > Import dialogs: the user import said "Select Import File" twice without the hint that xml and csv files are imported, and the BBCode import used texts of a page that does not exist (texts of the banned lists were shown); they have their own texts now (new texts in all languages)
+* [FIXED] Admin > Edit Forum: the "Styles" of a forum were saved but never used (the help even said "Leave it empty."); they are applied to the forum name in the forum lists (board index, sub-forums) now; all languages
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

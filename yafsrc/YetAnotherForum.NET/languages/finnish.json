@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Tyylit merkkijono muokata foorumin nimeä. Jätä se tyhjäksi."
+            "#text": "Foorumin nimen CSS-tyylit foorumiluetteloissa, esim. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

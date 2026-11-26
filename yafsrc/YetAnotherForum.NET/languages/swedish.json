@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stilsträng för att anpassa forumets namn. Låt den vara tom."
+            "#text": "CSS-stilar för forumnamnet i forumlistorna, t.ex. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

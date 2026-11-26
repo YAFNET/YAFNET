@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Stilių eilutė, skirta pritaikyti forumo pavadinimą. Palikite ją tuščią."
+            "#text": "Forumo pavadinimo CSS stiliai forumų sąrašuose, pvz., color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

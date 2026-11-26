@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "用于自定义论坛名称的样式字符串。"
+            "#text": "论坛列表中论坛名称的 CSS 样式，例如 color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

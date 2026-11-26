@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Șir de stiluri pentru a personaliza numele forumului. Lăsați-l gol."
+            "#text": "Stiluri CSS ale numelui forumului în listele de forumuri, de ex. color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

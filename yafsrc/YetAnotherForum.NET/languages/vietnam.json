@@ -2723,7 +2723,7 @@
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Chuỗi kiểu để tùy chỉnh Tên diễn đàn. Để trống."
+            "#text": "Kiểu CSS của tên diễn đàn trong danh sách diễn đàn, ví dụ color: red; font-weight: bold;"
           },
           {
             "@tag": "THEME",

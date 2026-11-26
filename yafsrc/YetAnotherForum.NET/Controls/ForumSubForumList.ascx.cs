@@ -56,8 +56,13 @@ public partial class ForumSubForumList : BaseUserControl
         // get the Forum Description
         var output = forum.Forum;
 
+        // the styles of the forum name (Admin > Edit Forum, they were saved but never used)
+        var style = forum.Styles.IsSet()
+                        ? $" style=\"{this.Page.HtmlEncode(this.Get<IStyleTransform>().Decode(forum.Styles))}\""
+                        : string.Empty;
+
         output = forum.ReadAccess
-                     ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forum.ForumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{this.Page.HtmlEncode(output)}</a>"
+                     ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forum.ForumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\"{style}>{this.Page.HtmlEncode(output)}</a>"
                      : $"{this.Page.HtmlEncode(output)} {this.GetText("NO_FORUM_ACCESS")}";
 
         return output;
