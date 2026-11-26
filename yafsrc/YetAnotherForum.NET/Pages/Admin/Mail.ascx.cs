@@ -94,14 +94,15 @@ public partial class Mail : AdminPage
         {
             // all mails in one go (the services use the context of the request)
             this.Get<IMailService>().SendAll(
-                emails.Select(
-                    email => this.Get<IMailService>().CreateMessage(
-                        from,
-                        new MailAddress(email),
-                        from,
-                        this.Subject.Text.Trim(),
-                        this.Body.Text.Trim(),
-                        null)).ToList());
+            [
+                .. emails.Select(email => this.Get<IMailService>().CreateMessage(
+                    from,
+                    new MailAddress(email),
+                    from,
+                    this.Subject.Text.Trim(),
+                    this.Body.Text.Trim(),
+                    null))
+            ]);
         }
         catch (Exception x)
         {
@@ -113,7 +114,7 @@ public partial class Mail : AdminPage
         this.Subject.Text = string.Empty;
         this.Body.Text = string.Empty;
         // the mails are sent directly, not queued
-        this.PageBoardContext.Notify(this.GetTextFormatted("MSG_QUEUED", emails.Count()), MessageTypes.success);
+        this.PageBoardContext.Notify(this.GetTextFormatted("MSG_QUEUED", emails.Count), MessageTypes.success);
     }
 
     /// <summary>

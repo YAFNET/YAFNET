@@ -36,6 +36,11 @@ using System.Net;
 public class LatestInformation : IHaveServiceLocator, ILatestInformation
 {
     /// <summary>
+    /// The major version of this forum, only releases of it are checked.
+    /// </summary>
+    private const int MajorVersion = 3;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LatestInformation"/> class.
     /// </summary>
     /// <param name="serviceLocator">
@@ -64,15 +69,26 @@ public class LatestInformation : IHaveServiceLocator, ILatestInformation
             ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
                                                    SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
-            var test = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest".GetJsonFromUrl(
+            // releases/latest returns the newest release of any line (e.g. 4.x),
+            // this branch has to compare itself with the newest release of its own major version
+            var releasesJson = "https://api.github.com/repos/YAFNET/YAFNET/releases?per_page=100".GetJsonFromUrl(
                 x => x.UserAgent = "YAF.NET");
 
-            var json = DynamicJson.Deserialize(test);
+            var tagPrefix = $"v{MajorVersion}.";
 
-            var tagName = (string)json.tag_name;
-            var date = DateTime.SpecifyKind(
-                DateTime.Parse((string)json.published_at, CultureInfo.InvariantCulture),
-                DateTimeKind.Unspecified);
+            var release = JsonArrayObjects.Parse(releasesJson)
+                .Where(r => r.Child("tag_name")?.StartsWith(tagPrefix, StringComparison.OrdinalIgnoreCase) == true
+                            && r.Child("draft") != "true" && r.Child("prerelease") != "true")
+                .Select(r => new
+                                 {
+                                     Tag = r.Child("tag_name"),
+                                     Date = DateTime.Parse(r.Child("published_at"), CultureInfo.InvariantCulture)
+                                 })
+                .OrderByDescending(r => r.Date)
+                .First();
+
+            var tagName = release.Tag;
+            var date = DateTime.SpecifyKind(release.Date, DateTimeKind.Unspecified);
 
 #pragma warning disable S1075 // the fixed download address of the project
             version.UpgradeUrl = "https://yetanotherforum.net/download";
