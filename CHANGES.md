@@ -57,6 +57,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Search: Enter in the "posted by" and the tags field did nothing, now it searches (a search by the user or the tag alone is possible)
 * [FIXED] New topic: the similar topics showed the "mark all as read" entry of the notification menu (a script error for guests, written into the similar topics) and a search was sent for every key; it waits for the end of the typing and shows only the newest answer
 * [FIXED] Profile: guests (profile view permission "everyone") got the PM and email buttons, which led to "access denied"
+* [FIXED] Profile: the tooltips of the blog, Facebook, XMPP, PM and email buttons showed the name of the user encoded twice (e.g. "O&#39;Brien")
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

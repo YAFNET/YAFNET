@@ -192,7 +192,8 @@ public partial class UserProfile : ForumPage
 
         this.SetupUserStatistics(user);
 
-        this.SetupUserLinks(user, userNameOrDisplayName);
+        // the buttons encode their titles (the encoded name was shown as "O&#39;Brien")
+        this.SetupUserLinks(user, user.Item1.DisplayOrUserName());
 
         this.SetupAvatar(user.Item1);
 
