@@ -238,7 +238,7 @@ public partial class EditBoard : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_BOARDS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditBoard));
+            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Boards));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
     }
 
