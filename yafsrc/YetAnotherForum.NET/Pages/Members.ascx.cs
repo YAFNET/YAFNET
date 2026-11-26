@@ -215,6 +215,9 @@ public partial class Members : ForumPage
     /// </param>
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
+        // the shown page may not exist with the new page size
+        this.Pager.CurrentPageIndex = 0;
+
         this.BindData();
     }
 

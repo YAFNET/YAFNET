@@ -109,6 +109,9 @@ public partial class ActiveUsers : ForumPage
     /// </param>
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
+        // the shown page may not exist with the new page size
+        this.PagerTop.CurrentPageIndex = 0;
+
         this.BindData();
     }
 

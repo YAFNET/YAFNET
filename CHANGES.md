@@ -19,6 +19,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Spam Words: the label of the search field was missing ([ADMIN_SPAMWORDS.MASK], a text that does not exist), and the text of the save button of the dialog had its page and tag swapped
 * [FIXED] New topic: a missing subject showed "You must enter an email subject.", the preview had the title "Message:" (the texts were taken from other pages)
 * [FIXED] Active users: the list of the hidden users always listed the admin who viewed it
+* [FIXED] Members, active users: a change of the page size on a later page showed an empty page without pager; both start on the first page now
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
