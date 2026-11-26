@@ -11,15 +11,13 @@
     background-color: var(--bs-tertiary-bg);
     font-size: .875rem;
 
+    // a square with rounded corners like everywhere else (members, team, ...), a text avatar is cut to the square
     .last-post-avatar {
         flex: 0 0 auto;
         width: 2.25rem;
         height: 2.25rem;
-        border-radius: .5rem;
-        // photos are square, the text avatars are twice as wide as high
-        object-fit: contain;
-        background: var(--bs-secondary-bg);
-        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        object-fit: cover;
     }
 
     .last-post-body {

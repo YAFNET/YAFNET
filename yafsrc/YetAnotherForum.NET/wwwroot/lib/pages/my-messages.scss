@@ -16,8 +16,12 @@
             background: var(--bs-tertiary-bg);
         }
 
+        // a square with rounded corners like everywhere else, a text avatar is cut to the square
         .chat-avatar {
+            width: 45px;
             height: 45px;
+            border-radius: var(--bs-border-radius);
+            object-fit: cover;
         }
 
         // the user is online
@@ -67,7 +71,8 @@
     .chat-header-avatar {
         width: 2.5rem;
         height: 2.5rem;
-        padding: 1px;
+        border-radius: var(--bs-border-radius);
+        object-fit: cover;
     }
 
     .min-w-0 {

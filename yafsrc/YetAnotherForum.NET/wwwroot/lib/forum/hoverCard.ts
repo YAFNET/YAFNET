@@ -25,7 +25,7 @@ function userCardContent(pop: HTMLElement, delay: number): void {
                 "Content-Type": 'application/json;charset=utf-8'
             }
         }).then(res => res.json()).then((profileData: { avatar?: string, location?: string, rank?: string, interests?: string, joined?: string, homePage?: string, medals?: string, posts?: number }) => {
-            const content = (profileData.avatar ? `<img src="${profileData.avatar}" class="rounded mx-auto d-block" style="width:75px" alt="" />` : '')
+            const content = (profileData.avatar ? `<img src="${profileData.avatar}" class="rounded mx-auto d-block object-fit-cover" style="width:75px;height:75px" alt="" />` : '')
                 + '<ul class="list-unstyled m-0">'
                 + (profileData.location ? `<li class="px-2 py-1"><i class="fas fa-home me-1"></i>${profileData.location}</li>` : '')
                 + (profileData.rank ? `<li class="px-2 py-1"><i class="fas fa-graduation-cap me-1"></i>${profileData.rank}</li>` : '')

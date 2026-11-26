@@ -78,18 +78,22 @@
     overflow-x: hidden;
 }
 
-// Small Avatars inside Posts
+// Small Avatars inside Posts: a square with rounded corners like everywhere else, a text avatar is cut to the square
 .img-avatar-sm {
-    max-height: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--bs-border-radius);
+    object-fit: cover;
 }
 
+// a square like the avatars everywhere else, a text avatar is cut to the square
 .img-navbar-avatar {
     position: relative;
     margin-bottom: 0;
     display: inline-block;
-    min-width: 0.9rem;
-    max-width: 1.2rem;
-    max-height: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    object-fit: cover;
     font-size: 2rem;
 }
 

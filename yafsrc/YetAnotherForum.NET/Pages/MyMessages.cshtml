@@ -90,7 +90,7 @@
                                 data-name="@user.DisplayOrUserName()"
                                 data-profile="@(Model.Get<ILinkBuilder>().GetUserProfileLink(user))"
                                 data-last-visit="@Model.GetTextFormatted("LAST_VISIT", System.Net.WebUtility.HtmlDecode(YAF.Core.Helpers.HtmlTagHelper.StripHtml(Model.Get<IDateTimeService>().FormatDateTimeTopic(user.LastVisit))))">
-                                <img class="img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover@(isOnline ? " chat-avatar-online" : "")" loading="lazy"
+                                <img class="rounded chat-avatar me-2 flex-shrink-0 object-fit-cover@(isOnline ? " chat-avatar-online" : "")" loading="lazy"
                                      src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))"
                                      alt="@(user.DisplayOrUserName())"
                                      title="@(showStatus ? Model.GetText("POSTS", statusTag) : null)">

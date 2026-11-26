@@ -20,7 +20,7 @@
 						@Html.Icon("image")@Html.LocalizedText("EDIT_AVATAR", "AvatarModel")
 					</div>
 					<div class="card-body text-center">
-						<img alt="avatar" class="img-thumbnail avatar-current mb-3"
+						<img alt="avatar" class="rounded avatar-current mb-3"
 						     style="max-width: @(Model.PageBoardContext.BoardSettings.AvatarWidth)px; max-height: @(Model.PageBoardContext.BoardSettings.AvatarHeight)px;"
 						     src="@($"{Model.AvatarUrl}{(Model.AvatarUrl.Contains('?') ? "&" : "?")}v={DateTime.Now.Ticks}")" />
 						@if (Model.HasAvatar)

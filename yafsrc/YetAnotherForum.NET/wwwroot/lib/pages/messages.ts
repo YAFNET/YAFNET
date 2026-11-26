@@ -121,7 +121,7 @@ function addConversation(userId: number, name: string, avatar: string): HTMLLIEl
 	li.dataset.name = name;
 
 	const img = document.createElement('img');
-	img.className = 'img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover';
+	img.className = 'rounded chat-avatar me-2 flex-shrink-0 object-fit-cover';
 	img.src = decodeHtml(avatar);
 	img.alt = name;
 
@@ -384,7 +384,7 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
     const title = profileUrl ? `<a href="${escapeAttribute(profileUrl)}" class="text-reset text-decoration-none">${userName}</a>` : userName;
 
     $div.innerHTML = `<div class="card-header d-flex align-items-center gap-2">
-                          <img class="chat-header-avatar img-thumbnail rounded object-fit-cover flex-shrink-0" src="${escapeAttribute(toAvatarUrl)}" alt="">
+                          <img class="chat-header-avatar rounded object-fit-cover flex-shrink-0" src="${escapeAttribute(toAvatarUrl)}" alt="">
                           <div class="flex-grow-1 min-w-0"><h3 class="card-title h6 mb-0 text-truncate">${title}</h3>
                           <small class="text-body-secondary chat-last-visit">${escapeAttribute(lastVisit)}</small></div>
                           <div class="dropdown"><button class="btn btn-sm btn-link text-body-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -532,7 +532,7 @@ if (findUser) {
 						link.href = (findUser.dataset.url ?? '').replace('__USERID__', `${u.id}`);
 
 						const img = document.createElement('img');
-						img.className = 'img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover';
+						img.className = 'rounded chat-avatar me-2 flex-shrink-0 object-fit-cover';
 						img.src = u.avatar;
 						img.alt = '';
 
