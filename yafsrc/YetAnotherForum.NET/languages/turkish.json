@@ -1680,6 +1680,14 @@
             "#text": "{0} yeni özel bbcode(lar) başarıyla içe aktarıldı."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "İçe aktarılacak dosyayı seçin:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(*.xml dosyası olmalıdır)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Özel YafBBCode'u İçe Aktar"
           }

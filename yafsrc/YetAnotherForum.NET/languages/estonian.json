@@ -1680,6 +1680,14 @@
             "#text": "{0} uus kohandatud bb-kood imporditi edukalt."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Vali imporditav fail:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Peab olema *.xml-fail)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importige kohandatud YafBBCode"
           }

@@ -1680,6 +1680,14 @@
             "#text": "{0} ny(a) anpassad(a) bbcode(s) importerades framgångsrikt."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Välj importfil:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Måste vara en *.xml-fil)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importera anpassad YafBBCode"
           }

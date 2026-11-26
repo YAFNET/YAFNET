@@ -1680,6 +1680,14 @@
             "#text": "{0} neue(r) benutzerdefinierte BBCode (s) erfolgreich importiert."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Importdatei auswählen:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Muss eine *.xml-Datei sein)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "YafBBCode importieren"
           }

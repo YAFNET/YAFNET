@@ -1680,6 +1680,14 @@
             "#text": "{0} nye tilpassede bb-koder importert."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Velg importfil:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Må være *.xml-fil)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importer tilpasset YafBBCode"
           }

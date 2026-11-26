@@ -1680,6 +1680,14 @@
             "#text": "{0} 个新的自定义 bbcode 已成功导入。"
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "选择导入文件："
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "（必须是 *.xml 文件）"
+          },
+          {
             "@tag": "TITLE",
             "#text": "导入自定义 YafBBCode"
           }

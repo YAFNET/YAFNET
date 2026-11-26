@@ -1680,6 +1680,14 @@
             "#text": "Nové vlastní kódy bb byly úspěšně importovány (celkem {0})."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Vyberte soubor k importu:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Musí to být soubor *.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importujte vlastní YafBBCode"
           }

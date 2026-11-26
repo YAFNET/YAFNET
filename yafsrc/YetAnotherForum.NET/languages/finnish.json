@@ -1680,6 +1680,14 @@
             "#text": "{0} uusi mukautettu bbcode(t) tuotu onnistuneesti."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Valitse tuontitiedosto:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Oltava *.xml-tiedosto)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tuo mukautettu YafBBCode"
           }

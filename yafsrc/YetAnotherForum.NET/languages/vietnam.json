@@ -1680,6 +1680,14 @@
             "#text": "Đã nhập thành công {0} bbcode tùy chỉnh mới."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Chọn tệp nhập:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Phải là tệp *.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nhập YafBBCode tùy chỉnh"
           }

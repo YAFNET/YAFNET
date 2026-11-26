@@ -1680,6 +1680,14 @@
             "#text": "تم استيراد {0} كود (رموز) BB مخصص جديد بنجاح."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "حدد ملف الاستيراد:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(يجب أن يكون ملف ‎*.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "استيراد YafBBCode مخصص"
           }

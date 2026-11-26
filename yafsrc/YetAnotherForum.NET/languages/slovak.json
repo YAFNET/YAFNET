@@ -1680,6 +1680,14 @@
             "#text": "{0} nový vlastný bbcode(y) bol úspešne importovaný."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Vyberte súbor na import:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Musí to byť súbor *.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Import vlastného kódu YafBBC"
           }

@@ -1680,6 +1680,14 @@
             "#text": "{0} noul(e) bbcode(s) personalizat(e) a(u) fost importat(e) cu succes."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Selectați fișierul de import:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Trebuie să fie un fișier *.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importați YafBBCode personalizat"
           }

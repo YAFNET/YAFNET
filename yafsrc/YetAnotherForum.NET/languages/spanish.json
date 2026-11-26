@@ -1680,6 +1680,14 @@
             "#text": "{0} nuevos bbcode(s) personalizados importados correctamente."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Seleccione el archivo a importar:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Debe ser un archivo *.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importar BBCode personalizado de YAF"
           }

@@ -1680,6 +1680,14 @@
             "#text": "{0} BBCode جدید با موفقیت وارد شد."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "انتخاب فایل برای درون‌ریزی:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(باید یک فایل *.xml باشد)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "درون‌ریزی BBCode های سفارشی"
           }

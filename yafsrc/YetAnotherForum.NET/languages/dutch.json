@@ -1680,6 +1680,14 @@
             "#text": "mporteerd."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Importbestand selecteren:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Moet een *.xml-bestand zijn)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importeer Aangepaste YafBBCode"
           }

@@ -1680,6 +1680,14 @@
             "#text": "{0} sėkmingai importuotas naujas pasirinktinis bbcode(s)."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Pasirinkite importuojamą failą:"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Turi būti *.xml failas)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importuoti pasirinktinį \"YafBBCode\" kodą"
           }

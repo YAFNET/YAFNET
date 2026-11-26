@@ -16,12 +16,12 @@
                         <!-- Modal Content START !-->
                         <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
                                        AssociatedControlID="importFile"
-                                       LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_USERS_IMPORT" />
+                                       LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_USERS_IMPORT" />
                         <div class="mb-3">
                             <label for="<%# this.importFile.ClientID %>" class="form-label">
                                 <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="SELECT_IMPORT" 
-                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
+                                                    LocalizedTag="IMPORT_FILE" 
+                                                    LocalizedPage="ADMIN_USERS_IMPORT"/>
                             </label>
                             <input type="file" id="importFile" class="form-control" runat="server" />
                         </div>

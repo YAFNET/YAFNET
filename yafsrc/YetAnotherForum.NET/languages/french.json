@@ -1680,6 +1680,14 @@
             "#text": "{0} nouveau(x) bbcode(s) personnalisé(s) importé(s) avec succès."
           },
           {
+            "@tag": "SELECT_IMPORT",
+            "#text": "Sélectionnez le fichier à importer :"
+          },
+          {
+            "@tag": "SELECT_IMPORT_HELP",
+            "#text": "(Doit être un fichier *.xml)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Importer un YafBBCode personnalisé"
           }

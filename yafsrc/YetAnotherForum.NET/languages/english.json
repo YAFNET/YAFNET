@@ -1693,6 +1693,14 @@
 						"#text": "{0} new custom bbcode(s) imported successfully."
 					},
 					{
+						"@tag": "SELECT_IMPORT",
+						"#text": "Select Import File:"
+					},
+					{
+						"@tag": "SELECT_IMPORT_HELP",
+						"#text": "(Must be a *.xml file)"
+					},
+					{
 						"@tag": "TITLE",
 						"#text": "Import Custom YafBBCode"
 					}
