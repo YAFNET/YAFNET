@@ -27,6 +27,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] BBCode Extensions: the "Exec Order" of the extensions was not used, they were run in the order of the database; they run from the lowest to the highest number now
 * [FIXED] Admin > Import of BBCode extensions, replace words and spam words: an xml file sent by the browser as "application/xml" was refused
 * [FIXED] Admin > Edit User: the homepage saved by the admin in the profile of a user went through the spam bot check of the own profile, with a spam word the event log reported the user as a spam bot ("user was deleted and the name, email and IP Address are banned")
+* [FIXED] Admin > Ranks: the start rank of a new board (Newbie) was not on the rank ladder, the new users were never promoted to Member and Advanced Member (existing boards: switch on "Ladder Group" of the start rank)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
