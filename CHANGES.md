@@ -17,6 +17,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin menu: an admin whose only page of the Maintenance section is "Private Messages" did not see the section (and the section was not marked as active on that page)
 * [FIXED] Host Settings: the heading of the features card was "Server Info" (the text and its page were swapped)
 * [FIXED] Admin > Spam Words: the label of the search field was missing ([ADMIN_SPAMWORDS.MASK], a text that does not exist), and the text of the save button of the dialog had its page and tag swapped
+* [FIXED] New topic: a missing subject showed "You must enter an email subject.", the preview had the title "Message:" (the texts were taken from other pages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

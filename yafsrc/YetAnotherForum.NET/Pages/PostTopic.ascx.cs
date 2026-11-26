@@ -150,7 +150,7 @@ public partial class PostTopic : ForumPage
 
         if (HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
         {
-            this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetText("POSTMESSAGE", "NEED_SUBJECT"), MessageTypes.warning);
             return false;
         }
 

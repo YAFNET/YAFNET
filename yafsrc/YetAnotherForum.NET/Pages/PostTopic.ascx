@@ -83,7 +83,7 @@
                 </div>
                 <asp:PlaceHolder ID="PreviewRow" runat="server" Visible="false">
                     <asp:Label runat="server">
-                        <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" LocalizedPage="POSTMESSAGE" />
                     </asp:Label>
                     <asp:PlaceHolder ID="PreviewCell" runat="server">
                         <YAF:Alert Type="light" runat="server">
