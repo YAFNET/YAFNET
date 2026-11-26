@@ -6,6 +6,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] BB code [img]: webp images were not shown, none of the image bb codes accepted the webp extension
 * [FIXED] Registration: with the bot handling "Do nothing" a user found by the spam check got no verification email and could never log in (the email could not be sent again either), and with "Log User & Send Admin an Email" (it said "Approve User") the page said that a verification email was sent although the account waits for the approval of an admin; "Do nothing" registers the user as usual, the other option says that an admin has to approve the account; all languages
 * [FIXED] Admin > Event Log: the filter was applied on the shown page, a filter with fewer entries showed nothing (the same after a change of the page size); both start on the first page now
+* [FIXED] Admin > Test Data: all created topics had the same name
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

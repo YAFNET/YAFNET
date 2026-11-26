@@ -712,13 +712,14 @@ namespace YAF.Pages.Admin
                 return 0;
             }
 
-            var topicName = this.TopicPrefixTB.Text.Trim() + this.randomGuid;
-
             int topics;
 
             for (topics = 0; topics < numTopics; topics++)
             {
                 this.randomGuid = Guid.NewGuid().ToString();
+
+                // every topic gets its own name
+                var topicName = this.TopicPrefixTB.Text.Trim() + this.randomGuid;
 
                 var topic = this.GetRepository<Topic>().SaveNew(
                     forum,
