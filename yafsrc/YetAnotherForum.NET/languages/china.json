@@ -6472,6 +6472,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "该垃圾词已存在！"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "您输入的正则表达式语句无效。"
           },

@@ -6472,6 +6472,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Šlamšto žodis jau yra!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Įvesta reguliariosios išraiškos formuluotė negalioja."
           },

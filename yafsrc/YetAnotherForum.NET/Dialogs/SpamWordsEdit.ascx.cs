@@ -124,12 +124,16 @@ public partial class SpamWordsEdit : BaseUserControl
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
         }
+        else if (!this.GetRepository<Spam_Words>().Save(this.SpamWordId, spamWord))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_EXIST"), MessageTypes.warning);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
+        }
         else
         {
-            this.GetRepository<Spam_Words>().Save(
-                this.SpamWordId,
-                spamWord);
-
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
         }
     }

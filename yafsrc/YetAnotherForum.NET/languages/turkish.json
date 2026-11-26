@@ -6472,6 +6472,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Bu spam kelimesi zaten var!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Girmiş olduğunuz Düzenli ifade ifadesi geçersiz."
           },

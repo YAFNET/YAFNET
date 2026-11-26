@@ -6472,6 +6472,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Roskapostisana on jo olemassa!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Syöttämäsi säännöllinen lauseke on virheellinen."
           },

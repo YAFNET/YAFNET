@@ -66,6 +66,12 @@ public static class BannedIpRepositoryExtensions
     {
         
 
+        // the mask of another entry (also when an entry is changed to it: it stopped with an error or was saved twice)
+        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask && b.ID != (id ?? 0)))
+        {
+            return false;
+        }
+
         if (id.HasValue)
         {
             repository.UpdateOnly(
@@ -76,11 +82,6 @@ public static class BannedIpRepositoryExtensions
             repository.FireUpdated(id.Value);
 
             return true;
-        }
-
-        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
-        {
-            return false;
         }
 
         var newId = repository.Insert(

@@ -6472,6 +6472,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Spamordet finnes allerede!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Regeluttrykkssetningen du har skrevet inn er ugyldig."
           },

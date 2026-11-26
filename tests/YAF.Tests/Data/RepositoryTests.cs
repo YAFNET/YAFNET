@@ -186,6 +186,47 @@ public class RepositoryTests
     }
 
     [Test]
+    [Description("A ban changed to the mask of another ban is refused (it stopped with an error or was saved twice), the own mask can be saved again")]
+    public void Banned_Save_Mask_Of_Another_Ban_Test()
+    {
+        var ips = this.Repository<BannedIP>();
+
+        ips.Save(null, "10.0.0.1", "one", 2).Should().BeTrue();
+        ips.Save(null, "10.0.0.2", "two", 2).Should().BeTrue();
+
+        var second = ips.GetSingle(x => x.Mask == "10.0.0.2").ID;
+
+        ips.Save(second, "10.0.0.1", "changed", 2).Should().BeFalse();
+        ips.GetById(second).Mask.Should().Be("10.0.0.2");
+        ips.Save(second, "10.0.0.2", "same mask", 2).Should().BeTrue();
+
+        var agents = this.Repository<BannedUserAgent>();
+
+        agents.Save(null, "BadBot").Should().BeTrue();
+        agents.Save(null, "OtherBot").Should().BeTrue();
+
+        var other = agents.GetSingle(x => x.UserAgent == "OtherBot").ID;
+
+        agents.Save(other, "BadBot").Should().BeFalse();
+        agents.Count(x => x.UserAgent == "BadBot").Should().Be(1);
+    }
+
+    [Test]
+    [Description("A spam word can not be added twice (also not by changing another entry to it)")]
+    public void Spam_Words_Duplicates_Test()
+    {
+        var spamWords = this.Repository<Spam_Words>();
+
+        spamWords.Save(null, "casino").Should().BeTrue();
+        spamWords.Save(null, "casino").Should().BeFalse();
+        spamWords.Save(null, "poker").Should().BeTrue();
+
+        var poker = spamWords.GetSingle(x => x.SpamWord == "poker").ID;
+        spamWords.Save(poker, "casino").Should().BeFalse();
+        spamWords.Count(x => x.SpamWord == "casino").Should().Be(1);
+    }
+
+    [Test]
     [Description("A topic or forum is watched once, watching it again (e.g. from a second tab) does not fail")]
     public void Watch_Twice_Test()
     {

@@ -6464,6 +6464,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Das Spam-Wort gibt es schon!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Der von Ihnen eingegebene reguläre Ausdruck ist ungültig."
           },

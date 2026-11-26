@@ -6472,6 +6472,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "A palavra de spam já existe!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "A declaração de expressão regular que introduziu é inválida."
           },

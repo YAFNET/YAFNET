@@ -37,7 +37,8 @@ public static class SpamWordsRepositoryExtensions
     /// <param name="spamWordId">The spam word identifier.</param>
     /// <param name="spamWord">The spam word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public static void Save(
+    /// <returns>False if the word is already a spam word of the board.</returns>
+    public static bool Save(
         this IRepository<Spam_Words> repository,
         int? spamWordId,
         string spamWord,
@@ -48,7 +49,13 @@ public static class SpamWordsRepositoryExtensions
 
         if (spamWordId is > 0 && !repository.Exists(x => x.ID == spamWordId && x.BoardID == saveBoardId))
         {
-            return;
+            return true;
+        }
+
+        // the word of another entry (also when an entry is changed to it)
+        if (repository.Exists(x => x.BoardID == saveBoardId && x.SpamWord == spamWord && x.ID != (spamWordId ?? 0)))
+        {
+            return false;
         }
 
         repository.Upsert(
@@ -58,5 +65,7 @@ public static class SpamWordsRepositoryExtensions
                     ID = spamWordId ?? 0,
                     SpamWord = spamWord
                 });
+
+        return true;
     }
 }
