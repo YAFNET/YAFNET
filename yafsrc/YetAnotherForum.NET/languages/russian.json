@@ -7963,23 +7963,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "Дюймовый"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "дюймовый"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "Фон"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "Глин"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "Т"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

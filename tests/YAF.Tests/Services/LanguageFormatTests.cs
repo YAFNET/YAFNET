@@ -88,6 +88,58 @@ public class LanguageFormatTests
         }
     }
 
+    [Test]
+    [Description("The date and time formats of all languages show the date (they were translated as words, e.g. Russian showed \"Дюймовый\" instead of the date)")]
+    public void Date_Formats_Show_The_Date_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var date = new DateTime(2026, 11, 24, 14, 30, 5);
+        var errors = new List<string>();
+
+        foreach (var file in Directory.EnumerateFiles(Path.Combine(root, "YetAnotherForum.NET", "languages"), "*.json"))
+        {
+            var texts = ReadTexts(file);
+
+            foreach (var key in new[] { "COMMON.FORMAT_DATE_LONG", "COMMON.FORMAT_DATE_SHORT", "COMMON.FORMAT_DATE_TIME_LONG", "COMMON.FORMAT_DATE_TIME_SHORT", "COMMON.FORMAT_TIME" })
+            {
+                var format = texts[key];
+                string formatted;
+
+                try
+                {
+                    formatted = date.ToString(format, System.Globalization.CultureInfo.InvariantCulture);
+                }
+                catch (FormatException)
+                {
+                    errors.Add($"{Path.GetFileName(file)}: {key} \"{format}\" is no valid format");
+                    continue;
+                }
+
+                // a date contains the day or the year, a time the minutes
+                var shown = key == "COMMON.FORMAT_TIME" ? formatted.Contains("30") : formatted.Contains("24") || formatted.Contains("2026");
+
+                if (!shown)
+                {
+                    errors.Add($"{Path.GetFileName(file)}: {key} \"{format}\" shows \"{formatted}\"");
+                }
+            }
+
+            // the short date is short (d), the long date (D) is for the long one
+            if (texts["COMMON.FORMAT_DATE_SHORT"] == "D")
+            {
+                errors.Add($"{Path.GetFileName(file)}: COMMON.FORMAT_DATE_SHORT is the long date format \"D\"");
+            }
+        }
+
+        errors.Should().BeEmpty();
+    }
+
     private static Dictionary<string, string> ReadTexts(string fileName)
     {
         var json = JObject.Parse(File.ReadAllText(fileName));

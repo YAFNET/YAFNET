@@ -7975,23 +7975,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "ד"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "ד"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "ג"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "ז"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "ט"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

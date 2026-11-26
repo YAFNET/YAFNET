@@ -7967,7 +7967,7 @@
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "D"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",

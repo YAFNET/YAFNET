@@ -7975,7 +7975,7 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "GRAMO"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
