@@ -96,6 +96,9 @@ public partial class RulesAndPrivacy : ForumPage
                                     ? Config.GDPRControllerAddress
                                     : this.PageBoardContext.BoardSettings.ForumEmail;
 
+        // the link to the cookie policy
+        this.RulesText.Param1 = this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Cookies);
+
         this.Footer.Visible = this.PageBoardContext.IsGuest;
     }
 }
