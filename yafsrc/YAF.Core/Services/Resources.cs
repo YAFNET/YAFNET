@@ -187,7 +187,9 @@ public class Resources : IResources, IHaveServiceLocator
 
             var customBbCode = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.CustomBBCode,
-                () => this.GetRepository<BBCode>().GetByBoardId());
+                // in the execution order of the codes (the same cache entry as the bb code service)
+                () => this.GetRepository<BBCode>().GetByBoardId().OrderBy(b => b.ExecOrder).ThenBy(b => b.ID)
+                    .ToList());
 
             var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH")
                 .Select(e => new { name = e.Name, useToolbar = e.UseToolbar }).ToList();

@@ -1127,7 +1127,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
     {
         return this.Get<IDataCache>().GetOrSet(
             Constants.Cache.CustomBBCode,
-            () => this.GetRepository<Types.Models.BBCode>().GetByBoardId());
+            // in the execution order of the codes, lowest first (it was not used, the order of the database was used)
+            () => this.GetRepository<Types.Models.BBCode>().GetByBoardId().OrderBy(b => b.ExecOrder).ThenBy(b => b.ID)
+                .ToList());
     }
 
     /// <summary>

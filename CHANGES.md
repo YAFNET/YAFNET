@@ -24,6 +24,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Restore (recycle bin): the filter of the deleted topics on a later page showed no topics; it starts on the first page now
 * [FIXED] Validate Email Address: the page without a key said that the verification failed before a key was entered
 * [FIXED] Host Settings > Spam: a forum with the former BlogSpam.NET or Akismet service showed "Disabled" (the options are gone), the next save of the host settings turned the spam check off; both are the internal check now (as the forum already used it)
+* [FIXED] BBCode Extensions: the "Exec Order" of the extensions was not used, they were run in the order of the database; they run from the lowest to the highest number now
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

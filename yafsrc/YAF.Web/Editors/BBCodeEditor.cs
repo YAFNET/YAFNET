@@ -338,7 +338,9 @@ public class BBCodeEditor : TextEditor
 
         var customBbCode = this.Get<IDataCache>().GetOrSet(
             Constants.Cache.CustomBBCode,
-            () => this.GetRepository<Types.Models.BBCode>().GetByBoardId());
+            // in the execution order of the codes (the same cache entry as the bb code service)
+            () => this.GetRepository<Types.Models.BBCode>().GetByBoardId().OrderBy(b => b.ExecOrder).ThenBy(b => b.ID)
+                .ToList());
 
         var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
         var customBbCodesWithNoToolbar =
