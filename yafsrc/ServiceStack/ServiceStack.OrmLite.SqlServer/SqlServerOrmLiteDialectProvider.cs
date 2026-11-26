@@ -2611,7 +2611,8 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ShrinkDatabase(string database)
         {
-            return $"DBCC SHRINKDATABASE(N'{database}')";
+            // the name of the database is a string
+            return $"DBCC SHRINKDATABASE(N'{database.Replace("'", "''")}')";
         }
 
         /// <summary>
@@ -2654,7 +2655,8 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ChangeRecoveryMode(string database, string mode)
         {
-            return $"ALTER DATABASE {database} SET RECOVERY {mode}";
+            // the name of the database is quoted (a name with a - or a space failed)
+            return $"ALTER DATABASE [{database.Replace("]", "]]")}] SET RECOVERY {mode}";
         }
 
         /// <summary>

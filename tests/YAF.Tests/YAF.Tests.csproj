@@ -46,6 +46,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\yafsrc\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.csproj" />
     <ProjectReference Include="..\..\yafsrc\ServiceStack\ServiceStack.OrmLite.PostgreSQL\ServiceStack.OrmLite.PostgreSQL.csproj" />
+    <ProjectReference Include="..\..\yafsrc\ServiceStack\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Data\YAF.Data.Sqlite\YAF.Data.Sqlite.csproj" />

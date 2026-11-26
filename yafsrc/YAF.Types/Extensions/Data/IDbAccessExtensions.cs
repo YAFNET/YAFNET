@@ -407,6 +407,12 @@ public static class IDbAccessExtensions
     /// </param>
     public static string ChangeRecoveryMode(this IDbAccess dbAccess, string recoveryMode)
     {
+        // the mode is added to the statement, only the recovery modes are allowed (it is posted by the page)
+        if (recoveryMode is not ("FULL" or "SIMPLE" or "BULK_LOGGED"))
+        {
+            throw new ArgumentOutOfRangeException(nameof(recoveryMode), recoveryMode, "Unknown recovery mode");
+        }
+
         // an error of the database (e.g. the user is not allowed to change it) is thrown, it was reported as the
         // success of the change
         return dbAccess.Execute(

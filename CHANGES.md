@@ -34,6 +34,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Medal: the spaces around the name were saved, a name of spaces was saved too
 * [FIXED] Admin > Edit BBCode Extension: a name of spaces saved an extension without a name
 * [FIXED] Admin > Board Settings: the email address, the base url mask, the logo and the hours between the digests were saved for all boards (the value of the install), not for the board
+* [FIXED] Admin > Re-Index on SQL Server: the recovery mode could not be changed for a database name with a - or a space, the name is quoted (and only the recovery modes are accepted)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
