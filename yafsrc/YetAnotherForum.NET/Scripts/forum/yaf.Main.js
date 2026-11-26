@@ -195,14 +195,17 @@ document.addEventListener('DOMContentLoaded', function () {
         getAlbumImagesData(pageSize, pageNumber, false);
     }
 
-    if (document.getElementById('SearchResultsPlaceholder') != null && document.querySelector('.searchInput') != null) {
-        document.querySelector('.searchInput').addEventListener('keypress', (e) => {
-            var code = e.which;
-            if (code === 13) {
-                e.preventDefault();
-                const pageNumberSearch = 0;
-                getSearchResultsData(pageNumberSearch);
-            }
+    if (document.getElementById('SearchResultsPlaceholder') != null) {
+        // Enter searches in every field (in the "posted by" and the tags field it did nothing)
+        document.querySelectorAll('.searchInput, .searchUserInput, .searchTagInput').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                var code = e.which;
+                if (code === 13) {
+                    e.preventDefault();
+                    const pageNumberSearch = 0;
+                    getSearchResultsData(pageNumberSearch);
+                }
+            });
         });
     }
 
