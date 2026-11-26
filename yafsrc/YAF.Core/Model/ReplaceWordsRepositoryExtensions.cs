@@ -38,7 +38,8 @@ public static class ReplaceWordsRepositoryExtensions
     /// <param name="badWord">The bad word.</param>
     /// <param name="goodWord">The good word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public static void Save(
+    /// <returns>False if the bad word is already a bad word of the board.</returns>
+    public static bool Save(
         this IRepository<Replace_Words> repository,
         int? replaceWordId,
         string badWord,
@@ -50,7 +51,13 @@ public static class ReplaceWordsRepositoryExtensions
 
         if (replaceWordId is > 0 && !repository.Exists(x => x.ID == replaceWordId && x.BoardID == saveBoardId))
         {
-            return;
+            return true;
+        }
+
+        // the bad word of another entry (also when an entry is changed to it), the same word was replaced twice
+        if (repository.Exists(x => x.BoardID == saveBoardId && x.BadWord == badWord && x.ID != (replaceWordId ?? 0)))
+        {
+            return false;
         }
 
         repository.Upsert(
@@ -61,5 +68,7 @@ public static class ReplaceWordsRepositoryExtensions
                     BadWord = badWord,
                     GoodWord = goodWord
                 });
+
+        return true;
     }
 }

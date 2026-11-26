@@ -6269,6 +6269,10 @@
             "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Det dåliga ordet finns redan!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "Det reguljära uttryck som du har angett är ogiltigt."
           },

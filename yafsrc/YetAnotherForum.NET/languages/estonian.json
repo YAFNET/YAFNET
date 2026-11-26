@@ -6269,6 +6269,10 @@
             "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "See halb sõna on juba olemas!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "Sisestatud regulaaravaldise lause on kehtetu."
           },

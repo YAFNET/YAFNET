@@ -126,11 +126,16 @@ public partial class ReplaceWordsEdit : BaseUserControl
             return;
         }
 
-        this.GetRepository<Replace_Words>()
-            .Save(
-                this.ReplaceWordId,
-                badWord,
-                this.goodword.Text);
+        if (!this.GetRepository<Replace_Words>().Save(this.ReplaceWordId, badWord, this.goodword.Text))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_EXIST"), MessageTypes.warning);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
+
+            return;
+        }
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ReplaceWords);
     }

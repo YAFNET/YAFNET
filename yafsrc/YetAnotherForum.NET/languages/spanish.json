@@ -6261,6 +6261,10 @@
             "#text": "Declaración de expresión regular. Finalizar puntuando con una barra precedente (Ejemplo: '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "¡La palabra mala ya existe!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "La declaración de expresión regular que has introducido es inválida."
           },

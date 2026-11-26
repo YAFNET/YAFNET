@@ -227,6 +227,17 @@ public class RepositoryTests
     }
 
     [Test]
+    [Description("A bad word can not be added twice (also not with another good word)")]
+    public void Replace_Words_Duplicates_Test()
+    {
+        var replaceWords = this.Repository<Replace_Words>();
+
+        replaceWords.Save(null, "darn", "d**n").Should().BeTrue();
+        replaceWords.Save(null, "darn", "other").Should().BeFalse();
+        replaceWords.Count(x => x.BadWord == "darn").Should().Be(1);
+    }
+
+    [Test]
     [Description("A topic or forum is watched once, watching it again (e.g. from a second tab) does not fail")]
     public void Watch_Twice_Test()
     {

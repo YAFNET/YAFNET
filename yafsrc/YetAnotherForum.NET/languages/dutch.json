@@ -6261,6 +6261,10 @@
             "#text": "Reguliere expressie. Escape puncutatie met een voorloop slash (bv. '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Het woord bestaat al!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "De Reguliere Expressie die je hebt ingegeven is ongeldig."
           },

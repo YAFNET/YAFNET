@@ -41,6 +41,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Register User: the name rules of the register page were not checked (no semicolons, not the name of the guest or a bad word, the minimum and maximum length); the name of the guest was linked to the guest user, which got the roles of a new user
 * [FIXED] Admin > Edit Role: the last admin role could lose the admin flag, then the board had no admins; now a warning is shown (new text in all languages)
 * [FIXED] Admin > Spam Protection: a ban changed to the mask of another ban stopped with an error or was saved twice, a spam word could be added twice (new text in all languages)
+* [FIXED] Admin > Replace Words: the same bad word could be added twice (also by the import, with another good word or twice in the file); the import counts only the added words (new text in all languages)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now

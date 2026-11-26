@@ -71,15 +71,19 @@ public partial class ReplaceWordsImport : BaseUserControl
                 // import any extensions that don't exist...
                 replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().ForEach(row =>
                     {
-                        if (replaceWordsList.Any(
-                                w => w.BadWord == row["badword"].ToString() && w.GoodWord == row["goodword"].ToString()))
+                        var badWord = row["badword"].ToString().Trim();
+
+                        // a bad word that exists is skipped (also with another good word, or twice in the file)
+                        if (replaceWordsList.Any(w => w.BadWord == badWord))
                         {
                             return;
                         }
 
                         // add this...
-                        this.GetRepository<Replace_Words>().Save(null, row["badword"].ToString(), row["goodword"].ToString());
-                        importedCount++;
+                        if (this.GetRepository<Replace_Words>().Save(null, badWord, row["goodword"].ToString()))
+                        {
+                            importedCount++;
+                        }
                     });
 
                 this.PageBoardContext.Notify(
