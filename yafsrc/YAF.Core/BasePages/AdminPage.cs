@@ -140,7 +140,12 @@ public class AdminPage : ForumPage
 
         // the access is stored with the name of the page type (the name of the class of the page is the generated
         // name of the control, e.g. pages_admin_bannedips_ascx)
-        var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, this.PageType.ToString());
+        // every admin can open the admin index (a new admin got "Host Admin permissions required!" until the page
+        // access was saved once), its actions check the access of their page
+        var hasAccess = this.PageType == ForumPages.Admin_Admin
+                        || this.GetRepository<AdminPageUserAccess>().HasAccess(
+                            this.PageBoardContext.PageUserID,
+                            this.PageType.ToString());
 
         // Check access rights to the page.
         if (!hasAccess)

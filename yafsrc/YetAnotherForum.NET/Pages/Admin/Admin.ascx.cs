@@ -62,6 +62,16 @@ public partial class Admin : AdminPage
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
     public void UserListItemCommand(object source, RepeaterCommandEventArgs e)
     {
+        // the actions of the unverified users need the access to the users (every admin can open the admin index)
+        if (e.CommandName != "edit" && !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
+                                    && !this.GetRepository<AdminPageUserAccess>().HasAccess(
+                                        this.PageBoardContext.PageUserID,
+                                        ForumPages.Admin_Users.ToString()))
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+            return;
+        }
+
         switch (e.CommandName)
         {
             case "edit":
