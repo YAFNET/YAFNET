@@ -317,20 +317,31 @@ public static class ForumRepositoryExtensions
     /// <param name="categoryId">
     /// The category ID.
     /// </param>
+    /// <param name="activeCategoryOnly">
+    /// Only the forums of an active category (the parent list of Edit Forum lists the forums of an inactive category
+    /// too, else the parent of a forum of an inactive category was removed on save).
+    /// </param>
     /// <returns>
     /// Returns Sorted Forums
     /// </returns>
     public static List<ForumSorted> ListAllFromCategory(
         this IRepository<Forum> repository,
-        int categoryId)
+        int categoryId,
+        bool activeCategoryOnly = true)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
             .Where<Forum, Category>(
-                (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId && (category.Flags & 1) == 1
-                                     && forum.ParentID == null).OrderBy<Forum>(f => f.SortOrder)
-            .ThenBy<Forum>(f => f.ID);
+                (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId
+                                     && forum.ParentID == null);
+
+        if (activeCategoryOnly)
+        {
+            expression.And<Category>(category => (category.Flags & 1) == 1);
+        }
+
+        expression.OrderBy<Forum>(f => f.SortOrder).ThenBy<Forum>(f => f.ID);
 
         var list = repository.DbAccess.Execute(db => db.Connection.Select(expression));
 

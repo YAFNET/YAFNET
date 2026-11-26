@@ -256,6 +256,17 @@ public class ForumRepositoryTests
     }
 
     [Test]
+    [Description("The parent list of Edit Forum also lists the forums of an inactive category (the parent of a forum was removed on save)")]
+    public void ListAllFromCategory_Inactive_Category_Test()
+    {
+        var inactive = this.db.AddCategory("Hidden", c => c.Flags = 0);
+        var top = this.db.AddForum("Hidden top", inactive);
+
+        this.Forums.ListAllFromCategory(inactive).Should().BeEmpty("the other lists only use active categories");
+        this.Forums.ListAllFromCategory(inactive, false).Select(f => f.ForumID).Should().Equal(top);
+    }
+
+    [Test]
     [Description("ListAllFromCategory returns the top level forums of the category")]
     public void ListAllFromCategory_Test()
     {

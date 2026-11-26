@@ -406,7 +406,8 @@ public partial class EditForum : AdminPage
     /// </summary>
     private void BindParentList()
     {
-        var forums = this.GetRepository<Forum>().ListAllFromCategory(this.CategoryList.SelectedValue.ToType<int>());
+        // also the forums of an inactive category (else the parent of its forums was removed on save)
+        var forums = this.GetRepository<Forum>().ListAllFromCategory(this.CategoryList.SelectedValue.ToType<int>(), false);
 
         forums.Insert(0, new ForumSorted {ForumID = 0, Forum = this.GetText("NONE")});
 

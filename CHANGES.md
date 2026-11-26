@@ -82,6 +82,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Forum select (move topics, delete forum, search, forum jump): a sub forum with a lower sort order than its parent was listed above the parent and every level was indented alike; the forums are listed as a tree, indented per level
 * [FIXED] Admin > Forums: the pages split the list of categories and forums by rows, a category with more forums than the page size was shown on several pages, and of two categories with the same name only the first was shown; the pages list whole categories now
 * [FIXED] Admin > Forums: a sub forum with a lower sort order than its parent was shown above the parent, the third level was indented like the second; the forums are shown as a tree, indented per level
+* [FIXED] Admin > Edit Forum: saving a forum of an inactive category removed its parent forum (the list of the parent forums was empty for an inactive category)
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
