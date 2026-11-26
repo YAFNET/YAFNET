@@ -183,16 +183,12 @@ public partial class Approve : AccountPage
             return;
         }
 
+        // without a key the page shows the field for the key (it said that the verification failed before a key
+        // was entered)
         if (this.Get<HttpRequestBase>().QueryString.Exists("code"))
         {
             this.key.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code");
             this.ValidateKey_Click(sender, e);
-        }
-        else
-        {
-            this.Approved.Visible = false;
-            this.ErrorAlert.Visible = true;
-            this.ErrorMessage.Text = this.GetText("email_verify_failed");
         }
     }
 
