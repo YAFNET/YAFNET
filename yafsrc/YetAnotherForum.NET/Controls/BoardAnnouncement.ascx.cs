@@ -66,7 +66,14 @@ public partial class BoardAnnouncement : BaseUserControl
         this.Badge.CssClass = $"badge text-bg-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} me-1";
 
         this.Announcement.CssClass = $"alert alert-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
-        this.Message.Text = this.PageBoardContext.BoardSettings.BoardAnnouncement;
+        // formatted like a post: html is encoded, BB codes format it (it was shown as raw html, an admin with access to
+        // the page could put a script on the pages of all users)
+        this.Message.Text = this.Get<IFormatMessage>().Format(
+            0,
+            this.PageBoardContext.BoardSettings.BoardAnnouncement,
+            new MessageFlags { IsHtml = false, IsBBCode = true },
+            false,
+            DateTime.UtcNow);
 
         this.DataBind();
 
