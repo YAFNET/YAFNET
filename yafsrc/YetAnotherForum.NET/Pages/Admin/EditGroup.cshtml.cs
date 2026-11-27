@@ -244,20 +244,10 @@ public class EditGroupModel : AdminPage
             await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(oldRoleName) &&
             !await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(roleName) && !this.Input.IsGuestX)
         {
-            // transfer users in addition to changing the name of the role...
-            var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(oldRoleName);
+            // rename the role, the users stay in it
+            var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(oldRoleName);
 
-            // delete the old role...
-            await this.Get<IAspNetRolesHelper>().DeleteRoleAsync(oldRoleName);
-
-            // create new role...
-            await this.Get<IAspNetRolesHelper>().CreateRoleAsync(roleName);
-
-            if (users.Count != 0)
-            {
-                // put users into new role...
-                users.ForEach(user => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));
-            }
+            await this.Get<IAspNetRoleManager>().RenameRoleAsync(role, roleName);
         }
         else if (!await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(roleName) && !this.Input.IsGuestX)
         {

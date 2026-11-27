@@ -30,19 +30,24 @@ using System.Threading.Tasks;
 
 using Autofac;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
 using YAF.Core.Events;
 using YAF.Core.Extensions;
 using YAF.Core.Hubs;
+using YAF.Core.Identity;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces;
 using YAF.Types.Flags;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -80,12 +85,27 @@ public class NotificationHubTests
             b =>
             {
                 b.RegisterInstance(new NotificationClient(hubContext)).AsSelf();
+                b.Register(
+                    c => new UserManager<AspNetUsers>(
+                        new UserStore(c.Resolve<IServiceLocator>()),
+                        Options.Create(new IdentityOptions()),
+                        null,
+                        [],
+                        [],
+                        new UpperInvariantLookupNormalizer(),
+                        new IdentityErrorDescriber(),
+                        null,
+                        NullLogger<UserManager<AspNetUsers>>.Instance)).AsSelf();
             },
             useDatabase: true);
 
         var db = this.board.Database;
 
         this.alice = db.AddUser("Alice", u => u.ProviderUserKey = "alice-key");
+
+        // the user name of the identity, not the name of the forum user
+        this.board.Current.GetRepository<AspNetUsers>().Insert(
+            new AspNetUsers { Id = "alice-key", UserName = "alice.identity", Email = "alice@example.com", IsApproved = true });
         this.guest = db.AddUser("Guest", u => u.Flags |= (int)UserFlags.Flags.IsGuest);
 
         this.publicForum = db.AddForum("Public");
@@ -107,6 +127,16 @@ public class NotificationHubTests
     public async Task Subscribe_User_Test()
     {
         await this.Hub(SignedIn("alice-key")).SubscribeAsync();
+
+        await this.groups.Received(1).AddToGroupAsync("connection", NotificationHub.ForumGroup(this.publicForum), Arg.Any<CancellationToken>());
+        await this.groups.Received(1).AddToGroupAsync("connection", NotificationHub.ForumGroup(this.privateForum), Arg.Any<CancellationToken>());
+    }
+
+    [Test]
+    [Description("A signed-in user without a user id claim is found by the user name of the identity")]
+    public async Task Subscribe_User_By_Name_Test()
+    {
+        await this.Hub(new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Name, "alice.identity")], "Test"))).SubscribeAsync();
 
         await this.groups.Received(1).AddToGroupAsync("connection", NotificationHub.ForumGroup(this.publicForum), Arg.Any<CancellationToken>());
         await this.groups.Received(1).AddToGroupAsync("connection", NotificationHub.ForumGroup(this.privateForum), Arg.Any<CancellationToken>());

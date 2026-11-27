@@ -415,6 +415,21 @@ public class AspNetUsersHelperTests
     }
 
     [Test]
+    [Description("The board user of a forum user without identity has an empty identity")]
+    public async Task GetBoardUser_Without_Identity_Test()
+    {
+        var guest = this.AddGuest();
+        var missing = this.db.AddUser("Missing", u => { u.Flags = (int)UserFlags.Flags.IsApproved; u.ProviderUserKey = "missing-key"; });
+
+        var guestUser = await this.helper.GetBoardUserAsync(guest);
+        guestUser.Item1.ID.Should().Be(guest);
+        guestUser.Item2.Should().NotBeNull();
+        guestUser.Item2.UserName.Should().BeNull();
+
+        (await this.helper.GetBoardUserAsync(missing)).Item2.UserName.Should().BeNull();
+    }
+
+    [Test]
     [Description("A forum user without identity can't be approved")]
     public async Task ApproveUser_Without_Identity_Test()
     {
@@ -475,19 +490,6 @@ public class AspNetUsersHelperTests
     }
 
     [Test]
-    [Description("An external login is added once per user")]
-    public async Task AddLogin_Test()
-    {
-        await this.AddMemberAsync("alice-key", "alice", "alice@example.com");
-
-        this.helper.AddLogin("alice-key", new UserLoginInfo("Google", "g-1", "Google"));
-        this.helper.AddLogin("alice-key", new UserLoginInfo("Google", "g-1", "Google"));
-
-        (await this.Repository<AspNetUserLogins>().CountAsync(l => l.UserId == "alice-key")).Should().Be(1);
-        this.helper.Invoking(h => h.AddLogin(null, new UserLoginInfo("Google", "g", "Google"))).Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
     [Description("Roles through the user manager")]
     public async Task Roles_Test()
     {
@@ -532,10 +534,11 @@ public class AspNetUsersHelperTests
     }
 
     [Test]
-    [Description("Member list: hides guests and deleted users, filters and sorts")]
+    [Description("Member list: hides guests, deleted users and users without identity, filters and sorts")]
     public async Task ListMembersPaged_Test()
     {
         this.AddGuest();
+        this.db.AddUser("carol");
         var alice = await this.AddMemberAsync("a", "alice", "alice@example.com", numPosts: 5);
         await this.AddMemberAsync("b", "bob", "bob@example.com", numPosts: 20);
         var deleted = await this.AddMemberAsync("d", "dave", "dave@example.com");

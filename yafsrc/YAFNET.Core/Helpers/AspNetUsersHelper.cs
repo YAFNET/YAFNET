@@ -290,27 +290,34 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                    && !admins.Contains(user.ID) && user.LastVisit < createdCutoff).ToList();
 
         // iterate through each one...
-        inactiveUsers.ForEach(
-                user =>
-                {
-                    var flags = user.UserFlags;
+        foreach (var user in inactiveUsers)
+        {
+            var aspNetUser = user.ProviderUserKey.IsSet()
+                                 ? await this.Get<AspNetUsersManager>().FindUserByIdAsync(user.ProviderUserKey)
+                                 : null;
 
-                    // Set user to un-approve...
-                    flags.IsApproved = false;
-                    flags.IsDeleted = true;
+            if (aspNetUser is not null)
+            {
+                // the login checks the identity, a new security stamp ends the existing logins
+                aspNetUser.IsApproved = false;
+                aspNetUser.SecurityStamp = UserStore.NewSecurityStamp();
 
-                    this.GetRepository<User>().UpdateOnly(
-                        () => new User
-                                  {
-                                      Flags = flags.BitValue
-                                  },
-                        u => u.ID == user.ID);
+                await this.Get<AspNetUsersManager>().UpdateUsrAsync(aspNetUser);
+            }
 
-                    // the login checks the identity, a new security stamp ends the existing logins
-                    this.GetRepository<AspNetUsers>().UpdateOnly(
-                        () => new AspNetUsers { IsApproved = false, SecurityStamp = UserStore.NewSecurityStamp() },
-                        u => u.Id == user.ProviderUserKey);
-                });
+            var flags = user.UserFlags;
+
+            // Set user to un-approve...
+            flags.IsApproved = false;
+            flags.IsDeleted = true;
+
+            await this.GetRepository<User>().UpdateOnlyAsync(
+                () => new User
+                          {
+                              Flags = flags.BitValue
+                          },
+                u => u.ID == user.ID);
+        }
 
         return inactiveUsers.Count;
     }
@@ -524,10 +531,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             return null;
         }
 
+        // ASP.NET Core has no synchronization context, blocking here does not dead lock
         return httpContext.User.Identity.IsAuthenticated
-            ? this.GetRepository<AspNetUsers>().GetSingle(
-                u => u.UserName.ToLower(CultureInfo.InvariantCulture) ==
-                     httpContext.User.Identity.Name.ToLower(CultureInfo.InvariantCulture))
+            ? this.Get<AspNetUsersManager>().FindUserByNameAsync(httpContext.User.Identity.Name).GetAwaiter().GetResult()
             : null;
     }
 
@@ -948,33 +954,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     }
 
     /// <summary>
-    /// The add login.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="login">
-    /// The login.
-    /// </param>
-    public void AddLogin(string userId, UserLoginInfo login)
-    {
-        ArgumentNullException.ThrowIfNull(userId);
-        ArgumentNullException.ThrowIfNull(login);
-
-        if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
-        {
-            return;
-        }
-
-        var userLogin = new AspNetUserLogins
-                            {
-                                UserId = userId, ProviderKey = login.ProviderKey, LoginProvider = login.LoginProvider
-                            };
-
-        this.GetRepository<AspNetUserLogins>().Insert(userLogin);
-    }
-
-    /// <summary>
     /// Finds the user.
     /// </summary>
     /// <param name="userName">
@@ -1046,8 +1025,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        expression.LeftJoin<VAccess>((u, v) => v.UserID == u.ID).LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-            .Join<Rank>((u, r) => r.ID == u.RankID);
+        expression.LeftJoin<VAccess>((u, v) => v.UserID == u.ID).Join<Rank>((u, r) => r.ID == u.RankID);
 
         if (includeNonApproved)
         {
@@ -1062,9 +1040,21 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         var users = await this.GetRepository<User>().DbAccess
-            .ExecuteAsync(db => db.SelectMultiAsync<User, AspNetUsers, Rank, VAccess>(expression));
+            .ExecuteAsync(db => db.SelectMultiAsync<User, Rank, VAccess>(expression));
 
-        return users.FirstOrDefault();
+        var boardUser = users.FirstOrDefault();
+
+        if (boardUser is null)
+        {
+            return null;
+        }
+
+        // the identity comes from the user store, a forum user without identity (e.g. the guest) gets an empty one
+        var aspNetUser = boardUser.Item1.ProviderUserKey.IsSet()
+                             ? await this.Get<AspNetUsersManager>().FindUserByIdAsync(boardUser.Item1.ProviderUserKey)
+                             : null;
+
+        return Tuple.Create(boardUser.Item1, aspNetUser ?? new AspNetUsers(), boardUser.Item2, boardUser.Item3);
     }
 
     /// <summary>
@@ -1109,8 +1099,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();
 
-                    expression.Join<Rank>((u, r) => r.ID == u.RankID)
-                        .LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey);
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID);
 
                     countTotalExpression.Where(whereCriteria);
 
@@ -1192,8 +1181,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     var countTotalSql = countTotalExpression
                         .Select(Sql.Count($"{countTotalExpression.Column<User>(x => x.ID)}")).ToSelectStatement();
 
-                    expression.Select<User, AspNetUsers, Rank>(
-                        (u, a, r) => new {
+                    expression.Select<User, Rank>(
+                        (u, r) => new {
                                                  UserID = u.ID,
                                                  u.Name,
                                                  u.DisplayName,
@@ -1291,10 +1280,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) && (u.Flags & 2) == 2;
 
-                    expression.Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-                        .Join<Rank>((u, r) => r.ID == u.RankID);
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID);
 
                     expression.Where(whereCriteria);
+
+                    // only users with an identity
+                    expression.And<User>(u => u.ProviderUserKey != null);
 
                     if (startLetter == char.MinValue)
                     {
@@ -1355,8 +1346,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     var countTotalSql = countTotalExpression2
                         .Select(Sql.Count($"{countTotalExpression2.Column<User>(x => x.ID)}")).ToSelectStatement();
 
-                    expression.Select<User, AspNetUsers, Rank>(
-                        (u, a, r) => new {
+                    expression.Select<User, Rank>(
+                        (u, r) => new {
                                                  UserID = u.ID,
                                                  u.Name,
                                                  u.DisplayName,
@@ -1448,7 +1439,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public async Task ImportAllMembershipUsersAsync()
     {
         // get all users in membership...
-        var users = await BoardContext.Current.GetRepository<AspNetUsers>().GetAsync(x => x.Email != null && x.Id != null);
+        var users = this.Get<AspNetUsersManager>().AspNetUsers.Where(x => x.Email != null && x.Id != null).ToList();
 
         // create the missing forum users one after the other (they use the services of the current request)
         foreach (var user in users)
