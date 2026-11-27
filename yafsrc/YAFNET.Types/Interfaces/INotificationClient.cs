@@ -46,4 +46,10 @@ public interface INotificationClient
     /// <param name="info">The ids of the post.</param>
     /// <returns>Task.</returns>
     Task PostPublishedAsync(PostPublishedInfo info);
+
+    /// <summary>
+    /// The user has unlocked an achievement (the page loads and shows the dialog).
+    /// </summary>
+    /// <returns>Task.</returns>
+    Task AchievementUnlockedAsync();
 }

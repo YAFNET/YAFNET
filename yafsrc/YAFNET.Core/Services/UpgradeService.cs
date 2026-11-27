@@ -477,6 +477,8 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Medal>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<GroupMedal>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserMedal>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Achievement>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAchievement>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<IgnoreUser>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());

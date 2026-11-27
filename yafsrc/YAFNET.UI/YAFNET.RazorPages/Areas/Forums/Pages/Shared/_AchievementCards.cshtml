@@ -1,0 +1,84 @@
+@using YAF.Core.Context
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects
+@using YAF.Web.HtmlHelpers
+@model List<AchievementInfo>
+@inject BoardContext Current
+
+@* the achievements by category (help, my achievements): ViewData "ShowProgress" shows the progress of the locked
+   achievements, "ShowFeature" the switch to show an unlocked achievement in the profile, "ShowCounts" the number of
+   the unlocked achievements of each category *@
+@{
+    var showProgress = ViewData["ShowProgress"] is true;
+    var showFeature = ViewData["ShowFeature"] is true;
+    var showCounts = ViewData["ShowCounts"] is true;
+    var localization = Current.Get<ILocalization>();
+    var dateTime = Current.Get<IDateTimeService>();
+}
+
+@foreach (var category in Model.GroupBy(a => a.Type))
+{
+    var unlocked = category.Count(a => a.Unlocked);
+
+    <section class="card mb-3 achievement-category" data-type="@category.Key">
+        <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <h3 class="h6 mb-0">@category.First().Category</h3>
+            @if (showCounts)
+            {
+                <span class="small text-body-secondary">
+                    @string.Format(localization.GetText("ACHIEVEMENTS", "UNLOCKED_OF"), unlocked, category.Count())
+                </span>
+            }
+        </div>
+        <div class="card-body">
+            <div class="achievement-grid">
+                @foreach (var achievement in category)
+                {
+                    <div class="achievement-card @achievement.RarityClass @(achievement.Unlocked ? "unlocked" : "locked")"
+                         data-achievement="@achievement.Id">
+                        @Html.AchievementTrophy(achievement)
+                        <div class="flex-grow-1 min-w-0">
+                            <div class="achievement-name">@achievement.Name</div>
+                            @if (!string.IsNullOrEmpty(achievement.Description))
+                            {
+                                <div class="achievement-description text-body-secondary">@achievement.Description</div>
+                            }
+                            <div class="achievement-meta">
+                                <span>@string.Format(localization.GetText("ACHIEVEMENTS", achievement.Points == 1 ? "POINT" : "POINTS"), achievement.Points)</span>
+                                <span class="achievement-rarity">@achievement.RarityName</span>
+                                <span>@string.Format(localization.GetText("ACHIEVEMENTS", "PERCENT_MEMBERS"), achievement.Percent)</span>
+                                @if (achievement.DateAwarded.HasValue)
+                                {
+                                    <span title="@localization.GetText("ACHIEVEMENTS", "UNLOCKED")">
+                                        @Html.Icon("calendar-check")@Html.Raw(dateTime.FormatDateShort(achievement.DateAwarded.Value))
+                                    </span>
+                                }
+                            </div>
+                            @if (showProgress && !achievement.Unlocked && achievement.ProgressText != null)
+                            {
+                                <div class="progress" role="progressbar" aria-valuenow="@achievement.Progress" aria-valuemin="0" aria-valuemax="100"
+                                     aria-label="@achievement.Name">
+                                    <div class="progress-bar" style="width: @(achievement.Progress)%"></div>
+                                </div>
+                                <div class="small text-body-secondary mt-1">@achievement.ProgressText</div>
+                            }
+                            @if (showFeature && achievement.Unlocked)
+                            {
+                                <div class="form-check form-switch small mt-2 mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                           id="Feature_@achievement.Id"
+                                           data-achievement-feature="@achievement.Id"
+                                           checked="@achievement.Featured" />
+                                    <label class="form-check-label" for="Feature_@achievement.Id">
+                                        @localization.GetText("ACHIEVEMENTS", "SHOW_IN_PROFILE")
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

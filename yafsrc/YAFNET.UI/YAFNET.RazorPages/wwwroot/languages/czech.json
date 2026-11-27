@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Úspěchy"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} z {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Úspěchy jsou na tomto fóru vypnuty."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Zatím žádné úspěchy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Administrátor zatím nenastavil žádné úspěchy."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} a {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} dní členství"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} příspěvků"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} udělených reakcí"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} obdržených reakcí"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} bodů reputace"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} založených témat"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Jak to funguje"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Můžete zobrazit nejvýše {0} úspěchů. Nejprve některý z nich vypněte."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Další"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Váš další cíl"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "z {0} možných bodů"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} uživatelů"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} bod"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} bodů"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} bod"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} bodů"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Váš nejvzácnější úspěch"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Běžný"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Epický"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Legendární"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Vzácný"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Neobvyklý"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Zobrazit mé úspěchy"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Zobrazit vše"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Zobrazit v mém profilu"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Zapněte „Zobrazit v mém profilu“ u nejvýše {0} úspěchů: zobrazí se ve vašem profilu a u vašich příspěvků."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Zobrazeno ve vašem profilu"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Moje úspěchy"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Body za úspěchy"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Členství"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Příspěvky"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Udělené reakce"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Obdržené reakce"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Reputace"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Témata"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Odemčeno"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} z {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Úspěch odemčen"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Napište 1 000 příspěvků a získejte 1 000 reakcí. Kvantita i kvalita!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Všestranný talent"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Buďte členem pět let. Už jste zažili úplně všechno."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veterán"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Buďte členem 30 dní."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Zabydlení"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Buďte členem jeden rok."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Šťastné výročí"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Udělte 1 000 reakcí. Nikdo nepovzbuzuje ostatní tak jako vy."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Zlaté srdce"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Udělte 100 reakcí. Díky, že šíříte lásku!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Roztleskávač"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Udělte svou první reakci příspěvku jiného uživatele."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "První palec nahoru"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Získejte 1 000 reakcí. Komunita vás miluje."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Hrdina komunity"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Získejte 100 reakcí. Lidé rádi čtou, co píšete."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Oblíbenec"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Získejte první reakci na některý ze svých příspěvků."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Někdo si všiml"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Získejte 25 reakcí na své příspěvky."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Miláček publika"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Získejte 5 000 reakcí. Jste si jisti, že jsou to všechno skuteční lidé?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superhvězda"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Získejte 500 reakcí. Máte vlastní fanklub!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Miláček fanoušků"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Napište 10 000 příspěvků. Budou se o vás zpívat písně."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Legenda fóra"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Napište 1 000 příspěvků. To je celá kniha příběhů!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Vypravěč"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Napište 100 příspěvků. Zjevně máte co říct."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Upovídaný"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Napište 10 příspěvků. Klávesnice se začíná zahřívat!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Rozehřívání"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Napište svůj první příspěvek kdekoli na fóru."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "První slova"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Napište 5 000 příspěvků. Velká část historie fóra patří vám."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Živý archiv"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Napište 500 příspěvků. Vaše slova utvářejí tuto komunitu."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Mistr slova"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Napište 50 příspěvků. Lidé začínají poznávat vaše jméno."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Štamgast"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Založte 10 témat. Jen tak dál s nápady!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Továrna na nápady"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Založte své první téma."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Prolomení ledů"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Založte 250 témat. Kam jdete vy, tam jde i komunita."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Udavatel trendů"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Založte 50 témat. Víte, jak lidi rozmluvit."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Vůdce diskuse"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Zobrazuje masky přístupu"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Zobrazuje/upravuje úspěchy"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Upravuje masky přístupu"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Upravuje úspěchy"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Přesune téma"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Prohlíží si své úspěchy"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Zobrazuje svá aktivní témata"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Hlasování"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Zkontrolovat všechny uživatele"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Udělí úspěchy všem uživatelům, kteří jich dosáhli, např. po přidání nového úspěchu."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Udělit úspěchy všem uživatelům, kteří jich dosáhli? Na velkém fóru to může chvíli trvat."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Smazat úspěch {0}? Přijde o něj {1} uživatel(ů)."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Úspěchy jsou vypnuty, uživatelé je neodemykají. Zapněte je v Nastavení hostitele (Nastavení zobrazení)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádné úspěchy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Přidejte úspěchy, které uživatelé odemykají svými příspěvky, tématy a reakcemi."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Neaktivní"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "Bylo uděleno {0} úspěch(ů)."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Úspěch {0} byl smazán."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Úspěchy jsou vypnuty (Nastavení hostitele)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Nový úspěch"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Úspěchy"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Odemkli"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Neexistují žádná nová ani aktivní témata, přehled je prázdný a nebyl odeslán."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Aktivní"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Neaktivní úspěchy nelze odemknout a nezobrazují se. Uživatelé, kteří je mají, si je ponechají."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Popis"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Co musí uživatel udělat, aby úspěch odemkl (zobrazí se pod názvem)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Druhý cíl"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Oba cíle musí být splněny (např. 1 000 příspěvků a 1 000 obdržených reakcí)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Druhý cíl počítá"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Cíl"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Počet, kterého je třeba dosáhnout."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Cíl musí být mezi 1 a 1 000 000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Vyberte prosím ikonu."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Zadejte prosím název."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Body musí být mezi 0 a 1 000 000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Vyberte prosím vzácnost."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Druhý cíl musí počítat něco jiného."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Úspěch {0} byl uložen."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Vyberte prosím, co se počítá."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Název"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Název úspěchu (trofeje)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Body"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Body za úspěch, které uživatel získá."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "bodů"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Vzácnost"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Jak vzácný úspěch je. Určuje barvu trofeje."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Cíl"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Ikona"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Odměna"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Upravit úspěch"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Počítá"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Co se počítá."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Odemklo {0} uživatel(ů)"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Je-li zaškrtnuto, jsou alba povolena. Aby funkce fungovala, nastavte také pro každou skupinu a/nebo hodnost povolený počet obrázků a alb."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Povolit úspěchy"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Uživatelé odemykají úspěchy (trofeje) svými příspěvky, tématy a reakcemi."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Přístupové masky"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Úspěchy"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Váš účet"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Úspěchy (trofeje) se odemykají automaticky, když splníte jejich cíle, např. svůj první příspěvek, 100 reakcí na vaše příspěvky nebo jeden rok členství. Každý úspěch vám přinese body za úspěchy. Jeho vzácnost (běžný, neobvyklý, vzácný, epický nebo legendární) určuje barvu trofeje a podíl uživatelů, kteří ho mají, ukazuje, jak těžké je ho získat.</p>\r\n<p>Když odemknete úspěch, zobrazí se v dialogu. Vaše úspěchy najdete v části <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> v uživatelské nabídce, kde také vidíte, jak blízko jste k dalším. Zapněte <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> u nejvýše tří úspěchů, aby se zobrazovaly ve vašem profilu a u vašich příspěvků.</p>\r\n<p>Toto jsou úspěchy tohoto fóra:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Úspěchy"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Některá témata jsou důležitější než jiná:</p>\r\n<ul>\r\n<li><strong>Připnutá témata</strong> zůstávají nahoře v seznamu témat svého fóra, např. pravidla nebo často kladené otázky fóra.</li>\r\n<li><strong>Oznámení</strong> jsou důležité informace, také se zobrazují nahoře v seznamu témat a jsou označena odznakem.</li>\r\n</ul>\r\n<p>Kdo je může vytvářet, nastavuje administrátor (obvykle moderátoři a administrátoři). Volí to pomocí <strong>[[POSTMESSAGE.PRIORITY]]</strong>, když téma píší nebo upravují. Na připnutá témata a oznámení můžete odpovídat jako na kterékoli jiné téma, pokud téma není zamčené.</p>\r\n<h3 class=\"h6 mt-3\">Oznámení fóra</h3>\r\n<p>Administrátor může také zobrazit oznámení na každé stránce fóra, např. o plánované údržbě. Zavřít ho můžete tlačítkem vpravo.</p>"
           },
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Vaše upozornění na aktivitu"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Odemkli jste úspěch {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Zobrazí stránku moderování, kde najdete neschválené a nahlášené příspěvky."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Moje úspěchy"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Úspěchy, které jste odemkli"
           },
           {
             "@tag": "MYALBUMS",

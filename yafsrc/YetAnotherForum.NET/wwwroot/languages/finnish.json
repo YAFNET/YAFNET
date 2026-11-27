@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Saavutukset"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0}/{1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Saavutukset on poistettu käytöstä tällä foorumilla."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei vielä saavutuksia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Ylläpitäjä ei ole luonut yhtään saavutusta."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} ja {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} päivää jäsenenä"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} viestiä"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} annettua reaktiota"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} saatua reaktiota"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} mainepistettä"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} aloitettua aihetta"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Näin se toimii"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Voit näyttää enintään {0} saavutusta. Poista ensin jokin niistä näkyvistä."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Seuraavaksi"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Seuraava tavoitteesi"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "/ {0} mahdollista pistettä"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} jäsenistä"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} piste"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} pistettä"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} piste"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} pistettä"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Harvinaisin saavutuksesi"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Tavallinen"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Eeppinen"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Legendaarinen"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Harvinainen"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Epätavallinen"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Näytä saavutukseni"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Näytä kaikki"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Näytä profiilissani"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Valitse ”Näytä profiilissani” enintään {0} saavutukselle: ne näytetään profiilissasi ja viestiesi yhteydessä."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Näytetään profiilissasi"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Saavutukseni"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Saavutuspisteet"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Jäsenyys"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Viestit"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Annetut reaktiot"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Saadut reaktiot"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Maine"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Aiheet"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Avattu"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0}/{1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Saavutus avattu"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Kirjoita 1 000 viestiä ja saa 1 000 reaktiota. Määrää ja laatua!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Monitaituri"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Ole jäsenenä viisi vuotta. Olet nähnyt jo kaiken."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veteraani"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Ole jäsenenä 30 päivää."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Kotiutunut"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Ole jäsenenä vuoden ajan."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Hyvää vuosipäivää"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Anna 1 000 reaktiota. Kukaan ei kannusta muita niin kuin sinä."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Kultainen sydän"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Anna 100 reaktiota. Kiitos, että levität hyvää mieltä!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Cheerleader"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Anna ensimmäinen reaktiosi toisen jäsenen viestiin."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Arvostaja"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Saa 1 000 reaktiota. Yhteisö rakastaa sinua."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Yhteisön sankari"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Saa 100 reaktiota. Ihmiset pitävät kirjoituksistasi."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Pidetty"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Saa ensimmäinen reaktio johonkin viestiisi."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Joku huomasi"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Saa 25 reaktiota viesteihisi."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Yleisön suosikki"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Saa 5 000 reaktiota. Oletko varma, että nämä ovat kaikki oikeita ihmisiä?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Supertähti"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Saa 500 reaktiota. Sinulla on fanikerho!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Fanien suosikki"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Kirjoita 10 000 viestiä. Sinusta lauletaan vielä lauluja."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Foorumin legenda"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Kirjoita 1 000 viestiä. Siinä on kokonainen kirja tarinoita!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Tarinankertoja"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Kirjoita 100 viestiä. Sinulla on selvästi paljon sanottavaa."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Suupaltti"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Kirjoita 10 viestiä. Näppäimistö alkaa lämmetä!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Lämmittely"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Kirjoita ensimmäinen viestisi mihin tahansa foorumilla."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Ensimmäiset sanat"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Kirjoita 5 000 viestiä. Hyvä osa foorumin historiasta on sinun käsialaasi."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Elävä arkisto"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Kirjoita 500 viestiä. Sanasi muovaavat tätä yhteisöä."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Sanaseppä"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Kirjoita 50 viestiä. Ihmiset alkavat tunnistaa nimesi."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Vakiokävijä"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Aloita 10 aihetta. Lisää ideoita, kiitos!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Ideakone"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Aloita ensimmäinen aiheesi."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Jäänmurtaja"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Aloita 250 aihetta. Minne sinä menet, sinne yhteisö seuraa."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trendinluoja"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Aloita 50 aihetta. Osaat saada ihmiset keskustelemaan."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Keskustelun vetäjä"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Katselee käyttöoikeusmaskeja"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Katselee/muokkaa saavutuksia"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Muokkaa käyttöoikeusmaskeja"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Muokkaa saavutuksia"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Siirtää aiheen"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Katselee saavutuksiaan"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Katselee aktiivisia aiheitaan"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Äänestä"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Tarkista kaikki jäsenet"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Myöntää saavutukset kaikille jäsenille, jotka ovat saavuttaneet ne, esim. kun olet lisännyt uuden saavutuksen."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Myönnetäänkö saavutukset kaikille jäsenille, jotka ovat saavuttaneet ne? Suurella foorumilla tämä voi kestää hetken."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Poistetaanko saavutus {0}? {1} jäsen(tä) menettää sen."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Saavutukset on poistettu käytöstä, jäsenet eivät avaa niitä. Ota ne käyttöön kohdassa Palvelimen asetukset (Näyttöasetukset)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei saavutuksia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Lisää saavutuksia, joita jäsenet avaavat viesteillään, aiheillaan ja reaktioillaan."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Ei käytössä"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "{0} saavutus(ta) myönnetty."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Saavutus {0} on poistettu."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Saavutukset on poistettu käytöstä (Palvelimen asetukset)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Uusi saavutus"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Saavutukset"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Avanneet"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Uusia tai aktiivisia aiheita ei ole, kooste on tyhjä eikä sitä lähetetty."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Käytössä"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Käytöstä poistettuja saavutuksia ei voi avata eikä niitä näytetä listassa. Jäsenet, joilla se jo on, saavat pitää sen."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Kuvaus"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Mitä jäsenen on tehtävä avatakseen sen (näytetään nimen alla)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Toinen tavoite"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Molemmat tavoitteet on saavutettava (esim. 1 000 viestiä ja 1 000 saatua reaktiota)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Toinen tavoite laskee"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Tavoite"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Luku, joka on saavutettava."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Tavoitteen on oltava välillä 1–1 000 000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Valitse kuvake."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Anna nimi."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Pisteiden on oltava välillä 0–1 000 000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Valitse harvinaisuus."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Toisen tavoitteen on laskettava jotain muuta."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Saavutus {0} on tallennettu."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Valitse, mitä lasketaan."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Nimi"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Saavutuksen (pokaalin) nimi."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Pisteet"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Saavutuspisteet, jotka jäsen saa."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "pistettä"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Harvinaisuus"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Kuinka harvinainen saavutus on. Se määrää pokaalin värin."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Tavoite"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Kuvake"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Palkinto"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Muokkaa saavutusta"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Laskee"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Mitä lasketaan."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "{0} jäsen(tä) on avannut"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Jos valittu, albumitoiminto on käytössä. Sinun on myös asetettava sallittu kuvien ja albumien määrä kullekin ryhmälle ja/tai arvolle, jotta toiminto on käytössä."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Ota saavutukset käyttöön"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Jäsenet avaavat saavutuksia (pokaaleja) viesteillään, aiheillaan ja reaktioillaan."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Käyttöoikeusmaskit"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Saavutukset"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Oma tilisi"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Saavutukset (pokaalit) avautuvat automaattisesti, kun saavutat niiden tavoitteet, esim. ensimmäinen viestisi, 100 reaktiota viesteihisi tai vuosi jäsenenä. Jokainen saavutus antaa sinulle saavutuspisteitä. Sen harvinaisuus (tavallinen, epätavallinen, harvinainen, eeppinen tai legendaarinen) on pokaalin väri, ja sen omistavien jäsenten osuus kertoo, kuinka vaikea se on saada.</p>\r\n<p>Kun avaat saavutuksen, se näytetään ikkunassa. Saavutuksesi löytyvät käyttäjävalikon kohdasta <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a>, jossa näet myös, kuinka lähellä olet seuraavia. Valitse <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> enintään kolmelle saavutukselle, niin ne näytetään profiilissasi ja viestiesi yhteydessä.</p>\r\n<p>Tämän foorumin saavutukset:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Saavutukset"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Jotkin aiheet ovat muita tärkeämpiä:</p>\r\n<ul>\r\n<li><strong>Kiinnitetyt aiheet</strong> pysyvät alueensa aiheluettelon kärjessä, esim. alueen säännöt tai usein kysytyt kysymykset.</li>\r\n<li><strong>Tiedotteet</strong> ovat tärkeää tietoa, ja nekin näytetään aiheluettelon kärjessä merkillä varustettuina.</li>\r\n</ul>\r\n<p>Ylläpitäjä määrää, kuka voi luoda niitä (yleensä moderaattorit ja ylläpitäjät). He valitsevat sen kohdasta <strong>[[POSTMESSAGE.PRIORITY]]</strong>, kun he kirjoittavat tai muokkaavat aihetta. Kiinnitettyihin aiheisiin ja tiedotteisiin voi vastata kuten mihin tahansa muuhun aiheeseen, ellei aihe ole lukittu.</p>\r\n<h3 class=\"h6 mt-3\">Foorumin tiedotteet</h3>\r\n<p>Ylläpitäjä voi myös näyttää tiedotteen foorumin jokaisella sivulla, esim. suunnitellusta huoltokatkosta. Voit sulkea sen sen oikealla puolella olevalla painikkeella.</p>"
           },
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Toimintasi ilmoitukset"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Avasit saavutuksen {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Näyttää moderointisivun, jolla voit tarkastella hyväksymättömiä ja raportoituja viestejä."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Saavutukseni"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Avaamasi saavutukset"
           },
           {
             "@tag": "MYALBUMS",

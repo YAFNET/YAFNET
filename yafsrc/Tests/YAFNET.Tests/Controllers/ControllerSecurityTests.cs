@@ -48,6 +48,7 @@ public class ControllerSecurityTests
     /// </summary>
     private readonly static HashSet<string> ReadOnlyGetActions =
     [
+        "AchievementController.Unseen",
         "Albums.GetImage", "Albums.GetImagePreview", "Albums.GetAlbumCover",
         "Attachments.GetAttachment", "Attachments.GetResponseAttachment",
         "AvatarController.GetTextAvatar", "AvatarController.GetResponseLocalAvatar",

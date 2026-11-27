@@ -89,6 +89,7 @@ public class ServicesModule : BaseModule
         builder.RegisterType<Album>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<Reputation>().As<IReputation>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<UserMedalService>().As<IUserMedalService>().InstancePerLifetimeScope().PreserveExistingDefaults();
+        builder.RegisterType<AchievementService>().As<IAchievementService>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<GeoIpCountryService>().As<IGeoIpCountryService>().InstancePerLifetimeScope()

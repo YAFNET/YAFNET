@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Prestaties"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} van {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "De prestaties zijn op dit forum uitgeschakeld."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nog geen prestaties"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "De beheerder heeft nog geen prestaties ingesteld."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} en {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} dagen lid"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} berichten"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} reacties gegeven"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} reacties ontvangen"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} reputatiepunten"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} topics gestart"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Hoe het werkt"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Je kunt maximaal {0} prestaties tonen. Schakel er eerst een uit."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Volgende"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Je volgende doel"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "van {0} mogelijke punten"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} van de leden"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} punt"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} punten"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} punt"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} punten"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Je zeldzaamste prestatie"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Gewoon"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Episch"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Legendarisch"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Zeldzaam"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Ongewoon"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Bekijk mijn prestaties"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Alles tonen"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Tonen in mijn profiel"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Zet ‘Tonen in mijn profiel’ aan voor maximaal {0} prestaties: ze worden in je profiel en bij je berichten getoond."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Getoond in je profiel"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Mijn prestaties"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Prestatiepunten"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Lidmaatschap"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Berichten"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Gegeven reacties"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Ontvangen reacties"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Reputatie"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Topics"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Ontgrendeld"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} van {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Prestatie ontgrendeld"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Schrijf 1.000 berichten en ontvang 1.000 reacties. Kwantiteit én kwaliteit!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Allrounder"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Wees vijf jaar lid. Jij hebt alles al gezien."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veteraan"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Wees 30 dagen lid."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Ingeburgerd"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Wees één jaar lid."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Hoera, een jaar!"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Geef 1.000 reacties. Niemand moedigt anderen zo aan als jij."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Hart van goud"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Geef 100 reacties. Bedankt dat je de liefde verspreidt!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Cheerleader"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Geef je eerste reactie op een bericht van een ander lid."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Duimpje omhoog"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Ontvang 1.000 reacties. De community is dol op je."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Held van de community"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Ontvang 100 reacties. Mensen genieten van wat je schrijft."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Geliefd"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Ontvang je eerste reactie op een van je berichten."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Iemand heeft het gezien"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Ontvang 25 reacties op je berichten."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Publiekslieveling"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Ontvang 5.000 reacties. Weet je zeker dat dit allemaal echte mensen zijn?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superster"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Ontvang 500 reacties. Je hebt een fanclub!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Favoriet van de fans"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Schrijf 10.000 berichten. Er zullen liederen over je worden gezongen."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Forumlegende"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Schrijf 1.000 berichten. Dat is een heel boek vol verhalen!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Verteller"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Schrijf 100 berichten. Jij hebt duidelijk veel te vertellen."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Kletskous"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Schrijf 10 berichten. Het toetsenbord wordt warm!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Op stoom komen"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Schrijf je eerste bericht, waar dan ook op het forum."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Eerste woorden"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Schrijf 5.000 berichten. Een flink deel van de forumgeschiedenis is van jou."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Levend archief"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Schrijf 500 berichten. Jouw woorden geven deze community vorm."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Woordkunstenaar"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Schrijf 50 berichten. Mensen beginnen je naam te herkennen."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Vaste gast"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Start 10 topics. Blijf met die ideeën komen!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Ideeënmachine"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Start je eerste topic."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Gespreksstarter"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Start 250 topics. Waar jij gaat, volgt de community."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trendsetter"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Start 50 topics. Jij weet hoe je mensen aan de praat krijgt."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Gespreksleider"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Bekijkt toegangsmaskers"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Bekijkt/bewerkt prestaties"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Bewerkt toegangsmaskers"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Bewerkt prestaties"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Verplaatst een topic"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Bekijkt zijn prestaties"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Bekijkt zijn actieve topics"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Stemmen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Alle leden controleren"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Kent de prestaties toe aan alle leden die ze hebben bereikt, bijv. nadat je een nieuwe prestatie hebt toegevoegd."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "De prestaties toekennen aan alle leden die ze hebben bereikt? Op een groot forum kan dit even duren."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "De prestatie {0} verwijderen? {1} lid/leden verliezen deze."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "De prestaties zijn uitgeschakeld, de leden ontgrendelen ze niet. Schakel ze in bij Hostinstellingen (Weergave-instellingen)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen prestaties"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Voeg prestaties toe die de leden ontgrendelen met hun berichten, topics en reacties."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inactief"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "Er zijn {0} prestatie(s) toegekend."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "De prestatie {0} is verwijderd."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "De prestaties zijn uitgeschakeld (Hostinstellingen)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Nieuwe prestatie"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Prestaties"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Ontgrendeld door"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Er zijn geen nieuwe of actieve topics, de samenvatting is leeg en is niet verzonden."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Actief"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Inactieve prestaties kunnen niet worden ontgrendeld en worden niet getoond. Leden die er een hebben, behouden die."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Beschrijving"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Wat een lid moet doen om de prestatie te ontgrendelen (getoond onder de naam)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Tweede doel"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Beide doelen moeten worden bereikt (bijv. 1.000 berichten en 1.000 ontvangen reacties)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Tweede doel telt"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Doel"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Het aantal dat moet worden bereikt."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Het doel moet tussen 1 en 1.000.000 liggen."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Selecteer een pictogram."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Voer een naam in."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "De punten moeten tussen 0 en 1.000.000 liggen."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Selecteer een zeldzaamheid."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Het tweede doel moet iets anders tellen."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "De prestatie {0} is opgeslagen."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Selecteer wat er wordt geteld."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Naam"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "De naam van de prestatie (de trofee)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punten"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "De prestatiepunten die het lid krijgt."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "punten"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Zeldzaamheid"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Hoe zeldzaam de prestatie is. Dit is de kleur van de trofee."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Doel"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Pictogram"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Beloning"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Prestatie bewerken"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Telt"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Wat er wordt geteld."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Ontgrendeld door {0} lid/leden"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Indien aangevinkt, is de albumfunctie ingeschakeld. Om de functie te activeren, moet je ook voor elke groep en/of rang het toegestane aantal afbeeldingen en albums instellen."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Prestaties inschakelen"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "De leden ontgrendelen prestaties (trofeeën) met hun berichten, topics en reacties."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Toegangsmaskers"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Prestaties"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Je account"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Prestaties (trofeeën) worden automatisch ontgrendeld wanneer je hun doelen bereikt, bijv. je eerste bericht, 100 reacties op je berichten of een jaar lidmaatschap. Elke prestatie levert je prestatiepunten op. De zeldzaamheid (gewoon, ongewoon, zeldzaam, episch of legendarisch) is de kleur van de trofee, en het aandeel leden dat de prestatie heeft, laat zien hoe moeilijk die te behalen is.</p>\r\n<p>Wanneer je een prestatie ontgrendelt, wordt die in een venster getoond. Je prestaties staan onder <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> in het gebruikersmenu, waar je ook ziet hoe dicht je bij de volgende bent. Zet <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> aan voor maximaal drie prestaties om ze in je profiel en bij je berichten te tonen.</p>\r\n<p>Dit zijn de prestaties van dit forum:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Prestaties"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Sommige topics zijn belangrijker dan andere:</p>\r\n<ul>\r\n<li><strong>Vastgezette topics</strong> blijven bovenaan de topiclijst van hun forum staan, bijv. de regels of veelgestelde vragen van het forum.</li>\r\n<li><strong>Mededelingen</strong> zijn belangrijke informatie, ze worden ook bovenaan de topiclijst getoond en met een badge gemarkeerd.</li>\r\n</ul>\r\n<p>Wie ze mag aanmaken, stelt de beheerder in (meestal de moderators en beheerders). Zij kiezen dit met <strong>[[POSTMESSAGE.PRIORITY]]</strong> als ze het topic schrijven of bewerken. Je kunt op vastgezette topics en mededelingen antwoorden zoals op elk ander topic, tenzij het topic gesloten is.</p>\r\n<h3 class=\"h6 mt-3\">Forumbrede mededelingen</h3>\r\n<p>De beheerder kan ook op elke pagina van het forum een mededeling tonen, bijv. voor gepland onderhoud. Je kunt die sluiten met de knop rechts ervan.</p>"
           },
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Je activiteitenmeldingen"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Je hebt de prestatie {0} ontgrendeld"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Toont de moderatiepagina, waar je niet-goedgekeurde en gemelde berichten kunt bekijken."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Mijn prestaties"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "De prestaties die je hebt ontgrendeld"
           },
           {
             "@tag": "MYALBUMS",

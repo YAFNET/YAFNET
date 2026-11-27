@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // A radio button with data-preview-class sets the class of the preview elements of its JSON object
-// ({ "#id": "class prefix" }), the value is added to the prefix (e.g. the type of the board announcement)
+// ({ "#id": "class prefix" }), the value (or data-preview-value) is added to the prefix (e.g. the type of the board
+// announcement); data-preview-text sets the text of the elements of its JSON object ({ "#id": "text" })
 document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll<HTMLInputElement>('.admin-edit-form input[data-preview-class]').forEach(radio => {
 		radio.addEventListener('change', () => {
@@ -138,9 +139,33 @@ document.addEventListener('DOMContentLoaded', () => {
 				const element = document.querySelector<HTMLElement>(selector);
 
 				if (element) {
-					element.className = prefix + radio.value;
+					element.className = prefix + (radio.dataset.previewValue ?? radio.value);
 				}
 			});
+
+			const texts = JSON.parse(radio.dataset.previewText ?? '{}') as Record<string, string>;
+
+			Object.entries(texts).forEach(([selector, text]) => {
+				const element = document.querySelector<HTMLElement>(selector);
+
+				if (element) {
+					element.textContent = text;
+				}
+			});
+		});
+	});
+});
+
+// A radio button with data-preview-icon shows its icon (the value) on the icon of the selector (e.g. the trophy of
+// an achievement)
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLInputElement>('.admin-edit-form input[data-preview-icon]').forEach(radio => {
+		radio.addEventListener('change', () => {
+			const icon = document.querySelector<HTMLElement>(radio.dataset.previewIcon ?? '');
+
+			if (radio.checked && icon) {
+				icon.className = `fas fa-${radio.value}`;
+			}
 		});
 	});
 });

@@ -1797,6 +1797,16 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the users unlock achievements (trophies)
+    /// </summary>
+    public bool EnableAchievements
+    {
+        get => this.Registry.GetValue("EnableAchievements", true);
+
+        set => this.Registry.SetValue("EnableAchievements", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether Allow Negative Reputation
     /// </summary>
     public bool ReputationAllowNegative

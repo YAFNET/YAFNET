@@ -89,4 +89,45 @@ public class Migration1007Tests
         connection.Single<EventLog>(e => e.UserID == other).BoardID.Should().Be(TestDatabase.BoardId + 1);
         connection.Single<EventLog>(e => e.UserID == null).BoardID.Should().BeNull();
     }
+
+    [Test]
+    [Description("The tables are created and every board gets the default achievements once")]
+    public void Tables_And_Default_Achievements_Test()
+    {
+        using var connection = this.db.Open();
+
+        connection.DropTable<UserAchievement>();
+        connection.DropTable<Achievement>();
+
+        connection.Insert(new Board { ID = TestDatabase.BoardId + 1, Name = "Second Board" });
+
+        new Migration1007 { Db = connection }.Up();
+
+        connection.TableExists<Achievement>().Should().BeTrue();
+        connection.TableExists<UserAchievement>().Should().BeTrue();
+
+        var count = AchievementDefaults.Create(TestDatabase.BoardId).Count;
+
+        connection.Count<Achievement>(a => a.BoardID == TestDatabase.BoardId).Should().Be(count);
+        connection.Count<Achievement>(a => a.BoardID == TestDatabase.BoardId + 1).Should().Be(count);
+
+        // a second run (e.g. an upgrade that is continued) doesn't add them again
+        new Migration1007 { Db = connection }.Up();
+
+        connection.Count<Achievement>().Should().Be(count * 2);
+    }
+
+    [Test]
+    [Description("A board with achievements (e.g. created by the installer) keeps them")]
+    public void Board_With_Achievements_Is_Not_Changed_Test()
+    {
+        using var connection = this.db.Open();
+
+        connection.Insert(
+            new Achievement { BoardID = TestDatabase.BoardId, Name = "Own", Icon = "trophy", Type = 1, Threshold = 1 });
+
+        new Migration1007 { Db = connection }.Up();
+
+        connection.Select<Achievement>().Select(a => a.Name).Should().Equal("Own");
+    }
 }

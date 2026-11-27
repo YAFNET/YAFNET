@@ -76,6 +76,9 @@ public class ReputationController : ForumBaseController
 
             await this.GetRepository<User>().AddPointsAsync(source.UserID, this.PageBoardContext.PageUserID, 1);
 
+            // the reputation achievements of the author
+            await this.Get<IAchievementService>().CheckUserAsync(source.UserID);
+
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted(
                     "REP_VOTE_UP_MSG",

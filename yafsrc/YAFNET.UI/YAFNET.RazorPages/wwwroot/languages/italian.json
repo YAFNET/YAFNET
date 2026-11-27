@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Obiettivi"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} di {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Gli obiettivi sono disattivati in questo forum."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ancora nessun obiettivo"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "L'amministratore non ha ancora configurato nessun obiettivo."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} e {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} giorni di iscrizione"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} messaggi"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} reazioni date"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} reazioni ricevute"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} punti reputazione"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} discussioni avviate"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Come funziona"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Puoi mostrare fino a {0} obiettivi. Disattivane prima uno."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Prossimo"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Il tuo prossimo traguardo"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "su {0} punti possibili"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} dei membri"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} punto"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} punti"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} punto"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} punti"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Il tuo obiettivo più raro"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Comune"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Epico"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Leggendario"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Raro"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Non comune"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Vedi i miei obiettivi"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Mostra tutti"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Mostra nel mio profilo"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Attiva «Mostra nel mio profilo» per un massimo di {0} obiettivi: verranno mostrati nel tuo profilo e accanto ai tuoi messaggi."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Mostrato nel tuo profilo"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "I miei obiettivi"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Punti obiettivo"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Anzianità"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Messaggi"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Reazioni date"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Reazioni ricevute"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Reputazione"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Discussioni"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Sbloccato"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} di {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Obiettivo sbloccato"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Scrivi 1.000 messaggi e ricevi 1.000 reazioni. Quantità e qualità!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Tuttofare"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Sii membro per cinque anni. Ne hai viste di tutti i colori."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veterano"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Sii membro per 30 giorni."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Di casa"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Sii membro per un anno."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Buon anniversario"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Dai 1.000 reazioni. Nessuno incoraggia gli altri come te."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Cuore d'oro"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Dai 100 reazioni. Grazie per spargere tanto affetto!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Tifoso"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Dai la tua prima reazione al messaggio di un altro membro."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Estimatore"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Ricevi 1.000 reazioni. La community ti adora."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Eroe della community"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Ricevi 100 reazioni. Alla gente piace quello che scrivi."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Apprezzato"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Ricevi la prima reazione a uno dei tuoi messaggi."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Qualcuno ti ha notato"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Ricevi 25 reazioni ai tuoi messaggi."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Beniamino del pubblico"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Ricevi 5.000 reazioni. Sei sicuro che siano tutte persone vere?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superstar"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Ricevi 500 reazioni. Hai un fan club!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Idolo dei fan"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Scrivi 10.000 messaggi. Canteranno canzoni su di te."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Leggenda del forum"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Scrivi 1.000 messaggi. È un intero libro di storie!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Cantastorie"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Scrivi 100 messaggi. Hai chiaramente molto da dire."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Chiacchierone"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Scrivi 10 messaggi. La tastiera si sta scaldando!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Riscaldamento"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Scrivi il tuo primo messaggio, ovunque nel forum."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Prime parole"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Scrivi 5.000 messaggi. Buona parte della storia del forum porta la tua firma."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Archivio vivente"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Scrivi 500 messaggi. Le tue parole danno forma a questa community."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Maestro della penna"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Scrivi 50 messaggi. La gente comincia a riconoscere il tuo nome."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Habitué"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Avvia 10 discussioni. Continua a sfornare idee!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Fucina di idee"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Avvia la tua prima discussione."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Rompighiaccio"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Avvia 250 discussioni. Dove vai tu, la community ti segue."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trendsetter"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Avvia 50 discussioni. Sai come far parlare la gente."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Animatore di dibattiti"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Visualizza le maschere di accesso"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Visualizza/modifica gli obiettivi"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Modifica le maschere di accesso"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Modifica gli obiettivi"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Sposta una discussione"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Visualizza i suoi obiettivi"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Visualizza le proprie discussioni attive"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Vota"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Controlla tutti i membri"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Assegna gli obiettivi a tutti i membri che li hanno raggiunti, ad es. dopo aver aggiunto un nuovo obiettivo."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Assegnare gli obiettivi a tutti i membri che li hanno raggiunti? In un forum grande può richiedere un po' di tempo."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Eliminare l'obiettivo {0}? {1} membro/i lo perderanno."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Gli obiettivi sono disattivati, i membri non li sbloccano. Attivali in Impostazioni host (Impostazioni di visualizzazione)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessun obiettivo"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aggiungi obiettivi che i membri sbloccano con i loro messaggi, discussioni e reazioni."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inattivo"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "Sono stati assegnati {0} obiettivi."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "L'obiettivo {0} è stato eliminato."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Gli obiettivi sono disattivati (Impostazioni host)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Nuovo obiettivo"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Obiettivi"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Sbloccato da"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Non ci sono discussioni nuove o attive, il riepilogo è vuoto e non è stato inviato."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Attivo"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Gli obiettivi inattivi non possono essere sbloccati e non vengono elencati. I membri che lo hanno già lo mantengono."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Descrizione"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Cosa deve fare un membro per sbloccarlo (mostrato sotto il nome)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Secondo traguardo"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Entrambi i traguardi devono essere raggiunti (ad es. 1.000 messaggi e 1.000 reazioni ricevute)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Il secondo traguardo conta"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Traguardo"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Il numero da raggiungere."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Il traguardo deve essere compreso tra 1 e 1.000.000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Seleziona un'icona."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Inserisci un nome."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "I punti devono essere compresi tra 0 e 1.000.000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Seleziona una rarità."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Il secondo traguardo deve contare qualcos'altro."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "L'obiettivo {0} è stato salvato."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Seleziona cosa viene contato."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Nome"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Il nome dell'obiettivo (il trofeo)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punti"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "I punti obiettivo che il membro riceve."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "punti"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Rarità"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Quanto è raro l'obiettivo. Determina il colore del trofeo."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Traguardo"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Icona"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Ricompensa"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Modifica obiettivo"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Conta"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Cosa viene contato."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Sbloccato da {0} membro/i"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Se selezionata, la funzione album è abilitata. Per abilitare la funzione, è necessario impostare il numero di immagini e di album consentiti per ciascun gruppo e/o rango."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Attiva gli obiettivi"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "I membri sbloccano obiettivi (trofei) con i loro messaggi, discussioni e reazioni."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Maschere di accesso"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Obiettivi"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Il tuo account"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Gli obiettivi (trofei) vengono sbloccati automaticamente quando raggiungi i loro traguardi, ad es. il tuo primo messaggio, 100 reazioni ai tuoi messaggi o un anno di iscrizione. Ogni obiettivo ti dà punti obiettivo. La sua rarità (comune, non comune, raro, epico o leggendario) è il colore del trofeo, e la percentuale di membri che lo possiede mostra quanto è difficile ottenerlo.</p>\r\n<p>Quando sblocchi un obiettivo, una finestra te lo mostra. I tuoi obiettivi si trovano in <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> nel menu utente, dove vedi anche quanto sei vicino ai prossimi. Attiva <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> per un massimo di tre obiettivi per mostrarli nel tuo profilo e accanto ai tuoi messaggi.</p>\r\n<p>Questi sono gli obiettivi di questo forum:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Obiettivi"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Alcune discussioni sono più importanti di altre:</p>\r\n<ul>\r\n<li><strong>Le discussioni in evidenza</strong> restano in cima all’elenco delle discussioni del loro forum, ad es. le regole o le domande frequenti del forum.</li>\r\n<li><strong>Gli annunci</strong> sono informazioni importanti, anche loro sono mostrati in cima all’elenco delle discussioni, contrassegnati da un badge.</li>\r\n</ul>\r\n<p>Chi può crearli è stabilito dall’amministratore (di solito i moderatori e gli amministratori). Lo scelgono con <strong>[[POSTMESSAGE.PRIORITY]]</strong> quando scrivono o modificano la discussione. Puoi rispondere alle discussioni in evidenza e agli annunci come a qualsiasi altra discussione, a meno che la discussione non sia chiusa.</p>\r\n<h3 class=\"h6 mt-3\">Annunci del forum</h3>\r\n<p>L’amministratore può anche mostrare un annuncio su ogni pagina del forum, ad es. per una manutenzione programmata. Puoi chiuderlo con il pulsante alla sua destra.</p>"
           },
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Le tue notifiche di attività"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Hai sbloccato l'obiettivo {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Mostra la pagina di moderazione dove si possono visualizzare i messaggi non approvati e segnalati."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "I miei obiettivi"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Gli obiettivi che hai sbloccato"
           },
           {
             "@tag": "MYALBUMS",

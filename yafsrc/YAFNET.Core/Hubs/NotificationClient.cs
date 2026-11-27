@@ -76,4 +76,17 @@ public class NotificationClient
             .Group(NotificationHub.ForumGroup(info.ForumId))
             .PostPublishedAsync(info);
     }
+
+    /// <summary>
+    /// Tells the user that new achievements are unlocked (the page loads and shows them).
+    /// </summary>
+    /// <param name="userName">The name of the user.</param>
+    /// <returns>Task.</returns>
+    public Task SendAchievementUnlockedAsync(string userName)
+    {
+        return this.notificationHub
+            .Clients
+            .User(userName)
+            .AchievementUnlockedAsync();
+    }
 }

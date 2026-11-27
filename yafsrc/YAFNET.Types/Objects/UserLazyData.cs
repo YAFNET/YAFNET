@@ -80,6 +80,11 @@ public class UserLazyData
     public int Quoted { get; set; }
 
     /// <summary>
+    /// Gets or sets the unread notifications of unlocked achievements.
+    /// </summary>
+    public int UnlockedAchievements { get; set; }
+
+    /// <summary>
     /// Gets or sets the unread private.
     /// </summary>
     public int UnreadPrivate { get; set; }

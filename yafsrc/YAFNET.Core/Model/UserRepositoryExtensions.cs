@@ -578,6 +578,7 @@ public static class UserRepositoryExtensions
                 .DeleteAsync(x => x.UserID == user.ID || x.IgnoredUserID == user.ID);
             await BoardContext.Current.GetRepository<AdminPageUserAccess>().DeleteAsync(x => x.UserID == user.ID);
             await BoardContext.Current.GetRepository<UserMedal>().DeleteAsync(x => x.UserID == user.ID);
+            await BoardContext.Current.GetRepository<UserAchievement>().DeleteAsync(x => x.UserID == user.ID);
             await BoardContext.Current.GetRepository<DeviceSubscription>().DeleteAsync(x => x.UserID == user.ID);
 
             await BoardContext.Current.GetRepository<ProfileCustom>().DeleteAsync(x => x.UserID == user.ID);
@@ -884,6 +885,14 @@ public static class UserRepositoryExtensions
                 var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
                     .ToMergedParamsSelectStatement();
 
+                // -- count Unlocked Achievements
+                var countAchievementsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+                countAchievementsExpression.Where(a => a.UserID == userId && (a.Flags & 65536) == 65536 && a.Notification);
+
+                var countAchievementsSql = countAchievementsExpression.Select(Sql.Count("1"))
+                    .ToMergedParamsSelectStatement();
+
                 // -- count Watch Topics
                 var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
@@ -971,6 +980,7 @@ public static class UserRepositoryExtensions
                     ReceivedThanks = Sql.Custom($"({countThanksSql})"),
                     Mention = Sql.Custom($"({countMentionSql})"),
                     Quoted = Sql.Custom($"({countQuotedSql})"),
+                    UnlockedAchievements = Sql.Custom($"({countAchievementsSql})"),
                     UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
                     LastUnreadPrivate = Sql.Custom($"({lastUnreadSql})"),
                     PendingBuddies = Sql.Custom($"({countBuddiesSql})"),

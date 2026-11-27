@@ -39,6 +39,16 @@
 						{
 							@Html.Raw(Model.Medals)
 						}
+						@* the achievements the user shows in the profile and with the posts *@
+						@if (Model.Achievements.Exists(a => a.Featured))
+						{
+							<span class="achievement-showcase ms-1" id="ProfileShowcase">
+								@foreach (var achievement in Model.Achievements.Where(a => a.Featured))
+								{
+									<span title="@achievement.Name" data-bs-toggle="tooltip">@Html.AchievementTrophy(achievement, "achievement-trophy-md")</span>
+								}
+							</span>
+						}
 					</h1>
 
 					<div class="profile-meta d-flex flex-wrap align-items-center gap-2">
@@ -142,6 +152,32 @@
 					</div>
 				</div>
 			</div>
+
+			@if (Model.Achievements.Count > 0)
+			{
+				@* the achievements the user has unlocked (the shown ones first) *@
+				<div class="profile-achievements bg-body-tertiary rounded p-3 mb-3" id="ProfileAchievements">
+					<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+						<span class="fw-semibold">
+							@Html.Icon("trophy", "text-warning")@Html.LocalizedText("ACHIEVEMENTS", "ACHIEVEMENTS")
+							<span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis ms-1">@Model.Achievements.Count</span>
+						</span>
+						<span class="small text-body-secondary">
+							@string.Format(Model.Get<ILocalization>().GetText("ACHIEVEMENTS", "POINTS"), Model.Achievements.Sum(a => a.Points).ToString("N0"))
+							@if (Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID)
+							{
+								<a class="ms-2" href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyAchievements))">@Html.LocalizedText("ACHIEVEMENTS", "SHOW_ALL")</a>
+							}
+						</span>
+					</div>
+					<div class="achievement-showcase">
+						@foreach (var achievement in Model.Achievements)
+						{
+							<span title="@achievement.Name: @achievement.Description" data-bs-toggle="tooltip">@Html.AchievementTrophy(achievement, "achievement-trophy-md")</span>
+						}
+					</div>
+				</div>
+			}
 
 			@if (!Model.CustomProfile.NullOrEmpty())
 			{

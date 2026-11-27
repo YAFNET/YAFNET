@@ -191,4 +191,11 @@ public interface IActivityStream
     /// <param name="userId">The user identifier.</param>
     /// <param name="fromUserId">From user identifier.</param>
     void AddBecomeFriendsToStream(int userId, int fromUserId);
+
+    /// <summary>
+    /// Adds the notification of an unlocked achievement.
+    /// </summary>
+    /// <param name="user">The user who has unlocked the achievement.</param>
+    /// <param name="achievementId">The achievement id.</param>
+    void AddAchievementToStream(User user, int achievementId);
 }

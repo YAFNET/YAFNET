@@ -378,4 +378,29 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
 
         this.GetRepository<Activity>().Insert(activity);
     }
+
+    /// <summary>
+    /// Adds the notification of an unlocked achievement.
+    /// </summary>
+    /// <param name="user">The user who has unlocked the achievement.</param>
+    /// <param name="achievementId">The achievement id.</param>
+    public void AddAchievementToStream(User user, int achievementId)
+    {
+        var flags = new ActivityFlags { UnlockedAchievement = true };
+
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               AchievementID = achievementId,
+                               UserID = user.ID,
+                               Notification = true,
+                               Created = DateTime.UtcNow
+                           };
+
+        this.GetRepository<Activity>().Insert(activity);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
+
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, user.ID));
+    }
 }

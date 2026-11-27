@@ -13,6 +13,7 @@ import './forum/paging';
 import './forum/modals';
 import './forum/notificationHub';
 import './forum/contextMenu';
+import './forum/achievements';
 
 const _global = (window /* browser */ || global /* node */) as any;
 

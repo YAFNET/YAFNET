@@ -396,6 +396,12 @@ public class HostSettingsInputModel
     public bool EnableUserReputation { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the users unlock achievements.
+    /// </summary>
+    /// <value><c>true</c> if [enable achievements]; otherwise, <c>false</c>.</value>
+    public bool EnableAchievements { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [reputation allow negative].
     /// </summary>
     /// <value><c>true</c> if [reputation allow negative]; otherwise, <c>false</c>.</value>

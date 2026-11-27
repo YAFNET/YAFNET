@@ -294,6 +294,11 @@ public abstract class UserPageBase
     public int Quoted => this.PageData.Item3.Quoted;
 
     /// <summary>
+    /// The unread notifications of unlocked achievements.
+    /// </summary>
+    public int UnlockedAchievements => this.PageData.Item3.UnlockedAchievements;
+
+    /// <summary>
     ///   Gets the number of private messages that are unread
     /// </summary>
     public int UnreadPrivate => this.PageData.Item3.UnreadPrivate;

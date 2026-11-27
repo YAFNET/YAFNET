@@ -597,5 +597,20 @@ public enum ForumPages
     /// <summary>
     /// The Subscriptions.
     /// </summary>
-    Profile_Subscriptions
+    Profile_Subscriptions,
+
+    /// <summary>
+    /// The My Achievements page.
+    /// </summary>
+    MyAchievements,
+
+    /// <summary>
+    /// The Admin achievements page.
+    /// </summary>
+    Admin_Achievements,
+
+    /// <summary>
+    /// The Admin edit achievement page.
+    /// </summary>
+    Admin_EditAchievement
 }

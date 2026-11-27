@@ -136,10 +136,15 @@ public class ActivityFlags : FlagsBase
         /// <summary>
         /// The friends activity
         /// </summary>
-        BecomeFriends = 32768
+        BecomeFriends = 32768,
+
+        /// <summary>
+        /// The user has unlocked an achievement (AchievementID).
+        /// </summary>
+        UnlockedAchievement = 65536
 
         /* for future use
-          xxxxxxxx = 65536
+          xxxxxxxx = 131072
                */
     }
 
@@ -241,5 +246,16 @@ public class ActivityFlags : FlagsBase
         get => this[15];
 
         set => this[15] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the user has unlocked an achievement.
+    /// </summary>
+    public virtual bool UnlockedAchievement
+    {
+        // int value 65536
+        get => this[16];
+
+        set => this[16] = value;
     }
 }

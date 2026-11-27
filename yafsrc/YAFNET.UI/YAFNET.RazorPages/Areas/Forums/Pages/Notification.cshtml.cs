@@ -94,6 +94,12 @@ public class NotificationModel : ForumPageRegistered
     public bool BecomeFriends { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the unlocked achievements are shown.
+    /// </summary>
+    [BindProperty]
+    public bool UnlockedAchievement { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the number of the unread notifications (all, not only the filtered).
     /// </summary>
     public int UnreadCount { get; set; }
@@ -152,6 +158,7 @@ public class NotificationModel : ForumPageRegistered
         this.WatchForumReply = true;
         this.WatchTopicReply = true;
         this.BecomeFriends = true;
+        this.UnlockedAchievement = true;
 
         this.BindData();
     }
@@ -162,6 +169,17 @@ public class NotificationModel : ForumPageRegistered
     public void OnPostMarkRead(int id)
     {
         this.GetRepository<Activity>().UpdateNotification(this.PageBoardContext.PageUserID, id);
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Marks the notification of an unlocked achievement as read.
+    /// </summary>
+    /// <param name="id">The achievement id.</param>
+    public void OnPostMarkAchievementRead(int id)
+    {
+        this.GetRepository<Activity>().UpdateAchievementNotification(this.PageBoardContext.PageUserID, id);
 
         this.BindData();
     }
@@ -189,7 +207,8 @@ public class NotificationModel : ForumPageRegistered
         bool wasQuoted,
         bool watchForumReply,
         bool watchTopicReply,
-        bool becomeFriends)
+        bool becomeFriends,
+        bool unlockedAchievement = true)
     {
         // the values come from the client (the page offers at most 50 entries)
         // "page" is the route value of the razor page (its path), the query value of the page index is "pageIndex"
@@ -197,7 +216,7 @@ public class NotificationModel : ForumPageRegistered
         size = Math.Clamp(size, 1, 100);
 
         var stream = this.GetFilteredNotifications(
-            wasMentioned, receivedThanks, wasQuoted, watchForumReply, watchTopicReply, becomeFriends);
+            wasMentioned, receivedThanks, wasQuoted, watchForumReply, watchTopicReply, becomeFriends, unlockedAchievement);
 
         var paged = stream.Skip(page * size).Take(size).ToList();
 
@@ -217,7 +236,8 @@ public class NotificationModel : ForumPageRegistered
         bool wasQuoted,
         bool watchForumReply,
         bool watchTopicReply,
-        bool becomeFriends)
+        bool becomeFriends,
+        bool unlockedAchievement)
     {
         var stream = this.GetRepository<Activity>().Notifications(this.PageBoardContext.PageUserID);
 
@@ -251,6 +271,11 @@ public class NotificationModel : ForumPageRegistered
             stream.RemoveAll(a => a.Item1.ActivityFlags.BecomeFriends);
         }
 
+        if (!unlockedAchievement || !this.PageBoardContext.BoardSettings.EnableAchievements)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.UnlockedAchievement);
+        }
+
         stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
 
         return stream;
@@ -262,9 +287,10 @@ public class NotificationModel : ForumPageRegistered
     private void BindData()
     {
         var stream = this.GetFilteredNotifications(
-            this.WasMentioned, this.ReceivedThanks, this.WasQuoted, this.WatchForumReply, this.WatchTopicReply, this.BecomeFriends);
+            this.WasMentioned, this.ReceivedThanks, this.WasQuoted, this.WatchForumReply, this.WatchTopicReply, this.BecomeFriends,
+            this.UnlockedAchievement);
 
-        this.UnreadCount = this.GetFilteredNotifications(true, true, true, true, true, true)
+        this.UnreadCount = this.GetFilteredNotifications(true, true, true, true, true, true, true)
             .Count(a => a.Item1.Notification);
 
         this.Notifications =

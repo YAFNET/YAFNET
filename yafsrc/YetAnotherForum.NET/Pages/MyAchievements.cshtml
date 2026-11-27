@@ -1,0 +1,116 @@
+@page
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model MyAchievementsModel
+
+@{
+    var unlocked = Model.Unlocked;
+    var total = Model.Achievements.Count;
+    var percent = total == 0 ? 0 : unlocked.Count * 100 / total;
+    var rarest = Model.Rarest;
+    var next = Model.Next;
+    var featured = unlocked.Where(a => a.Featured).ToList();
+}
+
+<div class="my-achievements">
+    @Html.AntiForgeryToken()
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 my-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("trophy")@Html.LocalizedText("ACHIEVEMENTS", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@unlocked.Count</span>
+        </h2>
+        <a role="button"
+           button-style="OutlineSecondary"
+           button-size="Small"
+           Icon="circle-question"
+           text-localized-page="ACHIEVEMENTS"
+           text-localized-tag="HOW_IT_WORKS"
+           href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Help, new { faq = "achievements" }))"></a>
+    </div>
+
+    @* the summary: points, unlocked achievements, the rarest one and the next goal *@
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-3 achievement-summary">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="small text-body-secondary">@Html.LocalizedText("ACHIEVEMENTS", "TOTAL_POINTS")</div>
+                    <div class="achievement-summary-value" id="AchievementPoints">@Model.Points.ToString("N0")</div>
+                    <div class="small text-body-secondary">@string.Format(Model.GetText("ACHIEVEMENTS", "OF_POINTS"), Model.MaxPoints.ToString("N0"))</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="small text-body-secondary">@Html.LocalizedText("ACHIEVEMENTS", "UNLOCKED")</div>
+                    <div class="achievement-summary-value">@string.Format(Model.GetText("ACHIEVEMENTS", "UNLOCKED_OF"), unlocked.Count, total)</div>
+                    <div class="progress mt-2" role="progressbar" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"
+                         aria-label="@Html.LocalizedText("ACHIEVEMENTS", "UNLOCKED")">
+                        <div class="progress-bar bg-success" style="width: @(percent)%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body d-flex align-items-center gap-3">
+                    @if (rarest != null)
+                    {
+                        @Html.AchievementTrophy(rarest)
+                        <div class="min-w-0">
+                            <div class="small text-body-secondary">@Html.LocalizedText("ACHIEVEMENTS", "RAREST")</div>
+                            <div class="fw-semibold text-break">@rarest.Name</div>
+                            <div class="small @rarest.RarityClass"><span class="achievement-rarity">@rarest.RarityName</span> · @string.Format(Model.GetText("ACHIEVEMENTS", "PERCENT_MEMBERS"), rarest.Percent)</div>
+                        </div>
+                    }
+                    else if (next != null)
+                    {
+                        @Html.AchievementTrophy(next)
+                        <div class="min-w-0">
+                            <div class="small text-body-secondary">@Html.LocalizedText("ACHIEVEMENTS", "NEXT_GOAL")</div>
+                            <div class="fw-semibold text-break">@next.Name</div>
+                            <div class="small text-body-secondary">@next.ProgressText</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* the achievements the user shows in the profile and with the posts *@
+    @if (unlocked.Count > 0)
+    {
+        <div class="alert alert-info d-flex flex-wrap align-items-center gap-2 small" role="status" id="AchievementShowcaseInfo">
+            @Html.Icon("circle-info")
+            <span>@string.Format(Model.GetText("ACHIEVEMENTS", "SHOWCASE_INFO"), AchievementService.MaxFeatured)</span>
+            <span class="achievement-showcase ms-auto" id="AchievementShowcase">
+                @foreach (var achievement in featured)
+                {
+                    <span title="@achievement.Name" data-bs-toggle="tooltip" data-achievement-showcase="@achievement.Id">@Html.AchievementTrophy(achievement, "achievement-trophy-sm")</span>
+                }
+            </span>
+        </div>
+    }
+
+    @if (total > 0)
+    {
+        @await Html.PartialAsync(
+            "_AchievementCards",
+            Model.Achievements,
+            new ViewDataDictionary(ViewData) { ["ShowProgress"] = true, ["ShowFeature"] = true, ["ShowCounts"] = true })
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <empty icon="trophy"
+                       header-text-page="ACHIEVEMENTS" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ACHIEVEMENTS" message-text-tag="EMPTY_MESSAGE">
+                </empty>
+            </div>
+        </div>
+    }
+</div>

@@ -80,6 +80,11 @@ public class Activity : IEntity, IHaveID
     public int? FromUserID { get; set; }
 
     /// <summary>
+    /// Gets or sets the achievement the user has unlocked (activity <see cref="ActivityFlags.UnlockedAchievement"/>).
+    /// </summary>
+    public int? AchievementID { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether notification.
     /// </summary>
     [Default(typeof(bool), "0")]

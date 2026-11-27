@@ -26,18 +26,28 @@ namespace YAF.Core.Migrations;
 
 using ServiceStack.DataAnnotations;
 
+using YAF.Core.Helpers;
 using YAF.Types.Models;
 
 /// <summary>
 /// Version 1007 Migrations
 /// </summary>
-[Description("Adds the board to the event log entries, the existing entries get the board of their user.")]
+[Description("Adds the board to the event log entries (the existing entries get the board of their user) and the achievements (the tables and the default achievements of the boards).")]
 public class Migration1007 : MigrationBase
 {
     /// <summary>
     /// Migrations
     /// </summary>
     public override void Up()
+    {
+        this.AddEventLogBoard();
+        this.AddAchievements();
+    }
+
+    /// <summary>
+    /// Adds the board to the event log entries, the existing entries get the board of their user.
+    /// </summary>
+    private void AddEventLogBoard()
     {
         if (this.Db.ColumnExists<EventLog>(x => x.BoardID))
         {
@@ -62,6 +72,29 @@ public class Migration1007 : MigrationBase
             var boardUsers = board.Select(u => (int?)u.ID).ToList();
 
             this.Db.UpdateOnly(() => new EventLog { BoardID = board.Key }, e => Sql.In(e.UserID, boardUsers));
+        }
+    }
+
+    /// <summary>
+    /// Adds the achievements: the tables, the achievement of the activities (notifications) and the default
+    /// achievements of the boards (a board that has achievements keeps them).
+    /// </summary>
+    private void AddAchievements()
+    {
+        this.Db.CreateTableIfNotExists<Achievement>();
+        this.Db.CreateTableIfNotExists<UserAchievement>();
+
+        // the notification of an unlocked achievement
+        if (!this.Db.ColumnExists<Activity>(x => x.AchievementID))
+        {
+            this.Db.AddColumn<Activity>(x => x.AchievementID);
+        }
+
+        var boardIds = this.Db.Column<int>(this.Db.From<Board>().Select(b => b.ID));
+
+        foreach (var boardId in boardIds.Where(boardId => !this.Db.Exists<Achievement>(a => a.BoardID == boardId)))
+        {
+            this.Db.InsertAll(AchievementDefaults.Create(boardId));
         }
     }
 }

@@ -4,14 +4,66 @@
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Types.Models
 @model List<Tuple<Activity, User, Topic>>
+
+@{
+    // the achievements of the board (the notifications of the unlocked achievements show them)
+    var achievements = Model.Exists(a => a.Item1.ActivityFlags.UnlockedAchievement)
+                           ? BoardContext.Current.Get<IAchievementService>().GetBoardAchievements(BoardContext.Current.PageBoardID).ToDictionary(a => a.ID)
+                           : [];
+}
 
 @foreach (var activity in Model)
 {
     var message = string.Empty;
     var icon = string.Empty;
     var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
+
+    if (activity.Item1.ActivityFlags.UnlockedAchievement)
+    {
+        if (!activity.Item1.AchievementID.HasValue || !achievements.TryGetValue(activity.Item1.AchievementID.Value, out var achievement))
+        {
+            continue;
+        }
+
+        var achievementLink = $"<a href=\"{BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.MyAchievements)}\"><i class=\"fas fa-{achievement.Icon} me-1\"></i>{Html.Encode(BoardContext.Current.Get<IAchievementService>().GetName(achievement))}</a>";
+
+        <li class="list-group-item list-group-item-action notification-row" data-achievement="@achievement.ID">
+            <div class="d-flex w-100 justify-content-between align-items-start flex-wrap">
+                <div>
+                    <span class="fa-stack">
+                        <i class="@($"fas fa-circle fa-stack-2x {(activity.Item1.Notification ? "text-warning" : "text-secondary")}")"></i>
+                        <i class="fas fa-trophy fa-stack-1x fa-inverse"></i>
+                    </span>
+
+                    @Html.Raw(string.Format(BoardContext.Current.Get<ILocalization>().GetText("NOTIFICATION", "UNLOCKED_ACHIEVEMENT_MSG"), achievementLink))
+                </div>
+
+                @if (activity.Item1.Notification)
+                {
+                    <button button-style="Secondary"
+                            button-size="Small"
+                            text-localized-tag="MARK_ASREAD"
+                            asp-page-handler="MarkAchievementRead"
+                            asp-route-id="@achievement.ID"
+                            Icon="glasses">
+                    </button>
+                }
+            </div>
+            <div class="mt-2">
+                <span class="badge text-light-emphasis bg-light-subtle"
+                      title="@Html.LocalizedText("ACHIEVEMENTS", "UNLOCKED")"
+                      data-bs-toggle="tooltip">
+                    @Html.Icon("calendar-day")
+                    @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
+                </span>
+            </div>
+        </li>
+
+        continue;
+    }
 
     if (!activity.Item1.FromUserID.HasValue)
     {
