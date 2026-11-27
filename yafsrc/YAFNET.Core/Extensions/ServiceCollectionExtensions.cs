@@ -36,6 +36,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using OEmbed.Core.Extensions;
 
@@ -139,6 +140,27 @@ public static class ServiceCollectionExtensionsExtensions
         }
 
         /// <summary>
+        /// Adds the identity services for the YAF.NET identity models (managers, validators, password hasher),
+        /// without identity options, token providers and authentication schemes. Services that are registered
+        /// already are kept.
+        /// </summary>
+        /// <returns>IServiceCollection.</returns>
+        public IServiceCollection AddYafIdentityCore()
+        {
+            // with the role claims, before the default without them is added
+            services.TryAddScoped<IUserClaimsPrincipalFactory<AspNetUsers>,
+                UserClaimsPrincipalFactory<AspNetUsers, AspNetRoles>>();
+
+            services.AddIdentityCore<AspNetUsers>();
+
+            services.TryAddScoped<IRoleValidator<AspNetRoles>, RoleValidator<AspNetRoles>>();
+            services.TryAddScoped<RoleManager<AspNetRoles>>();
+            services.TryAddScoped<SignInManager<AspNetUsers>>();
+
+            return services;
+        }
+
+        /// <summary>
         ///  Adds YAF.NET core services to the specified services collection.
         /// </summary>
         /// <param name="configuration"></param>
@@ -179,9 +201,17 @@ public static class ServiceCollectionExtensionsExtensions
                 CustomServiceWorkerStrategyFileName = "/js/serviceWorker.min.js"
             });
 
-            services.AddYafIdentityOptions();
+            // the host application sets up the identity options and the authentication cookie
+            if (boardConfig.HostManagesAccounts)
+            {
+                services.AddYafIdentityCore();
+            }
+            else
+            {
+                services.AddYafIdentityOptions();
 
-            services.AddYafAuthentication();
+                services.AddYafAuthentication();
+            }
 
             services.AddYafInstallLanguages();
 

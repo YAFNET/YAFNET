@@ -180,10 +180,13 @@ public class ServicesModule : BaseModule
     /// </param>
     private static void RegisterIdentityServices(ContainerBuilder builder)
     {
-        builder.RegisterType<UserStore>().As<IUserStore<AspNetUsers>>();
+        // the stores of the host application win
+        builder.RegisterType<UserStore>().As<IUserStore<AspNetUsers>>()
+            .IfNotRegistered(typeof(IUserStore<AspNetUsers>));
         builder.RegisterType<AspNetUsersManager>().AsSelf().InstancePerBoardContext();
 
-        builder.RegisterType<RoleStore>().As<IRoleStore<AspNetRoles>>();
+        builder.RegisterType<RoleStore>().As<IRoleStore<AspNetRoles>>()
+            .IfNotRegistered(typeof(IRoleStore<AspNetRoles>));
         builder.RegisterType<AspNetRoleManager>().As<IAspNetRoleManager>().InstancePerBoardContext();
 
         builder.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>().InstancePerBoardContext();

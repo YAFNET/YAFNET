@@ -120,6 +120,27 @@ Now the Forum is ready and you can add a link to your `_Layout.cshtml`
 ```
 
 
+### Host application manages the accounts
+If the application has its own login and account pages, set `HostManagesAccounts` in the `BoardConfiguration` section of the `appsettings.json`.
+
+``` json
+"BoardConfiguration": {
+    "HostManagesAccounts": true
+}
+```
+
+`AddYafCore` then does not add the identity options and the authentication cookie of the forum. The identity options keep their defaults unless you set them. Add the `Identity.Application` cookie before calling `AddYafCore`, for example with `AddIdentity`, because the forum refreshes and ends sign-ins with it. To keep the accounts in your own tables, register your own `IUserStore<AspNetUsers>` and `IRoleStore<AspNetRoles>`; they replace the forum stores.
+
+``` csharp
+builder.Services.AddIdentity<AspNetUsers, AspNetRoles>()
+    .AddUserStore<MyUserStore>()
+    .AddRoleStore<MyRoleStore>();
+
+builder.Services.AddYafCore(builder.Configuration, "/Forums");
+```
+
+The login and register links of the forum go to the `Account/Login` and `Account/Register` pages of the forum area (with the `ReturnUrl`), redirect them to the pages of your application.
+
 ## Community Support Forum
 
 See a real live YAF Forum by visiting the YetAnotherForum.NET community support forum: https://yetanotherforum.net/forums. Also, get your questions answered by the YAF community.
