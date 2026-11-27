@@ -72,6 +72,36 @@ public class ShortUrlTests
         model.Selectors[0].AttributeRouteModel!.Template.Should().Be(expected);
     }
 
+    [TestCase("/Posts", null, "/Posts", "{t:int?}/{name}/{handler?}", "/topic")]
+    [TestCase("/UserProfile", null, "/UserProfile", "{u:int}/{name}/{handler?}", "/user")]
+    [TestCase("/Posts", "Forums", "/Forums/Posts", "{t:int?}/{name}/{handler?}", "/Forums/topic")]
+    [TestCase("/Posts", "Forums", "Forums/Posts", "{t:int?}/{name}/{handler?}", "Forums/topic")]
+    [TestCase("/PostMessage", null, "/PostMessage", null, "/PostMessage")]
+    [Description("The convention also replaces the page name in the page route metadata, a PageRouteTransformerConvention builds the route from it")]
+    public void Convention_PageRouteMetadata_Test(string page, string area, string pageRoute, string routeTemplate, string expected)
+    {
+        var model = new PageRouteModel($"/Pages{page}.cshtml", page, area);
+
+        var selector = new SelectorModel
+                       {
+                           AttributeRouteModel = new AttributeRouteModel
+                                                 {
+                                                     Template = AttributeRouteModel.CombineTemplates(pageRoute.TrimStart('/'), routeTemplate)
+                                                 }
+                       };
+
+        selector.EndpointMetadata.Add(new PageRouteMetadata(pageRoute, routeTemplate));
+
+        model.Selectors.Add(selector);
+
+        new ShortRouteConvention().Apply(model);
+
+        var metadata = model.Selectors[0].EndpointMetadata.OfType<PageRouteMetadata>().Single();
+
+        metadata.PageRoute.Should().Be(expected);
+        metadata.RouteTemplate.Should().Be(routeTemplate);
+    }
+
     [TestCase("/Posts/5/hello", null, "/topic/5/hello")]
     [TestCase("/posts/5/hello", null, "/topic/5/hello")]
     [TestCase("/Topics/5/general/2", null, "/forum/5/general/2")]
