@@ -70,8 +70,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         var version = new YafVersion
         {
             Major = 4,
-            Minor = 0,
-            Build = 12,
+            Minor = 1,
+            Build = 0,
             ReleaseType = ReleaseType.BETA,
             ReleaseNumber = 0
         };

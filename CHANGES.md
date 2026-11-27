@@ -1,7 +1,7 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v4.0.12
+# YetAnotherForum.NET v4.1.0
 ## 💫 New Features
 * Runs on .NET 10 or .NET 11: the application targets .NET 10 (LTS) and rolls forward to .NET 11 when only .NET 11 is installed (RollForward Major), the same release package works on both; the NuGet packages target net10.0 (also usable from .NET 11 projects)
 * Real-time updates: new topics and posts are shown without reloading the page (also for guests): the active discussions and the last post of the forums on the board index, the topic list of a forum and my topics move the topic to the top, the last page of an open topic gets the new reply (on another page a notice links to it). Only readers of the forum get the update, posts waiting for the approval are shown after the approval. Can be switched off in the host settings (Enable Real-Time Updates)
