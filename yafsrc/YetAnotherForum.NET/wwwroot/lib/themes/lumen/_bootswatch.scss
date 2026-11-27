@@ -1,4 +1,4 @@
-// Lumen 5.3.8
+// Lumen 5.3.9
 // Bootswatch
 
 
@@ -13,7 +13,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
 
 @mixin shadow($width: 4px){
   border-style: solid;
-  border-width: 0 1px $width 1px;
+  border-width: 0 1px $width;
 }
 
 // Navbar
@@ -328,6 +328,19 @@ a.list-group-item {
       background-color: shade-color($danger, 10%);
     }
   }
+}
+
+.card,
+.modal-content,
+.popover,
+.toast {
+  @include shadow();
+  border-top-width: 1px;
+}
+
+.accordion-item:last-child,
+.list-group-item:last-child {
+  @include shadow();
 }
 
 .modal,

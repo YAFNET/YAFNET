@@ -37,6 +37,7 @@ using YAF.Core.Handlers;
 using YAF.Core.Helpers;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The class that all YAF forum pages are derived from.
@@ -68,6 +69,16 @@ public abstract class ForumPage : PageModel,
 
         // fire preload event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
+
+        // the host application manages the accounts, the forum pages of the account management are not available
+        if (this.Get<BoardConfiguration>().HostManagesAccounts &&
+            BoardContext.Current.CurrentForumPage.PageName is ForumPages.Account_ForgotPassword
+                or ForumPages.Account_ResetPassword or ForumPages.Account_Approve or ForumPages.Account_Authorize
+                or ForumPages.Profile_ChangePassword or ForumPages.Profile_DeleteAccount or ForumPages.Admin_RegisterUser)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+            return;
+        }
 
         // no security features for login/logout pages
         if (BoardContext.Current.CurrentForumPage.IsAccountPage)

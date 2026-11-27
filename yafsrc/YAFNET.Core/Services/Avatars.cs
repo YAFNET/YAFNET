@@ -23,10 +23,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace YAF.Core.Services;
 
 using YAF.Types.Models;
+using YAF.Types.Objects.Model;
 
 /// <summary>
 /// The avatars.
@@ -127,5 +129,43 @@ public class Avatars : IAvatars, IHaveServiceLocator
         }
 
         return avatarUrl;
+    }
+
+    /// <summary>
+    /// Gets the avatar urls of many users with one query (e.g. the last posters of a list).
+    /// </summary>
+    /// <param name="userIds">
+    /// The user ids.
+    /// </param>
+    /// <returns>
+    /// The avatar url of each user id (users that do not exist are left out).
+    /// </returns>
+    public IReadOnlyDictionary<int, string> GetAvatarUrlsForUsers(IEnumerable<int> userIds)
+    {
+        var ids = userIds.Distinct().ToList();
+
+        if (ids.Count == 0)
+        {
+            return new Dictionary<int, string>();
+        }
+
+        // only the columns of the avatar, not the uploaded images
+        var avatars = this.GetRepository<User>().DbAccess.Execute(
+            db =>
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+                // the conditional becomes a CASE, a bare comparison is no column for every database (like the message list)
+#pragma warning disable S1125
+                expression.Where(u => Sql.In(u.ID, ids)).Select(
+                    u => new { u.ID, u.Avatar, HasAvatarImage = u.AvatarImage != null ? true : false });
+#pragma warning restore S1125
+
+                return db.Connection.Select<UserAvatar>(expression);
+            });
+
+        return avatars.ToDictionary(
+            avatar => avatar.ID,
+            avatar => this.GetAvatarUrlForUser(avatar.ID, avatar.Avatar, avatar.HasAvatarImage));
     }
 }

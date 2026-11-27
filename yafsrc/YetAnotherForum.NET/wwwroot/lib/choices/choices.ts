@@ -110,7 +110,7 @@ _global.loadSelectMenus = (): void => {
 									 : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                                       ${String(removeItemButton ? 'data-deletable' : '')}
-                                      ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
+                                      role="option" ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
 									? 'aria-disabled="true"'
 									: '')}>
                                     ${String(label)}
@@ -205,7 +205,7 @@ _global.createTagsSelectTemplates = function(this: any, template: (templateStrin
 					: classNames.itemSelectable)} badge text-bg-primary fs-6 m-1"
                           data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(removeItemButton ? 'data-deletable' : '')}
-                          ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
+                          role="option" ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
 						? 'aria-disabled="true"'
 						: '')}>
                         <i class="fas fa-tag align-middle me-1"></i>${String(label)}
@@ -229,7 +229,7 @@ _global.createForumSelectTemplates =  function (this: any, template: (html: stri
 					? classNames.highlightedState
 					: classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : '')}"
                                       data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
-                                      ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
+                                      role="option" ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled
 						? 'aria-disabled="true"'
 						: '')}>
                                     <span><i class="fas fa-comments text-secondary me-1"></i>${String(data.label)

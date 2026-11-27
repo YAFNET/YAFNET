@@ -106,7 +106,7 @@ if (ReleaseNotes.Length > 30000)
 	<PackageReference Include="YAFNET.Core" Version="4.0.11" />
 	<PackageReference Include="YAFNET.Types" Version="4.0.11" />
 	<PackageReference Include="YAFNET.Web" Version="4.0.11" />
-	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="11.0.0" />
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="10.0.15" />
   </ItemGroup>
 
 </Project>

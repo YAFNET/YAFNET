@@ -84,9 +84,11 @@
         max-width: 12rem;
     }
 
+    // a square with rounded corners like everywhere else, a text avatar is cut to the square
     .avatar-current {
-        width: auto;
-        height: auto;
+        width: 8rem;
+        height: 8rem;
+        object-fit: cover;
     }
 }
 

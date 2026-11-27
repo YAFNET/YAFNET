@@ -3,14 +3,9 @@ import { fetchHtml, highlight, onPostPublished, toElements, withParams } from '.
 
 const _global = (window /* browser */ || global /* node */) as any;
 
-const popoverTemplate =
-	'<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>';
-
 function initTopicRowWidgets(
 	scope: ParentNode,
-	iconLegendContent: string,
-	topicStarterTitle: string,
-	lastPostTitle: string): void {
+	iconLegendContent: string): void {
 	scope.querySelectorAll<HTMLElement>('[data-bs-toggle="tooltip"]').forEach(el => {
 		new bootstrap.Tooltip(el);
 	});
@@ -20,24 +15,6 @@ function initTopicRowWidgets(
 			html: true,
 			content: iconLegendContent,
 			trigger: 'focus'
-		});
-	});
-
-	scope.querySelectorAll<HTMLElement>('.topic-starter-popover').forEach(el => {
-		new bootstrap.Popover(el, {
-			title: topicStarterTitle,
-			html: true,
-			trigger: 'hover',
-			template: popoverTemplate
-		});
-	});
-
-	scope.querySelectorAll<HTMLElement>('.topic-link-popover').forEach(el => {
-		new bootstrap.Popover(el, {
-			title: lastPostTitle,
-			html: true,
-			trigger: 'hover focus',
-			template: popoverTemplate
 		});
 	});
 }
@@ -51,12 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	const iconLegendContent = container.dataset.iconLegendContent || '';
-	const topicStarterTitle = container.dataset.topicStarterTitle || '';
-	const lastPostTitle = container.dataset.lastPostTitle || '';
 
-	initTopicRowWidgets(container, iconLegendContent, topicStarterTitle, lastPostTitle);
+	initTopicRowWidgets(container, iconLegendContent);
 
-	initLiveTopics(container, iconLegendContent, topicStarterTitle, lastPostTitle);
+	initLiveTopics(container, iconLegendContent);
 
 	const loadMoreUrl = container.dataset.loadMoreUrl;
 	const pageSize = parseInt(container.dataset.pageSize || '0', 10);
@@ -111,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					.filter(row => !row.dataset.topicId || !container.querySelector(`[data-topic-id="${row.dataset.topicId}"]`));
 
 				newRows.forEach(row => sentinel.parentElement!.insertBefore(row, sentinel));
-				newRows.forEach(row => initTopicRowWidgets(row, iconLegendContent, topicStarterTitle, lastPostTitle));
+				newRows.forEach(row => initTopicRowWidgets(row, iconLegendContent));
 
 				nextPage++;
 				loadedCount += newRows.length;
@@ -136,9 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initLiveTopics(
 	container: HTMLElement,
-	iconLegendContent: string,
-	topicStarterTitle: string,
-	lastPostTitle: string): void {
+	iconLegendContent: string): void {
 	const liveUrl = container.dataset.liveUrl;
 
 	if (!liveUrl || document.body.dataset.liveUpdates !== 'true') {
@@ -184,7 +157,7 @@ function initLiveTopics(
 				container.appendChild(row);
 			}
 
-			initTopicRowWidgets(row, iconLegendContent, topicStarterTitle, lastPostTitle);
+			initTopicRowWidgets(row, iconLegendContent);
 		});
 
 		const changed = new Set(posts.map(post => post.topicId.toString()));

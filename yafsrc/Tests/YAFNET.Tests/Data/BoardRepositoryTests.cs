@@ -153,7 +153,7 @@ public class BoardRepositoryTests
     {
         var boardId = await this.CreateBoardAsync();
 
-        var masks = this.Repository<AccessMask>().GetByBoardId(boardId);
+        var masks = await this.Repository<AccessMask>().GetByBoardIdAsync(boardId);
         var memberAccess = masks.Single(m => m.Name == "Member Access").ID;
 
         (await this.Repository<Registry>().GetSingleAsync(r => r.Name == "forumdefaultaccessmask" && r.BoardID == boardId)).Value
@@ -161,7 +161,7 @@ public class BoardRepositoryTests
 
         // a mask of another board (e.g. the default id of the setting)
         var otherBoardId = await this.CreateBoardAsync();
-        var otherBoardMask = this.Repository<AccessMask>().GetByBoardId(otherBoardId).First().ID;
+        var otherBoardMask = (await this.Repository<AccessMask>().GetByBoardIdAsync(otherBoardId))[0].ID;
 
         this.Repository<AccessMask>().GetDefaultForumAccessMaskId(otherBoardMask, boardId)
             .Should().Be(memberAccess, "the mask with the most rights without moderator access");

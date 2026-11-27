@@ -1,10 +1,7 @@
 import * as bootstrap from 'bootstrap';
 import { fetchHtml, highlight, onPostPublished } from '../forum/liveUpdates';
 
-const popoverTemplate =
-	'<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>';
-
-function initCategoryListWidgets(scope: ParentNode, forumIconLegendContent: string, lastPostTitle: string): void {
+function initCategoryListWidgets(scope: ParentNode, forumIconLegendContent: string): void {
 	scope.querySelectorAll<HTMLElement>('[data-bs-toggle="tooltip"]').forEach(el => {
 		new bootstrap.Tooltip(el);
 	});
@@ -16,21 +13,12 @@ function initCategoryListWidgets(scope: ParentNode, forumIconLegendContent: stri
 			trigger: 'focus'
 		});
 	});
-
-	scope.querySelectorAll<HTMLElement>('.topic-link-popover').forEach(el => {
-		new bootstrap.Popover(el, {
-			title: lastPostTitle,
-			html: true,
-			trigger: 'hover focus',
-			template: popoverTemplate
-		});
-	});
 }
 
 /**
  * Real-time updates: the active discussions and the last posts of the forums are loaded again when a post is published.
  */
-function initLiveUpdates(forumIconLegendContent: string, lastPostTitle: string, isLoading: () => boolean): void {
+function initLiveUpdates(forumIconLegendContent: string, isLoading: () => boolean): void {
 	if (document.body.dataset.liveUpdates !== 'true') {
 		return;
 	}
@@ -50,7 +38,7 @@ function initLiveUpdates(forumIconLegendContent: string, lastPostTitle: string, 
 			if (result) {
 				activeDiscussions.innerHTML = result.html;
 
-				initCategoryListWidgets(activeDiscussions, forumIconLegendContent, lastPostTitle);
+				initCategoryListWidgets(activeDiscussions, forumIconLegendContent);
 
 				activeDiscussions.querySelectorAll<HTMLElement>('[data-topic-id]').forEach(item => {
 					if (topics.has(item.dataset.topicId!)) {
@@ -69,11 +57,11 @@ function initLiveUpdates(forumIconLegendContent: string, lastPostTitle: string, 
 			if (result) {
 				categoryList.innerHTML = result.html;
 
-				initCategoryListWidgets(categoryList, forumIconLegendContent, lastPostTitle);
+				initCategoryListWidgets(categoryList, forumIconLegendContent);
 
 				categoryList.querySelectorAll<HTMLElement>('[data-forum-id]').forEach(row => {
 					if (forums.has(row.dataset.forumId!)) {
-						highlight(row.querySelector('.card-post-last') ?? row);
+						highlight(row.querySelector('.last-post') ?? row);
 					}
 				});
 
@@ -93,11 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const loadMoreUrl = categoryList.dataset.loadMoreUrl;
 	const forumIconLegendContent = categoryList.dataset.forumIconLegendContent || '';
-	const lastPostTitle = categoryList.dataset.lastPostTitle || '';
 
 	let loading = false;
 
-	initLiveUpdates(forumIconLegendContent, lastPostTitle, () => loading);
+	initLiveUpdates(forumIconLegendContent, () => loading);
 
 	if (!loadMoreUrl) {
 		return;
@@ -143,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				categoryList.innerHTML = html;
 				categoryIndexInput.value = categoryIndex.toString();
 
-				initCategoryListWidgets(categoryList, forumIconLegendContent, lastPostTitle);
+				initCategoryListWidgets(categoryList, forumIconLegendContent);
 
 				loading = false;
 				observeMoreButton();

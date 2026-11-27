@@ -25,15 +25,16 @@
 using System;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Types.Constants;
 using YAF.Types.Interfaces;
+using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
 
 namespace YAF.UI.Chat;
 
@@ -44,6 +45,7 @@ namespace YAF.UI.Chat;
 /// </summary>
 /// <seealso cref="Hub" />
 /// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+[Authorize]
 public class AllChatHub : Hub, IHaveServiceLocator
 {
     /// <summary>
@@ -58,13 +60,21 @@ public class AllChatHub : Hub, IHaveServiceLocator
     /// <param name="message">The message.</param>
     public async Task SendMessage(string message)
     {
+        // the page sends guests to the login page, but the hub can be called directly
+        if (!ChatRules.CanSendMessages(BoardContext.Current.IsGuest, BoardContext.Current.IsSuspendedNow))
+        {
+            return;
+        }
+
         var currentDateTime = DateTime.UtcNow;
 
-        var dateTimeFormatted = this.Get<BoardSettings>().ShowRelativeTime
-            ? currentDateTime.ToRelativeTime()
-            : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, currentDateTime);
+        // an empty message (or only spaces or html) is not saved
+        var body = ChatRules.NormalizeMessage(HtmlTagHelper.StripHtml(message ?? string.Empty));
 
-        var body = HtmlTagHelper.StripHtml(message);
+        if (body is null)
+        {
+            return;
+        }
 
         await this.GetRepository<ChatMessage>().InsertAsync(
             new ChatMessage
@@ -75,11 +85,35 @@ public class AllChatHub : Hub, IHaveServiceLocator
                 BoardId = BoardContext.Current.BoardSettings.BoardId
             });
 
-        const string side = "end";
-        const string msgClass = "text-bg-primary";
-        const string timeSide = "start";
+        // the sender, every page decides itself if the message is its own (the message was shown as their own to all users)
+        var user = BoardContext.Current.PageUser;
 
-        await this.Clients.All.SendAsync("ReceiveMessage", BoardContext.Current.PageUser.DisplayOrUserName(), body,
-            dateTimeFormatted, side, timeSide, msgClass);
+        await this.Clients.All.SendAsync(
+            "ReceiveMessage",
+            user.ID,
+            user.DisplayOrUserName(),
+            this.Get<IAvatars>().GetAvatarUrlForUser(user),
+            GetUserColor(user),
+            body,
+            // the time in UTC, every page shows it in the time of its user (it was formatted in the time zone of the sender)
+            currentDateTime.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+    }
+
+    /// <summary>
+    /// Gets the background color of the messages of a user (the messages of the other users).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>The css color.</returns>
+    public static string GetUserColor(User user)
+    {
+        // the guest user has no ProviderUserKey (messages of guests could be sent before the hub checked it)
+        if (user.ProviderUserKey.IsNotSet())
+        {
+            return "var(--bs-secondary)";
+        }
+
+        return ValidationHelper.IsNumeric(user.ProviderUserKey)
+            ? $"#{user.ProviderUserKey.ToGuid().ToString()[..6]}"
+            : $"#{user.ProviderUserKey[..6]}";
     }
 }

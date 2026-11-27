@@ -166,3 +166,7 @@ yafsrc/YetAnotherForum.NET/wwwroot/js/albums.min.js
 yafsrc/YetAnotherForum.NET/wwwroot/js/admin-dashboard.min.js.map
 yafsrc/YetAnotherForum.NET/wwwroot/js/admin-dashboard.min.js
 /yafsrc/YetAnotherForum.NET/.sass-cache
+yafsrc/YetAnotherForum.NET/wwwroot/js/admin-users.min.js
+yafsrc/YetAnotherForum.NET/wwwroot/js/admin-forums.min.js
+yafsrc/YetAnotherForum.NET/wwwroot/js/admin-edit-form.min.js
+yafsrc/YetAnotherForum.NET/wwwroot/js/admin-boards.min.js

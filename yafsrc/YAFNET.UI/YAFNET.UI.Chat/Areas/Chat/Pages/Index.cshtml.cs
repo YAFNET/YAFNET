@@ -55,22 +55,19 @@ public class ChatModel : PageModel, IHaveServiceLocator
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
-    /// Gets or sets the chat messages.
+    /// Gets the latest chat messages with their users, the oldest first.
     /// </summary>
-    /// <value>The chat messages.</value>
-    [BindProperty]
-    public List<Tuple<ChatMessage, User>> Messages { get; set; } = [];
+    public List<Tuple<ChatMessage, User>> Messages { get; private set; } = [];
 
     /// <summary>
-    /// Gets or sets the avatar URL.
+    /// Gets a value indicating whether the current user can send messages (a suspended user can only read).
     /// </summary>
-    /// <value>The avatar URL.</value>
-    [BindProperty]
-    public string AvatarUrl { get; set; }
+    public bool CanSend { get; private set; }
 
     /// <summary>
-    /// Called when [get].
+    /// Shows the chat (members only).
     /// </summary>
+    /// <returns>The page, or the login page for guests.</returns>
     public IActionResult OnGet()
     {
         if (BoardContext.Current.IsGuest)
@@ -78,17 +75,25 @@ public class ChatModel : PageModel, IHaveServiceLocator
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login, new { area = "Forums" });
         }
 
-        this.AvatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(BoardContext.Current.PageUser);
+        this.CanSend = ChatRules.CanSendMessages(BoardContext.Current.IsGuest, BoardContext.Current.IsSuspendedNow);
 
         // Inject Table
         this.Get<IDbAccess>().Execute(db => db.Connection.CreateTableIfNotExists<ChatMessage>());
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ChatMessage>();
 
+        // the latest messages (all messages of all years were loaded, in the order of the database)
         expression.Join<ChatMessage, User>((msg, usr) => msg.UserId == usr.ID)
-            .Where<ChatMessage>(msg => msg.BoardId == BoardContext.Current.BoardSettings.BoardId);
+            .Where<ChatMessage>(msg => msg.BoardId == BoardContext.Current.BoardSettings.BoardId)
+            .OrderByDescending<ChatMessage>(msg => msg.Created)
+            .Limit(ChatRules.MessagesShown);
 
-        this.Messages = this.GetRepository<ChatMessage>().DbAccess.Execute(db => db.Connection.SelectMulti<ChatMessage, User>(expression));
+        var latest = this.GetRepository<ChatMessage>().DbAccess.Execute(
+            db => db.Connection.SelectMulti<ChatMessage, User>(expression));
+
+        latest.Reverse();
+
+        this.Messages = latest;
 
         return this.Page();
     }

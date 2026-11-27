@@ -211,6 +211,22 @@ public class UsersImportAndSearchControllerTests
         return (SearchGridDataSet)((OkObjectResult)result.Result).Value;
     }
 
+    [Test]
+    [Description("When the host application manages the accounts, no users are imported")]
+    public async Task Import_Host_Manages_Accounts_Test()
+    {
+        this.board.Configuration.HostManagesAccounts = true;
+
+        var bytes = Encoding.UTF8.GetBytes("data");
+        var file = new FormFile(new MemoryStream(bytes), 0, bytes.Length, "file", "users")
+        {
+            Headers = new HeaderDictionary(), ContentType = "text/xml"
+        };
+
+        (await this.board.CreateController<UsersImportController>().ImportAsync(file)).Should().BeOfType<NotFoundResult>();
+        await this.importer.DidNotReceive().ImportingUsersAsync(Arg.Any<Stream>(), Arg.Any<bool>());
+    }
+
     private async Task<MessageModalNotification> Import(string contentType)
     {
         var bytes = Encoding.UTF8.GetBytes("data");

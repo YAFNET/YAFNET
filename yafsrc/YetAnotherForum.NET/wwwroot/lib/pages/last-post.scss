@@ -1,0 +1,155 @@
+// The last post of a forum or topic: the forum list (index, sub forums), the topic list and the active discussions
+.last-post {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    height: 100%;
+    min-width: 0;
+    padding: .5rem .65rem;
+    border: 1px solid var(--bs-border-color-translucent, var(--bs-border-color));
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-tertiary-bg);
+    font-size: .875rem;
+
+    // a square with rounded corners like everywhere else (members, team, ...), a text avatar is cut to the square
+    .last-post-avatar {
+        flex: 0 0 auto;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: var(--bs-border-radius);
+        object-fit: cover;
+    }
+
+    .last-post-body {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .last-post-topic-line {
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        min-width: 0;
+
+        .badge {
+            flex: 0 0 auto;
+            font-weight: 500;
+        }
+    }
+
+    .last-post-topic {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .last-post-label {
+        font-size: .75rem;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--bs-secondary-color);
+    }
+
+    .last-post-forum {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        i {
+            margin-right: .25rem !important;
+        }
+    }
+
+    .last-post-jump {
+        flex: 0 0 auto;
+
+        i {
+            margin: 0 !important;
+        }
+    }
+
+    &.last-post-empty {
+        font-style: italic;
+        color: var(--bs-secondary-color);
+    }
+}
+
+// the poster and the time of the last post, the topic starter in the topic list, the moderators of a forum
+.last-post-meta,
+.topic-starter-meta,
+.forum-moderators {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 .35rem;
+    font-size: .8125rem;
+    color: var(--bs-secondary-color);
+
+    abbr.timeago {
+        text-decoration: none;
+        cursor: help;
+    }
+}
+
+.last-post-separator {
+    opacity: .6;
+}
+
+// below each other on small screens
+@media (max-width: 767.98px) {
+    .forum-row,
+    .topic-list > .row {
+        .last-post {
+            height: auto;
+            margin-top: .5rem;
+        }
+    }
+
+    // below the text of the topic, next to the icon column
+    .topic-list > .row .last-post {
+        margin-left: 3.35rem;
+    }
+}
+
+// the active discussions: the list item is the box
+.active-discussions {
+    .card-header {
+        .btn {
+            flex: 0 0 auto;
+        }
+    }
+
+    .active-discussion {
+        padding: .6rem .75rem;
+        transition: background-color .15s ease;
+
+        &:hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        .last-post {
+            padding: 0;
+            border: 0;
+            background: none;
+        }
+    }
+
+    .active-discussions-empty {
+        font-style: italic;
+        color: var(--bs-secondary-color);
+    }
+}

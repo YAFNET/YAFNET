@@ -1,0 +1,249 @@
+// Versa 5.3.9
+// Bootswatch
+
+$theme: "versa" !default;
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #f5f5f5 !default;
+$gray-200: #e5e5e5 !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #737373 !default;
+$gray-700: #6c6c6c !default;
+$gray-800: #2e2e2e !default;
+$gray-900: #161616 !default;
+$black:    #000 !default;
+
+$blue:    #2b80ff !default;
+$indigo:  #605fff !default;
+$purple:  #ac47ff !default;
+$pink:    #d63384 !default;
+$red:     #e7020b !default;
+$orange:  #ff6801 !default;
+$yellow:  #efb100 !default;
+$green:   #04c951 !default;
+$teal:    #02bba7 !default;
+$cyan:    #00b9db !default;
+
+$primary:       $gray-900 !default;
+$secondary:     $white !default;
+$success:       $green !default;
+$info:          $blue !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+$min-contrast-ratio:   1.6 !default;
+
+// Components
+
+$border-color:                $gray-200 !default;
+$border-color-translucent:    rgba($black, .075) !default;
+
+$border-radius:               .5rem !default;
+$border-radius-lg:            .875rem !default;
+$border-radius-sm:            calc(.625rem - 4px) !default;
+$border-radius-pill:          50rem !default;
+
+$box-shadow:                  rgba(0, 0, 0, .05) 0 1px 2px 0 !default;
+$box-shadow-lg:               rgba(0, 0, 0, .1) 0 4px 6px -1px, rgba(0, 0, 0, .1) 0 2px 4px -2px !default;
+
+
+// Body
+
+$body-color:                #0a0a0a !default;
+
+// Fonts
+
+$font-family-sans-serif:      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+$font-size-base:              .9375rem !default;
+$font-size-sm:                .875rem !default;
+
+$font-weight-normal:          400 !default;
+$font-weight-medium:          500 !default;
+
+$lead-font-weight:            $font-weight-normal !default;
+
+// Tables
+
+$table-th-font-weight:        $font-weight-medium !default;
+
+$table-active-bg-factor:      1 !default;
+$table-active-bg:             rgba($gray-100, $table-active-bg-factor) !default;
+
+$table-hover-bg-factor:       .05 !default;
+
+$table-border-factor:         .05 !default;
+$table-border-color:          $border-color !default;
+
+$table-bg-scale:              0% !default;
+
+// Buttons + Forms
+
+$input-btn-padding-y:         .5rem !default;
+$input-btn-padding-x:         1rem !default;
+$input-btn-font-size:         .875rem !default;
+
+$input-btn-padding-y-sm:      .375rem !default;
+$input-btn-padding-x-sm:      .875rem !default;
+$input-btn-font-size-sm:      $font-size-base !default;
+
+$input-btn-padding-y-lg:      .875rem !default;
+$input-btn-padding-x-lg:      1.5rem !default;
+$input-btn-font-size-lg:      $font-size-base !default;
+
+
+// Buttons
+
+$btn-font-weight:             $font-weight-medium !default;
+
+$btn-border-radius-sm:        $border-radius !default;
+$btn-border-radius-lg:        $border-radius !default;
+
+$btn-hover-bg-shade-amount:       10% !default;
+$btn-hover-bg-tint-amount:        0% !default;
+$btn-hover-border-shade-amount:   0% !default;
+$btn-hover-border-tint-amount:    0% !default;
+$btn-active-bg-shade-amount:      0% !default;
+$btn-active-bg-tint-amount:       0% !default;
+$btn-active-border-shade-amount:  0% !default;
+$btn-active-border-tint-amount:   0% !default;
+
+// Forms
+
+$input-disabled-color:                  $gray-400 !default;
+$input-disabled-bg:                     transparent !default;
+
+$input-placeholder-color:               $gray-600 !default;
+
+$input-group-addon-color:               $gray-600 !default;
+$input-group-addon-bg:                  transparent !default;
+$input-group-addon-border-color:        transparent !default;
+
+$form-select-disabled-color:        $gray-500 !default;
+
+$form-range-track-bg:             $gray-100 !default;
+
+$form-range-thumb-bg:                      $white !default;
+$form-range-thumb-border:                  1px solid $gray-900 !default;
+$form-range-thumb-box-shadow:              $box-shadow-lg !default;
+$form-range-thumb-active-bg:               $form-range-thumb-bg !default;
+$form-range-thumb-disabled-bg:             $gray-100 !default;
+
+$form-file-button-bg:             transparent !default;
+$form-file-button-hover-bg:       transparent !default;
+
+// Navs
+
+$nav-link-disabled-color:           $gray-600 !default;
+
+$nav-pills-link-active-color:       $body-color !default;
+$nav-pills-link-active-bg:          $white !default;
+
+// Navbar
+
+$navbar-padding-y:                  1rem !default;
+
+$navbar-nav-link-padding-x:         .75rem !default;
+
+$navbar-light-color:                $black !default;
+$navbar-light-hover-color:          $black !default;
+$navbar-light-active-color:         $black !default;
+$navbar-light-toggler-border-color: transparent !default;
+
+
+$navbar-dark-color:                 $white !default;
+$navbar-dark-hover-color:           $white !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-toggler-border-color: transparent !default;
+
+// Dropdowns
+
+$dropdown-font-size:                $input-btn-font-size !default;
+$dropdown-color:                    $body-color !default;
+$dropdown-border-color:             $border-color !default;
+
+$dropdown-item-padding-y:           .5rem !default;
+$dropdown-item-padding-x:           .5rem !default;
+
+$dropdown-header-color:             $black !default;
+$dropdown-header-padding-x:         .875rem !default;
+
+// Pagination
+
+$pagination-padding-x:              1rem !default;
+$pagination-padding-x-sm:           .75rem !default;
+
+$pagination-border-color:           transparent !default;
+
+$pagination-hover-border-color:     transparent !default;
+
+$pagination-active-color:           inherit !default;
+$pagination-active-bg:              transparent !default;
+$pagination-active-border-color:    $border-color !default;
+
+
+$pagination-disabled-bg:            transparent !default;
+$pagination-disabled-border-color:  transparent !default;
+
+// Cards
+
+// Accordion
+
+$accordion-button-active-bg:              transparent !default;
+
+// Tooltips
+
+$tooltip-font-size:                 $font-size-sm * .875 !default;
+$tooltip-padding-x:                 .675rem !default;
+
+// Popovers
+
+$popover-box-shadow:                $box-shadow-lg !default;
+
+$popover-header-bg:                 transparent !default;
+
+// Toasts
+
+$toast-header-color:                $body-color !default;
+
+// Badges
+
+$badge-font-weight:                 $font-weight-medium !default;
+
+// Modals
+
+// Alerts
+
+// Progress bars
+
+$progress-height:                   .5rem !default;
+
+// List group
+
+$list-group-item-bg-scale:          -92% !default; // Deprecated in v5.3.0
+
+// Breadcrumbs
+
+$breadcrumb-item-padding-x:         1rem !default;
+$breadcrumb-font-size:              $font-size-sm !default;
+$breadcrumb-divider-color:          $gray-600 !default;
+$breadcrumb-active-color:           $body-color !default;
+$breadcrumb-divider:                quote("〉") !default;
+
+// Close
+
+$btn-close-width:            .5em !default;
+$btn-close-color:            $gray-800 !default;
+
+// Offcanvas
+
+$offcanvas-padding-y:               2rem !default;
+$offcanvas-padding-x:               2rem !default;

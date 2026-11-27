@@ -1,98 +1,119 @@
-﻿.direct-chat-messages {
-    transform: translate(0, 0);
-    padding: 10px;
+﻿// The messages of a conversation (private messages), the same bubbles as the chat (YAFNET.UI.Chat).
+// The colors come from the Bootstrap variables, so they follow the theme and the light/dark mode.
+
+.direct-chat-messages {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.25rem;
     height: 450px;
     overflow: auto;
 }
 
-.direct-chat-msg {
-    margin-bottom: 10px;
-}
+.direct-chat {
+    .chat-msg {
+        display: flex;
+        align-items: flex-start;
+        gap: .625rem;
+        max-width: min(42rem, 85%);
+        margin-top: .875rem;
 
-.direct-chat-text {
-    border-radius: 5px;
-    position: relative;
-    padding: 5px 10px;
-    margin: 5px 0 0 50px;
-
-    &:after {
-        position: absolute;
-        right: 100%;
-        top: 15px;
-        border: solid transparent;
-        content: ' ';
-        height: 0;
-        width: 0;
-        pointer-events: none;
-        border-width: 5px;
-        margin-top: -5px;
-    }
-
-    &:before {
-        position: absolute;
-        right: 100%;
-        top: 15px;
-        border: solid transparent;
-        content: ' ';
-        height: 0;
-        width: 0;
-        pointer-events: none;
-        border-width: 6px;
-        margin-top: -6px;
-    }
-}
-
-.start {
-    .direct-chat-text {
-        background: $primary-bg-subtle;
-        border: 1px solid $primary-bg-subtle;
-
-        &:after {
-            border-right-color: $primary-bg-subtle;
-        }
-
-        &:before {
-            border-right-color: $primary-bg-subtle;
+        &:first-child {
+            margin-top: 0;
         }
     }
-}
 
-.end {
-    .direct-chat-text {
-        background: $primary;
-        border: 1px solid $primary;
-        margin-right: 50px;
-        margin-left: 0;
+    // the following messages of the same user within a few minutes (one group)
+    .chat-msg-continued {
+        margin-top: .1875rem;
 
-        a {
-            color: inherit;
-            text-decoration: underline;
+        .chat-msg-meta {
+            display: none;
+        }
 
-            &:hover,
-            &:focus {
+        // keeps the space of the avatar
+        .chat-avatar {
+            visibility: hidden;
+            height: 0;
+        }
+
+        .chat-bubble {
+            border-top-left-radius: 1rem;
+        }
+    }
+
+    .chat-msg-own {
+        flex-direction: row-reverse;
+        margin-left: auto;
+
+        .chat-msg-body {
+            align-items: flex-end;
+        }
+    }
+
+    .chat-avatar {
+        flex: 0 0 auto;
+        width: 2.25rem;
+        height: 2.25rem;
+        // a square with rounded corners like everywhere else, a text avatar is cut to the square
+        border-radius: var(--bs-border-radius);
+        object-fit: cover;
+    }
+
+    .chat-msg-body {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .chat-msg-meta {
+        margin: 0 .25rem .25rem;
+        font-size: .75rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .chat-bubble {
+        padding: .5rem .875rem;
+        border: 1px solid var(--bs-border-color-translucent);
+        border-left: 4px solid var(--chat-user-color, var(--bs-secondary));
+        border-radius: .25rem 1rem 1rem 1rem;
+        background: var(--bs-tertiary-bg);
+        color: var(--bs-body-color);
+        overflow-wrap: anywhere;
+
+        // the message is formatted (bb codes): no space after the last paragraph, quotes and code
+        > :last-child {
+            margin-bottom: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    .chat-msg-own {
+        .chat-bubble {
+            border: 0;
+            border-radius: 1rem .25rem 1rem 1rem;
+            background: var(--bs-primary);
+            color: #fff;
+
+            a {
                 color: inherit;
-                opacity: .85;
+                text-decoration: underline;
+
+                &:hover,
+                &:focus {
+                    color: inherit;
+                    opacity: .85;
+                }
             }
         }
 
-        &:before,
-        &:after {
-            border-right-color: $primary;
-            right: auto;
-            left: 100%;
-            border-right-color: transparent;
-            border-left-color: $primary-bg-subtle;
+        &.chat-msg-continued .chat-bubble {
+            border-top-right-radius: 1rem;
         }
     }
-
-    .direct-chat-img {
-        float: right;
-    }
-}
-
-.direct-chat-img {
-    float: left;
-    width: 40px;
 }
 
 .chat-list {

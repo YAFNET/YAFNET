@@ -84,8 +84,20 @@ public class Permissions : IPermissions, IHaveServiceLocator
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        return this.Get<BoardConfiguration>().AllowLoginAndLogoff ? this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login) :
-                   // fall-through with no access...
-                   this.Get<ILinkBuilder>().AccessDenied();
+        if (!this.Get<BoardConfiguration>().AllowLoginAndLogoff)
+        {
+            // fall-through with no access...
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
+        // the login page of the host application returns to the requested page
+        if (this.Get<BoardConfiguration>().HostManagesAccounts && this.Get<IHttpContextAccessor>().HttpContext is { } context)
+        {
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Account_Login,
+                new { ReturnUrl = $"{context.Request.PathBase}{context.Request.Path}{context.Request.QueryString}" });
+        }
+
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login);
     }
 }

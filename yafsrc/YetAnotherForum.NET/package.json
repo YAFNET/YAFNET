@@ -47,7 +47,6 @@
 		"md.bootstrappersiandatetimepicker": "^5.0.1",
 		"prismjs": "^1.30.0",
 		"scss": "^0.2.4",
-		"smooth-scroll-into-view-if-needed": "^2.1.2",
 		"sortablejs": "^1.15.7",
 		"terser-webpack-plugin": "^5.6.1"
 	},

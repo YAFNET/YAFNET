@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 
 using YAF.Types.Modals;
+using YAF.Types.Objects;
 
 using System.Threading.Tasks;
 
@@ -53,6 +54,12 @@ public class LoginBox : ForumBaseController
     [HttpGet("ShowModal")]
     public IActionResult ShowModal()
     {
+        // the host application manages the accounts (its login page is used)
+        if (this.Get<BoardConfiguration>().HostManagesAccounts)
+        {
+            return this.NotFound();
+        }
+
         return new PartialViewResult
                    {
                        ViewName = "_LoginBox",
@@ -71,6 +78,12 @@ public class LoginBox : ForumBaseController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignInAsync(LoginModal model)
     {
+        // the host application manages the accounts (its login page is used)
+        if (this.Get<BoardConfiguration>().HostManagesAccounts)
+        {
+            return this.NotFound();
+        }
+
         // user name and password are required (like on the login page)
         if (!this.ModelState.IsValid)
         {

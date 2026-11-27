@@ -116,6 +116,26 @@ public class AvatarActivityRegistryTests
     }
 
     [Test]
+    [Description("The avatar urls of many users with one query: uploaded image, local path, text avatar, unknown users left out")]
+    public void Avatar_Urls_For_Users_Test()
+    {
+        var avatars = this.board.Resolve<IAvatars>();
+        this.board.BoardSettings.AvatarUpload = true;
+
+        var carol = this.db.AddUser("Carol", u => u.AvatarImage = [1, 2, 3]);
+        var dave = this.db.AddUser("Dave", u => u.Avatar = "/images/avatars/cat.png");
+
+        var urls = avatars.GetAvatarUrlsForUsers([this.alice, carol, dave, carol, 99999]);
+
+        urls.Should().HaveCount(3, "every user once, an unknown user is left out");
+        urls[this.alice].Should().Be("/api/Avatar/GetTextAvatar");
+        urls[carol].Should().Be("/api/Avatar/GetResponseLocalAvatar");
+        urls[dave].Should().Be("/images/avatars/cat.png");
+
+        avatars.GetAvatarUrlsForUsers([]).Should().BeEmpty();
+    }
+
+    [Test]
     [Description("Notifications list the activities of other users, the timeline the user's own")]
     public void Notifications_And_Timeline_Test()
     {

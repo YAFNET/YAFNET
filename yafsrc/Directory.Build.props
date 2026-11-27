@@ -8,5 +8,6 @@
     <Copyright>Copyright © YetAnotherForum.NET</Copyright>
     <LangVersion>latest</LangVersion>
 	 <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>

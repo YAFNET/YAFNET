@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "پیام به همه اعضای {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "پیام‌های گفتگو"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "ناوبری اصلی"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "هنوز پیامی وجود ندارد"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "اولین پیام را بنویسید."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "ارسال"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "متصل"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "در حال اتصال..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "آفلاین، صفحه را دوباره بارگذاری کنید"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "در حال اتصال مجدد..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "حساب شما تعلیق شده است، می‌توانید گفتگو را بخوانید اما نمی‌توانید بنویسید."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "گفتگو"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "نمایش/پنهان کردن ناوبری"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "پیامی بنویسید..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

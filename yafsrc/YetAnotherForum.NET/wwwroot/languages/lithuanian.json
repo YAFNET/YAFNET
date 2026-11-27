@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Žinutės visiems forumo {0} nariams"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Pokalbio žinutės"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Pagrindinė navigacija"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Žinučių dar nėra"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Parašykite pirmą žinutę."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Siųsti"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Prisijungta"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Jungiamasi..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Ryšio nėra, perkraukite puslapį"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Jungiamasi iš naujo..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Jūsų paskyra sustabdyta, galite skaityti pokalbį, bet negalite rašyti."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pokalbis"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Rodyti/slėpti navigaciją"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Parašykite žinutę..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

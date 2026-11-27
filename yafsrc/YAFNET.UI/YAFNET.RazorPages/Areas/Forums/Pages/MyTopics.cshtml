@@ -84,9 +84,7 @@
              data-mode="@Model.Input.TopicModeValue"
              data-total="@totalTopics"
              data-loaded-count="@(Model.TopicList?.Count ?? 0)"
-             data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
-             data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))"
-             data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
+             data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())">
             @if (!Model.TopicList.NullOrEmpty())
             {
                 @foreach (var topic in Model.TopicList)

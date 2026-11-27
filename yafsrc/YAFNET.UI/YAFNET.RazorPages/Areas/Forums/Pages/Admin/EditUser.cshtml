@@ -121,7 +121,8 @@
 						<div class="edit-user-nav-group">@Html.LocalizedText("ADMIN_EDITUSER", "GROUP_ACCOUNT")</div>
 						@{ await TabButton("View1", "ADMIN_EDITUSER", "USER_DETAILS", "user"); }
 						@{ await TabButton("View2", "ADMIN_EDITUSER", "USER_ROLES", "users"); }
-						@if (!flags.IsGuest)
+						@* the host application manages the accounts (and the passwords) *@
+						@if (!flags.IsGuest && !Model.Get<BoardConfiguration>().HostManagesAccounts)
 						{
 							await TabButton("View7", "ADMIN_EDITUSER", "USER_PASS", "key");
 						}

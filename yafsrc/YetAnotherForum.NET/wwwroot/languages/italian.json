@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Messaggi a tutti i membri di {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Messaggi della chat"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Navigazione principale"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Ancora nessun messaggio"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Scrivi il primo messaggio."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Invia"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Connesso"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Connessione..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, ricarica la pagina"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Riconnessione..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Il tuo account è sospeso, puoi leggere la chat ma non scrivere."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Mostra/nascondi navigazione"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Scrivi un messaggio..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

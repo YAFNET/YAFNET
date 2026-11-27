@@ -13,7 +13,7 @@
             }
         }
 
-        h5 {
+        h3 {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -25,7 +25,22 @@
             }
         }
 
+        .topic-main {
+            display: flex;
+            align-items: flex-start;
+            gap: .6rem;
+        }
+
+        .topic-body {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow-wrap: anywhere;
+            // the title in the middle of the icon
+            padding-top: .45rem;
+        }
+
         .topic-icon-legend-popvover {
+            flex: 0 0 auto;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -39,7 +54,7 @@
             }
         }
 
-        .topic-starter-popover {
+        .topic-title {
             text-decoration: none;
             font-weight: 600;
 
@@ -54,8 +69,8 @@
             }
         }
 
-        .card-subtitle {
-            margin-left: 3.25rem;
+        .topic-starter-meta {
+            margin-top: .15rem;
         }
     }
 }
@@ -96,6 +111,20 @@
 
     .topics-header-description {
         color: var(--bs-secondary-color);
+    }
+
+    // the moderators of the forum below the description
+    .forum-moderators {
+        gap: .25rem .6rem;
+        margin-top: .35rem;
+
+        .forum-moderators-label {
+            font-weight: 500;
+        }
+
+        .forum-moderators-more {
+            cursor: help;
+        }
     }
 
     .topics-header-actions {

@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Wiadomości do wszystkich członków forum {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Wiadomości czatu"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Główna nawigacja"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Brak wiadomości"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Napisz pierwszą wiadomość."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Wyślij"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Połączono"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Łączenie..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Brak połączenia, odśwież stronę"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Ponowne łączenie..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Twoje konto jest zawieszone, możesz czytać czat, ale nie możesz pisać."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Czat"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Pokaż/ukryj nawigację"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Napisz wiadomość..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

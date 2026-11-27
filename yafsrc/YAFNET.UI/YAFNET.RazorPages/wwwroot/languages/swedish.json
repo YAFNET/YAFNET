@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Meddelanden till alla medlemmar i {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Chattmeddelanden"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Huvudnavigering"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Inga meddelanden än"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Skriv det första meddelandet."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Skicka"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Ansluten"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Ansluter..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Offline, ladda om sidan"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Återansluter..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Ditt konto är avstängt, du kan läsa chatten men inte skriva."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Chatt"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Visa/dölj navigering"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Skriv ett meddelande..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

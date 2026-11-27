@@ -209,47 +209,72 @@ public static class CategoryListHelpers
         }
 
         /// <summary>
-        /// Get moderators by Forum Id.
+        /// The moderators of a forum ("Moderators: A, B, C +2"), nothing when the forum has no moderators.
         /// </summary>
         /// <param name="forumId">
         /// The forum id.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        /// The <see cref="IHtmlContent"/>.
         /// </returns>
-        public async Task<string> GetModeratorsAsync(int forumId)
+        public async Task<IHtmlContent> ForumModeratorsAsync(int forumId)
         {
-            var modsAll = await BoardContext.Current.Get<DataBroker>().GetModeratorsAsync();
+            const int shownModerators = 5;
 
-            var mods = modsAll.Where(x => x.ForumID == forumId).ToList();
+            var context = BoardContext.Current;
+
+            var moderators = (await context.Get<DataBroker>().GetModeratorsAsync())
+                .Where(x => x.ForumID == forumId)
+                .DistinctBy(x => x.ModeratorID)
+                .ToList();
 
             var content = new HtmlContentBuilder();
 
-            var list = new TagBuilder(HtmlTag.Ol);
+            if (moderators.Count == 0)
+            {
+                return content;
+            }
 
-            list.AddCssClass("list-unstyled");
+            string NameOf(SimpleModerator moderator) =>
+                context.BoardSettings.EnableDisplayName && moderator.DisplayName.IsSet()
+                    ? moderator.DisplayName
+                    : moderator.Name;
 
-            mods.DistinctBy(x => x.ModeratorID).ForEach(
-                row =>
-                {
-                    var listItem = new TagBuilder(HtmlTag.Li);
+            var line = new TagBuilder(HtmlTag.Div);
 
-                    listItem.AddCssClass("mb-2");
+            line.AddCssClass("forum-moderators");
 
-                    var userLink = htmlHelper.UserLink(
-                        row.ModeratorID,
-                        BoardContext.Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
-                        null,
-                        row.Style);
+            var label = new TagBuilder(HtmlTag.Span);
 
-                    listItem.InnerHtml.AppendHtml(userLink);
+            label.AddCssClass("forum-moderators-label");
 
-                    list.InnerHtml.AppendHtml(listItem);
-                });
+            label.InnerHtml.AppendHtml(htmlHelper.Icon("user-secret", "text-secondary"));
+            label.InnerHtml.Append($"{context.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")}:");
 
-            content.AppendHtml(list);
+            line.InnerHtml.AppendHtml(label);
 
-            return content.RenderToString().ToJsString();
+            moderators.Take(shownModerators).ForEach(
+                moderator => line.InnerHtml.AppendHtml(
+                    htmlHelper.UserLink(moderator.ModeratorID, NameOf(moderator), moderator.Suspended, moderator.Style)));
+
+            if (moderators.Count > shownModerators)
+            {
+                // the other moderators as a tooltip
+                var more = new TagBuilder(HtmlTag.Span);
+
+                more.AddCssClass("forum-moderators-more badge bg-secondary-subtle text-secondary-emphasis");
+
+                more.MergeAttribute(
+                    HtmlAttribute.Title,
+                    string.Join(", ", moderators.Skip(shownModerators).Select(NameOf)));
+                more.MergeAttribute("data-bs-toggle", "tooltip");
+
+                more.InnerHtml.Append($"+{moderators.Count - shownModerators}");
+
+                line.InnerHtml.AppendHtml(more);
+            }
+
+            return content.AppendHtml(line);
         }
 
         /// <summary>
@@ -305,47 +330,6 @@ public static class CategoryListHelpers
             }
 
             return content;
-        }
-
-        /// <summary>
-        /// Gets the last post info.
-        /// </summary>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetLastPostInfo(ForumRead item)
-        {
-            // Last Post Date
-            var lastPostedDateTime = item.LastPosted.Value;
-
-            // Last Topic PageUser
-            var lastUserLink = htmlHelper.UserLink(
-                item.LastUserID.Value,
-                BoardContext.Current.BoardSettings.EnableDisplayName ? item.LastUserDisplayName : item.LastUser,
-                item.LastUserSuspended,
-                BoardContext.Current.BoardSettings.UseStyledNicks && item.Style.IsSet()
-                    ? BoardContext.Current.Get<IStyleTransform>().Decode(item.Style)
-                    : string.Empty,
-                true);
-
-            var formattedDatetime = BoardContext.Current.BoardSettings.ShowRelativeTime
-                ? lastPostedDateTime.ToRelativeTime()
-                : BoardContext.Current.Get<IDateTimeService>().Format(
-                    DateTimeFormat.BothTopic,
-                    lastPostedDateTime);
-
-            var span = BoardContext.Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
-
-            var iconBadge = htmlHelper.IconBadge("calendar-day", "clock");
-
-            return $"""
-                                              {lastUserLink.RenderToString()}
-                                              {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>
-                                             
-                    """;
         }
 
         /// <summary>

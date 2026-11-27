@@ -32,9 +32,9 @@ using System;
 public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
 {
     /// <summary>
-    /// The Page Context name.
+    /// The key of the board context of a request in HttpContext.Items.
     /// </summary>
-    private const string PageBoardContextName = "YAF.BoardContext";
+    public const string PageBoardContextName = "YAF.BoardContext";
 
     /// <summary>
     /// The global instance.
@@ -82,7 +82,9 @@ public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
                 return this.globalInstance ??= this.CreateContextInstance();
             }
 
-            if (this.httpContext.HttpContext.Items[PageBoardContextName] is BoardContext context)
+            // TryGetValue: the items of a hub connection with long polling (a copy of the request) are a dictionary
+            // that throws for a missing key
+            if (this.httpContext.HttpContext.Items.TryGetValue(PageBoardContextName, out var item) && item is BoardContext context)
             {
                 return context;
             }

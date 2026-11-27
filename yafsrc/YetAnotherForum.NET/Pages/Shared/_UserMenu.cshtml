@@ -5,6 +5,7 @@
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects
 
 @inject BoardContext Current
 
@@ -182,18 +183,22 @@
 						   icon="user-lock">
 						</a>
 
-						<a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_ChangePassword ? "dropdown-item active" : "dropdown-item")"
-						   bs-toggle="tooltip"
-						   asp-page="@ForumPages.Profile_ChangePassword.GetPageName()"
-						   role="button"
-						   text-localized-page="ACCOUNT"
-						   text-localized-tag="CHANGE_PASSWORD"
-						   title-localized-page="ACCOUNT"
-						   title-localized-tag="CHANGE_PASSWORD"
-						   icon="lock">
-						</a>
+						@* the host application manages the accounts: no password change and account deletion in the forum *@
+						@if (!Current.Get<BoardConfiguration>().HostManagesAccounts)
+						{
+							<a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_ChangePassword ? "dropdown-item active" : "dropdown-item")"
+							   bs-toggle="tooltip"
+							   asp-page="@ForumPages.Profile_ChangePassword.GetPageName()"
+							   role="button"
+							   text-localized-page="ACCOUNT"
+							   text-localized-tag="CHANGE_PASSWORD"
+							   title-localized-page="ACCOUNT"
+							   title-localized-tag="CHANGE_PASSWORD"
+							   icon="lock">
+							</a>
+						}
 
-						@if (!Current.PageUser.UserFlags.IsHostAdmin)
+						@if (!Current.PageUser.UserFlags.IsHostAdmin && !Current.Get<BoardConfiguration>().HostManagesAccounts)
 						{
 							<a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_DeleteAccount ? "dropdown-item active" : "dropdown-item")"
 							   bs-toggle="tooltip"

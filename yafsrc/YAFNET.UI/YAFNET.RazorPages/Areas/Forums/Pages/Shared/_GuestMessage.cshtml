@@ -18,7 +18,16 @@
         {
             @Html.LocalizedText("TOOLBAR", "WELCOME_GUEST_FULL")
 
-            if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+            if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff && Current.Get<BoardConfiguration>().HostManagesAccounts)
+            {
+                <a class="alert-link" role="button"
+                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_Login, new { ReturnUrl = $"{Context.Request.PathBase}{Context.Request.Path}{Context.Request.QueryString}" }))"
+                   data-bs-toggle="tooltip"
+                   title="@Html.LocalizedText("TOOLBAR", "LOGIN_TITLE")">
+                    @Html.LocalizedText("TOOLBAR", "LOGIN")
+                </a>
+            }
+            else if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
             {
                 <a class="alert-link" role="button"
                    bs-toggle="ajax-modal"

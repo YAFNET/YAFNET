@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Sõnumid kõigile foorumi {0} liikmetele"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Vestluse sõnumid"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Peamenüü"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Sõnumeid veel pole"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Kirjuta esimene sõnum."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Saada"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Ühendatud"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Ühendamine..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Ühendus puudub, laadi leht uuesti"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Uuesti ühendamine..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Sinu konto on peatatud, saad vestlust lugeda, kuid mitte kirjutada."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Vestlus"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Näita/peida menüü"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Kirjuta sõnum..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {

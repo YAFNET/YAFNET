@@ -33,6 +33,7 @@
         {
             <div class="topics-header-description">@Model.PageBoardContext.PageForum.Description</div>
         }
+        @await Html.ForumModeratorsAsync(Model.PageBoardContext.PageForumID)
     </div>
     <div class="topics-header-actions">
         @if (Model.PageBoardContext.ForumModeratorAccess)
@@ -168,19 +169,6 @@
             </form>
         }
 
-        @* only a forum with moderators (the list was empty) *@
-        @if ((await Model.Get<DataBroker>().GetModeratorsAsync()).Exists(x => x.ForumID == Model.PageBoardContext.PageForumID))
-        {
-            <button button-style="OutlineSecondary"
-                    button-size="Small"
-                    bs-toggle="popover"
-                    class="forum-mods-popover"
-                    bs-content="@await Html.GetModeratorsAsync(Model.PageBoardContext.PageForumID)"
-                    text-localized-page="DEFAULT"
-                    text-localized-tag="MODERATORS"
-                    icon="user-secret"></button>
-        }
-
         @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.TopicsFeedAccess))
         {
             @Html.RssFeedLink(RssFeeds.Topics, true)
@@ -199,9 +187,7 @@
          data-show="@Model.ShowTopicListSelected"
          data-total="@totalTopics"
          data-loaded-count="@Model.Topics.Count"
-         data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
-         data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))"
-         data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
+         data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())">
         @if (!Model.Announcements.HasItems() && !Model.Topics.HasItems())
         {
 	                <p class="text-center">@Html.Icon("comments", "text-secondary", iconSize: "fa-3x")</p>
@@ -239,9 +225,6 @@
     @await Html.PartialAsync("_ChoicesScriptsPartial")
     <script src="~/js/topics.min.js" asp-append-version="true" defer></script>
     <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
-                    $"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
-
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.ForumIconLegendPopoverJs(
                     (await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),

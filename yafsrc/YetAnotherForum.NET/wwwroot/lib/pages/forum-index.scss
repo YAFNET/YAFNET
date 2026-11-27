@@ -117,7 +117,7 @@
             border-top: 1px solid var(--bs-border-color-translucent, var(--bs-border-color));
         }
 
-        h5 {
+        h3 {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -165,9 +165,5 @@
         .card-body {
             padding: .35rem .75rem !important;
         }
-    }
-
-    .card-post-last {
-        box-shadow: none;
     }
 }

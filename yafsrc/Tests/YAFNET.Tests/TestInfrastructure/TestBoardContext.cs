@@ -102,6 +102,7 @@ public sealed class TestBoardContext : IDisposable
         builder.RegisterInstance(this.Cache).As<IDataCache>().As<IObjectStore>();
         builder.RegisterInstance(this.BoardSettings);
         builder.RegisterInstance(this.ControlSettings);
+        builder.RegisterInstance(this.Configuration);
         builder.RegisterGeneric(typeof(NullLogger<>)).As(typeof(ILogger<>)).SingleInstance();
         builder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
         builder.RegisterInstance(this.Events).As<IRaiseEvent>().As<IRaiseEventAsync>();
@@ -140,6 +141,11 @@ public sealed class TestBoardContext : IDisposable
     /// Gets the HTTP context the board context is bound to (with an in-memory session).
     /// </summary>
     public DefaultHttpContext HttpContext { get; } = CreateHttpContext();
+
+    /// <summary>
+    /// Gets the board configuration (the appsettings <c>BoardConfiguration</c> section, always registered in production).
+    /// </summary>
+    public BoardConfiguration Configuration { get; } = new();
 
     /// <summary>
     /// Gets the fake localization (returns <c>[PAGE.TAG]</c> for unknown texts).

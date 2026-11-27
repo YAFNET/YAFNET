@@ -1,67 +1,102 @@
 ﻿@page
 @using YAF.Core.Context
 @using YAF.Core.Extensions
-@using YAF.Core.Helpers
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
+@using YAF.UI.Chat
+@using YAF.Web.HtmlHelpers
 @model YAF.UI.Chat.Areas.Chat.Pages.ChatModel
+@inject ILocalization Localization
 @{
-    ViewData["Title"] = "Chat";
+    ViewData["Title"] = Localization.GetText("CHAT", "TITLE");
+
+    var currentUserId = BoardContext.Current.PageUserID;
+
+    int? previousUserId = null;
+    var previousCreated = DateTime.MinValue;
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card direct-chat">
-                <div class="card-header">
-                    <h3 class="card-title">Chat</h3>
-                </div>
-                <div class="card-body">
-                    <div id="divMessage" class="direct-chat-messages">
-                        @foreach (var message in Model.Messages)
-                        {
-                            var side = "start";
-                            var msgClass = "text-bg-light";
-                            var timeSide = "end";
+@* the styles of the chat, here and not in the layout, so a layout of the application (Areas/Chat/Pages/Shared/_Layout.cshtml) works too *@
+<link rel="stylesheet" href="~/css/yaf-chat.css" asp-append-version="true" />
 
-                            var avatarUrl = BoardContext.Current.Get<IAvatars>().GetAvatarUrlForUser(message.Item2);
-
-                            var backgroundColor = ValidationHelper.IsNumeric(message.Item2.ProviderUserKey)
-                            ? $"#{message.Item2.ProviderUserKey.ToGuid().ToString()[..6]}"
-                            : $"#{message.Item2.ProviderUserKey[..6]}";
-
-                            if (message.Item2.ID == BoardContext.Current.PageUserID) {
-                                side = "end";
-                                msgClass = "text-bg-primary";
-                                timeSide = "start";
-                            }
-
-                            <div class="@($"direct-chat-msg {side}")">
-                                <div class="fs-6 mb-1 clearfix">
-                                    <span class="text-body-secondary float-@timeSide">@message.Item1.DateTime</span>
-                                </div>
-                                <img class="direct-chat-img img-thumbnail rounded" src="@avatarUrl" alt="@message.Item2.DisplayOrUserName()">
-                                
-                                @if (message.Item2.ID == BoardContext.Current.PageUserID) {
-                                    <div class="direct-chat-text @msgClass">@message.Item1.Message</div>
-                                }
-                                else
-                                {
-                                    <div class="direct-chat-text" style="background-color:@backgroundColor">@message.Item1.Message</div>
-                                }
-                            </div>
-                        }
-                    </div>
-                    <input type="hidden" id="userAvatar" value="@Model.AvatarUrl"/>
-                </div>
-                <div class="card-footer">
-                    <div class="input-group mb-0">
-                        <input type="text" class="form-control" id="messageInput" />
-                        <button type="button" id="sendButton" class="btn btn-primary">Send Message</button>
-                    </div>
-                </div>
+<div class="container-xxl yaf-chat">
+    <div class="card chat-card shadow-sm">
+        <div class="card-header d-flex align-items-center gap-3 py-3">
+            <span class="chat-header-icon" aria-hidden="true">@Html.Icon("comments")</span>
+            <div class="chat-title">
+                <h1 class="h5 mb-0">@Localization.GetText("CHAT", "TITLE")</h1>
+                <div class="small text-body-secondary text-truncate">@string.Format(Localization.GetText("CHAT", "DESCRIPTION"), BoardContext.Current.BoardSettings.Name)</div>
             </div>
+            <span id="ChatStatus" class="chat-status ms-auto" role="status" data-state="connecting"
+                  data-text-connecting="@Localization.GetText("CHAT", "STATE_CONNECTING")"
+                  data-text-connected="@Localization.GetText("CHAT", "STATE_CONNECTED")"
+                  data-text-reconnecting="@Localization.GetText("CHAT", "STATE_RECONNECTING")"
+                  data-text-offline="@Localization.GetText("CHAT", "STATE_OFFLINE")">
+                <span class="chat-status-dot" aria-hidden="true"></span>
+                <span class="chat-status-text">@Localization.GetText("CHAT", "STATE_CONNECTING")</span>
+            </span>
+        </div>
+
+        <div id="ChatMessages" class="chat-messages" role="log" aria-live="polite" aria-label="@Localization.GetText("CHAT", "MESSAGES")"
+             data-user-id="@currentUserId"
+             data-hub-url="@Url.Content("~/AllChatHub")">
+            <div id="ChatEmpty" class="chat-empty @(Model.Messages.Count > 0 ? "d-none" : null)">
+                @Html.Icon("comments", "fa-2x mb-2")
+                <div class="fw-semibold">@Localization.GetText("CHAT", "NO_MESSAGES")</div>
+                <div class="small">@Localization.GetText("CHAT", "NO_MESSAGES_HINT")</div>
+            </div>
+
+            @foreach (var (message, user) in Model.Messages)
+            {
+                var own = user.ID == currentUserId;
+                var created = DateTime.SpecifyKind(message.Created, DateTimeKind.Utc);
+                var continued = ChatRules.ContinuesGroup(previousUserId, previousCreated, user.ID, created);
+                var createdIso = created.ToString("o", System.Globalization.CultureInfo.InvariantCulture);
+
+                previousUserId = user.ID;
+                previousCreated = created;
+
+                <div class="chat-msg@(own ? " chat-msg-own" : null)@(continued ? " chat-msg-continued" : null)"
+                     data-user-id="@user.ID" data-created="@createdIso">
+                    @if (!own)
+                    {
+                        <img class="chat-avatar" src="@(BoardContext.Current.Get<IAvatars>().GetAvatarUrlForUser(user))"
+                             alt="" width="36" height="36" loading="lazy" />
+                    }
+                    <div class="chat-msg-body">
+                        <div class="chat-msg-meta">
+                            @if (!own)
+                            {
+                                <span class="chat-msg-name">@user.DisplayOrUserName()</span>
+                            }
+                            <time datetime="@createdIso">@message.DateTime</time>
+                        </div>
+                        <div class="chat-bubble" style="--chat-user-color: @AllChatHub.GetUserColor(user)">@message.Message</div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="card-footer chat-composer">
+            @if (Model.CanSend)
+            {
+                <form id="ChatForm" class="d-flex gap-2" autocomplete="off">
+                    <input type="text" id="messageInput" class="form-control" maxlength="@ChatRules.MaxMessageLength"
+                           placeholder="@Localization.GetText("CHAT", "WRITE_MESSAGE")" aria-label="@Localization.GetText("COMMON", "MESSAGE")" />
+                    <button type="submit" id="sendButton" class="btn btn-primary d-flex align-items-center gap-2" disabled>
+                        @Html.Icon("paper-plane")
+                        <span class="d-none d-sm-inline">@Localization.GetText("CHAT", "SEND")</span>
+                    </button>
+                </form>
+            }
+            else
+            {
+                <div class="text-body-secondary small d-flex align-items-center gap-2">
+                    @Html.Icon("lock")
+                    @Localization.GetText("CHAT", "SUSPENDED")
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -150,7 +150,7 @@ public class BBCodeRestoreTests
         (await codes.GetSingleAsync(c => c.Name == "MEDIA")).ReplaceRegex.Should().Be("admin");
 
         // the restored version is the installed one again: the next upgrade updates it
-        File.WriteAllText(
+        await File.WriteAllTextAsync(
             Path.Combine(this.webRoot, "resources", "BBCodeExtensions.xml"),
             CodeList(("ATTACH", "attachment2"), ("MEDIA", "media2")));
 

@@ -180,6 +180,9 @@ public class ChatHub : Hub, IHaveServiceLocator
             return;
         }
 
+        // the time in UTC, every page shows it in the time zone of its user (the formatted time is in the one of the sender)
+        var createdUtc = currentDateTime.ToString("o", CultureInfo.InvariantCulture);
+
         var flags = new PrivateMessageFlags();
 
         var bodyFormatted = await this.FormatMessageAsync(body, fromConnectUser.UserId);
@@ -201,7 +204,8 @@ public class ChatHub : Hub, IHaveServiceLocator
                 bodyFormatted,
                 fromConnectUser.Avatar,
                 dateTimeFormatted,
-                fromConnectUser.UserId);
+                fromConnectUser.UserId,
+                createdUtc);
         }
 
         await this.GetRepository<PrivateMessage>().InsertAsync(
@@ -235,7 +239,8 @@ public class ChatHub : Hub, IHaveServiceLocator
             bodyFormatted,
             fromConnectUser.Avatar,
             dateTimeFormatted,
-            fromConnectUser.UserId);
+            fromConnectUser.UserId,
+            createdUtc);
     }
 
     /// <summary>

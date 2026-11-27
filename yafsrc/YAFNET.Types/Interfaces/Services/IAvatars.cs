@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces.Services;
 
+using System.Collections.Generic;
+
 using YAF.Types.Models;
 
 /// <summary>
@@ -66,4 +68,15 @@ public interface IAvatars
     /// Returns the Avatar Url
     /// </returns>
     string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage);
+
+    /// <summary>
+    /// Gets the avatar urls of many users with one query (e.g. the last posters of a list).
+    /// </summary>
+    /// <param name="userIds">
+    /// The user ids.
+    /// </param>
+    /// <returns>
+    /// The avatar url of each user id (users that do not exist are left out).
+    /// </returns>
+    IReadOnlyDictionary<int, string> GetAvatarUrlsForUsers(IEnumerable<int> userIds);
 }

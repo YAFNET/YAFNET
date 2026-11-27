@@ -8475,6 +8475,67 @@
         ]
       },
       {
+        "@name": "CHAT",
+        "Resource": [
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Сообщения для всех участников форума {0}"
+          },
+          {
+            "@tag": "MESSAGES",
+            "#text": "Сообщения чата"
+          },
+          {
+            "@tag": "NAVIGATION",
+            "#text": "Главная навигация"
+          },
+          {
+            "@tag": "NO_MESSAGES",
+            "#text": "Сообщений пока нет"
+          },
+          {
+            "@tag": "NO_MESSAGES_HINT",
+            "#text": "Напишите первое сообщение."
+          },
+          {
+            "@tag": "SEND",
+            "#text": "Отправить"
+          },
+          {
+            "@tag": "STATE_CONNECTED",
+            "#text": "Подключено"
+          },
+          {
+            "@tag": "STATE_CONNECTING",
+            "#text": "Подключение..."
+          },
+          {
+            "@tag": "STATE_OFFLINE",
+            "#text": "Нет соединения, обновите страницу"
+          },
+          {
+            "@tag": "STATE_RECONNECTING",
+            "#text": "Повторное подключение..."
+          },
+          {
+            "@tag": "SUSPENDED",
+            "#text": "Ваша учётная запись заблокирована, вы можете читать чат, но не писать."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Чат"
+          },
+          {
+            "@tag": "TOGGLE_NAVIGATION",
+            "#text": "Показать/скрыть навигацию"
+          },
+          {
+            "@tag": "WRITE_MESSAGE",
+            "#text": "Напишите сообщение..."
+          }
+        ]
+      },
+      {
         "@name": "COMMON",
         "Resource": [
           {
