@@ -106,10 +106,11 @@ public static class ObjectExtensions
         /// </summary>
         /// <typeparam name="T">
         /// </typeparam>
+        /// <param name="provider">The culture of the conversion, the current culture when null.</param>
         /// <returns>
         /// The <see cref="T"/>.
         /// </returns>
-        public T ToType<T>()
+        public T ToType<T>(IFormatProvider provider = null)
         {
             if (instance is null)
             {
@@ -148,7 +149,7 @@ public static class ObjectExtensions
                 conversionType = new NullableConverter(conversionType).UnderlyingType;
             }
 
-            return (T)Convert.ChangeType(instance, conversionType);
+            return (T)Convert.ChangeType(instance, conversionType, provider);
         }
 
         /// <summary>

@@ -82,10 +82,10 @@ public class RegistryDictionary : Dictionary<string, object>
         // special handling for int values...
         if (objectType == typeof(int))
         {
-            return (T)Convert.ChangeType(value.ToType<int>(), typeof(T));
+            return (T)Convert.ChangeType(value.ToType<int>(CultureInfo.InvariantCulture), typeof(T));
         }
 
-        return this[name].ToType<T>();
+        return this[name].ToType<T>(CultureInfo.InvariantCulture);
     }
 
     /// <summary>
@@ -102,11 +102,11 @@ public class RegistryDictionary : Dictionary<string, object>
     public virtual void SetValue<T>(string name, T value)
     {
         var objectType = typeof(T);
-        var stringValue = value.ToType<string>();
+        var stringValue = value.ToType<string>(CultureInfo.InvariantCulture);
 
         if (objectType == typeof(bool) || objectType.BaseType == typeof(Enum))
         {
-            stringValue = Convert.ToString(value.ToType<int>());
+            stringValue = Convert.ToString(value.ToType<int>(), CultureInfo.InvariantCulture);
         }
 
         this[name] = stringValue;
