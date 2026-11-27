@@ -733,8 +733,46 @@ module.exports = function (grunt) {
             });
         });
 
+    grunt.registerTask('updateMojoPortalVersionNumber',
+        'Updates the version numbers of the YAF.NET mojoPortal integration',
+        function () {
+            const fs = require('fs');
+            const mojoPath = '../../../YAFNET-mojoPortal/';
+            const version = grunt.config('pkg').version;
+
+            const files = [
+                {
+                    path: `${mojoPath}README.md`,
+                    match: /(YAF\.NET \*\*)[\d.]+(\*\*)/,
+                    replacement: `$1${version}$2`
+                },
+                {
+                    path: `${mojoPath}yaf_mojoportal/YafForum/YafForumModule.ascx`,
+                    match: /(yaf-mojoportal\.css"\) %>\?v=)[\d.]+(")/,
+                    replacement: `$1${version}$2`
+                }
+            ];
+
+            files.forEach(file => {
+                if (!fs.existsSync(file.path)) {
+                    grunt.log.writeln(`${file.path} not found, skipping.`);
+                    return;
+                }
+
+                // use fs directly to keep the BOM and line endings of the files
+                const content = fs.readFileSync(file.path, 'utf8');
+                const updated = content.replace(file.match, file.replacement);
+
+                if (updated !== content) {
+                    fs.writeFileSync(file.path, updated, 'utf8');
+                    grunt.log.ok(`${file.path} updated to ${version}`);
+                }
+            });
+        });
+
     grunt.registerTask('updateVersionNumber',
 	    [
-		    'replace:version', 'updateDnnVersionNumber', 'updateSampleAppVersionNumber'
+		    'replace:version', 'updateDnnVersionNumber', 'updateSampleAppVersionNumber',
+		    'updateMojoPortalVersionNumber'
 	    ]);
 };
