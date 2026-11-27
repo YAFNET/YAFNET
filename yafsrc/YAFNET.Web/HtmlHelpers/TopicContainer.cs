@@ -75,7 +75,10 @@ public static class TopicContainerHtmlHelper
 
         topicBody.AddCssClass("topic-body");
 
-        var header = new TagBuilder(HtmlTag.H5);
+        // h3: the topic list follows the h2 of the page header (and the h3 of the sub forums)
+        var header = new TagBuilder(HtmlTag.H3);
+
+        header.AddCssClass("h5");
 
         var topicIcon = new TagBuilder(HtmlTag.A);
 

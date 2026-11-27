@@ -71,7 +71,7 @@
 
     <div class="row forum-row align-items-start">
         <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8" : "col" )">
-            <h5>
+            <h3 class="h5">
 
                 @if (imageUrl.IsSet())
                 {
@@ -165,13 +165,13 @@
                         @Html.Raw($"{forum.Posts:N0}")
                     </span>
                 }
-            </h5>
+            </h3>
 
             @if (forum.Description.IsSet())
             {
-                <h6 class="card-subtitle text-body-secondary mb-1">
+                <div class="h6 card-subtitle text-body-secondary mb-1">
                     @forum.Description
-                </h6>
+                </div>
             }
         </div>
 
