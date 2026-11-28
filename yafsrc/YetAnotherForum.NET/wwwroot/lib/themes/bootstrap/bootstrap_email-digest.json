@@ -1,0 +1,5 @@
+{
+	"sass_email_location": "wwwroot/lib/Themes/bootstrap/",
+	"sass_location": "wwwroot/lib/bootstrap-email/",
+  "CompileOnlyBody": true
+}
