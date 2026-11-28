@@ -144,7 +144,7 @@
 		<label class="form-label" info-button="true"
 		       asp-for="Input.ServerTimeCorrection"
 		       localized-tag="SERVERTIME_CORRECT"></label>
-		<input type="text" class="form-control serverTime-Input" asp-for="Input.ServerTimeCorrection"/>
+		<input type="number" class="form-control serverTime-Input" asp-for="Input.ServerTimeCorrection"/>
 		<small class="form-text text-body-secondary">@Html.Raw(DateTime.UtcNow)</small>
 	</div>
 	<div class="row">

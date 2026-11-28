@@ -60,10 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		let maxValue = 2147483647;
 
 		if (input.classList.contains('serverTime-Input')) {
-			maxValue = -720;
+			maxValue = 720;
 		}
 
-		if (parseInt(oldValue) <= maxValue) {
+		if (parseInt(oldValue) < maxValue) {
 			const newVal = parseInt(oldValue) + 1;
 			input.value = newVal.toString();
 		}

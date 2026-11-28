@@ -278,6 +278,7 @@ YetAnotherForum.NET Changelog
 * WYSIWYG editor: the quote of a post ([quote=name;post id], e.g. "Reply with Quote") showed the post id with the name (admin;12)
 * My Topics: with the browser language Arabic, Hebrew or Persian (their negative sign has a direction mark) the times "last hour", "last two hours" and "last 8 hours" did not work, the list showed the topics since the last visit and the time select did not show the selected time; the time is written and read in the invariant culture
 * Admin > Users: with the browser language Arabic, Hebrew or Persian the filter "last hour" or "last two hours" showed all users; the time is read in the invariant culture
+* Admin > Host Settings: with the browser language Arabic, Hebrew or Persian a negative server time correction that was typed in (e.g. -60) was not saved, the setting kept its old value; the field is a number field with - and + buttons now (from -720 to 720 minutes, the + button stopped at -720)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
