@@ -120,10 +120,17 @@
         customProfile = [.. Current.Get<IDataCache>().GetOrSet(string.Format(Constants.Cache.UserCustomProfileData, postData.UserId), () => Current.GetRepository<ProfileCustom>().ListByUser(postData.UserId)).Where(x => x.Item2.ShowInUserInfo && x.Item1.Value.IsSet())];
     }
 
-    var manageVisible = editVisible || deleteVisible || moveVisible;
+    // the author of a deleted post can undelete it (the edit, delete and move items are hidden then)
+    var manageVisible = editVisible || deleteVisible || moveVisible || unDeleteVisible;
+
+    // the items about the author: their posts, edit user, ignore and friend
+    var searchUserVisible = !postData.IsGuest && Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions);
+    var ignoreVisible = !postData.IsGuest && !Current.IsGuest && Current.PageUserID != postData.UserId;
+    var buddyVisible = ignoreVisible && Current.BoardSettings.EnableBuddyList && !new UserBlockFlags(Model.BlockFlags).BlockFriendRequests;
+    var userItemsVisible = searchUserVisible || ignoreVisible || (Current.IsAdmin && !postData.IsGuest);
 
     if (!reportVisible && !markAsAnswer
-        && !manageVisible)
+        && !manageVisible && !userItemsVisible)
     {
         toolsVisible = false;
     }
@@ -309,7 +316,7 @@
                                             }
                                         }
 
-                                        @if (editVisible || deleteVisible || moveVisible)
+                                        @if (manageVisible)
                                         {
                                             @if (editVisible)
                                             {
@@ -359,13 +366,16 @@
                                             <div class="dropdown-divider"></div>
                                         }
 
-                                        @if (!postData.IsGuest)
+                                        @if (userItemsVisible)
                                         {
-                                            <a button-style="None" icon="th-list"
-                                               text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
-                                               class="dropdown-item"
-                                               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search,
-                                                         new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
+                                            @if (searchUserVisible)
+                                            {
+                                                <a button-style="None" icon="th-list"
+                                                   text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
+                                                   class="dropdown-item"
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search,
+                                                             new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
+                                            }
 
                                             @if (Current.IsAdmin)
                                             {
@@ -376,7 +386,7 @@
                                                              new {u = postData.UserId}))"></a>
                                             }
 
-                                            if (Current.PageUserID != postData.UserId)
+                                            if (ignoreVisible)
                                             {
                                                 if (isIgnored)
                                                 {
@@ -402,13 +412,8 @@
                                                 }
                                             }
 
-                                            if (Current.BoardSettings.EnableBuddyList && Current.PageUserID != postData.UserId)
+                                            if (buddyVisible)
                                             {
-                                                var userBlockFlags = new UserBlockFlags(Model.BlockFlags);
-
-                                                // Should we add the "Add Buddy" item?
-                                                if (!Current.IsGuest && !userBlockFlags.BlockFriendRequests)
-                                                {
                                                     if (Current.Get<IFriends>().IsBuddy(postData.UserId))
                                                     {
                                                         // Are the users approved buddies? Add the "Remove buddy" item.
@@ -432,7 +437,6 @@
                                                            asp-route-p="@(Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("p"))"
                                                            asp-route-m="@postData.MessageId"></button>
                                                     }
-                                                }
                                             }
 
                                             <div class="dropdown-divider"></div>
