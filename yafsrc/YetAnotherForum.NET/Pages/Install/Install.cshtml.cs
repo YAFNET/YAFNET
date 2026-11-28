@@ -29,7 +29,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Configuration;
 
 using YAF.Configuration;
 using YAF.Core.Context;
@@ -62,11 +61,6 @@ public class InstallModel : InstallPage
     /// <returns>IActionResult.</returns>
     public IActionResult OnGet()
     {
-        // set the connection string provider...
-        var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
-
-        this.DbAccess.Information.ConnectionString = DynamicConnectionString;
-
         var cachePage = this.Get<IDataCache>().Get("Install");
 
         if (this.IsForumInstalled && cachePage is null)
@@ -88,10 +82,6 @@ public class InstallModel : InstallPage
                        this.ViewData,
                        new InstallModal())
                };
-
-        string DynamicConnectionString() => this.Get<IConfiguration>().GetConnectionString("DefaultConnection").IsSet()
-            ? this.Get<IConfiguration>().GetConnectionString("DefaultConnection")
-            : previousProvider();
     }
 
     /// <summary>

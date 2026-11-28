@@ -292,6 +292,7 @@ YetAnotherForum.NET Changelog
 * Search: the pager of the results showed "..." between the first and the second page (e.g. 1 ... 2 3 4) and between the page before the last one and the last one, although no page was left out
 * Number fields: the - and + buttons changed the value without notifying the page, so the live preview of Admin > Edit Achievement did not show new points set with them (only typed ones)
 * Number fields: the - button never went below 1 and the + button ignored the maximum of the field, so e.g. 0 points of an achievement (or the other fields that allow 0) could only be typed; the buttons keep to the min and max of the field now
+* Install: the installer connected to the database with the plain connection string, without the connection settings of the database provider (for SQLite the busy timeout and connection pooling)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
