@@ -207,6 +207,38 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;50
 
 // Typography
 
+.text-secondary {
+  color: $gray-600 !important;
+}
+
+.link-secondary {
+  color: $gray-600 !important;
+  text-decoration-color: $gray-600 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
+}
+
 body,
 input,
 button {
@@ -215,10 +247,6 @@ button {
 
 p {
   margin: 0 0 1em;
-}
-
-.text-secondary {
-  color: $gray-500 !important;
 }
 
 // Tables
@@ -492,7 +520,7 @@ select.form-control {
   .nav-link,
   .nav-link:focus {
     margin-right: 0;
-    color: $body-color;
+    color: var(--#{$prefix}body-color);
     background-color: transparent;
     border: none;
     box-shadow: inset 0 -1px 0 #ddd;
@@ -650,5 +678,13 @@ select.form-control {
     h6 {
       color: inherit;
     }
+  }
+}
+
+@include color-mode(dark) {
+  .form-control,
+  .form-select,
+  .input-group-text {
+    color: var(--#{$prefix}body-color);
   }
 }

@@ -119,7 +119,6 @@ input,
   }
 }
 
-
 .breadcrumb {
   @extend .sandstone;
   border: 1px solid $gray-300;
@@ -238,5 +237,61 @@ input,
 .offcanvas {
   .btn-close {
     background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$gray-300}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>"));
+  }
+}
+
+@include color-mode(dark) {
+  .nav-tabs {
+    --#{$prefix}nav-tabs-link-active-bg: var(--#{$prefix}body-bg);
+  }
+
+  .breadcrumb {
+    --#{$prefix}breadcrumb-item-active-color: #{rgba($body-color, .75)};
+  }
+
+  .list-group {
+    --#{$prefix}list-group-action-color: var(--#{$prefix}body-color);
+    --#{$prefix}list-group-action-hover-color: var(--#{$prefix}body-color);
+    --#{$prefix}list-group-action-hover-bg: var(--#{$prefix}tertiary-bg);
+    --#{$prefix}list-group-action-active-color: var(--#{$prefix}body-color);
+    --#{$prefix}list-group-action-active-bg: var(--#{$prefix}secondary-bg);
+  }
+
+  .popover {
+    --#{$prefix}popover-header-bg: var(--#{$prefix}secondary-bg);
+  }
+}
+
+// Typography
+
+.text-secondary {
+  color: $gray-700 !important;
+}
+
+.link-secondary {
+  color: $gray-700 !important;
+  text-decoration-color: $gray-700 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
   }
 }

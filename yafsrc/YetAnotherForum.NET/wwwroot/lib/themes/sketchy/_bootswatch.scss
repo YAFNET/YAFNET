@@ -112,6 +112,23 @@ blockquote {
   border-radius: 15px 27px 25px 25px / 25px 25px 305px 635px;
 }
 
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
+}
+
 // Tables
 
 table {
@@ -490,6 +507,18 @@ select.form-control {
 
   &-header {
     font-family: $headings-font-family;
+  }
+}
+
+@include color-mode(dark) {
+  .toast {
+    --#{$prefix}toast-header-color: var(--#{$prefix}body-color);
+  }
+
+  .list-group {
+    --#{$prefix}list-group-action-color: var(--#{$prefix}body-color);
+    --#{$prefix}list-group-action-hover-color: var(--#{$prefix}body-color);
+    --#{$prefix}list-group-action-hover-bg: var(--#{$prefix}tertiary-bg);
   }
 }
 

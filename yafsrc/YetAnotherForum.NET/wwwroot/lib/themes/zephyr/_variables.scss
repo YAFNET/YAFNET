@@ -93,7 +93,7 @@ $input-box-shadow:                      $box-shadow !default;
 
 // Navs
 
-$nav-link-color:                    $body-color !default;
+$nav-link-color:                    var(--bs-body-color) !default;
 $nav-link-hover-color:              $body-color !default;
 
 $nav-tabs-border-radius:            0 !default;

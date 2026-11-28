@@ -96,6 +96,34 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
   color: $gray-700 !important;
 }
 
+.link-secondary {
+  color: $gray-700 !important;
+  text-decoration-color: $gray-700 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
+}
+
 .blockquote-footer {
   color: $gray-600;
 }
@@ -169,7 +197,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
     position: relative;
     top: 0;
     font-weight: 700;
-    color: $pagination-color;
+    color: var(--#{$prefix}pagination-color);
     text-transform: uppercase;
     @include shadow();
 
@@ -197,6 +225,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       top: 0;
       @include shadow();
     }
+  }
+}
+
+@include color-mode(dark) {
+  .pagination {
+    --#{$prefix}pagination-color: var(--#{$prefix}body-color);
+    --#{$prefix}pagination-hover-color: var(--#{$prefix}body-color);
   }
 }
 

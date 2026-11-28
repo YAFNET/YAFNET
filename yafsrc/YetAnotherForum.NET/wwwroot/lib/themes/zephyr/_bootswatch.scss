@@ -65,7 +65,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700
 .btn-light,
 .btn-outline-secondary,
 .btn-outline-light {
-  color: $gray-900;
+  --#{$prefix}btn-color: #{$gray-900};
 
   &:disabled,
   &.disabled {
@@ -92,6 +92,16 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700
   &:active {
     background-color: shade-color($light, 10%);
     border-color: shade-color($light, 10%);
+  }
+}
+
+@include color-mode(dark) {
+  .btn-outline-secondary {
+    --#{$prefix}btn-color: #{$secondary};
+  }
+
+  .btn-outline-light {
+    --#{$prefix}btn-color: #{$light};
   }
 }
 
@@ -218,4 +228,38 @@ thead th {
 
 .modal-content {
   box-shadow: $box-shadow-lg;
+}
+
+// Typography
+
+.text-secondary {
+  color: $gray-600 !important;
+}
+
+.link-secondary {
+  color: $gray-600 !important;
+  text-decoration-color: $gray-600 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
 }
