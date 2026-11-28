@@ -35,37 +35,36 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	function touchSpinDown(this: HTMLButtonElement) {
-		const btn = this;
-		const input = btn.nextSibling as HTMLInputElement;
-		const oldValue = input.value.trim();
+		const input = this.nextSibling as HTMLInputElement;
+		const { min, max } = limits(input);
+		const value = parseInt(input.value.trim());
 
-		let minValue = 1;
-
-		if (input.classList.contains('form-control-days')) {
-			minValue = parseInt(input.dataset.min ?? '1');
-		} else if (input.classList.contains('serverTime-Input')) {
-			minValue = -720;
-		}
-
-		const newVal = parseInt(oldValue) > minValue ? parseInt(oldValue) - 1 : minValue;
-
-		setValue(input, newVal);
+		setValue(input, Math.min(Math.max(isNaN(value) ? min : value - 1, min), max));
 	}
 
 	function touchSpinUp(this: HTMLButtonElement) {
-		const btn = this;
-		const input = btn.previousSibling as HTMLInputElement;
-		const oldValue = input.value.trim();
+		const input = this.previousSibling as HTMLInputElement;
+		const { min, max } = limits(input);
+		const value = parseInt(input.value.trim());
 
-		let maxValue = 2147483647;
+		setValue(input, Math.max(Math.min(isNaN(value) ? Math.max(min, 0) : value + 1, max), min));
+	}
 
-		if (input.classList.contains('serverTime-Input')) {
-			maxValue = 720;
-		}
+	// the min and max attributes of the input, without them the old defaults (1 and the int maximum, +-720 minutes
+	// for the server time correction)
+	function limits(input: HTMLInputElement) {
+		const serverTime = input.classList.contains('serverTime-Input');
 
-		if (parseInt(oldValue) < maxValue) {
-			setValue(input, parseInt(oldValue) + 1);
-		}
+		const attribute = (value: string, fallback: number) => {
+			const number = parseInt(value);
+
+			return isNaN(number) ? fallback : number;
+		};
+
+		return {
+			min: attribute(input.min || (input.dataset.min ?? ''), serverTime ? -720 : 1),
+			max: attribute(input.max, serverTime ? 720 : 2147483647)
+		};
 	}
 
 	// like typing: listeners of the input (e.g. a live preview) get the new value
