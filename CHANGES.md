@@ -78,6 +78,7 @@ YetAnotherForum.NET Changelog
 * Admin > BBCode Extensions: the extensions the forum itself needs ([ATTACH] attachments, [MEDIA] the media button of the editor, [USERLINK] mentions, [ALBUMIMG] album images) are marked "Required" and can't be deleted or renamed (posts showed the raw BB code until the next upgrade added them again); every extension of the forum has "Restore Default", which replaces it with the version of BBCodeExtensions.xml (the upgrade keeps the extensions an admin changed); all languages
 * Install wizard: uses the colors and styles of the yaf theme (the logo blue, purple and red) instead of the plain Bootstrap look
 * Install wizard: the header has the blue, purple and red stripe of the logo, like the navbar of the yaf theme
+* WYSIWYG editor: the dialogs of the toolbar (link, image, e-mail, videos, media, note, colors, font...) have a header with their name and a close button and Cancel and Insert buttons; on phones a dialog takes the width of the editor below the row of its button, with large buttons, and the toolbar is one row that scrolls sideways (instead of five rows of buttons); bigger targets on touch screens, URL and e-mail keyboards without autocorrect, a URL that cannot be embedded is marked below the field and the dialog stays open (no browser alert anymore), long lists scroll, the font color button shows the color as a bar under the A; the dialog is above the sticky button bar of the post page
 
 ## 🐞 Bug fixes
 * NuGet packages: YAFNET.Core, YAFNET.Data.SqlServer and YAFNET.RazorPages referenced .NET 11 versions of Microsoft.Extensions.DependencyInjection.Abstractions, System.Security.Cryptography.Pkcs and Microsoft.Extensions.FileProviders.Embedded (the first two inside the package without a declared dependency), a .NET 10 project could not compile against them (CS1705); they use the 10.0 versions now and the packages declare them. YAFNET.Core also declares BouncyCastle.Cryptography, which the included WebEssentials.AspNetCore.Pwa.dll needs (a project had to reference it itself)
@@ -265,6 +266,9 @@ YetAnotherForum.NET Changelog
 * The forum selects (forum jump, search, move topic or post, prune), the topic tags and the selects with icons or images (e.g. topic icon, country, avatar, forum and category image): the selected entry had no option role in its list, screen readers could not announce it (Lighthouse/axe: aria-allowed-attr, aria-required-children)
 * Edit message: the preview did not show the attachments of the BB code [attach] (the preview has no message id, the author of the post was not passed)
 * Edit message: a moderator who edits the post of another user could insert own attachments, which are not shown in the post (a post only shows the attachments of its author); the editor shows no attachments and no upload then. The WYSIWYG editor showed the attachments button also where uploads are switched off for the editor
+* WYSIWYG editor: Enter in the YouTube, Vimeo, Instagram, Facebook or Media dialog reloaded the page and the post was lost; Enter inserts now (also in the e-mail dialog, where it did nothing)
+* WYSIWYG editor: when the toolbar wraps into several rows (always on a phone) the dialogs opened below the first row and covered the toolbar, and a dialog of a button on the right ran off the screen
+* WYSIWYG editor: a second click on a toolbar button did not close its dialog, Escape did not close a dialog and threw an error, and the arrow keys did not work in the note type select
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
