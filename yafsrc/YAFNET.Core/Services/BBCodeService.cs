@@ -887,28 +887,30 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         ruleEngine.AddRule(
             new QuoteRegexReplaceRule(
-                @"\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r\n)?",
+                // the line breaks before and after the quote belong to it (a quote is a block), the rule
+                // runs before the line breaks become <br /> (the text of the quote stays text for the later rules)
+                @"(?:\r?\n)*\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r?\n)*",
                 """
                 <div class="card mx-3 mb-3 border-secondary shadow-sm" >
                     <div class="card-body">
-                        <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>${quoteText}</p>
+                        <div class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>${quoteText}</div>
                         ${quote}
                     </div>
                 </div>
                 """,
-                Options) { RuleRank = 61 });
+                Options) { RuleRank = 49 });
 
         // simple open quote tag
         const string SimpleOpenQuoteReplace = """
                                               <div class="card mx-3 mb-3 border-secondary shadow-sm" >
                                               <div class="card-body">
-                                                     <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>
+                                                     <div class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>
                                               """;
 
         ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[quote\]", SimpleOpenQuoteReplace, Options) { RuleRank = 62 });
 
         // and finally the closing quote tag
-        ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[/quote\]", "</p></div></div>", Options) { RuleRank = 63 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[/quote\]", "</div></div></div>", Options) { RuleRank = 63 });
     }
 
     /// <summary>

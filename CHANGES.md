@@ -270,6 +270,7 @@ YetAnotherForum.NET Changelog
 * WYSIWYG editor: when the toolbar wraps into several rows (always on a phone) the dialogs opened below the first row and covered the toolbar, and a dialog of a button on the right ran off the screen
 * WYSIWYG editor: a second click on a toolbar button did not close its dialog, Escape did not close a dialog and threw an error, and the arrow keys did not work in the note type select
 * RSS/Atom feeds: a plain quote ([quote] without a name) showed the text "</blockquote>" and closed html elements that were never opened, the quote was lost
+* Quotes: the empty lines before and after a quote, around a quote inside a quote and at the start and end of the quoted text were shown as large gaps (line breaks next to the quote box); the text of a quote was a paragraph with the inner quotes in it (invalid html, the browser ended the paragraph at the inner quote and left empty paragraphs)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

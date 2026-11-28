@@ -154,6 +154,45 @@ public class QuoteAndEditConversionTests
     }
 
     [Test]
+    [Description("The empty lines around a quote are not shown as line breaks next to the quote block")]
+    public async Task Quote_No_Line_Breaks_Around_Quotes_Test()
+    {
+        var html = await this.FormatAsync(
+            "text\r\n\r\n[quote=Alice]outer\r\n\r\n[quote]inner[/quote]\r\n\r\nouter end\r\n[/quote]\r\n\r\nreply");
+
+        AssertBalancedDivs(html);
+        AssertOrder(html, "text", "outer", "inner", "outer end", "reply");
+
+        // no line break right before a quote, after it, or at the start or end of its text
+        html.Should().NotMatchRegex(@"<br\s*/?>\s*<div class=""card", html);
+        html.Should().NotMatchRegex(@"</div>\s*<br\s*/?>", html);
+        html.Should().NotMatchRegex(@"<i class=""fa fa-quote-left[^>]*></i>\s*<br", html);
+        html.Should().NotMatchRegex(@"<br\s*/?>\s*</div>", html);
+    }
+
+    [TestCase("[code][quote=Bob]x[/quote][/code]")]
+    [TestCase("[code=csharp][quote=Bob]x[/quote][/code]")]
+    [TestCase("[noparse][quote=Bob]x[/quote][/noparse]")]
+    [Description("A quote in a code block or in noparse stays text")]
+    public async Task Quote_In_Code_Stays_Text_Test(string input)
+    {
+        var html = await this.FormatAsync(input);
+
+        html.Should().NotContain("wrote:").And.NotContain("fa-quote-left");
+        html.Should().MatchRegex(@"(\[|&#91;)quote=Bob(\]|&#93;)x", html);
+    }
+
+    [Test]
+    [Description("A quote inside a quote is not inside a paragraph (a block in a <p> is invalid html, the browser closed the paragraph early)")]
+    public async Task Quote_Nested_Not_In_Paragraph_Test()
+    {
+        var html = await this.FormatAsync("[quote=Alice]outer [quote]inner[/quote] end[/quote]");
+
+        html.Should().NotMatchRegex(@"<p[\s>](?:(?!</p>)[\s\S])*<div", html);
+        html.Should().NotContain("<p></p>");
+    }
+
+    [Test]
     [Description("The quote rule loads the quoted post asynchronously and has no blocking synchronous path")]
     public async Task Quote_Rule_Is_Async_Only_Test()
     {
