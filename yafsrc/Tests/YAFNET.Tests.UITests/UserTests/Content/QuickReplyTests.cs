@@ -141,6 +141,41 @@ public class QuickReplyTests(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
 
     /// <summary>
+    /// The footer of the BB code editor (the quick reply) shows the characters that are left.
+    /// </summary>
+    [Test]
+    [Description("The quick reply shows the characters that are left")]
+    public async Task QuickReplyCharactersLeftTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var topicUrl = await CreateTopicAsync(page, this.TestSettings, "Quick reply counter");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(topicUrl);
+
+                var textarea = page.Locator("#quickReply textarea[name='QuickReplyEditor']");
+                var counter = page.Locator("#quickReply [id='editor-Counter']");
+
+                var maxLength = int.Parse(await textarea.GetAttributeAsync("maxlength") ?? "0");
+
+                Assert.That(maxLength, Is.GreaterThan(0), "The quick reply has no limit");
+
+                await Assertions.Expect(counter).ToHaveTextAsync(maxLength.ToString());
+
+                await textarea.PressSequentiallyAsync("Hello");
+
+                await Assertions.Expect(counter).ToHaveTextAsync((maxLength - 5).ToString());
+            });
+    }
+
+    /// <summary>
     /// Creates a topic as admin and logs out.
     /// </summary>
     /// <param name="page">The page.</param>

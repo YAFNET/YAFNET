@@ -283,6 +283,7 @@ YetAnotherForum.NET Changelog
 * Posts: the tools menu (...) of a post was missing when it only had the Undelete item or the items about the author: the author of a deleted post (shown to all users with the host setting) could not undelete it from there, and members who may not report posts and guests had no menu to view all posts of the author, ignore the author or add a friend
 * Quick reply: a reply that was not saved (e.g. the flood delay) left the Post button on "Loading..." and disabled; an empty reply loaded the page again without a message, and a reply of only spaces showed the text of the achievements page; now an empty reply is marked in the form and the button can be used again after the message
 * Quick reply dialog: the toolbar buttons (bold, link, quote...) changed the text of the quick reply below the posts instead of the text of the dialog, Ctrl+B, I, U and Q did nothing in the dialog and Ctrl+Enter posted neither the dialog nor the quick reply below the posts
+* BB code editor (quick reply, and all editors when the WYSIWYG editor is off): "Characters remaining" below the editor showed no number since the editor scripts were converted to TypeScript
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

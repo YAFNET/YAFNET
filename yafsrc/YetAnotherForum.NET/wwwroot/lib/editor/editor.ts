@@ -51,9 +51,13 @@ _global.yafEditor = class yafEditor {
             Mentions(mentionOptions);
         });
 
-        // the keys are handled for all editors of the page, also the ones of a dialog
+        // the keys and the counter are handled for all editors of the page, also the ones of a dialog
         // (e.g. the quick reply dialog) that is loaded later
         document.addEventListener('keydown', handleEditorKeys);
+        document.addEventListener('input', updateEditorCounter);
+        document.addEventListener('change', updateEditorCounter);
+
+        document.querySelectorAll<HTMLTextAreaElement>('.BBCodeEditor').forEach(editor => showCharactersLeft(editor));
     }
 
     /**
@@ -469,3 +473,21 @@ function handleEditorKeys(e: KeyboardEvent): void {
     e.preventDefault();
 }
 
+/**
+ * Shows the number of characters that are left in the footer of the editor (nothing without a limit).
+ */
+function showCharactersLeft(textarea: HTMLTextAreaElement): void {
+    const counter = textarea.closest('.card')?.querySelector<HTMLElement>('[id="editor-Counter"]');
+
+    if (counter) {
+        counter.textContent = textarea.maxLength > 0 ? (textarea.maxLength - textarea.value.length).toString() : '';
+    }
+}
+
+function updateEditorCounter(e: Event): void {
+    const textarea = e.target;
+
+    if (textarea instanceof HTMLTextAreaElement && textarea.classList.contains('BBCodeEditor')) {
+        showCharactersLeft(textarea);
+    }
+}
