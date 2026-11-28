@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Modals;
 
-using System.ComponentModel.DataAnnotations;
-
 /// <summary>
 /// Class QuickReplyModal.
 /// </summary>
@@ -35,7 +33,7 @@ public class QuickReplyModal
     /// Gets or sets the quick reply editor.
     /// </summary>
     /// <value>The quick reply editor.</value>
-    [Required]
+    /// <remarks>Not [Required]: the reply action answers an empty text with its own (localized) message.</remarks>
     public string QuickReplyEditor { get; set; }
 
     /// <summary>

@@ -31,15 +31,31 @@ document.addEventListener('DOMContentLoaded',
 
 		if (document.querySelector('[data-bs-save="quickReply"]') !== null) {
 			const replyButton = document.querySelector<HTMLButtonElement>('[data-bs-save="quickReply"]') as HTMLButtonElement;
-			replyButton.addEventListener('click', (event) => {
-				replyButton.innerHTML =
-					"<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
-				replyButton.classList.add('disabled');
+			const replyButtonHtml = replyButton.innerHTML;
 
+			// the button is usable again when the reply was not saved (e.g. the flood delay)
+			const resetReplyButton = () => {
+				replyButton.innerHTML = replyButtonHtml;
+				replyButton.classList.remove('disabled');
+			};
+
+			replyButton.addEventListener('click', (event) => {
 				event.preventDefault();
 
 				const form = document.getElementById('quickReply')?.querySelector('form') as HTMLFormElement;
 				const actionUrl = form.action;
+
+				// an empty reply is not sent (the browser shows the hint of the required field)
+				form.classList.add('was-validated');
+
+				if (!form.checkValidity()) {
+					form.reportValidity();
+					return;
+				}
+
+				replyButton.innerHTML =
+					`<span class='spinner-border spinner-border-sm me-1' role='status' aria-hidden='true'></span>${replyButtonHtml}`;
+				replyButton.classList.add('disabled');
 
 				var formData: string = serialize(form,
 					{
@@ -56,15 +72,17 @@ document.addEventListener('DOMContentLoaded',
 					}
 				}).then(res => res.json())
 					.then((response: any) => {
-						if (response) {
-							if (response.messageType) {
-								_global.showModalNotify(response.messageType, response.message, '#quickReply form');
-							} else {
-								window.location.href = response;
-							}
+						if (response?.messageType) {
+							_global.showModalNotify(response.messageType, response.message, '#quickReply form');
+							resetReplyButton();
+						} else if (typeof response === 'string' && response) {
+							// the link to the new post
+							window.location.href = response;
 						} else {
 							window.location.href = window.location.pathname + window.location.search;
 						}
+					}).catch(() => {
+						resetReplyButton();
 					});
 			});
 		}

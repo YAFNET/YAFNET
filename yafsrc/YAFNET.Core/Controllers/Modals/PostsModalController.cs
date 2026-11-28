@@ -111,7 +111,8 @@ public class PostsModalController : ForumBaseController
 
             if (model.QuickReplyEditor.IsNotSet())
             {
-                return this.Ok(new MessageModalNotification(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning));
+                // EMPTY_MESSAGE is on many pages: without the page the text of the first one (achievements) was shown
+                return this.Ok(new MessageModalNotification(this.GetText("POSTS", "EMPTY_MESSAGE"), MessageTypes.warning));
             }
 
             // No need to check whitespace if they are actually posting something
