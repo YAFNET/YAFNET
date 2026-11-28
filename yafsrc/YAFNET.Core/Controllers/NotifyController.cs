@@ -69,10 +69,16 @@ public class NotifyController : ForumBaseController
         var pageSize = System.Math.Clamp(pagedResults.PageSize, 1, 100);
         var pageNumber = System.Math.Max(pagedResults.PageNumber, 0);
 
+        // the notifications of another user and of the unlocked achievements
         var activities = this.GetRepository<Activity>().GetPaged(
-            a => a.UserID == userId && a.FromUserID.HasValue && a.Notification,
+            a => a.UserID == userId && (a.FromUserID.HasValue || (a.Flags & 65536) == 65536) && a.Notification,
             pageNumber,
             pageSize);
+
+        var achievements = activities.Exists(a => a.ActivityFlags.UnlockedAchievement)
+                               ? this.Get<IAchievementService>().GetBoardAchievements(this.PageBoardContext.PageBoardID)
+                                   .ToDictionary(a => a.ID)
+                               : [];
 
         var attachmentItems = new List<AttachmentItem>();
 
@@ -91,6 +97,26 @@ public class NotifyController : ForumBaseController
 
                     var message = string.Empty;
                     var icon = string.Empty;
+
+                    var created = this.PageBoardContext.BoardSettings.ShowRelativeTime
+                                      ? activity.Created.ToRelativeTime()
+                                      : this.Get<IDateTimeService>().FormatDateTime(activity.Created);
+
+                    if (activity.ActivityFlags.UnlockedAchievement)
+                    {
+                        // the achievement could have been deleted in the meantime
+                        if (activity.AchievementID.HasValue
+                            && achievements.TryGetValue(activity.AchievementID.Value, out var achievement))
+                        {
+                            attachmentItems.Add(
+                                new AttachmentItem
+                                {
+                                    FileName = this.RenderAchievementNotification(achievement, created)
+                                });
+                        }
+
+                        return;
+                    }
 
                     var topic = activity.TopicID.HasValue
                                     ? this.GetRepository<Topic>().GetById(activity.TopicID.Value)
@@ -169,10 +195,6 @@ public class NotifyController : ForumBaseController
                         ForumPages.Post,
                         new { m = activity.MessageID.Value, name = topic.TopicName });
 
-                    var created = this.PageBoardContext.BoardSettings.ShowRelativeTime
-                                      ? activity.Created.ToRelativeTime()
-                                      : this.Get<IDateTimeService>().FormatDateTime(activity.Created);
-
                     messageHolder.AppendHtml($"""
                                               <a href="{link}" class="dropdown-item text-wrap">
                                                   <div class="d-flex">
@@ -201,11 +223,45 @@ public class NotifyController : ForumBaseController
                         TotalRecords =
                             activities.HasItems()
                                 ? this.GetRepository<Activity>().Count(
-                                    a => a.UserID == userId && a.FromUserID.HasValue
-                                                             && a.Notification).ToType<int>()
+                                    a => a.UserID == userId
+                                         && (a.FromUserID.HasValue || (a.Flags & 65536) == 65536)
+                                         && a.Notification).ToType<int>()
                                 : 0,
                         PageSize = pageSize,
                         AttachmentList = attachmentItems
                     }));
+    }
+
+    /// <summary>
+    /// Renders the notification of an unlocked achievement (the link to the achievements of the user).
+    /// </summary>
+    /// <param name="achievement">The achievement.</param>
+    /// <param name="created">The time the achievement was unlocked.</param>
+    /// <returns>The dropdown item.</returns>
+    private string RenderAchievementNotification(Achievement achievement, string created)
+    {
+        var name = new TagBuilder(HtmlTag.Span);
+
+        name.AddCssClass("fw-semibold");
+        name.InnerHtml.AppendHtml($"<i class=\"fas fa-{achievement.Icon} me-1\"></i>");
+        name.InnerHtml.AppendHtml(this.HtmlEncode(this.Get<IAchievementService>().GetName(achievement)));
+
+        var message = string.Format(
+            this.Get<ILocalization>().GetText("NOTIFICATION", "UNLOCKED_ACHIEVEMENT_MSG"),
+            name.RenderToString());
+
+        var link = this.Get<ILinkBuilder>().GetLink(ForumPages.MyAchievements);
+
+        return $"""
+                <a href="{link}" class="dropdown-item text-wrap">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0 me-2"><span class="fa-stack"><i class="fas fa-circle fa-stack-2x text-warning"></i><i class="fas fa-trophy fa-stack-1x fa-inverse"></i></span></div>
+                        <div class="flex-grow-1">
+                            <p class="mb-1 small">{message}</p>
+                            <p class="mb-0 small text-body-secondary"><i class="fas fa-clock me-1"></i>{created}</p>
+                        </div>
+                    </div>
+                </a>
+                """;
     }
 }

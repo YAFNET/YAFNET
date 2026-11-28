@@ -113,7 +113,7 @@ public class PageAccessEditModel : AdminPage
             "Admin_BannedNames", "Admin_BannedUserAgents", "Admin_BannedCountries"]),
         ("USERSANDROLES", "users", ["Admin_ProfileDefinitions", "Admin_AccessMasks", "Admin_EditAccessMask", "Admin_Groups",
             "Admin_EditGroup", "Admin_Users", "Admin_EditUser", "Admin_RegisterUser", "Admin_Ranks", "Admin_EditRank",
-            "Admin_Medals", "Admin_EditMedal", "Admin_Mail", "Admin_Digest"]),
+            "Admin_Medals", "Admin_EditMedal", "Admin_Achievements", "Admin_EditAchievement", "Admin_Mail", "Admin_Digest"]),
         ("MAINTENANCE", "toolbox", ["Admin_Attachments", "Admin_Tags", "Admin_Prune", "Admin_Restore", "Admin_Pm",
             "Admin_EventLog"])
     ];
@@ -139,7 +139,8 @@ public class PageAccessEditModel : AdminPage
         ["Admin_EditUser"] = ("ADMIN_EDITUSER", "TITLE"),
         ["Admin_RegisterUser"] = ("ADMIN_REGUSER", "TITLE"),
         ["Admin_EditRank"] = ("ADMIN_EDITRANK", "TITLE"),
-        ["Admin_EditMedal"] = ("ADMIN_EDITMEDAL", "TITLE")
+        ["Admin_EditMedal"] = ("ADMIN_EDITMEDAL", "TITLE"),
+        ["Admin_EditAchievement"] = ("ADMIN_EDITACHIEVEMENT", "TITLE")
     };
 
     /// <summary>

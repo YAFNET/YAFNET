@@ -94,6 +94,10 @@ public class ReactionController : ForumBaseController
                 userId);
 
             this.Get<IActivityStream>().AddThanksGivenToStream(userId, message.TopicID, messageId, message.UserID);
+
+            // the achievements of the reactions received (author) and given (user)
+            await this.Get<IAchievementService>().CheckUserAsync(message.UserID);
+            await this.Get<IAchievementService>().CheckUserAsync(userId);
         }
         else if (existing.Reaction == reaction)
         {

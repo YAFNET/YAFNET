@@ -1,6 +1,9 @@
-﻿@use "../../node_modules/bootstrap/scss/bootstrap";
+﻿// the install wizard uses the colors and styles of the yaf theme (the default theme of the forum)
+@import "themes/yaf/variables";
+@import "bootstrap/scss/bootstrap";
+@import "themes/yaf/yaf";
 
-@use "fontawesome-subset";
+@import "fontawesome-subset";
 
 html {
   background-size: cover;
@@ -72,13 +75,19 @@ html {
 	}
 
 // the labels of the steps: only the current one on small screens
-@include bootstrap.media-breakpoint-down(md) {
+@include media-breakpoint-down(md) {
 	.wizard-steps li:not(.active) .wizard-step-label {
 		display: none;
 	}
 }
 
 .yafWizard {
+	// the blue, purple and red stripe of the logo, like the navbar of the yaf theme
+	.modal-header {
+		border-bottom: 4px solid transparent;
+		border-image: $yaf-logo-stripe 1;
+	}
+
 	.modal-footer {
 		gap: .5rem;
 	}

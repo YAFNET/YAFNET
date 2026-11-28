@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Conquistas"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} de {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "As conquistas estão desativadas neste fórum."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ainda não há conquistas"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "O administrador ainda não configurou nenhuma conquista."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} e {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} dias como membro"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} mensagens"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} reações dadas"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} reações recebidas"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} pontos de reputação"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} tópicos iniciados"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Como funciona"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Pode mostrar até {0} conquistas. Desative primeiro uma delas."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Seguinte"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "O seu próximo objetivo"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "de {0} pontos possíveis"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} dos membros"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} ponto"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} pontos"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} ponto"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} pontos"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "A sua conquista mais rara"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Comum"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Épica"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Lendária"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Rara"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Invulgar"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Ver as minhas conquistas"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Mostrar todas"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Mostrar no meu perfil"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Ative «Mostrar no meu perfil» para até {0} conquistas: são mostradas no seu perfil e junto às suas mensagens."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Mostrada no seu perfil"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "As minhas conquistas"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Pontos de conquistas"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Antiguidade"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Mensagens"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Reações dadas"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Reações recebidas"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Reputação"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Tópicos"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Desbloqueada"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} de {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Conquista desbloqueada"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Escreva 1000 mensagens e receba 1000 reações. Quantidade e qualidade!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Pau para toda a obra"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Seja membro durante cinco anos. Já viu de tudo."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veterano"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Seja membro durante 30 dias."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Como em casa"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Seja membro durante um ano."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Feliz aniversário"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Dê 1000 reações. Ninguém apoia tanto os outros!"
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Coração de ouro"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Dê 100 reações. Obrigado por espalhar o amor!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Claque"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Dê a sua primeira reação a uma mensagem de outro membro."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Apreciador"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Receba 1000 reações. A comunidade adora-o."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Herói da comunidade"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Receba 100 reações. As pessoas gostam do que escreve."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Bem-amado"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Receba a primeira reação a uma das suas mensagens."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Alguém reparou"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Receba 25 reações às suas mensagens."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Agrada ao público"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Receba 5000 reações. Tem a certeza de que são todos pessoas reais?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superestrela"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Receba 500 reações. Tem um clube de fãs!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Favorito dos fãs"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Escreva 10 000 mensagens. Vão cantar canções sobre si."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Lenda do fórum"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Escreva 1000 mensagens. É um livro inteiro de histórias!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Contador de histórias"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Escreva 100 mensagens. Pelos vistos tem muito para dizer."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Tagarela"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Escreva 10 mensagens. O teclado está a aquecer!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Aquecimento"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Escreva a sua primeira mensagem em qualquer parte do fórum."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Primeiras palavras"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Escreva 5000 mensagens. Boa parte da história do fórum é sua."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Arquivo vivo"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Escreva 500 mensagens. As suas palavras moldam esta comunidade."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Mestre das palavras"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Escreva 50 mensagens. As pessoas começam a reconhecer o seu nome."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Habitué"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Inicie 10 tópicos. Continue a trazer ideias!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Máquina de ideias"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Inicie o seu primeiro tópico."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Quebra-gelo"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Inicie 250 tópicos. Para onde vai, a comunidade segue."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Lançador de tendências"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Inicie 50 tópicos. Sabe como pôr as pessoas a conversar."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Líder de debate"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Vê as máscaras de acesso"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Vê/edita conquistas"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Edita máscaras de acesso"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Edita conquistas"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Move um tópico"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Vê as suas conquistas"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Vê os seus tópicos ativos"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Votar"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Verificar todos os membros"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Atribui as conquistas a todos os membros que as alcançaram, p. ex. depois de adicionar uma nova conquista."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Atribuir as conquistas a todos os membros que as alcançaram? Num fórum grande isto pode demorar algum tempo."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Eliminar a conquista {0}? {1} membro(s) perdem-na."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "As conquistas estão desativadas, os membros não as desbloqueiam. Ative-as em Definições do servidor (Definições de apresentação)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Sem conquistas"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Adicione conquistas que os membros desbloqueiam com as suas mensagens, tópicos e reações."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inativa"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "Foram atribuídas {0} conquista(s)."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "A conquista {0} foi eliminada."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "As conquistas estão desativadas (Definições do servidor)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Nova conquista"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Conquistas"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Desbloqueada por"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Não existem tópicos novos ou ativos, o resumo está vazio e não foi enviado."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Ativa"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "As conquistas inativas não podem ser desbloqueadas e não são listadas. Os membros que já a têm mantêm-na."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Descrição"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "O que um membro tem de fazer para a desbloquear (mostrado por baixo do nome)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Segundo objetivo"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Ambos os objetivos têm de ser alcançados (p. ex. 1000 mensagens e 1000 reações recebidas)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "O segundo objetivo conta"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Objetivo"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "O número que tem de ser alcançado."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "O objetivo tem de estar entre 1 e 1 000 000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Selecione um ícone."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Introduza um nome."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Os pontos têm de estar entre 0 e 1 000 000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Selecione uma raridade."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "O segundo objetivo tem de contar outra coisa."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "A conquista {0} foi guardada."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Selecione o que é contado."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Nome"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "O nome da conquista (o troféu)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Pontos"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Os pontos de conquistas que o membro recebe."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "pontos"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Raridade"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Quão rara é a conquista. É a cor do troféu."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Objetivo"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Ícone"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Recompensa"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Editar conquista"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Conta"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "O que é contado."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Desbloqueada por {0} membro(s)"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Se marcado, a funcionalidade de álbuns está ativada. Para a ativar, também tem de definir o número de imagens e álbuns permitidos para cada grupo e/ou classificação."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Ativar conquistas"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Os membros desbloqueiam conquistas (troféus) com as suas mensagens, tópicos e reações."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Máscaras de acesso"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Conquistas"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "A sua conta"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>As conquistas (troféus) são desbloqueadas automaticamente quando alcança os seus objetivos, p. ex. a sua primeira mensagem, 100 reações às suas mensagens ou um ano como membro. Cada conquista dá-lhe pontos de conquistas. A sua raridade (comum, invulgar, rara, épica ou lendária) é a cor do troféu, e a percentagem de membros que a têm mostra quão difícil é obtê-la.</p>\r\n<p>Quando desbloqueia uma conquista, uma janela mostra-a. As suas conquistas estão em <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> no menu do utilizador, onde também vê quão perto está das próximas. Ative <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> para até três conquistas para as mostrar no seu perfil e junto às suas mensagens.</p>\r\n<p>Estas são as conquistas deste fórum:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Conquistas"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Alguns tópicos são mais importantes do que outros:</p>\r\n<ul>\r\n<li><strong>Tópicos fixos</strong> ficam no topo da lista de tópicos do seu fórum, por exemplo as regras ou as perguntas frequentes do fórum.</li>\r\n<li><strong>Anúncios</strong> são informações importantes, também são mostrados no topo da lista de tópicos, assinalados com um distintivo.</li>\r\n</ul>\r\n<p>Quem os pode criar é definido pelo administrador (normalmente os moderadores e administradores). Escolhem-no com <strong>[[POSTMESSAGE.PRIORITY]]</strong> ao escrever ou editar o tópico. Pode responder a tópicos fixos e anúncios como a qualquer outro tópico, a não ser que o tópico esteja bloqueado.</p>\r\n<h3 class=\"h6 mt-3\">Anúncios do fórum</h3>\r\n<p>O administrador também pode mostrar um anúncio em todas as páginas do fórum, por exemplo para uma manutenção planeada. Pode fechá-lo com o botão à direita.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Para responder a um tópico, clique em <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> por cima ou por baixo das mensagens, ou em <strong>[[BUTTON.BUTTON_REPLY]]</strong> por baixo de uma mensagem. A página de resposta mostra as <strong>[[POSTMESSAGE.LAST10]]</strong> do tópico por baixo do editor, para que as possa ler enquanto escreve.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Para uma resposta curta use a caixa de resposta rápida por baixo das mensagens, ou o botão <strong>[[POSTS.QUICKREPLY]]</strong> de uma mensagem. Escreva o seu texto e clique em <strong>[[COMMON.POST]]</strong>. Para o editor completo (por exemplo, para anexar ficheiros) clique em <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citar</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> por baixo de uma mensagem inicia uma resposta com o texto dessa mensagem como citação.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> reúne várias mensagens, também de outras páginas do tópico. Depois clique em <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> numa delas, a resposta cita todas as mensagens reunidas.</li>\r\n<li>Para citar apenas uma parte, selecione o texto na mensagem, clique nele com o botão direito e escolha <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Encurte as citações longas à parte a que responde. O membro citado é notificado.</p>\r\n<p>Só pode responder se tiver permissão neste fórum, e não num tópico bloqueado. Os visitantes só podem responder se o fórum o permitir.</p>"
+            "#text": "<p>Para responder a um tópico, clique em <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> por cima ou por baixo das mensagens, ou em <strong>[[BUTTON.BUTTON_REPLY]]</strong> por baixo de uma mensagem. A página de resposta mostra as <strong>[[POSTMESSAGE.LAST10]]</strong> do tópico por baixo do editor, para que as possa ler enquanto escreve.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Para uma resposta curta use a caixa de resposta rápida por baixo das mensagens, ou o botão <strong>[[POSTS.QUICKREPLY]]</strong> de uma mensagem. Escreva o seu texto e clique em <strong>[[COMMON.POST]]</strong>. Para o editor completo (por exemplo, para anexar ficheiros) clique em <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citar</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> por baixo de uma mensagem inicia uma resposta com o texto dessa mensagem como citação.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> reúne várias mensagens, também de outras páginas do tópico. Depois clique em <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> numa delas, a resposta cita todas as mensagens reunidas.</li>\r\n<li>Para citar apenas uma parte, selecione o texto na mensagem, clique nele com o botão direito e escolha <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n<li>Acima de uma citação aparece quem a escreveu, o ícone ao lado do nome abre a mensagem citada. Uma citação dentro de uma citação dentro de outra citação fica recolhida: clique no título para a mostrar.</li>\r\n</ul>\r\n<p>Encurte as citações longas à parte a que responde. O membro citado é notificado.</p>\r\n<p>Só pode responder se tiver permissão neste fórum, e não num tópico bloqueado. Os visitantes só podem responder se o fórum o permitir.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "As suas notificações de atividade"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Desbloqueou a conquista {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Mostra a página de moderação, onde pode ver as mensagens não aprovadas e denunciadas."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "As minhas conquistas"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "As conquistas que desbloqueou"
           },
           {
             "@tag": "MYALBUMS",

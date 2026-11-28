@@ -176,6 +176,40 @@ public partial class LanguageFormatTests
         duplicates.Should().BeEmpty();
     }
 
+    [Test]
+    [Description("The tags are upper case: the localizer looks up the tag in upper case (a tag like admin_Achievements was not found, the forum showed the text of the tag on another page)")]
+    public void Language_Tags_Are_Upper_Case_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var files = Directory.EnumerateFiles(Path.Combine(root, "YAFNET.UI", "YAFNET.RazorPages", "wwwroot", "languages"), "*.json")
+            .Concat(Directory.EnumerateFiles(Path.Combine(root, "YetAnotherForum.NET", "wwwroot", "languages"), "*.json"));
+
+        var wrong = new List<string>();
+
+        foreach (var file in files)
+        {
+            using var json = JsonDocument.Parse(File.ReadAllText(file));
+
+            foreach (var page in json.RootElement.GetProperty("Resources").GetProperty("page").EnumerateArray())
+            {
+                foreach (var tag in page.GetProperty("Resource").EnumerateArray()
+                             .Select(resource => resource.GetProperty("@tag").GetString())
+                             .Where(tag => tag != tag!.ToUpperInvariant()))
+                {
+                    wrong.Add($"{Path.GetRelativePath(root, file)}: {page.GetProperty("@name").GetString()}.{tag}");
+                }
+            }
+        }
+
+        wrong.Should().BeEmpty();
+    }
+
     private static bool IsValidFormat(string text, object[] arguments)
     {
         try

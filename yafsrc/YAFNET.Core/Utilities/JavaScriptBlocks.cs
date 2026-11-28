@@ -623,10 +623,11 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext,dragdrop,undo,mentions,alternative-lists',
+                         plugins: 'plaintext,dragdrop,undo,mentions,alternative-lists,markdowninsert,attachpreview',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
+                         attachmentsPreviewUrl: '/api/Attachment/GetEditorPreviews?ids=',
                          mentionsUrl: '/api/User/GetMentionUsers?users={q}'
                          {{{dragDropJs}}}
                      });

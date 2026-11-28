@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Prestasjoner"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} av {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Prestasjoner er slått av i dette forumet."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen prestasjoner ennå"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Administratoren har ikke satt opp noen prestasjoner."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} og {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} dager som medlem"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} innlegg"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} reaksjoner gitt"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} reaksjoner mottatt"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} omdømmepoeng"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} emner startet"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Slik fungerer det"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Du kan vise opptil {0} prestasjoner. Slå av en av dem først."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Neste"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Ditt neste mål"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "av {0} mulige poeng"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} av medlemmene"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} poeng"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} poeng"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} poeng"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} poeng"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Din sjeldneste prestasjon"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Vanlig"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Episk"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Legendarisk"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Sjelden"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Uvanlig"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Se prestasjonene mine"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Vis alle"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Vis i profilen min"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Slå på «Vis i profilen min» for opptil {0} prestasjoner: de vises i profilen din og ved innleggene dine."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Vises i profilen din"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Mine prestasjoner"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Prestasjonspoeng"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Medlemskap"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Innlegg"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Reaksjoner gitt"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Reaksjoner mottatt"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Omdømme"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Emner"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Låst opp"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} av {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Prestasjon låst opp"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Skriv 1 000 innlegg og motta 1 000 reaksjoner. Både kvantitet og kvalitet!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Allrounder"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Vær medlem i fem år. Du har sett alt."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veteran"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Vær medlem i 30 dager."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Godt i gang"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Vær medlem i ett år."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Gratulerer med jubileet"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Gi 1 000 reaksjoner. Ingen heier på de andre som deg."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Hjerte av gull"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Gi 100 reaksjoner. Takk for at du sprer kjærlighet!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Heiagjeng"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Gi din første reaksjon på et innlegg fra et annet medlem."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Verdsetter"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Motta 1 000 reaksjoner. Fellesskapet elsker deg."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Fellesskapets helt"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Motta 100 reaksjoner. Folk liker det du skriver."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Godt likt"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Motta din første reaksjon på et av innleggene dine."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Noen la merke til deg"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Motta 25 reaksjoner på innleggene dine."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Publikumsfavoritt"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Motta 5 000 reaksjoner. Er du sikker på at alle disse er ekte mennesker?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superstjerne"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Motta 500 reaksjoner. Du har en fanklubb!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Fansens favoritt"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Skriv 10 000 innlegg. Det kommer til å bli sunget sanger om deg."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Forumlegende"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Skriv 1 000 innlegg. Det er en hel bok med historier!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Historieforteller"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Skriv 100 innlegg. Du har tydeligvis mye på hjertet."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Skravlebøtte"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Skriv 10 innlegg. Tastaturet begynner å bli varmt!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Oppvarming"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Skriv ditt første innlegg hvor som helst i forumet."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "De første ordene"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Skriv 5 000 innlegg. En god del av forumets historie er din."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Levende arkiv"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Skriv 500 innlegg. Ordene dine former dette fellesskapet."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Ordsmed"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Skriv 50 innlegg. Folk begynner å kjenne igjen navnet ditt."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Stamgjest"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Start 10 emner. Bare fortsett med ideene!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Idémaskin"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Start ditt første emne."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Samtalestarter"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Start 250 emner. Der du går, følger fellesskapet etter."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trendsetter"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Start 50 emner. Du vet hvordan du får folk til å snakke."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Debattleder"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Viser tilgangsmasker"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Viser/redigerer prestasjoner"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Redigerer tilgangsmasker"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Redigerer prestasjoner"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Flytter et emne"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Ser på prestasjonene sine"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Viser sine aktive emner"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Stem"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Sjekk alle medlemmer"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Tildeler prestasjonene til alle medlemmer som har nådd dem, f.eks. etter at du har lagt til en ny prestasjon."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Tildele prestasjonene til alle medlemmer som har nådd dem? I et stort forum kan dette ta en stund."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Slette prestasjonen {0}? {1} medlem(mer) mister den."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Prestasjonene er slått av, medlemmene låser dem ikke opp. Slå dem på i Vertsinnstillinger (Visningsinnstillinger)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen prestasjoner"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Legg til prestasjoner som medlemmene låser opp med innleggene, emnene og reaksjonene sine."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inaktiv"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "{0} prestasjon(er) er tildelt."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Prestasjonen {0} er slettet."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Prestasjonene er slått av (Vertsinnstillinger)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Ny prestasjon"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Prestasjoner"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Låst opp av"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Det finnes ingen nye eller aktive emner, sammendraget er tomt og ble ikke sendt."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Aktiv"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Inaktive prestasjoner kan ikke låses opp og vises ikke. Medlemmer som har en, beholder den."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Beskrivelse"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Hva et medlem må gjøre for å låse den opp (vises under navnet)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Andre mål"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Begge målene må nås (f.eks. 1 000 innlegg og 1 000 mottatte reaksjoner)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Andre mål teller"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Mål"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Tallet som må nås."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Målet må være mellom 1 og 1 000 000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Velg et ikon."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Skriv inn et navn."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Poengene må være mellom 0 og 1 000 000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Velg en sjeldenhetsgrad."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Det andre målet må telle noe annet."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Prestasjonen {0} er lagret."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Velg hva som telles."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Navn"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Navnet på prestasjonen (trofeet)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Poeng"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Prestasjonspoengene medlemmet får."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "poeng"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Sjeldenhet"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Hvor sjelden prestasjonen er. Det er fargen på trofeet."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Mål"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Ikon"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Belønning"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Rediger prestasjon"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Teller"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Hva som telles."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Låst opp av {0} medlem(mer)"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Hvis avkrysset, er albumfunksjonen aktivert. Du må også angi tillatt antall bilder og album for hver gruppe og/eller rang for å aktivere funksjonen."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Aktiver prestasjoner"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Medlemmene låser opp prestasjoner (trofeer) med innleggene, emnene og reaksjonene sine."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Tilgangsmasker"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Prestasjoner"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Kontoen din"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Prestasjoner (trofeer) låses opp automatisk når du når målene deres, f.eks. ditt første innlegg, 100 reaksjoner på innleggene dine eller ett år som medlem. Hver prestasjon gir deg prestasjonspoeng. Sjeldenheten (vanlig, uvanlig, sjelden, episk eller legendarisk) er fargen på trofeet, og andelen medlemmer som har den, viser hvor vanskelig den er å få.</p>\r\n<p>Når du låser opp en prestasjon, vises den i en dialog. Prestasjonene dine finner du under <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> i brukermenyen, der du også ser hvor nær du er de neste. Slå på <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> for opptil tre prestasjoner for å vise dem i profilen din og ved innleggene dine.</p>\r\n<p>Dette er prestasjonene i dette forumet:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Prestasjoner"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Noen emner er viktigere enn andre:</p>\r\n<ul>\r\n<li><strong>Klistrede emner</strong> blir liggende øverst i emnelisten i forumet sitt, f.eks. reglene eller ofte stilte spørsmål for forumet.</li>\r\n<li><strong>Kunngjøringer</strong> er viktig informasjon, de vises også øverst i emnelisten og er merket med et merke.</li>\r\n</ul>\r\n<p>Hvem som kan opprette dem, bestemmes av administratoren (vanligvis moderatorene og administratorene). De velger det under <strong>[[POSTMESSAGE.PRIORITY]]</strong> når de skriver eller redigerer emnet. Du kan svare på klistrede emner og kunngjøringer som på alle andre emner, med mindre emnet er låst.</p>\r\n<h3 class=\"h6 mt-3\">Forumkunngjøringer</h3>\r\n<p>Administratoren kan også vise en kunngjøring på hver side i forumet, f.eks. om et planlagt vedlikehold. Du kan lukke den med knappen til høyre for den.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>For å svare i et emne klikker du på <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> over eller under innleggene, eller på <strong>[[BUTTON.BUTTON_REPLY]]</strong> under et innlegg. Svarsiden viser emnets <strong>[[POSTMESSAGE.LAST10]]</strong> under redigeringsprogrammet, slik at du kan lese dem mens du skriver.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>For et kort svar bruker du hurtigsvarfeltet under innleggene, eller knappen <strong>[[POSTS.QUICKREPLY]]</strong> på et innlegg. Skriv teksten din og klikk på <strong>[[COMMON.POST]]</strong>. For det fullstendige redigeringsprogrammet (f.eks. for å legge ved filer) klikker du på <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Sitere</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> under et innlegg starter et svar med teksten i dette innlegget som sitat.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> samler flere innlegg, også på andre sider i emnet. Klikk deretter på <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> på ett av dem, så siterer svaret alle de innsamlede innleggene.</li>\r\n<li>For å sitere bare en del merker du teksten i innlegget, høyreklikker på den og velger <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Kort ned lange sitater til den delen du svarer på. Medlemmet som blir sitert, blir varslet.</p>\r\n<p>Du kan bare svare hvis du har tillatelse til det i dette forumet, og ikke i et låst emne. Gjester kan bare svare hvis forumet tillater det.</p>"
+            "#text": "<p>For å svare i et emne klikker du på <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> over eller under innleggene, eller på <strong>[[BUTTON.BUTTON_REPLY]]</strong> under et innlegg. Svarsiden viser emnets <strong>[[POSTMESSAGE.LAST10]]</strong> under redigeringsprogrammet, slik at du kan lese dem mens du skriver.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>For et kort svar bruker du hurtigsvarfeltet under innleggene, eller knappen <strong>[[POSTS.QUICKREPLY]]</strong> på et innlegg. Skriv teksten din og klikk på <strong>[[COMMON.POST]]</strong>. For det fullstendige redigeringsprogrammet (f.eks. for å legge ved filer) klikker du på <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Sitere</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> under et innlegg starter et svar med teksten i dette innlegget som sitat.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> samler flere innlegg, også på andre sider i emnet. Klikk deretter på <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> på ett av dem, så siterer svaret alle de innsamlede innleggene.</li>\r\n<li>For å sitere bare en del merker du teksten i innlegget, høyreklikker på den og velger <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n<li>Over et sitat står det hvem som skrev det, og ikonet ved siden av navnet åpner det siterte innlegget. Et sitat i et sitat i et sitat er slått sammen: klikk på tittelen for å vise det.</li>\r\n</ul>\r\n<p>Kort ned lange sitater til den delen du svarer på. Medlemmet som blir sitert, blir varslet.</p>\r\n<p>Du kan bare svare hvis du har tillatelse til det i dette forumet, og ikke i et låst emne. Gjester kan bare svare hvis forumet tillater det.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Dine aktivitetsvarsler"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Du har låst opp prestasjonen {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Viser modereringssiden, der du kan se ikke-godkjente og rapporterte innlegg."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Mine prestasjoner"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Prestasjonene du har låst opp"
           },
           {
             "@tag": "MYALBUMS",

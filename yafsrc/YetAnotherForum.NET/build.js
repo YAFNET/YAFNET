@@ -342,7 +342,8 @@ const tasks = {
 	updateSCEditor() {
 		const dist = 'node_modules/@yafnet/sceditor/dist';
 
-		copyFiles(dist, 'wwwroot/css', hasExtension('.css'));
+		// the styles of the editor (the content styles of the editor are in forum.min.css)
+		copyFiles(dist, 'wwwroot/css', name => name === 'sceditor.min.css');
 		copyFiles(`${dist}/languages`, 'wwwroot/js/sceditor/languages', hasExtension('.js'));
 		copyFiles(dist, 'wwwroot/js/sceditor', name => name === 'sceditor.min.js');
 	},

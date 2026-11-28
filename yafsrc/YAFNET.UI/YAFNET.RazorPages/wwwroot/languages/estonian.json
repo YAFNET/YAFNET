@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Saavutused"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0}/{1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Saavutused on selles foorumis välja lülitatud."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Saavutusi veel pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Administraator pole ühtegi saavutust seadistanud."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} ja {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} päeva liikmena"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} postitust"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} antud reaktsiooni"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} saadud reaktsiooni"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} mainepunkti"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} alustatud teemat"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Kuidas see töötab"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Saad näidata kuni {0} saavutust. Lülita esmalt üks neist välja."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Järgmisena"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Sinu järgmine eesmärk"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "{0} võimalikust punktist"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} liikmetest"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} punkt"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} punkti"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} punkt"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} punkti"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Sinu haruldaseim saavutus"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Tavaline"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Eepiline"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Legendaarne"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Haruldane"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Ebatavaline"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Vaata minu saavutusi"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Näita kõiki"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Näita minu profiilis"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Lülita „Näita minu profiilis“ sisse kuni {0} saavutusele: neid näidatakse sinu profiilis ja sinu postituste juures."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Näidatakse sinu profiilis"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Minu saavutused"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Saavutuspunktid"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Liikmelisus"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Postitused"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Antud reaktsioonid"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Saadud reaktsioonid"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Maine"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Teemad"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Avatud"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0}/{1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Saavutus avatud"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Kirjuta 1 000 postitust ja saa 1 000 reaktsiooni. Nii kogus kui ka kvaliteet!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Igameheoskaja"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Ole liige viis aastat. Sa oled kõike näinud."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Veteran"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Ole liige 30 päeva."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Sisse elanud"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Ole liige üks aasta."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Head aastapäeva"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Anna 1 000 reaktsiooni. Keegi ei erguta teisi nii nagu sina."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Kuldne süda"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Anna 100 reaktsiooni. Aitäh, et jagad nii palju head meelt!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Ergutaja"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Anna oma esimene reaktsioon teise liikme postitusele."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Hindaja"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Saa 1 000 reaktsiooni. Kogukond armastab sind."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Kogukonna kangelane"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Saa 100 reaktsiooni. Inimestele meeldib, mida sa kirjutad."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Hinnatud"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Saa esimene reaktsioon mõnele oma postitusele."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Keegi märkas"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Saa oma postitustele 25 reaktsiooni."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Publiku lemmik"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Saa 5 000 reaktsiooni. Kas oled kindel, et need kõik on päris inimesed?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Supertäht"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Saa 500 reaktsiooni. Sul on fänniklubi!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Fännide lemmik"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Kirjuta 10 000 postitust. Sinust lauldakse veel laule."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Foorumi legend"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Kirjuta 1 000 postitust. See on terve raamatutäis lugusid!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Jutuvestja"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Kirjuta 100 postitust. Sul on ilmselgelt palju öelda."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Lobamokk"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Kirjuta 10 postitust. Klaviatuur hakkab soojaks minema!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Soojendus"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Kirjuta oma esimene postitus ükskõik kuhu foorumis."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Esimesed sõnad"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Kirjuta 5 000 postitust. Suur osa foorumi ajaloost on sinu kirjutatud."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Elav arhiiv"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Kirjuta 500 postitust. Sinu sõnad kujundavad seda kogukonda."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Sõnasepp"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Kirjuta 50 postitust. Inimesed hakkavad sinu nime ära tundma."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Püsikülaline"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Alusta 10 teemat. Ideid tuleb aina juurde!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Ideemasin"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Alusta oma esimest teemat."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Jäämurdja"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Alusta 250 teemat. Kuhu sina lähed, sinna järgneb kogukond."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trendilooja"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Alusta 50 teemat. Sa oskad inimesi rääkima panna."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Arutelujuht"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Avab juurdepääsumaskid"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Avab/muudab saavutusi"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Redigeerib juurdepääsumaske"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Redigeerib saavutusi"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Teisaldab teemat"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Vaatab oma saavutusi"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Avab oma aktiivsed teemad"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Hääleta"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Kontrolli kõiki liikmeid"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Annab saavutused kõigile liikmetele, kes on need saavutanud, nt pärast uue saavutuse lisamist."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Kas anda saavutused kõigile liikmetele, kes on need saavutanud? Suures foorumis võib see võtta aega."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Kas kustutada saavutus {0}? {1} liiget kaotab selle."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Saavutused on välja lülitatud, liikmed ei ava neid. Lülita need sisse jaotises Hosti seaded (Kuvamise seaded)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Saavutusi pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Lisa saavutusi, mida liikmed avavad oma postituste, teemade ja reaktsioonidega."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Mitteaktiivne"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "Antud saavutusi: {0}."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Saavutus {0} on kustutatud."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Saavutused on välja lülitatud (Hosti seaded)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Uus saavutus"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Saavutused"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Avanud"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Uusi ega aktiivseid teemasid pole, kokkuvõte on tühi ja seda ei saadetud."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Aktiivne"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Mitteaktiivseid saavutusi ei saa avada ja neid ei kuvata. Liikmed, kellel see juba on, jäävad selle omanikuks."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Kirjeldus"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Mida liige peab selle avamiseks tegema (kuvatakse nime all)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Teine eesmärk"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Mõlemad eesmärgid tuleb saavutada (nt 1 000 postitust ja 1 000 saadud reaktsiooni)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Teine eesmärk loeb"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Eesmärk"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Arv, mis tuleb saavutada."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Eesmärk peab olema vahemikus 1 kuni 1 000 000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Palun vali ikoon."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Palun sisesta nimi."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Punktid peavad olema vahemikus 0 kuni 1 000 000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Palun vali haruldus."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Teine eesmärk peab lugema midagi muud."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Saavutus {0} on salvestatud."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Palun vali, mida loetakse."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Nimi"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Saavutuse (karika) nimi."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punktid"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Saavutuspunktid, mille liige saab."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "punkti"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Haruldus"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Kui haruldane saavutus on. See määrab karika värvi."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Eesmärk"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Ikoon"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Tasu"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Muuda saavutust"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Loeb"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Mida loetakse."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Avanud {0} liiget"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Kui see on märgitud, on albumite funktsioon lubatud. Funktsiooni sisselülitamiseks peate ka igale grupile ja/või astmele määrama lubatud piltide ja albumite arvu."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Luba saavutused"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Liikmed avavad saavutusi (karikaid) oma postituste, teemade ja reaktsioonidega."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Juurdepääsumaskid"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Saavutused"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Teie konto"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Saavutused (karikad) avanevad automaatselt, kui jõuad nende eesmärgini, nt sinu esimene postitus, 100 reaktsiooni sinu postitustele või üks aasta liikmena. Iga saavutus annab sulle saavutuspunkte. Selle haruldus (tavaline, ebatavaline, haruldane, eepiline või legendaarne) on karika värv ning selle omanike osakaal liikmete seas näitab, kui raske on seda saada.</p>\r\n<p>Kui avad saavutuse, näidatakse seda dialoogiaknas. Sinu saavutused on kasutajamenüüs lehel <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a>, kus näed ka, kui lähedal oled järgmistele. Lülita <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> sisse kuni kolmele saavutusele, et neid sinu profiilis ja postituste juures näidata.</p>\r\n<p>Selle foorumi saavutused:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Saavutused"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Mõned teemad on teistest olulisemad:</p>\r\n<ul>\r\n<li><strong>Kleebitud teemad</strong> püsivad oma foorumi teemade loendi alguses, nt foorumi reeglid või korduma kippuvad küsimused.</li>\r\n<li><strong>Teadaanded</strong> on oluline teave, neid näidatakse samuti teemade loendi alguses ja need on märgitud märgiga.</li>\r\n</ul>\r\n<p>Kes neid luua saab, määrab administraator (tavaliselt moderaatorid ja administraatorid). Nad valivad selle teema kirjutamisel või muutmisel valikuga <strong>[[POSTMESSAGE.PRIORITY]]</strong>. Kleebitud teemadele ja teadaannetele saate vastata nagu igale teisele teemale, välja arvatud juhul, kui teema on lukustatud.</p>\r\n<h3 class=\"h6 mt-3\">Foorumi teadaanded</h3>\r\n<p>Administraator saab näidata teadaannet ka foorumi igal lehel, nt plaanitud hoolduse kohta. Saate selle sulgeda paremal oleva nupuga.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Teemale vastamiseks klõpsake postituste kohal või all nupul <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> või postituse all nupul <strong>[[BUTTON.BUTTON_REPLY]]</strong>. Vastamise lehel näidatakse redaktori all teema <strong>[[POSTMESSAGE.LAST10]]</strong>, nii et saate neid kirjutamise ajal lugeda.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Lühikese vastuse jaoks kasutage postituste all olevat kiirvastuse kasti või postituse nuppu <strong>[[POSTS.QUICKREPLY]]</strong>. Kirjutage oma tekst ja klõpsake <strong>[[COMMON.POST]]</strong>. Täieliku redaktori jaoks (nt failide lisamiseks) klõpsake <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Tsiteerimine</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> postituse all alustab vastust, milles selle postituse tekst on tsitaadina.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> kogub mitu postitust, ka teema teistelt lehtedelt. Seejärel klõpsake ühe neist juures <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, vastus tsiteerib kõiki kogutud postitusi.</li>\r\n<li>Ainult osa tsiteerimiseks valige postituses tekst, paremklõpsake sellel ja valige <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Lühendage pikad tsitaadid osani, millele vastate. Tsiteeritud liiget teavitatakse.</p>\r\n<p>Saate vastata ainult siis, kui teil on selles foorumis selleks luba, ja mitte lukustatud teemas. Külalised saavad vastata ainult siis, kui foorum seda lubab.</p>"
+            "#text": "<p>Teemale vastamiseks klõpsake postituste kohal või all nupul <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> või postituse all nupul <strong>[[BUTTON.BUTTON_REPLY]]</strong>. Vastamise lehel näidatakse redaktori all teema <strong>[[POSTMESSAGE.LAST10]]</strong>, nii et saate neid kirjutamise ajal lugeda.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Lühikese vastuse jaoks kasutage postituste all olevat kiirvastuse kasti või postituse nuppu <strong>[[POSTS.QUICKREPLY]]</strong>. Kirjutage oma tekst ja klõpsake <strong>[[COMMON.POST]]</strong>. Täieliku redaktori jaoks (nt failide lisamiseks) klõpsake <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Tsiteerimine</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> postituse all alustab vastust, milles selle postituse tekst on tsitaadina.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> kogub mitu postitust, ka teema teistelt lehtedelt. Seejärel klõpsake ühe neist juures <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, vastus tsiteerib kõiki kogutud postitusi.</li>\r\n<li>Ainult osa tsiteerimiseks valige postituses tekst, paremklõpsake sellel ja valige <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n<li>Tsitaadi kohal on näha, kes selle kirjutas, nime kõrval olev ikoon avab tsiteeritud postituse. Tsitaat tsitaadis tsitaadis on kokku volditud: selle kuvamiseks klõpsake selle pealkirjal.</li>\r\n</ul>\r\n<p>Lühendage pikad tsitaadid osani, millele vastate. Tsiteeritud liiget teavitatakse.</p>\r\n<p>Saate vastata ainult siis, kui teil on selles foorumis selleks luba, ja mitte lukustatud teemas. Külalised saavad vastata ainult siis, kui foorum seda lubab.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Teie tegevuse teavitused"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Avasid saavutuse {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Näitab modereerimislehte, kus saate vaadata kinnitamata ja teatatud postitusi."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Minu saavutused"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Saavutused, mille oled avanud"
           },
           {
             "@tag": "MYALBUMS",

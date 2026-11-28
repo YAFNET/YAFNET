@@ -37,7 +37,6 @@ $border-dark: rgba(255, 255, 255, .08) !default;
   }
 }
 
-
 // Navbar
 
 .navbar {
@@ -246,7 +245,6 @@ $border-dark: rgba(255, 255, 255, .08) !default;
   }
 }
 
-
 // Forms
 
 .input-group {
@@ -300,6 +298,38 @@ $border-dark: rgba(255, 255, 255, .08) !default;
 
 // Typography
 
+.text-secondary {
+  color: $gray-600 !important;
+}
+
+.link-secondary {
+  color: $gray-600 !important;
+  text-decoration-color: $gray-600 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
+}
+
 .blockquote {
   padding-inline: 1.5rem 0;
   margin-bottom: 2rem;
@@ -316,7 +346,6 @@ $border-dark: rgba(255, 255, 255, .08) !default;
     border-left: none;
   }
 }
-
 
 // Navs
 
@@ -446,7 +475,6 @@ $border-dark: rgba(255, 255, 255, .08) !default;
   margin-inline: .5rem;
   border-radius: $border-radius-sm;
 }
-
 
 @include color-mode(dark) {
   .dropdown-header {

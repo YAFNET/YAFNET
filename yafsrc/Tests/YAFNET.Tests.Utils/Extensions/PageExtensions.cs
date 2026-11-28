@@ -238,6 +238,79 @@ public static class PageExtensions
             Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
         }
 
+        /// <summary>
+        /// Switches the achievements on or off (Host Settings > Display). The test forum has them off: the dialog
+        /// of an unlocked achievement (e.g. the first post of a test user) would cover the page of other tests.
+        /// The admin is logged out afterwards.
+        /// </summary>
+        /// <param name="testSettings">The test settings.</param>
+        /// <param name="enable">If the achievements are enabled.</param>
+        public async Task SetAchievementsAsync(TestConfig testSettings, bool enable)
+        {
+            // e.g. a test user is still logged in after a failed assert
+            await page.GotoAsync(testSettings.TestForumUrl);
+
+            if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+            {
+                await page.LogOutUserAsync();
+            }
+
+            Assert.That(
+                await page.LoginUserAsync(testSettings, testSettings.AdminUserName, testSettings.AdminPassword),
+                Is.True,
+                "Login failed");
+
+            // the dialog of the achievements the admin has unlocked would cover the save button
+            await page.DismissAchievementsAsync(testSettings);
+
+            await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings/Display");
+
+            await page.Locator("#Input_EnableAchievements").SetCheckedAsync(enable);
+
+            await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']:visible").First);
+
+            // the admin unlocks the achievements when they are switched on, their dialog would cover the logout
+            await page.DismissAchievementsAsync(testSettings);
+
+            Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+        }
+
+        /// <summary>
+        /// Marks the unlocked achievements of the logged-in user as seen (their dialog is not shown).
+        /// </summary>
+        /// <param name="testSettings">The test settings.</param>
+        public async Task DismissAchievementsAsync(TestConfig testSettings)
+        {
+            await page.GotoAsync(testSettings.TestForumUrl);
+
+            await page.EvaluateAsync(
+                """
+                async () => {
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+                    // a guest has no achievements
+                    const response = await fetch('/api/Achievement/Unseen');
+                    const unseen = response.ok ? await response.json().catch(() => []) : [];
+                    for (const achievement of unseen) {
+                        await fetch(`/api/Achievement/Seen/${achievement.id}`, { method: 'POST', headers: { RequestVerificationToken: token } });
+                    }
+                }
+                """);
+
+            // the page without the dialog (it was shown when the page was loaded)
+            await page.GotoAsync(testSettings.TestForumUrl);
+
+            // e.g. an achievement that is unlocked just now
+            await page.EvaluateAsync(
+                """
+                () => {
+                    document.querySelectorAll('#AchievementUnlockedModal, .modal-backdrop').forEach(e => e.remove());
+                    document.body.classList.remove('modal-open');
+                    document.body.style.removeProperty('overflow');
+                    document.body.style.removeProperty('padding-right');
+                }
+                """);
+        }
+
         public async Task<bool> LogOutUserAsync()
         {
             await page.Locator(".nav-link-user-dropdown").ClickAsync();

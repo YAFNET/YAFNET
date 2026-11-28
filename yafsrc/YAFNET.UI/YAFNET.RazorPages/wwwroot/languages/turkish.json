@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Başarımlar"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} / {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Bu forumda başarımlar kapalı."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Henüz başarım yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Yönetici henüz hiçbir başarım oluşturmadı."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} ve {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} günlük üyelik"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} mesaj"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} verilen tepki"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} alınan tepki"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} itibar puanı"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} başlatılan konu"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Nasıl çalışır?"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "En fazla {0} başarım gösterebilirsiniz. Önce birini kapatın."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Sıradaki"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Sıradaki hedefiniz"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "/ {0} olası puan"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "Üye oranı: {0}"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} puan"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} puan"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} puan"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} puan"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "En nadir başarımınız"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Yaygın"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Destansı"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Efsanevi"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Nadir"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Seyrek"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Başarımlarımı gör"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Tümünü göster"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Profilimde göster"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "En fazla {0} başarım için \"Profilimde göster\" seçeneğini açın: bunlar profilinizde ve mesajlarınızın yanında gösterilir."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Profilinizde gösteriliyor"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Başarımlarım"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Başarım puanı"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Üyelik süresi"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Mesajlar"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Verilen tepkiler"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Alınan tepkiler"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "İtibar"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Konular"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Kazanıldı"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} / {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Başarım kazanıldı"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "1.000 mesaj yazın ve 1.000 tepki alın. Hem nicelik hem nitelik!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Çok Yönlü"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Beş yıl üye kalın. Artık her şeyi gördünüz."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Emektar"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "30 gün üye kalın."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Alışma Dönemi"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Bir yıl üye kalın."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Mutlu Yıllar"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "1.000 tepki verin. Kimse başkalarını sizin kadar desteklemiyor."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Altın Kalp"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "100 tepki verin. Sevgi yaydığınız için teşekkürler!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Amigo"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Başka bir üyenin mesajına ilk tepkinizi verin."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Takdirkâr"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "1.000 tepki alın. Topluluk size bayılıyor."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Topluluk Kahramanı"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "100 tepki alın. İnsanlar yazdıklarınızı seviyor."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Sevilen Üye"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Mesajlarınızdan birine ilk tepkinizi alın."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Biri Fark Etti"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Mesajlarınıza 25 tepki alın."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Kalabalığın Gözdesi"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "5.000 tepki alın. Bunların hepsinin gerçek insan olduğundan emin misiniz?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Süperstar"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "500 tepki alın. Bir hayran kulübünüz var!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Hayranların Favorisi"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "10.000 mesaj yazın. Hakkınızda şarkılar söylenecek."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Forum Efsanesi"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "1.000 mesaj yazın. Bu koca bir hikâye kitabı!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Hikâye Anlatıcısı"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "100 mesaj yazın. Söyleyecek çok şeyiniz olduğu belli."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Geveze"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "10 mesaj yazın. Klavye ısınmaya başladı!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Isınma Turu"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Forumun herhangi bir yerine ilk mesajınızı yazın."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "İlk Sözler"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "5.000 mesaj yazın. Forum tarihinin büyük bir kısmı sizin."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Yaşayan Arşiv"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "500 mesaj yazın. Sözleriniz bu topluluğu şekillendiriyor."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Söz Ustası"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "50 mesaj yazın. İnsanlar adınızı tanımaya başlıyor."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Müdavim"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "10 konu başlatın. Fikirler gelmeye devam etsin!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Fikir Makinesi"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "İlk konunuzu başlatın."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Buzları Eriten"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "250 konu başlatın. Siz nereye, topluluk oraya."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trend Belirleyici"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "50 konu başlatın. İnsanları konuşturmayı biliyorsunuz."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Tartışma Lideri"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Erişim maskelerini görüntülüyor"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Başarımları görüntüleme/düzenleme"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Erişim Maskelerini Düzenle"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Başarım Düzenle"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Konuyu Taşı"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Başarımlarını görüntülüyor"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Aktif konularını görüntülüyor"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Oy"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Tüm üyeleri kontrol et"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Başarımları, onlara ulaşmış tüm üyelere verir; örneğin yeni bir başarım ekledikten sonra."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Başarımlar, onlara ulaşmış tüm üyelere verilsin mi? Büyük bir forumda bu biraz zaman alabilir."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "{0} başarımı silinsin mi? {1} üye bunu kaybedecek."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Başarımlar kapalı, üyeler bunları kazanamaz. Sunucu Ayarları (Görünüm Ayarları) bölümünden açın."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Başarım yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Üyelerin mesajları, konuları ve tepkileriyle kazanacağı başarımlar ekleyin."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Pasif"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "{0} başarım verildi."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} başarımı silindi."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Başarımlar kapalı (Sunucu Ayarları)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Yeni Başarım"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Başarımlar"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Kazananlar"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Yeni veya etkin konu yok, özet boş ve gönderilmedi."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Aktif"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Pasif başarımlar kazanılamaz ve listelenmez. Bunlara zaten sahip olan üyeler onları korur."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Açıklama"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Bir üyenin bunu kazanmak için ne yapması gerektiği (adın altında gösterilir)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "İkinci hedef"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Her iki hedefe de ulaşılmalıdır (örn. 1.000 mesaj ve 1.000 alınan tepki)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "İkinci hedefin saydığı"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Hedef"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Ulaşılması gereken sayı."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Hedef 1 ile 1.000.000 arasında olmalıdır."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Lütfen bir simge seçin."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Lütfen bir ad girin."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Puan 0 ile 1.000.000 arasında olmalıdır."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Lütfen bir nadirlik seçin."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "İkinci hedef başka bir şey saymalıdır."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "{0} başarımı kaydedildi."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Lütfen neyin sayılacağını seçin."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Ad"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Başarımın (kupanın) adı."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Puan"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Üyenin kazandığı başarım puanı."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "puan"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Nadirlik"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Başarımın ne kadar nadir olduğu. Kupanın rengini belirler."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Hedef"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Simge"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Ödül"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Başarımı Düzenle"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Sayılan"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Neyin sayıldığı."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "{0} üye kazandı"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "İşaretlenirse, albüm özelliği etkinleştirilir. Özelliği etkinleştirmek için her grup ve/veya rütbe için izin verilen resim ve albüm sayısını da ayarlamalısınız."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Başarımları Etkinleştir"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Üyeler mesajları, konuları ve tepkileriyle başarımlar (kupalar) kazanır."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Erişim Maskeleri"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Başarımlar"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Hesabınız"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Başarımlar (kupalar), hedeflerine ulaştığınızda otomatik olarak kazanılır; örneğin ilk mesajınız, mesajlarınıza gelen 100 tepki veya bir yıllık üyelik. Her başarım size başarım puanı kazandırır. Nadirliği (yaygın, seyrek, nadir, destansı veya efsanevi) kupanın rengidir; ona sahip üyelerin oranı ise elde etmenin ne kadar zor olduğunu gösterir.</p>\r\n<p>Bir başarım kazandığınızda bir pencerede gösterilir. Başarımlarınız kullanıcı menüsündeki <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> sayfasındadır; orada sıradakilere ne kadar yakın olduğunuzu da görürsünüz. En fazla üç başarımı profilinizde ve mesajlarınızın yanında göstermek için <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> seçeneğini açın.</p>\r\n<p>Bu forumun başarımları şunlardır:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Başarımlar"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Bazı konular diğerlerinden daha önemlidir:</p>\r\n<ul>\r\n<li><strong>Sabit konular</strong> forumlarının konu listesinin en üstünde kalır, ör. forumun kuralları veya sıkça sorulan sorular.</li>\r\n<li><strong>Duyurular</strong> önemli bilgilerdir; bunlar da konu listesinin en üstünde gösterilir ve bir rozetle işaretlenir.</li>\r\n</ul>\r\n<p>Bunları kimin oluşturabileceğini yönetici belirler (genellikle moderatörler ve yöneticiler). Konuyu yazarken veya düzenlerken bunu <strong>[[POSTMESSAGE.PRIORITY]]</strong> ile seçerler. Konu kilitli olmadığı sürece sabit konulara ve duyurulara diğer konular gibi cevap verebilirsiniz.</p>\r\n<h3 class=\"h6 mt-3\">Forum duyuruları</h3>\r\n<p>Yönetici ayrıca forumun her sayfasında bir duyuru gösterebilir, ör. planlı bir bakım için. Duyuruyu sağındaki düğmeyle kapatabilirsiniz.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Bir konuya cevap vermek için mesajların üstündeki veya altındaki <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> düğmesine ya da bir mesajın altındaki <strong>[[BUTTON.BUTTON_REPLY]]</strong> düğmesine tıklayın. Cevap sayfası, yazarken okuyabilmeniz için düzenleyicinin altında konunun <strong>[[POSTMESSAGE.LAST10]]</strong> listesini gösterir.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Kısa bir cevap için mesajların altındaki hızlı cevap kutusunu veya bir mesajın <strong>[[POSTS.QUICKREPLY]]</strong> düğmesini kullanın. Metninizi yazın ve <strong>[[COMMON.POST]]</strong> düğmesine tıklayın. Tam düzenleyici için (ör. dosya eklemek için) <strong>[[COMMON.TT_EDITOR]]</strong> öğesine tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">Alıntı yapma</h3>\r\n<ul>\r\n<li>Bir mesajın altındaki <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, bu mesajın metnini alıntı olarak içeren bir cevap başlatır.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> konunun diğer sayfalarındakiler de dahil olmak üzere birkaç mesajı toplar. Ardından bunlardan birinde <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> öğesine tıklayın; cevap toplanan tüm mesajlardan alıntı yapar.</li>\r\n<li>Yalnızca bir kısmından alıntı yapmak için mesajdaki metni seçin, üzerine sağ tıklayın ve <strong>[[COMMON.SELECTED_QUOTE]]</strong> seçin.</li>\r\n</ul>\r\n<p>Uzun alıntıları cevap verdiğiniz kısma kadar kısaltın. Alıntı yapılan üye bilgilendirilir.</p>\r\n<p>Yalnızca bu forumda izniniz varsa ve kilitli olmayan bir konuda cevap verebilirsiniz. Ziyaretçiler yalnızca forum izin veriyorsa cevap verebilir.</p>"
+            "#text": "<p>Bir konuya cevap vermek için mesajların üstündeki veya altındaki <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> düğmesine ya da bir mesajın altındaki <strong>[[BUTTON.BUTTON_REPLY]]</strong> düğmesine tıklayın. Cevap sayfası, yazarken okuyabilmeniz için düzenleyicinin altında konunun <strong>[[POSTMESSAGE.LAST10]]</strong> listesini gösterir.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Kısa bir cevap için mesajların altındaki hızlı cevap kutusunu veya bir mesajın <strong>[[POSTS.QUICKREPLY]]</strong> düğmesini kullanın. Metninizi yazın ve <strong>[[COMMON.POST]]</strong> düğmesine tıklayın. Tam düzenleyici için (ör. dosya eklemek için) <strong>[[COMMON.TT_EDITOR]]</strong> öğesine tıklayın.</p>\r\n<h3 class=\"h6 mt-3\">Alıntı yapma</h3>\r\n<ul>\r\n<li>Bir mesajın altındaki <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, bu mesajın metnini alıntı olarak içeren bir cevap başlatır.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> konunun diğer sayfalarındakiler de dahil olmak üzere birkaç mesajı toplar. Ardından bunlardan birinde <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> öğesine tıklayın; cevap toplanan tüm mesajlardan alıntı yapar.</li>\r\n<li>Yalnızca bir kısmından alıntı yapmak için mesajdaki metni seçin, üzerine sağ tıklayın ve <strong>[[COMMON.SELECTED_QUOTE]]</strong> seçin.</li>\r\n<li>Bir alıntının üstünde onu kimin yazdığı gösterilir, adın yanındaki simge alıntılanan mesajı açar. Alıntı içindeki bir alıntının içindeki alıntı daraltılmıştır: göstermek için başlığına tıklayın.</li>\r\n</ul>\r\n<p>Uzun alıntıları cevap verdiğiniz kısma kadar kısaltın. Alıntı yapılan üye bilgilendirilir.</p>\r\n<p>Yalnızca bu forumda izniniz varsa ve kilitli olmayan bir konuda cevap verebilirsiniz. Ziyaretçiler yalnızca forum izin veriyorsa cevap verebilir.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Etkinlik Bildirimleriniz"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "{0} başarımının kilidini açtınız"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Onaylanmamış ve bildirilen mesajları görüntüleyebileceğiniz moderasyon sayfasını gösterir."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Başarımlarım"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Kazandığınız başarımlar"
           },
           {
             "@tag": "MYALBUMS",

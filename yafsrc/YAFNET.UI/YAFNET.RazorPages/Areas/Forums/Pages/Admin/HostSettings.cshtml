@@ -1159,6 +1159,16 @@
 <div class="row">
 	<div class="mb-3 col-md-6">
 		<label class="form-label" info-button="true"
+		       asp-for="Input.EnableAchievements"
+		       localized-tag="ENABLE_ACHIEVEMENTS"></label>
+		<div class="form-check form-switch">
+			<input type="checkbox" class="form-check-input" asp-for="Input.EnableAchievements"/>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="mb-3 col-md-6">
+		<label class="form-label" info-button="true"
 		       asp-for="Input.ShowHelpTo"
 		       localized-tag="SHOWHELP"></label>
 		<select class="form-select" asp-for="Input.ShowHelpTo" asp-items="Model.ShowHelpToList">

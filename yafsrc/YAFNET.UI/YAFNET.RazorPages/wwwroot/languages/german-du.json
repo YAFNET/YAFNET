@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Erfolge"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} von {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Die Erfolge sind in diesem Forum ausgeschaltet."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Noch keine Erfolge"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Der Administrator hat noch keine Erfolge eingerichtet."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} und {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} Tage Mitglied"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} Beiträge"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} gegebene Reaktionen"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} erhaltene Reaktionen"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} Ansehenspunkte"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} gestartete Themen"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "So funktioniert's"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Du kannst bis zu {0} Erfolge zeigen. Schalte zuerst einen davon aus."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Als Nächstes"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Dein nächstes Ziel"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "von {0} möglichen Punkten"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} der Mitglieder"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} Punkt"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} Punkte"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} Punkt"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} Punkte"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Dein seltenster Erfolg"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Gewöhnlich"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Episch"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Legendär"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Selten"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Ungewöhnlich"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Meine Erfolge ansehen"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Alle zeigen"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "In meinem Profil zeigen"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Schalte „In meinem Profil zeigen“ für bis zu {0} Erfolge ein: Sie werden in deinem Profil und bei deinen Beiträgen angezeigt."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Wird in deinem Profil gezeigt"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Meine Erfolge"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Erfolgspunkte"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Mitgliedschaft"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Beiträge"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Gegebene Reaktionen"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Erhaltene Reaktionen"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Ansehen"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Themen"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Freigeschaltet"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} von {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Erfolg freigeschaltet"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Schreibe 1.000 Beiträge und erhalte 1.000 Reaktionen. Masse und Klasse!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Allrounder"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Sei fünf Jahre lang Mitglied. Dich überrascht nichts mehr."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Alter Hase"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Sei 30 Tage lang Mitglied."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Angekommen"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Sei ein Jahr lang Mitglied."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Alles Gute zum Jubiläum"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Gib 1.000 Reaktionen. Niemand feuert die anderen so an wie du."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Herz aus Gold"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Gib 100 Reaktionen. Danke, dass du so viel Liebe verteilst!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Cheerleader"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Reagiere zum ersten Mal auf einen Beitrag eines anderen Mitglieds."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Wertschätzer"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Erhalte 1.000 Reaktionen. Die Community liebt dich."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Held der Community"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Erhalte 100 Reaktionen. Die Leute mögen, was du schreibst."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Beliebt"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Erhalte die erste Reaktion auf einen deiner Beiträge."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Jemand hat's bemerkt"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Erhalte 25 Reaktionen auf deine Beiträge."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Publikumsliebling"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Erhalte 5.000 Reaktionen. Bist du sicher, dass das alles echte Menschen sind?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superstar"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Erhalte 500 Reaktionen. Du hast einen Fanclub!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Fanliebling"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Schreibe 10.000 Beiträge. Man wird Lieder über dich singen."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Forumslegende"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Schreibe 1.000 Beiträge. Das ist ein ganzes Buch voller Geschichten!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Geschichtenerzähler"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Schreibe 100 Beiträge. Du hast offensichtlich viel zu sagen."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Plaudertasche"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Schreibe 10 Beiträge. Die Tastatur wird langsam warm!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Warmgeschrieben"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Schreibe deinen ersten Beitrag, egal wo im Forum."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Erste Worte"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Schreibe 5.000 Beiträge. Ein guter Teil der Forumsgeschichte stammt von dir."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Lebendes Archiv"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Schreibe 500 Beiträge. Deine Worte prägen diese Community."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Wortschmied"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Schreibe 50 Beiträge. Die Leute kennen langsam deinen Namen."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Stammgast"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Starte 10 Themen. Immer her mit den Ideen!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Ideenschmiede"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Starte dein erstes Thema."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Gesprächsstarter"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Starte 250 Themen. Wo du hingehst, folgt die Community."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Trendsetter"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Starte 50 Themen. Du weißt, wie man die Leute ins Gespräch bringt."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Diskussionsleiter"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Betrachtet Zugriffsmasken"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Betrachtet/bearbeitet Erfolge"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Bearbeitet Zugriffsmasken"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Bearbeitet Erfolge"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Verschiebt ein Thema"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Sieht sich seine Erfolge an"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Betrachtet seine aktiven Themen"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Abstimmen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Alle Mitglieder prüfen"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Vergibt die Erfolge an alle Mitglieder, die sie erreicht haben, z. B. nachdem du einen neuen Erfolg hinzugefügt hast."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Die Erfolge an alle Mitglieder vergeben, die sie erreicht haben? In einem großen Forum kann das eine Weile dauern."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Den Erfolg {0} löschen? {1} Mitglied(er) verlieren ihn."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Die Erfolge sind ausgeschaltet, die Mitglieder schalten sie nicht frei. Schalte sie in den Host-Einstellungen (Anzeigeeinstellungen) ein."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Erfolge"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Füge Erfolge hinzu, die die Mitglieder mit ihren Beiträgen, Themen und Reaktionen freischalten."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inaktiv"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "{0} Erfolg(e) wurden vergeben."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Der Erfolg {0} wurde gelöscht."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Die Erfolge sind ausgeschaltet (Host-Einstellungen)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Neuer Erfolg"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Erfolge"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Freigeschaltet von"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Es gibt keine neuen oder aktiven Themen, die Zusammenfassung ist leer und wurde nicht gesendet."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Aktiv"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Inaktive Erfolge können nicht freigeschaltet werden und werden nicht aufgelistet. Mitglieder, die einen davon haben, behalten ihn."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Beschreibung"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Was ein Mitglied tun muss, um ihn freizuschalten (wird unter dem Namen gezeigt)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Zweites Ziel"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Beide Ziele müssen erreicht werden (z. B. 1.000 Beiträge und 1.000 erhaltene Reaktionen)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Zweites Ziel zählt"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Ziel"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Die Zahl, die erreicht werden muss."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Das Ziel muss zwischen 1 und 1.000.000 liegen."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Bitte wähle ein Symbol aus."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Bitte gib einen Namen ein."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Die Punkte müssen zwischen 0 und 1.000.000 liegen."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Bitte wähle eine Seltenheit aus."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Das zweite Ziel muss etwas anderes zählen."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Der Erfolg {0} wurde gespeichert."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Bitte wähle aus, was gezählt wird."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Name"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Der Name des Erfolgs (der Trophäe)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punkte"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Die Erfolgspunkte, die das Mitglied bekommt."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "Punkte"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Seltenheit"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Wie selten der Erfolg ist. Sie bestimmt die Farbe der Trophäe."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Ziel"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Symbol"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Belohnung"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Erfolg bearbeiten"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Zählt"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Was gezählt wird."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Von {0} Mitglied(ern) freigeschaltet"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Wenn aktiviert, ist die Album-Funktion eingeschaltet. Damit sie funktioniert, solltest du zusätzlich für jede Gruppe und/oder jeden Rang die erlaubte Anzahl Bilder und Alben festlegen."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Erfolge aktivieren"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Die Mitglieder schalten mit ihren Beiträgen, Themen und Reaktionen Erfolge (Trophäen) frei."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Zugriffsmasken"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Erfolge"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Dein Konto"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Erfolge (Trophäen) werden automatisch freigeschaltet, wenn du ihre Ziele erreichst, z. B. dein erster Beitrag, 100 Reaktionen auf deine Beiträge oder ein Jahr Mitgliedschaft. Jeder Erfolg bringt dir Erfolgspunkte. Seine Seltenheit (gewöhnlich, ungewöhnlich, selten, episch oder legendär) ist die Farbe der Trophäe, und der Anteil der Mitglieder, die ihn haben, zeigt, wie schwer er zu bekommen ist.</p>\r\n<p>Wenn du einen Erfolg freischaltest, zeigt ihn ein Dialog an. Deine Erfolge findest du unter <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> im Benutzermenü, wo du auch siehst, wie nah du den nächsten bist. Schalte <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> für bis zu drei Erfolge ein, um sie in deinem Profil und bei deinen Beiträgen zu zeigen.</p>\r\n<p>Das sind die Erfolge dieses Forums:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Erfolge"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Manche Themen sind wichtiger als andere:</p>\r\n<ul>\r\n<li><strong>Fixierte Themen</strong> bleiben oben in der Themenliste ihres Forums, z. B. die Regeln oder häufig gestellte Fragen des Forums.</li>\r\n<li><strong>Ankündigungen</strong> sind wichtige Informationen, sie werden ebenfalls oben in der Themenliste angezeigt und mit einem Abzeichen markiert.</li>\r\n</ul>\r\n<p>Wer sie erstellen darf, legt der Administrator fest (meistens die Moderatoren und Administratoren). Sie wählen das mit <strong>[[POSTMESSAGE.PRIORITY]]</strong>, wenn sie das Thema schreiben oder bearbeiten. Auf fixierte Themen und Ankündigungen kannst du wie auf jedes andere Thema antworten, es sei denn, das Thema ist geschlossen.</p>\r\n<h3 class=\"h6 mt-3\">Forenweite Ankündigungen</h3>\r\n<p>Der Administrator kann außerdem auf jeder Seite des Forums eine Ankündigung anzeigen, z. B. für geplante Wartungsarbeiten. Du kannst sie mit der Schaltfläche rechts daneben schließen.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Um auf ein Thema zu antworten, klicke über oder unter den Beiträgen auf <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> oder unter einem Beitrag auf <strong>[[BUTTON.BUTTON_REPLY]]</strong>. Die Antwortseite zeigt unter dem Editor die <strong>[[POSTMESSAGE.LAST10]]</strong> des Themas, damit du sie beim Schreiben lesen kannst.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Für eine kurze Antwort nutze das Schnellantwort-Feld unter den Beiträgen oder die Schaltfläche <strong>[[POSTS.QUICKREPLY]]</strong> eines Beitrags. Schreibe deinen Text und klicke auf <strong>[[COMMON.POST]]</strong>. Für den vollständigen Editor (z. B. um Dateien anzuhängen) klicke auf <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Zitieren</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> unter einem Beitrag beginnt eine Antwort mit dem Text dieses Beitrags als Zitat.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> sammelt mehrere Beiträge, auch auf anderen Seiten des Themas. Klicke dann bei einem davon auf <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, die Antwort zitiert alle gesammelten Beiträge.</li>\r\n<li>Um nur einen Teil zu zitieren, markiere den Text im Beitrag, klicke mit der rechten Maustaste darauf und wähle <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Kürze lange Zitate auf den Teil, auf den du antwortest. Das zitierte Mitglied wird benachrichtigt.</p>\r\n<p>Du kannst nur antworten, wenn du in diesem Forum die Berechtigung dazu hast, und nicht in einem geschlossenen Thema. Gäste können nur antworten, wenn das Forum es erlaubt.</p>"
+            "#text": "<p>Um auf ein Thema zu antworten, klicke über oder unter den Beiträgen auf <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> oder unter einem Beitrag auf <strong>[[BUTTON.BUTTON_REPLY]]</strong>. Die Antwortseite zeigt unter dem Editor die <strong>[[POSTMESSAGE.LAST10]]</strong> des Themas, damit du sie beim Schreiben lesen kannst.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Für eine kurze Antwort nutze das Schnellantwort-Feld unter den Beiträgen oder die Schaltfläche <strong>[[POSTS.QUICKREPLY]]</strong> eines Beitrags. Schreibe deinen Text und klicke auf <strong>[[COMMON.POST]]</strong>. Für den vollständigen Editor (z. B. um Dateien anzuhängen) klicke auf <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Zitieren</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> unter einem Beitrag beginnt eine Antwort mit dem Text dieses Beitrags als Zitat.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> sammelt mehrere Beiträge, auch auf anderen Seiten des Themas. Klicke dann bei einem davon auf <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>, die Antwort zitiert alle gesammelten Beiträge.</li>\r\n<li>Um nur einen Teil zu zitieren, markiere den Text im Beitrag, klicke mit der rechten Maustaste darauf und wähle <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n<li>Über einem Zitat steht, wer es geschrieben hat, das Symbol neben dem Namen öffnet den zitierten Beitrag. Ein Zitat in einem Zitat in einem Zitat ist eingeklappt: klicke auf seinen Titel, um es anzuzeigen.</li>\r\n</ul>\r\n<p>Kürze lange Zitate auf den Teil, auf den du antwortest. Das zitierte Mitglied wird benachrichtigt.</p>\r\n<p>Du kannst nur antworten, wenn du in diesem Forum die Berechtigung dazu hast, und nicht in einem geschlossenen Thema. Gäste können nur antworten, wenn das Forum es erlaubt.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Deine Aktivitätsbenachrichtigungen"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Du hast den Erfolg {0} freigeschaltet"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Zeigt die Moderationsseite, auf der du nicht freigegebene und gemeldete Beiträge sehen kannst."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Meine Erfolge"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Die Erfolge, die du freigeschaltet hast"
           },
           {
             "@tag": "MYALBUMS",

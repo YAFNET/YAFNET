@@ -29,6 +29,7 @@ namespace YAF.Core.Model;
 
 using System;
 
+using YAF.Core.Helpers;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -148,6 +149,12 @@ public static class BoardRepositoryExtensions
                     MinPosts = 30,
                     SortOrder = 1
                 });
+
+            // -- Achievement (the default achievements, their texts are in the language files)
+            foreach (var achievement in AchievementDefaults.Create(newBoardId))
+            {
+                await BoardContext.Current.GetRepository<Achievement>().InsertAsync(achievement);
+            }
 
             // -- AccessMask
             var adminAccessFlag = new AccessFlags
@@ -570,6 +577,9 @@ public static class BoardRepositoryExtensions
             await BoardContext.Current.GetRepository<AccessMask>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<BBCode>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<Medal>().DeleteAsync(x => x.BoardID == boardId);
+
+            // the awards of the users are deleted with the users
+            await BoardContext.Current.GetRepository<Achievement>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<ReplaceWords>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<SpamWords>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<BannedIP>().DeleteAsync(x => x.BoardID == boardId);

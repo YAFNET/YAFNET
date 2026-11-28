@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Succès"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} sur {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Les succès sont désactivés sur ce forum."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun succès pour l'instant"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "L'administrateur n'a configuré aucun succès."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} et {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} jours d'adhésion"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} messages"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} réactions données"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} réactions reçues"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} points de réputation"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} sujets lancés"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Comment ça marche"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Vous pouvez afficher jusqu'à {0} succès. Désactivez-en d'abord un."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Suivant"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Votre prochain objectif"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "sur {0} points possibles"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} des membres"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} point"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} points"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} point"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} points"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Votre succès le plus rare"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Commun"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Épique"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Légendaire"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Rare"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Peu commun"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Voir mes succès"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Tout afficher"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Afficher dans mon profil"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Activez « Afficher dans mon profil » pour {0} succès au maximum : ils sont affichés dans votre profil et avec vos messages."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Affiché dans votre profil"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Mes succès"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Points de succès"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Ancienneté"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Messages"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Réactions données"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Réactions reçues"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Réputation"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Sujets"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Débloqué"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} sur {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Succès débloqué"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Écrivez 1 000 messages et recevez 1 000 réactions. La quantité et la qualité !"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Touche-à-tout"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Soyez membre depuis cinq ans. Vous en avez vu de toutes les couleurs."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Vétéran"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Soyez membre depuis 30 jours."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Bien installé"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Soyez membre depuis un an."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Joyeux anniversaire"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Donnez 1 000 réactions. Personne n'encourage les autres comme vous."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Cœur d'or"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Donnez 100 réactions. Merci de répandre autant d'amour !"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Supporter"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Réagissez pour la première fois au message d'un autre membre."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Bon public"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Recevez 1 000 réactions. La communauté vous adore."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Héros de la communauté"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Recevez 100 réactions. Les gens aiment ce que vous écrivez."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Apprécié"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Recevez la première réaction à l'un de vos messages."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Quelqu'un a remarqué"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Recevez 25 réactions à vos messages."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Coqueluche du public"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Recevez 5 000 réactions. Êtes-vous sûr que ce sont tous de vraies personnes ?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Superstar"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Recevez 500 réactions. Vous avez un fan-club !"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Chouchou des fans"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Écrivez 10 000 messages. On chantera vos exploits."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Légende du forum"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Écrivez 1 000 messages. De quoi remplir tout un livre !"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Conteur"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Écrivez 100 messages. Vous avez visiblement beaucoup à dire."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Moulin à paroles"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Écrivez 10 messages. Le clavier commence à chauffer !"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Échauffement"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Écrivez votre premier message, n'importe où sur le forum."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Premiers mots"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Écrivez 5 000 messages. Une bonne partie de l'histoire du forum, c'est vous."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Archive vivante"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Écrivez 500 messages. Vos mots façonnent cette communauté."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Plume d'or"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Écrivez 50 messages. Votre nom commence à être connu."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Habitué"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Lancez 10 sujets. Continuez à nous apporter vos idées !"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Boîte à idées"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Lancez votre premier sujet."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Brise-glace"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Lancez 250 sujets. Là où vous allez, la communauté suit."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Tendance"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Lancez 50 sujets. Vous savez faire parler les gens."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Meneur de débats"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Consulte les masques d'accès"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Consulte/modifie les succès"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Modifie les masques d'accès"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Modifie les succès"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Déplace un sujet"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Consulte ses succès"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Consulte ses sujets actifs"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Voter"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Vérifier tous les membres"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Attribue les succès à tous les membres qui les ont atteints, par ex. après l'ajout d'un nouveau succès."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Attribuer les succès à tous les membres qui les ont atteints ? Sur un grand forum, cela peut prendre un moment."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Supprimer le succès {0} ? {1} membre(s) le perdront."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Les succès sont désactivés, les membres ne les débloquent pas. Activez-les dans les Paramètres de l'hôte (Paramètres d'affichage)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun succès"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Ajoutez des succès que les membres débloquent avec leurs messages, sujets et réactions."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inactif"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "{0} succès ont été attribués."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Le succès {0} a été supprimé."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Les succès sont désactivés (Paramètres de l'hôte)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Nouveau succès"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Succès"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Débloqué par"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Il n'y a aucun sujet nouveau ou actif, le résumé est vide et n'a pas été envoyé."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Actif"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Les succès inactifs ne peuvent pas être débloqués et ne sont pas listés. Les membres qui l'ont déjà le conservent."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Ce qu'un membre doit faire pour le débloquer (affiché sous le nom)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Second objectif"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Les deux objectifs doivent être atteints (par ex. 1 000 messages et 1 000 réactions reçues)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Le second objectif compte"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Objectif"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Le nombre à atteindre."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "L'objectif doit être compris entre 1 et 1 000 000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Veuillez sélectionner une icône."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Veuillez saisir un nom."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Les points doivent être compris entre 0 et 1 000 000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Veuillez sélectionner une rareté."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Le second objectif doit compter autre chose."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Le succès {0} a été enregistré."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Veuillez sélectionner ce qui est compté."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Nom"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Le nom du succès (le trophée)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Points"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Les points de succès que le membre obtient."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "points"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Rareté"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "La rareté du succès. Elle détermine la couleur du trophée."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Objectif"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Icône"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Récompense"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Modifier le succès"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Compte"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Ce qui est compté."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "Débloqué par {0} membre(s)"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Si cette case est cochée, la fonction album est activée. Vous devez également définir le nombre d'images et d'albums autorisés pour chaque groupe et/ou rang, afin d'activer cette fonction."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Activer les succès"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Les membres débloquent des succès (trophées) avec leurs messages, sujets et réactions."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Masques d'accès"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Succès"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Votre compte"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Les succès (trophées) sont débloqués automatiquement lorsque vous atteignez leurs objectifs, par ex. votre premier message, 100 réactions à vos messages ou un an d'adhésion. Chaque succès vous rapporte des points de succès. Sa rareté (commun, peu commun, rare, épique ou légendaire) est la couleur du trophée, et la part des membres qui le possèdent montre à quel point il est difficile à obtenir.</p>\r\n<p>Lorsque vous débloquez un succès, une fenêtre l'affiche. Vos succès se trouvent dans <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> du menu utilisateur, où vous voyez aussi à quel point vous êtes proche des suivants. Activez <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> pour trois succès au maximum afin de les afficher dans votre profil et avec vos messages.</p>\r\n<p>Voici les succès de ce forum :</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Succès"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Certains sujets sont plus importants que d’autres :</p>\r\n<ul>\r\n<li><strong>Les sujets épinglés</strong> restent en haut de la liste des sujets de leur forum, p. ex. les règles ou les questions fréquentes du forum.</li>\r\n<li><strong>Les annonces</strong> sont des informations importantes, elles sont aussi affichées en haut de la liste des sujets, marquées d’un badge.</li>\r\n</ul>\r\n<p>Qui peut les créer est défini par l’administrateur (en général les modérateurs et les administrateurs). Ils les choisissent avec <strong>[[POSTMESSAGE.PRIORITY]]</strong> lorsqu’ils écrivent ou modifient le sujet. Vous pouvez répondre aux sujets épinglés et aux annonces comme à n’importe quel autre sujet, sauf si le sujet est verrouillé.</p>\r\n<h3 class=\"h6 mt-3\">Annonces du forum</h3>\r\n<p>L’administrateur peut aussi afficher une annonce sur chaque page du forum, p. ex. pour une maintenance prévue. Vous pouvez la fermer avec le bouton à sa droite.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Pour répondre à un sujet, cliquez sur <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> au-dessus ou en dessous des messages, ou sur <strong>[[BUTTON.BUTTON_REPLY]]</strong> sous un message. La page de réponse affiche les <strong>[[POSTMESSAGE.LAST10]]</strong> du sujet sous l’éditeur, pour que vous puissiez les lire pendant que vous écrivez.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Pour une réponse courte, utilisez la zone de réponse rapide sous les messages, ou le bouton <strong>[[POSTS.QUICKREPLY]]</strong> d’un message. Écrivez votre texte et cliquez sur <strong>[[COMMON.POST]]</strong>. Pour l’éditeur complet (p. ex. pour joindre des fichiers), cliquez sur <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citer</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> sous un message commence une réponse avec le texte de ce message en citation.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> rassemble plusieurs messages, aussi sur d’autres pages du sujet. Cliquez ensuite sur <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> sur l’un d’eux, la réponse cite tous les messages rassemblés.</li>\r\n<li>Pour ne citer qu’une partie, sélectionnez le texte dans le message, faites un clic droit dessus et choisissez <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Raccourcissez les longues citations à la partie à laquelle vous répondez. Le membre cité est notifié.</p>\r\n<p>Vous ne pouvez répondre que si vous en avez le droit dans ce forum, et pas dans un sujet verrouillé. Les invités ne peuvent répondre que si le forum le permet.</p>"
+            "#text": "<p>Pour répondre à un sujet, cliquez sur <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> au-dessus ou en dessous des messages, ou sur <strong>[[BUTTON.BUTTON_REPLY]]</strong> sous un message. La page de réponse affiche les <strong>[[POSTMESSAGE.LAST10]]</strong> du sujet sous l’éditeur, pour que vous puissiez les lire pendant que vous écrivez.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Pour une réponse courte, utilisez la zone de réponse rapide sous les messages, ou le bouton <strong>[[POSTS.QUICKREPLY]]</strong> d’un message. Écrivez votre texte et cliquez sur <strong>[[COMMON.POST]]</strong>. Pour l’éditeur complet (p. ex. pour joindre des fichiers), cliquez sur <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Citer</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> sous un message commence une réponse avec le texte de ce message en citation.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> rassemble plusieurs messages, aussi sur d’autres pages du sujet. Cliquez ensuite sur <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> sur l’un d’eux, la réponse cite tous les messages rassemblés.</li>\r\n<li>Pour ne citer qu’une partie, sélectionnez le texte dans le message, faites un clic droit dessus et choisissez <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n<li>Au-dessus d’une citation figure son auteur, l’icône à côté du nom ouvre le message cité. Une citation dans une citation dans une citation est repliée : cliquez sur son titre pour l’afficher.</li>\r\n</ul>\r\n<p>Raccourcissez les longues citations à la partie à laquelle vous répondez. Le membre cité est notifié.</p>\r\n<p>Vous ne pouvez répondre que si vous en avez le droit dans ce forum, et pas dans un sujet verrouillé. Les invités ne peuvent répondre que si le forum le permet.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Vos notifications d'activité"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Vous avez débloqué le succès {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Affiche la page de modération, où vous pouvez voir les messages non approuvés et signalés."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Mes succès"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Les succès que vous avez débloqués"
           },
           {
             "@tag": "MYALBUMS",

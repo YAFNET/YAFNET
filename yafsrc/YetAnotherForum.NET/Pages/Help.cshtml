@@ -124,6 +124,22 @@
                     </div>
                 }
             }
+
+            @if (faq == "achievements")
+            {
+                @* the achievements of the board (the ones the user has unlocked are marked) *@
+                if (!Model.PageBoardContext.BoardSettings.EnableAchievements)
+                {
+                    <div class="alert alert-info" role="status">@Html.LocalizedText("ACHIEVEMENTS", "DISABLED")</div>
+                }
+                else
+                {
+                    @await Html.PartialAsync(
+                        "_AchievementCards",
+                        Model.Achievements,
+                        new ViewDataDictionary(ViewData) { ["ShowCounts"] = !Model.PageBoardContext.IsGuest })
+                }
+            }
         </div>
     </div>
 </div>

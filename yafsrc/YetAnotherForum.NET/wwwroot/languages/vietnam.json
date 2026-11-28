@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "Thành tựu"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0} / {1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "Thành tựu đã bị tắt trên diễn đàn này."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Chưa có thành tựu nào"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Quản trị viên chưa thiết lập thành tựu nào."
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0} và {1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "{0} ngày là thành viên"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} bài viết"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "{0} cảm xúc đã gửi"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "{0} cảm xúc nhận được"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} điểm danh tiếng"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "{0} chủ đề đã tạo"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "Cách hoạt động"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "Bạn có thể hiển thị tối đa {0} thành tựu. Hãy tắt một thành tựu trước."
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Tiếp theo"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "Mục tiêu tiếp theo của bạn"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "trên tổng {0} điểm"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} thành viên"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} điểm"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} điểm"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} điểm"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} điểm"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "Thành tựu hiếm nhất của bạn"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "Phổ thông"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "Sử thi"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "Huyền thoại"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "Hiếm"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "Ít gặp"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "Xem thành tựu của tôi"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Hiển thị tất cả"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "Hiển thị trong hồ sơ của tôi"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "Bật \"Hiển thị trong hồ sơ của tôi\" cho tối đa {0} thành tựu: chúng sẽ hiển thị trong hồ sơ và bên cạnh bài viết của bạn."
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "Đang hiển thị trong hồ sơ"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Thành tựu của tôi"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "Điểm thành tựu"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "Thời gian thành viên"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "Bài viết"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "Cảm xúc đã gửi"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "Cảm xúc nhận được"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "Danh tiếng"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "Chủ đề"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "Đã mở khóa"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0} / {1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "Đã mở khóa thành tựu"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "Viết 1.000 bài và nhận 1.000 cảm xúc. Vừa nhiều vừa chất!"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "Toàn năng"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "Là thành viên năm năm. Bạn đã thấy hết mọi thứ."
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "Lão làng"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "Là thành viên 30 ngày."
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "Dần quen nhà"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "Là thành viên một năm."
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "Chúc mừng kỷ niệm"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "Gửi 1.000 cảm xúc. Không ai cổ vũ người khác như bạn."
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "Trái tim vàng"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "Gửi 100 cảm xúc. Cảm ơn bạn đã lan tỏa yêu thương!"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "Cổ động viên"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "Gửi cảm xúc đầu tiên cho bài viết của một thành viên khác."
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "Người tri âm"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "Nhận 1.000 cảm xúc. Cộng đồng yêu mến bạn."
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "Người hùng cộng đồng"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "Nhận 100 cảm xúc. Mọi người thích những gì bạn viết."
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "Được yêu mến"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "Nhận cảm xúc đầu tiên cho một bài viết của bạn."
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "Có người để ý"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "Nhận 25 cảm xúc cho các bài viết của bạn."
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "Đắt khách"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "Nhận 5.000 cảm xúc. Bạn chắc đó đều là người thật chứ?"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "Siêu sao"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "Nhận 500 cảm xúc. Bạn đã có fan club!"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "Cục cưng của fan"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "Viết 10.000 bài. Người ta sẽ viết bài ca về bạn."
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "Huyền thoại diễn đàn"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "Viết 1.000 bài. Đủ cả một cuốn sách rồi!"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "Người kể chuyện"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "Viết 100 bài. Rõ ràng bạn có nhiều điều muốn nói."
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "Người nói nhiều"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "Viết 10 bài. Bàn phím bắt đầu nóng rồi!"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "Khởi động"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "Viết bài đầu tiên ở bất kỳ đâu trên diễn đàn."
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "Lời chào đầu tiên"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "Viết 5.000 bài. Một phần lớn lịch sử diễn đàn là của bạn."
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "Kho lưu trữ sống"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "Viết 500 bài. Lời của bạn định hình cộng đồng này."
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "Bậc thầy ngôn từ"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "Viết 50 bài. Mọi người bắt đầu nhớ tên bạn."
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "Khách quen"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "Tạo 10 chủ đề. Cứ tiếp tục ra ý tưởng nhé!"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "Cỗ máy ý tưởng"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "Tạo chủ đề đầu tiên của bạn."
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "Người mở lời"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "Tạo 250 chủ đề. Bạn đi đâu, cộng đồng theo đó."
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "Người dẫn trend"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "Tạo 50 chủ đề. Bạn biết cách khiến mọi người cùng bàn luận."
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "Thủ lĩnh thảo luận"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Đang xem mặt nạ truy cập"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Xem / chỉnh sửa thành tựu"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "Chỉnh sửa mặt nạ truy cập"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "Chỉnh sửa thành tựu"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "Di chuyển một chủ đề"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Đang xem thành tựu của mình"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Xem các chủ đề đang hoạt động của mình"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "Bỏ phiếu"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "Kiểm tra tất cả thành viên"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "Trao thành tựu cho tất cả thành viên đã đạt được, ví dụ sau khi bạn thêm một thành tựu mới."
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "Trao thành tựu cho tất cả thành viên đã đạt được? Với diễn đàn lớn việc này có thể mất một lúc."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Xóa thành tựu {0}? {1} thành viên sẽ mất thành tựu này."
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "Thành tựu đang tắt, thành viên không mở khóa được. Hãy bật trong Cài đặt máy chủ (Thiết lập hiển thị)."
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có thành tựu"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Thêm các thành tựu mà thành viên mở khóa bằng bài viết, chủ đề và cảm xúc."
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Không hoạt động"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "Đã trao {0} thành tựu."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Đã xóa thành tựu {0}."
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "Thành tựu đang tắt (Cài đặt máy chủ)."
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "Thành tựu mới"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Thành tựu"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "Đã mở khóa"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "Không có chủ đề mới hoặc đang hoạt động, bản tóm tắt trống và chưa được gửi."
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "Hoạt động"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "Thành tựu không hoạt động sẽ không thể mở khóa và không được liệt kê. Thành viên đã có vẫn giữ nguyên."
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "Mô tả"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "Thành viên cần làm gì để mở khóa (hiển thị dưới tên)."
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "Mục tiêu thứ hai"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "Phải đạt cả hai mục tiêu (ví dụ 1.000 bài viết và 1.000 cảm xúc nhận được)."
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "Mục tiêu thứ hai đếm"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "Mục tiêu"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "Con số cần đạt được."
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "Mục tiêu phải từ 1 đến 1.000.000."
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "Vui lòng chọn biểu tượng."
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "Vui lòng nhập tên."
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "Điểm phải từ 0 đến 1.000.000."
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "Vui lòng chọn độ hiếm."
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "Mục tiêu thứ hai phải đếm thứ khác."
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Đã lưu thành tựu {0}."
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "Vui lòng chọn thứ được đếm."
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Tên"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "Tên của thành tựu (cúp)."
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Điểm"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "Điểm thành tựu mà thành viên nhận được."
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "điểm"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "Độ hiếm"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "Mức độ hiếm của thành tựu. Đây là màu của chiếc cúp."
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "Mục tiêu"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "Biểu tượng"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "Phần thưởng"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Sửa thành tựu"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "Đếm"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "Thứ được đếm."
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "{0} thành viên đã mở khóa"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "Nếu chọn, tính năng album được bật. Bạn cũng cần đặt số hình ảnh và album được phép cho từng nhóm và/hoặc cấp bậc để bật tính năng này."
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "Bật thành tựu"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "Thành viên mở khóa thành tựu (cúp) bằng bài viết, chủ đề và cảm xúc."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Mặt nạ truy cập"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "Thành tựu"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "Tài khoản của bạn"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>Thành tựu (cúp) được mở khóa tự động khi bạn đạt mục tiêu của chúng, ví dụ bài viết đầu tiên, 100 cảm xúc cho bài viết của bạn hoặc một năm là thành viên. Mỗi thành tựu mang lại cho bạn điểm thành tựu. Độ hiếm (phổ thông, ít gặp, hiếm, sử thi hoặc huyền thoại) là màu của chiếc cúp, và tỷ lệ thành viên sở hữu cho thấy thành tựu đó khó đạt đến mức nào.</p>\r\n<p>Khi bạn mở khóa một thành tựu, một hộp thoại sẽ hiển thị nó. Thành tựu của bạn nằm ở <a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a> trong menu người dùng, nơi bạn cũng thấy mình còn cách các thành tựu tiếp theo bao xa. Bật <strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong> cho tối đa ba thành tựu để hiển thị chúng trong hồ sơ và bên cạnh bài viết của bạn.</p>\r\n<p>Đây là các thành tựu của diễn đàn này:</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "Thành tựu"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>Một số chủ đề quan trọng hơn những chủ đề khác:</p>\r\n<ul>\r\n<li><strong>Chủ đề ghim</strong> luôn nằm ở đầu danh sách chủ đề của diễn đàn, ví dụ nội quy hoặc các câu hỏi thường gặp của diễn đàn.</li>\r\n<li><strong>Chủ đề thông báo</strong> là những thông tin quan trọng, chúng cũng được hiển thị ở đầu danh sách chủ đề và được đánh dấu bằng một huy hiệu.</li>\r\n</ul>\r\n<p>Ai có thể tạo chúng là do quản trị viên quy định (thường là người điều hành và quản trị viên). Họ chọn điều này bằng <strong>[[POSTMESSAGE.PRIORITY]]</strong> khi viết hoặc sửa chủ đề. Bạn có thể trả lời chủ đề ghim và chủ đề thông báo như bất kỳ chủ đề nào khác, trừ khi chủ đề bị khóa.</p>\r\n<h3 class=\"h6 mt-3\">Thông báo của diễn đàn</h3>\r\n<p>Quản trị viên cũng có thể hiển thị một thông báo trên mọi trang của diễn đàn, ví dụ về một đợt bảo trì theo kế hoạch. Bạn có thể đóng nó bằng nút ở bên phải.</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>Để trả lời một chủ đề, hãy nhấp vào <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> phía trên hoặc bên dưới các bài viết, hoặc <strong>[[BUTTON.BUTTON_REPLY]]</strong> bên dưới một bài viết. Trang trả lời hiển thị <strong>[[POSTMESSAGE.LAST10]]</strong> của chủ đề bên dưới trình soạn thảo, để bạn có thể đọc trong khi viết.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Với câu trả lời ngắn, hãy dùng ô trả lời nhanh bên dưới các bài viết hoặc nút <strong>[[POSTS.QUICKREPLY]]</strong> của một bài viết. Viết nội dung và nhấp vào <strong>[[COMMON.POST]]</strong>. Để dùng trình soạn thảo đầy đủ (ví dụ để đính kèm tệp), hãy nhấp vào <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Trích dẫn</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> bên dưới một bài viết bắt đầu một câu trả lời có nội dung của bài viết đó dưới dạng trích dẫn.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> thu thập nhiều bài viết, kể cả trên các trang khác của chủ đề. Sau đó nhấp vào <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> ở một trong số đó, câu trả lời sẽ trích dẫn tất cả bài viết đã thu thập.</li>\r\n<li>Để chỉ trích dẫn một phần, hãy chọn văn bản trong bài viết, nhấp chuột phải vào đó và chọn <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n</ul>\r\n<p>Hãy rút gọn các trích dẫn dài, chỉ giữ phần bạn trả lời. Thành viên được trích dẫn sẽ được thông báo.</p>\r\n<p>Bạn chỉ có thể trả lời nếu được phép trong diễn đàn này, và không thể trả lời trong chủ đề bị khóa. Khách chỉ có thể trả lời nếu diễn đàn cho phép.</p>"
+            "#text": "<p>Để trả lời một chủ đề, hãy nhấp vào <strong>[[BUTTON.BUTTON_POSTREPLY]]</strong> phía trên hoặc bên dưới các bài viết, hoặc <strong>[[BUTTON.BUTTON_REPLY]]</strong> bên dưới một bài viết. Trang trả lời hiển thị <strong>[[POSTMESSAGE.LAST10]]</strong> của chủ đề bên dưới trình soạn thảo, để bạn có thể đọc trong khi viết.</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>Với câu trả lời ngắn, hãy dùng ô trả lời nhanh bên dưới các bài viết hoặc nút <strong>[[POSTS.QUICKREPLY]]</strong> của một bài viết. Viết nội dung và nhấp vào <strong>[[COMMON.POST]]</strong>. Để dùng trình soạn thảo đầy đủ (ví dụ để đính kèm tệp), hãy nhấp vào <strong>[[COMMON.TT_EDITOR]]</strong>.</p>\r\n<h3 class=\"h6 mt-3\">Trích dẫn</h3>\r\n<ul>\r\n<li><strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> bên dưới một bài viết bắt đầu một câu trả lời có nội dung của bài viết đó dưới dạng trích dẫn.</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong> thu thập nhiều bài viết, kể cả trên các trang khác của chủ đề. Sau đó nhấp vào <strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong> ở một trong số đó, câu trả lời sẽ trích dẫn tất cả bài viết đã thu thập.</li>\r\n<li>Để chỉ trích dẫn một phần, hãy chọn văn bản trong bài viết, nhấp chuột phải vào đó và chọn <strong>[[COMMON.SELECTED_QUOTE]]</strong>.</li>\r\n<li>Phía trên trích dẫn hiển thị người đã viết nó, biểu tượng bên cạnh tên sẽ mở bài viết được trích dẫn. Trích dẫn nằm trong trích dẫn của một trích dẫn khác được thu gọn: nhấp vào tiêu đề của nó để hiển thị.</li>\r\n</ul>\r\n<p>Hãy rút gọn các trích dẫn dài, chỉ giữ phần bạn trả lời. Thành viên được trích dẫn sẽ được thông báo.</p>\r\n<p>Bạn chỉ có thể trả lời nếu được phép trong diễn đàn này, và không thể trả lời trong chủ đề bị khóa. Khách chỉ có thể trả lời nếu diễn đàn cho phép.</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "Thông báo hoạt động của bạn"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "Bạn đã mở khóa thành tựu {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Hiển thị trang kiểm duyệt, nơi bạn có thể xem các bài viết chưa duyệt và bị báo cáo."
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "Thành tựu của tôi"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "Các thành tựu bạn đã mở khóa"
           },
           {
             "@tag": "MYALBUMS",

@@ -32,6 +32,7 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -59,6 +60,11 @@ public class HelpModel : ForumPage
     /// Gets the other custom BB codes of the board (name and usage), they are not shown live (e.g. embedded media).
     /// </summary>
     public List<BBCodeHelpExample> CustomBBCodes { get; private set; } = [];
+
+    /// <summary>
+    /// Gets the achievements of the board (the help topic of the achievements lists them).
+    /// </summary>
+    public List<AchievementInfo> Achievements { get; private set; } = [];
 
     /// <summary>
     /// The BB codes of the help with their group, and the custom BB code they need (null for the built-in codes).
@@ -136,6 +142,14 @@ public class HelpModel : ForumPage
         if (faq == "bbcodes")
         {
             await this.LoadBBCodeExamplesAsync();
+        }
+
+        if (faq == "achievements" && this.PageBoardContext.BoardSettings.EnableAchievements)
+        {
+            this.Achievements = await this.Get<IAchievementService>().GetAchievementInfosAsync(
+                                    this.PageBoardContext.PageBoardID,
+                                    this.PageBoardContext.IsGuest ? null : this.PageBoardContext.PageUserID,
+                                    false);
         }
 
         return this.Page();

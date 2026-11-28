@@ -473,17 +473,6 @@ public interface IAspNetUsersHelper
     Task<IdentityResult> ChangePasswordAsync(AspNetUsers user, string currentPassword, string newPassword);
 
     /// <summary>
-    /// The add login.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="login">
-    /// The login.
-    /// </param>
-    void AddLogin(string userId, UserLoginInfo login);
-
-    /// <summary>
     /// Finds the user.
     /// </summary>
     /// <param name="userName">

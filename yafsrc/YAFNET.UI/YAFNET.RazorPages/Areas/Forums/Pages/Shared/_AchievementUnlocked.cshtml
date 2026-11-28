@@ -1,0 +1,65 @@
+@using YAF.Core.Context
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@inject BoardContext Current
+
+@* the "achievement unlocked" dialog: shown when the user has unlocked achievements that the user has not seen (on the
+   page load or live, see forum/achievements.ts) *@
+@if (Current.BoardSettings.EnableAchievements && !Current.IsGuest && Current.PageUserID > 0)
+{
+    var service = Current.Get<IAchievementService>();
+    var localization = Current.Get<ILocalization>();
+
+    // the goals that are reached without an action (e.g. the membership days) and the users of the time before the
+    // achievements are checked once in a while
+    await service.CheckUserOccasionallyAsync(Current.PageUserID);
+
+    <div class="modal fade achievement-unlocked" id="AchievementUnlockedModal" tabindex="-1" aria-hidden="true"
+         aria-labelledby="AchievementUnlockedName"
+         data-unseen="@(service.HasUnseen(Current.PageUserID) ? "true" : "false")"
+         data-url="@Url.Content("~/api/Achievement")"
+         data-text-points="@localization.GetText("ACHIEVEMENTS", "PLUS_POINTS")"
+         data-text-point="@localization.GetText("ACHIEVEMENTS", "PLUS_POINT")"
+         data-text-percent="@localization.GetText("ACHIEVEMENTS", "PERCENT_MEMBERS")"
+         data-text-feature="@localization.GetText("ACHIEVEMENTS", "SHOW_IN_PROFILE")"
+         data-text-featured="@localization.GetText("ACHIEVEMENTS", "SHOWN_IN_PROFILE")"
+         data-text-counter="@localization.GetText("ACHIEVEMENTS", "COUNTER")">
+        @Html.AntiForgeryToken()
+        <div class="modal-dialog modal-dialog-centered achievement-unlocked-dialog">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="@localization.GetText("POSTS", "CLOSE_TEXT")"></button>
+                <div class="modal-body px-4 pt-4 pb-3">
+                    <div class="achievement-unlocked-label">@localization.GetText("ACHIEVEMENTS", "UNLOCKED_TITLE")</div>
+                    <div class="achievement-stage" id="AchievementUnlockedStage"></div>
+                    <h2 class="h3 fw-bold mb-1 achievement-unlocked-name" id="AchievementUnlockedName"></h2>
+                    <p class="text-body-secondary mb-3 achievement-unlocked-description" id="AchievementUnlockedDescription"></p>
+                    <div class="achievement-unlocked-pills mb-4">
+                        <span class="achievement-pill achievement-pill-points" id="AchievementUnlockedPoints"></span>
+                        <span class="achievement-pill"><span class="achievement-rarity" id="AchievementUnlockedRarity"></span></span>
+                        <span class="achievement-pill text-body-secondary" id="AchievementUnlockedPercent"></span>
+                    </div>
+                    <div class="achievement-unlocked-actions">
+                        <a class="btn btn-primary" id="AchievementUnlockedAll"
+                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.MyAchievements))">
+                            <i class="fas fa-trophy me-1"></i>@localization.GetText("ACHIEVEMENTS", "SEE_ALL")
+                        </a>
+                        <button type="button" class="btn btn-outline-primary" id="AchievementUnlockedFeature">
+                            <i class="fas fa-thumbtack me-1"></i><span>@localization.GetText("ACHIEVEMENTS", "SHOW_IN_PROFILE")</span>
+                        </button>
+                    </div>
+                    <div class="small text-danger mt-2 d-none" id="AchievementUnlockedMessage" role="alert"></div>
+                    <div class="d-flex align-items-center justify-content-between mt-3 small text-body-secondary d-none"
+                         id="AchievementUnlockedPager">
+                        <span id="AchievementUnlockedCounter"></span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="AchievementUnlockedNext">
+                            @localization.GetText("ACHIEVEMENTS", "NEXT")<i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

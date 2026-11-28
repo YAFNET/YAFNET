@@ -9,6 +9,7 @@
 @use "forum/dropdowns.scss";
 @use "forum/cookie-alert.scss";
 @use "forum/button-scroll.scss";
+@use "forum/achievements.scss";
 
 // Main
 #YafBody {
@@ -724,6 +725,85 @@
         .badge {
             font-weight: 500;
         }
+    }
+}
+
+// Admin achievements
+.admin-achievements {
+    .achievement-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+
+        &.inactive .achievement-main {
+            opacity: .65;
+        }
+    }
+
+    .achievement-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .achievement-name {
+        font-weight: 600;
+    }
+
+    .achievement-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-top: .25rem;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}
+
+// Admin edit achievement: the rarities, the icons and the preview of the trophy
+.admin-edit-achievement {
+    .achievement-rarity-picker .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+    }
+
+    .achievement-rarity-picker .btn-check:checked + .btn {
+        border-color: var(--trophy-dark);
+        background-color: color-mix(in srgb, var(--trophy-light) 20%, transparent);
+        color: var(--bs-body-color);
+    }
+
+    .achievement-icon-picker {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(2.6rem, 1fr));
+        gap: .35rem;
+        max-height: 15rem;
+        overflow-y: auto;
+        padding: .15rem;
+
+        .btn {
+            padding: .45rem 0;
+        }
+    }
+
+    .achievement-preview-card {
+        position: sticky;
+        top: 1rem;
+    }
+
+    .achievement-preview-stage {
+        display: grid;
+        place-items: center;
+        padding: 1.25rem 0 .5rem;
+        border-radius: var(--bs-border-radius-lg);
+        background: radial-gradient(circle, color-mix(in srgb, var(--trophy-light) 28%, transparent), transparent 65%);
     }
 }
 

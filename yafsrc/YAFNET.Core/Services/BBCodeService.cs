@@ -887,28 +887,15 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         ruleEngine.AddRule(
             new QuoteRegexReplaceRule(
-                @"\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r\n)?",
-                """
-                <div class="card mx-3 mb-3 border-secondary shadow-sm" >
-                    <div class="card-body">
-                        <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>${quoteText}</p>
-                        ${quote}
-                    </div>
-                </div>
-                """,
-                Options) { RuleRank = 61 });
+                // the line breaks before and after the quote belong to it (a quote is a block), the rule
+                // runs before the line breaks become <br /> (the text of the quote stays text for the later rules)
+                @"(?:\r?\n)*\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r?\n)*",
+                // ${quote}: the header with the author (or the start of the collapsed quote)
+                """<blockquote class="${quoteClass}">${quote}<div class="bbcode-quote-text">${quoteText}</div>${quoteEnd}</blockquote>""",
+                Options) { RuleRank = 49 });
 
-        // simple open quote tag
-        const string SimpleOpenQuoteReplace = """
-                                              <div class="card mx-3 mb-3 border-secondary shadow-sm" >
-                                              <div class="card-body">
-                                                     <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>
-                                              """;
-
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[quote\]", SimpleOpenQuoteReplace, Options) { RuleRank = 62 });
-
-        // and finally the closing quote tag
-        ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[/quote\]", "</p></div></div>", Options) { RuleRank = 63 });
+        // a [quote] or [/quote] without its partner stays text: a lone opening tag opened html that was
+        // never closed, a lone closing tag closed the divs of the page
     }
 
     /// <summary>

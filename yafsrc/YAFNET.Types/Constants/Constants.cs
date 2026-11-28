@@ -156,6 +156,26 @@ public static class Constants
         public const string UserIgnoreList = "UserIgnoreList{0}";
 
         /// <summary>
+        ///   The achievements of a board.
+        /// </summary>
+        public const string Achievements = "Achievements{0}";
+
+        /// <summary>
+        ///   The number of the users that have unlocked the achievements of a board.
+        /// </summary>
+        public const string AchievementCounts = "AchievementCounts{0}";
+
+        /// <summary>
+        ///   The achievements a user has unlocked.
+        /// </summary>
+        public const string UserAchievements = "UserAchievements{0}";
+
+        /// <summary>
+        ///   The time the achievements of a user were checked on a page load.
+        /// </summary>
+        public const string UserAchievementsChecked = "UserAchievementsChecked{0}";
+
+        /// <summary>
         ///   The user medals.
         /// </summary>
         public const string UserMedals = "UserMedals{0}";

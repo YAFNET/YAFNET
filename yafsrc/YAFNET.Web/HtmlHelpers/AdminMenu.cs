@@ -87,7 +87,7 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Users and Roles Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_ProfileDefinitions" or "Admin_AccessMasks" or "Admin_Groups" or "Admin_Ranks" or "Admin_Users" or "Admin_Medals" or "Admin_Mail" or "Admin_Digest"))
+                x => x.PageName is "Admin_ProfileDefinitions" or "Admin_AccessMasks" or "Admin_Groups" or "Admin_Ranks" or "Admin_Users" or "Admin_Medals" or "Admin_Achievements" or "Admin_Mail" or "Admin_Digest"))
         {
             content.AppendHtml(RenderAdminUsersAndRoles(pagesAccess, context));
         }
@@ -428,7 +428,7 @@ public static class AdminMenuHtmlHelper
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 context.Get<ILocalization>().GetText("ADMINMENU", "UsersandRoles"),
                 "#",
-                context.CurrentForumPage.PageName is ForumPages.Admin_ProfileDefinitions or ForumPages.Admin_AccessMasks or ForumPages.Admin_EditAccessMask or ForumPages.Admin_Groups or ForumPages.Admin_EditGroup or ForumPages.Admin_Ranks or ForumPages.Admin_Users or ForumPages.Admin_EditUser or ForumPages.Admin_EditRank or ForumPages.Admin_Medals or ForumPages.Admin_EditMedal or ForumPages.Admin_Mail or ForumPages.Admin_Digest,
+                context.CurrentForumPage.PageName is ForumPages.Admin_ProfileDefinitions or ForumPages.Admin_AccessMasks or ForumPages.Admin_EditAccessMask or ForumPages.Admin_Groups or ForumPages.Admin_EditGroup or ForumPages.Admin_Ranks or ForumPages.Admin_Users or ForumPages.Admin_EditUser or ForumPages.Admin_EditRank or ForumPages.Admin_Medals or ForumPages.Admin_EditMedal or ForumPages.Admin_Achievements or ForumPages.Admin_EditAchievement or ForumPages.Admin_Mail or ForumPages.Admin_Digest,
                 true,
                 "users"));
 
@@ -512,6 +512,19 @@ public static class AdminMenuHtmlHelper
                     context.CurrentForumPage.PageName is ForumPages.Admin_Medals or ForumPages.Admin_EditMedal,
                     false,
                     "medal"));
+        }
+
+        // Admin Achievements
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Achievements"))
+        {
+            list.InnerHtml.AppendHtml(
+                RenderMenuItem(
+                    "dropdown-item",
+                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_Achievements"),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Achievements),
+                    context.CurrentForumPage.PageName is ForumPages.Admin_Achievements or ForumPages.Admin_EditAchievement,
+                    false,
+                    "trophy"));
         }
 
         // Admin Mail

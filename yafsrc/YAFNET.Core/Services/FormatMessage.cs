@@ -240,8 +240,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         int messageId,
         int messageAuthorId)
     {
-        message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
-
         // Remove HIDDEN Text
         message = this.RemoveHiddenBBCodeContent(message);
 

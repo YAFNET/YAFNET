@@ -62,7 +62,8 @@ public class QuoteAndEditConversionTests
 
         this.board.Localization
             .Add("COMMON", "BBCODE_QUOTEWROTE", "{0} wrote:")
-            .Add("COMMON", "BBCODE_QUOTEPOSTED", "Posted by {0}");
+            .Add("COMMON", "BBCODE_QUOTEPOSTED", "Posted by {0}")
+            .Add("COMMON", "TT_QUOTE", "Quote");
 
         // like the real link builder: a missing topic throws
         this.board.LinkBuilder.GetMessageLink(Arg.Any<Topic>(), Arg.Any<int>()).Returns(
@@ -78,24 +79,26 @@ public class QuoteAndEditConversionTests
     }
 
     [Test]
-    [Description("A plain quote is rendered as a card")]
+    [Description("A plain quote is a blockquote without a header")]
     public async Task Quote_Plain_Test()
     {
         var html = await this.FormatAsync("before [quote]quoted text[/quote] after");
 
-        html.Should().Contain("<div class=\"card").And.Contain("quoted text");
+        html.Should().Contain("<blockquote class=\"bbcode-quote\">").And.Contain("quoted text");
+        html.Should().NotContain("bbcode-quote-header");
         html.Should().StartWith("before").And.EndWith("after");
-        AssertBalancedDivs(html);
+        AssertBalanced(html);
     }
 
     [Test]
-    [Description("A quote with a name shows who wrote it")]
+    [Description("A quote with a name shows who wrote it above the text")]
     public async Task Quote_With_Name_Test()
     {
         var html = await this.FormatAsync("[quote=Bob]hello[/quote]");
 
-        html.Should().Contain("hello").And.Contain("Bob wrote:");
-        AssertBalancedDivs(html);
+        html.Should().Contain("bbcode-quote-header").And.Contain("Bob wrote:");
+        AssertOrder(html, "Bob wrote:", "hello");
+        AssertBalanced(html);
     }
 
     [Test]
@@ -109,28 +112,29 @@ public class QuoteAndEditConversionTests
 
         var html = await this.FormatAsync($"[quote=Bob;{message}]hello[/quote]");
 
-        html.Should().Contain("Posted by Bob").And.Contain($"href=\"/post/{message}\"");
+        html.Should().Contain("Bob wrote:").And.Contain($"href=\"/post/{message}\"");
         html.Should().NotContain($";{message}");
+        AssertOrder(html, "Bob wrote:", $"href=\"/post/{message}\"", "hello");
     }
 
     [TestCase("[quote=Bob;999999]hello[/quote]")]
     [TestCase("[quote=Bob;abc]hello[/quote]")]
-    [Description("A quote with a missing or invalid post id falls back to 'wrote'")]
+    [Description("A quote with a missing or invalid post id has no link")]
     public async Task Quote_With_Invalid_Post_Test(string input)
     {
         var html = await this.FormatAsync(input);
 
-        html.Should().Contain("Bob wrote:").And.Contain("hello").And.NotContain("href=\"/post/");
+        html.Should().Contain("Bob wrote:").And.Contain("hello").And.NotContain("href=");
     }
 
     [Test]
-    [Description("Nested named quotes produce correctly nested HTML in the original order")]
+    [Description("Nested named quotes produce correctly nested HTML in the original order, each name above its text")]
     public async Task Quote_Nested_Named_Test()
     {
         var html = await this.FormatAsync("[quote=Alice]outer start [quote=Bob]inner[/quote] outer end[/quote] reply");
 
-        AssertBalancedDivs(html);
-        AssertOrder(html, "outer start", "inner", "Bob wrote:", "outer end", "Alice wrote:", "reply");
+        AssertBalanced(html);
+        AssertOrder(html, "Alice wrote:", "outer start", "Bob wrote:", "inner", "outer end", "reply");
     }
 
     [Test]
@@ -139,8 +143,10 @@ public class QuoteAndEditConversionTests
     {
         var html = await this.FormatAsync("[quote=Alice]outer [quote]inner[/quote] end[/quote]");
 
-        AssertBalancedDivs(html);
-        AssertOrder(html, "outer", "inner", "end", "Alice wrote:");
+        AssertBalanced(html);
+        AssertOrder(html, "Alice wrote:", "outer", "inner", "end", "</blockquote>");
+        html.IndexOf("</blockquote>", StringComparison.Ordinal).Should()
+            .BeLessThan(html.IndexOf(" end", StringComparison.Ordinal), html);
     }
 
     [Test]
@@ -149,8 +155,84 @@ public class QuoteAndEditConversionTests
     {
         var html = await this.FormatAsync("[quote=Alice]one[/quote] middle [quote=Bob]two[/quote]");
 
-        AssertBalancedDivs(html);
-        AssertOrder(html, "one", "Alice wrote:", "middle", "two", "Bob wrote:");
+        AssertBalanced(html);
+        AssertOrder(html, "Alice wrote:", "one", "middle", "Bob wrote:", "two");
+    }
+
+    [Test]
+    [Description("A quote in a quote in a quote is collapsed, the first two levels are open")]
+    public async Task Quote_Deep_Nesting_Is_Collapsed_Test()
+    {
+        var html = await this.FormatAsync(
+            "[quote=Alice]one [quote=Bob]two [quote=Carol]three [quote]four[/quote][/quote][/quote][/quote] reply");
+
+        AssertBalanced(html);
+        AssertOrder(html, "Alice wrote:", "one", "Bob wrote:", "two", "<details", "Carol wrote:", "three", "<details", "four");
+        Regex.Matches(html, "<details").Count.Should().Be(2, html);
+        Regex.Matches(html, "bbcode-quote-collapsed").Count.Should().Be(2, html);
+
+        // the collapsed quote without a name gets a title for its summary
+        html.Should().MatchRegex("<summary class=\"bbcode-quote-header\">.*?Quote.*?</summary>\\s*<div class=\"bbcode-quote-text\">four", html);
+    }
+
+    [Test]
+    [Description("Quotes next to each other in a quote have the same depth")]
+    public async Task Quote_Depth_Of_Sibling_Quotes_Test()
+    {
+        var html = await this.FormatAsync("[quote=Alice][quote=Bob]a[/quote] [quote=Carol]b[/quote][/quote]");
+
+        html.Should().NotContain("<details", html);
+    }
+
+    [Test]
+    [Description("The empty lines around a quote are not shown as line breaks next to the quote block")]
+    public async Task Quote_No_Line_Breaks_Around_Quotes_Test()
+    {
+        var html = await this.FormatAsync(
+            "text\r\n\r\n[quote=Alice]outer\r\n\r\n[quote]inner[/quote]\r\n\r\nouter end\r\n[/quote]\r\n\r\nreply");
+
+        AssertBalanced(html);
+        AssertOrder(html, "text", "outer", "inner", "outer end", "reply");
+
+        // no line break right before a quote, after it, or at the start or end of its text
+        html.Should().NotMatchRegex(@"<br\s*/?>\s*<blockquote", html);
+        html.Should().NotMatchRegex(@"</blockquote>\s*<br\s*/?>", html);
+        html.Should().NotMatchRegex(@"<div class=""bbcode-quote-text"">\s*<br", html);
+        html.Should().NotMatchRegex(@"<br\s*/?>\s*</div>", html);
+    }
+
+    [TestCase("[code][quote=Bob]x[/quote][/code]")]
+    [TestCase("[code=csharp][quote=Bob]x[/quote][/code]")]
+    [TestCase("[noparse][quote=Bob]x[/quote][/noparse]")]
+    [Description("A quote in a code block or in noparse stays text")]
+    public async Task Quote_In_Code_Stays_Text_Test(string input)
+    {
+        var html = await this.FormatAsync(input);
+
+        html.Should().NotContain("wrote:").And.NotContain("<blockquote");
+        html.Should().MatchRegex(@"(\[|&#91;)quote=Bob(\]|&#93;)x", html);
+    }
+
+    [Test]
+    [Description("A quote inside a quote is not inside a paragraph (a block in a <p> is invalid html, the browser closed the paragraph early)")]
+    public async Task Quote_Nested_Not_In_Paragraph_Test()
+    {
+        var html = await this.FormatAsync("[quote=Alice]outer [quote]inner[/quote] end[/quote]");
+
+        html.Should().NotMatchRegex(@"<p[\s>](?:(?!</p>)[\s\S])*<(div|blockquote)", html);
+        html.Should().NotContain("<p></p>");
+    }
+
+    [TestCase("[quote]open only", "[quote]")]
+    [TestCase("close only[/quote]", "[/quote]")]
+    [TestCase("[quote=Alice]a [quote]b[/quote]", "[quote=Alice]")]
+    [Description("A quote tag without its partner stays text (it opened html that was never closed, or closed the divs of the page)")]
+    public async Task Quote_Unbalanced_Stays_Text_Test(string input, string text)
+    {
+        var html = await this.FormatAsync(input);
+
+        AssertBalanced(html);
+        html.Should().Contain(text);
     }
 
     [Test]
@@ -301,6 +383,14 @@ public class QuoteAndEditConversionTests
     }
 
     private IBBCodeService Service => this.board.Resolve<IBBCodeService>();
+
+    private static void AssertBalanced(string html)
+    {
+        AssertBalancedDivs(html);
+
+        Regex.Matches(html, "<blockquote[\\s>]").Count.Should().Be(Regex.Matches(html, "</blockquote>").Count, html);
+        Regex.Matches(html, "<details[\\s>]").Count.Should().Be(Regex.Matches(html, "</details>").Count, html);
+    }
 
     private static void AssertBalancedDivs(string html)
     {

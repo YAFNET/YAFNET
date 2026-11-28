@@ -133,13 +133,13 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                     albums = ",albums";
                 }
 
-                if (BoardContext.Current.UploadAccess)
+                if (this.UsersCanUpload && BoardContext.Current.UploadAccess)
                 {
                     attachments = "|attachments";
                 }
 
                 var toolbar =
-                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|note|bulletlist,orderedlist|left,center,right|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media|extensions|source|reply";
+                $"bold,italic,underline,strike|font,size,color|mark|email,link,unlink,quote,code,|image{albums}{attachments}|note|bulletlist,orderedlist|left,center,right|cut,copy,pastetext,removeformat|undo,redo|youtube,vimeo,instagram,facebook,media,markdowninsert|extensions|source|reply";
 
                 var dragDropJs = string.Empty;
 

@@ -262,6 +262,10 @@ public abstract class DatabaseFixture : IAsyncDisposable
         this.SmtpServer.ClearReceivedEmail();
 
         await installer.RegisterTestUserAsync(testSettings.TestUserName2, testSettings.TestUser2Password);
+
+        // the dialog of an unlocked achievement would cover the pages of the tests (the achievement tests switch
+        // them on)
+        await this.Page.SetAchievementsAsync(testSettings, false);
     }
 }
 

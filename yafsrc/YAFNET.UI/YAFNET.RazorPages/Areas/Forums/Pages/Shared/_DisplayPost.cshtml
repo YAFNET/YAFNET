@@ -222,6 +222,22 @@
                                     <li class="list-inline-item d-block">
                                         <span class="badge text-bg-secondary">@Model.RankName</span>
 
+                                        @if (Current.BoardSettings.EnableAchievements && !Model.IsGuest)
+                                        {
+                                            @* the achievements the author shows with the posts *@
+                                            var featured = Current.Get<IAchievementService>().GetFeatured(Model.UserID);
+
+                                            if (featured.Count > 0)
+                                            {
+                                                <span class="achievement-showcase align-middle">
+                                                    @foreach (var achievement in featured)
+                                                    {
+                                                        <span title="@achievement.Name" data-bs-toggle="tooltip">@Html.AchievementTrophy(achievement, "achievement-trophy-sm")</span>
+                                                    }
+                                                </span>
+                                            }
+                                        }
+
                                         @if (Model.TopicOwnerID.Equals(postData.UserId))
                                         {
                                             <span class="badge text-bg-dark mb-2"

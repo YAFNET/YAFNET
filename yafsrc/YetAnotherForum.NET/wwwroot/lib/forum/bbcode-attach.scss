@@ -1,0 +1,45 @@
+// Attachments in the editor: the [attach] BBCodes shown by the attachpreview plugin of SCEditor
+// (forum.min.css is one of the styles of the editor)
+
+.bbcode-attach {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    max-width: 100%;
+    margin: 0 .125rem;
+    padding: .125rem .5rem;
+    border: var(--bs-border-width, 1px) solid var(--bs-border-color, #dee2e6);
+    border-radius: var(--bs-border-radius, .375rem);
+    background-color: var(--bs-tertiary-bg, #f8f9fa);
+    color: var(--bs-body-color, #212529);
+    font-size: .875em;
+    line-height: 1.4;
+    vertical-align: middle;
+    cursor: default;
+    user-select: none;
+
+    // an image: only a thin frame
+    &:has(.bbcode-attach-image) {
+        padding: .25rem;
+    }
+
+    // no preview (not an attachment of the user, or not loaded)
+    &[data-attach-state="missing"] {
+        border-style: dashed;
+        color: var(--bs-secondary-color, #6c757d);
+    }
+}
+
+.bbcode-attach-image {
+    display: block;
+    max-width: min(100%, 300px);
+    max-height: 200px;
+    border-radius: calc(var(--bs-border-radius, .375rem) - .125rem);
+    object-fit: contain;
+}
+
+.bbcode-attach-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

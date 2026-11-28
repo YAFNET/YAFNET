@@ -30,6 +30,11 @@ if (hasNotifications || liveUpdates) {
 				alert.classList.toggle('d-none');
 			}
 		});
+
+		// an achievement was unlocked (e.g. a reaction to a post of the user): the dialog shows it
+		connection.on('achievementUnlockedAsync', () => {
+			(window as any).yafAchievementUnlocked?.();
+		});
 	}
 
 	if (liveUpdates) {

@@ -1,0 +1,444 @@
+// Achievements (trophies): the trophy, the cards of the lists and the "achievement unlocked" dialog.
+// Used by forum.scss and forum-admin.scss (the dialog is shown on every page).
+
+// the colors of the rarities: the light and the dark tone of the ring
+$achievement-rarities: (
+    "common": (#c3cad3, #7d8792),
+    "uncommon": (#5fd17a, #1f883d),
+    "rare": (#6cb2ff, #1f6feb),
+    "epic": (#c79bff, #8250df),
+    "legendary": (#ffd866, #c98a0b)
+);
+
+// the trophy: the icon on a disc in a metallic ring of the rarity color
+.achievement-trophy {
+    --trophy-size: 3rem;
+    --trophy-light: #c3cad3;
+    --trophy-dark: #7d8792;
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--trophy-size);
+    height: var(--trophy-size);
+    border-radius: 50%;
+    padding: calc(var(--trophy-size) * .07);
+    background: conic-gradient(from 210deg, var(--trophy-dark), var(--trophy-light) 25%, var(--trophy-dark) 50%, var(--trophy-light) 75%, var(--trophy-dark));
+    box-shadow: 0 .15rem .45rem rgba(0, 0, 0, .25);
+    vertical-align: middle;
+
+    // the disc with the icon
+    &::before {
+        content: "";
+        position: absolute;
+        inset: calc(var(--trophy-size) * .07);
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #3a3f47, #16181c 70%);
+        box-shadow: inset 0 0 calc(var(--trophy-size) * .12) rgba(0, 0, 0, .6);
+    }
+
+    i {
+        position: relative;
+        font-size: calc(var(--trophy-size) * .4);
+        color: var(--trophy-light);
+        filter: drop-shadow(0 0 calc(var(--trophy-size) * .06) color-mix(in srgb, var(--trophy-light) 60%, transparent));
+    }
+
+    // the shine of the epic and legendary trophies
+    &.rarity-epic::after,
+    &.rarity-legendary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%) no-repeat;
+        background-size: 250% 100%;
+        mix-blend-mode: overlay;
+        animation: achievement-shine 4s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    &.locked {
+        background: conic-gradient(from 210deg, #6c757d, #adb5bd 25%, #6c757d 50%, #adb5bd 75%, #6c757d);
+        filter: grayscale(1);
+        opacity: .45;
+
+        &::after {
+            display: none;
+        }
+
+        i {
+            color: #adb5bd;
+            filter: none;
+        }
+    }
+}
+
+// the colors of the rarities (after the trophy: they replace its default colors)
+@each $name, $colors in $achievement-rarities {
+    .rarity-#{$name} {
+        --trophy-light: #{nth($colors, 1)};
+        --trophy-dark: #{nth($colors, 2)};
+    }
+}
+
+.achievement-trophy-sm {
+    --trophy-size: 1.6rem;
+    box-shadow: none;
+}
+
+.achievement-trophy-md {
+    --trophy-size: 2.25rem;
+}
+
+.achievement-trophy-lg {
+    --trophy-size: 7.5rem;
+}
+
+@keyframes achievement-shine {
+    0%, 55% {
+        background-position: 130% 0;
+    }
+
+    100% {
+        background-position: -130% 0;
+    }
+}
+
+// the rarity as text (in the color of the rarity, readable in both themes)
+.achievement-rarity {
+    font-weight: 600;
+    color: color-mix(in srgb, var(--trophy-dark) 75%, var(--bs-body-color));
+
+    [data-bs-theme="dark"] & {
+        color: var(--trophy-light);
+    }
+}
+
+// the trophies a user shows (profile, posts)
+.achievement-showcase {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem;
+}
+
+// the cards of the lists (help, my achievements)
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: .75rem;
+}
+
+.achievement-card {
+    display: flex;
+    gap: .85rem;
+    align-items: flex-start;
+    height: 100%;
+    padding: .85rem;
+    border: 1px dashed var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+    background-color: var(--bs-body-bg);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+
+    &.unlocked {
+        border-style: solid;
+        border-color: color-mix(in srgb, var(--trophy-dark) 45%, var(--bs-border-color));
+        background: linear-gradient(135deg, color-mix(in srgb, var(--trophy-light) 9%, var(--bs-body-bg)), var(--bs-body-bg) 60%);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 .35rem 1rem color-mix(in srgb, var(--trophy-dark) 25%, transparent);
+        }
+    }
+
+    .achievement-name {
+        font-weight: 600;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+    }
+
+    &.unlocked .achievement-name {
+        color: var(--bs-emphasis-color);
+    }
+
+    .achievement-description {
+        font-size: .875rem;
+        overflow-wrap: anywhere;
+    }
+
+    .achievement-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .15rem .75rem;
+        margin-top: .3rem;
+        font-size: .8rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .progress {
+        height: .4rem;
+        margin-top: .5rem;
+    }
+
+    .progress-bar {
+        background-color: var(--trophy-dark);
+    }
+}
+
+// the summary of a user (points, unlocked, share)
+.achievement-summary {
+    .achievement-summary-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .progress {
+        height: .5rem;
+    }
+}
+
+// the "achievement unlocked" dialog
+.achievement-unlocked {
+    .modal-content {
+        overflow: hidden;
+        text-align: center;
+        border: 0;
+        background: radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--trophy-light) 18%, var(--bs-body-bg)), var(--bs-body-bg) 55%);
+    }
+
+    .btn-close {
+        position: absolute;
+        top: .85rem;
+        right: .85rem;
+        z-index: 3;
+    }
+
+    .achievement-unlocked-label {
+        font-size: .8rem;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--trophy-dark) 70%, var(--bs-body-color));
+
+        [data-bs-theme="dark"] & {
+            color: var(--trophy-light);
+        }
+    }
+
+    // the trophy with the rays and the sparks
+    .achievement-stage {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 15rem;
+        height: 15rem;
+        margin: -.5rem auto -1rem;
+    }
+
+    .achievement-rays {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--trophy-light) 55%, transparent) 0deg 5deg, transparent 5deg 15deg);
+        mask: radial-gradient(circle, #000 25%, transparent 70%);
+        animation: achievement-rays-in .6s ease-out both, achievement-spin 24s linear infinite;
+    }
+
+    .achievement-glow {
+        position: absolute;
+        width: 8.5rem;
+        height: 8.5rem;
+        border-radius: 50%;
+        background: radial-gradient(circle, color-mix(in srgb, var(--trophy-light) 70%, transparent), transparent 70%);
+        animation: achievement-glow 2.4s ease-in-out .6s infinite;
+    }
+
+    .achievement-trophy-lg {
+        z-index: 1;
+        animation: achievement-pop .8s cubic-bezier(.2, 1.6, .4, 1) both;
+        box-shadow: 0 0 0 .25rem color-mix(in srgb, var(--trophy-light) 30%, transparent), 0 0 2.5rem color-mix(in srgb, var(--trophy-light) 70%, transparent);
+
+        i {
+            animation: achievement-icon .6s cubic-bezier(.2, 1.8, .4, 1) .45s both;
+        }
+    }
+
+    .achievement-sparks {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    .achievement-spark {
+        --spark-x: 0;
+        --spark-y: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: .5rem;
+        height: .5rem;
+        margin: -.25rem 0 0 -.25rem;
+        border-radius: 50%;
+        background: var(--trophy-light);
+        box-shadow: 0 0 .5rem var(--trophy-light);
+        opacity: 0;
+        animation: achievement-spark 1.1s ease-out .35s both;
+
+        &:nth-child(3n) {
+            width: .3rem;
+            height: .3rem;
+            background: #fff;
+        }
+
+        &:nth-child(4n) {
+            border-radius: 1px;
+            transform: rotate(45deg);
+        }
+    }
+
+    .achievement-unlocked-name {
+        animation: achievement-rise .5s ease-out .5s both;
+        overflow-wrap: anywhere;
+    }
+
+    .achievement-unlocked-description {
+        animation: achievement-rise .5s ease-out .6s both;
+        overflow-wrap: anywhere;
+    }
+
+    .achievement-unlocked-pills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .5rem;
+        animation: achievement-rise .5s ease-out .7s both;
+    }
+
+    .achievement-pill {
+        padding: .3rem .8rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: 50rem;
+        font-size: .85rem;
+        font-weight: 600;
+    }
+
+    .achievement-pill-points {
+        border-color: transparent;
+        background-color: color-mix(in srgb, var(--trophy-light) 22%, transparent);
+        color: color-mix(in srgb, var(--trophy-dark) 75%, var(--bs-body-color));
+
+        [data-bs-theme="dark"] & {
+            color: var(--trophy-light);
+        }
+    }
+
+    .achievement-unlocked-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+        animation: achievement-rise .5s ease-out .8s both;
+
+        @media (max-width: 400px) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@keyframes achievement-pop {
+    0% {
+        transform: scale(.2) rotate(-25deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes achievement-icon {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes achievement-rays-in {
+    0% {
+        opacity: 0;
+        scale: .4;
+    }
+
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes achievement-spin {
+    100% {
+        rotate: 360deg;
+    }
+}
+
+@keyframes achievement-glow {
+    0%, 100% {
+        transform: scale(.9);
+        opacity: .65;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
+
+@keyframes achievement-spark {
+    0% {
+        translate: 0 0;
+        opacity: 1;
+        scale: 1;
+    }
+
+    100% {
+        translate: var(--spark-x) var(--spark-y);
+        opacity: 0;
+        scale: .3;
+    }
+}
+
+@keyframes achievement-rise {
+    0% {
+        transform: translateY(.6rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .achievement-trophy::after,
+    .achievement-unlocked .achievement-rays,
+    .achievement-unlocked .achievement-glow,
+    .achievement-unlocked .achievement-trophy-lg,
+    .achievement-unlocked .achievement-trophy-lg i,
+    .achievement-unlocked .achievement-unlocked-name,
+    .achievement-unlocked .achievement-unlocked-description,
+    .achievement-unlocked .achievement-unlocked-pills,
+    .achievement-unlocked .achievement-unlocked-actions {
+        animation: none;
+    }
+
+    .achievement-unlocked .achievement-sparks {
+        display: none;
+    }
+}

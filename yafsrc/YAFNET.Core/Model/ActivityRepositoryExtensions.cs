@@ -53,8 +53,10 @@ public static class ActivityRepositoryExtensions
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-            expression.Join<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
-                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created);
+            // the notifications of another user (the user is shown) and of the unlocked achievements (no other user)
+            expression.LeftJoin<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
+                .Where<Activity>(a => a.UserID == userId && (a.FromUserID.HasValue || (a.Flags & 65536) == 65536))
+                .OrderByDescending(a => a.Created);
 
             var notifications = repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
 
@@ -66,6 +68,17 @@ public static class ActivityRepositoryExtensions
             notifications.RemoveAll(
                 n => n.Item1.TopicID.HasValue && (n.Item3 is null || n.Item3.ID == 0 || n.Item3.TopicFlags.IsDeleted
                                                   || !readableForums.Contains(n.Item3.ForumID)));
+
+            // the achievement is shown: only achievements that (still) exist
+            if (notifications.Exists(n => n.Item1.ActivityFlags.UnlockedAchievement))
+            {
+                var achievements = BoardContext.Current.GetRepository<Achievement>()
+                    .Get(a => a.BoardID == BoardContext.Current.PageBoardID).Select(a => a.ID).ToHashSet();
+
+                notifications.RemoveAll(
+                    n => n.Item1.ActivityFlags.UnlockedAchievement
+                         && (!n.Item1.AchievementID.HasValue || !achievements.Contains(n.Item1.AchievementID.Value)));
+            }
 
             return notifications;
         }
@@ -85,7 +98,8 @@ public static class ActivityRepositoryExtensions
 
             expression.LeftJoin<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
                 a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096
-                     && (a.Flags & 8192) != 8192 && (a.Flags & 16384) != 16384).OrderByDescending(a => a.Created);
+                     && (a.Flags & 8192) != 8192 && (a.Flags & 16384) != 16384 && (a.Flags & 65536) != 65536)
+            .OrderByDescending(a => a.Created);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, Topic>(expression));
         }
@@ -119,6 +133,17 @@ public static class ActivityRepositoryExtensions
         /// <param name="topicId">
         /// The message id.
         /// </param>
+        public void UpdateAchievementNotification(int userId,
+            int achievementId)
+        {
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.AchievementID == achievementId && a.Notification);
+
+            // clear the cached unread counts after the update
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+        }
+
         public void UpdateTopicNotification(int userId,
             int topicId)
         {

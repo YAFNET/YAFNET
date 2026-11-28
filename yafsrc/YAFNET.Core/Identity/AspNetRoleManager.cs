@@ -66,16 +66,9 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     /// <returns>
     /// Returns List of Role names
     /// </returns>
-    public async Task<IList<string>> GetRolesAsync(AspNetUsers user)
+    public Task<IList<string>> GetRolesAsync(AspNetUsers user)
     {
-        var roles = await BoardContext.Current.GetRepository<AspNetUserRoles>().GetAsync(r => r.UserId == user.Id);
-
-        var rolesSelected = roles.Select(r => r.RoleId).AsEnumerable().ToList();
-
-        var roleNames = await BoardContext.Current.GetRepository<AspNetRoles>()
-                            .GetAsync(r => rolesSelected.Contains(r.Id));
-
-        return [.. roleNames.Select(r => r.Name)];
+        return BoardContext.Current.Get<AspNetUsersManager>().GetRolesAsync(user);
     }
 
     /// <summary>
@@ -118,6 +111,25 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     public Task<IdentityResult> DeleteRoleAsync(AspNetRoles role)
     {
         return this.DeleteAsync(role);
+    }
+
+    /// <summary>
+    /// Rename a role
+    /// </summary>
+    /// <param name="role">
+    ///     The role.
+    /// </param>
+    /// <param name="roleName">
+    ///     The new role name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IdentityResult"/>.
+    /// </returns>
+    public async Task<IdentityResult> RenameRoleAsync(AspNetRoles role, string roleName)
+    {
+        await this.SetRoleNameAsync(role, roleName);
+
+        return await this.UpdateAsync(role);
     }
 
     /// <summary>

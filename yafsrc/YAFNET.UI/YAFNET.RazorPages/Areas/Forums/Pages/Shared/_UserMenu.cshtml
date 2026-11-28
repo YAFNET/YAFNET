@@ -12,7 +12,7 @@
 @{
     var unreadCount = Current.UnreadPrivate + Current.PendingBuddies;
 
-    var unreadNotify = Current.Mention + Current.Quoted + Current.ReceivedThanks + Current.WatchTopic;
+    var unreadNotify = Current.Mention + Current.Quoted + Current.ReceivedThanks + Current.WatchTopic + Current.UnlockedAchievements;
 }
 
 @if (!Current.IsGuest)
@@ -282,6 +282,20 @@
 					   title-localized-tag="MYTOPICS_TITLE"
 					   icon="comment">
 					</a>
+
+					@if (Current.BoardSettings.EnableAchievements)
+					{
+						<a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyAchievements ? "dropdown-item active" : "dropdown-item")"
+						   bs-toggle="tooltip"
+						   asp-page="@ForumPages.MyAchievements.GetPageName()"
+						   role="button"
+						   text-localized-page="TOOLBAR"
+						   text-localized-tag="MYACHIEVEMENTS"
+						   title-localized-page="TOOLBAR"
+						   title-localized-tag="MYACHIEVEMENTS_TITLE"
+						   icon="trophy">
+						</a>
+					}
 
 					<div class="dropdown-divider"></div>
 

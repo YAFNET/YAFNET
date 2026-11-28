@@ -95,6 +95,7 @@ public class ControllerActionTests
                 b.RegisterInstance(Substitute.For<IUserDisplayName>()).As<IUserDisplayName>();
                 b.RegisterType<ActivityStream>().As<IActivityStream>();
                 b.RegisterType<Reactions>().As<IReactions>();
+                b.RegisterType<AchievementService>().As<IAchievementService>();
                 b.RegisterType<PollService>().AsSelf();
                 b.RegisterType<DateTimeService>().As<IDateTimeService>();
                 b.RegisterInstance(Substitute.For<IAvatars>()).As<IAvatars>();
@@ -655,6 +656,33 @@ public class ControllerActionTests
         var activities = await this.Repository<Activity>().GetAsync(a => a.MessageID == this.firstPost);
         activities.Should().HaveCount(2, "Bob's reaction activities are kept");
         activities.Should().OnlyContain(a => a.UserID == this.bob || a.FromUserID == this.bob);
+    }
+
+    [Test]
+    [Description("A reaction awards the achievements of the reactions received to the author and of the reactions given to the user")]
+    public async Task Reaction_Awards_Achievements_Test()
+    {
+        this.board.GrantAccess(this.bob, this.forum);
+
+        var received = await this.Repository<Achievement>().InsertAsync(
+                           new Achievement
+                           {
+                               BoardID = TestDatabase.BoardId, Name = "Liked", Icon = "heart",
+                               Type = (int)AchievementType.ReactionsReceived, Threshold = 1
+                           });
+        var given = await this.Repository<Achievement>().InsertAsync(
+                        new Achievement
+                        {
+                            BoardID = TestDatabase.BoardId, Name = "Liker", Icon = "heart",
+                            Type = (int)AchievementType.ReactionsGiven, Threshold = 1
+                        });
+
+        await this.CreateController<ReactionController>().React(this.firstPost, (int)ReactionType.Like);
+
+        (await this.Repository<UserAchievement>().GetAsync(u => u.UserID == this.alice)).Select(u => u.AchievementID)
+            .Should().Equal(received);
+        (await this.Repository<UserAchievement>().GetAsync(u => u.UserID == this.bob)).Select(u => u.AchievementID)
+            .Should().Equal(given);
     }
 
     private TestBoardContext Board => this.board;

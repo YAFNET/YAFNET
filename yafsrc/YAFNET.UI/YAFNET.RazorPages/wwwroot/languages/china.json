@@ -198,6 +198,392 @@
         ]
       },
       {
+        "@name": "ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "ACHIEVEMENTS",
+            "#text": "成就"
+          },
+          {
+            "@tag": "COUNTER",
+            "#text": "{0}/{1}"
+          },
+          {
+            "@tag": "DISABLED",
+            "#text": "本论坛已关闭成就功能。"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "还没有成就"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "管理员尚未设置任何成就。"
+          },
+          {
+            "@tag": "GOAL_AND",
+            "#text": "{0}和{1}"
+          },
+          {
+            "@tag": "GOAL_MEMBERSHIPDAYS",
+            "#text": "成为会员 {0} 天"
+          },
+          {
+            "@tag": "GOAL_POSTS",
+            "#text": "{0} 个帖子"
+          },
+          {
+            "@tag": "GOAL_REACTIONSGIVEN",
+            "#text": "给出 {0} 次回应"
+          },
+          {
+            "@tag": "GOAL_REACTIONSRECEIVED",
+            "#text": "收到 {0} 次回应"
+          },
+          {
+            "@tag": "GOAL_REPUTATION",
+            "#text": "{0} 点声望"
+          },
+          {
+            "@tag": "GOAL_TOPICS",
+            "#text": "发起 {0} 个主题"
+          },
+          {
+            "@tag": "HOW_IT_WORKS",
+            "#text": "规则说明"
+          },
+          {
+            "@tag": "MAX_FEATURED",
+            "#text": "你最多可以展示 {0} 个成就。请先关闭其中一个。"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "下一个"
+          },
+          {
+            "@tag": "NEXT_GOAL",
+            "#text": "你的下一个目标"
+          },
+          {
+            "@tag": "OF_POINTS",
+            "#text": "/ 共 {0} 点"
+          },
+          {
+            "@tag": "PERCENT_MEMBERS",
+            "#text": "{0} 的会员"
+          },
+          {
+            "@tag": "PLUS_POINT",
+            "#text": "+{0} 点"
+          },
+          {
+            "@tag": "PLUS_POINTS",
+            "#text": "+{0} 点"
+          },
+          {
+            "@tag": "POINT",
+            "#text": "{0} 点"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "{0} 点"
+          },
+          {
+            "@tag": "RAREST",
+            "#text": "你最稀有的成就"
+          },
+          {
+            "@tag": "RARITY_COMMON",
+            "#text": "普通"
+          },
+          {
+            "@tag": "RARITY_EPIC",
+            "#text": "史诗"
+          },
+          {
+            "@tag": "RARITY_LEGENDARY",
+            "#text": "传说"
+          },
+          {
+            "@tag": "RARITY_RARE",
+            "#text": "稀有"
+          },
+          {
+            "@tag": "RARITY_UNCOMMON",
+            "#text": "优秀"
+          },
+          {
+            "@tag": "SEE_ALL",
+            "#text": "查看我的成就"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "显示全部"
+          },
+          {
+            "@tag": "SHOW_IN_PROFILE",
+            "#text": "在我的个人资料中显示"
+          },
+          {
+            "@tag": "SHOWCASE_INFO",
+            "#text": "为最多 {0} 个成就开启“在我的个人资料中显示”：它们会显示在你的个人资料和你的帖子旁。"
+          },
+          {
+            "@tag": "SHOWN_IN_PROFILE",
+            "#text": "已在你的个人资料中显示"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "我的成就"
+          },
+          {
+            "@tag": "TOTAL_POINTS",
+            "#text": "成就点数"
+          },
+          {
+            "@tag": "TYPE_MEMBERSHIPDAYS",
+            "#text": "会员时长"
+          },
+          {
+            "@tag": "TYPE_POSTS",
+            "#text": "帖子"
+          },
+          {
+            "@tag": "TYPE_REACTIONSGIVEN",
+            "#text": "给出的回应"
+          },
+          {
+            "@tag": "TYPE_REACTIONSRECEIVED",
+            "#text": "收到的回应"
+          },
+          {
+            "@tag": "TYPE_REPUTATION",
+            "#text": "声望"
+          },
+          {
+            "@tag": "TYPE_TOPICS",
+            "#text": "主题"
+          },
+          {
+            "@tag": "UNLOCKED",
+            "#text": "已解锁"
+          },
+          {
+            "@tag": "UNLOCKED_OF",
+            "#text": "{0}/{1}"
+          },
+          {
+            "@tag": "UNLOCKED_TITLE",
+            "#text": "成就已解锁"
+          }
+        ]
+      },
+      {
+        "@name": "ACHIEVEMENT_DEFAULTS",
+        "Resource": [
+          {
+            "@tag": "ALLROUNDER_DESC",
+            "#text": "发表 1,000 个帖子并收到 1,000 次回应。数量与质量兼备！"
+          },
+          {
+            "@tag": "ALLROUNDER_NAME",
+            "#text": "全能选手"
+          },
+          {
+            "@tag": "DAYS_1825_DESC",
+            "#text": "成为会员满五年。你已见证了一切。"
+          },
+          {
+            "@tag": "DAYS_1825_NAME",
+            "#text": "元老"
+          },
+          {
+            "@tag": "DAYS_30_DESC",
+            "#text": "成为会员满 30 天。"
+          },
+          {
+            "@tag": "DAYS_30_NAME",
+            "#text": "渐入佳境"
+          },
+          {
+            "@tag": "DAYS_365_DESC",
+            "#text": "成为会员满一年。"
+          },
+          {
+            "@tag": "DAYS_365_NAME",
+            "#text": "周年快乐"
+          },
+          {
+            "@tag": "GIVEN_1000_DESC",
+            "#text": "给出 1,000 次回应。没有人比你更会为别人加油。"
+          },
+          {
+            "@tag": "GIVEN_1000_NAME",
+            "#text": "金子般的心"
+          },
+          {
+            "@tag": "GIVEN_100_DESC",
+            "#text": "给出 100 次回应。感谢你传递爱心！"
+          },
+          {
+            "@tag": "GIVEN_100_NAME",
+            "#text": "啦啦队长"
+          },
+          {
+            "@tag": "GIVEN_1_DESC",
+            "#text": "首次对其他会员的帖子作出回应。"
+          },
+          {
+            "@tag": "GIVEN_1_NAME",
+            "#text": "初次点赞"
+          },
+          {
+            "@tag": "LIKES_1000_DESC",
+            "#text": "收到 1,000 次回应。社区爱你。"
+          },
+          {
+            "@tag": "LIKES_1000_NAME",
+            "#text": "社区英雄"
+          },
+          {
+            "@tag": "LIKES_100_DESC",
+            "#text": "收到 100 次回应。大家喜欢你写的内容。"
+          },
+          {
+            "@tag": "LIKES_100_NAME",
+            "#text": "广受好评"
+          },
+          {
+            "@tag": "LIKES_1_DESC",
+            "#text": "你的帖子首次收到回应。"
+          },
+          {
+            "@tag": "LIKES_1_NAME",
+            "#text": "有人注意到了"
+          },
+          {
+            "@tag": "LIKES_25_DESC",
+            "#text": "你的帖子收到 25 次回应。"
+          },
+          {
+            "@tag": "LIKES_25_NAME",
+            "#text": "人见人爱"
+          },
+          {
+            "@tag": "LIKES_5000_DESC",
+            "#text": "收到 5,000 次回应。你确定这些都是真人吗？"
+          },
+          {
+            "@tag": "LIKES_5000_NAME",
+            "#text": "超级巨星"
+          },
+          {
+            "@tag": "LIKES_500_DESC",
+            "#text": "收到 500 次回应。你有自己的粉丝团了！"
+          },
+          {
+            "@tag": "LIKES_500_NAME",
+            "#text": "粉丝最爱"
+          },
+          {
+            "@tag": "POSTS_10000_DESC",
+            "#text": "发表 10,000 个帖子。人们将为你传唱赞歌。"
+          },
+          {
+            "@tag": "POSTS_10000_NAME",
+            "#text": "论坛传奇"
+          },
+          {
+            "@tag": "POSTS_1000_DESC",
+            "#text": "发表 1,000 个帖子。足够写成一整本故事书了！"
+          },
+          {
+            "@tag": "POSTS_1000_NAME",
+            "#text": "故事大王"
+          },
+          {
+            "@tag": "POSTS_100_DESC",
+            "#text": "发表 100 个帖子。你显然有很多话要说。"
+          },
+          {
+            "@tag": "POSTS_100_NAME",
+            "#text": "话匣子"
+          },
+          {
+            "@tag": "POSTS_10_DESC",
+            "#text": "发表 10 个帖子。键盘开始发热了！"
+          },
+          {
+            "@tag": "POSTS_10_NAME",
+            "#text": "热身中"
+          },
+          {
+            "@tag": "POSTS_1_DESC",
+            "#text": "在论坛任意位置发表你的第一个帖子。"
+          },
+          {
+            "@tag": "POSTS_1_NAME",
+            "#text": "初次发言"
+          },
+          {
+            "@tag": "POSTS_5000_DESC",
+            "#text": "发表 5,000 个帖子。论坛历史的很大一部分属于你。"
+          },
+          {
+            "@tag": "POSTS_5000_NAME",
+            "#text": "活档案"
+          },
+          {
+            "@tag": "POSTS_500_DESC",
+            "#text": "发表 500 个帖子。你的文字塑造了这个社区。"
+          },
+          {
+            "@tag": "POSTS_500_NAME",
+            "#text": "文字大师"
+          },
+          {
+            "@tag": "POSTS_50_DESC",
+            "#text": "发表 50 个帖子。大家开始记住你的名字了。"
+          },
+          {
+            "@tag": "POSTS_50_NAME",
+            "#text": "常客"
+          },
+          {
+            "@tag": "TOPICS_10_DESC",
+            "#text": "发起 10 个主题。让创意源源不断！"
+          },
+          {
+            "@tag": "TOPICS_10_NAME",
+            "#text": "点子工厂"
+          },
+          {
+            "@tag": "TOPICS_1_DESC",
+            "#text": "发起你的第一个主题。"
+          },
+          {
+            "@tag": "TOPICS_1_NAME",
+            "#text": "破冰者"
+          },
+          {
+            "@tag": "TOPICS_250_DESC",
+            "#text": "发起 250 个主题。你走到哪里，社区就跟到哪里。"
+          },
+          {
+            "@tag": "TOPICS_250_NAME",
+            "#text": "潮流引领者"
+          },
+          {
+            "@tag": "TOPICS_50_DESC",
+            "#text": "发起 50 个主题。你知道如何让大家聊起来。"
+          },
+          {
+            "@tag": "TOPICS_50_NAME",
+            "#text": "讨论领袖"
+          }
+        ]
+      },
+      {
         "@name": "ACTIVELOCATION",
         "Resource": [
           {
@@ -211,6 +597,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "查看访问掩码"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "查看/编辑成就"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -303,6 +693,10 @@
           {
             "@tag": "ADMIN_EDITACCESSMASK",
             "#text": "编辑访问掩码"
+          },
+          {
+            "@tag": "ADMIN_EDITACHIEVEMENT",
+            "#text": "编辑成就"
           },
           {
             "@tag": "ADMIN_EDITBOARD",
@@ -617,6 +1011,10 @@
             "#text": "移动主题"
           },
           {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "查看自己的成就"
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "查看自己的活跃主题"
           },
@@ -841,6 +1239,67 @@
           {
             "@tag": "VOTE",
             "#text": "投票"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_ACHIEVEMENTS",
+        "Resource": [
+          {
+            "@tag": "CHECK_ALL",
+            "#text": "检查所有会员"
+          },
+          {
+            "@tag": "CHECK_ALL_HELP",
+            "#text": "将成就授予所有已达到目标的会员，例如在你添加了新成就之后。"
+          },
+          {
+            "@tag": "CONFIRM_CHECK_ALL",
+            "#text": "要将成就授予所有已达到目标的会员吗？在大型论坛上这可能需要一些时间。"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "删除成就 {0}？{1} 位会员将失去它。"
+          },
+          {
+            "@tag": "DISABLED_INFO",
+            "#text": "成就功能已关闭，会员不会解锁成就。请在主机设置（显示设置）中开启。"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有成就"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "添加会员可通过帖子、主题和回应解锁的成就。"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "未启用"
+          },
+          {
+            "@tag": "MSG_CHECKED",
+            "#text": "已授予 {0} 个成就。"
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "成就 {0} 已删除。"
+          },
+          {
+            "@tag": "MSG_DISABLED",
+            "#text": "成就功能已关闭（主机设置）。"
+          },
+          {
+            "@tag": "NEW_ACHIEVEMENT",
+            "#text": "新成就"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "成就"
+          },
+          {
+            "@tag": "UNLOCKED_BY",
+            "#text": "解锁人数"
           }
         ]
       },
@@ -2426,6 +2885,135 @@
           {
             "@tag": "MSG_NO_TOPICS",
             "#text": "没有新的或活跃的主题，摘要为空，未发送。"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_EDITACHIEVEMENT",
+        "Resource": [
+          {
+            "@tag": "ACTIVE",
+            "#text": "启用"
+          },
+          {
+            "@tag": "ACTIVE_HELP",
+            "#text": "未启用的成就无法解锁，也不会列出。已拥有该成就的会员会保留它。"
+          },
+          {
+            "@tag": "DESCRIPTION",
+            "#text": "描述"
+          },
+          {
+            "@tag": "DESCRIPTION_HELP",
+            "#text": "会员需要做什么才能解锁（显示在名称下方）。"
+          },
+          {
+            "@tag": "EXTRA_GOAL",
+            "#text": "第二目标"
+          },
+          {
+            "@tag": "EXTRA_GOAL_HELP",
+            "#text": "两个目标都必须达到（例如 1,000 个帖子和收到 1,000 次回应）。"
+          },
+          {
+            "@tag": "EXTRA_TYPE",
+            "#text": "第二目标统计"
+          },
+          {
+            "@tag": "GOAL",
+            "#text": "目标"
+          },
+          {
+            "@tag": "GOAL_HELP",
+            "#text": "需要达到的数值。"
+          },
+          {
+            "@tag": "MSG_GOAL",
+            "#text": "目标必须介于 1 到 1,000,000 之间。"
+          },
+          {
+            "@tag": "MSG_ICON",
+            "#text": "请选择一个图标。"
+          },
+          {
+            "@tag": "MSG_NAME",
+            "#text": "请输入名称。"
+          },
+          {
+            "@tag": "MSG_POINTS",
+            "#text": "点数必须介于 0 到 1,000,000 之间。"
+          },
+          {
+            "@tag": "MSG_RARITY",
+            "#text": "请选择稀有度。"
+          },
+          {
+            "@tag": "MSG_SAME_TYPE",
+            "#text": "第二目标必须统计其他内容。"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "成就 {0} 已保存。"
+          },
+          {
+            "@tag": "MSG_TYPE",
+            "#text": "请选择统计内容。"
+          },
+          {
+            "@tag": "NAME",
+            "#text": "名称"
+          },
+          {
+            "@tag": "NAME_HELP",
+            "#text": "成就（奖杯）的名称。"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "点数"
+          },
+          {
+            "@tag": "POINTS_HELP",
+            "#text": "会员获得的成就点数。"
+          },
+          {
+            "@tag": "POINTS_SHORT",
+            "#text": "点"
+          },
+          {
+            "@tag": "RARITY",
+            "#text": "稀有度"
+          },
+          {
+            "@tag": "RARITY_HELP",
+            "#text": "成就的稀有程度，即奖杯的颜色。"
+          },
+          {
+            "@tag": "SECTION_GOAL",
+            "#text": "目标"
+          },
+          {
+            "@tag": "SECTION_ICON",
+            "#text": "图标"
+          },
+          {
+            "@tag": "SECTION_REWARD",
+            "#text": "奖励"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "编辑成就"
+          },
+          {
+            "@tag": "TYPE",
+            "#text": "统计"
+          },
+          {
+            "@tag": "TYPE_HELP",
+            "#text": "统计的内容。"
+          },
+          {
+            "@tag": "UNLOCKED_COUNT",
+            "#text": "已有 {0} 位会员解锁"
           }
         ]
       },
@@ -4712,6 +5300,14 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "如果勾选，则启用相册功能。你还需要为每个组和/或等级设置允许的图片和相册数量，才能启用此功能。"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS",
+            "#text": "启用成就"
+          },
+          {
+            "@tag": "ENABLE_ACHIEVEMENTS_HELP",
+            "#text": "会员通过帖子、主题和回应解锁成就（奖杯）。"
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -7532,6 +8128,10 @@
           {
             "@tag": "ADMIN_ACCESSMASKS",
             "#text": "访问掩码"
+          },
+          {
+            "@tag": "ADMIN_ACHIEVEMENTS",
+            "#text": "成就"
           },
           {
             "@tag": "ADMIN_ADMIN",
@@ -11452,6 +12052,14 @@
             "#text": "你的账户"
           },
           {
+            "@tag": "ACHIEVEMENTSCONTENT",
+            "#text": "<p>当你达到成就（奖杯）的目标时，成就会自动解锁，例如你的第一个帖子、你的帖子收到 100 次回应或成为会员满一年。每个成就都会为你带来成就点数。成就的稀有度（普通、优秀、稀有、史诗或传说）就是奖杯的颜色，而拥有该成就的会员比例则显示了获得它的难度。</p>\r\n<p>解锁成就时，会弹出对话框进行展示。你的成就位于用户菜单中的<a href=\"[[page:MyAchievements]]\"><strong>[[TOOLBAR.MYACHIEVEMENTS]]</strong></a>，你还可以在那里看到距离下一个成就还有多远。为最多三个成就开启<strong>[[ACHIEVEMENTS.SHOW_IN_PROFILE]]</strong>，即可在你的个人资料和帖子旁展示它们。</p>\r\n<p>以下是本论坛的成就：</p>"
+          },
+          {
+            "@tag": "ACHIEVEMENTSTITLE",
+            "#text": "成就"
+          },
+          {
             "@tag": "ANOUNCECONTENT",
             "#text": "<p>有些主题比其他主题更重要：</p>\r\n<ul>\r\n<li><strong>置顶主题</strong>始终位于所在论坛主题列表的顶部，例如论坛规则或常见问题。</li>\r\n<li><strong>公告</strong>是重要信息，它们同样显示在主题列表的顶部，并带有一个标记。</li>\r\n</ul>\r\n<p>谁可以创建它们由管理员设定（通常是版主和管理员）。他们在撰写或编辑主题时通过<strong>[[POSTMESSAGE.PRIORITY]]</strong>进行选择。你可以像回复其他主题一样回复置顶主题和公告，除非该主题已被锁定。</p>\r\n<h3 class=\"h6 mt-3\">论坛公告</h3>\r\n<p>管理员还可以在论坛的每个页面上显示一条公告，例如计划中的维护通知。你可以点击其右侧的按钮将其关闭。</p>"
           },
@@ -11753,7 +12361,7 @@
           },
           {
             "@tag": "REPLYINGCONTENT",
-            "#text": "<p>要回复一个主题，请点击帖子上方或下方的<strong>[[BUTTON.BUTTON_POSTREPLY]]</strong>，或点击某个帖子下方的<strong>[[BUTTON.BUTTON_REPLY]]</strong>。回复页面会在编辑器下方显示该主题的<strong>[[POSTMESSAGE.LAST10]]</strong>，方便你边写边看。</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>如果只是简短回答，可以使用帖子下方的快速回复框，或者帖子上的<strong>[[POSTS.QUICKREPLY]]</strong>按钮。写好内容后点击<strong>[[COMMON.POST]]</strong>。如需使用完整编辑器（例如要添加附件），请点击<strong>[[COMMON.TT_EDITOR]]</strong>。</p>\r\n<h3 class=\"h6 mt-3\">引用</h3>\r\n<ul>\r\n<li>帖子下方的<strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>会开始一条回复，并将该帖子的内容作为引用。</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong>可以收集多个帖子，包括主题其他页面上的帖子。然后在其中一个帖子上点击<strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>，回复就会引用所有已收集的帖子。</li>\r\n<li>如果只想引用一部分，请在帖子中选中文本，右键单击并选择<strong>[[COMMON.SELECTED_QUOTE]]</strong>。</li>\r\n</ul>\r\n<p>请将较长的引用缩减为你所回复的部分。被引用的会员会收到通知。</p>\r\n<p>只有在你有权在此论坛回复时才能回复，并且不能在已锁定的主题中回复。游客只有在论坛允许时才能回复。</p>"
+            "#text": "<p>要回复一个主题，请点击帖子上方或下方的<strong>[[BUTTON.BUTTON_POSTREPLY]]</strong>，或点击某个帖子下方的<strong>[[BUTTON.BUTTON_REPLY]]</strong>。回复页面会在编辑器下方显示该主题的<strong>[[POSTMESSAGE.LAST10]]</strong>，方便你边写边看。</p>\r\n<h3 class=\"h6 mt-3\">[[POSTS.QUICKREPLY]]</h3>\r\n<p>如果只是简短回答，可以使用帖子下方的快速回复框，或者帖子上的<strong>[[POSTS.QUICKREPLY]]</strong>按钮。写好内容后点击<strong>[[COMMON.POST]]</strong>。如需使用完整编辑器（例如要添加附件），请点击<strong>[[COMMON.TT_EDITOR]]</strong>。</p>\r\n<h3 class=\"h6 mt-3\">引用</h3>\r\n<ul>\r\n<li>帖子下方的<strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>会开始一条回复，并将该帖子的内容作为引用。</li>\r\n<li><strong>[[BUTTON.BUTTON_MULTI_QUOTE]]</strong>可以收集多个帖子，包括主题其他页面上的帖子。然后在其中一个帖子上点击<strong>[[BUTTON.BUTTON_QUOTE_TT]]</strong>，回复就会引用所有已收集的帖子。</li>\r\n<li>如果只想引用一部分，请在帖子中选中文本，右键单击并选择<strong>[[COMMON.SELECTED_QUOTE]]</strong>。</li>\r\n<li>引用的上方显示作者，名称旁的图标可打开被引用的帖子。引用中的引用中的引用会被折叠：单击其标题即可显示。</li>\r\n</ul>\r\n<p>请将较长的引用缩减为你所回复的部分。被引用的会员会收到通知。</p>\r\n<p>只有在你有权在此论坛回复时才能回复，并且不能在已锁定的主题中回复。游客只有在论坛允许时才能回复。</p>"
           },
           {
             "@tag": "REPLYINGTITLE",
@@ -13003,6 +13611,10 @@
           {
             "@tag": "TITLE",
             "#text": "你的活动通知"
+          },
+          {
+            "@tag": "UNLOCKED_ACHIEVEMENT_MSG",
+            "#text": "你解锁了成就 {0}"
           },
           {
             "@tag": "UNREAD",
@@ -15247,6 +15859,14 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "显示审核页面，你可以在其中查看未批准和被举报的帖子。"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS",
+            "#text": "我的成就"
+          },
+          {
+            "@tag": "MYACHIEVEMENTS_TITLE",
+            "#text": "你已解锁的成就"
           },
           {
             "@tag": "MYALBUMS",

@@ -1,0 +1,235 @@
+@page "{handler?}"
+@model EditAchievementModel
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@{
+    var rarities = Model.Rarities;
+    var types = Model.Types;
+    var rarity = rarities.Find(r => r.Value == Model.Input.Rarity);
+    var nameFallback = Model.GetText("ADMIN_EDITACHIEVEMENT", "NAME").TrimEnd(':');
+}
+
+<form method="post" class="needs-validation admin-edit-form admin-edit-achievement" novalidate>
+    <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("trophy")@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "TITLE")
+        </h2>
+        @if (Model.Input.Id > 0)
+        {
+            <span class="badge text-bg-secondary">
+                @Html.Icon("user")@Model.GetTextFormatted("UNLOCKED_COUNT", Model.UserCount)
+            </span>
+        }
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-8">
+
+            @* general *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_GENERAL")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Name"
+                               localized-tag="NAME" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                        <input type="text" asp-for="Input.Name"
+                               maxlength="100"
+                               class="form-control"
+                               required="required"
+                               data-style-preview-text="#AchievementPreviewName" />
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "MSG_NAME")
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="DESCRIPTION" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                        <textarea asp-for="Input.Description" class="form-control" rows="2" maxlength="255"
+                                  data-style-preview-text="#AchievementPreviewDescription"></textarea>
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.IsActive"
+                               localized-tag="ACTIVE" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.IsActive" class="form-check-input" role="switch" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* the goal (or two goals that both have to be reached) *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("bullseye")@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "SECTION_GOAL")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-7">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Type"
+                                   localized-tag="TYPE" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                            <select asp-for="Input.Type" class="form-select">
+                                @foreach (var type in types)
+                                {
+                                    <option value="@type.Value" selected="@(type.Value == Model.Input.Type)">@type.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3 col-md-5">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Threshold"
+                                   localized-tag="GOAL" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                            <input type="number" asp-for="Input.Threshold" class="form-control"
+                                   min="1" max="@EditAchievementModel.MaxValue" required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "MSG_GOAL")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.HasExtraGoal"
+                               localized-tag="EXTRA_GOAL" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.HasExtraGoal" class="form-check-input" role="switch"
+                                   data-shows="#ExtraGoal" />
+                        </div>
+                    </div>
+                    <div class="row" id="ExtraGoal">
+                        <div class="mb-3 mb-md-0 col-md-7">
+                            <label class="form-label" asp-for="Input.ExtraType"
+                                   localized-tag="EXTRA_TYPE" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                            <select asp-for="Input.ExtraType" class="form-select">
+                                @foreach (var type in types)
+                                {
+                                    <option value="@type.Value" selected="@(type.Value == Model.Input.ExtraType)">@type.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label" asp-for="Input.ExtraThreshold"
+                                   localized-tag="GOAL" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                            <input type="number" asp-for="Input.ExtraThreshold" class="form-control"
+                                   min="1" max="@EditAchievementModel.MaxValue" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* the reward *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("gem")@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "SECTION_REWARD")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 mb-md-0 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Points"
+                                   localized-tag="POINTS" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                            <input type="number" asp-for="Input.Points" class="form-control"
+                                   min="0" max="@EditAchievementModel.MaxValue" required="required"
+                                   data-style-preview-text="#AchievementPreviewPoints" />
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Rarity"
+                                   localized-tag="RARITY" localized-page="ADMIN_EDITACHIEVEMENT"></label>
+                            <div class="d-flex flex-wrap gap-2 achievement-rarity-picker" role="radiogroup">
+                                @foreach (var item in rarities)
+                                {
+                                    <input type="radio" class="btn-check" name="Input.Rarity" value="@item.Value"
+                                           id="Rarity_@item.Value" autocomplete="off"
+                                           checked="@(item.Value == Model.Input.Rarity)"
+                                           data-preview-value="@item.Class"
+                                           data-preview-class='{"#AchievementPreviewTrophy": "achievement-trophy achievement-trophy-lg ", "#AchievementPreview": "achievement-preview ", "#AchievementPreviewRarity": "achievement-rarity "}'
+                                           data-preview-text="@System.Text.Json.JsonSerializer.Serialize(new Dictionary<string, string> { ["#AchievementPreviewRarity"] = item.Name })" />
+                                    <label class="btn btn-sm btn-outline-secondary @item.Class" for="Rarity_@item.Value">
+                                        <span class="achievement-trophy achievement-trophy-sm @item.Class" aria-hidden="true"></span>
+                                        <span class="achievement-rarity">@item.Name</span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* the icon of the trophy *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("icons")@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "SECTION_ICON")
+                </div>
+                <div class="card-body">
+                    <div class="achievement-icon-picker" role="radiogroup"
+                         aria-label="@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "SECTION_ICON")">
+                        @foreach (var icon in AchievementIcons.All)
+                        {
+                            <input type="radio" class="btn-check" name="Input.Icon" value="@icon"
+                                   id="Icon_@icon" autocomplete="off"
+                                   checked="@(icon == Model.Input.Icon)"
+                                   data-preview-icon="#AchievementPreviewTrophy i" />
+                            <label class="btn btn-outline-secondary" for="Icon_@icon" title="@icon">
+                                <i class="fas fa-@icon fa-fw"></i>
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_Achievements.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"></a>
+                <button asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE"></button>
+            </div>
+        </div>
+
+        @* how the trophy looks when a member unlocks it *@
+        <div class="col-lg-4">
+            <div class="card achievement-preview-card">
+                <div class="card-header">
+                    @Html.Icon("eye")@Html.LocalizedText("POSTMESSAGE", "PREVIEW")
+                </div>
+                <div class="card-body text-center">
+                    <div id="AchievementPreview" class="achievement-preview @rarity.Class">
+                        <div class="achievement-preview-stage">
+                            <span id="AchievementPreviewTrophy" class="achievement-trophy achievement-trophy-lg @rarity.Class" aria-hidden="true">
+                                <i class="fas fa-@(AchievementIcons.IsValid(Model.Input.Icon) ? Model.Input.Icon : AchievementIcons.Default)"></i>
+                            </span>
+                        </div>
+                        <div class="h5 mt-3 mb-1 text-break" id="AchievementPreviewName">@(Model.Input.Name.IsSet() ? Model.Input.Name : nameFallback)</div>
+                        <div class="text-body-secondary small text-break mb-2" id="AchievementPreviewDescription">@Model.Input.Description</div>
+                        <div class="d-flex flex-wrap justify-content-center gap-2 small">
+                            <span class="badge rounded-pill bg-body-tertiary text-body-emphasis border">
+                                @Html.Icon("star")<span id="AchievementPreviewPoints">@Model.Input.Points</span>
+                                @Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "POINTS_SHORT")
+                            </span>
+                            <span class="badge rounded-pill bg-body-tertiary border">
+                                <span id="AchievementPreviewRarity" class="achievement-rarity">@rarity.Name</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
+}

@@ -87,6 +87,20 @@ public interface IAspNetRoleManager
     Task<IdentityResult> DeleteRoleAsync(AspNetRoles role);
 
     /// <summary>
+    /// Rename a role
+    /// </summary>
+    /// <param name="role">
+    ///     The role.
+    /// </param>
+    /// <param name="roleName">
+    ///     The new role name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IdentityResult"/>.
+    /// </returns>
+    Task<IdentityResult> RenameRoleAsync(AspNetRoles role, string roleName);
+
+    /// <summary>
     /// Returns true if the role exists
     /// </summary>
     /// <param name="roleName">

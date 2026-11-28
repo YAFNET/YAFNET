@@ -419,7 +419,22 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return await this.Get<AspNetRolesHelper>().GetUsersInRoleAsync(roleName);
+        var role = await this.GetRepository<AspNetRoles>().GetSingleAsync(
+                       r => r.Name.ToLower() == roleName.ToLower(),
+                       cancellationToken: cancellationToken);
+
+        if (role == null)
+        {
+            return [];
+        }
+
+        var userRoles = await this.GetRepository<AspNetUserRoles>().GetAsync(
+                            r => r.RoleId == role.Id,
+                            cancellationToken: cancellationToken);
+
+        var userIds = userRoles.Select(r => r.UserId).ToHashSet();
+
+        return [.. this.Users.AsEnumerable().Where(u => userIds.Contains(u.Id))];
     }
 
     /// <summary>

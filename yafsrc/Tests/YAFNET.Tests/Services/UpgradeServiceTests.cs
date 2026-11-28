@@ -30,12 +30,16 @@ using System.Threading.Tasks;
 using Autofac;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
 using ServiceStack.OrmLite;
 
 using YAF.Core.Extensions;
+using YAF.Core.Identity;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Core.Services.Import;
@@ -44,6 +48,7 @@ using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Identity;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
@@ -220,6 +225,8 @@ public class UpgradeServiceTests
 
         using (var db = this.board.Database.Open())
         {
+            db.Insert(new AspNetUsers { Id = "alice", UserName = "alice", Email = "alice@example.com" });
+            db.Insert(new AspNetUsers { Id = "bob", UserName = "bob", Email = "bob@example.com" });
             db.Insert(new AspNetUserRoles { UserId = "alice", RoleId = "r1" });
             db.Insert(new AspNetUserRoles { UserId = "bob", RoleId = "r1" });
             db.Insert(new AspNetUserRoles { UserId = "bob", RoleId = "r2" });
@@ -277,6 +284,24 @@ public class UpgradeServiceTests
                 b.RegisterInstance(new BoardConfiguration());
                 b.RegisterInstance(environment).As<IWebHostEnvironment>();
                 b.RegisterType<DataImporter>().As<IDataImporter>();
+                b.Register(
+                    c => new AspNetUsersManager(
+                        new UserStore(c.Resolve<IServiceLocator>()),
+                        Options.Create(new IdentityOptions()),
+                        null,
+                        [],
+                        [],
+                        new UpperInvariantLookupNormalizer(),
+                        new IdentityErrorDescriber(),
+                        null,
+                        NullLogger<AspNetUsersManager>.Instance)).AsSelf().SingleInstance();
+                b.Register(
+                    c => new AspNetRoleManager(
+                        new RoleStore(c.Resolve<IServiceLocator>()),
+                        [],
+                        new UpperInvariantLookupNormalizer(),
+                        new IdentityErrorDescriber(),
+                        NullLogger<AspNetRoleManager>.Instance)).As<IAspNetRoleManager>().SingleInstance();
 
                 configure?.Invoke(b);
             },

@@ -1,0 +1,158 @@
+@page "{handler?}"
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.HtmlHelpers
+@model AchievementsModel
+
+@{
+    var service = Model.Get<IAchievementService>();
+}
+
+<form method="post" class="admin-achievements">
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("trophy")@Html.LocalizedText("ADMIN_ACHIEVEMENTS", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.Count</span>
+        </h2>
+        <div class="d-flex flex-wrap gap-2">
+            @if (Model.Count > 0)
+            {
+                @* awards the achievements to the members that have reached them (e.g. a new achievement) *@
+                <button id="CheckAll"
+                        button-style="OutlineSecondary"
+                        button-size="Small"
+                        asp-page-handler="CheckAll"
+                        Icon="rotate"
+                        text-localized-tag="CHECK_ALL"
+                        title-localized-tag="CHECK_ALL_HELP"
+                        bs-toggle="confirm"
+                        data-title="@Html.LocalizedText("ADMIN_ACHIEVEMENTS", "CONFIRM_CHECK_ALL")"
+                        data-yes="@Html.LocalizedText("YES")"
+                        data-no="@Html.LocalizedText("NO")"></button>
+            }
+            <a asp-page="@ForumPages.Admin_EditAchievement.GetPageName()"
+               button-style="Primary"
+               button-size="Small"
+               Icon="plus-square"
+               text-localized-tag="NEW_ACHIEVEMENT"></a>
+        </div>
+    </div>
+
+    @if (!Model.PageBoardContext.BoardSettings.EnableAchievements)
+    {
+        <div class="alert alert-warning d-flex align-items-center gap-2" role="alert">
+            @Html.Icon("triangle-exclamation")
+            <span>@Html.LocalizedText("ADMIN_ACHIEVEMENTS", "DISABLED_INFO")</span>
+        </div>
+    }
+
+    @if (Model.Count > 0)
+    {
+        @* a card for each type (the category of the achievements) *@
+        foreach (var group in Model.AchievementGroups)
+        {
+            <div class="card mb-3 achievement-category" data-type="@group.Key">
+                <div class="card-header d-flex align-items-center gap-2">
+                    @Html.Icon("folder")
+                    <span>@service.GetTypeName(group.Key)</span>
+                    <span class="badge text-bg-secondary">@group.Count()</span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var achievement in group)
+                    {
+                        var users = Model.UserCounts.GetValueOrDefault(achievement.ID);
+                        var rarityClass = $"rarity-{achievement.AchievementRarity.ToString().ToLowerInvariant()}";
+                        var name = service.GetName(achievement);
+
+                        <li class="list-group-item list-group-item-menu achievement-row @(achievement.IsActive ? "" : "inactive")">
+                            @Html.AchievementTrophy(achievement.Icon, rarityClass, !achievement.IsActive, "achievement-trophy-md")
+                            <div class="achievement-main">
+                                <div class="achievement-name text-break">@name</div>
+                                <div class="small text-body-secondary text-break">@service.GetDescription(achievement)</div>
+                                <div class="achievement-badges">
+                                    <span class="badge bg-body-tertiary text-body-emphasis border" title="@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "GOAL")">
+                                        @Html.Icon("bullseye")@service.GetGoalText(achievement)
+                                    </span>
+                                    <span class="badge bg-body-tertiary border @rarityClass">
+                                        <span class="achievement-rarity">@service.GetRarityName(achievement.AchievementRarity)</span>
+                                    </span>
+                                    <span class="badge bg-body-tertiary text-body-emphasis border" title="@Html.LocalizedText("ADMIN_EDITACHIEVEMENT", "POINTS")">
+                                        @Html.Icon("star")@achievement.Points
+                                    </span>
+                                    <span class="badge @(users > 0 ? "text-bg-secondary" : "bg-body-tertiary text-body-secondary border")"
+                                          title="@Html.LocalizedText("ADMIN_ACHIEVEMENTS", "UNLOCKED_BY")">
+                                        @Html.Icon("user")@users
+                                    </span>
+                                    @if (!achievement.IsActive)
+                                    {
+                                        <span class="badge text-bg-warning">@Html.Icon("pause")@Html.LocalizedText("ADMIN_ACHIEVEMENTS", "INACTIVE")</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm achievement-actions">
+                                <a button-style="Info"
+                                   button-size="Small"
+                                   asp-page="@ForumPages.Admin_EditAchievement.GetPageName()"
+                                   asp-route-achievementId="@achievement.ID"
+                                   title-localized-tag="EDIT"
+                                   Icon="edit"
+                                   text-localized-tag="EDIT"></a>
+                                @* the dialog names how many members lose the achievement *@
+                                <button button-style="Danger"
+                                        button-size="Small"
+                                        asp-page-handler="Delete"
+                                        asp-route-achievementId="@achievement.ID"
+                                        title-localized-tag="DELETE"
+                                        Icon="trash"
+                                        text-localized-tag="DELETE"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetDeleteText(achievement)"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"></button>
+                            </div>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <a button-style="None"
+                                   class="dropdown-item"
+                                   asp-page="@ForumPages.Admin_EditAchievement.GetPageName()"
+                                   asp-route-achievementId="@achievement.ID"
+                                   title-localized-tag="EDIT"
+                                   Icon="edit"
+                                   text-localized-tag="EDIT"></a>
+                                <button button-style="None"
+                                        class="dropdown-item"
+                                        asp-page-handler="Delete"
+                                        asp-route-achievementId="@achievement.ID"
+                                        title-localized-tag="DELETE"
+                                        Icon="trash"
+                                        text-localized-tag="DELETE"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetDeleteText(achievement)"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"></button>
+                                <div class="dropdown-divider"></div>
+                                <a asp-page="@ForumPages.Admin_EditAchievement.GetPageName()"
+                                   button-style="None"
+                                   class="dropdown-item"
+                                   Icon="plus-square"
+                                   text-localized-tag="NEW_ACHIEVEMENT"></a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <empty icon="trophy"
+                       header-text-page="ADMIN_ACHIEVEMENTS" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ADMIN_ACHIEVEMENTS" message-text-tag="EMPTY_MESSAGE">
+                </empty>
+            </div>
+        </div>
+    }
+</form>

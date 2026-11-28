@@ -138,7 +138,7 @@ public class PostRenderingTests
             .Contain("<img src=\"https://example.com/picture.png\"");
 
         var quote = await this.FormatAsync("[quote]quoted text[/quote]");
-        quote.Should().Contain("<div class=\"card").And.Contain("quoted text");
+        quote.Should().Contain("<blockquote class=\"bbcode-quote\"").And.Contain("quoted text");
         System.Text.RegularExpressions.Regex.Matches(quote, "<div[\\s>]").Count
             .Should().Be(System.Text.RegularExpressions.Regex.Matches(quote, "</div>").Count);
     }
@@ -357,6 +357,19 @@ public class PostRenderingTests
 
         html.Should().Contain("<strong>Hello</strong>").And.Contain("revealed").And.Contain("bye");
         html.Should().NotContain("secret");
+    }
+
+    [Test]
+    [Description("A plain quote in a feed is a quote (its [quote] was replaced with a closing </blockquote>)")]
+    public async Task FormatSyndicationMessageAsync_Plain_Quote_Test()
+    {
+        var html = await this.Formatter.FormatSyndicationMessageAsync("[quote]quoted text[/quote] my reply", 1, 2);
+
+        html.Should().NotContain("blockquote&gt;").And.NotContain("[quote]").And.NotContain("[/quote]");
+        System.Text.RegularExpressions.Regex.Matches(html, @"<div[\s>]").Count.Should()
+            .Be(System.Text.RegularExpressions.Regex.Matches(html, "</div>").Count, html);
+        html.Should().MatchRegex(@"<(div|blockquote)[^>]*>[\s\S]*quoted text", html);
+        html.Should().Contain("my reply");
     }
 
     [Test]

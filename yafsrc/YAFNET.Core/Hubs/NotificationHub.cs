@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Hubs;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 
 using System.Security.Claims;
@@ -108,8 +109,8 @@ public class NotificationHub : Hub<INotificationClient>, IHaveServiceLocator
     /// <returns>The user id, null if the signed-in user is not a user of this board.</returns>
     private async Task<int?> GetUserIdAsync()
     {
-        // only repositories here: a hub method has no web request scope, the services of the
-        // request (e.g. IAspNetUsersHelper) can't be resolved
+        // only repositories and the user manager here: a hub method has no web request scope, the
+        // services of the request (e.g. IAspNetUsersHelper) can't be resolved
         var boardId = BoardContext.Current.PageBoardID;
         var principal = this.Context.User;
 
@@ -124,9 +125,7 @@ public class NotificationHub : Hub<INotificationClient>, IHaveServiceLocator
 
         if (providerUserKey.IsNotSet() && principal.Identity.Name.IsSet())
         {
-            var name = principal.Identity.Name;
-
-            providerUserKey = (await this.GetRepository<AspNetUsers>().GetSingleAsync(u => u.UserName == name))?.Id;
+            providerUserKey = (await this.Get<UserManager<AspNetUsers>>().FindByNameAsync(principal.Identity.Name))?.Id;
         }
 
         if (providerUserKey.IsNotSet())

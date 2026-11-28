@@ -83,6 +83,8 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<Medal>();
         this.Db.CreateTable<GroupMedal>();
         this.Db.CreateTable<UserMedal>();
+        this.Db.CreateTable<Achievement>();
+        this.Db.CreateTable<UserAchievement>();
         this.Db.CreateTable<IgnoreUser>();
         this.Db.CreateTable<TopicReadTracking>();
         this.Db.CreateTable<ForumReadTracking>();

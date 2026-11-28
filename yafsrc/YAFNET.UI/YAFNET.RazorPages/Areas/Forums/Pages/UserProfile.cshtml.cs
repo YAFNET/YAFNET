@@ -25,6 +25,7 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,6 +34,8 @@ using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Objects;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Types.Objects.Model;
@@ -97,6 +100,11 @@ public class UserProfileModel : ForumPage
     /// </summary>
     /// <value>The medals.</value>
     [BindProperty] public string Medals { get; set; }
+
+    /// <summary>
+    /// Gets or sets the achievements the user has unlocked (the shown ones first).
+    /// </summary>
+    public List<AchievementInfo> Achievements { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the blog URL.
@@ -228,6 +236,19 @@ public class UserProfileModel : ForumPage
         if (this.PageBoardContext.BoardSettings.ShowMedals)
         {
             this.Medals = this.Get<IUserMedalService>().GetUserMedals(userId);
+        }
+
+        // the achievements of the user (the ones the user shows first)
+        if (this.PageBoardContext.BoardSettings.EnableAchievements)
+        {
+            this.Achievements =
+            [
+                .. (await this.Get<IAchievementService>().GetAchievementInfosAsync(
+                        this.PageBoardContext.PageBoardID,
+                        userId,
+                        false)).Where(a => a.Unlocked).OrderByDescending(a => a.Featured)
+                    .ThenByDescending(a => a.Rarity).ThenByDescending(a => a.Points)
+            ];
         }
 
         this.AddPageLinks(this.CombinedUser.Item1.DisplayOrUserName());

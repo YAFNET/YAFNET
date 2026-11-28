@@ -57,6 +57,13 @@
                                     <label asp-for="BecomeFriends" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("user-group")@Html.LocalizedText("ACCOUNT", "BECOME_FRIENDS")
                                     </label>
+                                    @if (Model.PageBoardContext.BoardSettings.EnableAchievements)
+                                    {
+                                        <input asp-for="UnlockedAchievement" class="btn-check" autocomplete="off" />
+                                        <label asp-for="UnlockedAchievement" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
+                                            @Html.Icon("trophy")@Html.LocalizedText("ACHIEVEMENTS", "ACHIEVEMENTS")
+                                        </label>
+                                    }
                                 </div>
                                 <button type="submit"
                                         asp-page-handler="Reset"

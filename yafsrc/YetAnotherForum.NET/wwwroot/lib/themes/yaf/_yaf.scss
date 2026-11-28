@@ -1,0 +1,143 @@
+﻿// YAF
+// Extra styles: the blue, purple and red of the logo bubbles
+
+
+$yaf-logo-stripe: linear-gradient(90deg, $blue 0 33.333%, $indigo 33.333% 66.666%, $red 66.666% 100%);
+$yaf-logo-gradient: linear-gradient(90deg, $blue, $indigo, $red);
+
+// Navbar
+
+.navbar.bg-dark {
+  background-image: linear-gradient(90deg, $dark, mix($black, $blue, 55%));
+  border-bottom: 4px solid transparent;
+  border-image: $yaf-logo-stripe 1;
+}
+
+.navbar-brand {
+  font-weight: $headings-font-weight;
+}
+
+// Buttons
+
+.btn-primary {
+  --#{$prefix}btn-hover-bg: #{$indigo};
+  --#{$prefix}btn-hover-border-color: #{$indigo};
+  --#{$prefix}btn-active-bg: #{shade-color($indigo, 15%)};
+  --#{$prefix}btn-active-border-color: #{shade-color($indigo, 15%)};
+}
+
+.btn-outline-primary {
+  --#{$prefix}btn-hover-bg: #{$primary};
+  --#{$prefix}btn-active-bg: #{$indigo};
+  --#{$prefix}btn-active-border-color: #{$indigo};
+}
+
+// Cards
+
+.card-header {
+  font-weight: 500;
+}
+
+.card-header:first-child {
+  border-top: 3px solid $primary;
+}
+
+// Navs
+
+.nav-tabs .nav-link.active {
+  box-shadow: inset 0 3px 0 $primary;
+}
+
+.nav-pills {
+  --#{$prefix}nav-pills-link-active-bg: #{$primary};
+}
+
+// Indicators
+
+.progress-bar:not([class*="bg-"]) {
+  background-image: $yaf-logo-gradient;
+}
+
+.progress-bar-striped:not([class*="bg-"]) {
+  background-image: linear-gradient(45deg, rgba($white, .15) 25%, transparent 25%, transparent 50%, rgba($white, .15) 50%, rgba($white, .15) 75%, transparent 75%, transparent), $yaf-logo-gradient;
+  background-size: var(--#{$prefix}progress-height) var(--#{$prefix}progress-height), 100% 100%;
+}
+
+// Text selection
+
+::selection {
+  color: $white;
+  background-color: $indigo;
+}
+
+// Secondary text stays readable in both color modes
+
+.text-secondary {
+  color: $gray-700 !important;
+}
+
+.link-secondary {
+  color: $gray-700 !important;
+  text-decoration-color: $gray-700 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+// Dark mode: the logo colors are too dark for text on a dark background
+
+@include color-mode(dark) {
+  .card-header:first-child {
+    border-top-color: $link-color-dark;
+  }
+
+  .nav-tabs .nav-link.active {
+    box-shadow: inset 0 3px 0 $link-color-dark;
+  }
+
+  .popover {
+    --#{$prefix}popover-header-color: var(--#{$prefix}body-color);
+  }
+
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
+
+  @each $color in (primary, success, info, danger, dark) {
+    .text-#{$color} {
+      color: var(--#{$prefix}#{$color}-text-emphasis) !important;
+    }
+
+    .link-#{$color} {
+      color: var(--#{$prefix}#{$color}-text-emphasis) !important;
+      text-decoration-color: var(--#{$prefix}#{$color}-text-emphasis) !important;
+
+      &:hover,
+      &:focus {
+        color: var(--#{$prefix}emphasis-color) !important;
+        text-decoration-color: var(--#{$prefix}emphasis-color) !important;
+      }
+    }
+  }
+
+  @each $color in (primary, secondary, success, info, danger, dark) {
+    .btn-outline-#{$color} {
+      --#{$prefix}btn-color: var(--#{$prefix}#{$color}-text-emphasis);
+      --#{$prefix}btn-border-color: var(--#{$prefix}#{$color}-text-emphasis);
+    }
+  }
+}
