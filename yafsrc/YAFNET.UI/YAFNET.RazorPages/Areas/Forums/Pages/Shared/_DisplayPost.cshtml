@@ -59,23 +59,20 @@
         Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteButtonJs), JavaScriptBlocks.MultiQuoteButtonJs);
     }
 
-    if (Current.BoardSettings.EnableUserReputation)
+    // Add Reputation Controls to the User PopMenu
+    if (Current.BoardSettings.EnableUserReputation && Current.PageUserID != postData.UserId && !postData.IsGuest && !Current.IsGuest && Current.Get<IReputation>().CheckIfAllowReputationVoting(Model.ReputationVoteDate))
     {
-        // Add Reputation Controls to the User PopMenu
-        if (Current.PageUserID != postData.UserId && !postData.IsGuest && !Current.IsGuest && Current.Get<IReputation>().CheckIfAllowReputationVoting(Model.ReputationVoteDate))
-        {
-            // Check if the User matches minimal requirements for voting up
-            if (Current.PageUser.Points >= Current.BoardSettings.ReputationMinUpVoting)
-            {
-                addReputationVisible = true;
-            }
+	    // Check if the User matches minimal requirements for voting up
+	    if (Current.PageUser.Points >= Current.BoardSettings.ReputationMinUpVoting)
+	    {
+		    addReputationVisible = true;
+	    }
 
-            // Check if the User matches minimal requirements for voting down
-            if (Current.PageUser.Points >= Current.BoardSettings.ReputationMinDownVoting && Model.Points > 0 && Current.BoardSettings.ReputationAllowNegative)
-            {
-                removeReputationVisible = true;
-            }
-        }
+	    // Check if the User matches minimal requirements for voting down
+	    if (Current.PageUser.Points >= Current.BoardSettings.ReputationMinDownVoting && Model.Points > 0 && Current.BoardSettings.ReputationAllowNegative)
+	    {
+		    removeReputationVisible = true;
+	    }
     }
 
     // the reactions can't be changed in deleted posts and locked topics

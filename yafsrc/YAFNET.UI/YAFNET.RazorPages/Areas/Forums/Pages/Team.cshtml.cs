@@ -198,10 +198,9 @@ public class TeamModel : ForumPage
                                     AvatarImage = mod.AvatarImage,
                                     DisplayName = mod.DisplayName,
                                     Style = mod.Style,
-                                    Suspended = mod.Suspended
+                                    Suspended = mod.Suspended,
+                                    ForumIDs = new ModeratorsForums[forumsCount]
                                 };
-
-                sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
 
                 for (var i = 0; i < forumsCount; i++)
                 {

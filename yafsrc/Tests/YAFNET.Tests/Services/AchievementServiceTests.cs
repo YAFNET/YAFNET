@@ -104,7 +104,7 @@ public class AchievementServiceTests
         // a second check doesn't award it again
         (await this.service.CheckUserAsync(this.alice)).Should().BeEmpty();
 
-        this.Repository<UserAchievement>().Count(u => u.UserID == this.alice).Should().Be(1);
+        (await this.Repository<UserAchievement>().CountAsync(u => u.UserID == this.alice)).Should().Be(1);
 
         var unlocked = this.board.Events.OfType<AchievementUnlockedEvent>().Should().ContainSingle().Subject;
         unlocked.UserName.Should().Be("Alice");
@@ -120,7 +120,7 @@ public class AchievementServiceTests
         this.SetPosts(this.alice, 1);
         await this.service.CheckUserAsync(this.alice);
 
-        var activity = this.Repository<Activity>().GetSingle(a => a.UserID == this.alice);
+        var activity = await this.Repository<Activity>().GetSingleAsync(a => a.UserID == this.alice);
         activity.ActivityFlags.UnlockedAchievement.Should().BeTrue();
         activity.AchievementID.Should().Be(achievement);
         activity.Notification.Should().BeTrue();
@@ -134,10 +134,10 @@ public class AchievementServiceTests
 
         await this.service.MarkSeenAsync(this.alice, achievement);
 
-        this.Repository<Activity>().GetSingle(a => a.UserID == this.alice).Notification.Should().BeFalse();
+        (await this.Repository<Activity>().GetSingleAsync(a => a.UserID == this.alice)).Notification.Should().BeFalse();
 
         // a deleted achievement is not listed
-        this.Repository<Achievement>().Delete(a => a.ID == achievement);
+        await this.Repository<Achievement>().DeleteAsync(a => a.ID == achievement);
         this.Repository<Activity>().Notifications(this.alice).Should().BeEmpty();
     }
 
