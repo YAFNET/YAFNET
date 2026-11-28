@@ -192,6 +192,18 @@ public class QuoteAndEditConversionTests
         html.Should().NotContain("<p></p>");
     }
 
+    [TestCase("[quote]open only", "[quote]")]
+    [TestCase("close only[/quote]", "[/quote]")]
+    [TestCase("[quote=Alice]a [quote]b[/quote]", "[quote=Alice]")]
+    [Description("A quote tag without its partner stays text (it opened html that was never closed, or closed the divs of the page)")]
+    public async Task Quote_Unbalanced_Stays_Text_Test(string input, string text)
+    {
+        var html = await this.FormatAsync(input);
+
+        AssertBalancedDivs(html);
+        html.Should().Contain(text);
+    }
+
     [Test]
     [Description("The quote rule loads the quoted post asynchronously and has no blocking synchronous path")]
     public async Task Quote_Rule_Is_Async_Only_Test()
