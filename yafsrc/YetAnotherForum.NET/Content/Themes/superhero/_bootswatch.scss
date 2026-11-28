@@ -26,7 +26,39 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&
 // Typography
 
 .text-secondary {
-  color: var(--bs-secondary-color) !important;
+  color: $gray-200 !important;
+}
+
+.link-secondary {
+  color: $gray-200 !important;
+  text-decoration-color: $gray-200 !important;
+
+  &:hover,
+  &:focus {
+    color: $white !important;
+    text-decoration-color: $white !important;
+  }
+}
+
+@include color-mode(dark) {
+  .card {
+    --#{$prefix}secondary-color: #{rgba($white, .85)};
+  }
+
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
+  }
 }
 
 .dropdown-menu {

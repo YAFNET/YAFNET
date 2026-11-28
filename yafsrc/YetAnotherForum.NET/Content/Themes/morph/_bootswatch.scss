@@ -315,7 +315,6 @@ $box-shadow-dark: 5px 5px 10px rgba(darken($dark, 50%), .2), -5px -5px 10px rgba
   padding: 1rem;
   border-radius: $border-radius;
 
-
   .nav-link.active {
     box-shadow: inset 0 3px 6px rgba($black, .2);
   }
@@ -553,5 +552,39 @@ $box-shadow-dark: 5px 5px 10px rgba(darken($dark, 50%), .2), -5px -5px 10px rgba
   .popover-header,
   .toast-header {
     color: $white;
+  }
+}
+
+// Typography
+
+.text-secondary {
+  color: $gray-800 !important;
+}
+
+.link-secondary {
+  color: $gray-800 !important;
+  text-decoration-color: $gray-800 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
+    }
   }
 }

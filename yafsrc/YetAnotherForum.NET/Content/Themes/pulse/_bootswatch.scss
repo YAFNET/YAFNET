@@ -114,6 +114,12 @@
   }
 }
 
+@include color-mode(dark) {
+  .breadcrumb-item.active {
+    color: var(--#{$prefix}secondary-color);
+  }
+}
+
 // Indicators
 
 .badge {
@@ -150,6 +156,40 @@
 
     &.disabled:hover {
       color: $list-group-disabled-color;
+    }
+  }
+}
+
+// Typography
+
+.text-secondary {
+  color: $gray-700 !important;
+}
+
+.link-secondary {
+  color: $gray-700 !important;
+  text-decoration-color: $gray-700 !important;
+
+  &:hover,
+  &:focus {
+    color: $gray-900 !important;
+    text-decoration-color: $gray-900 !important;
+  }
+}
+
+@include color-mode(dark) {
+  .text-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+  }
+
+  .link-secondary {
+    color: var(--#{$prefix}secondary-color) !important;
+    text-decoration-color: var(--#{$prefix}secondary-color) !important;
+
+    &:hover,
+    &:focus {
+      color: var(--#{$prefix}body-color) !important;
+      text-decoration-color: var(--#{$prefix}body-color) !important;
     }
   }
 }
