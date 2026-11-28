@@ -200,6 +200,18 @@ public class QuoteAndEditConversionTests
         html.Should().NotContain("<p></p>");
     }
 
+    [TestCase("[quote]open only", "[quote]")]
+    [TestCase("close only[/quote]", "[/quote]")]
+    [TestCase("[quote=Alice]a [quote]b[/quote]", "[quote=Alice]")]
+    [Description("A quote tag without its partner stays text (it opened html that was never closed, or closed the divs of the page)")]
+    public void Quote_Unbalanced_Stays_Text_Test(string input, string text)
+    {
+        var html = this.Format(input);
+
+        AssertBalancedDivs(html);
+        html.Should().Contain(text);
+    }
+
     [TestCase("[quote=<script>alert(1)</script>]x[/quote]")]
     [TestCase("[quote=Bob\" onmouseover=\"alert(1)]x[/quote]")]
     [TestCase("[quote=Bob;1\" onmouseover=\"alert(1)]x[/quote]")]
