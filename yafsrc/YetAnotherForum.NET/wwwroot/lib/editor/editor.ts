@@ -58,6 +58,15 @@ _global.yafEditor = class yafEditor {
         document.addEventListener('change', updateEditorCounter);
 
         document.querySelectorAll<HTMLTextAreaElement>('.BBCodeEditor').forEach(editor => showCharactersLeft(editor));
+
+        // the editor of a dialog (e.g. the quick reply dialog): the counter and the focus when it is shown
+        document.addEventListener('shown.bs.modal', (e: Event) => {
+            const editors = (e.target as HTMLElement).querySelectorAll<HTMLTextAreaElement>('.BBCodeEditor');
+
+            editors.forEach(editor => showCharactersLeft(editor));
+
+            editors[0]?.focus();
+        });
     }
 
     /**

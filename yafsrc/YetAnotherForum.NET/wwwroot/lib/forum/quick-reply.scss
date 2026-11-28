@@ -1,0 +1,61 @@
+// The quick reply below the posts: the avatar of the user next to the editor, the options and the post button below it
+.quick-reply {
+    .quick-reply-header {
+        display: flex;
+        align-items: center;
+        gap: .25rem;
+        font-weight: 600;
+    }
+}
+
+.quick-reply-body {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+}
+
+.quick-reply-avatar {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--bs-border-radius);
+    object-fit: cover;
+}
+
+.quick-reply-editor {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    // the card of the editor has no space below it, the actions follow
+    > .card,
+    .card {
+        margin-bottom: 0;
+    }
+}
+
+.quick-reply-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem 1rem;
+    margin-top: .75rem;
+
+    // the post button stays on the right also without the watch switch (guests)
+    .quick-reply-post {
+        margin-left: auto;
+    }
+}
+
+// the dialog of the quick reply of a post
+.quick-reply-dialog {
+    .modal-title {
+        display: flex;
+        align-items: center;
+        gap: .25rem;
+    }
+
+    .card {
+        margin-bottom: 0;
+    }
+}
