@@ -1,0 +1,58 @@
+// the headers of the boxes below the posts (similar topics, users browsing the topic): an icon and the title
+.similar-topics-header {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    font-weight: 600;
+}
+
+// The topics with a similar title below the posts
+.similar-topics {
+
+    .similar-topic {
+        padding: .6rem .75rem;
+        transition: background-color .15s ease;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .similar-topic-title {
+        display: block;
+        font-weight: 600;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    // the forum, the author and the time in one line below the title
+    .similar-topic-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem .75rem;
+        margin-top: .25rem;
+        font-size: .875rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .similar-topic-forum {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--bs-link-hover-color);
+            text-decoration: underline;
+        }
+    }
+
+    .similar-topic-author {
+        display: inline-flex;
+        align-items: center;
+        gap: .25rem;
+    }
+}

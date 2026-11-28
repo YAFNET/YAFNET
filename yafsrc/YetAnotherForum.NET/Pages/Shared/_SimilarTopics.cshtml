@@ -17,36 +17,44 @@
 
 @if (!topicsList.NullOrEmpty())
 {
+    @* the topics with a similar title: the title, below it the forum, the author and the time *@
     <div class="col-md-6">
-        <div class="card mb-3">
-            <div class="card-header">
-                @Html.LocalizedText("POSTS","SIMILAR_TOPICS")
+        <div class="card mb-3 similar-topics">
+            <div class="card-header similar-topics-header">
+                @Html.Icon("clone", "", "far")
+                <span>@Html.LocalizedText("POSTS", "SIMILAR_TOPICS")</span>
+                <span class="badge rounded-pill text-bg-secondary ms-auto">@topicsList.Count</span>
             </div>
             <ul class="list-group list-group-flush">
-                
                 @foreach (var topic in topicsList)
                 {
-	                // the index has the (utc) time of the post in the invariant culture: not parsed with the culture of the
-	                // browser (e.g. German) and not converted again (the time was off by the time zone of the server)
-	                DateTime? posted = DateTime.TryParse(topic.Posted, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var postedUtc)
-	                                       ? postedUtc
-	                                       : null;
+                    // the index has the (utc) time of the post in the invariant culture: not parsed with the culture of the
+                    // browser (e.g. German) and not converted again (the time was off by the time zone of the server)
+                    DateTime? posted = DateTime.TryParse(topic.Posted, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var postedUtc)
+                                           ? postedUtc
+                                           : null;
 
-	                <li class="list-group-item">
-                        <a href="@(topic.TopicUrl)">
-                            <strong>@Html.Raw(Current.Get<IBadWordReplace>().ReplaceHtml(topic.Topic))</strong>
-                        </a> (<a href="@(topic.ForumUrl)">@(topic.ForumName)</a>)
-                        @Html.LocalizedText("SEARCH", "BY")
-                        @Html.UserLink(topic.UserId.Value, System.Net.WebUtility.HtmlDecode(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName), topic.Suspended, topic.UserStyle)
-                        @Html.IconBadge("calendar-day", "clock")
-						
-                        @if (posted != null)
-                        {
-	                        @Html.DisplayDateTime(DateTimeFormat.Both, posted)
-                        }
+                    <li class="list-group-item similar-topic">
+                        <a href="@(topic.TopicUrl)" class="similar-topic-title">
+                            @Html.Raw(Current.Get<IBadWordReplace>().ReplaceHtml(topic.Topic))
+                        </a>
+                        <div class="similar-topic-meta">
+                            <a href="@(topic.ForumUrl)" class="similar-topic-forum">
+                                @Html.Icon("comments")@(topic.ForumName)
+                            </a>
+                            <span class="similar-topic-author">
+                                @Html.LocalizedText("SEARCH", "BY")
+                                @Html.UserLink(topic.UserId.Value, System.Net.WebUtility.HtmlDecode(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName), topic.Suspended, topic.UserStyle)
+                            </span>
+                            @if (posted != null)
+                            {
+                                <span class="similar-topic-date">
+                                    @Html.Icon("clock", "", "far")@Html.DisplayDateTime(DateTimeFormat.Both, posted)
+                                </span>
+                            }
+                        </div>
                     </li>
                 }
-            
             </ul>
         </div>
     </div>

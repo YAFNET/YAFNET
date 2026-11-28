@@ -14,8 +14,9 @@
 @if (activeUsers.HasItems() && (activeUsers.Any(x => !x.IsGuest) && Current.IsAdmin))
 {
 	<div class="card">
-		<div class="card-header">
-			@Html.LocalizedText("TOPICBROWSERS")
+		<div class="card-header similar-topics-header">
+			@Html.Icon("users")
+			<span>@Html.LocalizedText("TOPICBROWSERS")</span>
 		</div>
 		<div class="card-body">
 			@Html.ActiveUsers(activeUsers)
