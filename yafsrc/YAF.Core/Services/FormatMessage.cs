@@ -252,8 +252,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         MessageFlags messageFlags)
     {
         // formatted once (the message was formatted twice: the html of the first pass was encoded by the second)
-        message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
-
         // Remove HIDDEN Text
         message = this.RemoveHiddenBBCodeContent(message);
 
