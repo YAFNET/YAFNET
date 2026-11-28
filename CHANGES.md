@@ -277,6 +277,7 @@ YetAnotherForum.NET Changelog
 * Quotes: a [quote] without its [/quote] opened html that was never closed and a [/quote] without its [quote] closed the html of the page, so a single tag in a post broke the layout of the topic page; a tag without its partner stays text
 * WYSIWYG editor: the quote of a post ([quote=name;post id], e.g. "Reply with Quote") showed the post id with the name (admin;12)
 * My Topics: with the browser language Arabic, Hebrew or Persian (their negative sign has a direction mark) the times "last hour", "last two hours" and "last 8 hours" did not work, the list showed the topics since the last visit and the time select did not show the selected time; the time is written and read in the invariant culture
+* Admin > Users: with the browser language Arabic, Hebrew or Persian the filter "last hour" or "last two hours" showed all users; the time is read in the invariant culture
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

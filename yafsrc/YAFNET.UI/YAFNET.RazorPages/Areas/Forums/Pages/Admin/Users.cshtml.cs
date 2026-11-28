@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin;
 
 using System.Net;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -686,7 +687,9 @@ public class UsersModel : AdminPage
          if (this.Input.Since.IsSet())
          {
              // get selected value (sent by the client, a value that is not a number shows all users)
-             sinceValue = int.TryParse(this.Input.Since, out var since) ? since : 9999;
+             sinceValue = int.TryParse(this.Input.Since, NumberStyles.Integer, CultureInfo.InvariantCulture, out var since)
+                              ? since
+                              : 9999;
 
              sinceDate = sinceValue switch {
                  > 0 => DateTime.UtcNow.AddDays(-Math.Min(sinceValue, 36500)),
