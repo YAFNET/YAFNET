@@ -742,7 +742,7 @@ public class LuceneSearchTests
             MessageId = messageId,
             Message = text,
             Flags = new MessageFlags { IsApproved = true }.BitValue,
-            Posted = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+            Posted = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
             UserName = "Alice",
             UserDisplayName = "Alice A.",
             UserId = this.alice,
