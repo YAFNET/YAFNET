@@ -289,6 +289,7 @@ YetAnotherForum.NET Changelog
 * BB code editor (quick reply, and all editors when the WYSIWYG editor is off): "Characters remaining" below the editor showed no number since the editor scripts were converted to TypeScript
 * Similar topics and search results: with a browser language that writes dates day first (e.g. German) the time of a similar topic was missing and the search results showed the raw stored date; the time of a similar topic was also off by the time zone of the server; the stored (invariant, utc) time is read as such
 * Search: the pager of the results showed "..." between the first and the second page (e.g. 1 ... 2 3 4) and between the page before the last one and the last one, although no page was left out
+* Number fields: the - and + buttons changed the value without notifying the page, so the live preview of Admin > Edit Achievement did not show new points set with them (only typed ones)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

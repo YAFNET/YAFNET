@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const newVal = parseInt(oldValue) > minValue ? parseInt(oldValue) - 1 : minValue;
 
-		input.value = newVal.toString();
+		setValue(input, newVal);
 	}
 
 	function touchSpinUp(this: HTMLButtonElement) {
@@ -64,8 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		if (parseInt(oldValue) < maxValue) {
-			const newVal = parseInt(oldValue) + 1;
-			input.value = newVal.toString();
+			setValue(input, parseInt(oldValue) + 1);
 		}
+	}
+
+	// like typing: listeners of the input (e.g. a live preview) get the new value
+	function setValue(input: HTMLInputElement, value: number) {
+		input.value = value.toString();
+
+		input.dispatchEvent(new Event('input', { bubbles: true }));
+		input.dispatchEvent(new Event('change', { bubbles: true }));
 	}
 });
