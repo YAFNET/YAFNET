@@ -259,6 +259,7 @@ YetAnotherForum.NET Changelog
 * Security: the html of a name was not encoded where a link is rendered as text (the user link BB code [userlink] in posts and the BB code help, the last post popovers of the forums and topics, the notifications, the moderator list): a display name with html ran as a script; the links are encoded like the pages now (an unrelated "]]" in such a text was removed as well)
 * Short URLs: with a PageRouteTransformerConvention (e.g. kebab-case urls) the pages kept their old routes (e.g. /forums/posts/1/name) and the redirect to the short url returned 404; the convention replaces the page name in the page route metadata too
 * The forum selects (forum jump, search, move topic or post, prune), the topic tags and the selects with icons or images (e.g. topic icon, country, avatar, forum and category image): the selected entry had no option role in its list, screen readers could not announce it (Lighthouse/axe: aria-allowed-attr, aria-required-children)
+* Edit message: the preview did not show the attachments of the BB code [attach] (the preview has no message id, the author of the post was not passed)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -41,7 +41,7 @@
                 @Html.Icon("eye")@Html.LocalizedText("previewtitle")
             </div>
             <div class="card-body">
-                <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="@Model.PageBoardContext.PageMessage.ID" message="@Model.Input.Editor"></message>
+                <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="@Model.PageBoardContext.PageMessage.ID" display-user-id="@Model.PageBoardContext.PageMessage.UserID" message="@Model.Input.PreviewMessage"></message>
             </div>
         </div>
     }
