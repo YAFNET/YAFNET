@@ -60,7 +60,7 @@ module.exports = function (grunt) {
 	            files: [
 		            {
 			            expand: true,
-			            src: '**/*.css',
+			            src: 'sceditor.min.css', // the content styles of the editor are in forum.css
 			            cwd: 'node_modules/@yafnet/sceditor/dist',
 			            dest: 'Content/'
 		            }, 
