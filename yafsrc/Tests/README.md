@@ -5,6 +5,7 @@ This folder contains the automated tests for YAF.NET 4.x. All projects use [NUni
 | Project                          | What it tests                                                                      | Needs                                    |
 |----------------------------------|------------------------------------------------------------------------------------|------------------------------------------|
 | `YAFNET.Tests`                   | Unit and repository tests (services, helpers, data access, migrations)             | Nothing, uses an in-memory SQLite database |
+| `YAFNET.Tests.HostIntegration`  | The forum inside of a web application that manages the accounts and sets up ASP.NET Core Identity itself (options, cookie, and the forum stores or its own) | Nothing, runs in-process with SQLite database files |
 | `YAFNET.Tests.UITests`           | End-to-end browser tests with [Playwright](https://playwright.dev/dotnet/), run against every database provider | Docker, Chromium for Playwright |
 | `YAFNET.Tests.MiddlewareTests`   | HTTP level tests (security headers, banned IPs, sitemap)                           | An installed forum database              |
 | `YAFNET.Tests.LighthouseTests`   | [Lighthouse](https://developer.chrome.com/docs/lighthouse) audits of the forum pages | An installed forum database            |
@@ -27,6 +28,16 @@ With code coverage (Cobertura report in `Tests/YAFNET.Tests/TestResults`):
 ```bash
 dotnet test Tests/YAFNET.Tests/YAFNET.Tests.csproj --settings Tests/YAFNET.Tests/coverage.runsettings --collect "XPlat Code Coverage"
 ```
+
+## Host integration tests
+
+```bash
+dotnet test Tests/YAFNET.Tests.HostIntegration/YAFNET.Tests.HostIntegration.csproj
+```
+
+The tests start a web application with the forum pages on the ASP.NET Core test server, install the forum into a temporary SQLite database and request pages as guest, user and admin. The application sets up identity itself (`HostManagesAccounts`) in two ways: for the identity models of the forum, with the accounts in the forum stores; and for its own user and role types in an EF Core database of its own, with adapter stores for the forum. A third fixture leaves identity to the forum.
+
+The project is part of `YAF.NET-SqlServer.slnx`, so the CI build runs it. It uses the pages of that forum application with the SQLite data provider. Building that application runs `node build.js`, so run `npm install` in `YetAnotherForum.NET` first.
 
 ## UI tests
 

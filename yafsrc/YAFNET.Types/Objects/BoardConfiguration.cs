@@ -46,6 +46,13 @@ public class BoardConfiguration
     ///
     /// ** Defaults to: false
     /// </summary>
+    /// <remarks>
+    /// When set to true, <c>AddYafCore</c> does not add the identity options and the authentication cookie of the forum.
+    /// The identity options keep their defaults unless the host application sets them. The host application must add
+    /// the <see cref="Microsoft.AspNetCore.Identity.IdentityConstants.ApplicationScheme"/> cookie, for example with
+    /// <c>AddIdentity</c>, because the forum refreshes and ends sign-ins with it. The IUserStore&lt;AspNetUsers&gt; and
+    /// IRoleStore&lt;AspNetRoles&gt; of the host application replace the forum stores.
+    /// </remarks>
     public bool HostManagesAccounts { get; set; }
 
     /// <summary>
