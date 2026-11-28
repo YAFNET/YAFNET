@@ -49,36 +49,24 @@ _global.yafEditor = class yafEditor {
                 mentionOptions.onclick = (data: any) => { this.FormatText('userlink', data.name) };
 
             Mentions(mentionOptions);
-
-            editor.addEventListener('keydown', (e: KeyboardEvent) => {
-                if (e.ctrlKey &&
-                    !e.altKey &&
-                    [66, 73, 85, 81, 13].includes(e.which)) {
-
-                    const textarea = e.target as HTMLTextAreaElement;
-
-                    if (e.which === 66) {
-                        wrapSelection(textarea, '[b]', '[/b]');
-                    } else if (e.which === 73) {
-                        wrapSelection(textarea, '[i]', '[/i]');
-                    } else if (e.which === 85) {
-                        wrapSelection(textarea, '[u]', '[/u]');
-                    } else if (e.which === 81) {
-                        wrapSelection(textarea, '[quote]', '[/quote]');
-                    } else if (e.which === 13) {
-                        if (document.getElementById('QuickReplyDialog') !== null) {
-                            document.querySelector<HTMLElement>('[data-bs-save*="modal"]')?.click();
-                        } else if (document.querySelector('[formaction*="PostReply"]') !== null) {
-                            document.querySelector<HTMLElement>('[formaction*="PostReply"]')?.click();
-                        }
-                    }
-                }
-            });
         });
+
+        // the keys are handled for all editors of the page, also the ones of a dialog
+        // (e.g. the quick reply dialog) that is loaded later
+        document.addEventListener('keydown', handleEditorKeys);
+    }
+
+    /**
+     * The textarea of the editor: the one of an open dialog (the quick reply dialog uses the same id as the
+     * quick reply below the posts), else the one of the page.
+     */
+    Textarea(): HTMLTextAreaElement {
+        return (document.querySelector<HTMLTextAreaElement>(`.modal.show textarea#${CSS.escape(this.Name)}`)
+            ?? document.getElementById(this.Name)) as HTMLTextAreaElement;
     }
 
     FormatText(command: string, option: string): void {
-        var textObj = document.getElementById(this.Name) as HTMLTextAreaElement;
+        var textObj = this.Textarea();
         switch (command) {
             case 'undo':
 	            document.execCommand('undo');
@@ -447,3 +435,37 @@ function getCurrentSelection(input: HTMLTextAreaElement): boolean {
 		return false;
 	}
 }
+
+/**
+ * The shortcuts of the BB code editors: Ctrl+B, I, U and Q format the selection, Ctrl+Enter posts.
+ */
+function handleEditorKeys(e: KeyboardEvent): void {
+    const textarea = e.target as HTMLTextAreaElement;
+
+    if (!(textarea instanceof HTMLTextAreaElement) || !textarea.classList.contains('BBCodeEditor')
+        || !e.ctrlKey || e.altKey) {
+        return;
+    }
+
+    if (e.key === 'b' || e.key === 'B') {
+        wrapSelection(textarea, '[b]', '[/b]');
+    } else if (e.key === 'i' || e.key === 'I') {
+        wrapSelection(textarea, '[i]', '[/i]');
+    } else if (e.key === 'u' || e.key === 'U') {
+        wrapSelection(textarea, '[u]', '[/u]');
+    } else if (e.key === 'q' || e.key === 'Q') {
+        wrapSelection(textarea, '[quote]', '[/quote]');
+    } else if (e.key === 'Enter') {
+        // the post button of the dialog, of the quick reply or of the post page
+        const button = textarea.closest('.modal')?.querySelector<HTMLElement>('[data-bs-save]')
+            ?? (textarea.closest('#quickReply') ? document.querySelector<HTMLElement>('[data-bs-save="quickReply"]') : null)
+            ?? document.querySelector<HTMLElement>('[formaction*="PostReply"]');
+
+        button?.click();
+    } else {
+        return;
+    }
+
+    e.preventDefault();
+}
+

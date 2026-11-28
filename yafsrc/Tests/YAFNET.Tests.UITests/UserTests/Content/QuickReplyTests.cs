@@ -92,6 +92,55 @@ public class QuickReplyTests(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
 
     /// <summary>
+    /// The toolbar of the quick reply dialog formats the text of the dialog (not the one of the quick reply
+    /// below the posts, the two text fields have the same id), Ctrl+Enter posts the reply of the dialog.
+    /// </summary>
+    [Test]
+    [Description("The toolbar and the keys of the quick reply dialog act on the text of the dialog")]
+    public async Task QuickReplyDialogToolbarTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var topicUrl = await CreateTopicAsync(page, this.TestSettings, "Quick reply dialog");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(topicUrl);
+
+                var pageText = page.Locator("#quickReply textarea[name='QuickReplyEditor']");
+
+                await pageText.FillAsync("text of the page");
+
+                // the quick reply button of the post opens the dialog
+                await page.Locator("a[data-bs-toggle='ajax-modal'][data-url*='QuickReply']:visible").First.ClickAsync();
+
+                var dialog = page.Locator("#QuickReplyDialog");
+
+                await Assertions.Expect(dialog).ToBeVisibleAsync();
+
+                var dialogText = dialog.Locator("textarea[name='QuickReplyEditor']");
+
+                await dialogText.FillAsync("dialog reply");
+                await dialogText.EvaluateAsync("textarea => textarea.setSelectionRange(0, 6)");
+
+                await dialog.Locator("button[aria-label='Bold']").ClickAsync();
+
+                Assert.That(await dialogText.InputValueAsync(), Is.EqualTo("[b]dialog[/b] reply"), "The dialog text is not bold");
+                Assert.That(await pageText.InputValueAsync(), Is.EqualTo("text of the page"), "The text of the page was changed");
+
+                // Ctrl+Enter posts the reply of the dialog
+                await page.RunAndWaitForNavigationAsync(() => dialogText.PressAsync("Control+Enter"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("<strong>dialog</strong> reply"), "The reply of the dialog was not posted");
+            });
+    }
+
+    /// <summary>
     /// Creates a topic as admin and logs out.
     /// </summary>
     /// <param name="page">The page.</param>
