@@ -34,7 +34,11 @@ public class SqliteDbAccess : DbAccessBase
     /// <summary>
     /// The provider type name.
     /// </summary>
+#if MICROSOFT_DATA_SQLITE
+    public const string ProviderTypeName = "Microsoft.Data.Sqlite";
+#else
     public const string ProviderTypeName = "System.Data.SQLite";
+#endif
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SqliteDbAccess"/> class.
@@ -77,7 +81,7 @@ public class SqliteDbAccess : DbAccessBase
             {
                 return base.Execute(execFunc, cmd, dbTransaction);
             }
-            catch (SQLiteException ex) when (IsBusy(ex))
+            catch (DbException ex) when (IsBusy(ex))
             {
                 System.Threading.Thread.Sleep(delay);
             }
@@ -102,7 +106,7 @@ public class SqliteDbAccess : DbAccessBase
             {
                 return await base.ExecuteAsync(execFunc);
             }
-            catch (SQLiteException ex) when (IsBusy(ex))
+            catch (DbException ex) when (IsBusy(ex))
             {
                 await Task.Delay(delay);
             }
@@ -117,11 +121,15 @@ public class SqliteDbAccess : DbAccessBase
     /// </summary>
     /// <param name="ex">The exception.</param>
     /// <returns>Returns if the operation can be tried again.</returns>
-    private static bool IsBusy(SQLiteException ex)
+    private static bool IsBusy(DbException ex)
     {
         // the low byte of an extended result code (e.g. Busy_Recovery) is the primary result code
-        var primaryCode = (SQLiteErrorCode)((int)ex.ResultCode & 0xFF);
-
-        return primaryCode is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
+#if MICROSOFT_DATA_SQLITE
+        // SQLITE_BUSY (5) and SQLITE_LOCKED (6)
+        return ex is SqliteException sqliteException && (sqliteException.SqliteErrorCode & 0xFF) is 5 or 6;
+#else
+        return ex is SQLiteException sqliteException
+               && (SQLiteErrorCode)((int)sqliteException.ResultCode & 0xFF) is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
+#endif
     }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>YAFNET.Data.Sqlite.Data</id>
+	<title>YAFNET Data SQLite (Microsoft.Data.Sqlite)</title>
+	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
+    <version>4.0.11</version>
+    <authors>Ingo Herbote</authors>
+    <owners>Ingo Herbote, YAFNET</owners>
+	<readme>README.md</readme>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+	<license type="file">LICENSE.md</license>
+	<icon>yaf.png</icon>
+    <projectUrl>https://yetanotherforum.net/</projectUrl>
+	<description>YAF.NET SQLite Data Layer for Microsoft.Data.Sqlite.</description>
+    <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
+    <repository type="git" url="https://github.com/YAFNET/YAFNET" />
+    <dependencies>
+		<group targetFramework="net10.0">
+			<dependency id="YAFNET.Configuration" version="4.0.11" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Core" version="4.0.11" exclude="Build,Analyzers" />
+			<dependency id="YAFNET.Types" version="4.0.11" exclude="Build,Analyzers" />
+			<dependency id="Autofac" version="9.3.4" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.Data.Sqlite" version="10.0.15" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Composition" version="11.0.0" exclude="Build,Analyzers" />
+		</group>
+    </dependencies>
+    <references>
+	    <reference file="ServiceStack.OrmLite.dll" />
+	    <reference file="ServiceStack.OrmLite.Sqlite.Data.dll" />
+	    <reference file="YAF.Data.Sqlite.Data.dll" />
+    </references>
+    <frameworkReferences>
+	    <group targetFramework="net10.0">
+		    <frameworkReference name="Microsoft.AspNetCore.App" />
+	    </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="bin\Release\net10.0\YAF.Data.Sqlite.Data.dll" target="lib\net10.0\"/>
+    <file src="bin\Release\net10.0\ServiceStack.OrmLite.dll" target="lib\net10.0\"/>
+    <file src="bin\Release\net10.0\ServiceStack.OrmLite.Sqlite.Data.dll" target="lib\net10.0\"/>
+	<file src="..\..\..\LICENSE.md" target=""/>
+    <file src="..\..\NuGet\README.md" target=""/>
+    <file src="..\..\yaf.png" target=""/>
+  </files>
+</package>

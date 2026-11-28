@@ -39,7 +39,11 @@ public class SqliteModule : Module
     /// </param>
     protected override void Load(ContainerBuilder builder)
     {
+#if MICROSOFT_DATA_SQLITE
+        builder.RegisterInstance<DbProviderFactory>(SqliteFactory.Instance);
+#else
         builder.RegisterInstance<DbProviderFactory>(SQLiteFactory.Instance);
+#endif
 
         builder.RegisterType<SqliteDbAccess>()
             .Named<IDbAccess>(SqliteDbAccess.ProviderTypeName)

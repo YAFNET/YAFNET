@@ -81,6 +81,10 @@ jobs:
             slnx: YAF.NET-Sqlite.slnx
             appsettings: appsettings-Sqlite.json
             zipPrefix: YAF.Sqlite
+          - name: SqliteData
+            slnx: YAF.NET-SqliteData.slnx
+            appsettings: appsettings-SqliteData.json
+            zipPrefix: YAF.SqliteData
     steps:
       - name: Checkout master
         uses: actions/checkout@v7
@@ -192,6 +196,7 @@ jobs:
             "yafsrc/YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.csproj",
             "yafsrc/YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.csproj",
             "yafsrc/YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.csproj",
+            "yafsrc/YAFNET.Data/YAFNET.Data.Sqlite.Data/YAFNET.Data.Sqlite.Data.csproj",
             "yafsrc/YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.csproj"
           )
 

@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The SQLite data layer for Microsoft.Data.Sqlite (instead of System.Data.SQLite, e.g. for ARM64), built from the
+       source files of YAFNET.Data.Sqlite, the differences are in #if MICROSOFT_DATA_SQLITE -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
+	  <NuspecFile>YAFNET.Data.Sqlite.Data.nuspec</NuspecFile>
+	  <RootNamespace>YAF.Data.Sqlite</RootNamespace>
+	  <AssemblyName>YAF.Data.Sqlite.Data</AssemblyName>
+	  <DefineConstants>$(DefineConstants);MICROSOFT_DATA_SQLITE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\YAFNET.Data.Sqlite\**\*.cs" Exclude="..\YAFNET.Data.Sqlite\bin\**;..\YAFNET.Data.Sqlite\obj\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.15" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.37.0.15768">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Composition" Version="11.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.Sqlite.Data\ServiceStack.OrmLite.Sqlite.Data.Core.csproj" />
+    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Configuration\YAFNET.Configuration.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Types\YAFNET.Types.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="9.3.4" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.15" />
+  </ItemGroup>
+</Project>

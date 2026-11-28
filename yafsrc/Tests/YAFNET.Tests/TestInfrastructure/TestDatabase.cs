@@ -25,7 +25,6 @@
 namespace YAF.Tests.TestInfrastructure;
 
 using System.Data;
-using System.Data.SQLite;
 
 using ServiceStack.OrmLite;
 
@@ -76,7 +75,7 @@ public sealed class TestDatabase : IDisposable
         this.keepAlive = new SQLiteConnection(this.ConnectionString);
         this.keepAlive.Open();
 
-        Template.Value.BackupDatabase(this.keepAlive, "main", "main", -1, null, 0);
+        SqliteTestProvider.CopyDatabase(Template.Value, this.keepAlive);
 
         this.DbAccess = CreateDbAccess(this.ConnectionString);
     }
@@ -333,7 +332,7 @@ public sealed class TestDatabase : IDisposable
 
     private static string CreateConnectionString()
     {
-        return $"FullUri=file:yaf_test_{Guid.NewGuid():N}?mode=memory&cache=shared;";
+        return SqliteTestProvider.InMemoryConnectionString($"yaf_test_{Guid.NewGuid():N}");
     }
 
     private static SqliteDbAccess CreateDbAccess(string connectionString)

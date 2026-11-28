@@ -16,6 +16,7 @@ YetAnotherForum.NET Changelog
 * New theme "bootstrap": the default look of Bootstrap without changes (also a starting point for an own theme with the theme kit)
 * WYSIWYG editor: new toolbar button "Insert Markdown": paste or type Markdown (bold, italic, strikethrough, code, lists, links, images, quotes, headings as bold and larger text: BB codes have no headings) and it is inserted as BB codes, also in the source mode (Ctrl+Enter inserts)
 * WYSIWYG editor: the attachments ([attach] BB code) are shown in the editor as the image or the name of the file instead of the BB code text, also when a post is edited or an attachment is uploaded or inserted from the attachments dialog; only the user's own attachments (a post only shows the attachments of its author), the others keep a placeholder with the id
+* SQLite with Microsoft.Data.Sqlite (instead of System.Data.SQLite), e.g. for ARM64 (Windows on ARM, Apple silicon, Raspberry Pi): YAF.NET-SqliteData.slnx (YAF-SqliteData.csproj), the NuGet package YAFNET.Data.Sqlite.Data and ConnectionProviderName "Microsoft.Data.Sqlite" (see appsettings-SqliteData.json); both SQLite providers write the same database file format, a forum can switch between them
 
 ## 🛠️ Improvements
 * Private messages: the online status of the users in the conversation list is shown as a green border around the avatar instead of a red/green dot

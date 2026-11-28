@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The dialect provider of ServiceStack.OrmLite.Sqlite for Microsoft.Data.Sqlite (instead of System.Data.SQLite),
+       built from the same source files, the differences are in #if MICROSOFT_DATA_SQLITE -->
+  <PropertyGroup>
+    <PackageId>ServiceStack.OrmLite.Sqlite.Data.Core</PackageId>
+    <AssemblyName>ServiceStack.OrmLite.Sqlite.Data</AssemblyName>
+    <RootNamespace>ServiceStack.OrmLite.Sqlite</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <Title>ServiceStack.OrmLite.Sqlite.Data</Title>
+    <PackageDescription>
+      ServiceStack.OrmLite.Sqlite for Microsoft.Data.Sqlite
+    </PackageDescription>
+    <PackageTags>SQLite;OrmLite;RDBMS;SQL;POCO;Code-First;ORM;Schema-less;Blobs</PackageTags>
+    <DefineConstants>$(DefineConstants);MICROSOFT_DATA_SQLITE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ServiceStack.OrmLite.Sqlite\**\*.cs" Exclude="..\ServiceStack.OrmLite.Sqlite\bin\**;..\ServiceStack.OrmLite.Sqlite\obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.37.0.15768">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.15" />
+  </ItemGroup>
+
+</Project>

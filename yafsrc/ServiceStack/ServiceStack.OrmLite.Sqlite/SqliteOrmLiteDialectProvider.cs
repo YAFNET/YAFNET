@@ -9,7 +9,11 @@ namespace ServiceStack.OrmLite.Sqlite;
 
 using System;
 using System.Data;
+#if MICROSOFT_DATA_SQLITE
+using Microsoft.Data.Sqlite;
+#else
 using System.Data.SQLite;
+#endif
 
 /// <summary>
 /// Class SqliteOrmLiteDialectProvider.
@@ -32,7 +36,11 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     /// <returns>IDbConnection.</returns>
     protected override IDbConnection CreateConnection(string connectionString)
     {
+#if MICROSOFT_DATA_SQLITE
+        return new SqliteConnection(connectionString);
+#else
         return new SQLiteConnection(connectionString);
+#endif
     }
 
     /// <summary>
@@ -40,7 +48,11 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     /// wasn't applied
     /// </summary>
     public override TransientError GetTransientError(Exception ex) =>
+#if MICROSOFT_DATA_SQLITE
+        ex is SqliteException { SqliteErrorCode: var code } && (code & 0xFF) is 5 or 6
+#else
         ex is SQLiteException { ResultCode: var code } && ((int)code & 0xFF) is 5 or 6
+#endif
             ? TransientError.NotApplied
             : base.GetTransientError(ex);
 
@@ -50,6 +62,10 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     /// <returns>IDbDataParameter.</returns>
     public override IDbDataParameter CreateParam()
     {
+#if MICROSOFT_DATA_SQLITE
+        return new SqliteParameter();
+#else
         return new SQLiteParameter();
+#endif
     }
 }

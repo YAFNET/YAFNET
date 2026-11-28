@@ -14,7 +14,7 @@ namespace ServiceStack.OrmLite.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,11 +42,19 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
         // Only for SQLite, GetValues() changes the behavior of System.Data.SQLite's GetGuid()
         DeoptimizeReader = true;
+
+        // Microsoft.Data.Sqlite: the dates and Guids are written as System.Data.SQLite writes them,
+        // so a database can be used with both providers
+#if MICROSOFT_DATA_SQLITE
+        base.RegisterConverter<DateTime>(new SqliteDataDateTimeConverter());
+        base.RegisterConverter<Guid>(new SqliteDataGuidConverter());
+#else
         base.RegisterConverter<DateTime>(new SqliteCoreDateTimeConverter());
+        base.RegisterConverter<Guid>(new SqliteGuidConverter());
+#endif
 
         base.RegisterConverter<string>(new SqliteStringConverter());
         base.RegisterConverter<DateTimeOffset>(new SqliteDateTimeOffsetConverter());
-        base.RegisterConverter<Guid>(new SqliteGuidConverter());
         base.RegisterConverter<bool>(new SqliteBoolConverter());
         base.RegisterConverter<byte[]>(new SqliteByteArrayConverter());
 #if NET10_0_OR_GREATER
@@ -1213,9 +1221,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>Returns the Results</returns>
     public override string InnerRunSqlExecuteReader(IDbCommand command)
     {
-        var sqlCommand = command as SQLiteCommand;
+        var sqlCommand = command as DbCommand;
 
-        SQLiteDataReader? reader = null;
+        DbDataReader? reader = null;
         var results = new StringBuilder();
 
         try
@@ -1227,8 +1235,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                 if (reader.HasRows)
                 {
                     var rowIndex = 1;
-                    var columnNames = reader.GetSchemaTable().Rows.Cast<DataRow>()
-                        .Select(r => r["ColumnName"].ToString()).ToList();
+                    var columnNames = reader.GetSchemaTable()!.Rows.Cast<DataRow>()
+                        .Select(r => r["ColumnName"].ToString()!).ToList();
 
                     results.Append("RowNumber");
 

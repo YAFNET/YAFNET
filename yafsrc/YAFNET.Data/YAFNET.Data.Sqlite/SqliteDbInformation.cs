@@ -78,6 +78,25 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
             return connectionString;
         }
 
+#if MICROSOFT_DATA_SQLITE
+        // Microsoft.Data.Sqlite waits for a locked database until the command timeout has passed, and pools the
+        // connections by default. Version=3 of the System.Data.SQLite connection strings is no keyword of
+        // Microsoft.Data.Sqlite, it is removed so the same connection string works with both providers.
+        var settings = new DbConnectionStringBuilder { ConnectionString = connectionString };
+
+        settings.Remove("version");
+
+        var builder = new SqliteConnectionStringBuilder(settings.ConnectionString);
+
+        // the SQLite library of Microsoft.Data.Sqlite checks foreign keys by default, System.Data.SQLite doesn't:
+        // YAF deletes rows in an order which depends on that (e.g. a board with its forums and users)
+        if (!builder.ContainsKey("foreign keys") || builder.ForeignKeys == null)
+        {
+            builder.ForeignKeys = false;
+        }
+
+        return builder.ConnectionString;
+#else
         var builder = new SQLiteConnectionStringBuilder(connectionString);
 
         if (!builder.ContainsKey("busytimeout"))
@@ -93,6 +112,7 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
         }
 
         return builder.ConnectionString;
+#endif
     }
 
     /// <summary>
@@ -107,7 +127,7 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
     public static bool EnableWalJournalMode(IDbConnection connection, string connectionString)
     {
         if (string.IsNullOrWhiteSpace(connectionString)
-            || new SQLiteConnectionStringBuilder(connectionString).ContainsKey("journal mode"))
+            || new DbConnectionStringBuilder { ConnectionString = connectionString }.ContainsKey("journal mode"))
         {
             return false;
         }

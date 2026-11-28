@@ -24,11 +24,11 @@
 
 namespace YAF.Tests.Data;
 
-using System.Data.SQLite;
 using System.IO;
 using System.Threading.Tasks;
 
 using YAF.Data.Sqlite;
+using YAF.Tests.TestInfrastructure;
 
 /// <summary>
 /// The connection settings of SQLite for parallel requests (<see cref="SqliteDbInformation.WithConcurrencySettings"/>).
@@ -36,6 +36,34 @@ using YAF.Data.Sqlite;
 [TestFixture]
 public class SqliteConnectionSettingsTests
 {
+#if MICROSOFT_DATA_SQLITE
+    [Test]
+    [Description("Version=3 of the System.Data.SQLite connection strings is removed, Microsoft.Data.Sqlite doesn't know it")]
+    public void Version_Is_Removed()
+    {
+        var builder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder(
+            SqliteDbInformation.WithConcurrencySettings("Data Source=yafnet.db;Version=3;"));
+
+        builder.DataSource.Should().Be("yafnet.db");
+        builder.Pooling.Should().BeTrue("pooled connections keep the WAL index open");
+        builder.ContainsKey("version").Should().BeFalse();
+        builder.ForeignKeys.Should().BeFalse("System.Data.SQLite doesn't check foreign keys either");
+    }
+
+    [Test]
+    [Description("Settings of the admin in the connection string are kept")]
+    public void Own_Settings_Are_Kept()
+    {
+        var builder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder(
+            SqliteDbInformation.WithConcurrencySettings("Data Source=yafnet.db;Default Timeout=100;Pooling=False;Foreign Keys=True"));
+
+        builder.DefaultTimeout.Should().Be(100);
+        builder.Pooling.Should().BeFalse();
+        builder.ForeignKeys.Should().BeTrue();
+
+        SqliteDbInformation.WithConcurrencySettings(null).Should().BeNull();
+    }
+#else
     [Test]
     [Description("A busy timeout is added, so parallel requests wait for a lock instead of failing with 'database is locked'")]
     public void Busy_Timeout_Is_Added()
@@ -61,6 +89,7 @@ public class SqliteConnectionSettingsTests
 
         SqliteDbInformation.WithConcurrencySettings(null).Should().BeNull();
     }
+#endif
 
     [Test]
     [Description("The database file is switched to the WAL journal mode, unless the connection string sets a journal mode")]
@@ -122,7 +151,7 @@ public class SqliteConnectionSettingsTests
             new SetSqliteDialectEvent().Handle(
                 new YAF.Core.Events.InitDatabaseProviderEvent(SqliteDbAccess.ProviderTypeName, dbAccess));
 
-            using var connection = new SQLiteConnection(connectionString);
+            using var connection = new SQLiteConnection(SqliteDbInformation.WithConcurrencySettings(connectionString));
             connection.Open();
 
             using var command = connection.CreateCommand();
@@ -156,7 +185,7 @@ public class SqliteConnectionSettingsTests
                                  calls++;
 
                                  return calls == 1
-                                            ? throw new SQLiteException(SQLiteErrorCode.Busy, "database is locked")
+                                            ? throw SqliteTestProvider.Busy()
                                             : Task.FromResult(42);
                              });
 
@@ -169,7 +198,7 @@ public class SqliteConnectionSettingsTests
                     {
                         calls++;
 
-                        return calls == 1 ? throw new SQLiteException(SQLiteErrorCode.Busy, "database is locked") : 1;
+                        return calls == 1 ? throw SqliteTestProvider.Busy() : 1;
                     })
             .Should().Be(1);
         calls.Should().Be(2);
@@ -187,7 +216,7 @@ public class SqliteConnectionSettingsTests
                     _ =>
                         {
                             calls++;
-                            throw new SQLiteException(SQLiteErrorCode.Busy, "database is locked");
+                            throw SqliteTestProvider.Busy();
                         }))
             .Should().ThrowAsync<SQLiteException>();
 
@@ -200,7 +229,7 @@ public class SqliteConnectionSettingsTests
                     _ =>
                         {
                             calls++;
-                            throw new SQLiteException(SQLiteErrorCode.Constraint, "constraint failed");
+                            throw SqliteTestProvider.ConstraintFailed();
                         }))
             .Should().ThrowAsync<SQLiteException>();
 
@@ -214,7 +243,7 @@ public class SqliteConnectionSettingsTests
 
         var dbAccess = new SqliteDbAccess(_ => SQLiteFactory.Instance);
 
-        dbAccess.Information.ConnectionString = () => $"FullUri=file:yaf_retry_{Guid.NewGuid():N}?mode=memory&cache=shared;";
+        dbAccess.Information.ConnectionString = () => SqliteTestProvider.InMemoryConnectionString($"yaf_retry_{Guid.NewGuid():N}");
 
         return dbAccess;
     }

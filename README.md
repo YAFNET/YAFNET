@@ -82,7 +82,7 @@ npm install
 npm run build                           # compile the JS and CSS files (build.js)
 
 cd ..
-dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite
+dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite / -SqliteData
 ```
 
 See the wiki for the full instructions: [command line](https://github.com/YAFNET/YAFNET/wiki/Build-with-Command-Line) and [Visual Studio](https://github.com/YAFNET/YAFNET/wiki/Build-with-Visual-Studio). How to run the unit and UI tests is described in the [tests README](yafsrc/Tests/README.md).

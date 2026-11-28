@@ -49,7 +49,8 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
         ["Microsoft.Data.SqlClient"] = "SqlServer",
         ["MySql.Data.MySqlClient"] = "MySql",
         ["Npgsql Data Provider"] = "PostgreSQL",
-        ["System.Data.SQLite"] = "Sqlite"
+        ["System.Data.SQLite"] = "Sqlite",
+        ["Microsoft.Data.Sqlite"] = "SqliteData"
     };
 
     /// <summary>

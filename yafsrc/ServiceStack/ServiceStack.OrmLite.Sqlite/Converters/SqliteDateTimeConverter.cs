@@ -221,12 +221,37 @@ public class SqliteCoreDateTimeConverter : SqliteNativeDateTimeConverter
 }
 
 /// <summary>
-/// Class SqliteDataDateTimeConverter.
-/// Implements the <see cref="ServiceStack.OrmLite.Sqlite.Converters.SqliteCoreDateTimeConverter" />
+/// The DateTime converter for Microsoft.Data.Sqlite. The dates are written as System.Data.SQLite writes them
+/// (yyyy-MM-dd HH:mm:ss.FFFFFFF, with a Z for UTC), so a database works with both providers: Microsoft.Data.Sqlite
+/// writes dates without the Z, which System.Data.SQLite reads as local time.
+/// Microsoft.Data.Sqlite reads a date with a Z as UTC, and one without a time zone as Unspecified.
 /// </summary>
-/// <seealso cref="ServiceStack.OrmLite.Sqlite.Converters.SqliteCoreDateTimeConverter" />
+/// <seealso cref="SqliteCoreDateTimeConverter" />
 public class SqliteDataDateTimeConverter : SqliteCoreDateTimeConverter
 {
+    /// <summary>
+    /// The format of System.Data.SQLite (ISO8601) for UTC dates.
+    /// </summary>
+    private const string UtcFormat = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
+
+    /// <summary>
+    /// The format of System.Data.SQLite (ISO8601) for local and unspecified dates.
+    /// </summary>
+    private const string Format = "yyyy-MM-dd HH:mm:ss.FFFFFFF";
+
+    /// <summary>
+    /// The value of the parameter, the date as text.
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object ToDbValue(Type fieldType, object value)
+    {
+        var dateTime = (DateTime)base.ToDbValue(fieldType, value);
+
+        return dateTime.ToString(dateTime.Kind == DateTimeKind.Utc ? UtcFormat : Format, CultureInfo.InvariantCulture);
+    }
+
     /// <summary>
     /// Froms the database value.
     /// </summary>
@@ -237,20 +262,23 @@ public class SqliteDataDateTimeConverter : SqliteCoreDateTimeConverter
     {
         var dateTime = (DateTime)value;
 
-        if (this.DateStyle == DateTimeKind.Utc)
+        switch (this.DateStyle)
         {
-            //.NET Core returns correct Local time but as Unspecified so change to Local and Convert to UTC
-            dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc); // don't convert
-        }
-
-        if (this.DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
-        {
-            dateTime = dateTime.Kind == DateTimeKind.Utc
+            // a date without a time zone (e.g. CURRENT_TIMESTAMP) is UTC
+            case DateTimeKind.Utc:
+                return dateTime.Kind switch
+                {
+                    DateTimeKind.Local => dateTime.ToUniversalTime(),
+                    DateTimeKind.Unspecified => DateTime.SpecifyKind(dateTime, DateTimeKind.Utc),
+                    _ => dateTime
+                };
+            case DateTimeKind.Local when dateTime.Kind != DateTimeKind.Local:
+                return dateTime.Kind == DateTimeKind.Utc
                            ? dateTime.ToLocalTime()
                            : DateTime.SpecifyKind(dateTime, DateTimeKind.Local);
+            default:
+                return dateTime;
         }
-
-        return dateTime;
     }
 }
 

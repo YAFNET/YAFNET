@@ -10,7 +10,7 @@ This folder contains the automated tests for YAF.NET 4.x. All projects use [NUni
 | `YAFNET.Tests.LighthouseTests`   | [Lighthouse](https://developer.chrome.com/docs/lighthouse) audits of the forum pages | An installed forum database            |
 | `YAFNET.Tests.Utils`             | Shared helpers: test configuration, Docker Compose fixture, in-process test host   | -                                        |
 
-`YAFNET.Tests` is part of every solution (`YAF.NET-SqlServer.slnx`, `YAF.NET-MySql.slnx`, ...) and is run by the CI build. All other test projects are only in `YAF.NET-Core.slnx`.
+`YAFNET.Tests` is part of every solution (`YAF.NET-SqlServer.slnx`, `YAF.NET-MySql.slnx`, ...) except `YAF.NET-SqliteData.slnx`, and is run by the CI build. All other test projects are only in `YAF.NET-Core.slnx`.
 
 All commands below are run from the `yafsrc` folder.
 
@@ -20,7 +20,11 @@ All commands below are run from the `yafsrc` folder.
 dotnet test Tests/YAFNET.Tests/YAFNET.Tests.csproj
 ```
 
-The tests create their own in-memory SQLite database, no setup is needed.
+The tests create their own in-memory SQLite database, no setup is needed. They use System.Data.SQLite (`YAFNET.Data.Sqlite`), to run them with Microsoft.Data.Sqlite (`YAFNET.Data.Sqlite.Data`, the provider of `YAF.NET-SqliteData.slnx`):
+
+```bash
+dotnet test Tests/YAFNET.Tests/YAFNET.Tests.csproj -p:SqliteProvider=Microsoft.Data.Sqlite
+```
 
 With code coverage (Cobertura report in `Tests/YAFNET.Tests/TestResults`):
 

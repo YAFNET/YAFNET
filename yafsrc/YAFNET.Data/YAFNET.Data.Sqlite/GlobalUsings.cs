@@ -4,7 +4,11 @@ global using System;
 global using System.Collections.Generic;
 global using System.Data;
 global using System.Data.Common;
+#if MICROSOFT_DATA_SQLITE
+global using Microsoft.Data.Sqlite;
+#else
 global using System.Data.SQLite;
+#endif
 global using System.Text;
 
 global using ServiceStack.OrmLite;

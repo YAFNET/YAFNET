@@ -62,6 +62,7 @@ const nuspecsWithDependencies = [
 	'../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec',
 	'../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec',
 	'../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec',
+	'../YAFNET.Data/YAFNET.Data.Sqlite.Data/YAFNET.Data.Sqlite.Data.nuspec',
 	'../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'
 ];
 

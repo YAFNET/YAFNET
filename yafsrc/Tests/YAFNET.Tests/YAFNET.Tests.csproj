@@ -7,6 +7,11 @@
     <RootNamespace>YAF.Tests</RootNamespace>
     <AssemblyName>YAF.Tests</AssemblyName>
   </PropertyGroup>
+  <!-- the tests run on System.Data.SQLite, with dotnet test -p:SqliteProvider=Microsoft.Data.Sqlite on Microsoft.Data.Sqlite
+       (YAFNET.Data.Sqlite.Data), see TestInfrastructure/SqliteTestProvider.cs -->
+  <PropertyGroup Condition="'$(SqliteProvider)' == 'Microsoft.Data.Sqlite'">
+    <DefineConstants>$(DefineConstants);MICROSOFT_DATA_SQLITE</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -22,7 +27,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
     <ProjectReference Include="..\..\YAFNET.Web\YAFNET.Web.csproj" />
-    <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" Condition="'$(SqliteProvider)' != 'Microsoft.Data.Sqlite'" />
+    <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite.Data\YAFNET.Data.Sqlite.Data.csproj" Condition="'$(SqliteProvider)' == 'Microsoft.Data.Sqlite'" />
     <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.SqlServer\YAFNET.Data.SqlServer.csproj" />
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.PostgreSQL\ServiceStack.OrmLite.PostgreSQL.Core.csproj" />
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.Core.csproj" />

@@ -89,6 +89,7 @@ public class BoardConfiguration
     /// 'Microsoft.Data.SqlClient' - Use for SqlServer
     /// 'Npgsql Data Provider' - Use for PostgreSQL
     /// 'System.Data.SQLite' - Use for SQLite
+    /// 'Microsoft.Data.Sqlite' - Use for SQLite with Microsoft.Data.Sqlite (YAF-SqliteData.csproj, e.g. for ARM64)
     /// 'MySql.Data.MySqlClient' - Use for MySQL
     /// 
     /// ** Defaults to: Empty  **

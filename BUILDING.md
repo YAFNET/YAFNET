@@ -15,7 +15,9 @@ npm install
 npm run build                           # compile the JS and CSS files (build.js)
 
 cd ..
-dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite
+dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite / -SqliteData
 ```
+
+There are two SQLite versions: `YAF.NET-Sqlite.slnx` uses System.Data.SQLite, `YAF.NET-SqliteData.slnx` uses Microsoft.Data.Sqlite, which also runs on ARM64 (e.g. Windows on ARM, Apple silicon, Raspberry Pi). Both use the same database file, a forum can switch between them (`ConnectionProviderName` `System.Data.SQLite` or `Microsoft.Data.Sqlite`, see `appsettings-Sqlite.json` and `appsettings-SqliteData.json`).
 
 How to run the unit and UI tests is described in the [tests README](yafsrc/Tests/README.md).

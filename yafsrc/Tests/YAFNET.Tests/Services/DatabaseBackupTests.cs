@@ -24,7 +24,6 @@
 
 namespace YAF.Tests.Services;
 
-using System.Data.SQLite;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;

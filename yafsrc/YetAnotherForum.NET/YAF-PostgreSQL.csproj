@@ -55,6 +55,9 @@
 	  <Content Update="appsettings-Sqlite.json">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Content>
+	  <Content Update="appsettings-SqliteData.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
 	  <Content Update="appsettings-SqlServer.json">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Content>

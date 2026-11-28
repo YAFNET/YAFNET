@@ -283,15 +283,20 @@ public class WebServiceClientTests
         this.handler.Requests.Single().Headers.UserAgent.ToString().Should().Be("YAF.NET");
 
         // the test board runs on SQLite, so the SQLite package is linked
+#if MICROSOFT_DATA_SQLITE
+        const string sqlitePackage = "YAF.SqliteData";
+#else
+        const string sqlitePackage = "YAF.Sqlite";
+#endif
         this.handler.Respond(
-            """
+            $$"""
             [{"tag_name":"v4.0.11","published_at":"2026-10-01T00:00:00Z","html_url":"https://github.com/YAFNET/YAFNET/releases/tag/v4.0.11",
               "assets":[{"name":"YAF.SqlServer-v4.0.11.zip","browser_download_url":"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.SqlServer-v4.0.11.zip"},
-                        {"name":"YAF.Sqlite-v4.0.11.zip","browser_download_url":"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.Sqlite-v4.0.11.zip"}]}]
+                        {"name":"{{sqlitePackage}}-v4.0.11.zip","browser_download_url":"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/{{sqlitePackage}}-v4.0.11.zip"}]}]
             """);
 
         ((string)(await service.GetLatestVersionAsync()).UpgradeUrl).Should()
-            .Be("https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.Sqlite-v4.0.11.zip");
+            .Be($"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/{sqlitePackage}-v4.0.11.zip");
 
         // no package for this database, the release page is linked
         this.handler.Respond(

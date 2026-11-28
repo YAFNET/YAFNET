@@ -24,7 +24,6 @@
 
 namespace YAF.Tests.Services;
 
-using System.Data.SQLite;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -171,7 +170,7 @@ public class InstallServiceTests
 
         var missing = new SqliteDbAccess(_ => SQLiteFactory.Instance);
         missing.Information.ConnectionString =
-            () => $"Data Source={Path.Combine(this.webRoot, "missing", "forum.db")};FailIfMissing=True";
+            () => SqliteTestProvider.ExistingFileConnectionString(Path.Combine(this.webRoot, "missing", "forum.db"));
 
         install.DbAccess = missing;
 
@@ -300,7 +299,7 @@ public class InstallServiceTests
 
         if (emptyDatabase)
         {
-            var connectionString = $"FullUri=file:yaf_install_{Guid.NewGuid():N}?mode=memory&cache=shared;";
+            var connectionString = SqliteTestProvider.InMemoryConnectionString($"yaf_install_{Guid.NewGuid():N}");
 
             // the in-memory database lives as long as a connection is open
             this.keepAlive = new SQLiteConnection(connectionString);
