@@ -802,15 +802,18 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         string posted;
 
-        try
+        // the time is stored in the invariant culture (not the one of the browser, e.g. German could not read it)
+        if (DateTime.TryParse(
+                doc.Get("Posted"),
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                out var postedDateTime))
         {
-            var postedDateTime = doc.Get("Posted").ToType<DateTime>();
-
             posted = this.Get<BoardSettings>().ShowRelativeTime
                          ? postedDateTime.ToRelativeTime()
                          : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, postedDateTime);
         }
-        catch (Exception)
+        else
         {
             posted = doc.Get("Posted");
         }

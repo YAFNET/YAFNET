@@ -24,6 +24,7 @@
 
 namespace YAF.Tests.Services;
 
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -656,6 +657,39 @@ public class LuceneSearchTests
 
         hit.Posted.Should().NotBe(this.Message(1, 10, this.forumA, "Lucene rocks", "fox").Posted)
             .And.NotBeNullOrEmpty();
+    }
+
+    [Test]
+    [Description("The date of a result is read in the invariant culture of the index, also with a German browser")]
+    public async Task Posted_Date_With_German_Culture_Test()
+    {
+        var message = this.Message(1, 10, this.forumA, "Lucene rocks", "the quick brown fox");
+
+        // like the index of the board (the utc time in the invariant culture), a day after the 12th
+        message.Posted = new DateTime(2026, 11, 28, 10, 38, 35).ToString(CultureInfo.InvariantCulture);
+
+        var search = this.NewSearch();
+        search.AddSearchIndexItem(message);
+        search.Dispose();
+
+        this.board.Current.Get<IDateTimeService>()
+            .FormatDateTimeTopic(Arg.Any<DateTime>())
+            .Returns(call => call.ArgAt<DateTime>(0).ToString("o", CultureInfo.InvariantCulture));
+
+        var culture = CultureInfo.CurrentCulture;
+
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+
+            var hit = (await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10)).Item1.Single();
+
+            hit.Posted.Should().Be("2026-11-28T10:38:35.0000000Z");
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = culture;
+        }
     }
 
     /// <summary>
