@@ -3,6 +3,7 @@
  *
  * Usage: node build.js [task], or npm run [task] (see the scripts in package.json)
  * Without a task the js and css files are built.
+ * node build.js --if-changed (run by the build of the YAF-*.csproj projects) skips webpack and the css files when their sources didn't change.
  */
 
 const { execFileSync, execSync } = require('node:child_process');
@@ -136,7 +137,8 @@ const hasExtension = (...extensions) => name => extensions.includes(path.extname
  * Compiles a scss file, adds the vendor prefixes and minifies the result.
  */
 async function buildStylesheet([source, destination], prefixer) {
-	const compiled = await sass.compileAsync(source, sassOptions);
+	// compile (sync) is ~5 times faster than compileAsync, the async version doesn't run in parallel anyway
+	const compiled = sass.compile(source, sassOptions);
 	const prefixed = await prefixer.process(compiled.css, { from: destination, to: destination, map: false });
 
 	for (const warning of prefixed.warnings()) {
@@ -241,7 +243,7 @@ async function themeImports() {
 	const files = new Set();
 
 	for (const theme of themes) {
-		const compiled = await sass.compileAsync(`${themesFolder}/${theme}/bootstrap-forum.scss`, sassOptions);
+		const compiled = sass.compile(`${themesFolder}/${theme}/bootstrap-forum.scss`, sassOptions);
 
 		compiled.loadedUrls
 			.map(url => fileURLToPath(url))
@@ -304,11 +306,68 @@ async function buildThemeKit() {
 	console.log(`theme kit ${kitPackage.version} with ${themes.length} themes and Bootstrap ${bootstrap.version} created in ${themeKitFolder}`);
 }
 
+/**
+ * With --if-changed (used by the build of the YAF-*.csproj projects) a step is skipped when none of its sources
+ * changed since it last ran and all its files exist. A stamp file records when a step ran (webpack doesn't
+ * rewrite unchanged scripts, so the dates of the built files can't be used). npm install changes
+ * node_modules/.package-lock.json and removes the stamps (they are in node_modules/.cache).
+ */
+const ifChanged = process.argv.includes('--if-changed');
+
+const stampFolder = 'node_modules/.cache/yafnet-build';
+
+const packageFiles = ['package.json', 'node_modules/.package-lock.json'];
+
+const steps = {
+	webpack: {
+		files: [...packageFiles, 'webpack.config.js', 'tsconfig.json'],
+		patterns: ['wwwroot/lib/**/*.{ts,js,css}'],
+		outputs: () => require('./webpack.config.js').flatMap(config => Object.keys(config.entry)
+			.map(name => path.join(config.output.path, config.output.filename.replace('[name]', name))))
+	},
+	css: {
+		// _fontawesome-icons.scss is only written when the used icons changed
+		files: [...packageFiles, 'build.js'],
+		patterns: ['wwwroot/lib/**/*.scss'],
+		outputs: () => stylesheets.map(([, destination]) => destination)
+	}
+};
+
+function newestModified({ files, patterns }) {
+	return Math.max(...[...files.filter(file => fs.existsSync(file)), ...fs.globSync(patterns)]
+		.map(file => fs.statSync(file).mtimeMs));
+}
+
+/**
+ * Runs the step unless --if-changed is set and its files are up to date.
+ */
+async function runStep(name, action) {
+	const step = steps[name];
+	const stamp = path.join(stampFolder, `${name}.stamp`);
+
+	if (ifChanged
+		&& fs.existsSync(stamp)
+		&& step.outputs().every(file => fs.existsSync(file))
+		&& newestModified(step) <= fs.statSync(stamp).mtimeMs) {
+		console.log(`${name} skipped, nothing changed (npm run build builds everything)`);
+		return;
+	}
+
+	// the time before the step, so files changed while it runs are built next time
+	const started = new Date();
+
+	await action();
+
+	fs.mkdirSync(stampFolder, { recursive: true });
+	fs.writeFileSync(stamp, '');
+	fs.utimesSync(stamp, started, started);
+}
+
 const tasks = {
 	async default() {
-		runWebpack();
+		await runStep('webpack', runWebpack);
 		findFontAwesomeIcons();
-		await buildStylesheets();
+		await runStep('css', buildStylesheets);
 	},
 
 	async css() {
@@ -378,7 +437,7 @@ const tasks = {
 };
 
 async function main() {
-	const name = process.argv[2] ?? 'default';
+	const name = process.argv.slice(2).find(arg => !arg.startsWith('--')) ?? 'default';
 
 	if (!Object.hasOwn(tasks, name)) {
 		throw new Error(`Unknown task "${name}", available tasks: ${Object.keys(tasks).join(', ')}`);
