@@ -161,6 +161,45 @@ public class QuoteAndEditConversionTests
         AssertOrder(html, "one", "Alice wrote:", "middle", "two", "Bob wrote:");
     }
 
+    [Test]
+    [Description("The empty lines around a quote are not shown as line breaks next to the quote block")]
+    public void Quote_No_Line_Breaks_Around_Quotes_Test()
+    {
+        var html = this.Format(
+            "text\r\n\r\n[quote=Alice]outer\r\n\r\n[quote]inner[/quote]\r\n\r\nouter end\r\n[/quote]\r\n\r\nreply");
+
+        AssertBalancedDivs(html);
+        AssertOrder(html, "text", "outer", "inner", "outer end", "reply");
+
+        // no line break right before a quote, after it, or at the start or end of its text
+        html.Should().NotMatchRegex(@"<br\s*/?>\s*<div class=""card", html);
+        html.Should().NotMatchRegex(@"</div>\s*<br\s*/?>", html);
+        html.Should().NotMatchRegex(@"<i class=""fa fa-quote-left[^>]*></i>\s*<br", html);
+        html.Should().NotMatchRegex(@"<br\s*/?>\s*</div>", html);
+    }
+
+    [TestCase("[code][quote=Bob]x[/quote][/code]")]
+    [TestCase("[code=csharp][quote=Bob]x[/quote][/code]")]
+    [TestCase("[noparse][quote=Bob]x[/quote][/noparse]")]
+    [Description("A quote in a code block or in noparse stays text")]
+    public void Quote_In_Code_Stays_Text_Test(string input)
+    {
+        var html = this.Format(input);
+
+        html.Should().NotContain("wrote:").And.NotContain("fa-quote-left");
+        html.Should().MatchRegex(@"(\[|&#91;)quote=Bob(\]|&#93;)x", html);
+    }
+
+    [Test]
+    [Description("A quote inside a quote is not inside a paragraph (a block in a <p> is invalid html, the browser closed the paragraph early)")]
+    public void Quote_Nested_Not_In_Paragraph_Test()
+    {
+        var html = this.Format("[quote=Alice]outer [quote]inner[/quote] end[/quote]");
+
+        html.Should().NotMatchRegex(@"<p[\s>](?:(?!</p>)[\s\S])*<div", html);
+        html.Should().NotContain("<p></p>");
+    }
+
     [TestCase("[quote=<script>alert(1)</script>]x[/quote]")]
     [TestCase("[quote=Bob\" onmouseover=\"alert(1)]x[/quote]")]
     [TestCase("[quote=Bob;1\" onmouseover=\"alert(1)]x[/quote]")]

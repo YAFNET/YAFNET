@@ -37,6 +37,11 @@ using YAF.Types.Models;
 public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 {
     /// <summary>
+    /// The line breaks and spaces at the start and the end of a text (the rule runs before line breaks become &lt;br /&gt;).
+    /// </summary>
+    private static readonly Regex TrimLineBreaks = new(@"^\s+|\s+$", RegexOptions.Compiled, RegexHelper.Timeout);
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="QuoteRegexReplaceRule" /> class.
     /// </summary>
     /// <param name="searchRegex">The search regex.</param>
@@ -75,7 +80,8 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 
             var quote = match.Groups["quote"].Value;
 
-            var quoteText = this.GetInnerValue(match.Groups["inner"].Value);
+            // no empty lines at the start and the end of the quoted text
+            var quoteText = TrimLineBreaks.Replace(this.GetInnerValue(match.Groups["inner"].Value), string.Empty);
 
             var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
             var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
