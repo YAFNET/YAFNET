@@ -52,14 +52,17 @@ function setSearchPageNumber(pageSize: number, pageNumber: number, total: number
 
 			pagination.appendChild(page);
 
-			page = document.createElement('li');
+			// the gap only when pages are left out (not between the first and the second page)
+			if (start > 1) {
+				page = document.createElement('li');
 
-			page.classList.add('page-item');
-			page.classList.add('disabled');
+				page.classList.add('page-item');
+				page.classList.add('disabled');
 
-			page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
+				page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
 
-			pagination.appendChild(page);
+				pagination.appendChild(page);
+			}
 		}
 
 		for (let i = start; i < end; i++) {
@@ -83,13 +86,18 @@ function setSearchPageNumber(pageSize: number, pageNumber: number, total: number
 		}
 
 		if (end < pages) {
-			let page: HTMLLIElement = document.createElement('li');
+			let page: HTMLLIElement;
 
-			page.classList.add('page-item');
-			page.classList.add('disabled');
-			page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
+			// the gap only when pages are left out (not between the page before the last one and the last one)
+			if (end < pages - 1) {
+				page = document.createElement('li');
 
-			pagination.appendChild(page);
+				page.classList.add('page-item');
+				page.classList.add('disabled');
+				page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
+
+				pagination.appendChild(page);
+			}
 
 			page = document.createElement('li');
 

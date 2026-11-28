@@ -240,4 +240,70 @@ public class SearchTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         });
             });
     }
+
+    /// <summary>
+    /// The pager of the search results shows "..." only when pages are left out (it was shown between
+    /// the first page and the second one, and before the last page after the one before it).
+    /// </summary>
+    [Test]
+    public async Task SearchPagerShowsGapsOnlyForLeftOutPagesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var marker = $"PagerCheck{Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"{marker} topic", $"{marker} first post"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                // 35 posts: 7 pages with 5 results (the quick reply of the topic, the admin has no flood delay)
+                var replies = await page.EvaluateAsync<int>(
+                    """
+                    async marker => {
+                        const form = document.querySelector('#quickReply form');
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        let saved = 0;
+                        for (let i = 1; i < 35; i++) {
+                            const response = await fetch(form.action, {
+                                method: 'POST',
+                                body: JSON.stringify({ QuickReplyEditor: `${marker} reply ${i}`, TopicWatch: false }),
+                                headers: { 'Content-Type': 'application/json;charset=utf-8', RequestVerificationToken: token }
+                            });
+                            const result = await response.json();
+                            if (typeof result === 'string') {
+                                saved++;
+                            }
+                        }
+                        return saved;
+                    }
+                    """,
+                    marker);
+
+                Assert.That(replies, Is.EqualTo(34), "The replies were not saved");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Search?search={marker}");
+
+                var pager = page.Locator("#SearchResultsPagerTop");
+
+                await pager.Locator(".page-item").First.WaitForAsync();
+
+                // the 4th of 7 pages shows the pages 1 to 7, nothing is left out
+                await page.EvaluateAsync("() => getSearchResultsData(3)");
+
+                await Assertions.Expect(pager.Locator(".page-item.active")).ToHaveTextAsync("4");
+
+                Assert.That(
+                    await pager.Locator(".page-item.disabled").CountAsync(),
+                    Is.Zero,
+                    $"The pager shows a gap without left out pages: {await pager.InnerTextAsync()}");
+            });
+    }
 }

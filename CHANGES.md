@@ -287,6 +287,7 @@ YetAnotherForum.NET Changelog
 * Quick reply dialog: the toolbar buttons (bold, link, quote...) changed the text of the quick reply below the posts instead of the text of the dialog, Ctrl+B, I, U and Q did nothing in the dialog and Ctrl+Enter posted neither the dialog nor the quick reply below the posts
 * BB code editor (quick reply, and all editors when the WYSIWYG editor is off): "Characters remaining" below the editor showed no number since the editor scripts were converted to TypeScript
 * Similar topics and search results: with a browser language that writes dates day first (e.g. German) the time of a similar topic was missing and the search results showed the raw stored date; the time of a similar topic was also off by the time zone of the server; the stored (invariant, utc) time is read as such
+* Search: the pager of the results showed "..." between the first and the second page (e.g. 1 ... 2 3 4) and between the page before the last one and the last one, although no page was left out
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
