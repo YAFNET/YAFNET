@@ -21,6 +21,11 @@ function setSearchPageNumber(pageSize: number, pageNumber: number, total: number
 		Utilities.empty(pagerHolderTop);
 		Utilities.empty(pagerHolderBottom);
 
+		// no pager for a single page
+		if (pages <= 1) {
+			return;
+		}
+
 		if (pageNumber > 0) {
 			const page: HTMLLIElement = document.createElement('li');
 
@@ -259,11 +264,13 @@ function getSearchResultsData(pageNumber: number): void {
 						loadModal.hide();
 					});
 
-				const posted = placeHolder.dataset.posted || '';
 				const by = placeHolder.dataset.by || '';
 				const lastPost = placeHolder.dataset.lastpost || '';
 				const topic = placeHolder.dataset.topic || '';
 				const forum = placeHolder.dataset.forum || '';
+				const results = placeHolder.dataset.results || '';
+
+				const summary = document.getElementById('SearchResultsSummary') as HTMLElement;
 
 				if (data.searchResults.length === 0) {
 					loadModal.hide();
@@ -271,83 +278,69 @@ function getSearchResultsData(pageNumber: number): void {
 					const noText = placeHolder.dataset.notext || '';
 
 					const div: HTMLDivElement = document.createElement('div');
-					div.innerHTML = `<div class="alert alert-warning text-center mt-3" role="alert">${noText}</div>`;
+					div.innerHTML = `<div class="search-empty" role="alert"><i class="fas fa-search fa-2x mb-2"></i><div>${noText}</div></div>`;
 
 					placeHolder.appendChild(div);
 
+					Utilities.empty(summary);
 					Utilities.empty(document.getElementById('SearchResultsPagerTop') as HTMLElement);
 					Utilities.empty(document.getElementById('SearchResultsPagerBottom') as HTMLElement);
 
 				} else {
 					loadModal.hide();
 
+					summary.innerHTML = `${results} <span class="badge rounded-pill text-bg-secondary">${data.totalRecords}</span>`;
+
+					const list: HTMLDivElement = document.createElement('div');
+					list.classList.add('search-results', 'card', 'mb-3');
+
 					data.searchResults.forEach((dataItem: any) => {
-						const item: HTMLDivElement = document.createElement('div');
+						const item: HTMLElement = document.createElement('article');
+						item.classList.add('search-result');
 
 						if (searchType === searchTypeForums) {
 							item.innerHTML = `
-                <div class="row">
-                    <div class="col">
-                        <div class="card mb-3">
-                            <div class="card-header topicTitle">
-                                <h5><a title="${forum}" href="${dataItem.forumUrl}">${dataItem.forumName}</a></h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-subtitle text-body-secondary">${dataItem.description}</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+                <a class="search-result-title" title="${forum}" href="${dataItem.forumUrl}"><i class="fas fa-comments me-1"></i>${dataItem.forumName}</a>
+                <div class="search-result-meta">${dataItem.description}</div>`;
 
-							placeHolder.appendChild(item);
+							list.appendChild(item);
 
 							return;
 						}
 
-						let tags = ' ';
+						let tags = '';
 
 						if (dataItem.topicTags) {
-							const topicTags: string[] = dataItem.topicTags.split(',');
-
-							topicTags.forEach((d: string) => {
-								tags += `<span class='badge text-bg-secondary me-1'><i class='fas fa-tag me-1'></i>${d
-									}</span>`;
+							dataItem.topicTags.split(',').forEach((tag: string) => {
+								tags += `<span class="badge search-result-tag"><i class="fas fa-tag me-1"></i>${tag}</span>`;
 							});
 						}
 
-						item.innerHTML = `
-                <div class="row">
-                    <div class="col">
-                        <div class="card mb-3">
-                            <div class="card-header topicTitle">
-                                <h5>
-                                    <a title="${topic}" href="${dataItem.topicUrl}">${dataItem.topic}</a>&nbsp;
-                                    <a title="${lastPost}" href="${dataItem.messageUrl
-							}"><i class="fas fa-external-link-alt"></i></a>
-                                    <small class="text-body-secondary">(<a href="${dataItem.forumUrl}">${dataItem
-							.forumName}</a>)</small>
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-body-secondary">${dataItem.description}</h6>
-                                <p class="card-text messageContent">${dataItem.message}</p>
-                            </div>
-                            <div class="card-footer bg-transparent border-top-0 px-0 py-2">
-                                <small class="text-body-secondary">
-                                    <span class="fa-stack">
-                                        <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
-                                        <i class="fa fa-clock fa-badge text-secondary"></i>
-                                    </span>
-                                    ${posted} ${dataItem.posted} <i class="fa fa-user text-secondary"></i>${by} ${
-							useDisplayName ? dataItem.userDisplayName : dataItem.userName}${tags}
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+						const userName = useDisplayName ? dataItem.userDisplayName : dataItem.userName;
 
-						placeHolder.appendChild(item);
+						// the author like the user links of the board (a guest without a link)
+						const author = dataItem.userUrl
+							? `<a href="${dataItem.userUrl}" class="btn btn-sm btn-outline-secondary search-result-user"${dataItem.userStyle ? ` style="${dataItem.userStyle}"` : ''}>${userName}</a>`
+							: `<span class="search-result-user-guest">${userName}</span>`;
+
+						item.innerHTML = `
+                <div class="search-result-header">
+                    <a class="search-result-title" title="${topic}" href="${dataItem.topicUrl}">${dataItem.topic}</a>
+                    <a class="search-result-jump" title="${lastPost}" aria-label="${lastPost}" href="${dataItem.messageUrl}"><i class="fas fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <div class="search-result-meta">
+                    <a class="search-result-forum" title="${forum}" href="${dataItem.forumUrl}"><i class="fas fa-comments me-1"></i>${dataItem.forumName}</a>
+                    <span class="search-result-author">${by} ${author}</span>
+                    <span class="search-result-date"><i class="far fa-clock me-1"></i>${dataItem.posted}</span>
+                    ${tags}
+                </div>
+                ${dataItem.description ? `<div class="search-result-description">${dataItem.description}</div>` : ''}
+                <div class="search-result-message messageContent">${dataItem.message}</div>`;
+
+						list.appendChild(item);
 					});
+
+					placeHolder.appendChild(list);
 
 					setSearchPageNumber(pageSize, pageNumber, data.totalRecords);
 

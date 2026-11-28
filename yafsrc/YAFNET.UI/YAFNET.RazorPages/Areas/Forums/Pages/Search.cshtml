@@ -36,7 +36,11 @@
 
             <div id="SearchResultsListBox">
 
-                <div id="SearchResultsPagerTop" class="mt-3"></div>
+                @* the number of the results and the pager above the results *@
+                <div class="search-results-bar">
+                    <div id="SearchResultsSummary" class="search-results-summary" aria-live="polite"></div>
+                    <div id="SearchResultsPagerTop"></div>
+                </div>
                 <div id="SearchResultsLoader">
                     <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -56,15 +60,15 @@
                 <div id="SearchResultsPlaceholder"
                      data-minimum="@Html.Raw( Model.PageBoardContext.BoardSettings.SearchStringMinLength )"
                      data-notext='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("NO_SEARCH_RESULTS") )'
-                     data-posted='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("POSTED") )'
+                     data-results='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("RESULTS") )'
                      data-by='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("By") )'
                      data-lastpost='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("GO_LAST_POST") )'
                      data-topic='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("COMMON","VIEW_TOPIC") )'
                      data-forum='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("COMMON","VIEW_FORUM") )'
-                     style="clear: both;">
+                     class="search-results-placeholder">
                 </div>
 
-                <div id="SearchResultsPagerBottom" class="mt-3"></div>
+                <div id="SearchResultsPagerBottom" class="search-results-pager-bottom"></div>
             </div>
         </div>
         <div class="col-lg-4">

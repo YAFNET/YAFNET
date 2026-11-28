@@ -306,4 +306,40 @@ public class SearchTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     $"The pager shows a gap without left out pages: {await pager.InnerTextAsync()}");
             });
     }
+
+    /// <summary>
+    /// The author of a search result links to the profile, like the user links of the posts.
+    /// </summary>
+    [Test]
+    public async Task SearchResultLinksTheAuthorTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var marker = $"AuthorCheck{Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"{marker} topic", $"{marker} post"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Search?search={marker}");
+
+                var author = page.Locator("#SearchResultsPlaceholder .search-result a.search-result-user").First;
+
+                await author.WaitForAsync();
+
+                Assert.That(await author.InnerTextAsync(), Is.EqualTo(this.TestSettings.AdminUserName), "The author is not shown");
+
+                await page.RunAndWaitForNavigationAsync(() => author.ClickAsync());
+
+                Assert.That(page.Url, Does.Contain("/user/").IgnoreCase, "The author does not link to the profile");
+            });
+    }
 }

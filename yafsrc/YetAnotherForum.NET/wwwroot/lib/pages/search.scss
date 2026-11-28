@@ -1,0 +1,142 @@
+// Search page: the results as one list, each with the title, a line with the forum, the author, the time and
+// the tags, and the found text
+.search-results-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem 1rem;
+    margin-bottom: .75rem;
+
+    &:has(.search-results-summary:empty) {
+        justify-content: flex-end;
+    }
+
+    .pagination {
+        margin-bottom: 0;
+    }
+}
+
+.search-results-summary {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    font-weight: 600;
+}
+
+.search-results-pager-bottom .pagination {
+    margin-bottom: 0;
+}
+
+.search-results {
+    overflow: hidden;
+}
+
+.search-result {
+    padding: .85rem 1rem;
+    transition: background-color .15s ease;
+
+    + .search-result {
+        border-top: 1px solid var(--bs-border-color-translucent);
+    }
+
+    &:hover {
+        background-color: var(--bs-tertiary-bg);
+    }
+}
+
+.search-result-header {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.search-result-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    mark {
+        padding: 0 .1em;
+    }
+}
+
+// the link to the found post
+.search-result-jump {
+    margin-left: auto;
+    padding: 0 .25rem;
+    color: var(--bs-secondary-color);
+
+    &:hover {
+        color: var(--bs-link-hover-color);
+    }
+}
+
+.search-result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem .75rem;
+    margin-top: .25rem;
+    font-size: .875rem;
+    color: var(--bs-secondary-color);
+}
+
+.search-result-forum {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        color: var(--bs-link-hover-color);
+        text-decoration: underline;
+    }
+}
+
+.search-result-author {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+}
+
+.search-result-tag {
+    font-weight: 500;
+    color: var(--bs-secondary-text-emphasis);
+    background-color: var(--bs-secondary-bg-subtle);
+    border: 1px solid var(--bs-secondary-border-subtle);
+}
+
+.search-result-description {
+    margin-top: .35rem;
+    font-style: italic;
+    color: var(--bs-secondary-color);
+}
+
+// the found text: like a quote of the post
+.search-result-message {
+    margin-top: .5rem;
+    padding-left: .75rem;
+    border-left: 3px solid var(--bs-border-color);
+    overflow-wrap: anywhere;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+// no results
+.search-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 1rem;
+    border: 1px dashed var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    text-align: center;
+    color: var(--bs-secondary-color);
+}

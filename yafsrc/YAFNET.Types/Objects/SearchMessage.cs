@@ -214,4 +214,12 @@ public class SearchMessage
     /// The forum URL.
     /// </value>
     public string ForumUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the URL of the profile of the author (empty for a guest).
+    /// </summary>
+    /// <value>
+    /// The user URL.
+    /// </value>
+    public string UserUrl { get; set; }
 }

@@ -840,8 +840,40 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 doc.Get("ForumName")),
             UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
             ForumName = HttpUtility.HtmlEncode(doc.Get("ForumName")),
-            UserStyle = doc.Get("AuthorStyle")
+            UserStyle = this.UserStyle(doc.Get("AuthorStyle")),
+            UserUrl = this.UserUrl(doc)
         };
+    }
+
+    /// <summary>
+    /// The (html encoded) style of the name of the author, like the user links of the board.
+    /// </summary>
+    /// <param name="style">The stored style of the author.</param>
+    /// <returns>The style for the style attribute, or an empty string.</returns>
+    private string UserStyle(string style)
+    {
+        return style.IsSet() && this.Get<BoardSettings>().UseStyledNicks
+                   ? HttpUtility.HtmlEncode(this.Get<IStyleTransform>().Decode(style))
+                   : string.Empty;
+    }
+
+    /// <summary>
+    /// The link to the profile of the author of a result (none for a guest).
+    /// </summary>
+    /// <param name="doc">The document of the result.</param>
+    /// <returns>The profile link, or an empty string.</returns>
+    private string UserUrl(Document doc)
+    {
+        var userId = doc.Get("UserId").ToType<int>();
+
+        if (userId <= 0 || userId == BoardContext.Current.GuestUserID)
+        {
+            return string.Empty;
+        }
+
+        var name = this.Get<BoardSettings>().EnableDisplayName ? doc.Get("AuthorDisplay") : doc.Get("Author");
+
+        return this.Get<ILinkBuilder>().GetUserProfileLink(userId, name);
     }
 
     /// <summary>
