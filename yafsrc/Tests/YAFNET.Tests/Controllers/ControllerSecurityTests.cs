@@ -51,6 +51,7 @@ public class ControllerSecurityTests
         "AchievementController.Unseen",
         "Albums.GetImage", "Albums.GetImagePreview", "Albums.GetAlbumCover",
         "Attachments.GetAttachment", "Attachments.GetResponseAttachment",
+        "AttachmentController.GetEditorPreviews",
         "AvatarController.GetTextAvatar", "AvatarController.GetResponseLocalAvatar",
         "CustomBBCodes.GetList",
         "Feed.GetLatestPosts", "Feed.GetTopicsFeed", "Feed.GetPostsFeed",

@@ -232,6 +232,64 @@ public class AttachmentAccessTests
         data.AttachmentList.Should().BeEmpty();
     }
 
+    [Test]
+    [Description("The editor previews only the user's own attachments (a post only shows the attachments of its author)")]
+    public void GetEditorPreviews_Own_Only_Test()
+    {
+        var image = this.AddAttachment(this.alice, messageId: 0, fileName: "mine.png", contentType: "image/png");
+        var text = this.AddAttachment(this.alice, this.AddPost(this.publicForum), fileName: "notes.txt");
+        var bobs = this.AddAttachment(this.bob, messageId: 0, fileName: "bobs.png", contentType: "image/png");
+        this.board.LoginAs(this.alice);
+
+        var previews = this.GetEditorPreviews($"{image},{text},{bobs},999999");
+
+        previews.Select(p => p.Id).Should().BeEquivalentTo([image, text]);
+        previews.Single(p => p.Id == image).IsImage.Should().BeTrue();
+        previews.Single(p => p.Id == image).Url.Should().NotBeNullOrEmpty();
+        previews.Single(p => p.Id == text).IsImage.Should().BeFalse();
+        previews.Single(p => p.Id == text).FileName.Should().Be("notes.txt");
+    }
+
+    [Test]
+    [Description("An image larger than the board setting is shown as a file in the post, also in the editor")]
+    public void GetEditorPreviews_Large_Image_Is_A_File_Test()
+    {
+        var image = this.AddAttachment(this.alice, messageId: 0, fileName: "big.png", contentType: "image/png");
+        this.board.BoardSettings.PictureAttachmentDisplayTreshold = 5;
+        this.board.LoginAs(this.alice);
+
+        this.GetEditorPreviews($"{image}").Should().ContainSingle().Which.IsImage.Should().BeFalse();
+    }
+
+    [TestCase("")]
+    [TestCase("abc,,-1,0")]
+    [TestCase("1.5")]
+    [Description("Ids that are no attachment ids get no previews")]
+    public void GetEditorPreviews_Invalid_Ids_Test(string ids)
+    {
+        this.board.LoginAs(this.alice);
+
+        this.GetEditorPreviews(ids).Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("All guests are the same user: a guest gets no previews, they would show the uploads of the other guests")]
+    public void GetEditorPreviews_Not_For_Guests_Test()
+    {
+        var image = this.AddAttachment(this.alice, messageId: 0, fileName: "guest.png", contentType: "image/png");
+        this.board.LoginAs(this.alice);
+        this.board.User.IsGuest = true;
+
+        this.GetEditorPreviews($"{image}").Should().BeEmpty();
+    }
+
+    private List<AttachmentPreview> GetEditorPreviews(string ids)
+    {
+        var result = (OkObjectResult)this.board.CreateController<AttachmentController>().GetEditorPreviews(ids);
+
+        return (List<AttachmentPreview>)result.Value;
+    }
+
     private int AddPost(int forumId)
     {
         return this.db.AddMessage(this.db.AddTopic(forumId, this.alice), this.alice);

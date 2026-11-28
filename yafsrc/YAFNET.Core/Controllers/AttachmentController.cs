@@ -41,6 +41,11 @@ using YAF.Types.Objects;
 public class AttachmentController : ForumBaseController
 {
     /// <summary>
+    /// The most previews of one request.
+    /// </summary>
+    private const int MaxEditorPreviews = 50;
+
+    /// <summary>
     /// Gets the paged attachments.
     /// </summary>
     /// <param name="pagedResults">
@@ -111,5 +116,59 @@ public class AttachmentController : ForumBaseController
                     PageSize = pageSize,
                     AttachmentList = attachmentItems
                 });
+    }
+
+    /// <summary>
+    /// The previews of the attachments ([attach] BBCodes) in the editor: only the user's own attachments,
+    /// a post only shows the attachments of its author (the other ids stay BBCode in the editor).
+    /// </summary>
+    /// <param name="ids">
+    /// The attachment ids, separated by commas.
+    /// </param>
+    /// <returns>
+    /// The previews of the attachments of the user.
+    /// </returns>
+    [HttpGet("GetEditorPreviews")]
+    public IActionResult GetEditorPreviews(string ids)
+    {
+        // all guests are the same user: they would see the uploads of the other guests
+        if (this.PageBoardContext.IsGuest || ids.IsNotSet())
+        {
+            return this.Ok(new List<AttachmentPreview>());
+        }
+
+        // the values come from the client: whole numbers only, not too many
+        var attachmentIds = ids.Split(',')
+            .Select(id => int.TryParse(id.Trim(), out var value) ? value : 0)
+            .Where(id => id > 0)
+            .Distinct()
+            .Take(MaxEditorPreviews)
+            .ToList();
+
+        if (attachmentIds.Count == 0)
+        {
+            return this.Ok(new List<AttachmentPreview>());
+        }
+
+        var userId = this.PageBoardContext.PageUserID;
+        var imageLimit = this.PageBoardContext.BoardSettings.PictureAttachmentDisplayTreshold;
+
+        var previews = this.GetRepository<Attachment>()
+            .Get(a => attachmentIds.Contains(a.ID) && a.UserID == userId)
+            .Select(
+                a => new AttachmentPreview
+                         {
+                             Id = a.ID,
+                             FileName = a.FileName,
+
+                             // like the post: an image up to the size of the board setting
+                             IsImage = a.FileName.IsImageName() && a.Bytes <= imageLimit,
+
+                             // a preview is no download (the editor flag counts the download)
+                             Url = AttachmentLinkHelper.GetUrl(a.ID, false)
+                         })
+            .ToList();
+
+        return this.Ok(previews);
     }
 }
