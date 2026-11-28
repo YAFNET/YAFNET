@@ -260,6 +260,7 @@ YetAnotherForum.NET Changelog
 * Short URLs: with a PageRouteTransformerConvention (e.g. kebab-case urls) the pages kept their old routes (e.g. /forums/posts/1/name) and the redirect to the short url returned 404; the convention replaces the page name in the page route metadata too
 * The forum selects (forum jump, search, move topic or post, prune), the topic tags and the selects with icons or images (e.g. topic icon, country, avatar, forum and category image): the selected entry had no option role in its list, screen readers could not announce it (Lighthouse/axe: aria-allowed-attr, aria-required-children)
 * Edit message: the preview did not show the attachments of the BB code [attach] (the preview has no message id, the author of the post was not passed)
+* Edit message: a moderator who edits the post of another user could insert own attachments, which are not shown in the post (a post only shows the attachments of its author); the editor shows no attachments and no upload then. The WYSIWYG editor showed the attachments button also where uploads are switched off for the editor
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

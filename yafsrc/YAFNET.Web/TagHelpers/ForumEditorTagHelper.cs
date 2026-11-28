@@ -133,7 +133,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                     albums = ",albums";
                 }
 
-                if (BoardContext.Current.UploadAccess)
+                if (this.UsersCanUpload && BoardContext.Current.UploadAccess)
                 {
                     attachments = "|attachments";
                 }
