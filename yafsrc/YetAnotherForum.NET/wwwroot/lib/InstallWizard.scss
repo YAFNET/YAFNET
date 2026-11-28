@@ -82,6 +82,12 @@ html {
 }
 
 .yafWizard {
+	// the blue, purple and red stripe of the logo, like the navbar of the yaf theme
+	.modal-header {
+		border-bottom: 4px solid transparent;
+		border-image: $yaf-logo-stripe 1;
+	}
+
 	.modal-footer {
 		gap: .5rem;
 	}

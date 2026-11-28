@@ -76,6 +76,7 @@ YetAnotherForum.NET Changelog
 * Admin > Dashboard: the list of the not approved accounts shows the newest registrations first (they were in the order of the database, a new registration was on the last page)
 * Admin > BBCode Extensions: the extensions the forum itself needs ([ATTACH] attachments, [MEDIA] the media button of the editor, [USERLINK] mentions, [ALBUMIMG] album images) are marked "Required" and can't be deleted or renamed (posts showed the raw BB code until the next upgrade added them again); every extension of the forum has "Restore Default", which replaces it with the version of BBCodeExtensions.xml (the upgrade keeps the extensions an admin changed); all languages
 * Install wizard: uses the colors and styles of the yaf theme (the logo blue, purple and red) instead of the plain Bootstrap look
+* Install wizard: the header has the blue, purple and red stripe of the logo, like the navbar of the yaf theme
 
 ## 🐞 Bug fixes
 * NuGet packages: YAFNET.Core, YAFNET.Data.SqlServer and YAFNET.RazorPages referenced .NET 11 versions of Microsoft.Extensions.DependencyInjection.Abstractions, System.Security.Cryptography.Pkcs and Microsoft.Extensions.FileProviders.Embedded (the first two inside the package without a declared dependency), a .NET 10 project could not compile against them (CS1705); they use the 10.0 versions now and the packages declare them. YAFNET.Core also declares BouncyCastle.Cryptography, which the included WebEssentials.AspNetCore.Pwa.dll needs (a project had to reference it itself)
