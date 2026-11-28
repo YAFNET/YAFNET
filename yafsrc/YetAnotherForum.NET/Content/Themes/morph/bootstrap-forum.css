@@ -14261,6 +14261,31 @@ textarea.form-control-lg {
   color: #fff;
 }
 
+.text-secondary {
+  color: #444b40 !important;
+}
+
+.link-secondary {
+  color: #444b40 !important;
+  text-decoration-color: #444b40 !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #212529 !important;
+  text-decoration-color: #212529 !important;
+}
+
+[data-bs-theme=dark] .text-secondary {
+  color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
+}
+
 /* ===============================
 =            Choices            =
 =============================== */

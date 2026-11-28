@@ -13469,6 +13469,18 @@ blockquote {
   border-radius: 15px 27px 25px 25px/25px 25px 305px 635px;
 }
 
+[data-bs-theme=dark] .text-secondary {
+  color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
+}
+
 table th,
 table td {
   background-color: #fff;
@@ -13777,6 +13789,15 @@ select.form-control {
 }
 .toast-header {
   font-family: "Cabin Sketch", cursive;
+}
+
+[data-bs-theme=dark] .toast {
+  --bs-toast-header-color: var(--bs-body-color);
+}
+[data-bs-theme=dark] .list-group {
+  --bs-list-group-action-color: var(--bs-body-color);
+  --bs-list-group-action-hover-color: var(--bs-body-color);
+  --bs-list-group-action-hover-bg: var(--bs-tertiary-bg);
 }
 
 .modal-content {

@@ -13409,7 +13409,31 @@ textarea.form-control-lg {
 }
 
 .text-secondary {
+  color: #dee2e6 !important;
+}
+
+.link-secondary {
+  color: #dee2e6 !important;
+  text-decoration-color: #dee2e6 !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #fff !important;
+  text-decoration-color: #fff !important;
+}
+
+[data-bs-theme=dark] .card {
+  --bs-secondary-color: rgba(255, 255, 255, 0.85);
+}
+[data-bs-theme=dark] .text-secondary {
   color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
 }
 
 .dropdown-menu {

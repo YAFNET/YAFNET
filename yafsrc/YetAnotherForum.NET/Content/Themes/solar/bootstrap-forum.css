@@ -13456,6 +13456,31 @@ textarea.form-control-lg {
   --bs-tooltip-color: var(--bs-emphasis-color);
 }
 
+.text-secondary {
+  color: #adb5bd !important;
+}
+
+.link-secondary {
+  color: #adb5bd !important;
+  text-decoration-color: #adb5bd !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #fff !important;
+  text-decoration-color: #fff !important;
+}
+
+[data-bs-theme=dark] .text-secondary {
+  color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
+}
+
 /* ===============================
 =            Choices            =
 =============================== */

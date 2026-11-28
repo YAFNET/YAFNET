@@ -13495,6 +13495,27 @@ textarea.form-control-lg {
   color: #555 !important;
 }
 
+.link-secondary {
+  color: #555 !important;
+  text-decoration-color: #555 !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #222 !important;
+  text-decoration-color: #222 !important;
+}
+
+[data-bs-theme=dark] .text-secondary {
+  color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
+}
+
 .blockquote-footer {
   color: #999;
 }
@@ -13552,7 +13573,7 @@ textarea.form-control-lg {
   position: relative;
   top: 0;
   font-weight: 700;
-  color: #555;
+  color: var(--bs-pagination-color);
   text-transform: uppercase;
   border-style: solid;
   border-width: 0 1px 4px;
@@ -13580,6 +13601,11 @@ textarea.form-control-lg {
   top: 0;
   border-style: solid;
   border-width: 0 1px 4px;
+}
+
+[data-bs-theme=dark] .pagination {
+  --bs-pagination-color: var(--bs-body-color);
+  --bs-pagination-hover-color: var(--bs-body-color);
 }
 
 .pager > li > a, .pager > li > a:hover, .pager > li > a:active,

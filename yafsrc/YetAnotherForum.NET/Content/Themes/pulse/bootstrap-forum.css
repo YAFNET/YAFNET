@@ -13188,6 +13188,10 @@ textarea.form-control-lg {
   color: #444;
 }
 
+[data-bs-theme=dark] .breadcrumb-item.active {
+  color: var(--bs-secondary-color);
+}
+
 .badge.bg-light {
   color: #17141f;
 }
@@ -13210,6 +13214,31 @@ textarea.form-control-lg {
 }
 .list-group-item.disabled:hover {
   color: #5c507c;
+}
+
+.text-secondary {
+  color: #444 !important;
+}
+
+.link-secondary {
+  color: #444 !important;
+  text-decoration-color: #444 !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #17141f !important;
+  text-decoration-color: #17141f !important;
+}
+
+[data-bs-theme=dark] .text-secondary {
+  color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
 }
 
 /* ===============================

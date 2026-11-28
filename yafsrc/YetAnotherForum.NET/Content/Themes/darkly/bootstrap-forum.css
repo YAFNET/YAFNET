@@ -13382,12 +13382,33 @@ textarea.form-control-lg {
   margin-right: 2rem;
 }
 
-.blockquote-footer {
-  color: #888;
+.text-secondary {
+  color: #adb5bd !important;
 }
 
-.text-secondary {
+.link-secondary {
+  color: #adb5bd !important;
+  text-decoration-color: #adb5bd !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #fff !important;
+  text-decoration-color: #fff !important;
+}
+
+[data-bs-theme=dark] .text-secondary {
   color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
+}
+
+.blockquote-footer {
+  color: #888;
 }
 
 .form-floating > label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:-moz-placeholder) ~ label {

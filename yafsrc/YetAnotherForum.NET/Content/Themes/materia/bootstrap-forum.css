@@ -14130,6 +14130,31 @@ textarea.form-control-lg {
   border: 1px solid #dfdfdf !important;
 }
 
+.text-secondary {
+  color: #666 !important;
+}
+
+.link-secondary {
+  color: #666 !important;
+  text-decoration-color: #666 !important;
+}
+.link-secondary:hover, .link-secondary:focus {
+  color: #212121 !important;
+  text-decoration-color: #212121 !important;
+}
+
+[data-bs-theme=dark] .text-secondary {
+  color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary {
+  color: var(--bs-secondary-color) !important;
+  text-decoration-color: var(--bs-secondary-color) !important;
+}
+[data-bs-theme=dark] .link-secondary:hover, [data-bs-theme=dark] .link-secondary:focus {
+  color: var(--bs-body-color) !important;
+  text-decoration-color: var(--bs-body-color) !important;
+}
+
 body,
 input,
 button {
@@ -14138,10 +14163,6 @@ button {
 
 p {
   margin: 0 0 1em;
-}
-
-.text-secondary {
-  color: #bbb !important;
 }
 
 .table-hover > tbody > tr,
@@ -14449,7 +14470,7 @@ select.form-control[multiple] {
 .nav-tabs .nav-link,
 .nav-tabs .nav-link:focus {
   margin-right: 0;
-  color: #444;
+  color: var(--bs-body-color);
   background-color: transparent;
   border: none;
   -webkit-box-shadow: inset 0 -1px 0 #ddd;
@@ -14621,6 +14642,12 @@ select.form-control[multiple] {
 .carousel-caption h6,
 .carousel-caption .h6 {
   color: inherit;
+}
+
+[data-bs-theme=dark] .form-control,
+[data-bs-theme=dark] .form-select,
+[data-bs-theme=dark] .input-group-text {
+  color: var(--bs-body-color);
 }
 
 /* ===============================
