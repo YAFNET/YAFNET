@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Ignorujete uživatele {0}, tento příspěvek je skrytý."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Kliknutím zobrazíte obrázek"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Příspěvky"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Odkaz na tento příspěvek"
           },
           {
             "@tag": "PREVTOPIC",

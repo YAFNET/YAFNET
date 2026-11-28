@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Ignorujesz użytkownika {0}, ten post jest ukryty."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Kliknij, aby zobaczyć obraz"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Posty"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Link do tego posta"
           },
           {
             "@tag": "PREVTOPIC",

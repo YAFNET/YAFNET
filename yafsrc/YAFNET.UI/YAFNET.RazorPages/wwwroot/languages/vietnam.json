@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Bạn đang bỏ qua {0}, bài viết này bị ẩn."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Nhấp để xem hình ảnh"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Bài viết"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Liên kết đến bài viết này"
           },
           {
             "@tag": "PREVTOPIC",

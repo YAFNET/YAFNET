@@ -14045,6 +14045,10 @@
             "#text": "网站"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "您已忽略 {0}，此帖子已隐藏。"
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "点击查看图片"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "帖子"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "此帖子的链接"
           },
           {
             "@tag": "PREVTOPIC",

@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Je negeert {0}, dit bericht is verborgen."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klik om de afbeelding te bekijken"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Berichten"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Link naar dit bericht"
           },
           {
             "@tag": "PREVTOPIC",

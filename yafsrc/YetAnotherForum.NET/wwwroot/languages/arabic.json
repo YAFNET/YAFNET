@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "أنت تتجاهل {0}، هذه المشاركة مخفية."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "انقر لعرض الصورة"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "المشاركات"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "رابط إلى هذه المشاركة"
           },
           {
             "@tag": "PREVTOPIC",

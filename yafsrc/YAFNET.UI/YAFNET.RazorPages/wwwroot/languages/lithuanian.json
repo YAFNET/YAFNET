@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Jūs ignoruojate {0}, šis pranešimas paslėptas."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Spustelėkite, jei norite peržiūrėti paveikslėlį"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Pranešimai"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Nuoroda į šį pranešimą"
           },
           {
             "@tag": "PREVTOPIC",

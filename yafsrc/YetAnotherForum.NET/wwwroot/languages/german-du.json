@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Du ignorierst {0}, dieser Beitrag ist ausgeblendet."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klicken, um das Bild anzuzeigen"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Beiträge"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Link zu diesem Beitrag"
           },
           {
             "@tag": "PREVTOPIC",

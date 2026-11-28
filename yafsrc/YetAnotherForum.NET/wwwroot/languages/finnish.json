@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Ohitat käyttäjän {0}, tämä viesti on piilotettu."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klikkaa nähdäksesi kuvan"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Viestit"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Linkki tähän viestiin"
           },
           {
             "@tag": "PREVTOPIC",

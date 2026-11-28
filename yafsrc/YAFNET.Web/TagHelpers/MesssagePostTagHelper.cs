@@ -216,29 +216,25 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     protected async virtual Task RenderSignatureAsync(TagHelperOutput output)
     {
-        var hr = new TagBuilder(HtmlTag.Hr) { TagRenderMode = TagRenderMode.SelfClosing };
+        // the signature below the message (styled by post-card.scss)
+        var signature = new TagBuilder(HtmlTag.Div);
 
-        output.Content.AppendHtml(hr);
+        signature.AddCssClass("card-message-signature post-signature");
 
-        var card = new TagBuilder(HtmlTag.Div);
+        var body = new TagBuilder(HtmlTag.Div);
 
-        card.AddCssClass("card border-light-subtle card-message-signature");
-
-        var cardBody = new TagBuilder(HtmlTag.Div);
-
-        cardBody.AddCssClass("card-body py-0");
+        body.AddCssClass("card-body");
 
         this.Signature = Core.Helpers.HtmlTagHelper.StripHtml(this.Signature);
 
         var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
             this.Signature, this.CurrentMessage.ID, this.DisplayUserId);
 
-        cardBody.InnerHtml.AppendHtml(
-            formattedMessage);
+        body.InnerHtml.AppendHtml(formattedMessage);
 
-        card.InnerHtml.AppendHtml(cardBody);
+        signature.InnerHtml.AppendHtml(body);
 
-        output.Content.AppendHtml(card);
+        output.Content.AppendHtml(signature);
     }
 
     /// <summary>
@@ -264,9 +260,15 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var alert = new TagBuilder(HtmlTag.Div);
 
-        alert.AddCssClass("alert alert-danger");
+        alert.AddCssClass("alert alert-danger post-deleted-note mb-0");
 
         alert.MergeAttribute(HtmlAttribute.Role, "alert");
+
+        var icon = new TagBuilder(HtmlTag.I);
+
+        icon.AddCssClass("fa fa-trash me-2");
+
+        alert.InnerHtml.AppendHtml(icon);
 
         var strong = new TagBuilder(HtmlTag.Strong);
 
@@ -308,55 +310,44 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     {
         var editedDateTime = this.Get<IHtmlHelper>().DisplayDateTime(DateTimeFormat.Both, edited);
 
-        // reason was specified ?!
-        var editReasonText =
-            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? HttpUtility.HtmlDecode(editReason) : this.GetText("EDIT_REASON_NA"))}";
-
-        // message has been edited
-        // show, why the post was edited or deleted?
+        // message has been edited: when, who (the user or a moderator) and why
         var whoChanged = this.IsModeratorChanged
                              ? this.GetText("POSTS", "EDITED_BY_MOD")
                              : this.GetText("POSTS", "EDITED_BY_USER");
 
-        var alert = new TagBuilder(HtmlTag.Div);
+        var reason = HttpUtility.HtmlDecode(editReason);
 
-        alert.AddCssClass("alert alert-secondary mt-1");
+        var note = new TagBuilder(HtmlTag.Div);
 
-        alert.MergeAttribute(HtmlAttribute.Role, "alert");
+        note.AddCssClass("post-edited");
+
+        var when = new TagBuilder(HtmlTag.Span);
 
         var icon = new TagBuilder(HtmlTag.I);
 
-        icon.AddCssClass("fa fa-edit text-secondary");
+        icon.AddCssClass("fa fa-edit me-1");
 
-        alert.InnerHtml.AppendHtml(icon);
+        when.InnerHtml.AppendHtml(icon);
 
-        alert.InnerHtml.AppendFormat("{0} {1} ", this.GetText("EDITED"), whoChanged);
+        when.InnerHtml.AppendFormat("{0} {1} ", this.GetText("EDITED"), whoChanged);
 
-        alert.InnerHtml.AppendHtml(editedDateTime);
+        when.InnerHtml.AppendHtml(editedDateTime);
 
-        alert.InnerHtml.Append(" | ");
+        note.InnerHtml.AppendHtml(when);
 
         var em = new TagBuilder(HtmlTag.Em);
 
-        em.AddCssClass("me-1");
+        em.AddCssClass("post-edited-reason");
 
-        em.InnerHtml.Append(editReasonText);
+        em.InnerHtml.Append($"{this.GetText("EDIT_REASON")}: {(reason.IsSet() ? reason : this.GetText("EDIT_REASON_NA"))}");
 
-        alert.InnerHtml.AppendHtml(em);
+        note.InnerHtml.AppendHtml(em);
 
         if (!BoardContext.Current.IsGuest)
         {
-            var hr = new TagBuilder(HtmlTag.Hr) { TagRenderMode = TagRenderMode.SelfClosing };
-
-            alert.InnerHtml.AppendHtml(hr);
-
-            var p = new TagBuilder(HtmlTag.P);
-
-            p.AddCssClass("mb-0");
-
             var link = new TagBuilder(HtmlTag.A);
 
-            link.AddCssClass("btn btn-secondary btn-sm me-1");
+            link.AddCssClass("post-edited-history");
 
             link.MergeAttribute(
                 HtmlAttribute.Href,
@@ -370,12 +361,10 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             link.InnerHtml.Append(this.GetText("MESSAGEHISTORY", "TITLE"));
 
-            p.InnerHtml.AppendHtml(link);
-
-            alert.InnerHtml.AppendHtml(p);
+            note.InnerHtml.AppendHtml(link);
         }
 
-        output.Content.AppendHtml(alert);
+        output.Content.AppendHtml(note);
     }
 
     /// <summary>
@@ -389,16 +378,10 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </param>
     protected virtual void RenderAnswerMessage(TagHelperOutput output, int answerMessageId)
     {
-        var alert = new TagBuilder(HtmlTag.Div);
-
-        alert.AddCssClass("alert alert-success alert-dismissible fade show");
-
-        alert.MergeAttribute(HtmlAttribute.Role, "alert");
-
+        // the first post links to the answer of the topic
         var link = new TagBuilder(HtmlTag.A);
 
-        link.MergeAttribute(HtmlAttribute.Title, this.GetText("GO_TO_ANSWER"));
-        link.AddCssClass("alert-link");
+        link.AddCssClass("post-answer-link");
         link.MergeAttribute(
             HtmlAttribute.Href,
             this.Get<ILinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));
@@ -410,18 +393,11 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         link.InnerHtml.AppendHtml(icon);
         link.InnerHtml.Append(this.GetText("GO_TO_ANSWER"));
 
-        alert.InnerHtml.AppendHtml(link);
+        var wrapper = new TagBuilder(HtmlTag.Div);
 
-        var button = new TagBuilder(HtmlTag.Button);
+        wrapper.InnerHtml.AppendHtml(link);
 
-        button.AddCssClass("btn-close");
-        button.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
-        button.MergeAttribute("data-bs-dismiss", "alert");
-        button.MergeAttribute(HtmlAttribute.AriaLabel, "close");
-
-        alert.InnerHtml.AppendHtml(button);
-
-        output.Content.AppendHtml(alert);
+        output.Content.AppendHtml(wrapper);
     }
 
     /// <summary>

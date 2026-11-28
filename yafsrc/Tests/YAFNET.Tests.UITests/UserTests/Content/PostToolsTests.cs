@@ -133,6 +133,75 @@ public class PostToolsTests(ComposeScenario scenario) : DatabaseTestBase(scenari
     }
 
     /// <summary>
+    /// The post of an ignored user is collapsed below a bar that names the author, the button of the bar shows it.
+    /// </summary>
+    [Test]
+    [Description("The post of an ignored user is hidden behind a bar")]
+    public async Task PostOfIgnoredUserIsHiddenTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var topicId = await page.CreateTopicAsync(
+                                  this.TestSettings,
+                                  this.TestSettings.TestForumId,
+                                  $"Ignored post {Random.Shared.Next()}",
+                                  "The post of the ignored admin");
+
+                Assert.That(topicId, Is.Not.Null, "The topic was not created");
+
+                var topicUrl = Regex.Match(page.Url, @"^.*/topic/\d+/[^/?#]+").Value;
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                try
+                {
+                    await page.GotoAsync(topicUrl);
+
+                    var post = page.Locator("[id^='MessageRow']").First;
+
+                    Assert.That(await page.Locator(".post-ignored").CountAsync(), Is.EqualTo(0), "The post is hidden before ignoring");
+
+                    // the tools menu of the post ignores the author
+                    await post.GetByTitle("Tools").ClickAsync();
+                    await page.SubmitAndWaitAsync(post.Locator(".dropdown-menu.show button[formaction*='AddIgnoredUser']"));
+
+                    await page.GotoAsync(topicUrl);
+
+                    var bar = page.Locator(".post-ignored").First;
+
+                    Assert.That(await bar.InnerTextAsync(), Does.Contain(this.TestSettings.AdminUserName), "The bar does not name the author");
+
+                    post = page.Locator("[id^='MessageRow']").First;
+
+                    Assert.That(await post.IsVisibleAsync(), Is.False, "The post of the ignored user is shown");
+
+                    await bar.Locator("button").ClickAsync();
+
+                    await Assertions.Expect(post.GetByText("The post of the ignored admin")).ToBeVisibleAsync();
+
+                    // shown again after removing the author from the ignore list
+                    await post.GetByTitle("Tools").ClickAsync();
+                    await page.SubmitAndWaitAsync(post.Locator(".dropdown-menu.show button[formaction*='RemoveIgnoredUser']"));
+                }
+                finally
+                {
+                    await page.GotoAsync(topicUrl);
+                }
+
+                Assert.That(await page.Locator(".post-ignored").CountAsync(), Is.EqualTo(0), "The post is still hidden");
+            });
+    }
+
+    /// <summary>
     /// Switches the deleted posts for all users on or off (Host Settings > Display).
     /// </summary>
     /// <param name="page">The page.</param>

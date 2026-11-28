@@ -14033,6 +14033,10 @@
                     "#text": "WWW"
                 },
                 {
+                    "@tag": "IGNORED_POST",
+                    "#text": "You ignore {0}, this post is hidden."
+                },
+                {
                     "@tag": "IMAGE_RESIZE_ENLARGE",
                     "#text": "Click to View Image"
                 },
@@ -14159,6 +14163,10 @@
                 {
                     "@tag": "POSTS",
                     "#text": "Posts"
+                },
+                {
+                    "@tag": "POST_LINK",
+                    "#text": "Link to this post"
                 },
                 {
                     "@tag": "PREVTOPIC",

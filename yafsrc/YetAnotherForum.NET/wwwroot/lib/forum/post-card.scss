@@ -1,0 +1,305 @@
+// A post of a topic: the author and the date in the header, the message, the reactions and the reply actions in the footer
+.post-card {
+    // the topic answer is marked with a green border
+    &.post-answer {
+        border-color: var(--bs-success-border-subtle);
+        box-shadow: inset 3px 0 0 var(--bs-success);
+    }
+
+    // a deleted post (moderators, or all users with the host setting) is shown faded
+    &.post-deleted {
+        border-style: dashed;
+
+        .post-header,
+        .post-body {
+            opacity: .75;
+        }
+    }
+}
+
+.post-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem .75rem;
+    padding: .5rem .75rem;
+}
+
+.post-avatar {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--bs-border-radius);
+    object-fit: cover;
+}
+
+.post-author {
+    flex: 1 1 12rem;
+    min-width: 0;
+}
+
+.post-author-name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem .5rem;
+}
+
+.post-badge {
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.post-badge-starter {
+    color: var(--bs-primary-text-emphasis);
+    background-color: var(--bs-primary-bg-subtle);
+    border-color: var(--bs-primary-border-subtle);
+}
+
+.post-badge-answer {
+    color: var(--bs-success-text-emphasis);
+    background-color: var(--bs-success-bg-subtle);
+    border-color: var(--bs-success-border-subtle);
+}
+
+// rank, trophies, profile fields, reputation and the ip in one line below the name
+.post-author-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .15rem .75rem;
+    margin-top: .15rem;
+    font-size: .8125rem;
+    color: var(--bs-secondary-color);
+
+    .achievement-showcase {
+        gap: .2rem;
+    }
+}
+
+.post-rank {
+    font-weight: 500;
+}
+
+.post-profile-field-name {
+    color: var(--bs-tertiary-color);
+}
+
+.post-reputation {
+    align-items: center;
+    gap: .25rem;
+
+    // a slim bar, the reputation text next to it
+    .progress {
+        width: 4rem;
+        height: .375rem;
+    }
+
+    .post-vote {
+        padding: 0 .15rem;
+        line-height: 1;
+
+        .fa {
+            margin-right: 0 !important;
+        }
+    }
+}
+
+.post-ip {
+    color: inherit;
+    font-family: var(--bs-font-monospace);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--bs-link-hover-color);
+        text-decoration: underline;
+    }
+}
+
+// the date, the number of the post (its link) and the tools on the right
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-left: auto;
+    font-size: .875rem;
+    color: var(--bs-secondary-color);
+    white-space: nowrap;
+
+    .post-tools {
+        padding: .125rem .5rem;
+        color: var(--bs-secondary-color);
+
+        &:hover,
+        &:focus-visible,
+        &.show {
+            color: var(--bs-emphasis-color);
+            background-color: var(--bs-secondary-bg);
+        }
+    }
+}
+
+.post-number {
+    padding: .05rem .45rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-pill);
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--bs-secondary-color);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--bs-link-hover-color);
+        border-color: currentColor;
+    }
+}
+
+// the message: readable line height, long words and urls are wrapped
+.post-body {
+    padding: 1rem .75rem;
+
+    .message {
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}
+
+// the reactions on the left, the reply actions on the right
+.post-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .25rem .5rem;
+    padding: .25rem .5rem;
+}
+
+.post-reactions {
+    display: flex;
+    align-items: center;
+    min-height: 2rem;
+}
+
+.post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .125rem;
+    margin-left: auto;
+
+    .post-action {
+        display: inline-flex;
+        align-items: center;
+        color: var(--bs-secondary-color);
+        text-decoration: none;
+        border-radius: var(--bs-border-radius);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--bs-link-hover-color);
+            background-color: var(--bs-secondary-bg);
+        }
+    }
+
+    .btn-multiquote {
+        margin-left: 0 !important;
+    }
+
+    .btn-check:checked + .btn-multiquote {
+        color: var(--bs-primary-text-emphasis);
+    }
+}
+
+// the note of an edited post (the time, who and why), the link to its history
+.post-edited {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem .75rem;
+    margin-top: 1rem;
+    padding-top: .5rem;
+    border-top: 1px solid var(--bs-border-color-translucent);
+    font-size: .8125rem;
+    line-height: 1.5;
+    color: var(--bs-secondary-color);
+
+    .post-edited-history {
+        color: inherit;
+
+        &:hover {
+            color: var(--bs-link-hover-color);
+        }
+    }
+}
+
+// the first post links to the answer of the topic
+.post-answer-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: .375rem .75rem;
+    border: 1px solid var(--bs-success-border-subtle);
+    border-radius: var(--bs-border-radius);
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--bs-success-text-emphasis);
+    background-color: var(--bs-success-bg-subtle);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--bs-success-text-emphasis);
+        border-color: var(--bs-success);
+    }
+}
+
+// the signature below the message, smaller and separated by a dashed line
+.card-message-signature.post-signature {
+    margin-top: 1rem;
+    padding-top: .5rem;
+    border-top: 1px dashed var(--bs-border-color);
+    font-size: .8125rem;
+    line-height: 1.5;
+    color: var(--bs-secondary-color);
+
+    > .card-body {
+        padding: 0;
+    }
+
+    img {
+        max-height: 8rem;
+    }
+}
+
+// the bar of a post of an ignored user, the post itself is collapsed
+.post-ignored {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    margin-bottom: .5rem;
+    padding: .5rem .75rem;
+    border: 1px dashed var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    font-size: .875rem;
+    color: var(--bs-secondary-color);
+    background-color: var(--bs-tertiary-bg);
+}
+
+@media (max-width: 575.98px) {
+    .post-meta {
+        width: 100%;
+        margin-left: 0;
+
+        .dropdown {
+            margin-left: auto;
+        }
+    }
+}

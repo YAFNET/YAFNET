@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Du ignorerar {0}, detta inlägg är dolt."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klicka för att visa bilden"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Inlägg"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Länk till detta inlägg"
           },
           {
             "@tag": "PREVTOPIC",

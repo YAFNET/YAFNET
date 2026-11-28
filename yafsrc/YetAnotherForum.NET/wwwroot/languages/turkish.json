@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "{0} kullanıcısını yok sayıyorsunuz, bu gönderi gizlendi."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Resmi görmek için tıklayın"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Mesajlar"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Bu gönderinin bağlantısı"
           },
           {
             "@tag": "PREVTOPIC",

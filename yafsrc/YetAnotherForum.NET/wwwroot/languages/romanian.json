@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Îl ignori pe {0}, această postare este ascunsă."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Faceți clic pentru a vedea imaginea"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Postări"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Link către această postare"
           },
           {
             "@tag": "PREVTOPIC",

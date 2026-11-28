@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "אתה מתעלם מ-{0}, הודעה זו מוסתרת."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "לחץ כדי להציג תמונה"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "הודעות"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "קישור להודעה זו"
           },
           {
             "@tag": "PREVTOPIC",

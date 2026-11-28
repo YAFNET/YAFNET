@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Du ignorerer {0}, dette innlegget er skjult."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klikk for å se bilde"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Innlegg"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Lenke til dette innlegget"
           },
           {
             "@tag": "PREVTOPIC",

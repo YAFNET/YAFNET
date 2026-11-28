@@ -14045,6 +14045,10 @@
             "#text": "WWW"
           },
           {
+            "@tag": "IGNORED_POST",
+            "#text": "Está a ignorar {0}, esta mensagem está oculta."
+          },
+          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Clique para ver a imagem"
           },
@@ -14171,6 +14175,10 @@
           {
             "@tag": "POSTS",
             "#text": "Mensagens"
+          },
+          {
+            "@tag": "POST_LINK",
+            "#text": "Link para esta mensagem"
           },
           {
             "@tag": "PREVTOPIC",
