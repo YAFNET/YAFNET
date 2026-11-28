@@ -20,6 +20,10 @@
     };
 
     var title = modes.FirstOrDefault(m => m.Mode == mode).Tag ?? "ACTIVETOPICS";
+
+    // the since value is negative for hours: written and read in the invariant culture (in Arabic, Hebrew or Persian
+    // the negative sign has a direction mark, "-1" was not selected and was read as 0, since the last visit)
+    var since = Model.Input.SinceValue.ToString(System.Globalization.CultureInfo.InvariantCulture);
 }
 
 @* the action without a handler: the selects send the form to the page (after a tab the address was the handler of
@@ -61,8 +65,10 @@
         <div class="card-header d-flex flex-wrap align-items-center gap-2 my-topics-filter">
             <div class="input-group input-group-sm w-auto">
                 <label class="input-group-text" asp-for="Input.SinceValue" localized-tag="SINCE"></label>
-                <select asp-items="Model.Since" asp-for="Input.SinceValue" class="form-select"
+                <select asp-items="Model.Since.Select(item => new SelectListItem(item.Text, item.Value, item.Value == since))"
+                        id="Input_SinceValue" name="Input.SinceValue" class="form-select"
                         onchange="this.form.submit();"></select>
+                <input type="hidden" name="__Invariant" value="Input.SinceValue" />
             </div>
             <div class="input-group input-group-sm w-auto ms-md-auto">
                 <span class="input-group-text">@Html.LocalizedText("SHOW"):</span>
@@ -80,7 +86,7 @@
              data-live-url="@(Model.PageBoardContext.PageIndex == 0 ? Url.Page("MyTopics", "LoadMoreTopics") : null)"
              data-next-page="@(Model.PageBoardContext.PageIndex + 1)"
              data-page-size="@Model.Size"
-             data-show="@Model.Input.SinceValue"
+             data-show="@since"
              data-mode="@Model.Input.TopicModeValue"
              data-total="@totalTopics"
              data-loaded-count="@(Model.TopicList?.Count ?? 0)"
