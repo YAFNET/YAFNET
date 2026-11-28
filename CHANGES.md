@@ -269,6 +269,7 @@ YetAnotherForum.NET Changelog
 * WYSIWYG editor: Enter in the YouTube, Vimeo, Instagram, Facebook or Media dialog reloaded the page and the post was lost; Enter inserts now (also in the e-mail dialog, where it did nothing)
 * WYSIWYG editor: when the toolbar wraps into several rows (always on a phone) the dialogs opened below the first row and covered the toolbar, and a dialog of a button on the right ran off the screen
 * WYSIWYG editor: a second click on a toolbar button did not close its dialog, Escape did not close a dialog and threw an error, and the arrow keys did not work in the note type select
+* RSS/Atom feeds: a plain quote ([quote] without a name) showed the text "</blockquote>" and closed html elements that were never opened, the quote was lost
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

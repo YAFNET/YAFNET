@@ -360,6 +360,19 @@ public class PostRenderingTests
     }
 
     [Test]
+    [Description("A plain quote in a feed is a quote (its [quote] was replaced with a closing </blockquote>)")]
+    public async Task FormatSyndicationMessageAsync_Plain_Quote_Test()
+    {
+        var html = await this.Formatter.FormatSyndicationMessageAsync("[quote]quoted text[/quote] my reply", 1, 2);
+
+        html.Should().NotContain("blockquote&gt;").And.NotContain("[quote]").And.NotContain("[/quote]");
+        System.Text.RegularExpressions.Regex.Matches(html, @"<div[\s>]").Count.Should()
+            .Be(System.Text.RegularExpressions.Regex.Matches(html, "</div>").Count, html);
+        html.Should().MatchRegex(@"<(div|blockquote)[^>]*>[\s\S]*quoted text", html);
+        html.Should().Contain("my reply");
+    }
+
+    [Test]
     [Description("A plain url becomes a link, the text before it on the line is kept (it was removed)")]
     public async Task MakeHtml_Plain_Url_Keeps_Text_Test()
     {
