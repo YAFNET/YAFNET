@@ -93,27 +93,20 @@ public partial class QuoteRegexReplaceRule : VariableRegexReplaceRule
                 "${innertrunc}",
                 match.Groups["inner"].Value);
 
-            var quote = match.Groups["quote"].Value;
+            var author = match.Groups["quote"].Value;
             // no empty lines at the start and the end of the quoted text
             var quoteText = TrimLineBreaks().Replace(this.GetInnerValue(match.Groups["inner"].Value), string.Empty);
 
-            var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
-            var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
-            var localGoToMessage = BoardContext.Current.Get<ILocalization>().GetText("MESSAGEHISTORY", "TOMESSAGE");
+            var localization = BoardContext.Current.Get<ILocalization>();
+            var topicLink = string.Empty;
 
-            // a plain [quote] has no author line
-            if (quote.IsNotSet())
+            if (author.Contains(';'))
             {
-                quote = string.Empty;
-            }
-            else if (quote.Contains(';'))
-            {
-                string postId, userName, topicLink = string.Empty;
-
+                // [quote=name;post id] is the quote of a post: the name links to it
                 try
                 {
-                    postId = quote[(quote.LastIndexOf(';') + 1)..];
-                    userName = quote = quote[..quote.LastIndexOf(';')];
+                    var postId = author[(author.LastIndexOf(';') + 1)..];
+                    author = author[..author.LastIndexOf(';')];
 
                     var topic = await BoardContext.Current.GetRepository<Topic>().GetTopicFromMessageAsync(postId.ToType<int>());
 
@@ -121,28 +114,54 @@ public partial class QuoteRegexReplaceRule : VariableRegexReplaceRule
                 }
                 catch (Exception)
                 {
-                    // if post id is missing
-                    postId = string.Empty;
-                    userName = quote;
+                    // the post id is missing or the post was deleted
+                    topicLink = string.Empty;
                 }
+            }
 
-                quote = postId.IsSet()
-                            ? $"""
-                               <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuotePosted.Replace("{0}", userName)}&nbsp;<a class="card-link" href="{topicLink}" aria-label="{localGoToMessage}"><i class="fas fa-external-link-alt ms-2"></i></a></small></p>
-                               """
-                            : $"""
-                               <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuoteWrote.Replace("{0}", quote)}</small></p>
-                               """;
+            // the quotes are rendered innermost first: the quotes around this one are still BBCode
+            var before = sb.ToString(0, match.Index);
+            var depth = OpenQuote().Count(before) - CloseQuote().Count(before);
+
+            // a quote in a quote in a quote is collapsed, the reply is what matters
+            var collapsed = depth >= CollapsedDepth;
+
+            var header = new StringBuilder();
+
+            header.Append("""<i class="fa fa-quote-left bbcode-quote-icon" aria-hidden="true"></i>""");
+
+            header.Append(
+                author.IsSet()
+                    ? $"""<span class="bbcode-quote-author">{localization.GetText("COMMON", "BBCODE_QUOTEWROTE").Replace("{0}", author)}</span>"""
+                    : $"""<span class="bbcode-quote-author">{localization.GetText("COMMON", "TT_QUOTE")}</span>""");
+
+            if (topicLink.IsSet())
+            {
+                var goToMessage = localization.GetText("MESSAGEHISTORY", "TOMESSAGE");
+
+                header.Append(
+                    $"""<a class="bbcode-quote-link" href="{topicLink}" title="{goToMessage}" aria-label="{goToMessage}"><i class="fa fa-up-right-from-square" aria-hidden="true"></i></a>""");
+            }
+
+            string quoteStart, quoteEnd;
+
+            if (collapsed)
+            {
+                header.Append("""<i class="fa fa-chevron-down bbcode-quote-toggle" aria-hidden="true"></i>""");
+
+                quoteStart = $"""<details class="bbcode-quote-details"><summary class="bbcode-quote-header">{header}</summary>""";
+                quoteEnd = "</details>";
             }
             else
             {
-                quote =
-                    $"""
-                     <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuoteWrote.Replace("{0}", quote)}</small></p>
-                     """;
+                // a plain [quote] has no header
+                quoteStart = author.IsSet() ? $"""<div class="bbcode-quote-header">{header}</div>""" : string.Empty;
+                quoteEnd = string.Empty;
             }
 
-            innerReplace.Replace("${quote}", quote);
+            innerReplace.Replace("${quoteClass}", collapsed ? "bbcode-quote bbcode-quote-collapsed" : "bbcode-quote");
+            innerReplace.Replace("${quote}", quoteStart);
+            innerReplace.Replace("${quoteEnd}", quoteEnd);
             innerReplace.Replace("${quoteText}", quoteText);
 
             this.Variables.ForEach(
@@ -207,4 +226,21 @@ public partial class QuoteRegexReplaceRule : VariableRegexReplaceRule
     /// </summary>
     [GeneratedRegex(@"^\s+|\s+$", RegexOptions.IgnoreCase)]
     private static partial Regex TrimLineBreaks();
+
+    /// <summary>
+    /// The depth from which a quote is collapsed (0 = a quote in the post, 1 = a quote in a quote).
+    /// </summary>
+    private const int CollapsedDepth = 2;
+
+    /// <summary>
+    /// An opening quote tag ([quote] or [quote=name]).
+    /// </summary>
+    [GeneratedRegex(@"\[quote[=\]]", RegexOptions.IgnoreCase)]
+    private static partial Regex OpenQuote();
+
+    /// <summary>
+    /// A closing quote tag.
+    /// </summary>
+    [GeneratedRegex(@"\[/quote\]", RegexOptions.IgnoreCase)]
+    private static partial Regex CloseQuote();
 }

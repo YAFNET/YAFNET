@@ -890,8 +890,8 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 // the line breaks before and after the quote belong to it (a quote is a block), the rule
                 // runs before the line breaks become <br /> (the text of the quote stays text for the later rules)
                 @"(?:\r?\n)*\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r?\n)*",
-                // one line: the rule runs before the line breaks become <br />, a line break in the html would be one too
-                """<div class="card mx-3 mb-3 border-secondary shadow-sm"><div class="card-body"><div class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>${quoteText}</div>${quote}</div></div>""",
+                // ${quote}: the header with the author (or the start of the collapsed quote)
+                """<blockquote class="${quoteClass}">${quote}<div class="bbcode-quote-text">${quoteText}</div>${quoteEnd}</blockquote>""",
                 Options) { RuleRank = 49 });
 
         // a [quote] or [/quote] without its partner stays text: a lone opening tag opened html that was

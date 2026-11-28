@@ -138,7 +138,7 @@ public class PostRenderingTests
             .Contain("<img src=\"https://example.com/picture.png\"");
 
         var quote = await this.FormatAsync("[quote]quoted text[/quote]");
-        quote.Should().Contain("<div class=\"card").And.Contain("quoted text");
+        quote.Should().Contain("<blockquote class=\"bbcode-quote\"").And.Contain("quoted text");
         System.Text.RegularExpressions.Regex.Matches(quote, "<div[\\s>]").Count
             .Should().Be(System.Text.RegularExpressions.Regex.Matches(quote, "</div>").Count);
     }
