@@ -23,12 +23,12 @@
 	<div class="card profile-hero border-0 shadow-sm mb-4">
 		<div class="profile-hero-cover"></div>
 		<div class="card-body">
-			<div class="profile-hero-top d-flex flex-column flex-sm-row align-items-sm-end gap-3">
+			<div class="profile-hero-top d-flex flex-column flex-sm-row align-items-sm-start gap-3">
 				<div class="profile-avatar-frame bg-body rounded-3">
 					<img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(Model.CombinedUser.Item1))"
 					     alt="avatar" class="profile-avatar d-block w-100 h-100 mw-100 mh-100 object-fit-cover"/>
 				</div>
-				<div class="flex-grow-1 pb-1">
+				<div class="profile-hero-info flex-grow-1 pb-1">
 					<h1 class="profile-name h3 mb-1">
 						@Html.UserLabel(Model.CombinedUser.Item1)
 						@if (Model.CombinedUser.Item2.Profile_RealName.IsSet())

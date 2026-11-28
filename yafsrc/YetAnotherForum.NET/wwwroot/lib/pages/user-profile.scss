@@ -86,6 +86,11 @@
         margin-top: -38px;
     }
 
+    // the avatar overlaps the cover, the name and pills start below it
+    .profile-hero-info {
+        padding-top: calc(38px + .75rem);
+    }
+
     .profile-name {
         font-weight: 700;
     }
@@ -155,6 +160,10 @@
         .profile-hero-top {
             margin-top: -40px;
             align-items: flex-start !important;
+        }
+
+        .profile-hero-info {
+            padding-top: 0;
         }
 
         .profile-avatar-frame {
